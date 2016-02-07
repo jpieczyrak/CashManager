@@ -7,9 +7,9 @@ namespace Logic.TransactionManagement
 {
     public class Transaction
     {
-        public eTransactionType Type { get; private set; }
+        public eTransactionType Type { get; set; }
 
-        public DateTime Date { get; private set; }
+        public DateTime Date { get; set; }
 
         /// <summary>
         /// Full transaction value (total payment)
@@ -21,22 +21,22 @@ namespace Logic.TransactionManagement
         /// </summary>
         private float Contribution { get; set; }
 
-        public string Title { get; private set; }
+        public string Title { get; set; }
 
-        public string Note { get; private set; }
+        public string Note { get; set; }
 
-        public Category Category { get; private set; }
+        public Category Category { get; set; }
 
         /// <summary>
         /// List of tags
         /// </summary>
-        public List<Tag> Tags { get; private set; }
+        public List<Tag> Tags { get; set; }
 
         IValueCalculationStrategy _strategy;
 
-        public Stock From { get; private set; }
+        public Stock From { get; set; }
 
-        public Stock To { get; private set; }
+        public Stock To { get; set; }
 
         public float Value => _strategy.CalculateValue(RawValue, Contribution);
 
