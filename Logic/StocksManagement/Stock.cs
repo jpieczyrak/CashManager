@@ -5,6 +5,16 @@ namespace Logic.StocksManagement
     /// </summary>
     public class Stock
     {
-        string Name { get; set; }
+        public Stock(string name)
+        {
+            Name = name;
+        }
+
+        protected string Name { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

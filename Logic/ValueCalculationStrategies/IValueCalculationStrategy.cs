@@ -1,6 +1,6 @@
 ﻿namespace Logic.ValueCalculationStrategies
 {
-    public interface ValueCalculationStrategy
+    public interface IValueCalculationStrategy
     {
         float CalculateValue(float rawValue, float contribution);
     }

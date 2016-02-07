@@ -7,35 +7,56 @@ namespace Logic.TransactionManagement
 {
     public class Transaction
     {
-        eTransactionType Type { get; set; }
+        public eTransactionType Type { get; private set; }
 
-        public DateTime Date { get; set; }
+        public DateTime Date { get; private set; }
 
         /// <summary>
         /// Full transaction value (total payment)
         /// </summary>
-        float RawValue { get; set; }
+        private float RawValue { get; set; }
 
         /// <summary>
-        /// Percent contribution in transaction <0; 100>
+        /// Percent contribution in transaction (0; 100)
         /// </summary>
-        float Contribution { get; set; }
+        private float Contribution { get; set; }
 
-        string Title { get; set; }
+        public string Title { get; private set; }
 
-        string Note { get; set; }
+        public string Note { get; private set; }
 
-        Category Category { get; set; }
+        public Category Category { get; private set; }
 
         /// <summary>
         /// List of tags
         /// </summary>
-        List<Tag> Tags { get; set; }
+        public List<Tag> Tags { get; private set; }
 
-        ValueCalculationStrategy _strategy;
+        IValueCalculationStrategy _strategy;
 
-        Stock From { get; set; }
+        public Stock From { get; private set; }
 
-        Stock To { get; set; }
+        public Stock To { get; private set; }
+
+        public float Value => _strategy.CalculateValue(RawValue, Contribution);
+
+        public Transaction(eTransactionType type, DateTime date, float rawValue, string title, string note, Category category, List<Tag> tags, Stock @from, Stock to)
+        {
+            _strategy = new BasicCalculationStrategy();
+            Type = type;
+            Date = date;
+            RawValue = rawValue;
+            Title = title;
+            Note = note;
+            Category = category;
+            Tags = tags;
+            From = @from;
+            To = to;
+        }
+
+        public Transaction(eTransactionType type, DateTime date, float rawValue, float contribution, string title, string note, Category category, List<Tag> tags, Stock @from, Stock to) : this(type, date, rawValue, title, note, category, tags, from, to)
+        {
+            Contribution = contribution;
+        }
     }
 }

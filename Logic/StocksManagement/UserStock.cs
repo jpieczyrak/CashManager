@@ -39,5 +39,10 @@ namespace Logic.StocksManagement
             }
             throw new NotImplementedException();
         }
+
+        public UserStock(string name, float startingValue) : base(name)
+        {
+            StartingValue = startingValue;
+        }
     }
 }
