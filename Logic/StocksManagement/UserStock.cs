@@ -29,7 +29,7 @@ namespace Logic.StocksManagement
 
         private float CalculateActualValue(Transactions transactions, TimeFrame timeframe)
         {
-            foreach (var transaction in transactions)
+            foreach (var transaction in transactions.TransactionsList)
             {
                 //if stock == this stock; TODO: move level up (wallet should update stocks)
                 if (timeframe.Contains(transaction.Date))

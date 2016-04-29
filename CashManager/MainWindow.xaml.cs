@@ -16,13 +16,12 @@ namespace CashManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Transaction _incomeTransaction;
+
+        private Transactions Transactions { get; set; } = new Transactions();
+
         public MainWindow()
         {
-            InitializeComponent();
-            Title += " " + Assembly.GetExecutingAssembly().GetName().Version;
-            
-
-
             //temp use:
             Wallet wallet = new Wallet();
 
@@ -33,13 +32,19 @@ namespace CashManager
 
             wallet.AddStock(mystock);
             wallet.AddStock(FP);
+            InitializeComponent();
+            Title += " " + Assembly.GetExecutingAssembly().GetName().Version;
 
-            Transactions transactions = new Transactions();
-            transactions.Add(new Transaction(eTransactionType.Transfer, DateTime.Now.Subtract(TimeSpan.FromHours(65)), 1000, 100, "Wypłata FP", "Note: Miesięczne wynagrodzenie", new Category("Wypłata"), new List<Tag>(), wallet.GetStockByName("FP"), mystock));
-            transactions.Add(new Transaction(eTransactionType.Buy, DateTime.Now, 200, 100, "Dysk do kompa", "Note: Zakup części komputerowych", new Category("PC"), new List<Tag>(), wallet.GetStockByName("Jejek"), proline));
+            _incomeTransaction = new Transaction(eTransactionType.Transfer, DateTime.Now.Subtract(TimeSpan.FromHours(65)), 1000, 100, "Wypłata FP", "Note: Miesięczne wynagrodzenie", new Category("Wypłata"), new List<Tag>(), wallet.GetStockByName("FP"), mystock);
 
 
-            DataGridTransactions.ItemsSource = transactions.ToArray();
+
+
+            Transactions.Add(_incomeTransaction);
+            Transactions.Add(new Transaction(eTransactionType.Buy, DateTime.Now, 200, 100, "Dysk do kompa", "Note: Zakup części komputerowych", new Category("PC"), new List<Tag>(), wallet.GetStockByName("Jejek"), proline));
+
+
+            DataGridTransactions.ItemsSource = Transactions.TransactionsList;
 
             //CollectionViewSource itemCollectionViewSource = (CollectionViewSource)FindResource("ItemCollectionViewSource");
             //itemCollectionViewSource.Source = x.ToArray();
@@ -53,6 +58,12 @@ namespace CashManager
                 content += o.ToString() + "\n";
             }
             File.WriteAllText(@"D:\test.txt", content);
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            TransactionWindow window = new TransactionWindow(_incomeTransaction);
+            window.Show();
         }
     }
 }
