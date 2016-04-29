@@ -19,12 +19,14 @@
                 </TabItem>
             </TabControl>
         </Menu>
-        <DataGrid Grid.Row="1" Name="DataGridTransactions" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="1" Name="DataGridTransactions" AutoGenerateColumns="False" CellEditEnding="DataGridTransactions_CellEditEnding">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}"/>
                 <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
-                <DataGridTextColumn Header="Title" Binding="{Binding Title}" IsReadOnly="False"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}" />
                 <DataGridTextColumn Header="Source" Binding="{Binding From}"/>
                 <DataGridTextColumn Header="Target" Binding="{Binding To}"/>
+                <DataGridTextColumn Header="Value" Binding="{Binding Value, Mode=OneWay}"/>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
@@ -43,7 +45,7 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Text="Note: " FontWeight="Bold" />
-                            <TextBlock Text="{Binding Note}" Grid.Column="1" />
+                            <TextBox Text="{Binding Note}" Grid.Column="1" />
                             <TextBlock Text="Type: " FontWeight="Bold" Grid.Row="1" />
                             <TextBlock Text="{Binding Type}" Grid.Column="1" Grid.Row="1" />
                             <TextBlock Text="Date: " FontWeight="Bold" Grid.Row="2" />

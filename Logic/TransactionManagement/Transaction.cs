@@ -7,6 +7,7 @@ namespace Logic.TransactionManagement
 {
     public class Transaction
     {
+        public Guid Id { get; private set; }
         public eTransactionType Type { get; set; }
 
         public DateTime Date { get; set; }
@@ -52,11 +53,18 @@ namespace Logic.TransactionManagement
             Tags = tags;
             From = @from;
             To = to;
+            Id = Guid.NewGuid();
         }
 
         public Transaction(eTransactionType type, DateTime date, float rawValue, float contribution, string title, string note, Category category, List<Tag> tags, Stock @from, Stock to) : this(type, date, rawValue, title, note, category, tags, from, to)
         {
             Contribution = contribution;
+        }
+
+        //TODO: delete
+        public override string ToString()
+        {
+            return string.Format("{0}, {1}, {2}, {3}, {4}, {5}, {6}", RawValue, Date, Note, Title, Value, Category, Type);
         }
     }
 }
