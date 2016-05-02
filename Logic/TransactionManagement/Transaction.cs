@@ -13,11 +13,6 @@ namespace Logic.TransactionManagement
         public DateTime Date { get; set; }
 
         /// <summary>
-        /// Full transaction value (total payment)
-        /// </summary>
-        private float RawValue { get; set; }
-
-        /// <summary>
         /// Contribution value (0, 100 for percent; X for Value)
         /// </summary>
         public float Contribution { get; set; } = 100;
@@ -37,20 +32,14 @@ namespace Logic.TransactionManagement
         public float Value => _strategy.CalculateValue(Type, TransactionSoucePayments, Contribution, ContributionType);
         public ObservableCollection<Subtransation> Subtransactions { get; set; } = new ObservableCollection<Subtransation>();
 
-        public Transaction(eTransactionType type, DateTime date, float rawValue, string title, string note)
+        public Transaction(eTransactionType type, DateTime date, string title, string note)
         {
             _strategy = new BasicCalculationStrategy();
             Type = type;
             Date = date;
-            RawValue = rawValue;
             Title = title;
             Note = note;
             Id = Guid.NewGuid();
-        }
-
-        public Transaction(eTransactionType type, DateTime date, float rawValue, float contribution, string title, string note) : this(type, date, rawValue, title, note)
-        {
-            Contribution = contribution;
         }
 
         public Transaction()

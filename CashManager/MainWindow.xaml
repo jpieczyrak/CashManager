@@ -5,27 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Cash Manager" Height="600" Width="800" Icon="Resources/cash.png">
-    <Window.Resources>
-        <CollectionViewSource x:Key="ItemCollectionViewSource"  CollectionViewType="ListCollectionView"/>
-    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>
             <RowDefinition Height="469*"/>
             <RowDefinition Height="70*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Height="29" VerticalAlignment="top">
-            <TabControl>
-                <TabItem x:Name="Test" Header="Test" FontSize="16">
-                </TabItem>
 
-                <TabItem x:Name="Test1" Header="Other stuff" FontSize="16">
-                </TabItem>
-            </TabControl>
-        </Menu>
         <DataGrid TabIndex="0" Grid.Row="1" ItemsSource="{Binding}" Name="DataGridTransactions" AutoGenerateColumns="False" CellEditEnding="DataGridTransactions_CellEditEnding" Margin="5" CanUserAddRows="True" IsReadOnly="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}"/>
+                <!-- <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}"/> -->
                 <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" />
                 <DataGridTextColumn Header="Value" Binding="{Binding Value, Mode=OneWay}"/>
@@ -44,15 +34,25 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <TextBlock Text="Note: " FontWeight="Bold" />
-                            <TextBlock Text="{Binding Note}" Grid.Column="1" />
-                            <TextBlock Text="Type: " FontWeight="Bold" Grid.Row="1" />
-                            <TextBlock Text="{Binding Type}" Grid.Column="1" Grid.Row="1" />
-                            <TextBlock Text="Date: " FontWeight="Bold" Grid.Row="2" />
-                            <TextBlock Text="{Binding Date}" Grid.Column="1" Grid.Row="2" />
-                            <Button Content="Edit" Grid.Row="3" Grid.ColumnSpan="2" Click="Button_Click_1" />
+                            <TextBlock Text="ID: " FontWeight="Bold" Grid.Row="0" />
+                            <TextBlock Text="{Binding Id}" Grid.Column="1" Grid.Row="0" />
+                            
+                            <TextBlock Text="Note: " FontWeight="Bold" Grid.Row="1" />
+                            <TextBlock Text="{Binding Note}" Grid.Column="1" Grid.Row="1" />
+                            <TextBlock Text="Type: " FontWeight="Bold" Grid.Row="2" />
+                            <TextBlock Text="{Binding Type}" Grid.Column="1" Grid.Row="2" />
+                            <TextBlock Text="Target: " FontWeight="Bold" Grid.Row="3" />
+                            <TextBlock Text="{Binding TargetStock}" Grid.Column="1" Grid.Row="3" />
+                            <TextBlock Text="Contribution type: " FontWeight="Bold" Grid.Row="4" />
+                            <TextBlock Text="{Binding ContributionType}" Grid.Column="1" Grid.Row="4" />
+                            <TextBlock Text="Contribution value: " FontWeight="Bold" Grid.Row="5" />
+                            <TextBlock Text="{Binding Contribution}" Grid.Column="1" Grid.Row="5" />
+                            <Button Content="Edit" Grid.Row="6" Grid.ColumnSpan="2" Click="Button_Click_1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" />
                         </Grid>
                     </DockPanel>
 
@@ -60,7 +60,7 @@
             </DataGrid.RowDetailsTemplate>
 
         </DataGrid>
-        <Button x:Name="buttonAdd" Content="Add transaction" HorizontalAlignment="Center" Margin="358.5,25" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="button_Click"/>
+        <Button x:Name="buttonAdd" Content="Add transaction" HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="100" Click="button_Click" Height="25"/>
     </Grid>
 
 </Window>
