@@ -38,7 +38,7 @@ namespace CashManager
 
             _incomeTransaction = new Transaction(eTransactionType.Work, DateTime.Now.Subtract(TimeSpan.FromHours(65)), 100, "Wypłata FP", "Note: Miesięczne wynagrodzenie");
             _incomeTransaction.TransactionSoucePayments.Add(new TransactionPartPayment(FP.ToString(), 1000));
-            _incomeTransaction.TransactionTargetPayments.Add(new TransactionPartPayment(mystock.ToString(), 1000));
+            _incomeTransaction.TargetStock = mystock;
             _incomeTransaction.Subtransactions.Add(new Subtransation() { Category = new Category("Praca"), Value = 1000, Name = "Wypłata", Tags = "FP;praca"});
 
             Transactions.Add(_incomeTransaction);

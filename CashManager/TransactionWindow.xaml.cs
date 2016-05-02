@@ -35,6 +35,20 @@ namespace CashManager
             comboboxSourceStock.ItemsSource = wallet.AvailableStocks;
             comboboxTargetStock.ItemsSource = wallet.AvailableStocks;
 
+            int index = -1;
+            if (Transaction.TargetStock != null)
+            {
+                for (int i = 0; i < wallet.AvailableStocks.Count; i++)
+                {
+                    if (wallet.AvailableStocks[i].ToString().Equals(Transaction.TargetStock.ToString()))
+                    {
+                        index = i;
+                    }
+                }
+            }
+            comboboxTargetStock.SelectedIndex = index;
+
+
             dataGridSubtransactions.ItemsSource = Transaction.Subtransactions;
 
             //            comboBoxContributionTypes.ItemsSource = Transaction.StocksList;
@@ -75,7 +89,7 @@ namespace CashManager
 
         private void buttonAddSource_Click(object sender, RoutedEventArgs e)
         {
-            double value = 0;
+            double value;
             double.TryParse(textBoxSourceValue.Text, out value);
             textBoxSourceValue.Text = "";
 
@@ -84,15 +98,12 @@ namespace CashManager
             Transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, value));
         }
 
-        private void buttonAddTarget_Click(object sender, RoutedEventArgs e)
+        private void comboboxTargetStock_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            double value = 0;
-            double.TryParse(textBoxTargetValue.Text, out value);
-            textBoxTargetValue.Text = "";
-
-            string targetStock = comboboxTargetStock.SelectedIndex >= 0 ? comboboxTargetStock.SelectedItem.ToString() : "";
-
-            Transaction.TransactionTargetPayments.Add(new TransactionPartPayment(targetStock, value));
+            if (comboboxTargetStock.SelectedItem != null)
+            {
+                Transaction.TargetStock = comboboxTargetStock.SelectedItem as Stock;
+            }
         }
     }
 }

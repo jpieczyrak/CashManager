@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Logic.StocksManagement;
 using Logic.ValueCalculationStrategies;
 
 namespace Logic.TransactionManagement
@@ -31,7 +32,7 @@ namespace Logic.TransactionManagement
 
         public ObservableCollection<TransactionPartPayment> TransactionSoucePayments { get; set; } = new ObservableCollection<TransactionPartPayment>();
 
-        public ObservableCollection<TransactionPartPayment> TransactionTargetPayments { get; set; } = new ObservableCollection<TransactionPartPayment>();
+        public Stock TargetStock { get; set; }
 
         public float Value => _strategy.CalculateValue(Type, TransactionSoucePayments, Contribution, ContributionType);
         public ObservableCollection<Subtransation> Subtransactions { get; set; } = new ObservableCollection<Subtransation>();
