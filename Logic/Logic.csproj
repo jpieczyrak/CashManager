@@ -41,14 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ePaymentType.cs" />
+    <Compile Include="TransactionGUI.cs" />
+    <Compile Include="TransactionGUIFactory.cs" />
     <Compile Include="TransactionManagement\Category.cs" />
     <Compile Include="TransactionManagement\eTransactionType.cs" />
     <Compile Include="StocksManagement\Stock.cs" />
+    <Compile Include="TransactionManagement\Subtransation.cs" />
     <Compile Include="TransactionManagement\Tag.cs" />
     <Compile Include="TransactionManagement\TimeFrame.cs" />
     <Compile Include="TransactionManagement\Transaction.cs" />
     <Compile Include="TransactionManagement\Transactions.cs" />
     <Compile Include="StocksManagement\UserStock.cs" />
+    <Compile Include="TransactionPartPayment.cs" />
+    <Compile Include="TransactionPayments.cs" />
     <Compile Include="ValueCalculationStrategies\BasicCalculationStrategy.cs" />
     <Compile Include="ValueCalculationStrategies\IValueCalculationStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

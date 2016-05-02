@@ -17,31 +17,32 @@ namespace CashManager
     public partial class MainWindow : Window
     {
         private Transaction _incomeTransaction;
+        private readonly Wallet _wallet = new Wallet();
 
         private Transactions Transactions { get; set; } = new Transactions();
 
         public MainWindow()
         {
             //temp use:
-            Wallet wallet = new Wallet();
+
 
             Stock mystock = new UserStock("Jejek", 10000);
 
             Stock FP = new Stock("FP");
             Stock proline = new Stock("Proline");
 
-            wallet.AddStock(mystock);
-            wallet.AddStock(FP);
+            _wallet.AddStock(mystock);
+            _wallet.AddStock(FP);
             InitializeComponent();
             Title += " " + Assembly.GetExecutingAssembly().GetName().Version;
 
-            _incomeTransaction = new Transaction(eTransactionType.Transfer, DateTime.Now.Subtract(TimeSpan.FromHours(65)), 1000, 100, "Wypłata FP", "Note: Miesięczne wynagrodzenie", new Category("Wypłata"), new List<Tag>(), wallet.GetStockByName("FP"), mystock);
-
-
+            _incomeTransaction = new Transaction(eTransactionType.Transfer, DateTime.Now.Subtract(TimeSpan.FromHours(65)), 1000, 100, "Wypłata FP", "Note: Miesięczne wynagrodzenie");
+            _incomeTransaction.TransactionSoucePayments.Add(new TransactionPartPayment(FP.ToString(), 1000));
+            _incomeTransaction.TransactionTargetPayments.Add(new TransactionPartPayment(mystock.ToString(), 1000));
 
 
             Transactions.Add(_incomeTransaction);
-            Transactions.Add(new Transaction(eTransactionType.Buy, DateTime.Now, 200, 100, "Dysk do kompa", "Note: Zakup części komputerowych", new Category("PC"), new List<Tag>(), wallet.GetStockByName("Jejek"), proline));
+            Transactions.Add(new Transaction(eTransactionType.Buy, DateTime.Now, 200, 100, "Dysk do kompa", "Note: Zakup części komputerowych"));
 
 
             DataGridTransactions.ItemsSource = Transactions.TransactionsList;
@@ -62,7 +63,15 @@ namespace CashManager
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            TransactionWindow window = new TransactionWindow(_incomeTransaction);
+            Transaction transaction = new Transaction();
+            Transactions.Add(transaction);
+            TransactionWindow window = new TransactionWindow(transaction, _wallet);
+            window.Show();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            TransactionWindow window = new TransactionWindow((Transaction) DataGridTransactions.SelectedItem, _wallet);
             window.Show();
         }
     }

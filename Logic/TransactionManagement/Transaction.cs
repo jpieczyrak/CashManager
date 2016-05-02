@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using Logic.StocksManagement;
+using System.Collections.ObjectModel;
 using Logic.ValueCalculationStrategies;
 
 namespace Logic.TransactionManagement
@@ -18,30 +17,26 @@ namespace Logic.TransactionManagement
         private float RawValue { get; set; }
 
         /// <summary>
-        /// Percent contribution in transaction (0; 100)
+        /// Contribution value (0, 100 for percent; X for Value)
         /// </summary>
-        private float Contribution { get; set; }
+        public float Contribution { get; set; } = 100;
+
+        public ePaymentType ContributionType { get; set; } = ePaymentType.Percent;
 
         public string Title { get; set; }
 
         public string Note { get; set; }
 
-        public Category Category { get; set; }
-
-        /// <summary>
-        /// List of tags
-        /// </summary>
-        public List<Tag> Tags { get; set; }
-
         IValueCalculationStrategy _strategy;
 
-        public Stock From { get; set; }
+        public ObservableCollection<TransactionPartPayment> TransactionSoucePayments { get; set; } = new ObservableCollection<TransactionPartPayment>();
 
-        public Stock To { get; set; }
+        public ObservableCollection<TransactionPartPayment> TransactionTargetPayments { get; set; } = new ObservableCollection<TransactionPartPayment>();
 
         public float Value => _strategy.CalculateValue(RawValue, Contribution);
+        public ObservableCollection<Subtransation> Subtransactions { get; set; }
 
-        public Transaction(eTransactionType type, DateTime date, float rawValue, string title, string note, Category category, List<Tag> tags, Stock @from, Stock to)
+        public Transaction(eTransactionType type, DateTime date, float rawValue, string title, string note)
         {
             _strategy = new BasicCalculationStrategy();
             Type = type;
@@ -49,22 +44,26 @@ namespace Logic.TransactionManagement
             RawValue = rawValue;
             Title = title;
             Note = note;
-            Category = category;
-            Tags = tags;
-            From = @from;
-            To = to;
             Id = Guid.NewGuid();
         }
 
-        public Transaction(eTransactionType type, DateTime date, float rawValue, float contribution, string title, string note, Category category, List<Tag> tags, Stock @from, Stock to) : this(type, date, rawValue, title, note, category, tags, from, to)
+        public Transaction(eTransactionType type, DateTime date, float rawValue, float contribution, string title, string note) : this(type, date, rawValue, title, note)
         {
             Contribution = contribution;
+        }
+
+        public Transaction()
+        {
+            _strategy = new BasicCalculationStrategy();
+            Type = eTransactionType.Buy;
+            Date = DateTime.Now;
+            Id = Guid.NewGuid();
         }
 
         //TODO: delete
         public override string ToString()
         {
-            return string.Format("{0}, {1}, {2}, {3}, {4}, {5}, {6}", RawValue, Date, Note, Title, Value, Category, Type);
+            return string.Format("{0}, {1}, {2}, {3}, {4}, {5}, {6}", RawValue, Date, Note, Title, Value, Type);
         }
     }
 }

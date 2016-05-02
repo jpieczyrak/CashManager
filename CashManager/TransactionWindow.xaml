@@ -6,58 +6,77 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="TransactionWindow" Height="600" Width="400">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="120*"/>
-            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="39*"/>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="20*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32*" MinHeight="32"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="17*" MinHeight="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="23*" MinHeight="40"/>
-            <RowDefinition Height="23*" MinHeight="40"/>
             <RowDefinition Height="24"/>
-            <RowDefinition Height="17*"/>
-            <RowDefinition Height="145*"/>
+            <RowDefinition Height="83*" MinHeight="60"/>
+            <RowDefinition Height="24" />
+            <RowDefinition Height="79*" MinHeight="60"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="114*"/>
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
 
         <!-- Labels setup -->
-        <Label Content="Title" HorizontalAlignment="Left" Margin="0,2" VerticalAlignment="Center"/>
-        <Label Content="Description" HorizontalAlignment="Left" Margin="0,4" Grid.Row="1" VerticalAlignment="Center"/>
+        <Label Content="Title" HorizontalAlignment="Left" Margin="0,3" VerticalAlignment="Center"/>
+        <Label Content="Description" HorizontalAlignment="Left" Margin="0,4,0,5" Grid.Row="1" VerticalAlignment="Center"/>
         <Label Content="Date" HorizontalAlignment="Left" Margin="0,2" Grid.Row="2" VerticalAlignment="Center"/>
-        <Label Content="Sources" HorizontalAlignment="Left" Margin="0,10" Grid.Row="3" VerticalAlignment="Center"/>
-        <Label Content="Targets" HorizontalAlignment="Left" Margin="0,10" Grid.Row="4" VerticalAlignment="Center"/>
-        <Label Content="Contribution" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center" Grid.Column="0"/>
-        <Label Content="Subtransactions" HorizontalAlignment="Center" Margin="86,0,149,0" Grid.Row="6" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <Label Content="Sources" HorizontalAlignment="Left" Margin="0,15,0,42" Grid.Row="4"/>
+        <Label Content="Targets" Margin="0,17,0,44" Grid.Row="6" HorizontalAlignment="Left" Width="49" VerticalAlignment="Center"/>
+        <Label Content="Contribution" HorizontalAlignment="Center" Grid.Row="7" VerticalAlignment="Center" Grid.Column="0" Margin="2,0"/>
+        <Label Content="Type" HorizontalAlignment="Left" Grid.Row="8" VerticalAlignment="Center" Grid.Column="0" Margin="0"/>
+        <Label Content="Subtransactions" HorizontalAlignment="Center" Margin="69,0,89,0" Grid.Row="9" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="1"/>
 
         <!-- Buttons -->
-        <Button x:Name="buttonOK" Content="OK" HorizontalAlignment="Center" Margin="48,5,49,5" Grid.Row="8" VerticalAlignment="Center" Width="100" Click="buttonOK_Click" Grid.ColumnSpan="2" Height="25"/>
-        <Button x:Name="buttonCancel" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center" Margin="47,5,48,5" Grid.Row="8" VerticalAlignment="Center" Width="100" Click="buttonCancel_Click" Height="25"/>
+        <Button x:Name="buttonOK" Content="OK" HorizontalAlignment="Center" Margin="48,5,49,5" Grid.Row="11" VerticalAlignment="Center" Width="100" Click="buttonOK_Click" Grid.ColumnSpan="2" Height="25"/>
+        <Button x:Name="buttonCancel" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center" Margin="47,5,48,5" Grid.Row="11" VerticalAlignment="Center" Width="100" Click="buttonCancel_Click" Height="25" IsEnabled="False" Grid.ColumnSpan="2"/>
 
-        <TextBox x:Name="textBoxTitle" Grid.Column="1" Height="22" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,5" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="textBoxDescription" Grid.Column="1" Height="24" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,5" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="textBoxTitle" Grid.Column="1" Height="22" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,5" Grid.ColumnSpan="3" Text="{Binding Title}"/>
+        <TextBox x:Name="textBoxDescription" Grid.Column="1" Height="24" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,6,0,5" Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding Note}"/>
 
-        <xctk:DateTimePicker Grid.Column="1" Margin="0,5" Grid.Row="2" VerticalAlignment="Center" Format="Custom" CultureInfo="pl" FormatString="dd-MM-yyyy HH:mm" Grid.ColumnSpan="2" Height="20" />
+        <xctk:DateTimePicker Grid.Column="1" Margin="0,5" Grid.Row="2" VerticalAlignment="Center" Format="Custom" CultureInfo="pl" FormatString="dd-MM-yyyy HH:mm" Grid.ColumnSpan="3" Height="20" Value="{Binding Date}"/>
 
-        <DataGrid x:Name="dataGridSources" Margin="0,5" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
+        <TextBox x:Name="textBoxSourceValue" Grid.Row="3" Grid.Column="1" />
+        <ComboBox x:Name="comboboxSourceStock" Grid.Row="3" Grid.Column="2" />
+        <Button x:Name="buttonAddSource" Grid.Row="3" Grid.Column="3" Content="Add" Click="buttonAddSource_Click"/>
+        
+        <DataGrid x:Name="dataGridSources" Margin="0,5" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" AutoGenerateColumns="False" ItemsSource="{Binding TransactionSoucePayments}">
             <DataGrid.Columns>
-                <DataGridComboBoxColumn Header="SourceStocks" ItemsSource="{Binding SourceStocks}"/>
                 <DataGridTextColumn Header="Value" Binding="{Binding Value}"/>
+                <DataGridTextColumn Header="Stock" Binding="{Binding Stock}"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <DataGrid x:Name="dataGridTargets" Margin="0,5" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
+        <TextBox x:Name="textBoxTargetValue" Grid.Row="5" Grid.Column="1" />
+        <ComboBox x:Name="comboboxTargetStock" Grid.Row="5" Grid.Column="2" />
+        <Button x:Name="buttonAddTarget" Grid.Row="5" Grid.Column="3" Content="Add" Click="buttonAddTarget_Click"/>
 
+        <DataGrid x:Name="dataGridTargets" Margin="0,5" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" AutoGenerateColumns="False" ItemsSource="{Binding TransactionTargetPayments}" CanUserAddRows="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Value" Binding="{Binding Value}"/>
+                <DataGridTextColumn Header="Stock" Binding="{Binding Stock}"/>
+            </DataGrid.Columns>
         </DataGrid>
 
-        <ComboBox x:Name="comboBoxContributionTypes" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,5,0" Grid.Row="5" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBoxContributionValue" Grid.Column="2" Height="24" VerticalAlignment="Center" Margin="5,0,0,0" Grid.Row="5"/>
+        <ComboBox x:Name="comboBoxContributionTypes" Grid.Column="1" Grid.Row="7" VerticalAlignment="Top" SelectionChanged="comboBoxContributionTypes_SelectionChanged" Margin="0"/>
+        <TextBox x:Name="textBoxContributionValue" Grid.Column="2" Height="24" VerticalAlignment="Center" Margin="0" Grid.Row="7" Text="{Binding Contribution}" Width="195" Grid.ColumnSpan="2"/>
+
+        <ComboBox x:Name="comboBoxTransactionType" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" SelectionChanged="comboBoxTransactionType_SelectionChanged" Grid.ColumnSpan="3" Margin="0,1"/>
 
 
-        <DataGrid x:Name="dataGridSubtransactions" Margin="5" Grid.ColumnSpan="3" Grid.Row="6" Grid.RowSpan="2" >
+        <DataGrid x:Name="dataGridSubtransactions" Margin="5" Grid.ColumnSpan="4" Grid.Row="10" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
@@ -66,5 +85,5 @@
                 <DataGridTextColumn Header="Tags" Binding="{Binding Tags}"/>
             </DataGrid.Columns>
         </DataGrid>
-   </Grid>
+    </Grid>
 </Window>
