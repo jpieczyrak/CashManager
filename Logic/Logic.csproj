@@ -42,8 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ePaymentType.cs" />
-    <Compile Include="TransactionGUI.cs" />
-    <Compile Include="TransactionGUIFactory.cs" />
     <Compile Include="TransactionManagement\Category.cs" />
     <Compile Include="TransactionManagement\eTransactionType.cs" />
     <Compile Include="StocksManagement\Stock.cs" />
