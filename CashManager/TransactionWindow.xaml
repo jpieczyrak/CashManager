@@ -33,8 +33,8 @@
         <Label Content="Title" HorizontalAlignment="Left" Margin="0,3" VerticalAlignment="Center"/>
         <Label Content="Description" HorizontalAlignment="Left" Margin="0,4,0,5" Grid.Row="1" VerticalAlignment="Center"/>
         <Label Content="Date" HorizontalAlignment="Left" Margin="0,2" Grid.Row="2" VerticalAlignment="Center"/>
-        <Label Content="Sources" HorizontalAlignment="Left" Margin="0,15,0,42" Grid.Row="4"/>
-        <Label Content="Targets" Margin="0,17,0,44" Grid.Row="6" HorizontalAlignment="Left" Width="49" VerticalAlignment="Center"/>
+        <Label Content="Sources" HorizontalAlignment="Left" Margin="0" Grid.Row="3"/>
+        <Label Content="Targets" Margin="0" Grid.Row="5" HorizontalAlignment="Left" Width="49" VerticalAlignment="Center"/>
         <Label Content="Contribution" HorizontalAlignment="Center" Grid.Row="7" VerticalAlignment="Center" Grid.Column="0" Margin="2,0"/>
         <Label Content="Type" HorizontalAlignment="Left" Grid.Row="8" VerticalAlignment="Center" Grid.Column="0" Margin="0"/>
         <Label Content="Subtransactions" HorizontalAlignment="Center" Margin="69,0,89,0" Grid.Row="9" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="1"/>
@@ -48,8 +48,8 @@
 
         <xctk:DateTimePicker Grid.Column="1" Margin="0,5" Grid.Row="2" VerticalAlignment="Center" Format="Custom" CultureInfo="pl" FormatString="dd-MM-yyyy HH:mm" Grid.ColumnSpan="3" Height="20" Value="{Binding Date}"/>
 
-        <TextBox x:Name="textBoxSourceValue" Grid.Row="3" Grid.Column="1" />
-        <ComboBox x:Name="comboboxSourceStock" Grid.Row="3" Grid.Column="2" />
+        <TextBox x:Name="textBoxSourceValue" Grid.Row="3" Grid.Column="1" ToolTip="Value" />
+        <ComboBox x:Name="comboboxSourceStock" Grid.Row="3" Grid.Column="2" ToolTip="Souce stock" />
         <Button x:Name="buttonAddSource" Grid.Row="3" Grid.Column="3" Content="Add" Click="buttonAddSource_Click"/>
         
         <DataGrid x:Name="dataGridSources" Margin="0,5" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" AutoGenerateColumns="False" ItemsSource="{Binding TransactionSoucePayments}">
@@ -59,8 +59,8 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <TextBox x:Name="textBoxTargetValue" Grid.Row="5" Grid.Column="1" />
-        <ComboBox x:Name="comboboxTargetStock" Grid.Row="5" Grid.Column="2" />
+        <TextBox x:Name="textBoxTargetValue" Grid.Row="5" Grid.Column="1" ToolTip="Value" />
+        <ComboBox x:Name="comboboxTargetStock" Grid.Row="5" Grid.Column="2" ToolTip="Target stock" />
         <Button x:Name="buttonAddTarget" Grid.Row="5" Grid.Column="3" Content="Add" Click="buttonAddTarget_Click"/>
 
         <DataGrid x:Name="dataGridTargets" Margin="0,5" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" AutoGenerateColumns="False" ItemsSource="{Binding TransactionTargetPayments}" CanUserAddRows="True">

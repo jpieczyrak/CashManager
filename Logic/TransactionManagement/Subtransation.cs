@@ -10,9 +10,6 @@ namespace Logic.TransactionManagement
 
         public Category Category { get; set; }
 
-        /// <summary>
-        /// List of tags
-        /// </summary>
-        public List<string> Tags { get; set; }
+        public string Tags { get; set; }
     }
 }

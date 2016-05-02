@@ -75,6 +75,7 @@ namespace CashManager
         {
             double value = 0;
             double.TryParse(textBoxSourceValue.Text, out value);
+            textBoxSourceValue.Text = "";
 
             string sourceStock = comboboxSourceStock.SelectedIndex >= 0 ? comboboxSourceStock.SelectedItem.ToString() : "";
 
@@ -85,6 +86,7 @@ namespace CashManager
         {
             double value = 0;
             double.TryParse(textBoxTargetValue.Text, out value);
+            textBoxTargetValue.Text = "";
 
             string targetStock = comboboxTargetStock.SelectedIndex >= 0 ? comboboxTargetStock.SelectedItem.ToString() : "";
 
