@@ -36,10 +36,10 @@ namespace CashManager
             InitializeComponent();
             Title += " " + Assembly.GetExecutingAssembly().GetName().Version;
 
-            _incomeTransaction = new Transaction(eTransactionType.Transfer, DateTime.Now.Subtract(TimeSpan.FromHours(65)), 1000, 100, "Wypłata FP", "Note: Miesięczne wynagrodzenie");
+            _incomeTransaction = new Transaction(eTransactionType.Work, DateTime.Now.Subtract(TimeSpan.FromHours(65)), 100, "Wypłata FP", "Note: Miesięczne wynagrodzenie");
             _incomeTransaction.TransactionSoucePayments.Add(new TransactionPartPayment(FP.ToString(), 1000));
             _incomeTransaction.TransactionTargetPayments.Add(new TransactionPartPayment(mystock.ToString(), 1000));
-
+            _incomeTransaction.Subtransactions.Add(new Subtransation() { Category = new Category("Praca"), Value = 1000, Name = "Wypłata", Tags = "FP;praca"});
 
             Transactions.Add(_incomeTransaction);
             Transactions.Add(new Transaction(eTransactionType.Buy, DateTime.Now, 200, 100, "Dysk do kompa", "Note: Zakup części komputerowych"));

@@ -35,6 +35,8 @@ namespace CashManager
             comboboxSourceStock.ItemsSource = wallet.AvailableStocks;
             comboboxTargetStock.ItemsSource = wallet.AvailableStocks;
 
+            dataGridSubtransactions.ItemsSource = Transaction.Subtransactions;
+
             //            comboBoxContributionTypes.ItemsSource = Transaction.StocksList;
 
             //dataGridSources.ItemsSource = Transaction.TransactionSoucePayments.TransactionPartPayments;

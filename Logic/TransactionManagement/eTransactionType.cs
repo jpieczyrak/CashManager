@@ -6,6 +6,7 @@
         Sell,
         Transfer,
         Resell,
-        Reinvest
+        Reinvest,
+        Work
     }
 }

@@ -33,8 +33,8 @@ namespace Logic.TransactionManagement
 
         public ObservableCollection<TransactionPartPayment> TransactionTargetPayments { get; set; } = new ObservableCollection<TransactionPartPayment>();
 
-        public float Value => _strategy.CalculateValue(RawValue, Contribution);
-        public ObservableCollection<Subtransation> Subtransactions { get; set; }
+        public float Value => _strategy.CalculateValue(Type, TransactionSoucePayments, Contribution, ContributionType);
+        public ObservableCollection<Subtransation> Subtransactions { get; set; } = new ObservableCollection<Subtransation>();
 
         public Transaction(eTransactionType type, DateTime date, float rawValue, string title, string note)
         {
@@ -58,12 +58,6 @@ namespace Logic.TransactionManagement
             Type = eTransactionType.Buy;
             Date = DateTime.Now;
             Id = Guid.NewGuid();
-        }
-
-        //TODO: delete
-        public override string ToString()
-        {
-            return string.Format("{0}, {1}, {2}, {3}, {4}, {5}, {6}", RawValue, Date, Note, Title, Value, Type);
         }
     }
 }

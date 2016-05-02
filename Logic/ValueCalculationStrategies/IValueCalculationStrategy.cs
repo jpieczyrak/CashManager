@@ -1,7 +1,10 @@
-﻿namespace Logic.ValueCalculationStrategies
+﻿using System.Collections.ObjectModel;
+using Logic.TransactionManagement;
+
+namespace Logic.ValueCalculationStrategies
 {
     public interface IValueCalculationStrategy
-    {
-        float CalculateValue(float rawValue, float contribution);
+    { 
+        float CalculateValue(eTransactionType transactionType, ObservableCollection<TransactionPartPayment> transactionSoucePayments, float contribution, ePaymentType contributionType);
     }
 }
