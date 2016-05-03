@@ -35,8 +35,6 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <TextBlock Text="ID: " FontWeight="Bold" Grid.Row="0" />
@@ -48,11 +46,13 @@
                             <TextBlock Text="{Binding Type}" Grid.Column="1" Grid.Row="2" />
                             <TextBlock Text="Target: " FontWeight="Bold" Grid.Row="3" />
                             <TextBlock Text="{Binding TargetStock}" Grid.Column="1" Grid.Row="3" />
+                            <!--
                             <TextBlock Text="Contribution type: " FontWeight="Bold" Grid.Row="4" />
                             <TextBlock Text="{Binding ContributionType}" Grid.Column="1" Grid.Row="4" />
                             <TextBlock Text="Contribution value: " FontWeight="Bold" Grid.Row="5" />
                             <TextBlock Text="{Binding Contribution}" Grid.Column="1" Grid.Row="5" />
-                            <Button Content="Edit" Grid.Row="6" Grid.ColumnSpan="2" Click="Button_Click_1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" />
+                            -->
+                            <Button Content="Edit" Grid.Row="4" Grid.ColumnSpan="2" Click="Button_Click_1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" />
                         </Grid>
                     </DockPanel>
 
