@@ -22,7 +22,7 @@
         <DataGrid Grid.Row="1" ItemsSource="{Binding TransactionsList}" Name="DataGridTransactions" AutoGenerateColumns="False" CellEditEnding="DataGridTransactions_CellEditEnding" Margin="5" CanUserAddRows="True" IsReadOnly="False" MouseLeave="DataGridTransactions_MouseLeave" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <!-- <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}"/> -->
-                <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="100*"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='dd.MM.yyyy', Mode=OneWay}" Width="100*"/>
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="100*" />
                 <DataGridTextColumn Header="Value" Binding="{Binding Value, Mode=OneWay}" Width="60*"/>
             </DataGrid.Columns>

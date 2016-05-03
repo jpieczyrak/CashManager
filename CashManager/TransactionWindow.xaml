@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="TransactionWindow" Height="600" Width="420">
 
@@ -52,7 +52,7 @@
         <TextBox x:Name="textBoxTitle" Grid.Column="1" Height="22" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,5" Grid.ColumnSpan="4" Text="{Binding Title}"/>
         <TextBox x:Name="textBoxDescription" Grid.Column="1" Height="24" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,12,0,10" Grid.Row="1" Grid.ColumnSpan="4" Text="{Binding Note}"/>
 
-        <xctk:DateTimePicker Grid.Column="1" Margin="0,5" Grid.Row="2" VerticalAlignment="Center" Format="Custom" CultureInfo="pl" FormatString="dd-MM-yyyy HH:mm" Grid.ColumnSpan="4" Height="20" Value="{Binding Date}"/>
+        <DatePicker Grid.Column="1" Margin="0,5" Grid.Row="2" VerticalAlignment="Center" Grid.ColumnSpan="4" Height="30" Text="{Binding Path=Date, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}" FirstDayOfWeek="Monday"  />
 
         <TextBox x:Name="textBoxSourceValue" Grid.Row="4" Grid.Column="1" ToolTip="Value" />
         <ComboBox x:Name="comboBoxContributionTypes" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" Margin="0" Height="24"/>
