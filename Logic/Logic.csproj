@@ -45,6 +45,10 @@
     <Compile Include="ePaymentType.cs" />
     <Compile Include="FilesOperations\Deserializer.cs" />
     <Compile Include="FilesOperations\Serializer.cs" />
+    <Compile Include="Parsing\eParserInputType.cs" />
+    <Compile Include="Parsing\ExcelParser.cs" />
+    <Compile Include="Parsing\IParser.cs" />
+    <Compile Include="Parsing\ParserFactory.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="TransactionManagement\Category.cs" />
     <Compile Include="TransactionManagement\eTransactionType.cs" />

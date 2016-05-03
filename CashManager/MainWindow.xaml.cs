@@ -44,5 +44,11 @@ namespace CashManager
         {
             DataGridTransactions.SelectedIndex = -1;
         }
+
+        private void buttonParse_Click(object sender, RoutedEventArgs e)
+        {
+            ParserWindow window = new ParserWindow(_wallet);
+            window.Show();
+        }
     }
 }
