@@ -71,11 +71,11 @@
         <ComboBox x:Name="comboBoxTransactionType" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" SelectionChanged="comboBoxTransactionType_SelectionChanged" Grid.ColumnSpan="4" Margin="0,1" Height="22"/>
 
 
-        <DataGrid x:Name="dataGridSubtransactions" Margin="5" Grid.ColumnSpan="5" Grid.Row="10" CanUserAddRows="True" AutoGenerateColumns="False">
+        <DataGrid x:Name="dataGridSubtransactions" Margin="5" Grid.ColumnSpan="5" Grid.Row="10" CanUserAddRows="True" AutoGenerateColumns="False" ItemsSource="{Binding Subtransactions}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="75*"/>
                 <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="75*"/>
-                <DataGridTextColumn Header="Category" Binding="{Binding Category.Value}" Width="75*"/>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="75*"/>
                 <DataGridTextColumn Header="Tags" Binding="{Binding Tags}" Width="75*"/>
             </DataGrid.Columns>
         </DataGrid>

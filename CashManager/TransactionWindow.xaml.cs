@@ -49,7 +49,7 @@ namespace CashManager
             comboboxTargetStock.SelectedIndex = index;
 
 
-            dataGridSubtransactions.ItemsSource = Transaction.Subtransactions;
+            //dataGridSubtransactions.ItemsSource = Transaction.Subtransactions;
 
             //            comboBoxContributionTypes.ItemsSource = Transaction.StocksList;
 

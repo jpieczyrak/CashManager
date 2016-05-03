@@ -41,14 +41,14 @@ namespace CashManager
             _incomeTransaction = new Transaction(eTransactionType.Work, DateTime.Now.Subtract(TimeSpan.FromHours(65)), "Wypłata FP", "Note: Miesięczne wynagrodzenie");
             _incomeTransaction.TransactionSoucePayments.Add(new TransactionPartPayment(FP.ToString(), 1000, ePaymentType.Value));
             _incomeTransaction.TargetStock = mystock;
-            _incomeTransaction.Subtransactions.Add(new Subtransaction() { Category = new Category("Praca"), Value = 1000, Name = "Wypłata", Tags = "FP;praca"});
+            _incomeTransaction.Subtransactions.Add(new Subtransaction() { Category = "Praca", Value = 1000, Name = "Wypłata", Tags = "FP;praca"});
             Transactions.Add(_incomeTransaction);
 
             Transaction outcomeTransaction = new Transaction(eTransactionType.Buy, DateTime.Now, "Dysk do kompa",
                 "Note: Zakup części komputerowych");
             outcomeTransaction.TransactionSoucePayments.Add(new TransactionPartPayment(mystock.ToString(), 200, ePaymentType.Value));
             outcomeTransaction.TargetStock = proline;
-            outcomeTransaction.Subtransactions.Add(new Subtransaction() { Category = new Category("PC parts"), Name = "Dysk", Value = 200, Tags = "PC parts; dysk; elektronika"});
+            outcomeTransaction.Subtransactions.Add(new Subtransaction() { Category = "PC parts", Name = "Dysk", Value = 200, Tags = "PC parts; dysk; elektronika"});
             Transactions.Add(outcomeTransaction);
 
 

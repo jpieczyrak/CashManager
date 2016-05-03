@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Logic.TransactionManagement
+﻿namespace Logic.TransactionManagement
 {
     public class Subtransaction
     {
@@ -8,7 +6,7 @@ namespace Logic.TransactionManagement
 
         public double Value { get; set; }
 
-        public Category Category { get; set; }
+        public string Category { get; set; }
 
         public string Tags { get; set; }
     }
