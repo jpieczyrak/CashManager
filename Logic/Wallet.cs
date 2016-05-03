@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using Logic.FilesOperations;
@@ -14,7 +13,7 @@ namespace Logic
         public static string Path = "wallet.xml";
 
         [DataMember]
-        public List<Stock> AvailableStocks { get; set; } = new List<Stock>();
+        public ObservableCollection<Stock> AvailableStocks { get; set; } = new ObservableCollection<Stock>();
 
         [DataMember]
         public Transactions Transactions { get; set; } = new Transactions();

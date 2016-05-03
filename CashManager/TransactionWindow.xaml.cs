@@ -47,17 +47,6 @@ namespace CashManager
                 }
             }
             comboboxTargetStock.SelectedIndex = index;
-
-
-            //dataGridSubtransactions.ItemsSource = Transaction.Subtransactions;
-
-            //            comboBoxContributionTypes.ItemsSource = Transaction.StocksList;
-
-            //dataGridSources.ItemsSource = Transaction.TransactionSoucePayments.TransactionPartPayments;
-
-            //dataGridTargets.ItemsSource = Transaction.TransactionTargetPayments;
-
-            //dataGridSubtransactions.ItemsSource = transaction.Subtransactions;
         }
 
         private void buttonOK_Click(object sender, RoutedEventArgs e)

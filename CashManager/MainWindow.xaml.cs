@@ -60,5 +60,11 @@ namespace CashManager
                 _wallet.Save();
             }
         }
+
+        private void buttonManageStocks_Click(object sender, RoutedEventArgs e)
+        {
+            ManageStocks window = new ManageStocks(_wallet);
+            window.Show();
+        }
     }
 }

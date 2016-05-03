@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
@@ -8,7 +9,7 @@ namespace Logic.Parsing
 {
     public class ExcelParser : IParser
     {
-        public List<Transaction> Parse(string input, List<Stock> stocks)
+        public List<Transaction> Parse(string input, ObservableCollection<Stock> stocks)
         {
             List<Transaction> transactions = new List<Transaction>();
             string[] lines = input.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);

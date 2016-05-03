@@ -13,7 +13,7 @@ namespace Logic.StocksManagement
     public class Stock
     {
         [DataMember]
-        protected string Name { get; set; }
+        public string Name { get; set; }
 
         public override string ToString()
         {
@@ -24,21 +24,21 @@ namespace Logic.StocksManagement
         /// Value of stock when stock is being added to wallet (in app)
         /// </summary>
         [DataMember]
-        float StartingValue { get; set; }
+        public double StartingValue { get; set; }
 
         /// <summary>
         /// Value calculated for choosen date, based on transactions done on stock since created
         /// </summary>
         [DataMember]
-        float ActualValue { get; set; }
+        public double ActualValue { get; set; }
 
-        public float GetActualValue(Transactions transactions, TimeFrame timeframe)
+        public double GetActualValue(Transactions transactions, TimeFrame timeframe)
         {
             ActualValue = CalculateActualValue(transactions, timeframe);
             return ActualValue;
         }
 
-        private float CalculateActualValue(Transactions transactions, TimeFrame timeframe)
+        private double CalculateActualValue(Transactions transactions, TimeFrame timeframe)
         {
             foreach (var transaction in transactions.TransactionsList)
             {

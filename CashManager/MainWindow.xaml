@@ -67,6 +67,7 @@
 
         </DataGrid>
         <Button x:Name="buttonAdd" Content="Add transaction" HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="100" Click="AddButtonClick" Height="24" Grid.ColumnSpan="2"/>
+        <Button x:Name="buttonManageStocks" Content="Manage stocks" HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="100" Click="buttonManageStocks_Click" Height="24" Grid.ColumnSpan="2" Grid.Column="1"/>
         <Button x:Name="buttonParse" Content="Parse" HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="100" Click="buttonParse_Click" Height="24" Grid.ColumnSpan="2" Grid.Column="2"/>
 
     </Grid>
