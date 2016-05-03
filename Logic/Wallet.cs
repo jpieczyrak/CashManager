@@ -40,7 +40,7 @@ namespace Logic
         //TODO: to dict
         public Stock GetStockByName(string stockName)
         {
-            return AvailableStocks.FirstOrDefault(stock => stock.ToString().ToLower().Equals(stockName.ToLower()));
+            return AvailableStocks.FirstOrDefault(stock => stock.Name.ToLower().Equals(stockName.ToLower()));
         }
 
         public void Save()

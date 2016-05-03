@@ -68,5 +68,12 @@ namespace Logic.StocksManagement
             Name = "Unknown";
             Id = empty;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Stock))    return false;
+
+            return Id == ((Stock) obj).Id;
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace CashManager
             {
                 for (int i = 0; i < wallet.AvailableStocks.Count; i++)
                 {
-                    if (wallet.AvailableStocks[i].ToString().Equals(Transaction.TargetStock.ToString()))
+                    if (wallet.AvailableStocks[i].Equals(Transaction.TargetStock))
                     {
                         index = i;
                     }
