@@ -4,9 +4,9 @@ namespace Logic.TransactionManagement
 {
     public class TimeFrame
     {
-        DateTime From { get; set; }
+        public DateTime From { get; set; }
 
-        DateTime To { get; set; }
+        public DateTime To { get; set; }
 
         public TimeFrame(DateTime @from, DateTime to)
         {

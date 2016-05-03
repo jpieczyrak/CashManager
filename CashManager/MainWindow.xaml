@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Cash Manager" Height="600" Width="800" Icon="Resources/cash.png">
 
@@ -15,11 +16,15 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="200*"/>
+            <RowDefinition Height="47*"/>
+            <RowDefinition Height="47*"/>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="252*"/>
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding TransactionsList}" Name="DataGridTransactions" AutoGenerateColumns="False" CellEditEnding="DataGridTransactions_CellEditEnding" Margin="5" CanUserAddRows="True" IsReadOnly="False" MouseLeave="DataGridTransactions_MouseLeave" Grid.ColumnSpan="3">
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Wallet.Transactions.TransactionsList}" Name="DataGridTransactions" AutoGenerateColumns="False" CellEditEnding="DataGridTransactions_CellEditEnding" Margin="5" CanUserAddRows="True" IsReadOnly="False" MouseLeave="DataGridTransactions_MouseLeave" Grid.ColumnSpan="3" Grid.RowSpan="5">
             <DataGrid.Columns>
                 <!-- <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}"/> -->
                 <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='dd.MM.yyyy', Mode=OneWay}" Width="100*"/>
@@ -74,9 +79,13 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name="buttonAdd" Content="Add transaction" HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="100" Click="AddButtonClick" Height="24" Grid.ColumnSpan="2"/>
-        <Button x:Name="buttonManageStocks" Content="Manage stocks" HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="100" Click="buttonManageStocks_Click" Height="24" Grid.ColumnSpan="2" Grid.Column="1"/>
-        <Button x:Name="buttonParse" Content="Parse" HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="100" Click="buttonParse_Click" Height="24" Grid.ColumnSpan="2" Grid.Column="2"/>
+        <DatePicker x:Name="datePickerFrom" Grid.Row="2" Grid.Column="3" Text="{Binding Path=Timeframe.From, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}"/>
+        <DatePicker x:Name="datePickerTo" Grid.Row="3" Grid.Column="3" Text="{Binding Path=Timeframe.To, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}"/>
+        <Button x:Name="buttonFind" Grid.Row="4" Grid.Column="3" Content="Update stocks" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="25" Click="buttonFind_Click" ToolTip="Updates stocks values based on given dates" />
+
+        <Button x:Name="buttonAdd" Content="Add transaction" HorizontalAlignment="Center" Margin="0" Grid.Row="6" VerticalAlignment="Center" Width="100" Click="AddButtonClick" Height="24" Grid.ColumnSpan="2"/>
+        <Button x:Name="buttonManageStocks" Content="Manage stocks" HorizontalAlignment="Center" Margin="0" Grid.Row="6" VerticalAlignment="Center" Width="100" Click="buttonManageStocks_Click" Height="24" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <Button x:Name="buttonParse" Content="Parse" HorizontalAlignment="Center" Margin="0" Grid.Row="6" VerticalAlignment="Center" Width="100" Click="buttonParse_Click" Height="24" Grid.ColumnSpan="2" Grid.Column="2"/>
 
     </Grid>
 

@@ -41,12 +41,12 @@ namespace Logic
             Serializer.XMLSerializeObject(this, Path);
         }
 
-        public void UpdateStockStats(ObservableCollection<StockStats> stockStats)
+        public void UpdateStockStats(ObservableCollection<StockStats> stockStats, TimeFrame timeframe)
         {
             stockStats.Clear();
             foreach (Stock stock in AvailableStocks)
             {
-                stockStats.Add(new StockStats(stock.Name, stock.GetActualValue(Transactions, new TimeFrame(DateTime.MinValue, DateTime.MaxValue))));
+                stockStats.Add(new StockStats(stock.Name, stock.GetActualValue(Transactions, timeframe)));
             }
         }
     }
