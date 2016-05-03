@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using Logic.StocksManagement;
 
 namespace Logic
 {
+    [DataContract]
     public class Wallet
     {
+        [DataMember]
         public List<Stock> AvailableStocks { get; } = new List<Stock>();
 
         public Wallet()

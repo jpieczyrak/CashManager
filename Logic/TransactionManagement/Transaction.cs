@@ -2,16 +2,19 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using Logic.Annotations;
 using Logic.StocksManagement;
 using Logic.ValueCalculationStrategies;
 
 namespace Logic.TransactionManagement
 {
+    [DataContract]
     public class Transaction : INotifyPropertyChanged
     {
         private readonly IValueCalculationStrategy _strategy;
         private DateTime _date;
+        [DataMember]
         private string _note;
 
         private TrulyObservableCollection<Subtransaction> _subtransactions =
@@ -55,6 +58,7 @@ namespace Logic.TransactionManagement
 
         public Guid Id { get; private set; }
 
+        [DataMember]
         public eTransactionType Type
         {
             get { return _type; }
@@ -65,6 +69,7 @@ namespace Logic.TransactionManagement
             }
         }
 
+        [DataMember]
         public DateTime Date
         {
             get { return _date; }
@@ -75,6 +80,7 @@ namespace Logic.TransactionManagement
             }
         }
 
+        [DataMember]
         public string Title
         {
             get { return _title; }
@@ -85,6 +91,7 @@ namespace Logic.TransactionManagement
             }
         }
 
+        [DataMember]
         public string Note
         {
             get { return _note; }
@@ -95,6 +102,7 @@ namespace Logic.TransactionManagement
             }
         }
 
+        [DataMember]
         public TrulyObservableCollection<TransactionPartPayment> TransactionSoucePayments
         {
             get { return _transactionSoucePayments; }
@@ -105,6 +113,7 @@ namespace Logic.TransactionManagement
             }
         }
 
+        [DataMember]
         public Stock TargetStock
         {
             get { return _targetStock; }
@@ -115,11 +124,14 @@ namespace Logic.TransactionManagement
             }
         }
 
+        [DataMember]
         public double Value
         {
             get { return _strategy.CalculateValue(Type, TransactionSoucePayments, Subtransactions); }
+            set { }
         }
 
+        [DataMember]
         public TrulyObservableCollection<Subtransaction> Subtransactions
         {
             get { return _subtransactions; }

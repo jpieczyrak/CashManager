@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,16 +43,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ePaymentType.cs" />
+    <Compile Include="FilesOperations\Deserializer.cs" />
+    <Compile Include="FilesOperations\Serializer.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="TransactionManagement\Category.cs" />
     <Compile Include="TransactionManagement\eTransactionType.cs" />
-    <Compile Include="StocksManagement\Stock.cs" />
     <Compile Include="TransactionManagement\Subtransaction.cs" />
     <Compile Include="TransactionManagement\Tag.cs" />
     <Compile Include="TransactionManagement\TimeFrame.cs" />
     <Compile Include="TransactionManagement\Transaction.cs" />
     <Compile Include="TransactionManagement\Transactions.cs" />
-    <Compile Include="StocksManagement\UserStock.cs" />
+    <Compile Include="StocksManagement\Stock.cs" />
     <Compile Include="TransactionManagement\TrulyObservableCollection.cs" />
     <Compile Include="TransactionPartPayment.cs" />
     <Compile Include="TransactionPayments.cs" />

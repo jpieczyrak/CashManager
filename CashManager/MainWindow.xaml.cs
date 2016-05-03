@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
 using Logic;
+using Logic.FilesOperations;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
 
@@ -24,14 +25,14 @@ namespace CashManager
         public MainWindow()
         {
             DataContext = Transactions;
-            
+
             //temp use:
 
 
-            Stock mystock = new UserStock("Jejek", 10000);
+            Stock mystock = new Stock("Jejek", 10000);
 
-            Stock FP = new Stock("FP");
-            Stock proline = new Stock("Proline");
+            Stock FP = new Stock("FP", 0);
+            Stock proline = new Stock("Proline", 0);
 
             _wallet.AddStock(mystock);
             _wallet.AddStock(FP);
@@ -53,7 +54,8 @@ namespace CashManager
             outcomeTransaction.Subtransactions.Add(new Subtransaction() { Category = "PC parts", Name = "Dysk", Value = 200, Tags = "PC parts; dysk; elektronika"});
             Transactions.Add(outcomeTransaction);
 
-
+            Serializer.XMLSerializeObject(_wallet, @"d:\wallet.xml");
+            Serializer.XMLSerializeObject(Transactions, @"d:\transactions.xml");
 
             //DataGridTransactions.ItemsSource = Transactions.TransactionsList;
 

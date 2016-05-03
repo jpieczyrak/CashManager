@@ -1,14 +1,19 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using Logic.Annotations;
 
 namespace Logic.TransactionManagement
 {
+    [Serializable]
+    [DataContract]
     public class Subtransaction : INotifyPropertyChanged
     {
         private double _value;
+        [DataMember]
         public string Name { get; set; }
-
+        [DataMember]
         public double Value
         {
             get { return _value; }
@@ -18,9 +23,9 @@ namespace Logic.TransactionManagement
                 OnPropertyChanged();
             }
         }
-
+        [DataMember]
         public string Category { get; set; }
-
+        [DataMember]
         public string Tags { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 

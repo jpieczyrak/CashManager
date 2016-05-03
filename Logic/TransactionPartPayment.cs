@@ -1,9 +1,12 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using Logic.Annotations;
 
 namespace Logic
 {
+    [DataContract]
     public class TransactionPartPayment : INotifyPropertyChanged
     {
         private double _value;
@@ -16,8 +19,10 @@ namespace Logic
             PaymentType = paymentType;
         }
 
+        [DataMember]
         public string Stock { get; set; }
 
+        [DataMember]
         public double Value
         {
             get { return _value; }
@@ -28,6 +33,7 @@ namespace Logic
             }
         }
 
+        [DataMember]
         public ePaymentType PaymentType
         {
             get { return _paymentType; }
