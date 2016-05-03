@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Windows;
+using System.Windows.Input;
 using Logic;
 using Logic.FilesOperations;
 using Logic.TransactionManagement;
@@ -19,6 +20,8 @@ namespace CashManager
             
             InitializeComponent();
             Title += " " + Assembly.GetExecutingAssembly().GetName().Version;
+
+            AddHandler(Keyboard.KeyDownEvent, (KeyEventHandler)HandleKeyDownEvent);
         }
 
         private void AddButtonClick(object sender, RoutedEventArgs e)
@@ -49,6 +52,13 @@ namespace CashManager
         {
             ParserWindow window = new ParserWindow(_wallet);
             window.Show();
+        }
+        private void HandleKeyDownEvent(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) && e.Key == Key.S)
+            {
+                _wallet.Save();
+            }
         }
     }
 }
