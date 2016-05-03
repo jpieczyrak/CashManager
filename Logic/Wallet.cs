@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using Logic.FilesOperations;
@@ -29,15 +30,7 @@ namespace Logic
 
         [DataMember]
         public Transactions Transactions { get; set; } = new Transactions();
-        
-        public void AddStock(Stock stock)
-        {
-            //TODO: check if stock allready exists? (or check higher)
-            AvailableStocks.Add(stock);
-        }
 
-
-        //TODO: to dict
         public Stock GetStockByName(string stockName)
         {
             return AvailableStocks.FirstOrDefault(stock => stock.Name.ToLower().Equals(stockName.ToLower()));
@@ -46,6 +39,15 @@ namespace Logic
         public void Save()
         {
             Serializer.XMLSerializeObject(this, Path);
+        }
+
+        public void UpdateStockStats(ObservableCollection<StockStats> stockStats)
+        {
+            stockStats.Clear();
+            foreach (Stock stock in AvailableStocks)
+            {
+                stockStats.Add(new StockStats(stock.Name, stock.GetActualValue(Transactions, new TimeFrame(DateTime.MinValue, DateTime.MaxValue))));
+            }
         }
     }
 }

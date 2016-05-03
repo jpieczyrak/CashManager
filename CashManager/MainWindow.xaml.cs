@@ -1,8 +1,10 @@
-﻿using System.Reflection;
+﻿using System.Collections.ObjectModel;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using Logic;
 using Logic.FilesOperations;
+using Logic.StocksManagement;
 using Logic.TransactionManagement;
 
 namespace CashManager
@@ -13,15 +15,19 @@ namespace CashManager
     public partial class MainWindow : Window
     {
         private readonly Wallet _wallet;
+        private readonly ObservableCollection<StockStats> _stockStats = new ObservableCollection<StockStats>(); 
         public MainWindow()
         {
             _wallet = Deserializer.DeserializeXML<Wallet>(Wallet.Path);
-            DataContext = _wallet.Transactions;
+            _wallet.UpdateStockStats(_stockStats);
             
             InitializeComponent();
             Title += " " + Assembly.GetExecutingAssembly().GetName().Version;
 
             AddHandler(Keyboard.KeyDownEvent, (KeyEventHandler)HandleKeyDownEvent);
+
+            DataContext = _wallet.Transactions;
+            dataGridStockStats.ItemsSource = _stockStats;
         }
 
         private void AddButtonClick(object sender, RoutedEventArgs e)

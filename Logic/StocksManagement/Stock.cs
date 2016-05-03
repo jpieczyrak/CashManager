@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.Serialization;
 using Logic.TransactionManagement;
 
@@ -39,21 +40,41 @@ namespace Logic.StocksManagement
 
         public double GetActualValue(Transactions transactions, TimeFrame timeframe)
         {
-            ActualValue = CalculateActualValue(transactions, timeframe);
+            CalculateActualValue(transactions, timeframe);
             return ActualValue;
         }
 
-        private double CalculateActualValue(Transactions transactions, TimeFrame timeframe)
+        private void CalculateActualValue(Transactions transactions, TimeFrame timeframe)
         {
+            ActualValue = StartingValue;
             foreach (var transaction in transactions.TransactionsList)
             {
-                //if stock == this stock; TODO: move level up (wallet should update stocks)
                 if (timeframe.Contains(transaction.Date))
                 {
-                    
+                    bool income = transaction.TargetStock.Equals(this);
+                    bool outcome = transaction.TransactionSoucePayments.Any(payment => payment.Stock.Equals(this));
+
+                    if (income)
+                    {
+                        ActualValue += transaction.Value;
+                    }
+
+                    if (outcome)
+                    {
+                        foreach (TransactionPartPayment payment in transaction.TransactionSoucePayments)
+                        {
+                            if (payment.Stock.Equals(this))
+                            {
+                                double value = payment.PaymentType == ePaymentType.Value
+                                    ? payment.Value
+                                    : payment.Value*transaction.Value/100;
+
+                                ActualValue -= value;
+                            }
+                        }
+                    }
                 }
             }
-            throw new NotImplementedException();
         }
 
         public Stock(string name, float startingValue)

@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StocksManagement\StockStats.cs" />
     <Compile Include="TransactionManagement\ePaymentType.cs" />
     <Compile Include="FilesOperations\Deserializer.cs" />
     <Compile Include="FilesOperations\Serializer.cs" />

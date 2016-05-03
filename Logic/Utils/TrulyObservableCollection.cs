@@ -14,11 +14,11 @@ namespace Logic.Utils
             CollectionChanged += FullObservableCollectionCollectionChanged;
         }
 
-        public TrulyObservableCollection(IEnumerable<T> pItems) : this()
+        public TrulyObservableCollection(IEnumerable<T> items) : this()
         {
-            foreach (var item in pItems)
+            foreach (var item in items)
             {
-                this.Add(item);
+                Add(item);
             }
         }
 

@@ -51,6 +51,13 @@ namespace CashManager
                     }
                 }
             }
+            else
+            {
+                if (wallet.AvailableStocks.Count > 0)
+                {
+                    index = 0;
+                }
+            }
             comboboxTargetStock.SelectedIndex = index;
         }
 

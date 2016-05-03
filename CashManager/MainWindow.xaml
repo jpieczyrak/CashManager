@@ -19,7 +19,7 @@
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding TransactionsList}" Name="DataGridTransactions" AutoGenerateColumns="False" CellEditEnding="DataGridTransactions_CellEditEnding" Margin="5" CanUserAddRows="True" IsReadOnly="False" MouseLeave="DataGridTransactions_MouseLeave" Grid.ColumnSpan="2">
+        <DataGrid Grid.Row="1" ItemsSource="{Binding TransactionsList}" Name="DataGridTransactions" AutoGenerateColumns="False" CellEditEnding="DataGridTransactions_CellEditEnding" Margin="5" CanUserAddRows="True" IsReadOnly="False" MouseLeave="DataGridTransactions_MouseLeave" Grid.ColumnSpan="3">
             <DataGrid.Columns>
                 <!-- <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}"/> -->
                 <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='dd.MM.yyyy', Mode=OneWay}" Width="100*"/>
@@ -66,6 +66,14 @@
             </DataGrid.RowDetailsTemplate>
 
         </DataGrid>
+
+        <DataGrid x:Name="dataGridStockStats" Margin="0,5" AutoGenerateColumns="False" CanUserAddRows="True" IsReadOnly="False" Grid.Row="1" Grid.Column="3">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name, Mode=OneWay}" Width="50*"/>
+                <DataGridTextColumn Header="Value" Binding="{Binding Value, Mode=OneWay}" Width="50*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
         <Button x:Name="buttonAdd" Content="Add transaction" HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="100" Click="AddButtonClick" Height="24" Grid.ColumnSpan="2"/>
         <Button x:Name="buttonManageStocks" Content="Manage stocks" HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="100" Click="buttonManageStocks_Click" Height="24" Grid.ColumnSpan="2" Grid.Column="1"/>
         <Button x:Name="buttonParse" Content="Parse" HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="100" Click="buttonParse_Click" Height="24" Grid.ColumnSpan="2" Grid.Column="2"/>
