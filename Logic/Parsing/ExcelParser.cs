@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
@@ -18,33 +17,47 @@ namespace Logic.Parsing
             {
                 string[] values = line.Split(';');
 
-                bool buying = string.IsNullOrEmpty(values[10]);
+                bool buying = !string.IsNullOrEmpty(values[11]);
+                bool working = !string.IsNullOrEmpty(values[10]);
 
-
-                eTransactionType type = string.IsNullOrEmpty(values[10]) ? eTransactionType.Buy : eTransactionType.Work;
-                DateTime date = DateTime.ParseExact(values[0], "d.M.yy", CultureInfo.InvariantCulture);
-
-                string title = values[12];
-                Transaction transaction = new Transaction(type, date, title, "");
-                Subtransaction subtransaction = new Subtransaction();
-
-                string stringWithValue = buying ? values[11] : values[10];
-                double value;
-                double.TryParse(stringWithValue, out value);
-
-                subtransaction.Value = value;
-                subtransaction.Name = title;
-                
-                transaction.Subtransactions.Add(subtransaction);
-
-                transaction.TargetStock = buying ? Stock.Unknown : userStock;
-
-                Stock sourceStock = !buying ? Stock.Unknown : userStock;
-                transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));
-
-                transactions.Add(transaction);
+                if (buying)
+                {
+                    transactions.Add(MakeTransaction(userStock, true, values));
+                }
+                if (working)
+                {
+                    transactions.Add(MakeTransaction(userStock, false, values));
+                }
             }
             return transactions;
+        }
+
+        private Transaction MakeTransaction(Stock userStock, bool outcome, string[] values)
+        {
+            DateTime date = DateTime.ParseExact(values[0], "d.M.yy", CultureInfo.InvariantCulture);
+            string title = values[12];
+
+            eTransactionType type = outcome ? eTransactionType.Buy : eTransactionType.Work;
+
+            Transaction transaction = new Transaction(type, date, title, "");
+
+            Subtransaction subtransaction = new Subtransaction();
+
+            string stringWithValue = outcome ? values[11] : values[10];
+            double value;
+            double.TryParse(stringWithValue, out value);
+
+            subtransaction.Value = value;
+            subtransaction.Name = title;
+
+            transaction.Subtransactions.Add(subtransaction);
+
+            transaction.TargetStock = outcome ? Stock.Unknown : userStock;
+
+            Stock sourceStock = !outcome ? Stock.Unknown : userStock;
+            transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));
+
+            return transaction;
         }
     }
 }
