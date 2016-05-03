@@ -23,6 +23,8 @@ namespace CashManager
 
         public MainWindow()
         {
+            DataContext = Transactions;
+            
             //temp use:
 
 
@@ -53,7 +55,7 @@ namespace CashManager
 
 
 
-            DataGridTransactions.ItemsSource = Transactions.TransactionsList;
+            //DataGridTransactions.ItemsSource = Transactions.TransactionsList;
 
             //CollectionViewSource itemCollectionViewSource = (CollectionViewSource)FindResource("ItemCollectionViewSource");
             //itemCollectionViewSource.Source = x.ToArray();

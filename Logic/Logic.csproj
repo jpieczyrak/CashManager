@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ePaymentType.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="TransactionManagement\Category.cs" />
     <Compile Include="TransactionManagement\eTransactionType.cs" />
     <Compile Include="StocksManagement\Stock.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="TransactionManagement\Transaction.cs" />
     <Compile Include="TransactionManagement\Transactions.cs" />
     <Compile Include="StocksManagement\UserStock.cs" />
+    <Compile Include="TransactionManagement\TrulyObservableCollection.cs" />
     <Compile Include="TransactionPartPayment.cs" />
     <Compile Include="TransactionPayments.cs" />
     <Compile Include="ValueCalculationStrategies\BasicCalculationStrategy.cs" />

@@ -62,7 +62,7 @@
         <DataGrid x:Name="dataGridSources" Margin="0,5" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4" AutoGenerateColumns="False" ItemsSource="{Binding TransactionSoucePayments}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="100*"/>
-                <DataGridTextColumn Header="Stock" Binding="{Binding Stock}" Width="100*"/>
+                <DataGridTextColumn Header="Stock" Binding="{Binding Stock, Mode=OneWay}" Width="100*"/>
                 <DataGridTextColumn Header="Payment type" Binding="{Binding PaymentType, Mode=OneWay}" Width="100*"/>
             </DataGrid.Columns>
         </DataGrid>
