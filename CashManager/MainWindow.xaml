@@ -7,6 +7,10 @@
         Title="Cash Manager" Height="600" Width="800" Icon="Resources/cash.png">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>
             <RowDefinition Height="469*"/>
@@ -16,9 +20,9 @@
         <DataGrid TabIndex="0" Grid.Row="1" ItemsSource="{Binding}" Name="DataGridTransactions" AutoGenerateColumns="False" CellEditEnding="DataGridTransactions_CellEditEnding" Margin="5" CanUserAddRows="True" IsReadOnly="False">
             <DataGrid.Columns>
                 <!-- <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}"/> -->
-                <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
-                <DataGridTextColumn Header="Title" Binding="{Binding Title}" />
-                <DataGridTextColumn Header="Value" Binding="{Binding Value, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="100*"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="100*" />
+                <DataGridTextColumn Header="Value" Binding="{Binding Value, Mode=OneWay}" Width="60*"/>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
@@ -39,7 +43,7 @@
 
                             <TextBlock Text="ID: " FontWeight="Bold" Grid.Row="0" />
                             <TextBlock Text="{Binding Id}" Grid.Column="1" Grid.Row="0" />
-                            
+
                             <TextBlock Text="Note: " FontWeight="Bold" Grid.Row="1" />
                             <TextBlock Text="{Binding Note}" Grid.Column="1" Grid.Row="1" />
                             <TextBlock Text="Type: " FontWeight="Bold" Grid.Row="2" />
@@ -60,7 +64,7 @@
             </DataGrid.RowDetailsTemplate>
 
         </DataGrid>
-        <Button x:Name="buttonAdd" Content="Add transaction" HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="100" Click="button_Click" Height="25"/>
+        <Button x:Name="buttonAdd" Content="Add transaction" HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="100" Click="button_Click" Height="24" Grid.ColumnSpan="2"/>
     </Grid>
 
 </Window>
