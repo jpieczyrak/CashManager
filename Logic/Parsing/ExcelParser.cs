@@ -9,7 +9,7 @@ namespace Logic.Parsing
 {
     public class ExcelParser : IParser
     {
-        public List<Transaction> Parse(string input, ObservableCollection<Stock> stocks)
+        public List<Transaction> Parse(string input, Stock userStock)
         {
             List<Transaction> transactions = new List<Transaction>();
             string[] lines = input.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
@@ -37,10 +37,10 @@ namespace Logic.Parsing
                 
                 transaction.Subtransactions.Add(subtransaction);
 
-                transaction.TargetStock = buying ? stocks[4] : stocks[0];
+                transaction.TargetStock = buying ? Stock.Unknown : userStock;
 
-                Stock sourceStock = !buying ? stocks[4] : stocks[0];;
-                transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock.ToString(), 100, ePaymentType.Percent));
+                Stock sourceStock = !buying ? Stock.Unknown : userStock;
+                transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));
 
                 transactions.Add(transaction);
             }

@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
 using Logic;
 using Logic.Parsing;
+using Logic.StocksManagement;
 using Logic.TransactionManagement;
 
 namespace CashManager
@@ -23,6 +26,9 @@ namespace CashManager
             InitializeComponent();
 
             DataContext = _transactions;
+
+            comboboxUserStock.ItemsSource = _wallet.AvailableStocks;
+            comboboxInputType.ItemsSource = Enum.GetValues(typeof(eParserInputType)).Cast<eParserInputType>();
         }
 
         private void EditButtonClick(object sender, RoutedEventArgs e)
@@ -35,9 +41,14 @@ namespace CashManager
         {
             string input = textBoxDataToParse.Text;
 
-            IParser parser = ParserFactory.Create(eParserInputType.Excel);
+            if (comboboxUserStock.SelectedIndex < 0)    return;
+            if (comboboxInputType.SelectedIndex < 0)    return;
 
-            List<Transaction> parsedTransactions = parser.Parse(input, _wallet.AvailableStocks);
+            Stock userStock = (Stock) comboboxUserStock.SelectedItem;
+            eParserInputType parserInputType = (eParserInputType) comboboxInputType.SelectedItem;
+            IParser parser = ParserFactory.Create(parserInputType);
+
+            List <Transaction> parsedTransactions = parser.Parse(input, userStock);
             foreach (Transaction transaction in parsedTransactions)
             {
                 _transactions.TransactionsList.Add(transaction);

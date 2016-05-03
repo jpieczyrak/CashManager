@@ -15,6 +15,9 @@ namespace Logic.StocksManagement
         [DataMember]
         public string Name { get; set; }
 
+        [DataMember]
+        public Guid Id { get; set; }
+
         public override string ToString()
         {
             return Name;
@@ -31,6 +34,8 @@ namespace Logic.StocksManagement
         /// </summary>
         [DataMember]
         public double ActualValue { get; set; }
+
+        public static Stock Unknown { get; private set; } = new Stock(Guid.Empty);
 
         public double GetActualValue(Transactions transactions, TimeFrame timeframe)
         {
@@ -55,6 +60,13 @@ namespace Logic.StocksManagement
         {
             Name = name;
             StartingValue = startingValue;
+            Id = Guid.NewGuid();
+        }
+
+        private Stock(Guid empty)
+        {
+            Name = "Unknown";
+            Id = empty;
         }
     }
 }

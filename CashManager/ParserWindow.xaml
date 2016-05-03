@@ -13,16 +13,20 @@
             <ColumnDefinition Width="150*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60*"/>
-            <RowDefinition Height="505*"/>
+            <RowDefinition Height="125"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="400*"/>
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
 
-        <TextBox x:Name="textBoxDataToParse" TextWrapping="Wrap" AcceptsReturn="True" Grid.ColumnSpan="3"/>
-        <!-- Combobox for chosing parsing source -->
-        <Button x:Name="buttonParse" Content="Parse" Grid.Column="3" Click="buttonParse_Click"/>
+        <TextBox x:Name="textBoxDataToParse" TextWrapping="Wrap" AcceptsReturn="True" Grid.ColumnSpan="4"/>
+        
+        <ComboBox x:Name="comboboxUserStock" ToolTip="UserStock" Grid.Row="1" />
+        <ComboBox x:Name="comboboxInputType" ToolTip="InputType" Grid.Row="1" Grid.Column="1" />
+        
+        <Button x:Name="buttonParse" Content="Parse" Grid.Column="2" Click="buttonParse_Click" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="25"/>
 
-        <DataGrid ItemsSource="{Binding TransactionsList}" Name="DataGridTransactions" AutoGenerateColumns="False" Margin="5" CanUserAddRows="True" IsReadOnly="False" Grid.ColumnSpan="4" Grid.Row="1">
+        <DataGrid ItemsSource="{Binding TransactionsList}" Name="DataGridTransactions" AutoGenerateColumns="False" Margin="5" CanUserAddRows="True" IsReadOnly="False" Grid.ColumnSpan="4" Grid.Row="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='dd.MM.yyyy', Mode=OneWay}" Width="100*"/>
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="100*" />
@@ -61,9 +65,9 @@
             </DataGrid.RowDetailsTemplate>
 
         </DataGrid>
-        
-        <Button x:Name="buttonAccept" Content="Accept" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2" Width="125" Height="25" Click="buttonAccept_Click"/>
-        <Button x:Name="buttonCancel" Content="Cancel" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2" Width="125" Height="25" Click="buttonCancel_Click" Grid.Column="2"/>
+
+        <Button x:Name="buttonAccept" Content="Accept" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="2" Width="124" Height="25" Click="buttonAccept_Click" Margin="86,5"/>
+        <Button x:Name="buttonCancel" Content="Cancel" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="2" Width="124" Height="25" Click="buttonCancel_Click" Grid.Column="2" Margin="86,5"/>
 
     </Grid>
 </Window>

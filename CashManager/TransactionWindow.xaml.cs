@@ -75,7 +75,7 @@ namespace CashManager
             double.TryParse(textBoxSourceValue.Text, out value);
             textBoxSourceValue.Text = "";
 
-            string sourceStock = comboboxSourceStock.SelectedIndex >= 0 ? comboboxSourceStock.SelectedItem.ToString() : "";
+            Stock sourceStock = (Stock) (comboboxSourceStock.SelectedIndex >= 0 ? comboboxSourceStock.SelectedItem : Stock.Unknown);
 
             ePaymentType payment = ePaymentType.Value;
             if (comboBoxContributionTypes.SelectedIndex >= 0)

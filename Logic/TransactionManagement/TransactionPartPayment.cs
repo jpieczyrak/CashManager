@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using Logic.Annotations;
+using Logic.StocksManagement;
 
 namespace Logic.TransactionManagement
 {
@@ -11,7 +12,7 @@ namespace Logic.TransactionManagement
         private double _value;
         private ePaymentType _paymentType;
 
-        public TransactionPartPayment(string stock, double value, ePaymentType paymentType)
+        public TransactionPartPayment(Stock stock, double value, ePaymentType paymentType)
         {
             Stock = stock;
             Value = value;
@@ -19,7 +20,7 @@ namespace Logic.TransactionManagement
         }
 
         [DataMember]
-        public string Stock { get; set; }
+        public Stock Stock { get; set; }
 
         [DataMember]
         public double Value
