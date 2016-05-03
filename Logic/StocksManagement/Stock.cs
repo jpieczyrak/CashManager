@@ -9,7 +9,7 @@ namespace Logic.StocksManagement
     /// You can have more than one Stock in your Wallet (like bank account, phisic wallet, second bank acc ect)
     /// Actual value is based on starting value + income - outcome from transactions.
     /// </summary>
-    [DataContract]
+    [DataContract(Namespace = "")]
     public class Stock
     {
         [DataMember]

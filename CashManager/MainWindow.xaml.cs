@@ -38,6 +38,8 @@ namespace CashManager
             _wallet.AddStock(FP);
             _wallet.AddStock(proline); //?
 
+            _wallet.Transactions = Transactions;
+
             InitializeComponent();
             Title += " " + Assembly.GetExecutingAssembly().GetName().Version;
 

@@ -6,7 +6,7 @@ using Logic.Annotations;
 
 namespace Logic
 {
-    [DataContract]
+    [DataContract(Namespace = "")]
     public class TransactionPartPayment : INotifyPropertyChanged
     {
         private double _value;

@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace Logic.TransactionManagement
+namespace Logic
 {
     public sealed class TrulyObservableCollection<T> : ObservableCollection<T>
         where T : INotifyPropertyChanged

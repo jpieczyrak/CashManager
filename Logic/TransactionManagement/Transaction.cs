@@ -9,7 +9,7 @@ using Logic.ValueCalculationStrategies;
 
 namespace Logic.TransactionManagement
 {
-    [DataContract]
+    [DataContract(Namespace = "")]
     public class Transaction : INotifyPropertyChanged
     {
         private readonly IValueCalculationStrategy _strategy;

@@ -7,7 +7,7 @@ namespace Logic.TransactionManagement
     /// <summary>
     /// List of all transaction saved in app.
     /// </summary>
-    [DataContract]
+    [DataContract(Namespace = "")]
     public class Transactions
     {
         [DataMember]

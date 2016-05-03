@@ -6,8 +6,7 @@ using Logic.Annotations;
 
 namespace Logic.TransactionManagement
 {
-    [Serializable]
-    [DataContract]
+    [DataContract(Namespace = "")]
     public class Subtransaction : INotifyPropertyChanged
     {
         private double _value;

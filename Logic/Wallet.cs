@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using Logic.StocksManagement;
+using Logic.TransactionManagement;
 
 namespace Logic
 {
-    [DataContract]
+    [DataContract(Namespace = "")]
     public class Wallet
     {
         [DataMember]
         public List<Stock> AvailableStocks { get; } = new List<Stock>();
+
+        [DataMember]
+        public Transactions Transactions { get; set; } 
 
         public Wallet()
         {

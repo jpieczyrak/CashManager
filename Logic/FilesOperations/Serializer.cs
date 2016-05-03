@@ -27,15 +27,5 @@ namespace Logic.FilesOperations
             {
             }
         }
-
-        public static void test<T>(T serializableObject, string filename)
-        {
-            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(serializableObject.GetType());
-            var settings = new XmlWriterSettings { Indent = true };
-            using (XmlWriter writer = XmlWriter.Create(filename, settings))
-            {
-                serializer.Serialize(writer, serializableObject);
-            }
-        }
     }
 }

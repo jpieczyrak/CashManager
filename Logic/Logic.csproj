@@ -54,9 +54,8 @@
     <Compile Include="TransactionManagement\Transaction.cs" />
     <Compile Include="TransactionManagement\Transactions.cs" />
     <Compile Include="StocksManagement\Stock.cs" />
-    <Compile Include="TransactionManagement\TrulyObservableCollection.cs" />
+    <Compile Include="TrulyObservableCollection.cs" />
     <Compile Include="TransactionPartPayment.cs" />
-    <Compile Include="TransactionPayments.cs" />
     <Compile Include="ValueCalculationStrategies\BasicCalculationStrategy.cs" />
     <Compile Include="ValueCalculationStrategies\IValueCalculationStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
