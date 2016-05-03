@@ -17,13 +17,8 @@ namespace Logic
         public List<Stock> AvailableStocks { get; set; } = new List<Stock>();
 
         [DataMember]
-        public Transactions Transactions { get; set; } 
-
-        public Wallet()
-        {
-            //Stocks.AvailableStocks = AvailableStocks;
-        }
-
+        public Transactions Transactions { get; set; } = new Transactions();
+        
         public void AddStock(Stock stock)
         {
             //TODO: check if stock allready exists? (or check higher)
