@@ -12,7 +12,7 @@ namespace Logic.TransactionManagement
     [DataContract(Namespace = "")]
     public class Transaction : INotifyPropertyChanged
     {
-        private readonly IValueCalculationStrategy _strategy;
+        private IValueCalculationStrategy _strategy;
         private DateTime _date;
         [DataMember]
         private string _note;
@@ -56,6 +56,7 @@ namespace Logic.TransactionManagement
             _subtransactions.CollectionChanged += CollectionChanged;
         }
 
+        [DataMember]
         public Guid Id { get; private set; }
 
         [DataMember]
@@ -127,7 +128,14 @@ namespace Logic.TransactionManagement
         [DataMember]
         public double Value
         {
-            get { return _strategy.CalculateValue(Type, TransactionSoucePayments, Subtransactions); }
+            get
+            {
+                if (_strategy == null)
+                {
+                    _strategy = new BasicCalculationStrategy();
+                }
+                return _strategy.CalculateValue(Type, TransactionSoucePayments, Subtransactions);
+            }
             set { }
         }
 

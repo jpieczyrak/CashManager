@@ -5,9 +5,9 @@ using System.Xml;
 
 namespace Logic.FilesOperations
 {
-    class Deserializer
+    public class Deserializer
     {
-        public static T DeserializeXML<T>(string filepath)
+        public static T DeserializeXML<T>(string filepath) where T : new()
         {
             DataContractSerializer serializer = new DataContractSerializer(typeof (T));
 
@@ -27,7 +27,7 @@ namespace Logic.FilesOperations
             catch (Exception e)
             {
             }
-            return default(T);
+            return new T();
         }
     }
 }

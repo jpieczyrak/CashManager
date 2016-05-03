@@ -63,6 +63,7 @@ namespace CashManager
         private void buttonOK_Click(object sender, RoutedEventArgs e)
         {
             Close();
+            _wallet.Save();
         }
 
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
