@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ePaymentType.cs" />
+    <Compile Include="TransactionManagement\ePaymentType.cs" />
     <Compile Include="FilesOperations\Deserializer.cs" />
     <Compile Include="FilesOperations\Serializer.cs" />
     <Compile Include="Parsing\eParserInputType.cs" />
@@ -58,8 +58,8 @@
     <Compile Include="TransactionManagement\Transaction.cs" />
     <Compile Include="TransactionManagement\Transactions.cs" />
     <Compile Include="StocksManagement\Stock.cs" />
-    <Compile Include="TrulyObservableCollection.cs" />
-    <Compile Include="TransactionPartPayment.cs" />
+    <Compile Include="Utils\TrulyObservableCollection.cs" />
+    <Compile Include="TransactionManagement\TransactionPartPayment.cs" />
     <Compile Include="ValueCalculationStrategies\BasicCalculationStrategy.cs" />
     <Compile Include="ValueCalculationStrategies\IValueCalculationStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

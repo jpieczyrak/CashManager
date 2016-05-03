@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using Logic.Annotations;
 using Logic.StocksManagement;
+using Logic.Utils;
 using Logic.ValueCalculationStrategies;
 
 namespace Logic.TransactionManagement
