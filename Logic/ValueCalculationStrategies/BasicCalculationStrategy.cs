@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using Logic.TransactionManagement;
 
@@ -7,37 +6,19 @@ namespace Logic.ValueCalculationStrategies
 {
     public class BasicCalculationStrategy : IValueCalculationStrategy
     {
-        public float CalculateValue(float rawValue, float contribution)
+        public double CalculateValue(eTransactionType transactionType,
+            ObservableCollection<TransactionPartPayment> transactionSoucePayments,
+            ObservableCollection<Subtransaction> subtransactions)
         {
-            return rawValue * contribution / 100.0f;
-        }
+            double subtransactionCost = subtransactions.Sum(subtransaction => subtransaction.Value);
 
-        public float CalculateValue(eTransactionType transactionType, ObservableCollection<TransactionPartPayment> transactionSoucePayments,
-           float contribution, ePaymentType contributionType)
-        {
-            float sourcesValue = (float) transactionSoucePayments.Sum(payment => payment.Value);
-
-            bool profit = false;
-
-            switch (transactionType)
-            {
-                case eTransactionType.Sell:
-                case eTransactionType.Resell:
-                case eTransactionType.Work:
-                    profit = true;
-                    break;
-                case eTransactionType.Transfer:
-                    return 0;
-                case eTransactionType.Buy:
-                case eTransactionType.Reinvest:
-                    profit = true;
-                    break;
-            }
-
-            if (contributionType.Equals(ePaymentType.Percent))
-                return sourcesValue * contribution / 100 * (profit ? 1 : -1);
-            else
-                return contribution * (profit ? 1 : -1);
+            double value =
+                transactionSoucePayments.Sum(
+                    payment =>
+                        payment.PaymentType.Equals(ePaymentType.Value)
+                            ? payment.Value
+                            : subtransactionCost*payment.Value/100);
+            return value;
         }
     }
 }

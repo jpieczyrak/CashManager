@@ -27,7 +27,7 @@ namespace CashManager
             DataContext = transaction;
 
             comboBoxContributionTypes.ItemsSource = Enum.GetValues(typeof(ePaymentType)).Cast<ePaymentType>();
-            comboBoxContributionTypes.SelectedItem = Transaction.ContributionType;
+            comboBoxContributionTypes.SelectedItem = ePaymentType.Value;
 
             comboBoxTransactionType.ItemsSource = Enum.GetValues(typeof(eTransactionType)).Cast<eTransactionType>();
             comboBoxTransactionType.SelectedItem = Transaction.Type;
@@ -71,14 +71,6 @@ namespace CashManager
             //Close();
         }
 
-        private void comboBoxContributionTypes_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if (comboBoxContributionTypes.SelectedIndex > -1)
-            {
-                Transaction.ContributionType = (ePaymentType) comboBoxContributionTypes.SelectedItem;
-            }
-        }
-
         private void comboBoxTransactionType_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (comboBoxTransactionType.SelectedIndex > -1)
@@ -95,7 +87,13 @@ namespace CashManager
 
             string sourceStock = comboboxSourceStock.SelectedIndex >= 0 ? comboboxSourceStock.SelectedItem.ToString() : "";
 
-            Transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, value));
+            ePaymentType payment = ePaymentType.Value;
+            if (comboBoxContributionTypes.SelectedIndex >= 0)
+            {
+                payment = (ePaymentType) comboBoxContributionTypes.SelectedIndex;
+            }
+            
+            Transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, value, payment));
         }
 
         private void comboboxTargetStock_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

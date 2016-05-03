@@ -2,7 +2,7 @@
 
 namespace Logic.TransactionManagement
 {
-    public class Subtransation
+    public class Subtransaction
     {
         public string Name { get; set; }
 

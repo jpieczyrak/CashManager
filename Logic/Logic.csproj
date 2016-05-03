@@ -45,7 +45,7 @@
     <Compile Include="TransactionManagement\Category.cs" />
     <Compile Include="TransactionManagement\eTransactionType.cs" />
     <Compile Include="StocksManagement\Stock.cs" />
-    <Compile Include="TransactionManagement\Subtransation.cs" />
+    <Compile Include="TransactionManagement\Subtransaction.cs" />
     <Compile Include="TransactionManagement\Tag.cs" />
     <Compile Include="TransactionManagement\TimeFrame.cs" />
     <Compile Include="TransactionManagement\Transaction.cs" />

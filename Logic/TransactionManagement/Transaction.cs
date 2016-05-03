@@ -12,13 +12,6 @@ namespace Logic.TransactionManagement
 
         public DateTime Date { get; set; }
 
-        /// <summary>
-        /// Contribution value (0, 100 for percent; X for Value)
-        /// </summary>
-        public float Contribution { get; set; } = 100;
-
-        public ePaymentType ContributionType { get; set; } = ePaymentType.Percent;
-
         public string Title { get; set; }
 
         public string Note { get; set; }
@@ -29,8 +22,8 @@ namespace Logic.TransactionManagement
 
         public Stock TargetStock { get; set; }
 
-        public float Value => _strategy.CalculateValue(Type, TransactionSoucePayments, Contribution, ContributionType);
-        public ObservableCollection<Subtransation> Subtransactions { get; set; } = new ObservableCollection<Subtransation>();
+        public double Value => _strategy.CalculateValue(Type, TransactionSoucePayments, Subtransactions);
+        public ObservableCollection<Subtransaction> Subtransactions { get; set; } = new ObservableCollection<Subtransaction>();
 
         public Transaction(eTransactionType type, DateTime date, string title, string note)
         {

@@ -5,6 +5,6 @@ namespace Logic.ValueCalculationStrategies
 {
     public interface IValueCalculationStrategy
     { 
-        float CalculateValue(eTransactionType transactionType, ObservableCollection<TransactionPartPayment> transactionSoucePayments, float contribution, ePaymentType contributionType);
+        double CalculateValue(eTransactionType transactionType, ObservableCollection<TransactionPartPayment> transactionSoucePayments, ObservableCollection<Subtransaction> subtransactions);
     }
 }
