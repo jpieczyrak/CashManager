@@ -18,7 +18,7 @@ namespace Logic
         {
             get
             {
-                if (_availableStocks.Count == 0)
+                if (_availableStocks.Count == 0 || !_availableStocks.Contains(Stock.Unknown))
                 {
                     _availableStocks.Add(Stock.Unknown);
                 }

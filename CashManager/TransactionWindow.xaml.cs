@@ -27,13 +27,18 @@ namespace CashManager
             DataContext = transaction;
 
             comboBoxContributionTypes.ItemsSource = Enum.GetValues(typeof(ePaymentType)).Cast<ePaymentType>();
-            comboBoxContributionTypes.SelectedItem = ePaymentType.Value;
+            comboBoxContributionTypes.SelectedItem = ePaymentType.Percent;
 
             comboBoxTransactionType.ItemsSource = Enum.GetValues(typeof(eTransactionType)).Cast<eTransactionType>();
             comboBoxTransactionType.SelectedItem = Transaction.Type;
 
             comboboxSourceStock.ItemsSource = wallet.AvailableStocks;
             comboboxTargetStock.ItemsSource = wallet.AvailableStocks;
+
+            if (wallet.AvailableStocks.Count > 0)
+            {
+                comboboxSourceStock.SelectedIndex = 0;
+            }
 
             int index = -1;
             if (Transaction.TargetStock != null)

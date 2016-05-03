@@ -54,7 +54,7 @@
 
         <DatePicker Grid.Column="1" Margin="0,5" Grid.Row="2" VerticalAlignment="Center" Grid.ColumnSpan="4" Height="30" Text="{Binding Path=Date, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}" FirstDayOfWeek="Monday"  />
 
-        <TextBox x:Name="textBoxSourceValue" Grid.Row="4" Grid.Column="1" ToolTip="Value" />
+        <TextBox x:Name="textBoxSourceValue" Grid.Row="4" Grid.Column="1" ToolTip="Value" Text="100" />
         <ComboBox x:Name="comboBoxContributionTypes" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" Margin="0" Height="24"/>
         <ComboBox x:Name="comboboxSourceStock" Grid.Row="4" Grid.Column="3" ToolTip="Souce stock" />
         <Button x:Name="buttonAddSource" Grid.Row="4" Grid.Column="4" Content="Add" Click="buttonAddSource_Click"/>
