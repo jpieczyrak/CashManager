@@ -50,6 +50,7 @@ namespace CashManager
             {
                 _wallet.Transactions.Add(transaction);
             }
+            _wallet.Save();
             Close();
         }
 

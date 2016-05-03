@@ -52,6 +52,8 @@ namespace Logic.TransactionManagement
             Date = DateTime.Now;
             Id = Guid.NewGuid();
 
+            LastEditDate = CreationDate = DateTime.Now;
+
             _transactionSoucePayments.CollectionChanged += CollectionChanged;
             _subtransactions.CollectionChanged += CollectionChanged;
         }
@@ -150,6 +152,12 @@ namespace Logic.TransactionManagement
             }
         }
 
+        [DataMember]
+        public DateTime CreationDate { get; set; }
+
+        [DataMember]
+        public DateTime LastEditDate { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -160,6 +168,7 @@ namespace Logic.TransactionManagement
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
+            LastEditDate = DateTime.Now;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
