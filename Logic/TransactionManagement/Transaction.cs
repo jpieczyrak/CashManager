@@ -142,6 +142,11 @@ namespace Logic.TransactionManagement
             set { }
         }
 
+        public double ValueAsProfit
+        {
+            get { return Type == eTransactionType.Buy || Type == eTransactionType.Reinvest ? -Value : Value; }
+        }
+
         [DataMember]
         public TrulyObservableCollection<Subtransaction> Subtransactions
         {
