@@ -39,5 +39,10 @@ namespace CashManager
         {
             _wallet.Save();
         }
+
+        private void DataGridTransactions_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            DataGridTransactions.SelectedIndex = -1;
+        }
     }
 }

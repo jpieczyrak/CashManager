@@ -17,7 +17,7 @@
             <RowDefinition Height="70*"/>
         </Grid.RowDefinitions>
 
-        <DataGrid TabIndex="0" Grid.Row="1" ItemsSource="{Binding TransactionsList}" Name="DataGridTransactions" AutoGenerateColumns="False" CellEditEnding="DataGridTransactions_CellEditEnding" Margin="5" CanUserAddRows="True" IsReadOnly="False">
+        <DataGrid TabIndex="0" Grid.Row="1" ItemsSource="{Binding TransactionsList}" Name="DataGridTransactions" AutoGenerateColumns="False" CellEditEnding="DataGridTransactions_CellEditEnding" Margin="5" CanUserAddRows="True" IsReadOnly="False" MouseLeave="DataGridTransactions_MouseLeave">
             <DataGrid.Columns>
                 <!-- <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}"/> -->
                 <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="100*"/>
