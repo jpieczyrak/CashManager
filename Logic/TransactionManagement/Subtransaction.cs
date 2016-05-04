@@ -10,6 +10,17 @@ namespace Logic.TransactionManagement
     public class Subtransaction : INotifyPropertyChanged
     {
         private double _value;
+        
+        public Subtransaction()
+        {
+        }
+
+        public Subtransaction(string name, double value)
+        {
+            _value = value;
+            Name = name;
+        }
+
         [DataMember]
         public string Name { get; set; }
         [DataMember]

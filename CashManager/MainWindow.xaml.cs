@@ -15,11 +15,11 @@ namespace CashManager
     {
         private readonly MainWindowDataContext _dataContext = new MainWindowDataContext();
         public MainWindow()
-        {
+        {       
             _dataContext.Wallet = Deserializer.DeserializeXML<Wallet>(Wallet.Path);
             _dataContext.Timeframe = new TimeFrame(DateTime.Now.AddYears(-5), DateTime.Now);
             _dataContext.Wallet.UpdateStockStats(_dataContext.StockStats, _dataContext.Timeframe);
-            
+
             InitializeComponent();
             Title += " " + Assembly.GetExecutingAssembly().GetName().Version;
 
@@ -27,7 +27,7 @@ namespace CashManager
 
             DataContext = _dataContext;
             dataGridStockStats.ItemsSource = _dataContext.StockStats;
-            
+            DataGridTransactions.ItemsSource = _dataContext.Wallet.Transactions.TransactionsList;
         }
 
         private void AddButtonClick(object sender, RoutedEventArgs e)

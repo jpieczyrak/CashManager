@@ -24,7 +24,7 @@
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Wallet.Transactions.TransactionsList}" Name="DataGridTransactions" AutoGenerateColumns="False" CellEditEnding="DataGridTransactions_CellEditEnding" Margin="5" CanUserAddRows="True" IsReadOnly="False" MouseLeave="DataGridTransactions_MouseLeave" Grid.ColumnSpan="3" Grid.RowSpan="5">
+        <DataGrid Grid.Row="1" Name="DataGridTransactions" AutoGenerateColumns="False" CellEditEnding="DataGridTransactions_CellEditEnding" Margin="5" CanUserAddRows="True" IsReadOnly="False" MouseLeave="DataGridTransactions_MouseLeave" Grid.ColumnSpan="3" Grid.RowSpan="5">
             <DataGrid.Columns>
                 <!-- <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}"/> -->
                 <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='dd.MM.yyyy', Mode=OneWay}" Width="100*"/>

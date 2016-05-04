@@ -12,13 +12,14 @@ namespace Logic.ValueCalculationStrategies
         {
             double subtransactionCost = subtransactions.Sum(subtransaction => subtransaction.Value);
 
-            double value =
-                transactionSoucePayments.Sum(
-                    payment =>
-                        payment.PaymentType.Equals(ePaymentType.Value)
-                            ? payment.Value
-                            : subtransactionCost*payment.Value/100);
-            return value;
+            //Not needed since Transaction.Validate()
+            //double value =
+            //    transactionSoucePayments.Sum(
+            //        payment =>
+            //            payment.PaymentType.Equals(ePaymentType.Value)
+            //                ? payment.Value
+            //                : subtransactionCost*payment.Value/100);
+            return subtransactionCost;
         }
     }
 }

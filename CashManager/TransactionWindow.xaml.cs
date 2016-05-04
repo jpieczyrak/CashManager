@@ -64,6 +64,7 @@ namespace CashManager
         private void buttonOK_Click(object sender, RoutedEventArgs e)
         {
             Close();
+            Transaction.Validate();
             _wallet.Save();
         }
 

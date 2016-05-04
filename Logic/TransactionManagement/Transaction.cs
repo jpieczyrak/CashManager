@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using Logic.Annotations;
@@ -13,10 +14,9 @@ namespace Logic.TransactionManagement
     [DataContract(Namespace = "")]
     public class Transaction : INotifyPropertyChanged
     {
-        private IValueCalculationStrategy _strategy;
         private DateTime _date;
-        [DataMember]
         private string _note;
+        private IValueCalculationStrategy _strategy;
 
         private TrulyObservableCollection<Subtransaction> _subtransactions =
             new TrulyObservableCollection<Subtransaction>();
@@ -43,7 +43,6 @@ namespace Logic.TransactionManagement
             Date = date;
             Title = title;
             Note = note;
-            Id = Guid.NewGuid();
         }
 
         public Transaction()
@@ -51,16 +50,12 @@ namespace Logic.TransactionManagement
             _strategy = new BasicCalculationStrategy();
             Type = eTransactionType.Buy;
             Date = DateTime.Now;
-            Id = Guid.NewGuid();
 
             LastEditDate = CreationDate = DateTime.Now;
 
             _transactionSoucePayments.CollectionChanged += CollectionChanged;
             _subtransactions.CollectionChanged += CollectionChanged;
         }
-
-        [DataMember]
-        public Guid Id { get; private set; }
 
         [DataMember]
         public eTransactionType Type
@@ -176,6 +171,29 @@ namespace Logic.TransactionManagement
         {
             LastEditDate = DateTime.Now;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// Checks if subtransaction value = income value, 
+        /// if not - addes new source (from unknown stock) to fullfill transaction
+        /// </summary>
+        public void Validate()
+        {
+            double subtransactionCost = _subtransactions.Sum(subtransaction => subtransaction.Value);
+
+            //TODO: Fix (can be unsafe (wrong value) if there would be some ~incomes (same source as target))
+            double value =
+                _transactionSoucePayments.Sum(
+                    payment =>
+                        payment.PaymentType.Equals(ePaymentType.Value)
+                            ? payment.Value
+                            : subtransactionCost * payment.Value / 100);
+
+            if (Math.Abs(subtransactionCost - value) > 0.0001)
+            {
+                double missingValue = subtransactionCost - value;
+                _transactionSoucePayments.Add(new TransactionPartPayment(Stock.Unknown, missingValue, ePaymentType.Value));
+            }
         }
     }
 }

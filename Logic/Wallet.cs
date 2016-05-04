@@ -36,6 +36,11 @@ namespace Logic
             return AvailableStocks.FirstOrDefault(stock => stock.Name.ToLower().Equals(stockName.ToLower()));
         }
 
+        public Stock GetStockByGUID(Guid guid)
+        {
+            return AvailableStocks.FirstOrDefault(stock => stock.Id == guid);
+        }
+
         public void Save()
         {
             Serializer.XMLSerializeObject(this, Path);
