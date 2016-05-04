@@ -108,6 +108,7 @@ namespace Logic.TransactionManagement
             set
             {
                 _transactionSoucePayments = value;
+                _transactionSoucePayments.CollectionChanged += CollectionChanged;
                 OnPropertyChanged();
             }
         }
@@ -149,6 +150,7 @@ namespace Logic.TransactionManagement
             set
             {
                 _subtransactions = value;
+                _subtransactions.CollectionChanged += CollectionChanged;
                 OnPropertyChanged();
             }
         }
@@ -164,6 +166,7 @@ namespace Logic.TransactionManagement
         private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             OnPropertyChanged(nameof(Value));
+            OnPropertyChanged(nameof(ValueAsProfit));
         }
 
         [NotifyPropertyChangedInvocator]
