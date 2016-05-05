@@ -1,12 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Logic.Specification;
+using Logic.TransactionManagement;
 
 namespace Logic.FindingFilters
 {
-    class TargetStockRule
+    public class TargetStockRule : CompositeSpecification<Transaction>
     {
+        private Guid _stockId;
+
+        public TargetStockRule(Guid stockId)
+        {
+            _stockId = stockId;
+        }
+
+        public override bool IsSatisfiedBy(Transaction o)
+        {
+            return _stockId.Equals(o.TargetStock.Id);
+        }
     }
 }

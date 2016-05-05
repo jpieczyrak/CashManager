@@ -42,6 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FindingFilters\eTransactionDirection.cs" />
+    <Compile Include="FindingFilters\TargetStockRule.cs" />
+    <Compile Include="FindingFilters\TimeFramRule.cs" />
+    <Compile Include="FindingFilters\TitleContainsRule.cs" />
+    <Compile Include="FindingFilters\TransactionDirectionRule.cs" />
+    <Compile Include="FindingFilters\TransactionMaxValueRule.cs" />
+    <Compile Include="FindingFilters\TransactionMinValueRule.cs" />
+    <Compile Include="FindingFilters\TransactionTypeRule.cs" />
     <Compile Include="Specification\AndSpecification.cs" />
     <Compile Include="Specification\CompositeSpecification.cs" />
     <Compile Include="Specification\ExpressionSpecification.cs" />

@@ -1,4 +1,5 @@
-﻿using Logic.Specification;
+﻿using System;
+using Logic.Specification;
 using Logic.TransactionManagement;
 
 namespace Logic.FindingFilters
