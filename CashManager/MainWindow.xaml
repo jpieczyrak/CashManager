@@ -48,8 +48,8 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <TextBlock Text="ID: " FontWeight="Bold" Grid.Row="0" />
-                            <TextBlock Text="{Binding Id}" Grid.Column="1" Grid.Row="0" />
+                            <TextBlock Text="CreationDate: " FontWeight="Bold" Grid.Row="0" />
+                            <TextBlock Text="{Binding CreationDate}" Grid.Column="1" Grid.Row="0" />
 
                             <TextBlock Text="Note: " FontWeight="Bold" Grid.Row="1" />
                             <TextBlock Text="{Binding Note}" Grid.Column="1" Grid.Row="1" />
