@@ -59,52 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" TimeFramRulemlns="" TimeFramRulemlns:TimeFramRulesd="http://www.w3.org/2001/XMLSchema" TimeFramRulemlns:msdata="urn:schemas-microsoft-com:TimeFramRuleml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:compleTimeFramRuleType>
-        <xsd:choice maTimeFramRuleOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:compleTimeFramRuleType>
-              <xsd:sequence>
-                <xsd:element name="value" type="TimeFramRulesd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="TimeFramRulesd:string" />
-              <xsd:attribute name="type" type="TimeFramRulesd:string" />
-              <xsd:attribute name="mimetype" type="TimeFramRulesd:string" />
-              <xsd:attribute ref="TimeFramRuleml:space" />
-            </xsd:compleTimeFramRuleType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:compleTimeFramRuleType>
-              <xsd:attribute name="alias" type="TimeFramRulesd:string" />
-              <xsd:attribute name="name" type="TimeFramRulesd:string" />
-            </xsd:compleTimeFramRuleType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:compleTimeFramRuleType>
-              <xsd:sequence>
-                <xsd:element name="value" type="TimeFramRulesd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="TimeFramRulesd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="TimeFramRulesd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="TimeFramRulesd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="TimeFramRulesd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="TimeFramRuleml:space" />
-            </xsd:compleTimeFramRuleType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:compleTimeFramRuleType>
-              <xsd:sequence>
-                <xsd:element name="value" type="TimeFramRulesd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="TimeFramRulesd:string" use="required" />
-            </xsd:compleTimeFramRuleType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:compleTimeFramRuleType>
-    </xsd:element>
-  </xsd:schema>
+
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
