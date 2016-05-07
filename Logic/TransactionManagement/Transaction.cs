@@ -140,7 +140,12 @@ namespace Logic.TransactionManagement
 
         public double ValueAsProfit
         {
-            get { return Type == eTransactionType.Buy || Type == eTransactionType.Reinvest ? -Value : Value; }
+            get
+            {
+                return Type == eTransactionType.Buy || Type == eTransactionType.Reinvest 
+                    ? -Value 
+                    : (Type != eTransactionType.Transfer ? Value : 0);
+            }
         }
 
         [DataMember]
