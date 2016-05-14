@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.Design;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
 using NUnit.Framework;

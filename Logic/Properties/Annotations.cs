@@ -152,7 +152,7 @@ namespace Logic.Annotations
   /// <list>
   /// <item><c>NotifyChanged("Property")</c></item>
   /// <item><c>NotifyChanged(() =&gt; Property)</c></item>
-  /// <item><c>NotifyChanged((VM x) =&gt; TimeFramRule.Property)</c></item>
+  /// <item><c>NotifyChanged((VM x) =&gt; TimeFrameRule.Property)</c></item>
   /// <item><c>SetProperty(ref myField, value, "Property")</c></item>
   /// </list>
   /// </example>
@@ -407,7 +407,7 @@ namespace Logic.Annotations
   /// The same as <c>System.Diagnostics.Contracts.PureAttribute</c>.
   /// </summary>
   /// <example><code>
-  /// [Pure] int Multiply(int x, int y) => TimeFramRule * y;
+  /// [Pure] int Multiply(int x, int y) => TimeFrameRule * y;
   /// 
   /// void M() {
   ///   Multiply(123, 42); // Waring: Return value of pure method is not used
@@ -516,8 +516,8 @@ namespace Logic.Annotations
   /// <code>
   /// [SourceTemplate]
   /// public static void something(this Entity x, [Macro(Expression = "guid()", Editable = -1)] string newguid) {
-  ///   /*$ var $x$Id = "$newguid$" + TimeFramRule.ToString();
-  ///   x.DoSomething($TimeFramRule$Id); */
+  ///   /*$ var $x$Id = "$newguid$" + TimeFrameRule.ToString();
+  ///   x.DoSomething($TimeFrameRule$Id); */
   /// }
   /// </code>
   /// </example>

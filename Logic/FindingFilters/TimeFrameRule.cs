@@ -3,11 +3,11 @@ using Logic.TransactionManagement;
 
 namespace Logic.FindingFilters
 {
-    public class TimeFramRule : CompositeSpecification<Transaction>
+    public class TimeFrameRule : CompositeSpecification<Transaction>
     {
         private readonly TimeFrame _timeFrame;
 
-        public TimeFramRule(TimeFrame timeFrame)
+        public TimeFrameRule(TimeFrame timeFrame)
         {
             _timeFrame = timeFrame;
         }

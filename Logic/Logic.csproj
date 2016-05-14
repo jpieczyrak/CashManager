@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="FindingFilters\eTransactionDirection.cs" />
     <Compile Include="FindingFilters\TargetStockRule.cs" />
-    <Compile Include="FindingFilters\TimeFramRule.cs" />
+    <Compile Include="FindingFilters\TimeFrameRule.cs" />
     <Compile Include="FindingFilters\TitleContainsRule.cs" />
     <Compile Include="FindingFilters\TransactionDirectionRule.cs" />
     <Compile Include="FindingFilters\TransactionMaxValueRule.cs" />
