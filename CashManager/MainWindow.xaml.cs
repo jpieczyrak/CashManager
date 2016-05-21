@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Logic;
 using Logic.FilesOperations;
+using Logic.FindingFilters;
 using Logic.TransactionManagement;
 
 namespace CashManager
@@ -30,17 +32,32 @@ namespace CashManager
             DataGridTransactions.ItemsSource = _dataContext.Wallet.Transactions.TransactionsList;
         }
 
-        private void AddButtonClick(object sender, RoutedEventArgs e)
+        private void AddTransactionButtonClick(object sender, RoutedEventArgs e)
         {
+            string name = (sender as Button)?.Name;
             Transaction transaction = new Transaction();
             _dataContext.Wallet.Transactions.Add(transaction);
-            TransactionWindow window = new TransactionWindow(transaction, _dataContext.Wallet);
-            window.Show();
+            TransactionWindow window = null;
+
+            if (name.ToLower().Contains("income"))
+            {
+                window =  new TransactionWindow(transaction, _dataContext.Wallet, eTransactionDirection.Income);
+            }
+            else if (name.ToLower().Contains("outcome"))
+            {
+                window = new TransactionWindow(transaction, _dataContext.Wallet, eTransactionDirection.Outcome);
+            }
+            else if (name.ToLower().Contains("transfer"))
+            {
+                window = new TransactionWindow(transaction, _dataContext.Wallet, eTransactionDirection.Transfer);
+            }
+            
+            window?.Show();
         }
 
         private void EditButtonClick(object sender, RoutedEventArgs e)
         {
-            TransactionWindow window = new TransactionWindow((Transaction)DataGridTransactions.SelectedItem, _dataContext.Wallet);
+            TransactionWindow window = new TransactionWindow((Transaction)DataGridTransactions.SelectedItem, _dataContext.Wallet, eTransactionDirection.Uknown);
             window.Show();
         }
 

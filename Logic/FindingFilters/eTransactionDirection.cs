@@ -4,6 +4,10 @@
     {
         Income,
         Outcome,
-        Transfer
+        Transfer,
+        /// <summary>
+        /// In gui used for edit transaction mode
+        /// </summary>
+        Uknown
     }
 }

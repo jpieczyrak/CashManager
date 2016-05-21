@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
 using Logic;
+using Logic.FindingFilters;
 using Logic.Parsing;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
@@ -33,7 +34,7 @@ namespace CashManager
 
         private void EditButtonClick(object sender, RoutedEventArgs e)
         {
-            TransactionWindow window = new TransactionWindow((Transaction)DataGridTransactions.SelectedItem, _wallet);
+            TransactionWindow window = new TransactionWindow((Transaction)DataGridTransactions.SelectedItem, _wallet, eTransactionDirection.Uknown);
             window.Show();
         }
 

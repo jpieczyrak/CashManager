@@ -38,6 +38,9 @@ namespace Logic.StocksManagement
 
         public static Stock Unknown { get; private set; } = new Stock(Guid.Empty);
 
+        [DataMember]
+        public bool IsUserStock { get; set; }
+
         public double GetActualValue(Transactions transactions, TimeFrame timeframe)
         {
             CalculateActualValue(transactions, timeframe);

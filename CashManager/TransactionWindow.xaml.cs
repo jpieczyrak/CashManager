@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using Logic;
+using Logic.FindingFilters;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
 
@@ -16,7 +17,13 @@ namespace CashManager
         private readonly Wallet _wallet;
         private Transaction Transaction { get; set; }
 
-        public TransactionWindow(Transaction transaction, Wallet wallet)
+        /// <summary>
+        /// Creation window
+        /// </summary>
+        /// <param name="transaction"></param>
+        /// <param name="wallet"></param>
+        /// <param name="transactionDirection"></param>
+        public TransactionWindow(Transaction transaction, Wallet wallet, eTransactionDirection transactionDirection)
         {
             _wallet = wallet;
             Transaction = transaction;     //make copy not copy ref!
@@ -29,23 +36,56 @@ namespace CashManager
             comboBoxContributionTypes.ItemsSource = Enum.GetValues(typeof(ePaymentType)).Cast<ePaymentType>();
             comboBoxContributionTypes.SelectedItem = ePaymentType.Percent;
 
-            comboBoxTransactionType.ItemsSource = Enum.GetValues(typeof(eTransactionType)).Cast<eTransactionType>();
-            comboBoxTransactionType.SelectedItem = Transaction.Type;
+            SetTransactionTypeCombobox(transactionDirection);
 
-            comboboxSourceStock.ItemsSource = wallet.AvailableStocks;
-            comboboxTargetStock.ItemsSource = wallet.AvailableStocks;
+            SetSourceStocks(transactionDirection);
+            SetTargetStocks(transactionDirection);
+        }
 
-            if (wallet.AvailableStocks.Count > 0)
+        private void SetSourceStocks(eTransactionDirection transactionDirection)
+        {
+            switch (transactionDirection)
+            {
+                case eTransactionDirection.Income:
+                    comboboxSourceStock.ItemsSource = _wallet.AvailableStocks.Where(stock => !stock.IsUserStock);
+                    break;
+                case eTransactionDirection.Outcome:
+                    comboboxSourceStock.ItemsSource = _wallet.AvailableStocks.Where(stock => stock.IsUserStock);
+                    break;
+                case eTransactionDirection.Transfer:
+                case eTransactionDirection.Uknown:
+                    comboboxSourceStock.ItemsSource = _wallet.AvailableStocks;
+                    break;
+            }
+            if (comboboxSourceStock.Items.Count > 0)
             {
                 comboboxSourceStock.SelectedIndex = 0;
             }
+        }
 
+        private void SetTargetStocks(eTransactionDirection transactionDirection)
+        {
+            switch (transactionDirection)
+            {
+                case eTransactionDirection.Income:
+                    comboboxTargetStock.ItemsSource = _wallet.AvailableStocks.Where(stock => stock.IsUserStock);
+                    break;
+                case eTransactionDirection.Outcome:
+                    comboboxTargetStock.ItemsSource = _wallet.AvailableStocks.Where(stock => !stock.IsUserStock);
+                    break;
+                case eTransactionDirection.Transfer:
+                case eTransactionDirection.Uknown:
+                    comboboxTargetStock.ItemsSource = _wallet.AvailableStocks;
+                    break;
+            }
+
+            //select proper index
             int index = -1;
             if (Transaction.TargetStock != null)
             {
-                for (int i = 0; i < wallet.AvailableStocks.Count; i++)
+                for (int i = 0; i < comboboxTargetStock.Items.Count; i++)
                 {
-                    if (wallet.AvailableStocks[i].Equals(Transaction.TargetStock))
+                    if (comboboxTargetStock.Items[i].Equals(Transaction.TargetStock))
                     {
                         index = i;
                     }
@@ -53,12 +93,52 @@ namespace CashManager
             }
             else
             {
-                if (wallet.AvailableStocks.Count > 0)
+                if (comboboxTargetStock.Items.Count > 0)
                 {
                     index = 0;
                 }
             }
             comboboxTargetStock.SelectedIndex = index;
+        }
+
+        /// <summary>
+        /// Sets proper available Transaction Type values for combobox (depends on transaction direction)
+        /// </summary>
+        /// <param name="transactionDirection"></param>
+        private void SetTransactionTypeCombobox(eTransactionDirection transactionDirection)
+        {
+            switch (transactionDirection)
+            {
+                case eTransactionDirection.Income:
+                    comboBoxTransactionType.ItemsSource = new List<eTransactionType>
+                    {
+                        eTransactionType.Work,
+                        eTransactionType.Sell,
+                        eTransactionType.Resell
+                    };
+                    comboBoxTransactionType.SelectedItem = eTransactionType.Work;
+                    break;
+                case eTransactionDirection.Outcome:
+                    comboBoxTransactionType.ItemsSource = new List<eTransactionType>
+                    {
+                        eTransactionType.Buy,
+                        eTransactionType.Reinvest
+                    };
+                    comboBoxTransactionType.SelectedItem = eTransactionType.Buy;
+                    break;
+                case eTransactionDirection.Transfer:
+                    comboBoxTransactionType.ItemsSource = new List<eTransactionType>
+                    {
+                        eTransactionType.Transfer
+                    };
+                    comboBoxTransactionType.SelectedItem = eTransactionType.Transfer;
+                    break;
+                case eTransactionDirection.Uknown:
+                    //We are editing some transaction so we can read actual transaction type
+                    comboBoxTransactionType.ItemsSource = Enum.GetValues(typeof (eTransactionType)).Cast<eTransactionType>();
+                    comboBoxTransactionType.SelectedItem = Transaction.Type;
+                    break;
+            }
         }
 
         private void buttonOK_Click(object sender, RoutedEventArgs e)
@@ -78,7 +158,7 @@ namespace CashManager
         {
             if (comboBoxTransactionType.SelectedIndex > -1)
             {
-                Transaction.Type = (eTransactionType)comboBoxTransactionType.SelectedItem;
+                Transaction.Type = (eTransactionType) comboBoxTransactionType.SelectedItem;
             }
         }
 
@@ -95,7 +175,7 @@ namespace CashManager
             {
                 payment = (ePaymentType) comboBoxContributionTypes.SelectedIndex;
             }
-            
+
             Transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, value, payment));
         }
 

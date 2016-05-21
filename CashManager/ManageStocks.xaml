@@ -18,6 +18,7 @@
         <DataGrid x:Name="dataGridStocks" Margin="0,5" AutoGenerateColumns="False" CanUserAddRows="True" IsReadOnly="False" ItemsSource="{Binding AvailableStocks}" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="100*"/>
+                <DataGridCheckBoxColumn Header="UserStock" Binding="{Binding IsUserStock}" Width="100*"/>
                 <DataGridTextColumn Header="Starting value" Binding="{Binding StartingValue}" Width="100*"/>
                 <DataGridTextColumn Header="Actual value" Binding="{Binding ActualValue, Mode=OneWay}" Width="100*"/>
             </DataGrid.Columns>

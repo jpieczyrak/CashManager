@@ -16,15 +16,16 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="200*"/>
-            <RowDefinition Height="47*"/>
-            <RowDefinition Height="47*"/>
-            <RowDefinition Height="55*"/>
-            <RowDefinition Height="252*"/>
+            <RowDefinition Height="174*"/>
+            <RowDefinition Height="41"/>
+            <RowDefinition Height="41"/>
+            <RowDefinition Height="41"/>
+            <RowDefinition Height="41"/>
+            <RowDefinition Height="174*"/>
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="1" Name="DataGridTransactions" AutoGenerateColumns="False" CellEditEnding="DataGridTransactions_CellEditEnding" Margin="5" CanUserAddRows="True" IsReadOnly="False" MouseLeave="DataGridTransactions_MouseLeave" Grid.ColumnSpan="3" Grid.RowSpan="5">
+        <DataGrid Grid.Row="1" Name="DataGridTransactions" AutoGenerateColumns="False" CellEditEnding="DataGridTransactions_CellEditEnding" Margin="5" CanUserAddRows="True" IsReadOnly="False" MouseLeave="DataGridTransactions_MouseLeave" Grid.ColumnSpan="3" Grid.RowSpan="6">
             <DataGrid.Columns>
                 <!-- <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}"/> -->
                 <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='dd.MM.yyyy', Mode=OneWay}" Width="100*"/>
@@ -81,11 +82,14 @@
 
         <DatePicker x:Name="datePickerFrom" Grid.Row="2" Grid.Column="3" Text="{Binding Path=Timeframe.From, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}"/>
         <DatePicker x:Name="datePickerTo" Grid.Row="3" Grid.Column="3" Text="{Binding Path=Timeframe.To, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}"/>
-        <Button x:Name="buttonFind" Grid.Row="4" Grid.Column="3" Content="Update stocks" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="25" Click="buttonFind_Click" ToolTip="Updates stocks values based on given dates" />
+        <Button x:Name="buttonFind" Grid.Row="4" Grid.Column="3" Content="Update stocks" Width="100" Height="24" Click="buttonFind_Click" ToolTip="Updates stocks values based on given dates" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-        <Button x:Name="buttonAdd" Content="Add transaction" HorizontalAlignment="Center" Margin="0" Grid.Row="6" VerticalAlignment="Center" Width="100" Click="AddButtonClick" Height="24" Grid.ColumnSpan="2"/>
-        <Button x:Name="buttonManageStocks" Content="Manage stocks" HorizontalAlignment="Center" Margin="0" Grid.Row="6" VerticalAlignment="Center" Width="100" Click="buttonManageStocks_Click" Height="24" Grid.ColumnSpan="2" Grid.Column="1"/>
-        <Button x:Name="buttonParse" Content="Parse" HorizontalAlignment="Center" Margin="0" Grid.Row="6" VerticalAlignment="Center" Width="100" Click="buttonParse_Click" Height="24" Grid.ColumnSpan="2" Grid.Column="2"/>
+        <Button x:Name="buttonAddIncome" Content="Add income" HorizontalAlignment="Center" Margin="49,6,49,5" Grid.Row="7" VerticalAlignment="Center" Width="100" Click="AddTransactionButtonClick" Height="24"/>
+        <Button x:Name="buttonAddOutcome" Content="Add outcome" HorizontalAlignment="Center" Margin="49,6,49,5" Grid.Row="7" VerticalAlignment="Center" Width="100" Click="AddTransactionButtonClick" Height="24" Grid.Column="1"/>
+        <Button x:Name="buttonAddTransfer" Content="Add transfer" HorizontalAlignment="Center" Margin="49,6,49,5" Grid.Row="7" VerticalAlignment="Center" Width="100" Click="AddTransactionButtonClick" Height="24" Grid.Column="2"/>
+
+        <Button x:Name="buttonManageStocks" Content="Manage stocks" Margin="0" Grid.Row="5" Width="100" Click="buttonManageStocks_Click" Height="24" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button x:Name="buttonParse" Content="Parse" HorizontalAlignment="Center" Margin="0" Grid.Row="7" Width="100" Click="buttonParse_Click" Height="24" Grid.Column="3" VerticalAlignment="Center"/>
 
     </Grid>
 
