@@ -8,10 +8,9 @@ namespace Logic.FilesOperations
     {
         public static char TRANSACTION_SPLIT_ELEMENT = '\n';
         public static char TRANSACTION_ELEMENT_SPLIT_ELEMENT = ';';
-        public static char SUBTRANSACTION_SPLIT_ELEMENT = '\t';
-        public static char SUBTRANSACTION_ELEMENT_SPLIT_ELEMENT = '|';
-        public static char PARTTRANSACTION_SPLIT_ELEMENT = '>';
-        public static char PARTTRANSACTION_ELEMENT_SPLIT_ELEMENT = '-';
+
+        public static char SUBELEMENT_SPLIT_ELEMENT = '\t';
+        public static char SUBELEMENT_ELEMENT_SPLIT_ELEMENT = '|';
 
         public static string DATE_FORMAT = "dd:MM:yyyy";
 
@@ -22,8 +21,8 @@ namespace Logic.FilesOperations
 
         public static string ToCSV(Transaction t)
         {
-            string subtransactionCSV = ToCSV(t.Subtransactions);
-            string sourcesCSV = ToCSV(t.TransactionSoucePayments);
+            string subtransactionsCSV = ToCSV(t.Subtransactions);
+            string partPaymentsCSV = ToCSV(t.TransactionSoucePayments);
 
             return string.Format("{0}{10}{1}{10}{2}{10}{3}{10}{4}{10}{5}{10}{6}{10}{7}{10}{8}{9}", 
                 t.Date.ToString(DATE_FORMAT), 
@@ -33,8 +32,8 @@ namespace Logic.FilesOperations
                 t.Note, 
                 t.TargetStock.Id, 
                 t.Type, 
-                subtransactionCSV, 
-                sourcesCSV,
+                subtransactionsCSV, 
+                partPaymentsCSV,
                 TRANSACTION_SPLIT_ELEMENT,
                 TRANSACTION_ELEMENT_SPLIT_ELEMENT);
         }
@@ -48,8 +47,8 @@ namespace Logic.FilesOperations
                         s.Value,
                         s.Category,
                         s.Tags,
-                        SUBTRANSACTION_SPLIT_ELEMENT,
-                        SUBTRANSACTION_ELEMENT_SPLIT_ELEMENT));
+                        SUBELEMENT_SPLIT_ELEMENT,
+                        SUBELEMENT_ELEMENT_SPLIT_ELEMENT));
         }
 
         private static string ToCSV(IEnumerable<TransactionPartPayment> parts)
@@ -60,8 +59,8 @@ namespace Logic.FilesOperations
                         p.Value,
                         p.PaymentType,
                         p.Stock.Id,
-                        SUBTRANSACTION_SPLIT_ELEMENT,
-                        SUBTRANSACTION_ELEMENT_SPLIT_ELEMENT));
+                        SUBELEMENT_SPLIT_ELEMENT,
+                        SUBELEMENT_ELEMENT_SPLIT_ELEMENT));
         }
     }
 }

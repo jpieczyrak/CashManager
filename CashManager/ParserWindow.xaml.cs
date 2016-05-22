@@ -28,7 +28,7 @@ namespace CashManager
 
             DataContext = _transactions;
 
-            comboboxUserStock.ItemsSource = _wallet.AvailableStocks;
+            comboboxUserStock.ItemsSource = StockProvider.GetStocks();
             comboboxInputType.ItemsSource = Enum.GetValues(typeof(eParserInputType)).Cast<eParserInputType>();
         }
 

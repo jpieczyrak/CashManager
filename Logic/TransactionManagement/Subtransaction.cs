@@ -21,6 +21,14 @@ namespace Logic.TransactionManagement
             Name = name;
         }
 
+        public Subtransaction(string name, double value, string category, string tags)
+        {
+            _value = value;
+            Name = name;
+            Category = category;
+            Tags = tags;
+        }
+
         [DataMember]
         public string Name { get; set; }
         [DataMember]

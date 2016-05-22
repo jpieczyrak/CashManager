@@ -47,14 +47,14 @@ namespace CashManager
             switch (transactionDirection)
             {
                 case eTransactionDirection.Income:
-                    comboboxSourceStock.ItemsSource = _wallet.AvailableStocks.Where(stock => !stock.IsUserStock);
+                    comboboxSourceStock.ItemsSource = StockProvider.GetStocks().Where(stock => !stock.IsUserStock);
                     break;
                 case eTransactionDirection.Outcome:
-                    comboboxSourceStock.ItemsSource = _wallet.AvailableStocks.Where(stock => stock.IsUserStock);
+                    comboboxSourceStock.ItemsSource = StockProvider.GetStocks().Where(stock => stock.IsUserStock);
                     break;
                 case eTransactionDirection.Transfer:
                 case eTransactionDirection.Uknown:
-                    comboboxSourceStock.ItemsSource = _wallet.AvailableStocks;
+                    comboboxSourceStock.ItemsSource = StockProvider.GetStocks();
                     break;
             }
             if (comboboxSourceStock.Items.Count > 0)
@@ -68,14 +68,14 @@ namespace CashManager
             switch (transactionDirection)
             {
                 case eTransactionDirection.Income:
-                    comboboxTargetStock.ItemsSource = _wallet.AvailableStocks.Where(stock => stock.IsUserStock);
+                    comboboxTargetStock.ItemsSource = StockProvider.GetStocks().Where(stock => stock.IsUserStock);
                     break;
                 case eTransactionDirection.Outcome:
-                    comboboxTargetStock.ItemsSource = _wallet.AvailableStocks.Where(stock => !stock.IsUserStock);
+                    comboboxTargetStock.ItemsSource = StockProvider.GetStocks().Where(stock => !stock.IsUserStock);
                     break;
                 case eTransactionDirection.Transfer:
                 case eTransactionDirection.Uknown:
-                    comboboxTargetStock.ItemsSource = _wallet.AvailableStocks;
+                    comboboxTargetStock.ItemsSource = StockProvider.GetStocks();
                     break;
             }
 

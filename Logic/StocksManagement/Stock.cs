@@ -93,6 +93,11 @@ namespace Logic.StocksManagement
             Id = empty;
         }
 
+        public Stock(string name, float startingValue, Guid id) : this(name, startingValue)
+        {
+            Id = id;
+        }
+
         public override bool Equals(object obj)
         {
             if (!(obj is Stock))    return false;

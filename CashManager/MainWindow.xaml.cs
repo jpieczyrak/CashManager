@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -6,7 +8,10 @@ using System.Windows.Input;
 using Logic;
 using Logic.FilesOperations;
 using Logic.FindingFilters;
+using Logic.Parsing;
+using Logic.StocksManagement;
 using Logic.TransactionManagement;
+using Logic.Utils;
 
 namespace CashManager
 {
@@ -22,6 +27,12 @@ namespace CashManager
             _dataContext.Timeframe = new TimeFrame(DateTime.Now.AddYears(-5), DateTime.Now);
             _dataContext.Wallet.UpdateStockStats(_dataContext.StockStats, _dataContext.Timeframe);
 
+            //TODO: change it to sth more cleaver:
+            foreach (Stock stock in _dataContext.Wallet.AvailableStocks)
+            {
+                StockProvider.Add(stock);
+            }
+
             InitializeComponent();
             Title += " " + Assembly.GetExecutingAssembly().GetName().Version;
 
@@ -30,6 +41,14 @@ namespace CashManager
             DataContext = _dataContext;
             dataGridStockStats.ItemsSource = _dataContext.StockStats;
             DataGridTransactions.ItemsSource = _dataContext.Wallet.Transactions.TransactionsList;
+
+            File.WriteAllText("csv.txt", CSVFormater.ToCSV(_dataContext.Wallet.Transactions));
+
+            List<Transaction> temp = new CSVParser().Parse(File.ReadAllText("csv.txt"), Stock.Unknown);
+            var x = new Transactions();
+            x.TransactionsList = new TrulyObservableCollection<Transaction>(temp);
+            File.WriteAllText("csv1.txt", CSVFormater.ToCSV(x));
+            int y = 1;
         }
 
         private void AddTransactionButtonClick(object sender, RoutedEventArgs e)

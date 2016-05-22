@@ -14,8 +14,10 @@ namespace CashManager
         public ManageStocks(Wallet wallet)
         {
             _wallet = wallet;
-            DataContext = wallet;
+            //DataContext = wallet;
             InitializeComponent();
+
+            dataGridStocks.ItemsSource = StockProvider.Stocks;
         }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
@@ -25,7 +27,7 @@ namespace CashManager
 
         private void buttonAddEmpty_Click(object sender, RoutedEventArgs e)
         {
-            _wallet.AvailableStocks.Add(new Stock("", 0));
+            StockProvider.Add(new Stock("", 0));
         }
     }
 }

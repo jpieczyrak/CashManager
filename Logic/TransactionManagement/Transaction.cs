@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
@@ -56,6 +57,19 @@ namespace Logic.TransactionManagement
 
             _transactionSoucePayments.CollectionChanged += CollectionChanged;
             _subtransactions.CollectionChanged += CollectionChanged;
+        }
+
+        public Transaction(eTransactionType transactionType, DateTime date, string title, string note, Stock stock, DateTime creationDate, DateTime lastEdit, List<Subtransaction> subtransactions, List<TransactionPartPayment> partPayments)
+        {
+            Type = transactionType;
+            Date = date;
+            Title = title;
+            Note = note;
+            TargetStock = stock;
+            CreationDate = creationDate;
+            LastEditDate = lastEdit;
+            Subtransactions = new TrulyObservableCollection<Subtransaction>(subtransactions);
+            TransactionSoucePayments = new TrulyObservableCollection<TransactionPartPayment>(partPayments);
         }
 
         [DataMember]
