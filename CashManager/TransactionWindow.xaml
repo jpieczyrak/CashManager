@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:logic="clr-namespace:Logic;assembly=Logic"
         mc:Ignorable="d"
         Title="TransactionWindow" Height="600" Width="420">
 
@@ -75,7 +76,11 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="75*"/>
                 <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="75*"/>
-                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="75*"/>
+                <DataGridComboBoxColumn 
+                    Header="Category" 
+                    Width="75*"
+                    SelectedItemBinding="{Binding Path=Category}"
+                    ItemsSource="{Binding Source={x:Static logic:CategoryProvider.Categories}}" />
                 <DataGridTextColumn Header="Tags" Binding="{Binding Tags}" Width="75*"/>
             </DataGrid.Columns>
         </DataGrid>

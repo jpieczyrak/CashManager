@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using Logic;
@@ -16,6 +17,8 @@ namespace CashManager
     {
         private readonly Wallet _wallet;
         private Transaction Transaction { get; set; }
+
+        private ObservableCollection<StringWrapper> Categories { get; } 
 
         /// <summary>
         /// Creation window

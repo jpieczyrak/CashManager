@@ -42,13 +42,15 @@ namespace CashManager
             dataGridStockStats.ItemsSource = _dataContext.StockStats;
             DataGridTransactions.ItemsSource = _dataContext.Wallet.Transactions.TransactionsList;
 
+            CategoryProvider.Load(_dataContext.Wallet.Transactions.TransactionsList);
+
+            //prove of csv formater and parser working
             File.WriteAllText("csv.txt", CSVFormater.ToCSV(_dataContext.Wallet.Transactions));
 
             List<Transaction> temp = new CSVParser().Parse(File.ReadAllText("csv.txt"), Stock.Unknown);
             var x = new Transactions();
             x.TransactionsList = new TrulyObservableCollection<Transaction>(temp);
             File.WriteAllText("csv1.txt", CSVFormater.ToCSV(x));
-            int y = 1;
         }
 
         private void AddTransactionButtonClick(object sender, RoutedEventArgs e)
@@ -116,6 +118,12 @@ namespace CashManager
         private void buttonFind_Click(object sender, RoutedEventArgs e)
         {
             _dataContext.Wallet.UpdateStockStats(_dataContext.StockStats, _dataContext.Timeframe);
+        }
+
+        private void buttonManageCategories_Click(object sender, RoutedEventArgs e)
+        {
+            ManageCategoriesWindow window = new ManageCategoriesWindow();
+            window.Show();
         }
     }
 }

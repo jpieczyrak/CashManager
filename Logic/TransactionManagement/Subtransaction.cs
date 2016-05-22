@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -25,7 +27,7 @@ namespace Logic.TransactionManagement
         {
             _value = value;
             Name = name;
-            Category = category;
+            Category = new StringWrapper(category);
             Tags = tags;
         }
 
@@ -42,9 +44,10 @@ namespace Logic.TransactionManagement
             }
         }
         [DataMember]
-        public string Category { get; set; }
+        public StringWrapper Category { get; set; }
         [DataMember]
         public string Tags { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

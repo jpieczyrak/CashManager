@@ -31,19 +31,10 @@ namespace Logic
         [DataMember]
         public Transactions Transactions { get; set; } = new Transactions();
 
-        public Stock GetStockByName(string stockName)
-        {
-            return AvailableStocks.FirstOrDefault(stock => stock.Name.ToLower().Equals(stockName.ToLower()));
-        }
-
-        public Stock GetStockByGUID(Guid guid)
-        {
-            return AvailableStocks.FirstOrDefault(stock => stock.Id == guid);
-        }
-
         public void Save()
         {
             Serializer.XMLSerializeObject(this, Path);
+            Transactions.Save(new CSVFormater(), string.Format("{0}-transactions.csv", DateTime.Now.ToString("yyyyMMddHHmmss")));
         }
 
         public void UpdateStockStats(ObservableCollection<StockStats> stockStats, TimeFrame timeframe)

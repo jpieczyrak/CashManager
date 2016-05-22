@@ -1,4 +1,5 @@
 ﻿using System;
+using Logic;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
 using NUnit.Framework;
@@ -43,9 +44,9 @@ namespace CashManagerTests
             outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "");
             outcome.TargetStock = targetStock;
 
-            Subtransaction foodSubtrans = new Subtransaction("Jedzenie", foodCost) {Category = "Cat-Food"};
+            Subtransaction foodSubtrans = new Subtransaction("Jedzenie", foodCost) {Category = new StringWrapper("Cat-Food") };
             outcome.Subtransactions.Add(foodSubtrans);
-            Subtransaction drugSubtrans = new Subtransaction("Leki", drugCost) { Category = "Cat-Drugs" };
+            Subtransaction drugSubtrans = new Subtransaction("Leki", drugCost) { Category = new StringWrapper("Cat-Drugs") };
             outcome.Subtransactions.Add(drugSubtrans);
 
             outcome.TransactionSoucePayments.Add(new TransactionPartPayment(mystock, 100, ePaymentType.Percent));
