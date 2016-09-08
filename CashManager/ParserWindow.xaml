@@ -28,9 +28,10 @@
 
         <DataGrid ItemsSource="{Binding TransactionsList}" Name="DataGridTransactions" AutoGenerateColumns="False" Margin="5" CanUserAddRows="True" IsReadOnly="False" Grid.ColumnSpan="4" Grid.Row="2">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='dd.MM.yyyy', Mode=OneWay}" Width="100*"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='dd.MM.yyyy', Mode=OneWay}" Width="100"/>
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="100*" />
-                <DataGridTextColumn Header="Value" Binding="{Binding Value, Mode=OneWay}" Width="60*"/>
+                <DataGridTextColumn Header="Note" Binding="{Binding Note}" Width="100*" />
+                <DataGridTextColumn Header="Value" Binding="{Binding ValueAsProfit, Mode=OneWay}" Width="60"/>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>

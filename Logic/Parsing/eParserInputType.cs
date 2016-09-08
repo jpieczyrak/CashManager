@@ -2,6 +2,7 @@ namespace Logic.Parsing
 {
     public enum eParserInputType
     {
-        Excel
+        Excel,
+        GetinBank
     }
 }

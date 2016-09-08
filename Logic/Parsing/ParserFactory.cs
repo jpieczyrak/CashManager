@@ -10,6 +10,8 @@ namespace Logic.Parsing
             {
                 case eParserInputType.Excel:
                     return new ExcelParser();
+                case eParserInputType.GetinBank:
+                    return new GetinBankParser();
             }
             throw new NotImplementedException();
         }

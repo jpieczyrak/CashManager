@@ -52,6 +52,7 @@
     <Compile Include="FindingFilters\TransactionMinValueRule.cs" />
     <Compile Include="FindingFilters\TransactionTypeRule.cs" />
     <Compile Include="Parsing\CSVParser.cs" />
+    <Compile Include="Parsing\GetinBankParser.cs" />
     <Compile Include="StockProvider.cs" />
     <Compile Include="Specification\AndSpecification.cs" />
     <Compile Include="Specification\CompositeSpecification.cs" />

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Documents;
 using Logic;
 using Logic.FindingFilters;
 using Logic.Parsing;
@@ -30,6 +28,9 @@ namespace CashManager
 
             comboboxUserStock.ItemsSource = StockProvider.GetStocks();
             comboboxInputType.ItemsSource = Enum.GetValues(typeof(eParserInputType)).Cast<eParserInputType>();
+
+            if (comboboxUserStock.Items.Count > 0) comboboxUserStock.SelectedIndex = 0;
+            if (comboboxInputType.Items.Count > 0) comboboxInputType.SelectedIndex = 0;
         }
 
         private void EditButtonClick(object sender, RoutedEventArgs e)

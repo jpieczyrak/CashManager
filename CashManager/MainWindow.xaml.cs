@@ -25,7 +25,7 @@ namespace CashManager
         {       
             _dataContext.Wallet = Deserializer.DeserializeXML<Wallet>(Wallet.Path);
             _dataContext.Timeframe = new TimeFrame(DateTime.Now.AddYears(-5), DateTime.Now);
-            _dataContext.Wallet.UpdateStockStats(_dataContext.StockStats, _dataContext.Timeframe);
+            //_dataContext.Wallet.UpdateStockStats(_dataContext.StockStats, _dataContext.Timeframe);
 
             //TODO: change it to sth more cleaver:
             foreach (Stock stock in _dataContext.Wallet.AvailableStocks)
@@ -43,14 +43,6 @@ namespace CashManager
             DataGridTransactions.ItemsSource = _dataContext.Wallet.Transactions.TransactionsList;
 
             CategoryProvider.Load(_dataContext.Wallet.Transactions.TransactionsList);
-
-            //prove of csv formater and parser working
-            File.WriteAllText("csv.txt", CSVFormater.ToCSV(_dataContext.Wallet.Transactions));
-
-            List<Transaction> temp = new CSVParser().Parse(File.ReadAllText("csv.txt"), Stock.Unknown);
-            var x = new Transactions();
-            x.TransactionsList = new TrulyObservableCollection<Transaction>(temp);
-            File.WriteAllText("csv1.txt", CSVFormater.ToCSV(x));
         }
 
         private void AddTransactionButtonClick(object sender, RoutedEventArgs e)
