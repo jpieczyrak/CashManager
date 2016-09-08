@@ -53,6 +53,7 @@
     <Compile Include="FindingFilters\TransactionTypeRule.cs" />
     <Compile Include="Parsing\CSVParser.cs" />
     <Compile Include="Parsing\GetinBankParser.cs" />
+    <Compile Include="TransactionManagement\BulkModifications\BulkTransactionParametersChanger.cs" />
     <Compile Include="StockProvider.cs" />
     <Compile Include="Specification\AndSpecification.cs" />
     <Compile Include="Specification\CompositeSpecification.cs" />

@@ -38,5 +38,13 @@ namespace Logic
             }
             return new List<Stock>(Stocks);
         }
+
+        public static void Load(ObservableCollection<Stock> stocks)
+        {
+            foreach (var stock in stocks)
+            {
+                Stocks.Add(stock);
+            }
+        }
     }
 }

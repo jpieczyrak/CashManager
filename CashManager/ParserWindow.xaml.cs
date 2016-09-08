@@ -7,6 +7,7 @@ using Logic.FindingFilters;
 using Logic.Parsing;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
+using Logic.TransactionManagement.BulkModifications;
 
 namespace CashManager
 {
@@ -55,6 +56,11 @@ namespace CashManager
             {
                 _transactions.TransactionsList.Add(transaction);
             }
+
+            if (parsedTransactions.Count > 0)
+            {
+                buttonApplyRules.IsEnabled = true;
+            }
         }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
@@ -70,6 +76,25 @@ namespace CashManager
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void buttonApplyRules_Click(object sender, RoutedEventArgs e)
+        {
+            //apply stored rules
+
+            //now only hardcode:
+            Func<Transaction, bool> PBDinner = x => x.Title.Contains("PROGRESS BAR");
+            Action<Transaction> PRTitle = x => x.Title = "Obiad FP";
+            //Action<Transaction> PBCategory = x => x.Subtransactions[0].Category = new StringWrapper("Jedzenie w FP");
+            BulkTransactionParametersChanger.Change(_transactions, PBDinner,
+            new []{ PRTitle
+                //, PBCategory 
+            });
+
+            Func<Transaction, bool> FPIncome = x => x.Title.Contains("Wynagrodzenie z tytulu umowy cywilnoprawnej");
+            Action<Transaction> FPCategory = x => x.Subtransactions[0].Category = new StringWrapper("Wypłata");
+            BulkTransactionParametersChanger.Change(_transactions, FPIncome,
+            new[] { FPCategory });
         }
     }
 }

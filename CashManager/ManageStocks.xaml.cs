@@ -22,6 +22,7 @@ namespace CashManager
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
         {
+            _wallet.Save();
             Close(); 
         }
 

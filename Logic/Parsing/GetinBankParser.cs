@@ -52,9 +52,9 @@ namespace Logic.Parsing
             int bigValue = int.Parse(match.Groups["ValueWithSpaces"].Value.Replace(" ", ""));
             int smallValue = int.Parse(match.Groups["ValueAfterComma"].Value);
 
-            float value = (float)(bigValue + smallValue / 100.0);
+            double value = (bigValue + smallValue / 100.0);
             DateTime date = new DateTime(year, month, day);
-            string note = string.Format("{0}: {1} ({2})", sourceName, operationType, currency);
+            string note = string.Format("{0}{1}{2} ({3})", sourceName, sourceName != "" ? ": " : "", operationType, currency);
             eTransactionType transactionType = positiveSign ? eTransactionType.Work : eTransactionType.Buy;
             
             Transaction transaction = new Transaction(transactionType, date, title, note);

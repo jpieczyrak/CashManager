@@ -24,7 +24,8 @@
         <ComboBox x:Name="comboboxUserStock" ToolTip="UserStock" Grid.Row="1" />
         <ComboBox x:Name="comboboxInputType" ToolTip="InputType" Grid.Row="1" Grid.Column="1" />
         
-        <Button x:Name="buttonParse" Content="Parse" Grid.Column="2" Click="buttonParse_Click" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="25"/>
+        <Button x:Name="buttonParse" Content="Parse" Grid.Column="2" Click="buttonParse_Click" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="25"/>
+        <Button x:Name="buttonApplyRules" Content="Apply rules" Grid.Column="3" Click="buttonApplyRules_Click" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="25" IsEnabled="False"/>
 
         <DataGrid ItemsSource="{Binding TransactionsList}" Name="DataGridTransactions" AutoGenerateColumns="False" Margin="5" CanUserAddRows="True" IsReadOnly="False" Grid.ColumnSpan="4" Grid.Row="2">
             <DataGrid.Columns>

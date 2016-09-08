@@ -27,12 +27,6 @@ namespace CashManager
             _dataContext.Timeframe = new TimeFrame(DateTime.Now.AddYears(-5), DateTime.Now);
             //_dataContext.Wallet.UpdateStockStats(_dataContext.StockStats, _dataContext.Timeframe);
 
-            //TODO: change it to sth more cleaver:
-            foreach (Stock stock in _dataContext.Wallet.AvailableStocks)
-            {
-                StockProvider.Add(stock);
-            }
-
             InitializeComponent();
             Title += " " + Assembly.GetExecutingAssembly().GetName().Version;
 

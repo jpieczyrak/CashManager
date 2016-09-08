@@ -12,20 +12,12 @@ namespace Logic
     public class Wallet
     {
         public static string Path = "wallet.xml";
-        private ObservableCollection<Stock> _availableStocks = new ObservableCollection<Stock>();
 
         [DataMember]
         public ObservableCollection<Stock> AvailableStocks
         {
-            get
-            {
-                if (_availableStocks.Count == 0 || !_availableStocks.Contains(Stock.Unknown))
-                {
-                    _availableStocks.Add(Stock.Unknown);
-                }
-                return _availableStocks;
-            }
-            set { _availableStocks = value; }
+            get { return StockProvider.Stocks; }
+            set { StockProvider.Load(value); }
         }
 
         [DataMember]
