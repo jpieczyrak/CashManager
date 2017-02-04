@@ -15,7 +15,7 @@ namespace Logic.FindingFilters
 
         public override bool IsSatisfiedBy(Transaction o)
         {
-            return _stockId.Equals(o.TargetStock.Id);
+            return _stockId.Equals(o.TargetStockId);
         }
     }
 }

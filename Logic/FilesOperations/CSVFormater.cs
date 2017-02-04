@@ -30,7 +30,7 @@ namespace Logic.FilesOperations
                 t.LastEditDate.ToString(DATE_FORMAT), 
                 t.Title, 
                 t.Note, 
-                t.TargetStock.Id, 
+                t.TargetStockId, 
                 t.Type, 
                 subtransactionsCSV, 
                 partPaymentsCSV,
@@ -58,7 +58,7 @@ namespace Logic.FilesOperations
                     current + string.Format("{0}{4}{1}{4}{2}{4}{3}",
                         p.Value,
                         p.PaymentType,
-                        p.Stock.Id,
+                        p.StockId,
                         SUBELEMENT_SPLIT_ELEMENT,
                         SUBELEMENT_ELEMENT_SPLIT_ELEMENT));
         }

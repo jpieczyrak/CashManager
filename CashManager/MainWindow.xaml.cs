@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+
 using Logic;
 using Logic.FilesOperations;
 using Logic.FindingFilters;
-using Logic.Parsing;
-using Logic.StocksManagement;
 using Logic.TransactionManagement;
-using Logic.Utils;
 
 namespace CashManager
 {
@@ -37,6 +34,8 @@ namespace CashManager
             DataGridTransactions.ItemsSource = _dataContext.Wallet.Transactions.TransactionsList;
 
             CategoryProvider.Load(_dataContext.Wallet.Transactions.TransactionsList);
+
+            _dataContext.Wallet.Transactions.TransactionsList.Where(x=>x.Title != null && x.Title.Contains("Obiad")).Sum(x => x.ValueAsProfit);
         }
 
         private void AddTransactionButtonClick(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using Logic.Annotations;
@@ -12,15 +13,20 @@ namespace Logic.TransactionManagement
         private double _value;
         private ePaymentType _paymentType;
 
-        public TransactionPartPayment(Stock stock, double value, ePaymentType paymentType)
+        public TransactionPartPayment()
         {
-            Stock = stock;
+            Id = Guid.NewGuid();
+        }
+
+        public TransactionPartPayment(Stock stock, double value, ePaymentType paymentType) : this()
+        {
+            StockId = stock.Id;
             Value = value;
             PaymentType = paymentType;
         }
 
         [DataMember]
-        public Stock Stock { get; set; }
+        public Guid StockId { get; set; }
 
         [DataMember]
         public double Value
@@ -43,6 +49,8 @@ namespace Logic.TransactionManagement
                 OnPropertyChanged();
             }
         }
+
+        public Guid Id { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

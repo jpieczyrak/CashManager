@@ -52,7 +52,7 @@ namespace Logic.Parsing
 
             transaction.Subtransactions.Add(subtransaction);
 
-            transaction.TargetStock = outcome ? Stock.Unknown : userStock;
+            transaction.TargetStockId = outcome ? Stock.Unknown.Id : userStock.Id;
 
             Stock sourceStock = !outcome ? Stock.Unknown : userStock;
             transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));

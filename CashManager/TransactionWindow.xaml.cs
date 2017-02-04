@@ -84,11 +84,11 @@ namespace CashManager
 
             //select proper index
             int index = -1;
-            if (Transaction.TargetStock != null)
+            if (Transaction.TargetStockId != null)
             {
                 for (int i = 0; i < comboboxTargetStock.Items.Count; i++)
                 {
-                    if (comboboxTargetStock.Items[i].Equals(Transaction.TargetStock))
+                    if (comboboxTargetStock.Items[i].Equals(Transaction.TargetStockId))
                     {
                         index = i;
                     }
@@ -186,7 +186,7 @@ namespace CashManager
         {
             if (comboboxTargetStock.SelectedItem != null)
             {
-                Transaction.TargetStock = comboboxTargetStock.SelectedItem as Stock;
+                Transaction.TargetStockId = (comboboxTargetStock.SelectedItem as Stock).Id;
             }
         }
     }

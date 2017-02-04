@@ -65,7 +65,7 @@ namespace Logic.Parsing
             };
             transaction.Subtransactions.Add(subtransaction);
 
-            transaction.TargetStock = positiveSign ? userStock : Stock.Unknown;
+            transaction.TargetStockId = positiveSign ? userStock.Id : Stock.Unknown.Id;
             Stock sourceStock = positiveSign ? Stock.Unknown : userStock;
             transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));
 

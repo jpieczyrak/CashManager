@@ -37,14 +37,14 @@ namespace CashManagerTests
             transactions = new Transactions();
 
             income = new Transaction(eTransactionType.Work, DateTime.Today, "Income", "Income today!");
-            income.TargetStock = mystock;
+            income.TargetStockId = mystock.Id;
             income.Subtransactions.Add(new Subtransaction("Payment income", INCOME_VALUE));
             income.TransactionSoucePayments.Add(new TransactionPartPayment(incomeSource, INCOME_VALUE, ePaymentType.Value));
 
             transactions.Add(income);
 
             outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "");
-            outcome.TargetStock = targetStock;
+            outcome.TargetStockId = targetStock.Id;
 
             Subtransaction foodSubtrans = new Subtransaction("Jedzenie", foodCost) { Category = new StringWrapper("Cat-Food") };
             outcome.Subtransactions.Add(foodSubtrans);

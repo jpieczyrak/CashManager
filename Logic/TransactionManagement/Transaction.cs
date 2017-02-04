@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+
 using Logic.Annotations;
 using Logic.StocksManagement;
 using Logic.Utils;
@@ -23,54 +23,13 @@ namespace Logic.TransactionManagement
         private TrulyObservableCollection<Subtransaction> _subtransactions =
             new TrulyObservableCollection<Subtransaction>();
 
-        private Stock _targetStock;
+        private Guid _targetStockId;
         private string _title;
 
         private TrulyObservableCollection<TransactionPartPayment> _transactionSoucePayments =
             new TrulyObservableCollection<TransactionPartPayment>();
 
         private eTransactionType _type;
-
-        /// <summary>
-        ///     TODO: remove after loading from file.
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="date"></param>
-        /// <param name="title"></param>
-        /// <param name="note"></param>
-        public Transaction(eTransactionType type, DateTime date, string title, string note) : this()
-        {
-            _strategy = new BasicCalculationStrategy();
-            Type = type;
-            Date = date;
-            Title = title;
-            Note = note;
-        }
-
-        public Transaction()
-        {
-            _strategy = new BasicCalculationStrategy();
-            Type = eTransactionType.Buy;
-            Date = DateTime.Now;
-
-            LastEditDate = CreationDate = DateTime.Now;
-
-            _transactionSoucePayments.CollectionChanged += CollectionChanged;
-            _subtransactions.CollectionChanged += CollectionChanged;
-        }
-
-        public Transaction(eTransactionType transactionType, DateTime date, string title, string note, Stock stock, DateTime creationDate, DateTime lastEdit, List<Subtransaction> subtransactions, List<TransactionPartPayment> partPayments)
-        {
-            Type = transactionType;
-            Date = date;
-            Title = title;
-            Note = note;
-            TargetStock = stock;
-            CreationDate = creationDate;
-            LastEditDate = lastEdit;
-            Subtransactions = new TrulyObservableCollection<Subtransaction>(subtransactions);
-            TransactionSoucePayments = new TrulyObservableCollection<TransactionPartPayment>(partPayments);
-        }
 
         [DataMember]
         public eTransactionType Type
@@ -129,12 +88,12 @@ namespace Logic.TransactionManagement
         }
 
         [DataMember]
-        public Stock TargetStock
+        public Guid TargetStockId
         {
-            get { return _targetStock; }
+            get { return _targetStockId; }
             set
             {
-                _targetStock = value;
+                _targetStockId = value;
                 OnPropertyChanged();
             }
         }
@@ -157,9 +116,9 @@ namespace Logic.TransactionManagement
         {
             get
             {
-                return Type == eTransactionType.Buy || Type == eTransactionType.Reinvest 
-                    ? -Value 
-                    : (Type != eTransactionType.Transfer ? Value : 0);
+                return Type == eTransactionType.Buy || Type == eTransactionType.Reinvest
+                           ? -Value
+                           : (Type != eTransactionType.Transfer ? Value : 0);
             }
         }
 
@@ -181,24 +140,59 @@ namespace Logic.TransactionManagement
         [DataMember]
         public DateTime LastEditDate { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            OnPropertyChanged(nameof(Value));
-            OnPropertyChanged(nameof(ValueAsProfit));
-        }
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            LastEditDate = DateTime.Now;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public Guid Id { get; }
 
         /// <summary>
-        /// Checks if subtransaction value = income value, 
-        /// if not - addes new source (from unknown stock) to fullfill transaction
+        ///     TODO: remove after loading from file.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="date"></param>
+        /// <param name="title"></param>
+        /// <param name="note"></param>
+        public Transaction(eTransactionType type, DateTime date, string title, string note) : this()
+        {
+            Type = type;
+            Date = date;
+            Title = title;
+            Note = note;
+        }
+
+        public Transaction()
+        {
+            Id = Guid.NewGuid();
+            _strategy = new BasicCalculationStrategy();
+            Type = eTransactionType.Buy;
+            Date = DateTime.Now;
+
+            LastEditDate = CreationDate = DateTime.Now;
+
+            _transactionSoucePayments.CollectionChanged += CollectionChanged;
+            _subtransactions.CollectionChanged += CollectionChanged;
+        }
+
+        public Transaction(eTransactionType transactionType, DateTime date, string title, string note, Stock stock, DateTime creationDate,
+            DateTime lastEdit, List<Subtransaction> subtransactions, List<TransactionPartPayment> partPayments)
+        {
+            Type = transactionType;
+            Date = date;
+            Title = title;
+            Note = note;
+            TargetStockId = stock.Id;
+            CreationDate = creationDate;
+            LastEditDate = lastEdit;
+            Subtransactions = new TrulyObservableCollection<Subtransaction>(subtransactions);
+            TransactionSoucePayments = new TrulyObservableCollection<TransactionPartPayment>(partPayments);
+        }
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        /// <summary>
+        ///     Checks if subtransaction value = income value,
+        ///     if not - addes new source (from unknown stock) to fullfill transaction
         /// </summary>
         public void Validate()
         {
@@ -208,15 +202,28 @@ namespace Logic.TransactionManagement
             double value =
                 _transactionSoucePayments.Sum(
                     payment =>
-                        payment.PaymentType.Equals(ePaymentType.Value)
-                            ? payment.Value
-                            : subtransactionCost * payment.Value / 100);
+                    payment.PaymentType.Equals(ePaymentType.Value)
+                        ? payment.Value
+                        : subtransactionCost * payment.Value / 100);
 
             if (Math.Abs(subtransactionCost - value) > 0.0001)
             {
                 double missingValue = subtransactionCost - value;
                 _transactionSoucePayments.Add(new TransactionPartPayment(Stock.Unknown, missingValue, ePaymentType.Value));
             }
+        }
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            LastEditDate = DateTime.Now;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(Value));
+            OnPropertyChanged(nameof(ValueAsProfit));
         }
     }
 }

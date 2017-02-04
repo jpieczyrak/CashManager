@@ -5,6 +5,8 @@ namespace Logic
     [DataContract]
     public class StringWrapper
     {
+        public StringWrapper() { }
+
         [DataMember]
         public string Value { get; set; }
 

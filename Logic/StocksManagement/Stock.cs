@@ -13,6 +13,8 @@ namespace Logic.StocksManagement
     [DataContract(Namespace = "")]
     public class Stock
     {
+        public Stock() { }
+
         [DataMember]
         public string Name { get; set; }
 
@@ -54,8 +56,8 @@ namespace Logic.StocksManagement
             {
                 if (timeframe.Contains(transaction.Date))
                 {
-                    bool income = transaction.TargetStock.Equals(this);
-                    bool outcome = transaction.TransactionSoucePayments.Any(payment => payment.Stock.Equals(this));
+                    bool income = transaction.TargetStockId.Equals(this);
+                    bool outcome = transaction.TransactionSoucePayments.Any(payment => payment.StockId.Equals(this));
 
                     if (income)
                     {
@@ -66,7 +68,7 @@ namespace Logic.StocksManagement
                     {
                         foreach (TransactionPartPayment payment in transaction.TransactionSoucePayments)
                         {
-                            if (payment.Stock.Equals(this))
+                            if (payment.StockId.Equals(this))
                             {
                                 double value = payment.PaymentType == ePaymentType.Value
                                     ? payment.Value
