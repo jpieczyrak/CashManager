@@ -6,7 +6,7 @@ namespace Logic.LogicObjectsProviders
 {
     public class CategoryProvider
     {
-        public static ObservableCollection<StringWrapper> Categories { get; } = new ObservableCollection<StringWrapper>();
+        public static ObservableCollection<Category> Categories { get; } = new ObservableCollection<Category>();
 
         /// <summary>
         /// Loads all categories from existing transactions.
@@ -28,14 +28,14 @@ namespace Logic.LogicObjectsProviders
         {
             if (!string.IsNullOrEmpty(category))
             {
-                if (!Categories.Contains(new StringWrapper(category)))
+                if (!Categories.Contains(new Category(category)))
                 {
-                    Categories.Add(new StringWrapper(category));
+                    Categories.Add(new Category(category));
                 }
             }
         }
 
-        public static void Add(StringWrapper category)
+        public static void Add(Category category)
         {
             if (category != null)
             {

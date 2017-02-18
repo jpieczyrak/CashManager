@@ -25,7 +25,7 @@ namespace Logic.TransactionManagement.TransactionElements
         {
             _value = value;
             Name = name;
-            Category = new StringWrapper(category);
+            Category = new Category(category);
             Tags = tags;
         }
 
@@ -42,7 +42,7 @@ namespace Logic.TransactionManagement.TransactionElements
             }
         }
         [DataMember]
-        public StringWrapper Category { get; set; }
+        public Category Category { get; set; }
         [DataMember]
         public string Tags { get; set; }
 

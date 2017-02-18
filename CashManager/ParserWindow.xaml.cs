@@ -94,7 +94,7 @@ namespace CashManager
             });
 
             Func<Transaction, bool> FPIncome = x => x.Title.Contains("Wynagrodzenie z tytulu umowy cywilnoprawnej");
-            Action<Transaction> FPCategory = x => x.Subtransactions[0].Category = new StringWrapper("Wypłata");
+            Action<Transaction> FPCategory = x => x.Subtransactions[0].Category = new Category("Wypłata");
             BulkTransactionParametersChanger.Change(_transactions, FPIncome,
             new[] { FPCategory });
         }

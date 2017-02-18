@@ -1,17 +1,53 @@
-﻿namespace Logic.TransactionManagement.TransactionElements
+using System.Runtime.Serialization;
+
+namespace Logic.TransactionManagement.TransactionElements
 {
-    /// <summary>
-    /// Store category of transaction.
-    /// Each transaction can have only one category.
-    /// Sum of values of categories should be equal sum of values of all transaction.
-    /// </summary>
+    [DataContract]
     public class Category
     {
-        public string Value { get; set; }
+        private string _value;
+
+        [DataMember]
+        public string Value
+        {
+            get { return _value; }
+            set
+            {
+                if (value != null)
+                {
+                    _value = value;
+                }
+            }
+        }
+
+        private Category() { }
 
         public Category(string value)
         {
             Value = value;
         }
+
+        #region Override
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj.GetHashCode() == GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            if (Value != null)
+            {
+                return Value.GetHashCode();
+            }
+            return -1;
+        }
+
+        public override string ToString()
+        {
+            return Value;
+        }
+
+        #endregion
     }
 }

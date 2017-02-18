@@ -48,9 +48,9 @@ namespace CashManagerTests
             outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "");
             outcome.TargetStockId = targetStock.Id;
 
-            Subtransaction foodSubtrans = new Subtransaction("Jedzenie", foodCost) { Category = new StringWrapper("Cat-Food") };
+            Subtransaction foodSubtrans = new Subtransaction("Jedzenie", foodCost) { Category = new Category("Cat-Food") };
             outcome.Subtransactions.Add(foodSubtrans);
-            Subtransaction drugSubtrans = new Subtransaction("Leki", drugCost) { Category = new StringWrapper("Cat-Drugs") };
+            Subtransaction drugSubtrans = new Subtransaction("Leki", drugCost) { Category = new Category("Cat-Drugs") };
             outcome.Subtransactions.Add(drugSubtrans);
 
             outcome.TransactionSoucePayments.Add(new TransactionPartPayment(mystock, 100, ePaymentType.Percent));

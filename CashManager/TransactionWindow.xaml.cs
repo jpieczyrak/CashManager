@@ -20,7 +20,7 @@ namespace CashManager
         private readonly Wallet _wallet;
         private Transaction Transaction { get; set; }
 
-        private ObservableCollection<StringWrapper> Categories { get; } 
+        private ObservableCollection<Category> Categories { get; } 
 
         /// <summary>
         /// Creation window
