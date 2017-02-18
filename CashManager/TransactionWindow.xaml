@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:logic="clr-namespace:Logic;assembly=Logic"
+        xmlns:logicObjectsProviders="clr-namespace:Logic.LogicObjectsProviders;assembly=Logic"
         mc:Ignorable="d"
         Title="TransactionWindow" Height="600" Width="420">
 
@@ -80,7 +81,7 @@
                     Header="Category" 
                     Width="75*"
                     SelectedItemBinding="{Binding Path=Category}"
-                    ItemsSource="{Binding Source={x:Static logic:CategoryProvider.Categories}}" />
+                    ItemsSource="{Binding Source={x:Static logicObjectsProviders:CategoryProvider.Categories}}" />
                 <DataGridTextColumn Header="Tags" Binding="{Binding Tags}" Width="75*"/>
             </DataGrid.Columns>
         </DataGrid>

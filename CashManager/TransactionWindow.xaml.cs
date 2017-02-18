@@ -5,8 +5,10 @@ using System.Linq;
 using System.Windows;
 using Logic;
 using Logic.FindingFilters;
+using Logic.LogicObjectsProviders;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
+using Logic.TransactionManagement.TransactionElements;
 
 namespace CashManager
 {

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using Logic;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
+using Logic.TransactionManagement.TransactionElements;
 
 namespace CashManager
 {

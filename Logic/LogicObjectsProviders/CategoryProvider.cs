@@ -1,7 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using Logic.TransactionManagement;
 
-namespace Logic
+using Logic.TransactionManagement.TransactionElements;
+
+namespace Logic.LogicObjectsProviders
 {
     public class CategoryProvider
     {

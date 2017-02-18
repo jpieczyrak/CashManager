@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-using Logic.Annotations;
 
-namespace Logic.TransactionManagement
+using Logic.Properties;
+
+namespace Logic.TransactionManagement.TransactionElements
 {
     [DataContract(Namespace = "")]
     public class Subtransaction : INotifyPropertyChanged

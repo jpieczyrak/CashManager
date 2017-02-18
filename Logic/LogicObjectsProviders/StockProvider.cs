@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+
 using Logic.StocksManagement;
 
-namespace Logic
+namespace Logic.LogicObjectsProviders
 {
     public class StockProvider
     {

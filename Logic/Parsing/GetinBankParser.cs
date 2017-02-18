@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
+using Logic.TransactionManagement.TransactionElements;
 
 namespace Logic.Parsing
 {

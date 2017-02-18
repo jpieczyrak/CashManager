@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using Logic.TransactionManagement;
+using Logic.TransactionManagement.TransactionElements;
 
 namespace Logic.ValueCalculationStrategies
 {

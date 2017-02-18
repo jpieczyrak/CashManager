@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DBInterface">
+      <HintPath>..\..\LogoutTimer\WebServer\Bin\DBInterface.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -42,7 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategoryProvider.cs" />
+    <Compile Include="LogicObjectsProviders\CategoryProvider.cs" />
+    <Compile Include="FilesOperations\DBProvider.cs" />
     <Compile Include="FindingFilters\eTransactionDirection.cs" />
     <Compile Include="FindingFilters\TargetStockRule.cs" />
     <Compile Include="FindingFilters\TimeFrameRule.cs" />
@@ -54,7 +58,7 @@
     <Compile Include="Parsing\CSVParser.cs" />
     <Compile Include="Parsing\GetinBankParser.cs" />
     <Compile Include="TransactionManagement\BulkModifications\BulkTransactionParametersChanger.cs" />
-    <Compile Include="StockProvider.cs" />
+    <Compile Include="LogicObjectsProviders\StockProvider.cs" />
     <Compile Include="Specification\AndSpecification.cs" />
     <Compile Include="Specification\CompositeSpecification.cs" />
     <Compile Include="Specification\ExpressionSpecification.cs" />
@@ -63,8 +67,8 @@
     <Compile Include="Specification\OrSpecification.cs" />
     <Compile Include="StocksManagement\StockStats.cs" />
     <Compile Include="FilesOperations\CSVFormater.cs" />
-    <Compile Include="StringWrapper.cs" />
-    <Compile Include="TransactionManagement\ePaymentType.cs" />
+    <Compile Include="TransactionManagement\TransactionElements\StringWrapper.cs" />
+    <Compile Include="TransactionManagement\TransactionElements\ePaymentType.cs" />
     <Compile Include="FilesOperations\Deserializer.cs" />
     <Compile Include="FilesOperations\Serializer.cs" />
     <Compile Include="Parsing\eParserInputType.cs" />
@@ -72,20 +76,26 @@
     <Compile Include="Parsing\IParser.cs" />
     <Compile Include="Parsing\ParserFactory.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="TransactionManagement\Category.cs" />
-    <Compile Include="TransactionManagement\eTransactionType.cs" />
-    <Compile Include="TransactionManagement\Subtransaction.cs" />
-    <Compile Include="TransactionManagement\Tag.cs" />
-    <Compile Include="TransactionManagement\TimeFrame.cs" />
-    <Compile Include="TransactionManagement\Transaction.cs" />
-    <Compile Include="TransactionManagement\Transactions.cs" />
+    <Compile Include="TransactionManagement\TransactionElements\Category.cs" />
+    <Compile Include="TransactionManagement\TransactionElements\eTransactionType.cs" />
+    <Compile Include="TransactionManagement\TransactionElements\Subtransaction.cs" />
+    <Compile Include="TransactionManagement\TransactionElements\Tag.cs" />
+    <Compile Include="TransactionManagement\TransactionElements\TimeFrame.cs" />
+    <Compile Include="TransactionManagement\TransactionElements\Transaction.cs" />
+    <Compile Include="TransactionManagement\TransactionElements\Transactions.cs" />
     <Compile Include="StocksManagement\Stock.cs" />
     <Compile Include="Utils\TrulyObservableCollection.cs" />
-    <Compile Include="TransactionManagement\TransactionPartPayment.cs" />
+    <Compile Include="TransactionManagement\TransactionElements\TransactionPartPayment.cs" />
     <Compile Include="ValueCalculationStrategies\BasicCalculationStrategy.cs" />
     <Compile Include="ValueCalculationStrategies\IValueCalculationStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wallet.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Libs\C#\DB\LiteDBWrapper\LiteDBWrapper\LiteDBWrapper.csproj">
+      <Project>{6bfe7957-f041-4edc-ac17-386777644e48}</Project>
+      <Name>LiteDBWrapper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

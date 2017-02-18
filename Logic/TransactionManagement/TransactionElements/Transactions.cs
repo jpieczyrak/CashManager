@@ -1,9 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.Runtime.Serialization;
+
 using Logic.FilesOperations;
 
-namespace Logic.TransactionManagement
+namespace Logic.TransactionManagement.TransactionElements
 {
     /// <summary>
     /// List of all transaction saved in app.

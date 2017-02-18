@@ -3,8 +3,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using Logic.FilesOperations;
+using Logic.LogicObjectsProviders;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
+using Logic.TransactionManagement.TransactionElements;
 
 namespace Logic
 {
@@ -27,6 +29,8 @@ namespace Logic
         {
             Serializer.XMLSerializeObject(this, Path);
             Transactions.Save(new CSVFormater(), string.Format("{0}-transactions.csv", DateTime.Now.ToString("yyyyMMddHHmmss")));
+            //stocks & transactions
+            //DBProvider.DB.Save();
         }
 
         public void UpdateStockStats(ObservableCollection<StockStats> stockStats, TimeFrame timeframe)

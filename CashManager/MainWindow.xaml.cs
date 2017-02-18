@@ -8,7 +8,9 @@ using System.Windows.Input;
 using Logic;
 using Logic.FilesOperations;
 using Logic.FindingFilters;
+using Logic.LogicObjectsProviders;
 using Logic.TransactionManagement;
+using Logic.TransactionManagement.TransactionElements;
 
 namespace CashManager
 {

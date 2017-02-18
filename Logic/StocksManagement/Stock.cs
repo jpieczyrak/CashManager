@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.Serialization;
 using Logic.TransactionManagement;
+using Logic.TransactionManagement.TransactionElements;
 
 namespace Logic.StocksManagement
 {

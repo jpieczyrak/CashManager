@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Logic.TransactionManagement.TransactionElements;
+
 namespace Logic.TransactionManagement.BulkModifications
 {
     public static class BulkTransactionParametersChanger

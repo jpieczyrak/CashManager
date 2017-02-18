@@ -1,4 +1,4 @@
-﻿namespace Logic.TransactionManagement
+﻿namespace Logic.TransactionManagement.TransactionElements
 {
     /// <summary>
     /// Store category of transaction.

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Windows;
 using Logic;
 using Logic.FindingFilters;
+using Logic.LogicObjectsProviders;
 using Logic.Parsing;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
 using Logic.TransactionManagement.BulkModifications;
+using Logic.TransactionManagement.TransactionElements;
 
 namespace CashManager
 {

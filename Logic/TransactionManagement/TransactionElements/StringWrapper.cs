@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace Logic
+namespace Logic.TransactionManagement.TransactionElements
 {
     [DataContract]
     public class StringWrapper

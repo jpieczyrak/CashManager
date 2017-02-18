@@ -6,12 +6,12 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
-using Logic.Annotations;
+using Logic.Properties;
 using Logic.StocksManagement;
 using Logic.Utils;
 using Logic.ValueCalculationStrategies;
 
-namespace Logic.TransactionManagement
+namespace Logic.TransactionManagement.TransactionElements
 {
     [DataContract(Namespace = "")]
     public class Transaction : INotifyPropertyChanged

@@ -1,4 +1,4 @@
-namespace Logic.TransactionManagement
+namespace Logic.TransactionManagement.TransactionElements
 {
     /// <summary>
     /// Stores "tag" information of transaction.

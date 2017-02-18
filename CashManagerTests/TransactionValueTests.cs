@@ -2,6 +2,8 @@
 using Logic;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
+using Logic.TransactionManagement.TransactionElements;
+
 using NUnit.Framework;
 
 namespace CashManagerTests
@@ -29,7 +31,7 @@ namespace CashManagerTests
         public void Init()
         {
             mystock = new Stock("Mystock", 0);
-            incomeSource = new Stock("Targetstock", 0);
+            targetStock = incomeSource = new Stock("Targetstock", 0);
             tempStock = new Stock("temp", 0);
 
             transactions = new Transactions();

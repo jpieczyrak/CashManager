@@ -2,10 +2,11 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-using Logic.Annotations;
+
+using Logic.Properties;
 using Logic.StocksManagement;
 
-namespace Logic.TransactionManagement
+namespace Logic.TransactionManagement.TransactionElements
 {
     [DataContract(Namespace = "")]
     public class TransactionPartPayment : INotifyPropertyChanged
