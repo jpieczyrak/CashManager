@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 using Logic.TransactionManagement.TransactionElements;
 
@@ -9,33 +11,48 @@ namespace Logic.LogicObjectsProviders
         public static ObservableCollection<Category> Categories { get; } = new ObservableCollection<Category>();
 
         /// <summary>
-        /// Loads all categories from existing transactions.
-        /// Should be called after loading transactions
+        ///     Loads all categories from existing transactions.
+        ///     Should be called after loading transactions
         /// </summary>
         /// <param name="transactions"></param>
         public static void Load(ObservableCollection<Transaction> transactions)
         {
-            foreach (Transaction transaction in transactions)
+            foreach (var transaction in transactions)
             {
                 foreach (var sub in transaction.Subtransactions)
                 {
-                    Add(sub.Category);
+                    Store(sub.Category);
                 }
             }
         }
 
-        public static void Add(string category)
+        /// <summary>
+        ///     Finds category - or if not exist - creates the new one and returns result
+        /// </summary>
+        /// <param name="categoryName">Unique category name</param>
+        /// <returns>Found or created category</returns>
+        public static Category FindOrCreate(string categoryName)
         {
-            if (!string.IsNullOrEmpty(category))
+            if (!string.IsNullOrEmpty(categoryName))
             {
-                if (!Categories.Contains(new Category(category)))
+                var category =
+                    Categories.FirstOrDefault(c => string.Equals(c.Value, categoryName, StringComparison.CurrentCultureIgnoreCase));
+
+                if (category == null)
                 {
-                    Categories.Add(new Category(category));
+                    category = new Category(categoryName);
+                    Categories.Add(category);
                 }
+                return category;
             }
+            throw new ArgumentNullException("Category name can not be empty!");
         }
 
-        public static void Add(Category category)
+        /// <summary>
+        ///     Stores (for provider purpose) - loaded category
+        /// </summary>
+        /// <param name="category">Existsing category from main source (e.g. transactions)</param>
+        private static void Store(Category category)
         {
             if (category != null)
             {

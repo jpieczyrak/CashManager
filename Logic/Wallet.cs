@@ -27,7 +27,7 @@ namespace Logic
 
         public void Save()
         {
-            Serializer.XMLSerializeObject(this, Path);
+            Serializer.XMLSerializeObjectToFile(this, Path);
             Transactions.Save(new CSVFormater(), string.Format("{0}-transactions.csv", DateTime.Now.ToString("yyyyMMddHHmmss")));
             //stocks & transactions
             //DBProvider.DB.Save();

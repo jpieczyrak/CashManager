@@ -1,15 +1,16 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Xml;
 
 namespace Logic.FilesOperations
 {
     public class Deserializer
     {
-        public static T DeserializeXML<T>(string filepath) where T : new()
+        public static T DeserializeXMLFromFile<T>(string filepath) where T : new()
         {
-            DataContractSerializer serializer = new DataContractSerializer(typeof (T));
+            var serializer = new DataContractSerializer(typeof(T));
 
             try
             {
@@ -21,13 +22,21 @@ namespace Logic.FilesOperations
                     }
                 }
             }
-            catch (SerializationException e)
-            {
-            }
-            catch (Exception e)
-            {
-            }
+            catch (SerializationException e) { }
+            catch (Exception e) { }
             return new T();
+        }
+
+        public static object Deserialize(string xml, Type toType)
+        {
+            using (Stream stream = new MemoryStream())
+            {
+                var data = Encoding.UTF8.GetBytes(xml);
+                stream.Write(data, 0, data.Length);
+                stream.Position = 0;
+                var deserializer = new DataContractSerializer(toType);
+                return deserializer.ReadObject(stream);
+            }
         }
     }
 }

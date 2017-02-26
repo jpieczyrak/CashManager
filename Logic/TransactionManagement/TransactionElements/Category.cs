@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.Serialization;
 
 namespace Logic.TransactionManagement.TransactionElements
@@ -6,6 +7,8 @@ namespace Logic.TransactionManagement.TransactionElements
     public class Category
     {
         private string _value;
+
+        [DataMember] private readonly Guid _id;
 
         [DataMember]
         public string Value
@@ -25,6 +28,7 @@ namespace Logic.TransactionManagement.TransactionElements
         public Category(string value)
         {
             Value = value;
+            _id = Guid.NewGuid();
         }
 
         #region Override
@@ -36,11 +40,7 @@ namespace Logic.TransactionManagement.TransactionElements
 
         public override int GetHashCode()
         {
-            if (Value != null)
-            {
-                return Value.GetHashCode();
-            }
-            return -1;
+            return _id.GetHashCode();
         }
 
         public override string ToString()

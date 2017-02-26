@@ -23,7 +23,7 @@ namespace CashManager
 
         private void buttonAddEmpty_Click(object sender, RoutedEventArgs e)
         {
-            CategoryProvider.Add("empty");
+            CategoryProvider.FindOrCreate("empty");
         }
     }
 }
