@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+
+using Logic.Model;
 using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;
 

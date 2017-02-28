@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+
+using Logic.Model;
 using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;
 

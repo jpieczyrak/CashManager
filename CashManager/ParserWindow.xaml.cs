@@ -5,6 +5,7 @@ using System.Windows;
 using Logic;
 using Logic.FindingFilters;
 using Logic.LogicObjectsProviders;
+using Logic.Model;
 using Logic.Parsing;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;

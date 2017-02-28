@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Logic.FilesOperations;
 using Logic.LogicObjectsProviders;
+using Logic.Model;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;

@@ -1,4 +1,6 @@
 ﻿using System;
+
+using Logic.Model;
 using Logic.Specification;
 using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;

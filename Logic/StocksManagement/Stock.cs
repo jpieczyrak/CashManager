@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.Serialization;
+
+using Logic.Model;
 using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;
+using Logic.Utils;
 
 namespace Logic.StocksManagement
 {

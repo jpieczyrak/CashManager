@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
+using Logic.Model;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;

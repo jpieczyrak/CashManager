@@ -9,8 +9,10 @@ using Logic;
 using Logic.FilesOperations;
 using Logic.FindingFilters;
 using Logic.LogicObjectsProviders;
+using Logic.Model;
 using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;
+using Logic.Utils;
 
 namespace CashManager
 {

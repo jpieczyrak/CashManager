@@ -1,5 +1,6 @@
 ﻿using System;
 
+using Logic.Model;
 using Logic.TransactionManagement.TransactionElements;
 
 namespace Logic.TransactionManagement.BulkModifications

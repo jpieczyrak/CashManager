@@ -1,6 +1,8 @@
-﻿using Logic.Specification;
+﻿using Logic.Model;
+using Logic.Specification;
 using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;
+using Logic.Utils;
 
 namespace Logic.FindingFilters
 {
