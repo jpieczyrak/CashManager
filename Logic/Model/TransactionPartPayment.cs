@@ -5,8 +5,9 @@ using System.Runtime.Serialization;
 
 using Logic.Properties;
 using Logic.StocksManagement;
+using Logic.TransactionManagement.TransactionElements;
 
-namespace Logic.TransactionManagement.TransactionElements
+namespace Logic.Model
 {
     [DataContract(Namespace = "")]
     public class TransactionPartPayment : INotifyPropertyChanged

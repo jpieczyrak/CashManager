@@ -1,4 +1,5 @@
 using Logic.FilesOperations;
+using Logic.Model;
 using Logic.TransactionManagement.TransactionElements;
 
 using NUnit.Framework;

@@ -1,6 +1,6 @@
 using System;
 
-namespace Logic.TransactionManagement.TransactionElements
+namespace Logic.Utils
 {
     public class TimeFrame
     {

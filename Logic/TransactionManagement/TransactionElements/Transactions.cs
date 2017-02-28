@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.Serialization;
 
 using Logic.FilesOperations;
+using Logic.Model;
 
 namespace Logic.TransactionManagement.TransactionElements
 {

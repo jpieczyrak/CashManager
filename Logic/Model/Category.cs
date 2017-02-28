@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Logic.TransactionManagement.TransactionElements
+namespace Logic.Model
 {
     [DataContract]
     public class Category

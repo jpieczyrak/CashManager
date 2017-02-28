@@ -8,17 +8,16 @@ using System.Runtime.Serialization;
 
 using Logic.Properties;
 using Logic.StocksManagement;
+using Logic.TransactionManagement.TransactionElements;
 using Logic.Utils;
-using Logic.ValueCalculationStrategies;
 
-namespace Logic.TransactionManagement.TransactionElements
+namespace Logic.Model
 {
     [DataContract(Namespace = "")]
     public class Transaction : INotifyPropertyChanged
     {
         private DateTime _date;
         private string _note;
-        private IValueCalculationStrategy _strategy;
 
         private TrulyObservableCollection<Subtransaction> _subtransactions =
             new TrulyObservableCollection<Subtransaction>();
@@ -98,29 +97,14 @@ namespace Logic.TransactionManagement.TransactionElements
             }
         }
 
-        [DataMember]
         public double Value
         {
-            get
-            {
-                if (_strategy == null)
-                {
-                    _strategy = new BasicCalculationStrategy();
-                }
-                return _strategy.CalculateValue(Type, TransactionSoucePayments, Subtransactions);
-            }
-            set { }
+            get { return Subtransactions.Sum(subtransaction => subtransaction.Value); }
         }
 
-        public double ValueAsProfit
-        {
-            get
-            {
-                return Type == eTransactionType.Buy || Type == eTransactionType.Reinvest
-                           ? -Value
-                           : (Type != eTransactionType.Transfer ? Value : 0);
-            }
-        }
+        public double ValueAsProfit => Type == eTransactionType.Buy || Type == eTransactionType.Reinvest
+                                           ? -Value
+                                           : (Type != eTransactionType.Transfer ? Value : 0);
 
         [DataMember]
         public TrulyObservableCollection<Subtransaction> Subtransactions
@@ -160,7 +144,6 @@ namespace Logic.TransactionManagement.TransactionElements
         public Transaction()
         {
             Id = Guid.NewGuid();
-            _strategy = new BasicCalculationStrategy();
             Type = eTransactionType.Buy;
             Date = DateTime.Now;
 

@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 using Logic.Properties;
 
-namespace Logic.TransactionManagement.TransactionElements
+namespace Logic.Model
 {
     [DataContract(Namespace = "")]
     public class Subtransaction : INotifyPropertyChanged
