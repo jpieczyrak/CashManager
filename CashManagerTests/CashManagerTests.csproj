@@ -49,6 +49,7 @@
     <Compile Include="TransactionFindingTests.cs" />
     <Compile Include="UnitTests\CategoryProviderTests.cs" />
     <Compile Include="UnitTests\CategoryTests.cs" />
+    <Compile Include="UnitTests\TransactionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

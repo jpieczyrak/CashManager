@@ -30,7 +30,6 @@ namespace Logic.Model
 
         private eTransactionType _type;
 
-        [DataMember]
         public eTransactionType Type
         {
             get { return _type; }
@@ -41,7 +40,6 @@ namespace Logic.Model
             }
         }
 
-        [DataMember]
         public DateTime Date
         {
             get { return _date; }
@@ -52,7 +50,6 @@ namespace Logic.Model
             }
         }
 
-        [DataMember]
         public string Title
         {
             get { return _title; }
@@ -63,7 +60,6 @@ namespace Logic.Model
             }
         }
 
-        [DataMember]
         public string Note
         {
             get { return _note; }
@@ -74,7 +70,6 @@ namespace Logic.Model
             }
         }
 
-        [DataMember]
         public TrulyObservableCollection<TransactionPartPayment> TransactionSoucePayments
         {
             get { return _transactionSoucePayments; }
@@ -86,7 +81,6 @@ namespace Logic.Model
             }
         }
 
-        [DataMember]
         public Guid TargetStockId
         {
             get { return _targetStockId; }
@@ -106,7 +100,6 @@ namespace Logic.Model
                                            ? -Value
                                            : (Type != eTransactionType.Transfer ? Value : 0);
 
-        [DataMember]
         public TrulyObservableCollection<Subtransaction> Subtransactions
         {
             get { return _subtransactions; }
@@ -118,13 +111,11 @@ namespace Logic.Model
             }
         }
 
-        [DataMember]
         public DateTime CreationDate { get; set; }
 
-        [DataMember]
         public DateTime LastEditDate { get; set; }
 
-        public Guid Id { get; }
+        public Guid Id { get; private set; } = Guid.NewGuid();
 
         /// <summary>
         ///     TODO: remove after loading from file.
@@ -143,7 +134,6 @@ namespace Logic.Model
 
         public Transaction()
         {
-            Id = Guid.NewGuid();
             Type = eTransactionType.Buy;
             Date = DateTime.Now;
 
@@ -208,5 +198,19 @@ namespace Logic.Model
             OnPropertyChanged(nameof(Value));
             OnPropertyChanged(nameof(ValueAsProfit));
         }
+
+        #region Override
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj.GetHashCode().Equals(GetHashCode());
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
+        #endregion
     }
 }

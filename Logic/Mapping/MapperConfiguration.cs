@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 
-using AutoMapper;
-
-using Logic.DTO;
+using Logic.Model;
 
 namespace Logic.Mapping
 {
@@ -14,10 +8,13 @@ namespace Logic.Mapping
     {
         public static void Configure()
         {
-            Mapper.Initialize(cfg =>
+            Mapper.Initialize(config =>
             {
-                cfg.CreateMap<Category, Model.Category>();
-                cfg.CreateMap<Model.Category, Category>();
+                config.CreateMap<DTO.Category, Category>();
+                config.CreateMap<Category, DTO.Category>();
+
+                config.CreateMap<Transaction, DTO.Transaction>();
+                config.CreateMap<DTO.Transaction, Transaction>();
             });
         }
     }

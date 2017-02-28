@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\Category.cs" />
+    <Compile Include="DTO\Transaction.cs" />
     <Compile Include="LogicObjectsProviders\CategoryProvider.cs" />
     <Compile Include="FilesOperations\DBProvider.cs" />
     <Compile Include="FindingFilters\eTransactionDirection.cs" />
