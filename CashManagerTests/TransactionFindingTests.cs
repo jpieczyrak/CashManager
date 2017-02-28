@@ -42,7 +42,7 @@ namespace CashManagerTests
             income = new Transaction(eTransactionType.Work, DateTime.Today, "Income", "Income today!");
             income.TargetStockId = mystock.Id;
             income.Subtransactions.Add(new Subtransaction("Payment income", INCOME_VALUE));
-            income.TransactionSoucePayments.Add(new TransactionPartPayment(incomeSource, INCOME_VALUE, ePaymentType.Value));
+            income.TransactionSoucePayments.Add(new Logic.Model.TransactionPartPayment(incomeSource, INCOME_VALUE, ePaymentType.Value));
 
             transactions.Add(income);
 
@@ -54,7 +54,7 @@ namespace CashManagerTests
             Subtransaction drugSubtrans = new Subtransaction("Leki", drugCost) { Category = new Category("Cat-Drugs") };
             outcome.Subtransactions.Add(drugSubtrans);
 
-            outcome.TransactionSoucePayments.Add(new TransactionPartPayment(mystock, 100, ePaymentType.Percent));
+            outcome.TransactionSoucePayments.Add(new Logic.Model.TransactionPartPayment(mystock, 100, ePaymentType.Percent));
 
             transactions.Add(outcome);
         }

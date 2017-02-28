@@ -15,6 +15,30 @@ namespace Logic.Model
         private double _value;
         private ePaymentType _paymentType;
 
+        public Guid StockId { get; set; }
+
+        public double Value
+        {
+            get { return _value; }
+            set
+            {
+                _value = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ePaymentType PaymentType
+        {
+            get { return _paymentType; }
+            set
+            {
+                _paymentType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Guid Id { get; private set; }
+
         public TransactionPartPayment()
         {
             Id = Guid.NewGuid();
@@ -27,39 +51,30 @@ namespace Logic.Model
             PaymentType = paymentType;
         }
 
-        [DataMember]
-        public Guid StockId { get; set; }
-
-        [DataMember]
-        public double Value
-        {
-            get { return _value; }
-            set
-            {
-                _value = value;
-                OnPropertyChanged();
-            }
-        }
-
-        [DataMember]
-        public ePaymentType PaymentType
-        {
-            get { return _paymentType; }
-            set
-            {
-                _paymentType = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public Guid Id { get; }
+        #region INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #region Override
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj.GetHashCode().Equals(GetHashCode());
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
+        #endregion
     }
 }

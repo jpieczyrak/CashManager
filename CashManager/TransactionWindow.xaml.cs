@@ -182,7 +182,7 @@ namespace CashManager
                 payment = (ePaymentType) comboBoxContributionTypes.SelectedIndex;
             }
 
-            Transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, value, payment));
+            Transaction.TransactionSoucePayments.Add(new Logic.Model.TransactionPartPayment(sourceStock, value, payment));
         }
 
         private void comboboxTargetStock_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

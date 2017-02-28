@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
+using Logic.LogicObjectsProviders;
 using Logic.Properties;
 
 namespace Logic.Model
@@ -10,10 +12,24 @@ namespace Logic.Model
     public class Subtransaction : INotifyPropertyChanged
     {
         private double _value;
-        
-        public Subtransaction()
+
+        public string Name { get; set; }
+
+        public double Value
         {
+            get { return _value; }
+            set
+            {
+                _value = value;
+                OnPropertyChanged();
+            }
         }
+
+        public Category Category { get; set; }
+
+        public string Tags { get; set; }
+
+        public Guid Id { get; private set; } = Guid.NewGuid();
 
         public Subtransaction(string name, double value)
         {
@@ -25,33 +41,34 @@ namespace Logic.Model
         {
             _value = value;
             Name = name;
-            Category = new Category(category);
+            Category = CategoryProvider.FindOrCreate(category);
             Tags = tags;
         }
 
-        [DataMember]
-        public string Name { get; set; }
-        [DataMember]
-        public double Value
-        {
-            get { return _value; }
-            set
-            {
-                _value = value;
-                OnPropertyChanged();
-            }
-        }
-        [DataMember]
-        public Category Category { get; set; }
-        [DataMember]
-        public string Tags { get; set; }
+        #region INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #region Override
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj.GetHashCode().Equals(GetHashCode());
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
+        #endregion
     }
 }

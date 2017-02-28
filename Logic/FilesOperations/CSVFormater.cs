@@ -54,7 +54,7 @@ namespace Logic.FilesOperations
                         SUBELEMENT_ELEMENT_SPLIT_ELEMENT));
         }
 
-        private static string ToCSV(IEnumerable<TransactionPartPayment> parts)
+        private static string ToCSV(IEnumerable<Model.TransactionPartPayment> parts)
         {
             return parts.Aggregate("",
                 (current, p) =>

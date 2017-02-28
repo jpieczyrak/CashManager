@@ -70,7 +70,7 @@ namespace Logic.StocksManagement
 
                     if (outcome)
                     {
-                        foreach (TransactionPartPayment payment in transaction.TransactionSoucePayments)
+                        foreach (Model.TransactionPartPayment payment in transaction.TransactionSoucePayments)
                         {
                             if (payment.StockId.Equals(this))
                             {

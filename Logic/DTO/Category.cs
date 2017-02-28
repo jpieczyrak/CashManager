@@ -11,7 +11,5 @@ namespace Logic.DTO
 
         [DataMember]
         public string Value { get; set; }
-
-        public Category() { }
     }
 }

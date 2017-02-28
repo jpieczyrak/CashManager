@@ -61,16 +61,12 @@ namespace Logic.Parsing
             eTransactionType transactionType = positiveSign ? eTransactionType.Work : eTransactionType.Buy;
             
             Transaction transaction = new Transaction(transactionType, date, title, note);
-            Subtransaction subtransaction = new Subtransaction
-            {
-                Value = value,
-                Name = title
-            };
+            Subtransaction subtransaction = new Subtransaction(title, value);
             transaction.Subtransactions.Add(subtransaction);
 
             transaction.TargetStockId = positiveSign ? userStock.Id : Stock.Unknown.Id;
             Stock sourceStock = positiveSign ? Stock.Unknown : userStock;
-            transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));
+            transaction.TransactionSoucePayments.Add(new Model.TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));
 
             return transaction;
         }

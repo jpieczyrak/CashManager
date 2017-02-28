@@ -44,21 +44,20 @@ namespace Logic.Parsing
 
             Transaction transaction = new Transaction(type, date, title, "");
 
-            Subtransaction subtransaction = new Subtransaction();
+            
 
             string stringWithValue = outcome ? values[11] : values[10];
             double value;
             double.TryParse(stringWithValue, out value);
 
-            subtransaction.Value = value;
-            subtransaction.Name = title;
+            Subtransaction subtransaction = new Subtransaction(title, value);
 
             transaction.Subtransactions.Add(subtransaction);
 
             transaction.TargetStockId = outcome ? Stock.Unknown.Id : userStock.Id;
 
             Stock sourceStock = !outcome ? Stock.Unknown : userStock;
-            transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));
+            transaction.TransactionSoucePayments.Add(new Model.TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));
 
             return transaction;
         }

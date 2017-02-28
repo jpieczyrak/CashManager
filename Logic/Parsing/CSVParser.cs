@@ -52,7 +52,7 @@ namespace Logic.Parsing
                 }
                 
                 string[] payments = transactionElements[8].Split(CSVFormater.SUBELEMENT_SPLIT_ELEMENT);
-                List<TransactionPartPayment> partPayments = new List<TransactionPartPayment>();
+                List<Model.TransactionPartPayment> partPayments = new List<Model.TransactionPartPayment>();
 
                 foreach (string payment in payments)
                 {
@@ -66,7 +66,7 @@ namespace Logic.Parsing
                     Guid paymentStockId = Guid.Parse(paymentElements[2]);
                     Stock paymentStock = StockProvider.GetStock(paymentStockId);
 
-                    partPayments.Add(new TransactionPartPayment(paymentStock, value, paymentType));
+                    partPayments.Add(new Model.TransactionPartPayment(paymentStock, value, paymentType));
                 }
 
                 output.Add(new Transaction(transactionType, date, title, note, stock, creationDate, lastEdit, subtransactions, partPayments));
