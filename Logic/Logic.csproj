@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DBInterface">
       <HintPath>..\..\LogoutTimer\WebServer\Bin\DBInterface.dll</HintPath>
     </Reference>
@@ -40,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\Category.cs" />
     <Compile Include="LogicObjectsProviders\CategoryProvider.cs" />
     <Compile Include="FilesOperations\DBProvider.cs" />
     <Compile Include="FindingFilters\eTransactionDirection.cs" />
@@ -50,6 +55,7 @@
     <Compile Include="FindingFilters\TransactionMaxValueRule.cs" />
     <Compile Include="FindingFilters\TransactionMinValueRule.cs" />
     <Compile Include="FindingFilters\TransactionTypeRule.cs" />
+    <Compile Include="Mapping\MapperConfiguration.cs" />
     <Compile Include="Parsing\CSVParser.cs" />
     <Compile Include="Parsing\GetinBankParser.cs" />
     <Compile Include="TransactionManagement\BulkModifications\BulkTransactionParametersChanger.cs" />
@@ -90,7 +96,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DTO\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

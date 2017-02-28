@@ -1,11 +1,6 @@
 ﻿using Logic.LogicObjectsProviders;
-using Logic.TransactionManagement.TransactionElements;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using NUnit.Framework;
-
-using Assert = NUnit.Framework.Assert;
 
 namespace CashManagerTests.UnitTests
 {

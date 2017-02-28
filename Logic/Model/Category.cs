@@ -1,16 +1,13 @@
 using System;
-using System.Runtime.Serialization;
 
 namespace Logic.Model
 {
-    [DataContract]
     public class Category
     {
+        public Guid Id { get; set; }
+
         private string _value;
 
-        [DataMember] private readonly Guid _id;
-
-        [DataMember]
         public string Value
         {
             get { return _value; }
@@ -23,12 +20,10 @@ namespace Logic.Model
             }
         }
 
-        private Category() { }
-
         public Category(string value)
         {
             Value = value;
-            _id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         #region Override
@@ -40,7 +35,7 @@ namespace Logic.Model
 
         public override int GetHashCode()
         {
-            return _id.GetHashCode();
+            return Id.GetHashCode();
         }
 
         public override string ToString()
