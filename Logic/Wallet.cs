@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Runtime.Serialization;
+
+using Logic.Database;
 using Logic.FilesOperations;
 using Logic.LogicObjectsProviders;
+using Logic.Model;
 using Logic.StocksManagement;
-using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;
 using Logic.Utils;
 
@@ -30,8 +31,12 @@ namespace Logic
         {
             Serializer.XMLSerializeObjectToFile(this, Path);
             Transactions.Save(new CSVFormater(), string.Format("{0}-transactions.csv", DateTime.Now.ToString("yyyyMMddHHmmss")));
+
             //stocks & transactions
-            //DBProvider.DB.Save();
+            foreach (var transaction in Transactions.TransactionsList)
+            {
+                DatabaseProvider.DB.Update(AutoMapper.Mapper.Map<Transaction, DTO.Transaction>(transaction));
+            }
         }
 
         public void UpdateStockStats(ObservableCollection<StockStats> stockStats, TimeFrame timeframe)

@@ -91,10 +91,7 @@ namespace Logic.Model
             }
         }
 
-        public double Value
-        {
-            get { return Subtransactions.Sum(subtransaction => subtransaction.Value); }
-        }
+        public double Value => Subtransactions?.Sum(subtransaction => subtransaction.Value) ?? 0;
 
         public double ValueAsProfit => Type == eTransactionType.Buy || Type == eTransactionType.Reinvest
                                            ? -Value

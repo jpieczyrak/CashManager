@@ -1,4 +1,5 @@
 ﻿using Logic.LogicObjectsProviders;
+using Logic.Mapping;
 
 using NUnit.Framework;
 
@@ -7,6 +8,12 @@ namespace CashManagerTests.UnitTests
     [TestFixture]
     public class CategoryProviderTests
     {
+        [SetUp]
+        public void Setup()
+        {
+            MapperConfiguration.Configure();
+        }
+
         [Test]
         public void ShouldCreateUniqueCategories()
         {

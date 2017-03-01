@@ -2,8 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
+using AutoMapper;
+
+using Logic.Database;
 using Logic.Model;
-using Logic.TransactionManagement.TransactionElements;
 
 namespace Logic.LogicObjectsProviders
 {
@@ -18,12 +20,10 @@ namespace Logic.LogicObjectsProviders
         /// <param name="transactions"></param>
         public static void Load(ObservableCollection<Transaction> transactions)
         {
-            foreach (var transaction in transactions)
+            var dtos = DatabaseProvider.DB.Read<DTO.Category>();
+            foreach (var dto in dtos)
             {
-                foreach (var sub in transaction.Subtransactions)
-                {
-                    Store(sub.Category);
-                }
+                Categories.Add(Mapper.Map<DTO.Category, Category>(dto));
             }
         }
 
@@ -42,7 +42,7 @@ namespace Logic.LogicObjectsProviders
                 if (category == null)
                 {
                     category = new Category(categoryName);
-                    Categories.Add(category);
+                    Store(category);
                 }
                 return category;
             }
@@ -62,6 +62,7 @@ namespace Logic.LogicObjectsProviders
                 if (!Categories.Contains(category))
                 {
                     Categories.Add(category);
+                    DatabaseProvider.DB.Update(Mapper.Map<Category, DTO.Category>(category));
                 }
             }
         }
