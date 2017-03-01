@@ -13,7 +13,7 @@ namespace Logic.DTO
         public double Value { get; set; }
 
         [DataMember]
-        public Category Category { get; set; }
+        public Guid CategoryId { get; set; }
 
         [DataMember]
         public string Tags { get; set; }

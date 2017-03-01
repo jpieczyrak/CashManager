@@ -31,6 +31,8 @@ namespace Logic.Model
 
         public Guid Id { get; private set; } = Guid.NewGuid();
 
+        private Subtransaction() { }
+
         public Subtransaction(string name, double value)
         {
             _value = value;

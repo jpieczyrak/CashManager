@@ -49,6 +49,8 @@ namespace Logic.LogicObjectsProviders
             throw new ArgumentNullException("Category name can not be empty!");
         }
 
+        public static Category GetById(Guid id) => Categories.FirstOrDefault(c => c.Id.Equals(id));
+
         /// <summary>
         ///     Stores (for provider purpose) - loaded category
         /// </summary>

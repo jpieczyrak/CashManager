@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 
+using Logic.LogicObjectsProviders;
 using Logic.Model;
 
 namespace Logic.Mapping
@@ -16,8 +17,14 @@ namespace Logic.Mapping
                 config.CreateMap<Transaction, DTO.Transaction>();
                 config.CreateMap<DTO.Transaction, Transaction>();
 
-                config.CreateMap<Subtransaction, DTO.Subtransaction>();
-                config.CreateMap<DTO.Subtransaction, Subtransaction>();
+                config.CreateMap<Subtransaction, DTO.Subtransaction>()
+                      .ForMember(dest => dest.CategoryId,
+                          ex => ex.MapFrom(sub => sub.Category.Id));
+                config.CreateMap<DTO.Subtransaction, Subtransaction>()
+                      .ForMember(dest => dest.Category,
+                          ex => ex.MapFrom(
+                              sub => CategoryProvider.GetById(sub.CategoryId)
+                                    ));
 
                 config.CreateMap<TransactionPartPayment, DTO.TransactionPartPayment>();
                 config.CreateMap<DTO.TransactionPartPayment, TransactionPartPayment>();
