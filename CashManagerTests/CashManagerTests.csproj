@@ -55,6 +55,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Libs\C#\DB\DBInterface\DBInterface\DBInterface.csproj">
+      <Project>{28882375-da70-49d0-bdc1-cced928be1ff}</Project>
+      <Name>DBInterface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Logic\Logic.csproj">
       <Project>{bf1c3982-4770-45e1-9fab-189656443f61}</Project>
       <Name>Logic</Name>

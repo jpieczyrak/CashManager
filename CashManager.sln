@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManagerTests", "CashMan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteDBWrapper", "..\..\Libs\C#\DB\LiteDBWrapper\LiteDBWrapper\LiteDBWrapper.csproj", "{6BFE7957-F041-4EDC-AC17-386777644E48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBInterface", "..\..\Libs\C#\DB\DBInterface\DBInterface\DBInterface.csproj", "{28882375-DA70-49D0-BDC1-CCED928BE1FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,14 @@ Global
 		{6BFE7957-F041-4EDC-AC17-386777644E48}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6BFE7957-F041-4EDC-AC17-386777644E48}.Release|x64.ActiveCfg = Release|x64
 		{6BFE7957-F041-4EDC-AC17-386777644E48}.Release|x64.Build.0 = Release|x64
+		{28882375-DA70-49D0-BDC1-CCED928BE1FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28882375-DA70-49D0-BDC1-CCED928BE1FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28882375-DA70-49D0-BDC1-CCED928BE1FF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{28882375-DA70-49D0-BDC1-CCED928BE1FF}.Debug|x64.Build.0 = Debug|Any CPU
+		{28882375-DA70-49D0-BDC1-CCED928BE1FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28882375-DA70-49D0-BDC1-CCED928BE1FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28882375-DA70-49D0-BDC1-CCED928BE1FF}.Release|x64.ActiveCfg = Release|Any CPU
+		{28882375-DA70-49D0-BDC1-CCED928BE1FF}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

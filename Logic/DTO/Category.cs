@@ -10,6 +10,9 @@ namespace Logic.DTO
         public Guid Id { get; set; }
 
         [DataMember]
+        public Guid ParentId { get; set; }
+
+        [DataMember]
         public string Value { get; set; }
     }
 }
