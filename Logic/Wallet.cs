@@ -18,11 +18,7 @@ namespace Logic
         public static string Path = "wallet.xml";
 
         [DataMember]
-        public ObservableCollection<Stock> AvailableStocks
-        {
-            get { return StockProvider.Stocks; }
-            set { StockProvider.Load(value); }
-        }
+        public ObservableCollection<Stock> AvailableStocks => StockProvider.Stocks;
 
         [DataMember]
         public Transactions Transactions { get; set; } = new Transactions();

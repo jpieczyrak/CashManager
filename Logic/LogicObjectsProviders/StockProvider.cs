@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
-using Logic.StocksManagement;
+using AutoMapper;
+
+using Logic.Database;
+using Logic.Model;
 
 namespace Logic.LogicObjectsProviders
 {
@@ -12,39 +16,31 @@ namespace Logic.LogicObjectsProviders
 
         public static Stock GetStock(Guid id)
         {
-            foreach (Stock s in Stocks)
-            {
-                if (s.Id.Equals(id))
-                {
-                    return s;
-                }
-            }
-            
-            Stock stock = new Stock("Loaded" + id, 0, id);
-            Stocks.Add(stock);
-
-            return stock;
+            return Stocks.FirstOrDefault(s => s.Id.Equals(id));
         }
 
-        public static void Add(Stock stock)
+        public static void AddNew(string name = "", float value = 0f)
         {
+            var stock = new Stock(name, value);
             Stocks.Add(stock);
+            DatabaseProvider.DB.Save(stock);
         }
 
         public static List<Stock> GetStocks()
         {
             if (Stocks.Count == 0 || !Stocks.Contains(Stock.Unknown))
             {
-                Add(Stock.Unknown);
+                Stocks.Add(Stock.Unknown);
             }
             return new List<Stock>(Stocks);
         }
 
-        public static void Load(ObservableCollection<Stock> stocks)
+        public static void Load()
         {
-            foreach (var stock in stocks)
+            var dtos = DatabaseProvider.DB.Read<DTO.Stock>();
+            foreach (var dto in dtos)
             {
-                Stocks.Add(stock);
+                Stocks.Add(Mapper.Map<DTO.Stock, Stock>(dto));
             }
         }
     }

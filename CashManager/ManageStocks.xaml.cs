@@ -1,12 +1,13 @@
 ﻿using System.Windows;
+
 using Logic;
 using Logic.LogicObjectsProviders;
-using Logic.StocksManagement;
+using Logic.Model;
 
 namespace CashManager
 {
     /// <summary>
-    /// Interaction logic for ManageStocks.xaml
+    ///     Interaction logic for ManageStocks.xaml
     /// </summary>
     public partial class ManageStocks : Window
     {
@@ -24,12 +25,12 @@ namespace CashManager
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
         {
             _wallet.Save();
-            Close(); 
+            Close();
         }
 
         private void buttonAddEmpty_Click(object sender, RoutedEventArgs e)
         {
-            StockProvider.Add(new Stock("", 0));
+            StockProvider.AddNew();
         }
     }
 }

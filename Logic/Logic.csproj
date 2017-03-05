@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Database\DatabaseProvider.cs" />
     <Compile Include="DTO\Category.cs" />
+    <Compile Include="DTO\Stock.cs" />
     <Compile Include="DTO\Subtransaction.cs" />
     <Compile Include="DTO\Transaction.cs" />
     <Compile Include="DTO\TransactionPartPayment.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="Utils\TimeFrame.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="TransactionManagement\TransactionElements\Transactions.cs" />
-    <Compile Include="StocksManagement\Stock.cs" />
+    <Compile Include="Model\Stock.cs" />
     <Compile Include="Utils\TrulyObservableCollection.cs" />
     <Compile Include="Model\TransactionPartPayment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
