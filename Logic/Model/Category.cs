@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Logic.LogicObjectsProviders;
 
@@ -31,24 +32,22 @@ namespace Logic.Model
 
         public bool MatchCategoryFilter(List<Guid> filter)
         {
-            List<Guid> ids = new List<Guid>();
-            GetCategoriesChain(ids);
-            
-            if (filter.Count > ids.Count) return false;
+            var ids = GetCategoriesChain(new Stack<Guid>());
 
-            ids.Reverse();
-
-            for (int i = 0; i < filter.Count; i++)
-            {
-                if (filter[i] != ids[i]) return false;
-            }
-            return true;
+            return filter.Count <= ids.Count && filter.All(guid => guid == ids.Pop());
         }
 
-        public void GetCategoriesChain(List<Guid> ids)
+        /// <summary>
+        /// Gets category ids from parents - making a chain of ids.
+        /// </summary>
+        /// <param name="ids">Stack of ids given from child or new if its "leaf" children</param>
+        /// <returns></returns>
+        public Stack<Guid> GetCategoriesChain(Stack<Guid> ids)
         {
-            ids.Add(Id);
+            ids.Push(Id);
             Parent?.GetCategoriesChain(ids);
+
+            return ids;
         }
 
         public Category(string value)
