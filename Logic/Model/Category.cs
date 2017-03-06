@@ -1,18 +1,30 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
+using Logic.Annotations;
 using Logic.LogicObjectsProviders;
 
 namespace Logic.Model
 {
-    public class Category
+    public class Category : INotifyPropertyChanged
     {
         private string _value;
 
         private Category _parent;
+        private Guid _parentId;
 
-        public Guid ParentId { get; set; }
+        public Guid ParentId
+        {
+            get { return _parentId; }
+            set
+            {
+                _parentId = value;
+                OnPropertyChanged(nameof(ParentId));
+            }
+        }
 
         public Guid Id { get; private set; }
 
@@ -24,11 +36,24 @@ namespace Logic.Model
                 if (value != null)
                 {
                     _value = value;
+                    OnPropertyChanged(nameof(Value));
                 }
             }
         }
 
         public Category Parent => _parent ?? (_parent = CategoryProvider.GetById(ParentId));
+
+        public Category(string value)
+        {
+            Value = value;
+            Id = Guid.NewGuid();
+        }
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
 
         public bool MatchCategoryFilter(List<Guid> filter)
         {
@@ -38,7 +63,7 @@ namespace Logic.Model
         }
 
         /// <summary>
-        /// Gets category ids from parents - making a chain of ids.
+        ///     Gets category ids from parents - making a chain of ids.
         /// </summary>
         /// <param name="ids">Stack of ids given from child or new if its "leaf" children</param>
         /// <returns></returns>
@@ -50,10 +75,10 @@ namespace Logic.Model
             return ids;
         }
 
-        public Category(string value)
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            Value = value;
-            Id = Guid.NewGuid();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #region Override

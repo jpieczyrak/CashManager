@@ -1,30 +1,29 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 
 using AutoMapper;
 
 using Logic.Database;
 using Logic.Model;
+using Logic.Utils;
 
 namespace Logic.LogicObjectsProviders
 {
     public class CategoryProvider
     {
-        public static ObservableCollection<Category> Categories { get; } = new ObservableCollection<Category>();
+        private static TrulyObservableCollection<Category> _categories;
 
-        /// <summary>
-        ///     Loads all categories from existing transactions.
-        ///     Should be called after loading transactions
-        /// </summary>
-        /// <param name="transactions"></param>
-        public static void Load(ObservableCollection<Transaction> transactions)
+        public static TrulyObservableCollection<Category> Categories => _categories ?? (_categories = Load());
+
+        public static TrulyObservableCollection<Category> Load()
         {
             var dtos = DatabaseProvider.DB.Read<DTO.Category>();
-            foreach (var dto in dtos)
-            {
-                Categories.Add(Mapper.Map<DTO.Category, Category>(dto));
-            }
+            var list = dtos.Select(Mapper.Map<DTO.Category, Category>);
+            _categories = new TrulyObservableCollection<Category>(list);
+            _categories.CollectionChanged += CategoriesOnCollectionChanged;
+
+            return _categories;
         }
 
         /// <summary>
@@ -50,6 +49,24 @@ namespace Logic.LogicObjectsProviders
         }
 
         public static Category GetById(Guid id) => Categories.FirstOrDefault(c => c.Id.Equals(id));
+
+        private static void CategoriesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            if (notifyCollectionChangedEventArgs.NewItems != null)
+            {
+                foreach (Category category in notifyCollectionChangedEventArgs.NewItems)
+                {
+                    DatabaseProvider.DB.Update(Mapper.Map<Category, DTO.Category>(category));
+                }
+            }
+            if (notifyCollectionChangedEventArgs.OldItems != null)
+            {
+                foreach (Category category in notifyCollectionChangedEventArgs.OldItems)
+                {
+                    DatabaseProvider.DB.Remove(Mapper.Map<Category, DTO.Category>(category));
+                }
+            }
+        }
 
         /// <summary>
         ///     Stores (for provider purpose) - loaded category

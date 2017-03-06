@@ -1,45 +1,33 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Runtime.Serialization;
+﻿using System.Collections.ObjectModel;
 
 using Logic.Database;
-using Logic.FilesOperations;
 using Logic.LogicObjectsProviders;
 using Logic.Model;
 using Logic.StocksManagement;
-using Logic.TransactionManagement.TransactionElements;
 using Logic.Utils;
 
 namespace Logic
 {
-    [DataContract(Namespace = "")]
     public class Wallet
     {
-        public static string Path = "wallet.xml";
+        public TrulyObservableCollection<Stock> AvailableStocks => StockProvider.Stocks;
 
-        [DataMember]
-        public ObservableCollection<Stock> AvailableStocks => StockProvider.Stocks;
+        public TrulyObservableCollection<Transaction> Transactions => TransactionProvider.Transactions;
 
-        [DataMember]
-        public Transactions Transactions { get; set; } = new Transactions();
+        public TrulyObservableCollection<Category> Categories => CategoryProvider.Categories;
 
         public void Save()
         {
-            Serializer.XMLSerializeObjectToFile(this, Path);
-            Transactions.Save(new CSVFormater(), string.Format("{0}-transactions.csv", DateTime.Now.ToString("yyyyMMddHHmmss")));
-
             //stocks & transactions
-            foreach (var transaction in Transactions.TransactionsList)
-            {
-                DatabaseProvider.DB.Update(AutoMapper.Mapper.Map<Transaction, DTO.Transaction>(transaction));
-            }
-
+            foreach (var transaction in Transactions) DatabaseProvider.DB.Update(AutoMapper.Mapper.Map<Transaction, DTO.Transaction>(transaction));
+            foreach (var stock in AvailableStocks) DatabaseProvider.DB.Update(AutoMapper.Mapper.Map<Stock, DTO.Stock>(stock));
+            foreach (var category in Categories) DatabaseProvider.DB.Update(AutoMapper.Mapper.Map<Category, DTO.Category>(category));
         }
 
         public void UpdateStockStats(ObservableCollection<StockStats> stockStats, TimeFrame timeframe)
         {
             stockStats.Clear();
-            foreach (Stock stock in AvailableStocks)
+            foreach (var stock in AvailableStocks)
             {
                 stockStats.Add(new StockStats(stock.Name, stock.GetActualValue(Transactions, timeframe)));
             }

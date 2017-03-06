@@ -1,4 +1,5 @@
-using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Linq;
 
 using AutoMapper;
 
@@ -12,23 +13,40 @@ namespace Logic.LogicObjectsProviders
     {
         private static TrulyObservableCollection<Transaction> _transactions;
 
-        public static ReadOnlyCollection<Transaction> Transactions => new ReadOnlyCollection<Transaction>(_transactions);
+        public static TrulyObservableCollection<Transaction> Transactions => _transactions ?? (_transactions = Load());
 
-        public static void Load()
+        public static TrulyObservableCollection<Transaction> Load()
         {
-            _transactions = new TrulyObservableCollection<Transaction>();
-
             var dtos = DatabaseProvider.DB.Read<DTO.Transaction>();
-            foreach (var dto in dtos)
-            {
-                _transactions.Add(Mapper.Map<DTO.Transaction, Transaction>(dto));
-            }
+            var list = dtos.Select(Mapper.Map<DTO.Transaction, Transaction>);
+            _transactions = new TrulyObservableCollection<Transaction>(list);
+            _transactions.CollectionChanged += TransactionsOnCollectionChanged;
+
+            return _transactions;
         }
 
         public static void Add(Transaction transaction)
         {
-            _transactions.Add(transaction);
-            DatabaseProvider.DB.Save(Mapper.Map<Transaction, DTO.Transaction>(transaction));
+            Transactions.Add(transaction);
+            DatabaseProvider.DB.Update(Mapper.Map<Transaction, DTO.Transaction>(transaction));
+        }
+
+        private static void TransactionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            if (notifyCollectionChangedEventArgs.NewItems != null)
+            {
+                foreach (Transaction transaction in notifyCollectionChangedEventArgs.NewItems)
+                {
+                    DatabaseProvider.DB.Update(Mapper.Map<Transaction, DTO.Transaction>(transaction));
+                }
+            }
+            if (notifyCollectionChangedEventArgs.OldItems != null)
+            {
+                foreach (Transaction transaction in notifyCollectionChangedEventArgs.OldItems)
+                {
+                    DatabaseProvider.DB.Remove(Mapper.Map<Transaction, DTO.Transaction>(transaction));
+                }
+            }
         }
     }
 }

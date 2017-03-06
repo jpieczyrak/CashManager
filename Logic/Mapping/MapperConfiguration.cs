@@ -14,6 +14,9 @@ namespace Logic.Mapping
                 config.CreateMap<Category, DTO.Category>();
                 config.CreateMap<DTO.Category, Category>();
 
+                config.CreateMap<Stock, DTO.Stock>();
+                config.CreateMap<DTO.Stock, Stock>();
+
                 config.CreateMap<Transaction, DTO.Transaction>();
                 config.CreateMap<DTO.Transaction, Transaction>();
 

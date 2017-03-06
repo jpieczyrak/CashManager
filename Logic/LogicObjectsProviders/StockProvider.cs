@@ -1,18 +1,21 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 
 using AutoMapper;
 
 using Logic.Database;
 using Logic.Model;
+using Logic.Utils;
 
 namespace Logic.LogicObjectsProviders
 {
     public class StockProvider
     {
-        public static ObservableCollection<Stock> Stocks { get; } = new ObservableCollection<Stock>();
+        private static TrulyObservableCollection<Stock> _stocks;
+
+        public static TrulyObservableCollection<Stock> Stocks => _stocks ?? (_stocks = Load());
 
         public static Stock GetStock(Guid id)
         {
@@ -23,7 +26,7 @@ namespace Logic.LogicObjectsProviders
         {
             var stock = new Stock(name, value);
             Stocks.Add(stock);
-            DatabaseProvider.DB.Save(stock);
+            DatabaseProvider.DB.Update(Mapper.Map<Stock, DTO.Stock>(stock));
         }
 
         public static List<Stock> GetStocks()
@@ -35,12 +38,31 @@ namespace Logic.LogicObjectsProviders
             return new List<Stock>(Stocks);
         }
 
-        public static void Load()
+        public static TrulyObservableCollection<Stock> Load()
         {
             var dtos = DatabaseProvider.DB.Read<DTO.Stock>();
-            foreach (var dto in dtos)
+            var list = dtos.Select(Mapper.Map<DTO.Stock, Stock>);
+            _stocks = new TrulyObservableCollection<Stock>(list);
+            _stocks.CollectionChanged += StocksOnCollectionChanged;
+
+            return _stocks;
+        }
+
+        private static void StocksOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            if (notifyCollectionChangedEventArgs.NewItems != null)
             {
-                Stocks.Add(Mapper.Map<DTO.Stock, Stock>(dto));
+                foreach (Stock stock in notifyCollectionChangedEventArgs.NewItems)
+                {
+                    DatabaseProvider.DB.Update(Mapper.Map<Stock, DTO.Stock>(stock));
+                }
+            }
+            if (notifyCollectionChangedEventArgs.OldItems != null)
+            {
+                foreach (Stock stock in notifyCollectionChangedEventArgs.OldItems)
+                {
+                    DatabaseProvider.DB.Remove(Mapper.Map<Stock, DTO.Stock>(stock));
+                }
             }
         }
     }

@@ -63,6 +63,7 @@
     <Compile Include="Mapping\MapperConfiguration.cs" />
     <Compile Include="Parsing\CSVParser.cs" />
     <Compile Include="Parsing\GetinBankParser.cs" />
+    <Compile Include="Properties\Annotations1.cs" />
     <Compile Include="TransactionManagement\BulkModifications\BulkTransactionParametersChanger.cs" />
     <Compile Include="LogicObjectsProviders\StockProvider.cs" />
     <Compile Include="Specification\AndSpecification.cs" />

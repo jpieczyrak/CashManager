@@ -32,7 +32,8 @@ namespace CashManager
         public TransactionWindow(Transaction transaction, Wallet wallet, eTransactionDirection transactionDirection)
         {
             _wallet = wallet;
-            Transaction = transaction;     //make copy not copy ref!
+            Transaction = transaction;
+            //Transaction = transaction.Clone();
             InitializeComponent();
 
             //TODO: make copy of actual transaction

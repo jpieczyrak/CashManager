@@ -209,5 +209,10 @@ namespace Logic.Model
         }
 
         #endregion
+
+        public Transaction Clone()
+        {
+            return (Transaction) MemberwiseClone();
+        }
     }
 }

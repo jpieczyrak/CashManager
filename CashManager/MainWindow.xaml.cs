@@ -5,10 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-using Logic;
-using Logic.FilesOperations;
 using Logic.FindingFilters;
-using Logic.LogicObjectsProviders;
+using Logic.Mapping;
 using Logic.Model;
 using Logic.Utils;
 
@@ -21,10 +19,10 @@ namespace CashManager
     {
         private readonly MainWindowDataContext _dataContext = new MainWindowDataContext();
         public MainWindow()
-        {       
-            _dataContext.Wallet = Deserializer.DeserializeXMLFromFile<Wallet>(Wallet.Path);
+        {
+            MapperConfiguration.Configure();
+
             _dataContext.Timeframe = new TimeFrame(DateTime.Now.AddYears(-5), DateTime.Now);
-            //_dataContext.Wallet.UpdateStockStats(_dataContext.StockStats, _dataContext.Timeframe);
 
             InitializeComponent();
             Title += " " + Assembly.GetExecutingAssembly().GetName().Version;
@@ -33,11 +31,10 @@ namespace CashManager
 
             DataContext = _dataContext;
             dataGridStockStats.ItemsSource = _dataContext.StockStats;
-            DataGridTransactions.ItemsSource = _dataContext.Wallet.Transactions.TransactionsList;
+            DataGridTransactions.ItemsSource = _dataContext.Wallet.Transactions;
+            
 
-            CategoryProvider.Load(_dataContext.Wallet.Transactions.TransactionsList);
-
-            _dataContext.Wallet.Transactions.TransactionsList.Where(x=>x.Title != null && x.Title.Contains("Obiad")).Sum(x => x.ValueAsProfit);
+            _dataContext.Wallet.Transactions.Where(x=>x.Title != null && x.Title.Contains("Obiad")).Sum(x => x.ValueAsProfit);
         }
 
         private void AddTransactionButtonClick(object sender, RoutedEventArgs e)
