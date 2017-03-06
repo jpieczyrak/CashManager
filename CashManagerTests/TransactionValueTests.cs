@@ -1,8 +1,6 @@
 ﻿using System;
-using Logic;
+
 using Logic.Model;
-using Logic.StocksManagement;
-using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;
 
 using NUnit.Framework;
@@ -12,95 +10,93 @@ namespace CashManagerTests
     [TestFixture]
     public class TransactionValueTests
     {
-        private const int INCOME_VALUE = 2000;
-        private const int foodCost = 50;
-        private const double drugCost = 21.45;
-        private const double transactionCost = 165.43;
-
-        Stock mystock;
-        Stock incomeSource;
-        Stock targetStock;
-        Stock tempStock;
-
-        Transactions transactions;
-
-        Transaction income;
-        Transaction outcome;
-        
-
         [SetUp]
         public void Init()
         {
-            mystock = new Stock("Mystock", 0);
-            targetStock = incomeSource = new Stock("Targetstock", 0);
-            tempStock = new Stock("temp", 0);
+            _mystock = new Stock("Mystock", 0);
+            _targetStock = _incomeSource = new Stock("Targetstock", 0);
+            _tempStock = new Stock("temp", 0);
 
-            transactions = new Transactions();
+            _transactions = new Transactions();
 
-            income = new Transaction(eTransactionType.Work, DateTime.Today, "Income", "Income today!");
-            income.TargetStockId = mystock.Id;
-            income.Subtransactions.Add(new Subtransaction("Payment income", INCOME_VALUE));
-            income.TransactionSoucePayments.Add(new Logic.Model.TransactionPartPayment(incomeSource, INCOME_VALUE, ePaymentType.Value));
+            _income = new Transaction(eTransactionType.Work, DateTime.Today, "Income", "Income today!") { TargetStockId = _mystock.Id };
+            _income.Subtransactions.Add(new Subtransaction("Payment _income", INCOME_VALUE));
+            _income.TransactionSoucePayments.Add(new TransactionPartPayment(_incomeSource, INCOME_VALUE, ePaymentType.Value));
 
-            transactions.Add(income);
+            _transactions.Add(_income);
 
-            outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "");
-            outcome.TargetStockId = targetStock.Id;
+            _outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "") { TargetStockId = _targetStock.Id };
 
-            Subtransaction foodSubtrans = new Subtransaction("Jedzenie", foodCost) {Category = new Category("Cat-Food") };
-            outcome.Subtransactions.Add(foodSubtrans);
-            Subtransaction drugSubtrans = new Subtransaction("Leki", drugCost) { Category = new Category("Cat-Drugs") };
-            outcome.Subtransactions.Add(drugSubtrans);
+            var foodSubtrans = new Subtransaction("Jedzenie", FOOD_COST) { Category = new Category("Cat-Food") };
+            _outcome.Subtransactions.Add(foodSubtrans);
+            var drugSubtrans = new Subtransaction("Leki", DRUG_COST) { Category = new Category("Cat-Drugs") };
+            _outcome.Subtransactions.Add(drugSubtrans);
 
-            outcome.TransactionSoucePayments.Add(new Logic.Model.TransactionPartPayment(mystock, 100, ePaymentType.Percent));
+            _outcome.TransactionSoucePayments.Add(new TransactionPartPayment(_mystock, 100, ePaymentType.Percent));
 
-            transactions.Add(outcome);
+            _transactions.Add(_outcome);
+        }
+
+        private const int INCOME_VALUE = 2000;
+        private const int FOOD_COST = 50;
+        private const double DRUG_COST = 21.45;
+        private const double TRANSACTION_COST = 165.43;
+
+        private Stock _mystock;
+        private Stock _incomeSource;
+        private Stock _targetStock;
+        private Stock _tempStock;
+
+        private Transactions _transactions;
+
+        private Transaction _income;
+        private Transaction _outcome;
+
+        [TestCase(eTransactionType.Buy, TRANSACTION_COST, ePaymentType.Value, -TRANSACTION_COST)]
+        [TestCase(eTransactionType.Reinvest, TRANSACTION_COST, ePaymentType.Value, -TRANSACTION_COST)]
+        [TestCase(eTransactionType.Work, TRANSACTION_COST, ePaymentType.Value, TRANSACTION_COST)]
+        [TestCase(eTransactionType.Sell, TRANSACTION_COST, ePaymentType.Value, TRANSACTION_COST)]
+        [TestCase(eTransactionType.Resell, TRANSACTION_COST, ePaymentType.Value, TRANSACTION_COST)]
+        [TestCase(eTransactionType.Transfer, TRANSACTION_COST, ePaymentType.Value, 0)]
+        [TestCase(eTransactionType.Buy, TRANSACTION_COST, ePaymentType.Percent, -TRANSACTION_COST)]
+        [TestCase(eTransactionType.Reinvest, TRANSACTION_COST, ePaymentType.Percent, -TRANSACTION_COST)]
+        [TestCase(eTransactionType.Work, TRANSACTION_COST, ePaymentType.Percent, TRANSACTION_COST)]
+        [TestCase(eTransactionType.Sell, TRANSACTION_COST, ePaymentType.Percent, TRANSACTION_COST)]
+        [TestCase(eTransactionType.Resell, TRANSACTION_COST, ePaymentType.Percent, TRANSACTION_COST)]
+        [TestCase(eTransactionType.Transfer, TRANSACTION_COST, ePaymentType.Percent, 0)]
+        public void ShouldShowProperValueWithSign(eTransactionType type, double value, ePaymentType payment, double expected)
+        {
+            //given
+            var transaction = new Transaction(type, DateTime.Now, "title", "note") { TargetStockId = Stock.Unknown.Id };
+
+            //2 subtransactions
+            transaction.Subtransactions.Add(new Subtransaction("test1", value / 2));
+            transaction.Subtransactions.Add(new Subtransaction("test2", value / 2));
+
+            //2 sources
+            transaction.TransactionSoucePayments.Add(new TransactionPartPayment(_tempStock,
+                payment == ePaymentType.Value ? value * 0.75 : 75, payment));
+            transaction.TransactionSoucePayments.Add(new TransactionPartPayment(_tempStock,
+                payment == ePaymentType.Value ? value * 0.25 : 25, payment));
+
+            //when
+            double actualValue = transaction.ValueAsProfit;
+
+            //then
+            Assert.AreEqual(expected, actualValue);
         }
 
         [Test]
         public void ShouldProperCalculateTransactionValue()
         {
             //given
-            double expectedCost = foodCost + drugCost;
+            double expectedCost = FOOD_COST + DRUG_COST;
 
             //when
-            double actualCost = outcome.Value;
+            double actualCost = _outcome.Value;
 
             //then
             Assert.AreEqual(expectedCost, actualCost);
-        }
-
-        [TestCase(eTransactionType.Buy, transactionCost, ePaymentType.Value, -transactionCost)]
-        [TestCase(eTransactionType.Reinvest, transactionCost, ePaymentType.Value, -transactionCost)]
-        [TestCase(eTransactionType.Work, transactionCost, ePaymentType.Value, transactionCost)]
-        [TestCase(eTransactionType.Sell, transactionCost, ePaymentType.Value, transactionCost)]
-        [TestCase(eTransactionType.Resell, transactionCost, ePaymentType.Value, transactionCost)]
-        [TestCase(eTransactionType.Transfer, transactionCost, ePaymentType.Value, 0)]
-        [TestCase(eTransactionType.Buy, transactionCost, ePaymentType.Percent, -transactionCost)]
-        [TestCase(eTransactionType.Reinvest, transactionCost, ePaymentType.Percent, -transactionCost)]
-        [TestCase(eTransactionType.Work, transactionCost, ePaymentType.Percent, transactionCost)]
-        [TestCase(eTransactionType.Sell, transactionCost, ePaymentType.Percent, transactionCost)]
-        [TestCase(eTransactionType.Resell, transactionCost, ePaymentType.Percent, transactionCost)]
-        [TestCase(eTransactionType.Transfer, transactionCost, ePaymentType.Percent, 0)]
-        public void ShouldShowProperValueWithSign(eTransactionType type, double value, ePaymentType payment, double expected)
-        {
-            //given
-            Transaction transaction = new Transaction(type, DateTime.Now, "title", "note");
-            transaction.TargetStockId = Stock.Unknown.Id;
-
-            //2 subtransactions
-            transaction.Subtransactions.Add(new Subtransaction("test1", value/2));
-            transaction.Subtransactions.Add(new Subtransaction("test2", value/2));
-
-            //2 sources
-            transaction.TransactionSoucePayments.Add(new Logic.Model.TransactionPartPayment(tempStock, payment == ePaymentType.Value ? value * 0.75 : 75, payment));
-            transaction.TransactionSoucePayments.Add(new Logic.Model.TransactionPartPayment(tempStock, payment == ePaymentType.Value ? value * 0.25 : 25, payment));
-            
-            //when
-            double actualValue = transaction.ValueAsProfit;
-
-            //then
-            Assert.AreEqual(expected, actualValue);
         }
     }
 }

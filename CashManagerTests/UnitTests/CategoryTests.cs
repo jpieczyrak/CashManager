@@ -30,25 +30,9 @@ namespace CashManagerTests.UnitTests
             var parent = CategoryProvider.FindOrCreate("parent");
             var dto = new Category { Value = "A1", Id = Guid.NewGuid(), ParentId = parent.Id };
             var expected = Mapper.Map<Logic.Model.Category>(dto);
-            
+
             DatabaseProvider.DB.Save(dto);
             var loaded = DatabaseProvider.DB.Read<Category>().FirstOrDefault(c => c.Id == dto.Id);
-            var mapped = Mapper.Map<Logic.Model.Category>(loaded);
-
-            Assert.AreEqual(expected, mapped);
-            Assert.AreEqual(expected.Parent, mapped.Parent);
-            Assert.AreEqual(expected.ParentId, mapped.ParentId);
-        }
-
-        [Test]
-        public void SerializationTests()
-        {
-            var parent = CategoryProvider.FindOrCreate("parent");
-            var dto = new Category { Value = "A1", Id = Guid.NewGuid(), ParentId = parent.Id };
-            var expected = Mapper.Map<Logic.Model.Category>(dto);
-
-            var serializedObject = Serializer.XMLSerializeObject(dto);
-            var loaded = Deserializer.Deserialize(serializedObject, typeof(Category));
             var mapped = Mapper.Map<Logic.Model.Category>(loaded);
 
             Assert.AreEqual(expected, mapped);
@@ -72,6 +56,22 @@ namespace CashManagerTests.UnitTests
             Assert.IsTrue(child.MatchCategoryFilter(filter));
             Assert.IsTrue(parent.MatchCategoryFilter(filter));
             Assert.IsFalse(root.MatchCategoryFilter(filter));
+        }
+
+        [Test]
+        public void SerializationTests()
+        {
+            var parent = CategoryProvider.FindOrCreate("parent");
+            var dto = new Category { Value = "A1", Id = Guid.NewGuid(), ParentId = parent.Id };
+            var expected = Mapper.Map<Logic.Model.Category>(dto);
+
+            string serializedObject = Serializer.XMLSerializeObject(dto);
+            var loaded = Deserializer.Deserialize(serializedObject, typeof(Category));
+            var mapped = Mapper.Map<Logic.Model.Category>(loaded);
+
+            Assert.AreEqual(expected, mapped);
+            Assert.AreEqual(expected.Parent, mapped.Parent);
+            Assert.AreEqual(expected.ParentId, mapped.ParentId);
         }
     }
 }

@@ -33,6 +33,7 @@ namespace Logic
             {
                 DatabaseProvider.DB.Update(AutoMapper.Mapper.Map<Transaction, DTO.Transaction>(transaction));
             }
+
         }
 
         public void UpdateStockStats(ObservableCollection<StockStats> stockStats, TimeFrame timeframe)
