@@ -1,4 +1,6 @@
-﻿using Logic.LogicObjectsProviders;
+﻿using Logic.IoC;
+using Logic.IoC.BuildStrategies;
+using Logic.LogicObjectsProviders;
 using Logic.Mapping;
 
 using NUnit.Framework;
@@ -12,6 +14,7 @@ namespace CashManagerTests.UnitTests
         public void Setup()
         {
             MapperConfiguration.Configure();
+            AutofacConfiguration.UseStrategy(eBuildStrategyType.Test);
         }
 
         [Test]

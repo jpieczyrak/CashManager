@@ -1,14 +1,15 @@
-﻿using DBInterface;
+﻿using Autofac;
 
-using LiteDBWrapper;
+using DBInterface;
+
+using Logic.IoC;
 
 namespace Logic.Database
 {
     public class DatabaseProvider
     {
-        private static LiteDBFacade _db;
-        private const string LITEDB_DB = "litedb.db";
+        private static IDatabase _db;
 
-        public static IDatabase DB => _db ?? (_db = new LiteDBFacade(LITEDB_DB));
+        public static IDatabase DB => _db ?? (_db = AutofacConfiguration.Container.Resolve<IDatabase>());
     }
 }

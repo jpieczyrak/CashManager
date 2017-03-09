@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using AutoMapper;
 
 using Logic.FilesOperations;
+using Logic.IoC;
+using Logic.IoC.BuildStrategies;
 using Logic.Model;
 using Logic.TransactionManagement.TransactionElements;
 
@@ -20,6 +22,7 @@ namespace CashManagerTests.UnitTests
         public void Setup()
         {
             MapperConfiguration.Configure();
+            AutofacConfiguration.UseStrategy(eBuildStrategyType.Test);
         }
 
         [Test]
