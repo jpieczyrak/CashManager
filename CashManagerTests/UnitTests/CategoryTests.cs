@@ -8,7 +8,6 @@ using Logic.Database;
 using Logic.DTO;
 using Logic.FilesOperations;
 using Logic.IoC;
-using Logic.IoC.BuildStrategies;
 using Logic.LogicObjectsProviders;
 
 using NUnit.Framework;

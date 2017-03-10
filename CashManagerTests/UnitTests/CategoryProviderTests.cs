@@ -1,5 +1,4 @@
 ﻿using Logic.IoC;
-using Logic.IoC.BuildStrategies;
 using Logic.LogicObjectsProviders;
 using Logic.Mapping;
 

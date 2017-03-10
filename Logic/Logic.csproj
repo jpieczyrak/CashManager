@@ -56,7 +56,7 @@
     <Compile Include="DTO\TransactionPartPayment.cs" />
     <Compile Include="IoC\AutofacConfiguration.cs" />
     <Compile Include="IoC\BuildStrategies\DefaultBuildStrategy.cs" />
-    <Compile Include="IoC\BuildStrategies\eBuildStrategyType.cs" />
+    <Compile Include="IoC\eBuildStrategyType.cs" />
     <Compile Include="IoC\BuildStrategies\IBuildStrategy.cs" />
     <Compile Include="IoC\BuildStrategies\TestBuildStrategy.cs" />
     <Compile Include="LogicObjectsProviders\CategoryProvider.cs" />
