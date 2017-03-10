@@ -3,24 +3,27 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using Logic.Model;
-using Logic.StocksManagement;
-using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;
 
 namespace Logic.Parsing
 {
     public class GetinBankParser : IParser
     {
-        private const string TRANSFER_REGEX = @"(?<Day>\d{2})\.(?<Month>\d{2})\.(?<Year>\d{4}) \– (?<OperationType>(\S| )*)(\r\n|\n)(?<SourceName>(\S| )*) \– (?<Title>(\S| )*)(\r\n|\n)*(?<Sign>(-|\+))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*) (?<Currency>\S*)";
-        private const string CARD_OPERATION_REGEX = @"(?<Day>\d{2})\.(?<Month>\d{2})\.(?<Year>\d{4}) \– (?<OperationType>(\S| )*)(\r\n|\n)(?<Title>(\S| )*)(\r\n|\n)*(?<Sign>(-|\+))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*) (?<Currency>\S*)";
+        private const string TRANSFER_REGEX =
+            @"(?<Day>\d{2})\.(?<Month>\d{2})\.(?<Year>\d{4}) \– (?<OperationType>(\S| )*)(\r\n|\n)(?<SourceName>(\S| )*) \– (?<Title>(\S| )*)(\r\n|\n)*(?<Sign>(-|\+))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*) (?<Currency>\S*)";
+
+        private const string CARD_OPERATION_REGEX =
+            @"(?<Day>\d{2})\.(?<Month>\d{2})\.(?<Year>\d{4}) \– (?<OperationType>(\S| )*)(\r\n|\n)(?<Title>(\S| )*)(\r\n|\n)*(?<Sign>(-|\+))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*) (?<Currency>\S*)";
+
+        #region IParser
 
         public List<Transaction> Parse(string input, Stock userStock)
         {
-            List<Transaction> output = new List<Transaction>();
+            var output = new List<Transaction>();
 
-            Regex transfer = new Regex(TRANSFER_REGEX);
-            Regex cardOperation = new Regex(CARD_OPERATION_REGEX);
-            
+            var transfer = new Regex(TRANSFER_REGEX);
+            var cardOperation = new Regex(CARD_OPERATION_REGEX);
+
             foreach (Match match in cardOperation.Matches(input))
             {
                 //card operation matches to all results
@@ -28,7 +31,7 @@ namespace Logic.Parsing
                 //so we want to check that info if possible
                 if (transfer.IsMatch(match.Value))
                 {
-                    Match m = transfer.Match(match.Value);
+                    var m = transfer.Match(match.Value);
                     output.Add(CreateTransaction(m, userStock));
                 }
                 else
@@ -39,6 +42,8 @@ namespace Logic.Parsing
 
             return output;
         }
+
+        #endregion
 
         private Transaction CreateTransaction(Match match, Stock userStock)
         {
@@ -55,18 +60,18 @@ namespace Logic.Parsing
             int bigValue = int.Parse(match.Groups["ValueWithSpaces"].Value.Replace(" ", ""));
             int smallValue = int.Parse(match.Groups["ValueAfterComma"].Value);
 
-            double value = (bigValue + smallValue / 100.0);
-            DateTime date = new DateTime(year, month, day);
+            double value = bigValue + smallValue / 100.0;
+            var date = new DateTime(year, month, day);
             string note = string.Format("{0}{1}{2} ({3})", sourceName, sourceName != "" ? ": " : "", operationType, currency);
-            eTransactionType transactionType = positiveSign ? eTransactionType.Work : eTransactionType.Buy;
-            
-            Transaction transaction = new Transaction(transactionType, date, title, note);
-            Subtransaction subtransaction = new Subtransaction(title, value);
+            var transactionType = positiveSign ? eTransactionType.Work : eTransactionType.Buy;
+
+            var transaction = new Transaction(transactionType, date, title, note);
+            var subtransaction = new Subtransaction(title, value);
             transaction.Subtransactions.Add(subtransaction);
 
             transaction.TargetStockId = positiveSign ? userStock.Id : Stock.Unknown.Id;
-            Stock sourceStock = positiveSign ? Stock.Unknown : userStock;
-            transaction.TransactionSoucePayments.Add(new Model.TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));
+            var sourceStock = positiveSign ? Stock.Unknown : userStock;
+            transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));
 
             return transaction;
         }
