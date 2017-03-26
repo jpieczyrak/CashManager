@@ -7,6 +7,7 @@ using AutoMapper;
 using Logic.Database;
 using Logic.FilesOperations;
 using Logic.IoC;
+using Logic.LogicObjectsProviders;
 using Logic.Model;
 using Logic.TransactionManagement.TransactionElements;
 
@@ -36,11 +37,11 @@ namespace CashManagerTests.UnitTests
             };
             var transactionPartPayments = new List<TransactionPartPayment>
             {
-                new TransactionPartPayment(Stock.Unknown, 1.23, ePaymentType.Value),
-                new TransactionPartPayment(Stock.Unknown, 12.3, ePaymentType.Value)
+                new TransactionPartPayment(StockProvider.Default, 1.23, ePaymentType.Value),
+                new TransactionPartPayment(StockProvider.Default, 12.3, ePaymentType.Value)
             };
 
-            var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note", Stock.Unknown, DateTime.Now, DateTime.Today,
+            var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note", StockProvider.Default, DateTime.Now, DateTime.Today,
                 subtransactions, transactionPartPayments);
             var dto = Mapper.Map<Logic.DTO.Transaction>(expected);
 
@@ -69,11 +70,11 @@ namespace CashManagerTests.UnitTests
             };
             var transactionPartPayments = new List<TransactionPartPayment>
             {
-                new TransactionPartPayment(Stock.Unknown, 1.23, ePaymentType.Value),
-                new TransactionPartPayment(Stock.Unknown, 12.3, ePaymentType.Value)
+                new TransactionPartPayment(StockProvider.Default, 1.23, ePaymentType.Value),
+                new TransactionPartPayment(StockProvider.Default, 12.3, ePaymentType.Value)
             };
 
-            var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note", Stock.Unknown, DateTime.Now, DateTime.Today,
+            var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note", StockProvider.Default, DateTime.Now, DateTime.Today,
                 subtransactions, transactionPartPayments);
             var dto = Mapper.Map<Logic.DTO.Transaction>(expected);
 

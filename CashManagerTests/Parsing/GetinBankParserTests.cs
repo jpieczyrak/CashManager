@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Logic.LogicObjectsProviders;
 using Logic.Model;
 using Logic.Parsing;
 using Logic.TransactionManagement.TransactionElements;
@@ -19,7 +20,7 @@ namespace CashManagerTests.Parsing
             var parser = new GetinBankParser();
 
             var expected = new Transaction(eTransactionType.Buy, new DateTime(2016, 9, 6), "[Sierpień] Czynsz + media",
-                "JĘDRZEJ PIECZYRAK: PRZELEW WYCHODZĄCY (PLN)", Stock.Unknown,
+                "JĘDRZEJ PIECZYRAK: PRZELEW WYCHODZĄCY (PLN)", StockProvider.Default,
                 DateTime.Today, DateTime.Today,
                 new List<Subtransaction>
                 {
@@ -33,7 +34,7 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
 -684,62 PLN";
 
             //when
-            var output = parser.Parse(input, Stock.Unknown);
+            var output = parser.Parse(input, StockProvider.Default);
             var parsed = output.FirstOrDefault();
 
             //then

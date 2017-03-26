@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
+using Logic.LogicObjectsProviders;
 using Logic.Model;
 using Logic.TransactionManagement.TransactionElements;
 
@@ -69,8 +70,8 @@ namespace Logic.Parsing
             var subtransaction = new Subtransaction(title, value);
             transaction.Subtransactions.Add(subtransaction);
 
-            transaction.TargetStockId = positiveSign ? userStock.Id : Stock.Unknown.Id;
-            var sourceStock = positiveSign ? Stock.Unknown : userStock;
+            transaction.TargetStockId = positiveSign ? userStock.Id : StockProvider.Default.Id;
+            var sourceStock = positiveSign ? StockProvider.Default : userStock;
             transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));
 
             return transaction;

@@ -1,5 +1,6 @@
 ﻿using System;
 
+using Logic.LogicObjectsProviders;
 using Logic.Model;
 using Logic.TransactionManagement.TransactionElements;
 
@@ -67,7 +68,7 @@ namespace CashManagerTests
         public void ShouldShowProperValueWithSign(eTransactionType type, double value, ePaymentType payment, double expected)
         {
             //given
-            var transaction = new Transaction(type, DateTime.Now, "title", "note") { TargetStockId = Stock.Unknown.Id };
+            var transaction = new Transaction(type, DateTime.Now, "title", "note") { TargetStockId = StockProvider.Default.Id };
 
             //2 subtransactions
             transaction.Subtransactions.Add(new Subtransaction("test1", value / 2));

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
+using Logic.LogicObjectsProviders;
 using Logic.Model;
 using Logic.StocksManagement;
 using Logic.TransactionManagement;
@@ -54,9 +55,9 @@ namespace Logic.Parsing
 
             transaction.Subtransactions.Add(subtransaction);
 
-            transaction.TargetStockId = outcome ? Stock.Unknown.Id : userStock.Id;
+            transaction.TargetStockId = outcome ? StockProvider.Default.Id : userStock.Id;
 
-            Stock sourceStock = !outcome ? Stock.Unknown : userStock;
+            Stock sourceStock = !outcome ? StockProvider.Default : userStock;
             transaction.TransactionSoucePayments.Add(new Model.TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));
 
             return transaction;

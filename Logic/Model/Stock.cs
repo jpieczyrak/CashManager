@@ -51,9 +51,7 @@ namespace Logic.Model
         ///     Value calculated for choosen date, based on transactions done on stock since created
         /// </summary>
         public double ActualValue { get; private set; }
-
-        public static Stock Unknown { get; } = new Stock("Unknown", 0) { Id = Guid.Empty };
-
+        
         public bool IsUserStock
         {
             get { return _isUserStock; }
@@ -66,11 +64,16 @@ namespace Logic.Model
 
         private Stock() { }
 
-        public Stock(string name, float startingValue)
+        public Stock(string name, float startingValue) : this(Guid.NewGuid(), name, startingValue)
+        {
+            
+        }
+
+        public Stock(Guid id, string name, float startingValue)
         {
             Name = name;
             StartingValue = startingValue;
-            Id = Guid.NewGuid();
+            Id = id;
         }
 
         #region INotifyPropertyChanged

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
+using Logic.LogicObjectsProviders;
 using Logic.Properties;
 using Logic.StocksManagement;
 using Logic.TransactionManagement.TransactionElements;
@@ -179,7 +180,7 @@ namespace Logic.Model
             if (Math.Abs(subtransactionCost - value) > 0.0001)
             {
                 double missingValue = subtransactionCost - value;
-                _transactionSoucePayments.Add(new TransactionPartPayment(Stock.Unknown, missingValue, ePaymentType.Value));
+                _transactionSoucePayments.Add(new TransactionPartPayment(StockProvider.Default, missingValue, ePaymentType.Value));
             }
         }
 
