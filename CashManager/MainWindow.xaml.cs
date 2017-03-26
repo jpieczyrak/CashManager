@@ -32,7 +32,6 @@ namespace CashManager
             DataContext = _dataContext;
             dataGridStockStats.ItemsSource = _dataContext.StockStats;
             DataGridTransactions.ItemsSource = _dataContext.Wallet.Transactions;
-            
 
             _dataContext.Wallet.Transactions.Where(x=>x.Title != null && x.Title.Contains("Obiad")).Sum(x => x.ValueAsProfit);
         }
