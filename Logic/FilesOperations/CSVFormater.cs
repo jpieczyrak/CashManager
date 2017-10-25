@@ -25,7 +25,6 @@ namespace Logic.FilesOperations
         public static string ToCSV(Transaction t)
         {
             string subtransactionsCSV = ToCSV(t.Subtransactions);
-            string partPaymentsCSV = ToCSV(t.Payment);
 
             return string.Format("{0}{10}{1}{10}{2}{10}{3}{10}{4}{10}{5}{10}{6}{10}{7}{10}{8}{9}", 
                 t.Date.ToString(DATE_FORMAT), 
@@ -35,7 +34,7 @@ namespace Logic.FilesOperations
                 t.Note,
                 t.Type, 
                 subtransactionsCSV, 
-                partPaymentsCSV,
+                t.Source.Name + SUBELEMENT_ELEMENT_SPLIT_ELEMENT + t.Target.Name,
                 TRANSACTION_SPLIT_ELEMENT,
                 TRANSACTION_ELEMENT_SPLIT_ELEMENT);
         }
@@ -51,16 +50,6 @@ namespace Logic.FilesOperations
                         s.Tags,
                         SUBELEMENT_SPLIT_ELEMENT,
                         SUBELEMENT_ELEMENT_SPLIT_ELEMENT));
-        }
-
-        private static string ToCSV(Payment payment)
-        {
-            return string.Format("{0}{4}{1}{4}{2}{4}{3}",
-                payment.Value,
-                payment.Source.Name,
-                payment.Target.Name,
-                SUBELEMENT_SPLIT_ELEMENT,
-                SUBELEMENT_ELEMENT_SPLIT_ELEMENT);
         }
     }
 }

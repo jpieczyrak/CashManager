@@ -29,7 +29,7 @@ namespace CashManagerTests.Parsing
                 new List<Subtransaction>
                 {
                     new Subtransaction("[Sierpień] Czynsz + media", 684.62d)
-                }, new Payment(source, StockProvider.Default, 684.62d));
+                }, source, StockProvider.Default);
 
             string input = @"    06.09.2016 – PRZELEW WYCHODZĄCY
 JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
@@ -45,8 +45,8 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
             Assert.AreEqual(expected.Date, parsed.Date);
             Assert.AreEqual(expected.Title, parsed.Title);
             Assert.AreEqual(expected.Note, parsed.Note);
-            Assert.AreEqual(expected.Payment.Source, parsed.Payment.Source);
-            Assert.AreEqual(expected.Payment.Target, parsed.Payment.Target);
+            Assert.AreEqual(expected.Source, parsed.Source);
+            Assert.AreEqual(expected.Target, parsed.Target);
             
             Assert.AreEqual(expected.Subtransactions.First().Name, parsed.Subtransactions.First().Name);
             Assert.AreEqual(expected.Subtransactions.First().Value, parsed.Subtransactions.First().Value);

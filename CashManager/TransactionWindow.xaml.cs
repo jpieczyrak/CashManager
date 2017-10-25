@@ -134,8 +134,9 @@ namespace CashManager
             textBoxSourceValue.Text = "";
 
             Stock sourceStock = (Stock) (comboboxSourceStock.SelectedIndex >= 0 ? comboboxSourceStock.SelectedItem : StockProvider.Default);
-
-            Transaction.Payment = new Payment(sourceStock, sourceStock, value);
+            
+            Transaction.Source = sourceStock;
+            Transaction.Target = sourceStock;
         }
 
         private void comboboxTargetStock_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

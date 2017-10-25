@@ -20,10 +20,7 @@ namespace Logic.DTO
 
         [DataMember]
         public string Note { get; set; }
-
-        [DataMember]
-        public Payment Payment { get; set; }
-
+        
         [DataMember]
         public Guid TargetStockId { get; set; }
 
@@ -38,5 +35,11 @@ namespace Logic.DTO
 
         [DataMember]
         public Guid Id { get; set; }
+
+        [DataMember]
+        public Stock Source { get; set; }
+
+        [DataMember]
+        public Stock Target { get; set; }
     }
 }

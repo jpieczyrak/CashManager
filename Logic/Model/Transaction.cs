@@ -6,9 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
-using Logic.LogicObjectsProviders;
 using Logic.Properties;
-using Logic.StocksManagement;
 using Logic.TransactionManagement.TransactionElements;
 using Logic.Utils;
 
@@ -24,10 +22,10 @@ namespace Logic.Model
             new TrulyObservableCollection<Subtransaction>();
         
         private string _title;
-
-        private Payment _payment;
-
+        
         private eTransactionType _type;
+        private Stock _source;
+        private Stock _target;
 
         public eTransactionType Type
         {
@@ -69,13 +67,23 @@ namespace Logic.Model
             }
         }
 
-        public Payment Payment
+        public Stock Source
         {
-            get { return _payment; }
+            get { return _source; }
             set
             {
-                _payment = value;
-                OnPropertyChanged();
+                _source = value;
+                OnPropertyChanged(nameof(Source));
+            }
+        }
+
+        public Stock Target
+        {
+            get { return _target; }
+            set
+            {
+                _target = value;
+                OnPropertyChanged(nameof(Target));
             }
         }
 
@@ -127,7 +135,7 @@ namespace Logic.Model
             _subtransactions.CollectionChanged += CollectionChanged;
         }
 
-        public Transaction(eTransactionType transactionType, DateTime date, string title, string note, DateTime creationDate, DateTime lastEdit, List<Subtransaction> subtransactions, Payment payment)
+        public Transaction(eTransactionType transactionType, DateTime date, string title, string note, DateTime creationDate, DateTime lastEdit, List<Subtransaction> subtransactions, Stock source, Stock target)
         {
             Type = transactionType;
             Date = date;
@@ -136,7 +144,8 @@ namespace Logic.Model
             CreationDate = creationDate;
             LastEditDate = lastEdit;
             Subtransactions = new TrulyObservableCollection<Subtransaction>(subtransactions);
-            Payment = payment;
+            _source = source;
+            _target = target;
         }
 
         #region INotifyPropertyChanged

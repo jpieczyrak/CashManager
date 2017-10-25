@@ -73,7 +73,8 @@ namespace Logic.Parsing
             
             var sourceStock = positiveSign ? StockProvider.Default : userStock;
             var targetStock = !positiveSign ? StockProvider.Default : userStock;
-            transaction.Payment = new Payment(sourceStock, targetStock, value);
+            transaction.Source = sourceStock;
+            transaction.Target = targetStock;
 
             return transaction;
         }

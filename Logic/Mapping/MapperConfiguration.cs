@@ -28,9 +28,6 @@ namespace Logic.Mapping
                           ex => ex.MapFrom(
                               sub => CategoryProvider.GetById(sub.CategoryId)
                                     ));
-
-                config.CreateMap<Payment, DTO.Payment>();
-                config.CreateMap<DTO.Payment, Payment>();
             });
         }
     }

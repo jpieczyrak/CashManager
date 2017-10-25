@@ -71,7 +71,6 @@
     <Compile Include="DTO\Stock.cs" />
     <Compile Include="DTO\Subtransaction.cs" />
     <Compile Include="DTO\Transaction.cs" />
-    <Compile Include="DTO\Payment.cs" />
     <Compile Include="IoC\AutofacConfiguration.cs" />
     <Compile Include="IoC\BuildStrategies\DefaultBuildStrategy.cs" />
     <Compile Include="IoC\eBuildStrategyType.cs" />
@@ -87,7 +86,6 @@
     <Compile Include="FindingFilters\TransactionTypeRule.cs" />
     <Compile Include="LogicObjectsProviders\TransactionProvider.cs" />
     <Compile Include="Mapping\MapperConfiguration.cs" />
-    <Compile Include="Parsing\CSVParser.cs" />
     <Compile Include="Parsing\GetinBankParser.cs" />
     <Compile Include="Properties\Annotations1.cs" />
     <Compile Include="TransactionManagement\BulkModifications\BulkTransactionParametersChanger.cs" />
@@ -117,7 +115,6 @@
     <Compile Include="TransactionManagement\TransactionElements\Transactions.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Utils\TrulyObservableCollection.cs" />
-    <Compile Include="Model\Payment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wallet.cs" />
   </ItemGroup>
