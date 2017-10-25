@@ -26,7 +26,7 @@ namespace Logic.LogicObjectsProviders
 
         private static readonly Guid _defaultGuid = new Guid(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8});
 
-        public static Stock Default { get; private set; } = _default ?? (_default = Stocks.FirstOrDefault(x => x.Id == _defaultGuid) ?? AddNew(_defaultGuid, "Unknown"));
+        public static Stock Default { get; } = _default ?? (_default = Stocks.FirstOrDefault(x => x.Id == _defaultGuid) ?? AddNew(_defaultGuid, "Unknown"));
 
         public static Stock AddNew(string name = "", float value = 0f)
         {

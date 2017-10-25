@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -6,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 using Logic.FindingFilters;
+using Logic.LogicObjectsProviders;
 using Logic.Mapping;
 using Logic.Model;
 using Logic.Utils;
@@ -33,7 +36,69 @@ namespace CashManager
             dataGridStockStats.ItemsSource = _dataContext.StockStats;
             DataGridTransactions.ItemsSource = _dataContext.Wallet.Transactions;
 
-            _dataContext.Wallet.Transactions.Where(x=>x.Title != null && x.Title.Contains("Obiad")).Sum(x => x.ValueAsProfit);
+            AnswerMyQuestions();
+        }
+
+        private static void AnswerMyQuestions()
+        {
+            //todo: remove
+            //pytania jejka - na razie bez gui:
+            string output = "";
+            var trans = TransactionProvider.Transactions.OrderByDescending(x => x.Date);
+
+            output += "Obiady:\r\n";
+            var dinners = trans.Where(x => x.Title != null && x.Title.Contains("Obiad")).OrderByDescending(x => x.Date);
+            var grouped = dinners.GroupBy(t => $"{t.Date.Month}.{t.Date.Year}");
+            output += $"Avg: {grouped.Select(x => x.Sum(y => y.Value)).Average()}\r\n";
+            foreach (var @group in grouped)
+            {
+                output += $"{@group.Key,8} : {@group.Sum(x => x.Value)}\r\n";
+            }
+
+            output += "Wyplaty:\r\n";
+            var wyplaty = trans.Where(x => x.Title != null && x.Title.ToLower().Contains("wynagrodzenie")).OrderByDescending(x => x.Date);
+            foreach (var transaction in wyplaty)
+            {
+                output = output + $"{transaction.Date:yyyy-MM-dd} : {transaction.ValueAsProfit}\r\n";
+            }
+
+            output += "Bilans:\r\n";
+            var bymonth = trans.GroupBy(t => $"{t.Date.Month}.{t.Date.Year}");
+            var avgBilans = bymonth.Average(x => x.Sum(y => y.ValueAsProfit));
+            foreach (var m in bymonth)
+            {
+                var costs = m.Where(x => x.ValueAsProfit < 0).OrderByDescending(x => x.Date);
+                var incoms = m.Where(x => x.ValueAsProfit > 0).OrderByDescending(x => x.Date);
+                double income = incoms.Sum(x => x.Value);
+                double outcome = costs.Sum(x => x.Value);
+                output += $"{m.Key,8:0.#} : +{income,8:0.#}\t{-outcome,8:0.#}\t{income - outcome,8:0.#}\tavg:\t{avgBilans,8:0.#}\r\n";
+            }
+
+            output += "Bilans progresywyny:\r\n";
+            bymonth = trans.OrderBy(x => x.Date).GroupBy(t => $"{t.Date.Month}.{t.Date.Year}");
+            var older = new List<double>();
+            var components = new List<string>();
+            foreach (var m in bymonth)
+            {
+                var costs = m.Where(x => x.ValueAsProfit < 0).OrderByDescending(x => x.Date);
+                var incoms = m.Where(x => x.ValueAsProfit > 0).OrderByDescending(x => x.Date);
+                double income = incoms.Sum(x => x.Value);
+                double outcome = costs.Sum(x => x.Value);
+                double diff = income - outcome;
+                older.Add(diff);
+                older.Reverse();
+                var last3Elements = older.Take(3).ToList();
+                older.Reverse();
+                components.Add($"{m.Key,8:0.0} : value: {diff,8:0.0}     avg(3): {last3Elements.Average(),8:0.0}    sum: {older.Sum(),8:0.0}\r\n");
+            }
+
+            components.Reverse();
+            foreach (string component in components)
+            {
+                output += component;
+            }
+
+            File.WriteAllText("answers.txt", output);
         }
 
         private void AddTransactionButtonClick(object sender, RoutedEventArgs e)
