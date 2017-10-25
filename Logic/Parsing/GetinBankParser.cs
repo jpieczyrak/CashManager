@@ -70,7 +70,7 @@ namespace Logic.Parsing
             var subtransaction = new Subtransaction(title, value);
             transaction.Subtransactions.Add(subtransaction);
 
-            transaction.TargetStockId = positiveSign ? userStock.Id : StockProvider.Default.Id;
+            transaction.TargetStockId = Guid.Empty;
             var sourceStock = positiveSign ? StockProvider.Default : userStock;
             transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));
 

@@ -30,7 +30,7 @@ namespace CashManager
 
         private void buttonAddEmpty_Click(object sender, RoutedEventArgs e)
         {
-            StockProvider.AddNew();
+            StockProvider.AddNew("");
         }
     }
 }

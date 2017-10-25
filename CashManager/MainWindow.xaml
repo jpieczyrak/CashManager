@@ -82,7 +82,6 @@
 
         <DatePicker x:Name="datePickerFrom" Grid.Row="2" Grid.Column="3" Text="{Binding Path=Timeframe.From, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}"/>
         <DatePicker x:Name="datePickerTo" Grid.Row="3" Grid.Column="3" Text="{Binding Path=Timeframe.To, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}"/>
-        <Button x:Name="buttonFind" Grid.Row="4" Grid.Column="3" Content="Update stocks" Width="120" Height="24" Click="buttonFind_Click" ToolTip="Updates stocks values based on given dates" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
         <Button x:Name="buttonManageStocks" Content="Manage stocks" Margin="0" Grid.Row="5" Width="120" Click="buttonManageStocks_Click" Height="24" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button x:Name="buttonManageCategories" Content="Manage categories" Margin="0" Grid.Row="6" Width="120" Height="24" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Click="buttonManageCategories_Click"/>

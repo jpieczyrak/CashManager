@@ -51,19 +51,7 @@ namespace CashManager
 
         private void SetSourceStocks(eTransactionDirection transactionDirection)
         {
-            switch (transactionDirection)
-            {
-                case eTransactionDirection.Income:
-                    comboboxSourceStock.ItemsSource = StockProvider.GetStocks().Where(stock => !stock.IsUserStock);
-                    break;
-                case eTransactionDirection.Outcome:
-                    comboboxSourceStock.ItemsSource = StockProvider.GetStocks().Where(stock => stock.IsUserStock);
-                    break;
-                case eTransactionDirection.Transfer:
-                case eTransactionDirection.Uknown:
-                    comboboxSourceStock.ItemsSource = StockProvider.GetStocks();
-                    break;
-            }
+            comboboxSourceStock.ItemsSource = StockProvider.GetStocks();
             if (comboboxSourceStock.Items.Count > 0)
             {
                 comboboxSourceStock.SelectedIndex = 0;
@@ -72,19 +60,7 @@ namespace CashManager
 
         private void SetTargetStocks(eTransactionDirection transactionDirection)
         {
-            switch (transactionDirection)
-            {
-                case eTransactionDirection.Income:
-                    comboboxTargetStock.ItemsSource = StockProvider.GetStocks().Where(stock => stock.IsUserStock);
-                    break;
-                case eTransactionDirection.Outcome:
-                    comboboxTargetStock.ItemsSource = StockProvider.GetStocks().Where(stock => !stock.IsUserStock);
-                    break;
-                case eTransactionDirection.Transfer:
-                case eTransactionDirection.Uknown:
-                    comboboxTargetStock.ItemsSource = StockProvider.GetStocks();
-                    break;
-            }
+            comboboxTargetStock.ItemsSource = StockProvider.GetStocks();
 
             //select proper index
             int index = -1;
@@ -190,7 +166,7 @@ namespace CashManager
         {
             if (comboboxTargetStock.SelectedItem != null)
             {
-                Transaction.TargetStockId = (comboboxTargetStock.SelectedItem as Stock).Id;
+                Transaction.TargetStockId = Guid.Empty;
             }
         }
     }

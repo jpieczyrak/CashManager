@@ -148,7 +148,7 @@ namespace Logic.Model
             Date = date;
             Title = title;
             Note = note;
-            TargetStockId = stock.Id;
+            TargetStockId = Guid.Empty;
             CreationDate = creationDate;
             LastEditDate = lastEdit;
             Subtransactions = new TrulyObservableCollection<Subtransaction>(subtransactions);

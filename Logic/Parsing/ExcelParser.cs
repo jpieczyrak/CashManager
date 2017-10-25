@@ -55,7 +55,7 @@ namespace Logic.Parsing
 
             transaction.Subtransactions.Add(subtransaction);
 
-            transaction.TargetStockId = outcome ? StockProvider.Default.Id : userStock.Id;
+            transaction.TargetStockId = Guid.Empty;
 
             Stock sourceStock = !outcome ? StockProvider.Default : userStock;
             transaction.TransactionSoucePayments.Add(new Model.TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));

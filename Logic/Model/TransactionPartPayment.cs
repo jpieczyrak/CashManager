@@ -46,7 +46,7 @@ namespace Logic.Model
 
         public TransactionPartPayment(Stock stock, double value, ePaymentType paymentType) : this()
         {
-            StockId = stock.Id;
+            StockId = Guid.Empty;
             Value = value;
             PaymentType = paymentType;
         }

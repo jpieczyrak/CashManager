@@ -14,19 +14,19 @@ namespace CashManagerTests
         [SetUp]
         public void Init()
         {
-            _mystock = new Stock("Mystock", 0);
-            _targetStock = _incomeSource = new Stock("Targetstock", 0);
-            _tempStock = new Stock("temp", 0);
+            _mystock = new Stock("Mystock");
+            _targetStock = _incomeSource = new Stock("Targetstock");
+            _tempStock = new Stock("temp");
 
             _transactions = new Transactions();
 
-            _income = new Transaction(eTransactionType.Work, DateTime.Today, "Income", "Income today!") { TargetStockId = _mystock.Id };
+            _income = new Transaction(eTransactionType.Work, DateTime.Today, "Income", "Income today!") { TargetStockId = Guid.Empty };
             _income.Subtransactions.Add(new Subtransaction("Payment _income", INCOME_VALUE));
             _income.TransactionSoucePayments.Add(new TransactionPartPayment(_incomeSource, INCOME_VALUE, ePaymentType.Value));
 
             _transactions.Add(_income);
 
-            _outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "") { TargetStockId = _targetStock.Id };
+            _outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "") { TargetStockId = Guid.Empty };
 
             var foodSubtrans = new Subtransaction("Jedzenie", FOOD_COST) { Category = new Category("Cat-Food") };
             _outcome.Subtransactions.Add(foodSubtrans);
@@ -68,7 +68,7 @@ namespace CashManagerTests
         public void ShouldShowProperValueWithSign(eTransactionType type, double value, ePaymentType payment, double expected)
         {
             //given
-            var transaction = new Transaction(type, DateTime.Now, "title", "note") { TargetStockId = StockProvider.Default.Id };
+            var transaction = new Transaction(type, DateTime.Now, "title", "note") { TargetStockId = Guid.Empty };
 
             //2 subtransactions
             transaction.Subtransactions.Add(new Subtransaction("test1", value / 2));

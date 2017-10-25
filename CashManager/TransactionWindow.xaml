@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
-        xmlns:logic="clr-namespace:Logic;assembly=Logic"
         xmlns:logicObjectsProviders="clr-namespace:Logic.LogicObjectsProviders;assembly=Logic"
         mc:Ignorable="d"
         Title="TransactionWindow" Height="600" Width="420">

@@ -4,8 +4,6 @@ using System.Globalization;
 using Logic.FilesOperations;
 using Logic.LogicObjectsProviders;
 using Logic.Model;
-using Logic.StocksManagement;
-using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;
 
 namespace Logic.Parsing
@@ -29,7 +27,7 @@ namespace Logic.Parsing
                 string title = transactionElements[3];
                 string note = transactionElements[4];
                 Guid stockId = Guid.Parse(transactionElements[5]);
-                Stock stock = StockProvider.GetStock(stockId);
+                Stock stock = StockProvider.GetStock("");
                 eTransactionType transactionType;
                 eTransactionType.TryParse(transactionElements[6], true, out transactionType);
 
@@ -64,7 +62,7 @@ namespace Logic.Parsing
                     ePaymentType paymentType;
                     ePaymentType.TryParse(paymentElements[1], true, out paymentType);
                     Guid paymentStockId = Guid.Parse(paymentElements[2]);
-                    Stock paymentStock = StockProvider.GetStock(paymentStockId);
+                    Stock paymentStock = StockProvider.GetStock("");
 
                     partPayments.Add(new Model.TransactionPartPayment(paymentStock, value, paymentType));
                 }

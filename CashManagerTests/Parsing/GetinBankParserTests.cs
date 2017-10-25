@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Logic.LogicObjectsProviders;
+using Logic.Mapping;
 using Logic.Model;
 using Logic.Parsing;
 using Logic.TransactionManagement.TransactionElements;
@@ -17,6 +18,7 @@ namespace CashManagerTests.Parsing
         [Test]
         public void ParseTest()
         {
+            MapperConfiguration.Configure();
             var parser = new GetinBankParser();
 
             var expected = new Transaction(eTransactionType.Buy, new DateTime(2016, 9, 6), "[Sierpień] Czynsz + media",

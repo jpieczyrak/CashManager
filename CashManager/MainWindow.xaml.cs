@@ -36,7 +36,7 @@ namespace CashManager
             dataGridStockStats.ItemsSource = _dataContext.StockStats;
             DataGridTransactions.ItemsSource = _dataContext.Wallet.Transactions;
 
-            AnswerMyQuestions();
+            //AnswerMyQuestions();
         }
 
         private static void AnswerMyQuestions()
@@ -151,21 +151,12 @@ namespace CashManager
             {
                 _dataContext.Wallet.Save();
             }
-            if (Keyboard.IsKeyDown(Key.F5))
-            {
-                _dataContext.Wallet.UpdateStockStats(_dataContext.StockStats, _dataContext.Timeframe);
-            }
         }
 
         private void buttonManageStocks_Click(object sender, RoutedEventArgs e)
         {
             ManageStocks window = new ManageStocks(_dataContext.Wallet);
             window.Show();
-        }
-
-        private void buttonFind_Click(object sender, RoutedEventArgs e)
-        {
-            _dataContext.Wallet.UpdateStockStats(_dataContext.StockStats, _dataContext.Timeframe);
         }
 
         private void buttonManageCategories_Click(object sender, RoutedEventArgs e)
