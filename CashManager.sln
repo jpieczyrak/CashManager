@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManagerTests", "CashManagerTests\CashManagerTests.csproj", "{067456C0-086C-46A8-B37F-1405717B7BFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteDBWrapper", "..\..\Libs\C#\DB\LiteDBWrapper\LiteDBWrapper\LiteDBWrapper.csproj", "{6BFE7957-F041-4EDC-AC17-386777644E48}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteDBWrapper", "..\..\C#\_Libs\DB\LiteDBWrapper\LiteDBWrapper\LiteDBWrapper.csproj", "{6BFE7957-F041-4EDC-AC17-386777644E48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBInterface", "..\..\Libs\C#\DB\DBInterface\DBInterface\DBInterface.csproj", "{28882375-DA70-49D0-BDC1-CCED928BE1FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBInterface", "..\..\C#\_Libs\DB\DBInterface\DBInterface\DBInterface.csproj", "{28882375-DA70-49D0-BDC1-CCED928BE1FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -105,7 +105,7 @@
     <Compile Include="Wallet.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Libs\C#\DB\LiteDBWrapper\LiteDBWrapper\LiteDBWrapper.csproj">
+    <ProjectReference Include="..\..\..\C#\_Libs\DB\LiteDBWrapper\LiteDBWrapper\LiteDBWrapper.csproj">
       <Project>{6bfe7957-f041-4edc-ac17-386777644e48}</Project>
       <Name>LiteDBWrapper</Name>
     </ProjectReference>

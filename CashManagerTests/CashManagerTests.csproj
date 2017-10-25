@@ -56,7 +56,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Libs\C#\DB\DBInterface\DBInterface\DBInterface.csproj">
+    <ProjectReference Include="..\..\..\C#\_Libs\DB\DBInterface\DBInterface\DBInterface.csproj">
       <Project>{28882375-da70-49d0-bdc1-cced928be1ff}</Project>
       <Name>DBInterface</Name>
     </ProjectReference>
