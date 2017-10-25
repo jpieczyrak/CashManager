@@ -71,7 +71,7 @@
     <Compile Include="DTO\Stock.cs" />
     <Compile Include="DTO\Subtransaction.cs" />
     <Compile Include="DTO\Transaction.cs" />
-    <Compile Include="DTO\TransactionPartPayment.cs" />
+    <Compile Include="DTO\Payment.cs" />
     <Compile Include="IoC\AutofacConfiguration.cs" />
     <Compile Include="IoC\BuildStrategies\DefaultBuildStrategy.cs" />
     <Compile Include="IoC\eBuildStrategyType.cs" />
@@ -79,7 +79,6 @@
     <Compile Include="IoC\BuildStrategies\TestBuildStrategy.cs" />
     <Compile Include="LogicObjectsProviders\CategoryProvider.cs" />
     <Compile Include="FindingFilters\eTransactionDirection.cs" />
-    <Compile Include="FindingFilters\TargetStockRule.cs" />
     <Compile Include="FindingFilters\TimeFrameRule.cs" />
     <Compile Include="FindingFilters\TitleContainsRule.cs" />
     <Compile Include="FindingFilters\TransactionDirectionRule.cs" />
@@ -118,7 +117,7 @@
     <Compile Include="TransactionManagement\TransactionElements\Transactions.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Utils\TrulyObservableCollection.cs" />
-    <Compile Include="Model\TransactionPartPayment.cs" />
+    <Compile Include="Model\Payment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wallet.cs" />
   </ItemGroup>

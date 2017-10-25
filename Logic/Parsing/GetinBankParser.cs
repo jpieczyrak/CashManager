@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 using Logic.LogicObjectsProviders;
@@ -63,16 +64,16 @@ namespace Logic.Parsing
 
             double value = bigValue + smallValue / 100.0;
             var date = new DateTime(year, month, day);
-            string note = string.Format("{0}{1}{2} ({3})", sourceName, sourceName != "" ? ": " : "", operationType, currency);
+            string note = $"{sourceName}{(sourceName != "" ? ": " : "")}{operationType} ({currency})";
             var transactionType = positiveSign ? eTransactionType.Work : eTransactionType.Buy;
 
             var transaction = new Transaction(transactionType, date, title, note);
             var subtransaction = new Subtransaction(title, value);
             transaction.Subtransactions.Add(subtransaction);
-
-            transaction.TargetStockId = Guid.Empty;
+            
             var sourceStock = positiveSign ? StockProvider.Default : userStock;
-            transaction.TransactionSoucePayments.Add(new TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));
+            var targetStock = !positiveSign ? StockProvider.Default : userStock;
+            transaction.Payment = new Payment(sourceStock, targetStock, value);
 
             return transaction;
         }

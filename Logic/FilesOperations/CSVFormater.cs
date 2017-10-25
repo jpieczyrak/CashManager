@@ -25,15 +25,14 @@ namespace Logic.FilesOperations
         public static string ToCSV(Transaction t)
         {
             string subtransactionsCSV = ToCSV(t.Subtransactions);
-            string partPaymentsCSV = ToCSV(t.TransactionSoucePayments);
+            string partPaymentsCSV = ToCSV(t.Payment);
 
             return string.Format("{0}{10}{1}{10}{2}{10}{3}{10}{4}{10}{5}{10}{6}{10}{7}{10}{8}{9}", 
                 t.Date.ToString(DATE_FORMAT), 
                 t.CreationDate.ToString(DATE_FORMAT), 
                 t.LastEditDate.ToString(DATE_FORMAT), 
                 t.Title, 
-                t.Note, 
-                t.TargetStockId, 
+                t.Note,
                 t.Type, 
                 subtransactionsCSV, 
                 partPaymentsCSV,
@@ -54,16 +53,14 @@ namespace Logic.FilesOperations
                         SUBELEMENT_ELEMENT_SPLIT_ELEMENT));
         }
 
-        private static string ToCSV(IEnumerable<Model.TransactionPartPayment> parts)
+        private static string ToCSV(Payment payment)
         {
-            return parts.Aggregate("",
-                (current, p) =>
-                    current + string.Format("{0}{4}{1}{4}{2}{4}{3}",
-                        p.Value,
-                        p.PaymentType,
-                        p.StockId,
-                        SUBELEMENT_SPLIT_ELEMENT,
-                        SUBELEMENT_ELEMENT_SPLIT_ELEMENT));
+            return string.Format("{0}{4}{1}{4}{2}{4}{3}",
+                payment.Value,
+                payment.Source.Name,
+                payment.Target.Name,
+                SUBELEMENT_SPLIT_ELEMENT,
+                SUBELEMENT_ELEMENT_SPLIT_ELEMENT);
         }
     }
 }

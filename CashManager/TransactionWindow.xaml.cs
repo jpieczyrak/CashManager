@@ -45,11 +45,11 @@ namespace CashManager
 
             SetTransactionTypeCombobox(transactionDirection);
 
-            SetSourceStocks(transactionDirection);
-            SetTargetStocks(transactionDirection);
+            SetSourceStocks();
+            SetTargetStocks();
         }
 
-        private void SetSourceStocks(eTransactionDirection transactionDirection)
+        private void SetSourceStocks()
         {
             comboboxSourceStock.ItemsSource = StockProvider.GetStocks();
             if (comboboxSourceStock.Items.Count > 0)
@@ -58,30 +58,13 @@ namespace CashManager
             }
         }
 
-        private void SetTargetStocks(eTransactionDirection transactionDirection)
+        private void SetTargetStocks()
         {
             comboboxTargetStock.ItemsSource = StockProvider.GetStocks();
-
-            //select proper index
-            int index = -1;
-            if (Transaction.TargetStockId != null)
+            if (comboboxTargetStock.Items.Count > 0)
             {
-                for (int i = 0; i < comboboxTargetStock.Items.Count; i++)
-                {
-                    if (comboboxTargetStock.Items[i].Equals(Transaction.TargetStockId))
-                    {
-                        index = i;
-                    }
-                }
+                comboboxTargetStock.SelectedIndex = 0;
             }
-            else
-            {
-                if (comboboxTargetStock.Items.Count > 0)
-                {
-                    index = 0;
-                }
-            }
-            comboboxTargetStock.SelectedIndex = index;
         }
 
         /// <summary>
@@ -127,7 +110,6 @@ namespace CashManager
         private void buttonOK_Click(object sender, RoutedEventArgs e)
         {
             Close();
-            Transaction.Validate();
             _wallet.Save();
         }
 
@@ -153,21 +135,12 @@ namespace CashManager
 
             Stock sourceStock = (Stock) (comboboxSourceStock.SelectedIndex >= 0 ? comboboxSourceStock.SelectedItem : StockProvider.Default);
 
-            ePaymentType payment = ePaymentType.Value;
-            if (comboBoxContributionTypes.SelectedIndex >= 0)
-            {
-                payment = (ePaymentType) comboBoxContributionTypes.SelectedIndex;
-            }
-
-            Transaction.TransactionSoucePayments.Add(new Logic.Model.TransactionPartPayment(sourceStock, value, payment));
+            Transaction.Payment = new Payment(sourceStock, sourceStock, value);
         }
 
         private void comboboxTargetStock_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (comboboxTargetStock.SelectedItem != null)
-            {
-                Transaction.TargetStockId = Guid.Empty;
-            }
+
         }
     }
 }

@@ -29,8 +29,8 @@ namespace Logic.Mapping
                               sub => CategoryProvider.GetById(sub.CategoryId)
                                     ));
 
-                config.CreateMap<TransactionPartPayment, DTO.TransactionPartPayment>();
-                config.CreateMap<DTO.TransactionPartPayment, TransactionPartPayment>();
+                config.CreateMap<Payment, DTO.Payment>();
+                config.CreateMap<DTO.Payment, Payment>();
             });
         }
     }

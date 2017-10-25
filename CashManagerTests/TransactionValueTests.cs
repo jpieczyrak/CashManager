@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using Logic.LogicObjectsProviders;
 using Logic.Model;
@@ -20,20 +21,20 @@ namespace CashManagerTests
 
             _transactions = new Transactions();
 
-            _income = new Transaction(eTransactionType.Work, DateTime.Today, "Income", "Income today!") { TargetStockId = Guid.Empty };
+            _income = new Transaction(eTransactionType.Work, DateTime.Today, "Income", "Income today!");
             _income.Subtransactions.Add(new Subtransaction("Payment _income", INCOME_VALUE));
-            _income.TransactionSoucePayments.Add(new TransactionPartPayment(_incomeSource, INCOME_VALUE, ePaymentType.Value));
+            _income.Payment = new Payment(_incomeSource, _mystock, INCOME_VALUE);
 
             _transactions.Add(_income);
 
-            _outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "") { TargetStockId = Guid.Empty };
+            _outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "");
 
             var foodSubtrans = new Subtransaction("Jedzenie", FOOD_COST) { Category = new Category("Cat-Food") };
             _outcome.Subtransactions.Add(foodSubtrans);
             var drugSubtrans = new Subtransaction("Leki", DRUG_COST) { Category = new Category("Cat-Drugs") };
             _outcome.Subtransactions.Add(drugSubtrans);
 
-            _outcome.TransactionSoucePayments.Add(new TransactionPartPayment(_mystock, 100, ePaymentType.Percent));
+            _outcome.Payment = new Payment(_mystock, _incomeSource, _outcome.Subtransactions.Sum(x => x.Value));
 
             _transactions.Add(_outcome);
         }
@@ -68,18 +69,12 @@ namespace CashManagerTests
         public void ShouldShowProperValueWithSign(eTransactionType type, double value, ePaymentType payment, double expected)
         {
             //given
-            var transaction = new Transaction(type, DateTime.Now, "title", "note") { TargetStockId = Guid.Empty };
+            var transaction = new Transaction(type, DateTime.Now, "title", "note");
 
             //2 subtransactions
             transaction.Subtransactions.Add(new Subtransaction("test1", value / 2));
             transaction.Subtransactions.Add(new Subtransaction("test2", value / 2));
-
-            //2 sources
-            transaction.TransactionSoucePayments.Add(new TransactionPartPayment(_tempStock,
-                payment == ePaymentType.Value ? value * 0.75 : 75, payment));
-            transaction.TransactionSoucePayments.Add(new TransactionPartPayment(_tempStock,
-                payment == ePaymentType.Value ? value * 0.25 : 25, payment));
-
+            
             //when
             double actualValue = transaction.ValueAsProfit;
 

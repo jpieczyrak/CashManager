@@ -35,14 +35,9 @@ namespace CashManagerTests.UnitTests
                 new Subtransaction("Sub 1", 12.32, "cat1", "tag1"),
                 new Subtransaction("Sub 2", 1.32, "cat2", "tag1")
             };
-            var transactionPartPayments = new List<TransactionPartPayment>
-            {
-                new TransactionPartPayment(StockProvider.Default, 1.23, ePaymentType.Value),
-                new TransactionPartPayment(StockProvider.Default, 12.3, ePaymentType.Value)
-            };
 
-            var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note", StockProvider.Default, DateTime.Now, DateTime.Today,
-                subtransactions, transactionPartPayments);
+            var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note", DateTime.Now, DateTime.Today,
+                subtransactions, null);
             var dto = Mapper.Map<Logic.DTO.Transaction>(expected);
 
             string serializedObject = Serializer.XMLSerializeObject(dto);
@@ -57,7 +52,7 @@ namespace CashManagerTests.UnitTests
             Assert.AreEqual(expected.Title, mappedAfterDeserialization.Title);
 
             CollectionAssert.AreEquivalent(expected.Subtransactions, mappedAfterDeserialization.Subtransactions);
-            CollectionAssert.AreEquivalent(expected.TransactionSoucePayments, mappedAfterDeserialization.TransactionSoucePayments);
+            Assert.AreEqual(expected.Payment, mappedAfterDeserialization.Payment);
         }
 
         [Test]
@@ -68,14 +63,9 @@ namespace CashManagerTests.UnitTests
                 new Subtransaction("Sub 1", 12.32, "cat1", "tag1"),
                 new Subtransaction("Sub 2", 1.32, "cat2", "tag1")
             };
-            var transactionPartPayments = new List<TransactionPartPayment>
-            {
-                new TransactionPartPayment(StockProvider.Default, 1.23, ePaymentType.Value),
-                new TransactionPartPayment(StockProvider.Default, 12.3, ePaymentType.Value)
-            };
 
-            var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note", StockProvider.Default, DateTime.Now, DateTime.Today,
-                subtransactions, transactionPartPayments);
+            var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note", DateTime.Now, DateTime.Today,
+                subtransactions, new Payment(StockProvider.Default, new Stock("Asd"), 12.4));
             var dto = Mapper.Map<Logic.DTO.Transaction>(expected);
 
             //string serializedObject = Serializer.XMLSerializeObject(dto);
@@ -93,7 +83,7 @@ namespace CashManagerTests.UnitTests
             Assert.AreEqual(expected.Title, mappedAfterDeserialization.Title);
 
             CollectionAssert.AreEquivalent(expected.Subtransactions, mappedAfterDeserialization.Subtransactions);
-            CollectionAssert.AreEquivalent(expected.TransactionSoucePayments, mappedAfterDeserialization.TransactionSoucePayments);
+            Assert.AreEqual(expected.Payment, mappedAfterDeserialization.Payment);
         }
     }
 }

@@ -22,12 +22,10 @@ namespace Logic.Model
 
         private TrulyObservableCollection<Subtransaction> _subtransactions =
             new TrulyObservableCollection<Subtransaction>();
-
-        private Guid _targetStockId;
+        
         private string _title;
 
-        private TrulyObservableCollection<TransactionPartPayment> _transactionSoucePayments =
-            new TrulyObservableCollection<TransactionPartPayment>();
+        private Payment _payment;
 
         private eTransactionType _type;
 
@@ -71,23 +69,12 @@ namespace Logic.Model
             }
         }
 
-        public TrulyObservableCollection<TransactionPartPayment> TransactionSoucePayments
+        public Payment Payment
         {
-            get { return _transactionSoucePayments; }
+            get { return _payment; }
             set
             {
-                _transactionSoucePayments = value;
-                _transactionSoucePayments.CollectionChanged += CollectionChanged;
-                OnPropertyChanged();
-            }
-        }
-
-        public Guid TargetStockId
-        {
-            get { return _targetStockId; }
-            set
-            {
-                _targetStockId = value;
+                _payment = value;
                 OnPropertyChanged();
             }
         }
@@ -136,23 +123,20 @@ namespace Logic.Model
             Date = DateTime.Now;
 
             LastEditDate = CreationDate = DateTime.Now;
-
-            _transactionSoucePayments.CollectionChanged += CollectionChanged;
+            
             _subtransactions.CollectionChanged += CollectionChanged;
         }
 
-        public Transaction(eTransactionType transactionType, DateTime date, string title, string note, Stock stock, DateTime creationDate,
-            DateTime lastEdit, List<Subtransaction> subtransactions, List<TransactionPartPayment> partPayments)
+        public Transaction(eTransactionType transactionType, DateTime date, string title, string note, DateTime creationDate, DateTime lastEdit, List<Subtransaction> subtransactions, Payment payment)
         {
             Type = transactionType;
             Date = date;
             Title = title;
             Note = note;
-            TargetStockId = Guid.Empty;
             CreationDate = creationDate;
             LastEditDate = lastEdit;
             Subtransactions = new TrulyObservableCollection<Subtransaction>(subtransactions);
-            TransactionSoucePayments = new TrulyObservableCollection<TransactionPartPayment>(partPayments);
+            Payment = payment;
         }
 
         #region INotifyPropertyChanged
@@ -161,29 +145,7 @@ namespace Logic.Model
 
         #endregion
 
-        /// <summary>
-        ///     Checks if subtransaction value = income value,
-        ///     if not - addes new source (from unknown stock) to fullfill transaction
-        /// </summary>
-        public void Validate()
-        {
-            double subtransactionCost = _subtransactions.Sum(subtransaction => subtransaction.Value);
-
-            //TODO: Fix (can be unsafe (wrong value) if there would be some ~incomes (same source as target))
-            double value =
-                _transactionSoucePayments.Sum(
-                    payment =>
-                    payment.PaymentType.Equals(ePaymentType.Value)
-                        ? payment.Value
-                        : subtransactionCost * payment.Value / 100);
-
-            if (Math.Abs(subtransactionCost - value) > 0.0001)
-            {
-                double missingValue = subtransactionCost - value;
-                _transactionSoucePayments.Add(new TransactionPartPayment(StockProvider.Default, missingValue, ePaymentType.Value));
-            }
-        }
-
+        
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

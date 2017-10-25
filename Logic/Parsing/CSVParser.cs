@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+
 using Logic.FilesOperations;
 using Logic.LogicObjectsProviders;
 using Logic.Model;
@@ -26,8 +28,7 @@ namespace Logic.Parsing
                 DateTime lastEdit = DateTime.ParseExact(transactionElements[2], CSVFormater.DATE_FORMAT, CultureInfo.InvariantCulture);
                 string title = transactionElements[3];
                 string note = transactionElements[4];
-                Guid stockId = Guid.Parse(transactionElements[5]);
-                Stock stock = StockProvider.GetStock("");
+                Stock stock = StockProvider.GetStock(transactionElements[5]);
                 eTransactionType transactionType;
                 eTransactionType.TryParse(transactionElements[6], true, out transactionType);
 
@@ -48,26 +49,25 @@ namespace Logic.Parsing
 
                     subtransactions.Add(new Subtransaction(name, value, category, tags));
                 }
-                
-                string[] payments = transactionElements[8].Split(CSVFormater.SUBELEMENT_SPLIT_ELEMENT);
-                List<Model.TransactionPartPayment> partPayments = new List<Model.TransactionPartPayment>();
 
-                foreach (string payment in payments)
+                string[] paymentString = transactionElements[8].Split(CSVFormater.SUBELEMENT_SPLIT_ELEMENT); //probably is only one in list.. todo: check later!
+                string paymentProperString = paymentString.FirstOrDefault(x => !string.IsNullOrEmpty(x));
+
+                if (paymentProperString != null)
                 {
-                    if (string.IsNullOrEmpty(payment)) continue;
-
-                    string[] paymentElements = payment.Split(CSVFormater.SUBELEMENT_ELEMENT_SPLIT_ELEMENT);
+                    string[] paymentElements = paymentProperString?.Split(CSVFormater.SUBELEMENT_ELEMENT_SPLIT_ELEMENT);
 
                     double value = double.Parse(paymentElements[0]);
+                    value = value == 0 ? subtransactions.Sum(x => x.Value) : value;
+
                     ePaymentType paymentType;
                     ePaymentType.TryParse(paymentElements[1], true, out paymentType);
-                    Guid paymentStockId = Guid.Parse(paymentElements[2]);
-                    Stock paymentStock = StockProvider.GetStock("");
+                    Stock paymentStock = StockProvider.GetStock(paymentElements[2]);
 
-                    partPayments.Add(new Model.TransactionPartPayment(paymentStock, value, paymentType));
+                    var payment = new Payment(stock, paymentStock, value);
+
+                    output.Add(new Transaction(transactionType, date, title, note, creationDate, lastEdit, subtransactions, payment));
                 }
-
-                output.Add(new Transaction(transactionType, date, title, note, stock, creationDate, lastEdit, subtransactions, partPayments));
             }
 
             return output;

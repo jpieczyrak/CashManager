@@ -22,21 +22,19 @@ namespace CashManagerTests
             _transactions = new Transactions();
 
             _income = new Transaction(eTransactionType.Work, DateTime.Today, "Income", "Income today!");
-            _income.TargetStockId = Guid.Empty;
             _income.Subtransactions.Add(new Subtransaction("Payment _income", INCOME_VALUE));
-            _income.TransactionSoucePayments.Add(new TransactionPartPayment(_incomeSource, INCOME_VALUE, ePaymentType.Value));
+            _income.Payment = new Payment(_incomeSource, _mystock, INCOME_VALUE);
 
             _transactions.Add(_income);
 
             _outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "");
-            _outcome.TargetStockId = Guid.Empty;
 
             var foodSubtrans = new Subtransaction("Jedzenie", foodCost) { Category = new Category("Cat-Food") };
             _outcome.Subtransactions.Add(foodSubtrans);
             var drugSubtrans = new Subtransaction("Leki", drugCost) { Category = new Category("Cat-Drugs") };
             _outcome.Subtransactions.Add(drugSubtrans);
 
-            _outcome.TransactionSoucePayments.Add(new TransactionPartPayment(_mystock, 100, ePaymentType.Percent));
+            _outcome.Payment = new Payment(_mystock, _incomeSource, INCOME_VALUE);
 
             _transactions.Add(_outcome);
         }

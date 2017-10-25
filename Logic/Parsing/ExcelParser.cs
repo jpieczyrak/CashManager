@@ -4,8 +4,6 @@ using System.Globalization;
 
 using Logic.LogicObjectsProviders;
 using Logic.Model;
-using Logic.StocksManagement;
-using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;
 
 namespace Logic.Parsing
@@ -45,8 +43,6 @@ namespace Logic.Parsing
 
             Transaction transaction = new Transaction(type, date, title, "");
 
-            
-
             string stringWithValue = outcome ? values[11] : values[10];
             double value;
             double.TryParse(stringWithValue, out value);
@@ -54,11 +50,10 @@ namespace Logic.Parsing
             Subtransaction subtransaction = new Subtransaction(title, value);
 
             transaction.Subtransactions.Add(subtransaction);
-
-            transaction.TargetStockId = Guid.Empty;
-
+            
             Stock sourceStock = !outcome ? StockProvider.Default : userStock;
-            transaction.TransactionSoucePayments.Add(new Model.TransactionPartPayment(sourceStock, 100, ePaymentType.Percent));
+            Stock destStock = outcome ? StockProvider.Default : userStock;
+            transaction.Payment = new Payment(sourceStock, destStock, value);
 
             return transaction;
         }

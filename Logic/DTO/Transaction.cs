@@ -22,7 +22,7 @@ namespace Logic.DTO
         public string Note { get; set; }
 
         [DataMember]
-        public List<TransactionPartPayment> TransactionSoucePayments { get; set; }
+        public Payment Payment { get; set; }
 
         [DataMember]
         public Guid TargetStockId { get; set; }
