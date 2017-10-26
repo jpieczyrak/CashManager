@@ -12,6 +12,7 @@ namespace Logic.Model
     public class Stock : INotifyPropertyChanged
     {
         private string _name;
+        private bool _isUserStock;
 
         public string Name
         {
@@ -23,11 +24,22 @@ namespace Logic.Model
             }
         }
 
+        public bool IsUserStock
+        {
+            get { return _isUserStock; }
+            set
+            {
+                _isUserStock = value;
+                OnPropertyChanged(nameof(IsUserStock));
+            }
+        }
+
         private Stock() { }
 
         public Stock(string name)
         {
-            Name = name;
+            _name = name;
+            _isUserStock = false;
         }
 
         #region INotifyPropertyChanged
