@@ -29,14 +29,29 @@ namespace Logic.Model
         private TrulyObservableCollection<Subtransaction> _subtransactions = new TrulyObservableCollection<Subtransaction>();
         private TrulyObservableCollection<Tag> _tags = new TrulyObservableCollection<Tag>();
 
+        /// <summary>
+        /// Date when transaction was first created within application
+        /// </summary>
         public DateTime InstanceCreationDate { get; }
 
+        /// <summary>
+        /// Date when transaction was performed (in real life, like going to shop or receiving payment)
+        /// </summary>
         public DateTime TransationSourceCreationDate { get; }
 
+        /// <summary>
+        /// Last time when transation was edited by user (within app)
+        /// </summary>
         public DateTime LastEditDate { get; private set; }
 
+        /// <summary>
+        /// Unique id to recognize transactions
+        /// </summary>
         public Guid Id { get; private set; }
 
+        /// <summary>
+        /// Title of transaction
+        /// </summary>
         public string Title
         {
             get { return _title; }
@@ -47,6 +62,9 @@ namespace Logic.Model
             }
         }
 
+        /// <summary>
+        /// Additional notes
+        /// </summary>
         public string Note
         {
             get { return _note; }
@@ -58,7 +76,7 @@ namespace Logic.Model
         }
 
         /// <summary>
-        ///     Used for our stocks like: my wallet, my bank account etc
+        /// Used for our stocks like: my wallet, my bank account etc
         /// </summary>
         public Stock MyStock
         {
@@ -71,7 +89,7 @@ namespace Logic.Model
         }
 
         /// <summary>
-        ///     Used for stocks like: shop, employer etc
+        /// Used for stocks like: shop, employer etc
         /// </summary>
         public Stock ExternalStock
         {
@@ -82,6 +100,10 @@ namespace Logic.Model
                 OnPropertyChanged(nameof(ExternalStock));
             }
         }
+
+        /// <summary>
+        /// List of subtransactions (like positions on bill)
+        /// </summary>
         public TrulyObservableCollection<Subtransaction> Subtransactions
         {
             get { return _subtransactions; }
@@ -93,6 +115,9 @@ namespace Logic.Model
             }
         }
 
+        /// <summary>
+        /// Optional tags for whole transaction (like: buying PC 2015)
+        /// </summary>
         public TrulyObservableCollection<Tag> Tags
         {
             get { return _tags; }
@@ -104,6 +129,9 @@ namespace Logic.Model
             }
         }
 
+        /// <summary>
+        /// Transaction type - buying/selling/working - for accounting purpose
+        /// </summary>
         public eTransactionType Type
         {
             get { return _type; }
@@ -115,9 +143,9 @@ namespace Logic.Model
         }
 
         /// <summary>
-        ///     Date used for register moment.
-        ///     E.g. When your paid in april but it was payment for march [forgot / was late]. Payment was done in April, so the
-        ///     CreationDate will be, but you can set BookDate to March and calculate it as it should be
+        /// Date used for register moment.
+        /// E.g. When your paid in april but it was payment for march [forgot / was late]. Payment was done in April, so the
+        /// CreationDate will be, but you can set BookDate to March and calculate it as it should be
         /// </summary>
         public DateTime BookDate
         {
@@ -129,8 +157,14 @@ namespace Logic.Model
             }
         }
 
+        /// <summary>
+        /// Total value of transaction
+        /// </summary>
         public double Value => Subtransactions?.Sum(subtransaction => subtransaction.Value) ?? 0;
 
+        /// <summary>
+        /// Total value of transaction as profit of user (negative when buying, positive when receiving payments)
+        /// </summary>
         public double ValueAsProfit => Type == eTransactionType.Buy || Type == eTransactionType.Reinvest
                                            ? -Value
                                            : (Type != eTransactionType.Transfer ? Value : 0);
