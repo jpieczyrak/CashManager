@@ -28,7 +28,7 @@
         <DataGrid Grid.Row="1" Name="DataGridTransactions" AutoGenerateColumns="False" CellEditEnding="DataGridTransactions_CellEditEnding" Margin="5" CanUserAddRows="True" IsReadOnly="False" MouseLeave="DataGridTransactions_MouseLeave" Grid.ColumnSpan="3" Grid.RowSpan="6">
             <DataGrid.Columns>
                 <!-- <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}"/> -->
-                <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='dd.MM.yyyy', Mode=OneWay}" Width="100*"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding BookDate, StringFormat='dd.MM.yyyy', Mode=OneWay}" Width="100*"/>
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="100*" />
                 <DataGridTextColumn Header="Value" Binding="{Binding ValueAsProfit, Mode=OneWay}" Width="60*"/>
             </DataGrid.Columns>
@@ -50,7 +50,7 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Text="CreationDate: " FontWeight="Bold" Grid.Row="0" />
-                            <TextBlock Text="{Binding CreationDate}" Grid.Column="1" Grid.Row="0" />
+                            <TextBlock Text="{Binding InstanceCreationDate}" Grid.Column="1" Grid.Row="0" />
 
                             <TextBlock Text="Note: " FontWeight="Bold" Grid.Row="1" />
                             <TextBlock Text="{Binding Note}" Grid.Column="1" Grid.Row="1" />
