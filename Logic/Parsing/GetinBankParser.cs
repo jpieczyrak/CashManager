@@ -73,8 +73,8 @@ namespace Logic.Parsing
             
             var sourceStock = positiveSign ? StockProvider.Default : userStock;
             var targetStock = !positiveSign ? StockProvider.Default : userStock;
-            transaction.Source = sourceStock;
-            transaction.Target = targetStock;
+            transaction.MyStock = sourceStock;
+            transaction.ExternalStock = targetStock;
 
             return transaction;
         }

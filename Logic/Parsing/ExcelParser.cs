@@ -53,8 +53,8 @@ namespace Logic.Parsing
             
             Stock sourceStock = !outcome ? StockProvider.Default : userStock;
             Stock destStock = outcome ? StockProvider.Default : userStock;
-            transaction.Source = sourceStock;
-            transaction.Target = destStock;
+            transaction.MyStock = sourceStock;
+            transaction.ExternalStock = destStock;
 
             return transaction;
         }

@@ -135,8 +135,8 @@ namespace CashManager
 
             Stock sourceStock = (Stock) (comboboxSourceStock.SelectedIndex >= 0 ? comboboxSourceStock.SelectedItem : StockProvider.Default);
             
-            Transaction.Source = sourceStock;
-            Transaction.Target = sourceStock;
+            Transaction.MyStock = sourceStock;
+            Transaction.ExternalStock = sourceStock;
         }
 
         private void comboboxTargetStock_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

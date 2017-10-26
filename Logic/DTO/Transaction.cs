@@ -22,9 +22,6 @@ namespace Logic.DTO
         public string Note { get; set; }
         
         [DataMember]
-        public Guid TargetStockId { get; set; }
-
-        [DataMember]
         public List<Subtransaction> Subtransactions { get; set; }
 
         [DataMember]
@@ -37,9 +34,9 @@ namespace Logic.DTO
         public Guid Id { get; set; }
 
         [DataMember]
-        public Stock Source { get; set; }
+        public Stock MyStock { get; set; }
 
         [DataMember]
-        public Stock Target { get; set; }
+        public Stock ExternalStock { get; set; }
     }
 }

@@ -30,20 +30,25 @@ namespace CashManagerTests.UnitTests
         [Test]
         public void SerializationTests()
         {
+            //given
             var subtransactions = new List<Subtransaction>
             {
                 new Subtransaction("Sub 1", 12.32, "cat1", "tag1"),
                 new Subtransaction("Sub 2", 1.32, "cat2", "tag1")
             };
 
+            var myStock = new Stock("wallet");
+            var externalStock = new Stock("shop");
             var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note", DateTime.Now, DateTime.Today,
-                subtransactions, new Stock("a"), new Stock("b"));
+                subtransactions, myStock, externalStock);
             var dto = Mapper.Map<Logic.DTO.Transaction>(expected);
 
+            //when
             string serializedObject = Serializer.XMLSerializeObject(dto);
             var deserialized = Deserializer.Deserialize(serializedObject, typeof(Logic.DTO.Transaction));
             var mappedAfterDeserialization = Mapper.Map<Transaction>(deserialized);
-
+            
+            //then
             Assert.AreEqual(expected, mappedAfterDeserialization);
 
             Assert.AreEqual(expected.CreationDate, mappedAfterDeserialization.CreationDate);
@@ -52,28 +57,33 @@ namespace CashManagerTests.UnitTests
             Assert.AreEqual(expected.Title, mappedAfterDeserialization.Title);
 
             CollectionAssert.AreEquivalent(expected.Subtransactions, mappedAfterDeserialization.Subtransactions);
-            Assert.AreEqual(expected.Source, mappedAfterDeserialization.Source);
-            Assert.AreEqual(expected.Target, mappedAfterDeserialization.Target);
+            Assert.AreEqual(expected.MyStock, mappedAfterDeserialization.MyStock);
+            Assert.AreEqual(expected.ExternalStock, mappedAfterDeserialization.ExternalStock);
         }
 
         [Test]
         public void DatabaseTests()
         {
+            //given
             var subtransactions = new List<Subtransaction>
             {
                 new Subtransaction("Sub 1", 12.32, "cat1", "tag1"),
                 new Subtransaction("Sub 2", 1.32, "cat2", "tag1")
             };
 
+            var myStock = new Stock("wallet");
+            var externalStock = new Stock("shop");
             var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note", DateTime.Now, DateTime.Today,
-                subtransactions, StockProvider.Default, new Stock("Asd"));
+                subtransactions, myStock, externalStock);
             var dto = Mapper.Map<Logic.DTO.Transaction>(expected);
 
+            //when
             //string serializedObject = Serializer.XMLSerializeObject(dto);
             DatabaseProvider.DB.Update(dto);
             var loaded = DatabaseProvider.DB.Read<Logic.DTO.Transaction>().FirstOrDefault(t => t.Id == dto.Id);
             var mappedAfterDeserialization = Mapper.Map<Transaction>(loaded);
 
+            //then
             Assert.AreEqual(expected, mappedAfterDeserialization);
 
             //we lose some accuracy in db
@@ -84,8 +94,8 @@ namespace CashManagerTests.UnitTests
             Assert.AreEqual(expected.Title, mappedAfterDeserialization.Title);
 
             CollectionAssert.AreEquivalent(expected.Subtransactions, mappedAfterDeserialization.Subtransactions);
-            Assert.AreEqual(expected.Source, mappedAfterDeserialization.Source);
-            Assert.AreEqual(expected.Target, mappedAfterDeserialization.Target);
+            Assert.AreEqual(expected.MyStock, mappedAfterDeserialization.MyStock);
+            Assert.AreEqual(expected.ExternalStock, mappedAfterDeserialization.ExternalStock);
         }
     }
 }

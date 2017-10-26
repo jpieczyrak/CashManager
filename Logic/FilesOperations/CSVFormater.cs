@@ -34,7 +34,7 @@ namespace Logic.FilesOperations
                 t.Note,
                 t.Type, 
                 subtransactionsCSV, 
-                t.Source.Name + SUBELEMENT_ELEMENT_SPLIT_ELEMENT + t.Target.Name,
+                t.MyStock.Name + SUBELEMENT_ELEMENT_SPLIT_ELEMENT + t.ExternalStock.Name,
                 TRANSACTION_SPLIT_ELEMENT,
                 TRANSACTION_ELEMENT_SPLIT_ELEMENT);
         }

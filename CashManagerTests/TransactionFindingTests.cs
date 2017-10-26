@@ -23,8 +23,8 @@ namespace CashManagerTests
 
             _income = new Transaction(eTransactionType.Work, DateTime.Today, "Income", "Income today!");
             _income.Subtransactions.Add(new Subtransaction("Payment _income", INCOME_VALUE));
-            _income.Source = _incomeSource;
-            _income.Target = _mystock;
+            _income.MyStock = _incomeSource;
+            _income.ExternalStock = _mystock;
 
             _transactions.Add(_income);
 
@@ -35,8 +35,8 @@ namespace CashManagerTests
             var drugSubtrans = new Subtransaction("Leki", drugCost) { Category = new Category("Cat-Drugs") };
             _outcome.Subtransactions.Add(drugSubtrans);
             
-            _outcome.Source = _mystock;
-            _outcome.Target = _incomeSource;
+            _outcome.MyStock = _mystock;
+            _outcome.ExternalStock = _incomeSource;
 
             _transactions.Add(_outcome);
         }

@@ -24,8 +24,8 @@ namespace Logic.Model
         private string _title;
         
         private eTransactionType _type;
-        private Stock _source;
-        private Stock _target;
+        private Stock _myStock;
+        private Stock _externalStock;
 
         public eTransactionType Type
         {
@@ -67,23 +67,29 @@ namespace Logic.Model
             }
         }
 
-        public Stock Source
+        /// <summary>
+        /// Used for our stocks like: my wallet, my bank account etc
+        /// </summary>
+        public Stock MyStock
         {
-            get { return _source; }
+            get { return _myStock; }
             set
             {
-                _source = value;
-                OnPropertyChanged(nameof(Source));
+                _myStock = value;
+                OnPropertyChanged(nameof(MyStock));
             }
         }
 
-        public Stock Target
+        /// <summary>
+        /// Used for stocks like: shop, employer etc
+        /// </summary>
+        public Stock ExternalStock
         {
-            get { return _target; }
+            get { return _externalStock; }
             set
             {
-                _target = value;
-                OnPropertyChanged(nameof(Target));
+                _externalStock = value;
+                OnPropertyChanged(nameof(ExternalStock));
             }
         }
 
@@ -135,7 +141,7 @@ namespace Logic.Model
             _subtransactions.CollectionChanged += CollectionChanged;
         }
 
-        public Transaction(eTransactionType transactionType, DateTime date, string title, string note, DateTime creationDate, DateTime lastEdit, List<Subtransaction> subtransactions, Stock source, Stock target)
+        public Transaction(eTransactionType transactionType, DateTime date, string title, string note, DateTime creationDate, DateTime lastEdit, List<Subtransaction> subtransactions, Stock myStock, Stock externalStock)
         {
             Type = transactionType;
             Date = date;
@@ -144,8 +150,8 @@ namespace Logic.Model
             CreationDate = creationDate;
             LastEditDate = lastEdit;
             Subtransactions = new TrulyObservableCollection<Subtransaction>(subtransactions);
-            _source = source;
-            _target = target;
+            _myStock = myStock;
+            _externalStock = externalStock;
         }
 
         #region INotifyPropertyChanged
