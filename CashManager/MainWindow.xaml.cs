@@ -33,7 +33,6 @@ namespace CashManager
             AddHandler(Keyboard.KeyDownEvent, (KeyEventHandler)HandleKeyDownEvent);
 
             DataContext = _dataContext;
-            dataGridStockStats.ItemsSource = _dataContext.StockStats;
             DataGridTransactions.ItemsSource = _dataContext.Wallet.Transactions;
 
             //AnswerMyQuestions();

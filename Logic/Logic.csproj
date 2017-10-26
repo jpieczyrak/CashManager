@@ -96,7 +96,6 @@
     <Compile Include="Specification\ISpecification.cs" />
     <Compile Include="Specification\NotSpecification.cs" />
     <Compile Include="Specification\OrSpecification.cs" />
-    <Compile Include="StocksManagement\StockStats.cs" />
     <Compile Include="FilesOperations\CSVFormater.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="TransactionManagement\TransactionElements\ePaymentType.cs" />
