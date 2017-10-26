@@ -40,21 +40,14 @@ namespace Logic.Parsing
             string title = values[12];
 
             eTransactionType type = outcome ? eTransactionType.Buy : eTransactionType.Work;
-
-            Transaction transaction = new Transaction(type, date, title, "");
-
+            
             string stringWithValue = outcome ? values[11] : values[10];
             double value;
             double.TryParse(stringWithValue, out value);
 
             Subtransaction subtransaction = new Subtransaction(title, value);
 
-            transaction.Subtransactions.Add(subtransaction);
-            
-            transaction.MyStock = userStock;
-            transaction.ExternalStock = StockProvider.Default;
-
-            return transaction;
+            return new Transaction(type, date, title, "", new List<Subtransaction> { subtransaction }, userStock, StockProvider.Default);
         }
     }
 }

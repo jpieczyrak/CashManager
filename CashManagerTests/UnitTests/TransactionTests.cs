@@ -47,11 +47,10 @@ namespace CashManagerTests.UnitTests
             string serializedObject = Serializer.XMLSerializeObject(dto);
             var deserialized = Deserializer.Deserialize(serializedObject, typeof(Logic.DTO.Transaction));
             var mappedAfterDeserialization = Mapper.Map<Transaction>(deserialized);
-            
+
             //then
             Assert.AreEqual(expected, mappedAfterDeserialization);
-
-            Assert.AreEqual(expected.InstanceCreationDate, mappedAfterDeserialization.InstanceCreationDate);
+            
             Assert.AreEqual(expected.BookDate, mappedAfterDeserialization.BookDate);
             Assert.AreEqual(expected.Note, mappedAfterDeserialization.Note);
             Assert.AreEqual(expected.Title, mappedAfterDeserialization.Title);
@@ -81,12 +80,12 @@ namespace CashManagerTests.UnitTests
             DatabaseProvider.DB.Update(dto);
             var loaded = DatabaseProvider.DB.Read<Logic.DTO.Transaction>().FirstOrDefault(t => t.Id == dto.Id);
             var mappedAfterDeserialization = Mapper.Map<Transaction>(loaded);
-
+            
             //then
+            Assert.AreEqual(expected.Id, mappedAfterDeserialization.Id);
             Assert.AreEqual(expected, mappedAfterDeserialization);
 
             //we lose some accuracy in db
-            Assert.AreEqual(expected.InstanceCreationDate.Date, mappedAfterDeserialization.InstanceCreationDate.Date);
             Assert.AreEqual(expected.BookDate.Date, mappedAfterDeserialization.BookDate.Date);
 
             Assert.AreEqual(expected.Note, mappedAfterDeserialization.Note);

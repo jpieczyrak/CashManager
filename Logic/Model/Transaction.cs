@@ -33,7 +33,7 @@ namespace Logic.Model
 
         public DateTime LastEditDate { get; private set; }
 
-        public Guid Id { get; } = Guid.NewGuid();
+        public Guid Id { get; private set; } = Guid.NewGuid();
 
         public string Title
         {
@@ -132,21 +132,6 @@ namespace Logic.Model
         public double ValueAsProfit => Type == eTransactionType.Buy || Type == eTransactionType.Reinvest
                                            ? -Value
                                            : (Type != eTransactionType.Transfer ? Value : 0);
-        
-        /// <summary>
-        ///     TODO: remove after loading from file.
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="sourceTransactionCreationDate"></param>
-        /// <param name="title"></param>
-        /// <param name="note"></param>
-        public Transaction(eTransactionType type, DateTime sourceTransactionCreationDate, string title, string note) : this()
-        {
-            Type = type;
-            BookDate = sourceTransactionCreationDate;
-            Title = title;
-            Note = note;
-        }
 
         public Transaction()
         {
@@ -156,7 +141,7 @@ namespace Logic.Model
             LastEditDate = InstanceCreationDate = DateTime.Now;
 
             _tags = new TrulyObservableCollection<Tag>();
-
+            
             _subtransactions.CollectionChanged += CollectionChanged;
             _tags.CollectionChanged += CollectionChanged;
         }
@@ -168,6 +153,7 @@ namespace Logic.Model
             Title = title;
             Note = note;
             _bookDate = TransationSourceCreationDate = sourceTransactionCreationDate;
+            LastEditDate = InstanceCreationDate = DateTime.Now;
             Subtransactions = new TrulyObservableCollection<Subtransaction>(subtransactions);
             _myStock = myStock;
             _externalStock = externalStock;

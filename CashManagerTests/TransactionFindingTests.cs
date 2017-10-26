@@ -16,45 +16,28 @@ namespace CashManagerTests
         public void Init()
         {
             _mystock = new Stock("Mystock");
-            _targetStock = _incomeSource = new Stock("Targetstock");
-            _tempStock = new Stock("temp");
 
-            _transactions = new Transactions();
-
-            _income = new Transaction(eTransactionType.Work, DateTime.Today, "Income", "Income today!");
-            _income.Subtransactions.Add(new Subtransaction("Payment _income", INCOME_VALUE));
-            _income.MyStock = _incomeSource;
-            _income.ExternalStock = _mystock;
-
-            _transactions.Add(_income);
-
-            _outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "");
-
-            var foodSubtrans = new Subtransaction("Jedzenie", foodCost) { Category = new Category("Cat-Food") };
-            _outcome.Subtransactions.Add(foodSubtrans);
-            var drugSubtrans = new Subtransaction("Leki", drugCost) { Category = new Category("Cat-Drugs") };
-            _outcome.Subtransactions.Add(drugSubtrans);
+            _incomeTransaction = new Transaction(eTransactionType.Work, DateTime.Today, "Income", "Income today!",
+                new List<Subtransaction> { new Subtransaction("Payment _income", INCOME_VALUE) }, 
+                _mystock, _externalStock);
             
-            _outcome.MyStock = _mystock;
-            _outcome.ExternalStock = _incomeSource;
+            var foodSubtrans = new Subtransaction("Jedzenie", foodCost) { Category = new Category("Cat-Food") };
+            var drugSubtrans = new Subtransaction("Leki", drugCost) { Category = new Category("Cat-Drugs") };
 
-            _transactions.Add(_outcome);
+            _outcomeTransaction = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "", 
+                new List<Subtransaction> {foodSubtrans, drugSubtrans}, 
+                _mystock, _externalStock);
         }
 
         private const int INCOME_VALUE = 2000;
         private const int foodCost = 50;
         private const double drugCost = 21.45;
-        private const double transactionCost = 165.43;
 
         private Stock _mystock;
-        private Stock _incomeSource;
-        private Stock _targetStock;
-        private Stock _tempStock;
-
-        private Transactions _transactions;
-
-        private Transaction _income;
-        private Transaction _outcome;
+        private Stock _externalStock;
+        
+        private Transaction _incomeTransaction;
+        private Transaction _outcomeTransaction;
 
         [Test]
         public void ShouldFindByTitle()
@@ -62,13 +45,13 @@ namespace CashManagerTests
             //given
             var searchCriteria = new TitleContainsRule("incom");
 
-            var transactions = new List<Transaction>(_transactions.TransactionsList);
+            var transactions = new List<Transaction> {_incomeTransaction, _outcomeTransaction};
 
             //when
             var found = transactions.FindAll(t => searchCriteria.IsSatisfiedBy(t));
 
             //then
-            Assert.Contains(_income, found);
+            Assert.Contains(_incomeTransaction, found);
         }
     }
 }

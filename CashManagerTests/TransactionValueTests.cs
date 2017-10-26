@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Logic.Model;
 using Logic.TransactionManagement.TransactionElements;
@@ -14,40 +15,22 @@ namespace CashManagerTests
         public void Init()
         {
             _mystock = new Stock("Mystock");
-
-            _transactions = new Transactions();
-
-            _income = new Transaction(eTransactionType.Work, DateTime.Today, "Income", "Income today!");
-            _income.Subtransactions.Add(new Subtransaction("Payment _income", INCOME_VALUE));
-            _income.MyStock = _incomeSource;
-            _income.ExternalStock = _mystock;
-
-            _transactions.Add(_income);
-
-            _outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "");
-
-            var foodSubtrans = new Subtransaction("Jedzenie", FOOD_COST) { Category = new Category("Cat-Food") };
-            _outcome.Subtransactions.Add(foodSubtrans);
-            var drugSubtrans = new Subtransaction("Leki", DRUG_COST) { Category = new Category("Cat-Drugs") };
-            _outcome.Subtransactions.Add(drugSubtrans);
+            _externalStock = new Stock("someone");
             
-            _outcome.MyStock = _mystock;
-            _outcome.ExternalStock = _incomeSource;
+            var foodSubtrans = new Subtransaction("Jedzenie", FOOD_COST) { Category = new Category("Cat-Food") };
+            var drugSubtrans = new Subtransaction("Leki", DRUG_COST) { Category = new Category("Cat-Drugs") };
+            
+            _outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "", new List<Subtransaction> {foodSubtrans, drugSubtrans}, _mystock, _externalStock);
 
-            _transactions.Add(_outcome);
         }
-
-        private const int INCOME_VALUE = 2000;
+        
         private const int FOOD_COST = 50;
         private const double DRUG_COST = 21.45;
         private const double TRANSACTION_COST = 165.43;
 
         private Stock _mystock;
-        private Stock _incomeSource;
-
-        private Transactions _transactions;
-
-        private Transaction _income;
+        private Stock _externalStock;
+        
         private Transaction _outcome;
 
         [TestCase(eTransactionType.Buy, TRANSACTION_COST, -TRANSACTION_COST)]
@@ -59,12 +42,14 @@ namespace CashManagerTests
         public void ShouldShowProperValueWithSign(eTransactionType type, double value, double expected)
         {
             //given
-            var transaction = new Transaction(type, DateTime.Now, "title", "note");
-
-            //2 subtransactions
-            transaction.Subtransactions.Add(new Subtransaction("test1", value / 2));
-            transaction.Subtransactions.Add(new Subtransaction("test2", value / 2));
             
+            var subtransactions = new List<Subtransaction>
+            {
+                new Subtransaction("test1", value / 2),
+                new Subtransaction("test2", value / 2)
+            };
+            var transaction = new Transaction(type, DateTime.Now, "title", "note", subtransactions, _mystock, _externalStock);
+
             //when
             double actualValue = transaction.ValueAsProfit;
 
