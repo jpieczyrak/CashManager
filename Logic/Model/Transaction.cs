@@ -15,53 +15,25 @@ namespace Logic.Model
     [DataContract(Namespace = "")]
     public class Transaction : INotifyPropertyChanged
     {
-        private DateTime _bookDate;
+        private string _title;
         private string _note;
 
-        private TrulyObservableCollection<Subtransaction> _subtransactions =
-            new TrulyObservableCollection<Subtransaction>();
+        private DateTime _bookDate;
 
-        public TrulyObservableCollection<Tag> Tags
-        {
-            get { return _tags; }
-            set
-            {
-                _tags = value;
-                _tags.CollectionChanged += CollectionChanged;
-                OnPropertyChanged(nameof(Tags));
-            }
-        }
-
-        private string _title;
-        
-        private eTransactionType _type;
         private Stock _myStock;
         private Stock _externalStock;
+        private eTransactionType _type;
+
+        private TrulyObservableCollection<Subtransaction> _subtransactions = new TrulyObservableCollection<Subtransaction>();
         private TrulyObservableCollection<Tag> _tags = new TrulyObservableCollection<Tag>();
 
-        public eTransactionType Type
-        {
-            get { return _type; }
-            set
-            {
-                _type = value;
-                OnPropertyChanged();
-            }
-        }
+        public DateTime InstanceCreationDate { get; }
 
-        /// <summary>
-        /// Date used for register moment.
-        /// E.g. When your paid in april but it was payment for march [forgot / was late]. Payment was done in April, so the CreationDate will be, but you can set BookDate to March and calculate it as it should be
-        /// </summary>
-        public DateTime BookDate
-        {
-            get { return _bookDate; }
-            set
-            {
-                _bookDate = value;
-                OnPropertyChanged();
-            }
-        }
+        public DateTime TransationSourceCreationDate { get; }
+
+        public DateTime LastEditDate { get; private set; }
+
+        public Guid Id { get; } = Guid.NewGuid();
 
         public string Title
         {
@@ -84,7 +56,7 @@ namespace Logic.Model
         }
 
         /// <summary>
-        /// Used for our stocks like: my wallet, my bank account etc
+        ///     Used for our stocks like: my wallet, my bank account etc
         /// </summary>
         public Stock MyStock
         {
@@ -97,7 +69,7 @@ namespace Logic.Model
         }
 
         /// <summary>
-        /// Used for stocks like: shop, employer etc
+        ///     Used for stocks like: shop, employer etc
         /// </summary>
         public Stock ExternalStock
         {
@@ -108,13 +80,6 @@ namespace Logic.Model
                 OnPropertyChanged(nameof(ExternalStock));
             }
         }
-
-        public double Value => Subtransactions?.Sum(subtransaction => subtransaction.Value) ?? 0;
-
-        public double ValueAsProfit => Type == eTransactionType.Buy || Type == eTransactionType.Reinvest
-                                           ? -Value
-                                           : (Type != eTransactionType.Transfer ? Value : 0);
-
         public TrulyObservableCollection<Subtransaction> Subtransactions
         {
             get { return _subtransactions; }
@@ -126,14 +91,48 @@ namespace Logic.Model
             }
         }
 
-        public DateTime InstanceCreationDate { get; private set; }
+        public TrulyObservableCollection<Tag> Tags
+        {
+            get { return _tags; }
+            set
+            {
+                _tags = value;
+                _tags.CollectionChanged += CollectionChanged;
+                OnPropertyChanged(nameof(Tags));
+            }
+        }
 
-        public DateTime TransationSourceCreationDate { get; private set; }
+        public eTransactionType Type
+        {
+            get { return _type; }
+            set
+            {
+                _type = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public DateTime LastEditDate { get; private set; }
+        /// <summary>
+        ///     Date used for register moment.
+        ///     E.g. When your paid in april but it was payment for march [forgot / was late]. Payment was done in April, so the
+        ///     CreationDate will be, but you can set BookDate to March and calculate it as it should be
+        /// </summary>
+        public DateTime BookDate
+        {
+            get { return _bookDate; }
+            set
+            {
+                _bookDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double Value => Subtransactions?.Sum(subtransaction => subtransaction.Value) ?? 0;
+
+        public double ValueAsProfit => Type == eTransactionType.Buy || Type == eTransactionType.Reinvest
+                                           ? -Value
+                                           : (Type != eTransactionType.Transfer ? Value : 0);
         
-        public Guid Id { get; private set; } = Guid.NewGuid();
-
         /// <summary>
         ///     TODO: remove after loading from file.
         /// </summary>
@@ -155,14 +154,15 @@ namespace Logic.Model
             BookDate = DateTime.Now;
 
             LastEditDate = InstanceCreationDate = DateTime.Now;
-            
+
             _tags = new TrulyObservableCollection<Tag>();
 
             _subtransactions.CollectionChanged += CollectionChanged;
             _tags.CollectionChanged += CollectionChanged;
         }
 
-        public Transaction(eTransactionType transactionType, DateTime sourceTransactionCreationDate, string title, string note, List<Subtransaction> subtransactions, Stock myStock, Stock externalStock)
+        public Transaction(eTransactionType transactionType, DateTime sourceTransactionCreationDate, string title, string note,
+            List<Subtransaction> subtransactions, Stock myStock, Stock externalStock)
         {
             Type = transactionType;
             Title = title;
@@ -179,7 +179,11 @@ namespace Logic.Model
 
         #endregion
 
-        
+        public Transaction Clone()
+        {
+            return (Transaction) MemberwiseClone();
+        }
+
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -206,10 +210,5 @@ namespace Logic.Model
         }
 
         #endregion
-
-        public Transaction Clone()
-        {
-            return (Transaction) MemberwiseClone();
-        }
     }
 }
