@@ -28,7 +28,7 @@ namespace Logic.FilesOperations
 
             return string.Format("{0}{10}{1}{10}{2}{10}{3}{10}{4}{10}{5}{10}{6}{10}{7}{10}{8}{9}", 
                 t.BookDate.ToString(DATE_FORMAT), 
-                t.CreationDate.ToString(DATE_FORMAT), 
+                t.InstanceCreationDate.ToString(DATE_FORMAT), 
                 t.LastEditDate.ToString(DATE_FORMAT), 
                 t.Title, 
                 t.Note,

@@ -22,7 +22,10 @@ namespace Logic.DTO
         public List<Subtransaction> Subtransactions { get; set; }
 
         [DataMember]
-        public DateTime CreationDate { get; set; }
+        public DateTime InstanceCreationDate { get; set; }
+
+        [DataMember]
+        public DateTime TransationSourceCreationDate { get; set; }
 
         [DataMember]
         public DateTime LastEditDate { get; set; }

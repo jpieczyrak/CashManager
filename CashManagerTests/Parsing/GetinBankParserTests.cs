@@ -31,9 +31,9 @@ namespace CashManagerTests.Parsing
 
             var userStock = StockProvider.AddNew("Getin");
             var externalStock = StockProvider.Default;
-            var expected = new Transaction(eTransactionType.Buy, new DateTime(2016, 9, 6), "[Sierpień] Czynsz + media",
-                "JĘDRZEJ PIECZYRAK: PRZELEW WYCHODZĄCY (PLN)", 
-                DateTime.Today,
+            var creationDate = new DateTime(2016, 9, 6);
+            var expected = new Transaction(eTransactionType.Buy, creationDate, "[Sierpień] Czynsz + media",
+                "JĘDRZEJ PIECZYRAK: PRZELEW WYCHODZĄCY (PLN)",
                 new List<Subtransaction>
                 {
                     new Subtransaction("[Sierpień] Czynsz + media", 684.62d)
@@ -55,6 +55,11 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
             Assert.AreEqual(expected.Note, parsed.Note);
             Assert.AreEqual(expected.MyStock, parsed.MyStock);
             Assert.AreEqual(expected.ExternalStock, parsed.ExternalStock);
+
+            Assert.AreEqual(creationDate, parsed.BookDate);
+            Assert.AreEqual(creationDate, parsed.TransationSourceCreationDate);
+
+            Assert.AreEqual(expected.InstanceCreationDate, parsed.InstanceCreationDate);
             
             Assert.AreEqual(expected.Subtransactions.First().Name, parsed.Subtransactions.First().Name);
             Assert.AreEqual(expected.Subtransactions.First().Value, parsed.Subtransactions.First().Value);
@@ -70,9 +75,9 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
 
             var userStock = StockProvider.AddNew("Getin");
             var externalStock = StockProvider.Default;
-            var expected = new Transaction(eTransactionType.Work, new DateTime(2014, 02, 28), "Wynagrodzenie z tytulu umowy cywilnoprawnej",
-                "Firma SP. Z O.O.: PRZELEW PRZYCHODZĄCY (PLN)", 
-                DateTime.Today,
+            var creationDate = new DateTime(2014, 02, 28);
+            var expected = new Transaction(eTransactionType.Work, creationDate, "Wynagrodzenie z tytulu umowy cywilnoprawnej",
+                "Firma SP. Z O.O.: PRZELEW PRZYCHODZĄCY (PLN)",
                 new List<Subtransaction>
                 {
                     new Subtransaction("Wynagrodzenie z tytulu umowy cywilnoprawnej", 1123.12d)
@@ -94,7 +99,10 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
             Assert.AreEqual(expected.Note, parsed.Note);
             Assert.AreEqual(expected.MyStock, parsed.MyStock);
             Assert.AreEqual(expected.ExternalStock, parsed.ExternalStock);
-            
+
+            Assert.AreEqual(creationDate, parsed.BookDate);
+            Assert.AreEqual(creationDate, parsed.TransationSourceCreationDate);
+
             Assert.AreEqual(expected.Subtransactions.First().Name, parsed.Subtransactions.First().Name);
             Assert.AreEqual(expected.Subtransactions.First().Value, parsed.Subtransactions.First().Value);
 

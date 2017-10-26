@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 using Logic.LogicObjectsProviders;
@@ -66,15 +65,12 @@ namespace Logic.Parsing
             var date = new DateTime(year, month, day);
             string note = $"{sourceName}{(sourceName != "" ? ": " : "")}{operationType} ({currency})";
             var transactionType = positiveSign ? eTransactionType.Work : eTransactionType.Buy;
-
-            var transaction = new Transaction(transactionType, date, title, note);
-            var subtransaction = new Subtransaction(title, value);
-            transaction.Subtransactions.Add(subtransaction);
             
-            transaction.MyStock = userStock;
-            transaction.ExternalStock = StockProvider.Default;
+            var subtransaction = new Subtransaction(title, value);
 
-            return transaction;
+            return new Transaction(transactionType, date, title, note,
+                new List<Subtransaction> { subtransaction },
+                userStock, StockProvider.Default);
         }
     }
 }

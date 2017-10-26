@@ -114,7 +114,9 @@ namespace Logic.Model
             }
         }
 
-        public DateTime CreationDate { get; private set; }
+        public DateTime InstanceCreationDate { get; private set; }
+
+        public DateTime TransationSourceCreationDate { get; private set; }
 
         public DateTime LastEditDate { get; private set; }
         
@@ -124,13 +126,13 @@ namespace Logic.Model
         ///     TODO: remove after loading from file.
         /// </summary>
         /// <param name="type"></param>
-        /// <param name="bookDate"></param>
+        /// <param name="sourceTransactionCreationDate"></param>
         /// <param name="title"></param>
         /// <param name="note"></param>
-        public Transaction(eTransactionType type, DateTime bookDate, string title, string note) : this()
+        public Transaction(eTransactionType type, DateTime sourceTransactionCreationDate, string title, string note) : this()
         {
             Type = type;
-            BookDate = bookDate;
+            BookDate = sourceTransactionCreationDate;
             Title = title;
             Note = note;
         }
@@ -140,18 +142,17 @@ namespace Logic.Model
             Type = eTransactionType.Buy;
             BookDate = DateTime.Now;
 
-            BookDate = LastEditDate = CreationDate = DateTime.Now;
+            LastEditDate = InstanceCreationDate = DateTime.Now;
             
             _subtransactions.CollectionChanged += CollectionChanged;
         }
 
-        public Transaction(eTransactionType transactionType, DateTime bookDate, string title, string note, DateTime creationDate, List<Subtransaction> subtransactions, Stock myStock, Stock externalStock)
+        public Transaction(eTransactionType transactionType, DateTime sourceTransactionCreationDate, string title, string note, List<Subtransaction> subtransactions, Stock myStock, Stock externalStock)
         {
             Type = transactionType;
-            BookDate = bookDate;
             Title = title;
             Note = note;
-            LastEditDate = CreationDate = creationDate;
+            _bookDate = TransationSourceCreationDate = sourceTransactionCreationDate;
             Subtransactions = new TrulyObservableCollection<Subtransaction>(subtransactions);
             _myStock = myStock;
             _externalStock = externalStock;
