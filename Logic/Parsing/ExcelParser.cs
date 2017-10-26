@@ -51,10 +51,8 @@ namespace Logic.Parsing
 
             transaction.Subtransactions.Add(subtransaction);
             
-            Stock sourceStock = !outcome ? StockProvider.Default : userStock;
-            Stock destStock = outcome ? StockProvider.Default : userStock;
-            transaction.MyStock = sourceStock;
-            transaction.ExternalStock = destStock;
+            transaction.MyStock = userStock;
+            transaction.ExternalStock = StockProvider.Default;
 
             return transaction;
         }

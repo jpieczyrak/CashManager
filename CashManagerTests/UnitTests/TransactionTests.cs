@@ -78,7 +78,6 @@ namespace CashManagerTests.UnitTests
             var dto = Mapper.Map<Logic.DTO.Transaction>(expected);
 
             //when
-            //string serializedObject = Serializer.XMLSerializeObject(dto);
             DatabaseProvider.DB.Update(dto);
             var loaded = DatabaseProvider.DB.Read<Logic.DTO.Transaction>().FirstOrDefault(t => t.Id == dto.Id);
             var mappedAfterDeserialization = Mapper.Map<Transaction>(loaded);

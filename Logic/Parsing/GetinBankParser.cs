@@ -71,10 +71,8 @@ namespace Logic.Parsing
             var subtransaction = new Subtransaction(title, value);
             transaction.Subtransactions.Add(subtransaction);
             
-            var sourceStock = positiveSign ? StockProvider.Default : userStock;
-            var targetStock = !positiveSign ? StockProvider.Default : userStock;
-            transaction.MyStock = sourceStock;
-            transaction.ExternalStock = targetStock;
+            transaction.MyStock = userStock;
+            transaction.ExternalStock = StockProvider.Default;
 
             return transaction;
         }

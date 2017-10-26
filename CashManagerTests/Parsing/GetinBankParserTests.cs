@@ -29,8 +29,8 @@ namespace CashManagerTests.Parsing
             //given
             var parser = new GetinBankParser();
 
-            var userStock = StockProvider.GetStock("Getin");
-            var externalStock = StockProvider.GetStock("Shop");
+            var userStock = StockProvider.AddNew("Getin");
+            var externalStock = StockProvider.Default;
             var expected = new Transaction(eTransactionType.Buy, new DateTime(2016, 9, 6), "[Sierpień] Czynsz + media",
                 "JĘDRZEJ PIECZYRAK: PRZELEW WYCHODZĄCY (PLN)", 
                 DateTime.Today, DateTime.Today,
@@ -68,8 +68,8 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
             //given
             var parser = new GetinBankParser();
 
-            var userStock = StockProvider.GetStock("Getin");
-            var externalStock = StockProvider.GetStock("Pracodawca");
+            var userStock = StockProvider.AddNew("Getin");
+            var externalStock = StockProvider.Default;
             var expected = new Transaction(eTransactionType.Work, new DateTime(2014, 02, 28), "Wynagrodzenie z tytulu umowy cywilnoprawnej",
                 "Firma SP. Z O.O.: PRZELEW PRZYCHODZĄCY (PLN)", 
                 DateTime.Today, DateTime.Today,
