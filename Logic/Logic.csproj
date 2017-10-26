@@ -70,6 +70,7 @@
     <Compile Include="DTO\Category.cs" />
     <Compile Include="DTO\Stock.cs" />
     <Compile Include="DTO\Subtransaction.cs" />
+    <Compile Include="DTO\Tag.cs" />
     <Compile Include="DTO\Transaction.cs" />
     <Compile Include="IoC\AutofacConfiguration.cs" />
     <Compile Include="IoC\BuildStrategies\DefaultBuildStrategy.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="FindingFilters\TransactionMaxValueRule.cs" />
     <Compile Include="FindingFilters\TransactionMinValueRule.cs" />
     <Compile Include="FindingFilters\TransactionTypeRule.cs" />
+    <Compile Include="LogicObjectsProviders\TagProvider.cs" />
     <Compile Include="LogicObjectsProviders\TransactionProvider.cs" />
     <Compile Include="Mapping\MapperConfiguration.cs" />
     <Compile Include="Parsing\GetinBankParser.cs" />
@@ -107,7 +109,7 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="TransactionManagement\TransactionElements\eTransactionType.cs" />
     <Compile Include="Model\Subtransaction.cs" />
-    <Compile Include="TransactionManagement\TransactionElements\Tag.cs" />
+    <Compile Include="Model\Tag.cs" />
     <Compile Include="Utils\TimeFrame.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="TransactionManagement\TransactionElements\Transactions.cs" />

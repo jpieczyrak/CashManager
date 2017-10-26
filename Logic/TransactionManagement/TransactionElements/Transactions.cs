@@ -9,6 +9,7 @@ namespace Logic.TransactionManagement.TransactionElements
 {
     /// <summary>
     /// List of all transaction saved in app.
+    /// Obsolate. todo: remove
     /// </summary>
     [DataContract(Namespace = "")]
     public class Transactions

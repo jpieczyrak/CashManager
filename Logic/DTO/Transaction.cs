@@ -22,6 +22,9 @@ namespace Logic.DTO
         public List<Subtransaction> Subtransactions { get; set; }
 
         [DataMember]
+        public List<Tag> Tags { get; set; }
+
+        [DataMember]
         public DateTime InstanceCreationDate { get; set; }
 
         [DataMember]

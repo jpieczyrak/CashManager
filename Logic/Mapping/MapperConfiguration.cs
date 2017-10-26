@@ -20,6 +20,9 @@ namespace Logic.Mapping
                 config.CreateMap<Transaction, DTO.Transaction>();
                 config.CreateMap<DTO.Transaction, Transaction>();
 
+                config.CreateMap<Tag, DTO.Tag>();
+                config.CreateMap<DTO.Tag, Tag>();
+
                 config.CreateMap<Subtransaction, DTO.Subtransaction>()
                       .ForMember(dest => dest.CategoryId,
                           ex => ex.MapFrom(sub => sub.Category.Id));

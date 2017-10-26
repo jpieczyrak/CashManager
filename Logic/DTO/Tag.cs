@@ -3,12 +3,9 @@
 namespace Logic.DTO
 {
     [DataContract(Namespace = "")]
-    public class Stock
+    public class Tag
     {
         [DataMember]
         public string Name { get; set; }
-
-        [DataMember]
-        public bool IsUserStock { get; set; }
     }
 }

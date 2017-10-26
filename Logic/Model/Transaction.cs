@@ -20,12 +20,24 @@ namespace Logic.Model
 
         private TrulyObservableCollection<Subtransaction> _subtransactions =
             new TrulyObservableCollection<Subtransaction>();
-        
+
+        public TrulyObservableCollection<Tag> Tags
+        {
+            get { return _tags; }
+            set
+            {
+                _tags = value;
+                _tags.CollectionChanged += CollectionChanged;
+                OnPropertyChanged(nameof(Tags));
+            }
+        }
+
         private string _title;
         
         private eTransactionType _type;
         private Stock _myStock;
         private Stock _externalStock;
+        private TrulyObservableCollection<Tag> _tags = new TrulyObservableCollection<Tag>();
 
         public eTransactionType Type
         {
@@ -110,7 +122,7 @@ namespace Logic.Model
             {
                 _subtransactions = value;
                 _subtransactions.CollectionChanged += CollectionChanged;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Subtransactions));
             }
         }
 
@@ -144,7 +156,10 @@ namespace Logic.Model
 
             LastEditDate = InstanceCreationDate = DateTime.Now;
             
+            _tags = new TrulyObservableCollection<Tag>();
+
             _subtransactions.CollectionChanged += CollectionChanged;
+            _tags.CollectionChanged += CollectionChanged;
         }
 
         public Transaction(eTransactionType transactionType, DateTime sourceTransactionCreationDate, string title, string note, List<Subtransaction> subtransactions, Stock myStock, Stock externalStock)
