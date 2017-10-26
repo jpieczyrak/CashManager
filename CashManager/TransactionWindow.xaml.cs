@@ -37,10 +37,7 @@ namespace CashManager
             //TODO: make copy of actual transaction
 
             DataContext = transaction;
-
-            comboBoxContributionTypes.ItemsSource = Enum.GetValues(typeof(ePaymentType)).Cast<ePaymentType>();
-            comboBoxContributionTypes.SelectedItem = ePaymentType.Percent;
-
+            
             SetTransactionTypeCombobox(transactionDirection);
 
             SetSourceStocks();

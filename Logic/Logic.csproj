@@ -98,7 +98,6 @@
     <Compile Include="Specification\OrSpecification.cs" />
     <Compile Include="FilesOperations\CSVFormater.cs" />
     <Compile Include="Model\Category.cs" />
-    <Compile Include="TransactionManagement\TransactionElements\ePaymentType.cs" />
     <Compile Include="FilesOperations\Deserializer.cs" />
     <Compile Include="FilesOperations\Serializer.cs" />
     <Compile Include="Parsing\eParserInputType.cs" />
