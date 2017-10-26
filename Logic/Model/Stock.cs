@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 using Logic.Annotations;
@@ -13,6 +14,11 @@ namespace Logic.Model
     {
         private string _name;
         private bool _isUserStock;
+
+        /// <summary>
+        /// Only for db purpose
+        /// </summary>
+        public Guid Id { get; private set; } = Guid.NewGuid();
 
         public string Name
         {
@@ -63,12 +69,12 @@ namespace Logic.Model
 
         public override int GetHashCode()
         {
-            return Name.GetHashCode();
+            return Id.GetHashCode();
         }
 
         public override string ToString()
         {
-            return Name;
+            return $"{Name}-{Id}";
         }
 
         #endregion

@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace Logic.DTO
 {
@@ -10,5 +11,8 @@ namespace Logic.DTO
 
         [DataMember]
         public bool IsUserStock { get; set; }
+        
+        [DataMember]
+        public Guid Id { get; set; }
     }
 }
