@@ -19,14 +19,14 @@ namespace CashManagerTests
 
             _incomeTransaction = new Transaction(eTransactionType.Work, DateTime.Today, "Income", "Income today!",
                 new List<Subtransaction> { new Subtransaction("Payment _income", INCOME_VALUE) }, 
-                _mystock, _externalStock);
+                _mystock, _externalStock, "1st input");
             
             var foodSubtrans = new Subtransaction("Jedzenie", foodCost) { Category = new Category("Cat-Food") };
             var drugSubtrans = new Subtransaction("Leki", drugCost) { Category = new Category("Cat-Drugs") };
 
             _outcomeTransaction = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "", 
                 new List<Subtransaction> {foodSubtrans, drugSubtrans}, 
-                _mystock, _externalStock);
+                _mystock, _externalStock, "2nd input");
         }
 
         private const int INCOME_VALUE = 2000;

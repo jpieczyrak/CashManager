@@ -20,7 +20,7 @@ namespace CashManagerTests
             var foodSubtrans = new Subtransaction("Jedzenie", FOOD_COST) { Category = new Category("Cat-Food") };
             var drugSubtrans = new Subtransaction("Leki", DRUG_COST) { Category = new Category("Cat-Drugs") };
             
-            _outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "", new List<Subtransaction> {foodSubtrans, drugSubtrans}, _mystock, _externalStock);
+            _outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "", new List<Subtransaction> {foodSubtrans, drugSubtrans}, _mystock, _externalStock, "input");
 
         }
         
@@ -48,7 +48,7 @@ namespace CashManagerTests
                 new Subtransaction("test1", value / 2),
                 new Subtransaction("test2", value / 2)
             };
-            var transaction = new Transaction(type, DateTime.Now, "title", "note", subtransactions, _mystock, _externalStock);
+            var transaction = new Transaction(type, DateTime.Now, "title", "note", subtransactions, _mystock, _externalStock, "input");
 
             //when
             double actualValue = transaction.ValueAsProfit;

@@ -40,7 +40,7 @@ namespace CashManagerTests.UnitTests
             var myStock = new Stock("wallet");
             var externalStock = new Stock("shop");
             var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note",
-                subtransactions, myStock, externalStock);
+                subtransactions, myStock, externalStock, "input");
             var dto = Mapper.Map<Logic.DTO.Transaction>(expected);
 
             //when
@@ -73,7 +73,7 @@ namespace CashManagerTests.UnitTests
             var myStock = new Stock("wallet");
             var externalStock = new Stock("shop");
             var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note",
-                subtransactions, myStock, externalStock);
+                subtransactions, myStock, externalStock, "input");
             var dto = Mapper.Map<Logic.DTO.Transaction>(expected);
 
             //when

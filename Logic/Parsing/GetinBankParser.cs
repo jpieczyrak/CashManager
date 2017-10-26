@@ -70,7 +70,7 @@ namespace Logic.Parsing
 
             return new Transaction(transactionType, date, title, note,
                 new List<Subtransaction> { subtransaction },
-                userStock, StockProvider.Default);
+                userStock, StockProvider.Default, match.Value);
         }
     }
 }

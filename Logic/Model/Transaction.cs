@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Security.Cryptography;
+using System.Text;
 
 using Logic.Properties;
 using Logic.TransactionManagement.TransactionElements;
@@ -33,7 +35,7 @@ namespace Logic.Model
 
         public DateTime LastEditDate { get; private set; }
 
-        public Guid Id { get; private set; } = Guid.NewGuid();
+        public Guid Id { get; private set; }
 
         public string Title
         {
@@ -135,6 +137,7 @@ namespace Logic.Model
 
         public Transaction()
         {
+            Id = Guid.NewGuid();
             Type = eTransactionType.Buy;
             BookDate = DateTime.Now;
 
@@ -146,9 +149,22 @@ namespace Logic.Model
             _tags.CollectionChanged += CollectionChanged;
         }
 
+        /// <summary>
+        /// Should be used only after parsing data or for test purpose.
+        /// Otherwise please use pramless constructor
+        /// </summary>
+        /// <param name="transactionType">Tranasction type</param>
+        /// <param name="sourceTransactionCreationDate">When transaction was performed</param>
+        /// <param name="title">Title of transaction</param>
+        /// <param name="note">Additional notes</param>
+        /// <param name="subtransactions">Subtransactions - like positions from bill</param>
+        /// <param name="myStock">User stock like wallet / bank account</param>
+        /// <param name="externalStock">External stock like employer / shop</param>
+        /// <param name="sourceInput">Text source of transaction (for parsing purpose) to provide unique id</param>
         public Transaction(eTransactionType transactionType, DateTime sourceTransactionCreationDate, string title, string note,
-            List<Subtransaction> subtransactions, Stock myStock, Stock externalStock)
+            List<Subtransaction> subtransactions, Stock myStock, Stock externalStock, string sourceInput)
         {
+            Id = GenerateGUID(sourceInput);
             Type = transactionType;
             Title = title;
             Note = note;
@@ -157,6 +173,20 @@ namespace Logic.Model
             Subtransactions = new TrulyObservableCollection<Subtransaction>(subtransactions);
             _myStock = myStock;
             _externalStock = externalStock;
+        }
+
+        /// <summary>
+        /// Generates GUID based on input (original transaction text - from excel / bank import etc)
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        private Guid GenerateGUID(string input)
+        {
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] hash = md5.ComputeHash(Encoding.Default.GetBytes(input));
+                return new Guid(hash);
+            }
         }
 
         #region INotifyPropertyChanged

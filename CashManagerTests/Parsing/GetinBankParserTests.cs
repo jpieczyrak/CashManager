@@ -27,6 +27,11 @@ namespace CashManagerTests.Parsing
         public void OutcomeParseTest()
         {
             //given
+            string input = @"    06.09.2016 – PRZELEW WYCHODZĄCY
+JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
+
+-684,62 PLN";
+
             var parser = new GetinBankParser();
 
             var userStock = StockProvider.AddNew("Getin");
@@ -37,12 +42,8 @@ namespace CashManagerTests.Parsing
                 new List<Subtransaction>
                 {
                     new Subtransaction("[Sierpień] Czynsz + media", 684.62d)
-                }, userStock, externalStock);
+                }, userStock, externalStock, input);
 
-            string input = @"    06.09.2016 – PRZELEW WYCHODZĄCY
-JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
-
--684,62 PLN";
 
             //when
             var output = parser.Parse(input, userStock);
@@ -71,6 +72,11 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
         public void IncomeParseTest()
         {
             //given
+            string input = @"28.02.2014 – PRZELEW PRZYCHODZĄCY
+Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
+
++1 123,12 PLN saldo po operacji: 1 574,38 PLN";
+
             var parser = new GetinBankParser();
 
             var userStock = StockProvider.AddNew("Getin");
@@ -81,12 +87,7 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
                 new List<Subtransaction>
                 {
                     new Subtransaction("Wynagrodzenie z tytulu umowy cywilnoprawnej", 1123.12d)
-                }, userStock, externalStock);
-
-            string input = @"28.02.2014 – PRZELEW PRZYCHODZĄCY
-Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
-
-+1 123,12 PLN saldo po operacji: 1 574,38 PLN";
+                }, userStock, externalStock, input);
 
             //when
             var output = parser.Parse(input, userStock);

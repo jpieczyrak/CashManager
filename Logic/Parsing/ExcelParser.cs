@@ -24,17 +24,18 @@ namespace Logic.Parsing
 
                 if (buying)
                 {
-                    transactions.Add(MakeTransaction(userStock, true, values));
+                    transactions.Add(MakeTransaction(userStock, true, values, line));
                 }
                 if (working)
                 {
-                    transactions.Add(MakeTransaction(userStock, false, values));
+                    transactions.Add(MakeTransaction(userStock, false, values, line));
                 }
             }
+
             return transactions;
         }
 
-        private Transaction MakeTransaction(Stock userStock, bool outcome, string[] values)
+        private Transaction MakeTransaction(Stock userStock, bool outcome, string[] values, string input)
         {
             DateTime date = DateTime.ParseExact(values[0], "d.M.yy", CultureInfo.InvariantCulture);
             string title = values[12];
@@ -47,7 +48,7 @@ namespace Logic.Parsing
 
             Subtransaction subtransaction = new Subtransaction(title, value);
 
-            return new Transaction(type, date, title, "", new List<Subtransaction> { subtransaction }, userStock, StockProvider.Default);
+            return new Transaction(type, date, title, "", new List<Subtransaction> { subtransaction }, userStock, StockProvider.Default, input);
         }
     }
 }
