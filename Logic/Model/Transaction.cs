@@ -15,7 +15,7 @@ namespace Logic.Model
     [DataContract(Namespace = "")]
     public class Transaction : INotifyPropertyChanged
     {
-        private DateTime _date;
+        private DateTime _bookDate;
         private string _note;
 
         private TrulyObservableCollection<Subtransaction> _subtransactions =
@@ -37,12 +37,16 @@ namespace Logic.Model
             }
         }
 
-        public DateTime Date
+        /// <summary>
+        /// Date used for register moment.
+        /// E.g. When your paid in april but it was payment for march [forgot / was late]. Payment was done in April, so the CreationDate will be, but you can set BookDate to March and calculate it as it should be
+        /// </summary>
+        public DateTime BookDate
         {
-            get { return _date; }
+            get { return _bookDate; }
             set
             {
-                _date = value;
+                _bookDate = value;
                 OnPropertyChanged();
             }
         }
@@ -110,23 +114,23 @@ namespace Logic.Model
             }
         }
 
-        public DateTime CreationDate { get; set; }
+        public DateTime CreationDate { get; private set; }
 
-        public DateTime LastEditDate { get; set; }
-
+        public DateTime LastEditDate { get; private set; }
+        
         public Guid Id { get; private set; } = Guid.NewGuid();
 
         /// <summary>
         ///     TODO: remove after loading from file.
         /// </summary>
         /// <param name="type"></param>
-        /// <param name="date"></param>
+        /// <param name="bookDate"></param>
         /// <param name="title"></param>
         /// <param name="note"></param>
-        public Transaction(eTransactionType type, DateTime date, string title, string note) : this()
+        public Transaction(eTransactionType type, DateTime bookDate, string title, string note) : this()
         {
             Type = type;
-            Date = date;
+            BookDate = bookDate;
             Title = title;
             Note = note;
         }
@@ -134,21 +138,20 @@ namespace Logic.Model
         public Transaction()
         {
             Type = eTransactionType.Buy;
-            Date = DateTime.Now;
+            BookDate = DateTime.Now;
 
-            LastEditDate = CreationDate = DateTime.Now;
+            BookDate = LastEditDate = CreationDate = DateTime.Now;
             
             _subtransactions.CollectionChanged += CollectionChanged;
         }
 
-        public Transaction(eTransactionType transactionType, DateTime date, string title, string note, DateTime creationDate, DateTime lastEdit, List<Subtransaction> subtransactions, Stock myStock, Stock externalStock)
+        public Transaction(eTransactionType transactionType, DateTime bookDate, string title, string note, DateTime creationDate, List<Subtransaction> subtransactions, Stock myStock, Stock externalStock)
         {
             Type = transactionType;
-            Date = date;
+            BookDate = bookDate;
             Title = title;
             Note = note;
-            CreationDate = creationDate;
-            LastEditDate = lastEdit;
+            LastEditDate = CreationDate = creationDate;
             Subtransactions = new TrulyObservableCollection<Subtransaction>(subtransactions);
             _myStock = myStock;
             _externalStock = externalStock;

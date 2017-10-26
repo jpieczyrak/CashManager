@@ -33,7 +33,7 @@ namespace CashManagerTests.Parsing
             var externalStock = StockProvider.Default;
             var expected = new Transaction(eTransactionType.Buy, new DateTime(2016, 9, 6), "[Sierpień] Czynsz + media",
                 "JĘDRZEJ PIECZYRAK: PRZELEW WYCHODZĄCY (PLN)", 
-                DateTime.Today, DateTime.Today,
+                DateTime.Today,
                 new List<Subtransaction>
                 {
                     new Subtransaction("[Sierpień] Czynsz + media", 684.62d)
@@ -50,7 +50,7 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
 
             //then
             Assert.NotNull(parsed);
-            Assert.AreEqual(expected.Date, parsed.Date);
+            Assert.AreEqual(expected.BookDate, parsed.BookDate);
             Assert.AreEqual(expected.Title, parsed.Title);
             Assert.AreEqual(expected.Note, parsed.Note);
             Assert.AreEqual(expected.MyStock, parsed.MyStock);
@@ -72,7 +72,7 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
             var externalStock = StockProvider.Default;
             var expected = new Transaction(eTransactionType.Work, new DateTime(2014, 02, 28), "Wynagrodzenie z tytulu umowy cywilnoprawnej",
                 "Firma SP. Z O.O.: PRZELEW PRZYCHODZĄCY (PLN)", 
-                DateTime.Today, DateTime.Today,
+                DateTime.Today,
                 new List<Subtransaction>
                 {
                     new Subtransaction("Wynagrodzenie z tytulu umowy cywilnoprawnej", 1123.12d)
@@ -89,7 +89,7 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
 
             //then
             Assert.NotNull(parsed);
-            Assert.AreEqual(expected.Date, parsed.Date);
+            Assert.AreEqual(expected.BookDate, parsed.BookDate);
             Assert.AreEqual(expected.Title, parsed.Title);
             Assert.AreEqual(expected.Note, parsed.Note);
             Assert.AreEqual(expected.MyStock, parsed.MyStock);

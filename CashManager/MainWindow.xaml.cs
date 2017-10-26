@@ -43,11 +43,11 @@ namespace CashManager
             //todo: remove
             //pytania jejka - na razie bez gui:
             string output = "";
-            var trans = TransactionProvider.Transactions.OrderByDescending(x => x.Date);
+            var trans = TransactionProvider.Transactions.OrderByDescending(x => x.BookDate);
 
             output += "Obiady:\r\n";
-            var dinners = trans.Where(x => x.Title != null && x.Title.Contains("Obiad")).OrderByDescending(x => x.Date);
-            var grouped = dinners.GroupBy(t => $"{t.Date.Month}.{t.Date.Year}");
+            var dinners = trans.Where(x => x.Title != null && x.Title.Contains("Obiad")).OrderByDescending(x => x.BookDate);
+            var grouped = dinners.GroupBy(t => $"{t.BookDate.Month}.{t.BookDate.Year}");
             output += $"Avg: {grouped.Select(x => x.Sum(y => y.Value)).Average()}\r\n";
             foreach (var @group in grouped)
             {
@@ -55,32 +55,32 @@ namespace CashManager
             }
 
             output += "Wyplaty:\r\n";
-            var wyplaty = trans.Where(x => x.Title != null && x.Title.ToLower().Contains("wynagrodzenie")).OrderByDescending(x => x.Date);
+            var wyplaty = trans.Where(x => x.Title != null && x.Title.ToLower().Contains("wynagrodzenie")).OrderByDescending(x => x.BookDate);
             foreach (var transaction in wyplaty)
             {
-                output = output + $"{transaction.Date:yyyy-MM-dd} : {transaction.ValueAsProfit}\r\n";
+                output = output + $"{transaction.BookDate:yyyy-MM-dd} : {transaction.ValueAsProfit}\r\n";
             }
 
             output += "Bilans:\r\n";
-            var bymonth = trans.GroupBy(t => $"{t.Date.Month}.{t.Date.Year}");
+            var bymonth = trans.GroupBy(t => $"{t.BookDate.Month}.{t.BookDate.Year}");
             var avgBilans = bymonth.Average(x => x.Sum(y => y.ValueAsProfit));
             foreach (var m in bymonth)
             {
-                var costs = m.Where(x => x.ValueAsProfit < 0).OrderByDescending(x => x.Date);
-                var incoms = m.Where(x => x.ValueAsProfit > 0).OrderByDescending(x => x.Date);
+                var costs = m.Where(x => x.ValueAsProfit < 0).OrderByDescending(x => x.BookDate);
+                var incoms = m.Where(x => x.ValueAsProfit > 0).OrderByDescending(x => x.BookDate);
                 double income = incoms.Sum(x => x.Value);
                 double outcome = costs.Sum(x => x.Value);
                 output += $"{m.Key,8:0.#} : +{income,8:0.#}\t{-outcome,8:0.#}\t{income - outcome,8:0.#}\tavg:\t{avgBilans,8:0.#}\r\n";
             }
 
             output += "Bilans progresywyny:\r\n";
-            bymonth = trans.OrderBy(x => x.Date).GroupBy(t => $"{t.Date.Month}.{t.Date.Year}");
+            bymonth = trans.OrderBy(x => x.BookDate).GroupBy(t => $"{t.BookDate.Month}.{t.BookDate.Year}");
             var older = new List<double>();
             var components = new List<string>();
             foreach (var m in bymonth)
             {
-                var costs = m.Where(x => x.ValueAsProfit < 0).OrderByDescending(x => x.Date);
-                var incoms = m.Where(x => x.ValueAsProfit > 0).OrderByDescending(x => x.Date);
+                var costs = m.Where(x => x.ValueAsProfit < 0).OrderByDescending(x => x.BookDate);
+                var incoms = m.Where(x => x.ValueAsProfit > 0).OrderByDescending(x => x.BookDate);
                 double income = incoms.Sum(x => x.Value);
                 double outcome = costs.Sum(x => x.Value);
                 double diff = income - outcome;

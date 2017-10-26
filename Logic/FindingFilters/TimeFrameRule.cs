@@ -17,7 +17,7 @@ namespace Logic.FindingFilters
 
         public override bool IsSatisfiedBy(Transaction o)
         {
-            return _timeFrame.Contains(o.Date);
+            return _timeFrame.Contains(o.BookDate);
         }
     }
 }

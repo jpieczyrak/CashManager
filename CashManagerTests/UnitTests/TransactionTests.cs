@@ -39,7 +39,7 @@ namespace CashManagerTests.UnitTests
 
             var myStock = new Stock("wallet");
             var externalStock = new Stock("shop");
-            var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note", DateTime.Now, DateTime.Today,
+            var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note", DateTime.Now,
                 subtransactions, myStock, externalStock);
             var dto = Mapper.Map<Logic.DTO.Transaction>(expected);
 
@@ -52,7 +52,7 @@ namespace CashManagerTests.UnitTests
             Assert.AreEqual(expected, mappedAfterDeserialization);
 
             Assert.AreEqual(expected.CreationDate, mappedAfterDeserialization.CreationDate);
-            Assert.AreEqual(expected.Date, mappedAfterDeserialization.Date);
+            Assert.AreEqual(expected.BookDate, mappedAfterDeserialization.BookDate);
             Assert.AreEqual(expected.Note, mappedAfterDeserialization.Note);
             Assert.AreEqual(expected.Title, mappedAfterDeserialization.Title);
 
@@ -73,7 +73,7 @@ namespace CashManagerTests.UnitTests
 
             var myStock = new Stock("wallet");
             var externalStock = new Stock("shop");
-            var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note", DateTime.Now, DateTime.Today,
+            var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note", DateTime.Now,
                 subtransactions, myStock, externalStock);
             var dto = Mapper.Map<Logic.DTO.Transaction>(expected);
 
@@ -87,7 +87,7 @@ namespace CashManagerTests.UnitTests
 
             //we lose some accuracy in db
             Assert.AreEqual(expected.CreationDate.Date, mappedAfterDeserialization.CreationDate.Date);
-            Assert.AreEqual(expected.Date.Date, mappedAfterDeserialization.Date.Date);
+            Assert.AreEqual(expected.BookDate.Date, mappedAfterDeserialization.BookDate.Date);
 
             Assert.AreEqual(expected.Note, mappedAfterDeserialization.Note);
             Assert.AreEqual(expected.Title, mappedAfterDeserialization.Title);

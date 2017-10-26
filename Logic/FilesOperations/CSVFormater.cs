@@ -27,7 +27,7 @@ namespace Logic.FilesOperations
             string subtransactionsCSV = ToCSV(t.Subtransactions);
 
             return string.Format("{0}{10}{1}{10}{2}{10}{3}{10}{4}{10}{5}{10}{6}{10}{7}{10}{8}{9}", 
-                t.Date.ToString(DATE_FORMAT), 
+                t.BookDate.ToString(DATE_FORMAT), 
                 t.CreationDate.ToString(DATE_FORMAT), 
                 t.LastEditDate.ToString(DATE_FORMAT), 
                 t.Title, 

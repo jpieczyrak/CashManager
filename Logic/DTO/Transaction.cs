@@ -13,9 +13,6 @@ namespace Logic.DTO
         public eTransactionType Type { get; set; }
 
         [DataMember]
-        public DateTime Date { get; set; }
-
-        [DataMember]
         public string Title { get; set; }
 
         [DataMember]
@@ -29,6 +26,9 @@ namespace Logic.DTO
 
         [DataMember]
         public DateTime LastEditDate { get; set; }
+
+        [DataMember]
+        public DateTime BookDate { get; set; }
 
         [DataMember]
         public Guid Id { get; set; }
