@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Logic.Model;
@@ -43,13 +44,8 @@ namespace Logic.FilesOperations
         {
             return subtransactions.Aggregate("",
                 (current, s) =>
-                    current + string.Format("{0}{5}{1}{5}{2}{5}{3}{4}",
-                        s.Name,
-                        s.Value,
-                        s.Category,
-                        s.Tags,
-                        SUBELEMENT_SPLIT_ELEMENT,
-                        SUBELEMENT_ELEMENT_SPLIT_ELEMENT));
+                    current + string.Format("{0}{1}{2}{3}{4}{5}", s.Name, SUBELEMENT_ELEMENT_SPLIT_ELEMENT, s.Value,
+                        SUBELEMENT_ELEMENT_SPLIT_ELEMENT, s.Category, SUBELEMENT_ELEMENT_SPLIT_ELEMENT));
         }
     }
 }

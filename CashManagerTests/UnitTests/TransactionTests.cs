@@ -33,8 +33,8 @@ namespace CashManagerTests.UnitTests
             //given
             var subtransactions = new List<Subtransaction>
             {
-                new Subtransaction("Sub 1", 12.32, "cat1", "tag1"),
-                new Subtransaction("Sub 2", 1.32, "cat2", "tag1")
+                new Subtransaction("Sub 1", 12.32, "cat1"),
+                new Subtransaction("Sub 2", 1.32, "cat2")
             };
 
             var myStock = new Stock("wallet");
@@ -66,8 +66,8 @@ namespace CashManagerTests.UnitTests
             //given
             var subtransactions = new List<Subtransaction>
             {
-                new Subtransaction("Sub 1", 12.32, "cat1", "tag1"),
-                new Subtransaction("Sub 2", 1.32, "cat2", "tag1")
+                new Subtransaction("Sub 1", 12.32, "cat1"),
+                new Subtransaction("Sub 2", 1.32, "cat2")
             };
 
             var myStock = new Stock("wallet");

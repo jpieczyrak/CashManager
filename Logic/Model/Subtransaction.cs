@@ -1,14 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
 
 using Logic.LogicObjectsProviders;
 using Logic.Properties;
 
 namespace Logic.Model
 {
-    [DataContract(Namespace = "")]
     public class Subtransaction : INotifyPropertyChanged
     {
         private double _value;
@@ -26,9 +24,7 @@ namespace Logic.Model
         }
 
         public Category Category { get; set; }
-
-        public string Tags { get; set; }
-
+        
         public Guid Id { get; private set; } = Guid.NewGuid();
 
         private Subtransaction() { }
@@ -39,12 +35,11 @@ namespace Logic.Model
             Name = name;
         }
 
-        public Subtransaction(string name, double value, string category, string tags)
+        public Subtransaction(string name, double value, string category)
         {
             _value = value;
             Name = name;
             Category = CategoryProvider.FindOrCreate(category);
-            Tags = tags;
         }
 
         #region INotifyPropertyChanged

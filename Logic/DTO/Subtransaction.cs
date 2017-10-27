@@ -14,10 +14,7 @@ namespace Logic.DTO
 
         [DataMember]
         public Guid CategoryId { get; set; }
-
-        [DataMember]
-        public string Tags { get; set; }
-
+        
         [DataMember]
         public Guid Id { get; set; }
     }
