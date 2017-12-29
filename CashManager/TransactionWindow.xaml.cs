@@ -40,27 +40,9 @@ namespace CashManager
             
             SetTransactionTypeCombobox(transactionDirection);
 
-            SetSourceStocks();
-            SetTargetStocks();
-        }
-
-        private void SetSourceStocks()
-        {
-            comboboxSourceStock.ItemsSource = StockProvider.GetStocks();
-            if (comboboxSourceStock.Items.Count > 0)
-            {
-                comboboxSourceStock.SelectedIndex = 0;
-            }
-        }
-
-        private void SetTargetStocks()
-        {
-            comboboxTargetStock.ItemsSource = StockProvider.GetStocks();
-            if (comboboxTargetStock.Items.Count > 0)
-            {
-                comboboxTargetStock.SelectedIndex = 0;
-            }
-        }
+			comboboxUserStock.ItemsSource = StockProvider.GetStocks().Where(x => x.IsUserStock).ToArray();
+			comboboxTargetStock.ItemsSource = StockProvider.GetStocks().Where(x => !x.IsUserStock).ToArray();
+		}
 
         /// <summary>
         /// Sets proper available Transaction Type values for combobox (depends on transaction direction)
@@ -121,22 +103,5 @@ namespace CashManager
                 Transaction.Type = (eTransactionType) comboBoxTransactionType.SelectedItem;
             }
         }
-
-        private void buttonAddSource_Click(object sender, RoutedEventArgs e)
-        {
-            double value;
-            double.TryParse(textBoxSourceValue.Text, out value);
-            textBoxSourceValue.Text = "";
-
-            Stock sourceStock = (Stock) (comboboxSourceStock.SelectedIndex >= 0 ? comboboxSourceStock.SelectedItem : StockProvider.Default);
-            
-            Transaction.MyStock = sourceStock;
-            Transaction.ExternalStock = sourceStock;
-        }
-
-        private void comboboxTargetStock_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-
-        }
-    }
+	}
 }

@@ -22,7 +22,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="24"/>
             <RowDefinition Height="24" />
-            <RowDefinition Height="83*" MinHeight="60"/>
+            <RowDefinition Height="0" MinHeight="0"/>
 
             <RowDefinition Height="24"/>
             <RowDefinition Height="0"/>
@@ -40,8 +40,8 @@
         <Label Content="Value" Margin="0,2" Grid.Row="3" VerticalAlignment="Center" Grid.Column="1" Height="24" HorizontalAlignment="Center"/>
         <Label Content="Source" HorizontalAlignment="Center" Margin="0,2" Grid.Row="3" VerticalAlignment="Center" Height="24" Grid.Column="2" Grid.ColumnSpan="2"/>
 
-        <Label Content="Sources" HorizontalAlignment="Left" Margin="0" Grid.Row="4" Width="51"/>
-        <Label Content="Target" Margin="0" Grid.Row="6" HorizontalAlignment="Left" Width="49" VerticalAlignment="Center" Height="24"/>
+        <Label Content="User stock" Grid.Row="4"/>
+        <Label Content="Target stock" Grid.Row="6" Height="24"/>
         <Label Content="Type" HorizontalAlignment="Left" Grid.Row="8" VerticalAlignment="Center" Grid.Column="0" Margin="0" Height="24" Width="35"/>
         <Label Content="Subtransactions" Margin="0" Grid.Row="9" VerticalAlignment="Center" Grid.ColumnSpan="5" Height="24" Width="94"/>
 
@@ -53,19 +53,8 @@
         <TextBox x:Name="textBoxDescription" Grid.Column="1" Height="24" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,12,0,10" Grid.Row="1" Grid.ColumnSpan="4" Text="{Binding Note}"/>
 
         <DatePicker Grid.Column="1" Margin="0,5" Grid.Row="2" VerticalAlignment="Center" Grid.ColumnSpan="4" Height="30" Text="{Binding Path=Date, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}" FirstDayOfWeek="Monday"  />
-
-        <TextBox x:Name="textBoxSourceValue" Grid.Row="4" Grid.Column="1" ToolTip="Value" Text="100" />
-        <ComboBox x:Name="comboboxSourceStock" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" ToolTip="Souce stock" />
-        <Button x:Name="buttonAddSource" Grid.Row="4" Grid.Column="4" Content="Add" Click="buttonAddSource_Click"/>
-
-        <DataGrid x:Name="dataGridSources" Margin="0,5" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4" AutoGenerateColumns="False" ItemsSource="{Binding TransactionSoucePayments}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="100*"/>
-                <DataGridTextColumn Header="Stock" Binding="{Binding Stock, Mode=OneWay}" Width="100*"/>
-                <DataGridTextColumn Header="Payment type" Binding="{Binding PaymentType, Mode=OneWay}" Width="100*"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <ComboBox x:Name="comboboxTargetStock" Grid.Row="6" Grid.Column="1" ToolTip="Target stock" Grid.ColumnSpan="4" SelectionChanged="comboboxTargetStock_SelectionChanged" />
+        <ComboBox x:Name="comboboxUserStock" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" ToolTip="User stock" SelectedValue="{Binding UserStock}"/>
+        <ComboBox x:Name="comboboxTargetStock" Grid.Row="6" Grid.Column="1" ToolTip="Target stock" Grid.ColumnSpan="4" SelectedValue="{Binding ExternalStock}"/>
 
         <ComboBox x:Name="comboBoxTransactionType" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" SelectionChanged="comboBoxTransactionType_SelectionChanged" Grid.ColumnSpan="4" Margin="0,1" Height="22"/>
 

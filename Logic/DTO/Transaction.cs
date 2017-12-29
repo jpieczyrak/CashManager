@@ -40,7 +40,7 @@ namespace Logic.DTO
         public Guid Id { get; set; }
 
         [DataMember]
-        public Stock MyStock { get; set; }
+        public Stock UserStock { get; set; }
 
         [DataMember]
         public Stock ExternalStock { get; set; }

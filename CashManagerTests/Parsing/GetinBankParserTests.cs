@@ -54,7 +54,7 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
             Assert.AreEqual(expected.BookDate, parsed.BookDate);
             Assert.AreEqual(expected.Title, parsed.Title);
             Assert.AreEqual(expected.Note, parsed.Note);
-            Assert.AreEqual(expected.MyStock, parsed.MyStock);
+            Assert.AreEqual(expected.UserStock, parsed.UserStock);
             Assert.AreEqual(expected.ExternalStock, parsed.ExternalStock);
 
             Assert.AreEqual(creationDate, parsed.BookDate);
@@ -99,7 +99,7 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
             Assert.AreEqual(expected.BookDate, parsed.BookDate);
             Assert.AreEqual(expected.Title, parsed.Title);
             Assert.AreEqual(expected.Note, parsed.Note);
-            Assert.AreEqual(expected.MyStock, parsed.MyStock);
+            Assert.AreEqual(expected.UserStock, parsed.UserStock);
             Assert.AreEqual(expected.ExternalStock, parsed.ExternalStock);
 
             Assert.AreEqual(creationDate, parsed.BookDate);

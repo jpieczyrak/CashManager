@@ -22,7 +22,7 @@ namespace Logic.Model
 
         private DateTime _bookDate;
 
-        private Stock _myStock;
+        private Stock _userStock;
         private Stock _externalStock;
         private eTransactionType _type;
 
@@ -78,13 +78,13 @@ namespace Logic.Model
         /// <summary>
         /// Used for our stocks like: my wallet, my bank account etc
         /// </summary>
-        public Stock MyStock
+        public Stock UserStock
         {
-            get { return _myStock; }
+            get { return _userStock; }
             set
             {
-                _myStock = value;
-                OnPropertyChanged(nameof(MyStock));
+                _userStock = value;
+                OnPropertyChanged(nameof(UserStock));
             }
         }
 
@@ -192,11 +192,11 @@ namespace Logic.Model
         /// <param name="title">Title of transaction</param>
         /// <param name="note">Additional notes</param>
         /// <param name="subtransactions">Subtransactions - like positions from bill</param>
-        /// <param name="myStock">User stock like wallet / bank account</param>
+        /// <param name="userStock">User stock like wallet / bank account</param>
         /// <param name="externalStock">External stock like employer / shop</param>
         /// <param name="sourceInput">Text source of transaction (for parsing purpose) to provide unique id</param>
         public Transaction(eTransactionType transactionType, DateTime sourceTransactionCreationDate, string title, string note,
-            List<Subtransaction> subtransactions, Stock myStock, Stock externalStock, string sourceInput)
+            List<Subtransaction> subtransactions, Stock userStock, Stock externalStock, string sourceInput)
         {
             Id = GenerateGUID(sourceInput);
             Type = transactionType;
@@ -205,7 +205,7 @@ namespace Logic.Model
             _bookDate = TransationSourceCreationDate = sourceTransactionCreationDate;
             LastEditDate = InstanceCreationDate = DateTime.Now;
             Subtransactions = new TrulyObservableCollection<Subtransaction>(subtransactions);
-            _myStock = myStock;
+            _userStock = userStock;
             _externalStock = externalStock;
         }
 

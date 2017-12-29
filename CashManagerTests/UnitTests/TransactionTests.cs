@@ -56,7 +56,7 @@ namespace CashManagerTests.UnitTests
             Assert.AreEqual(expected.Title, mappedAfterDeserialization.Title);
 
             CollectionAssert.AreEquivalent(expected.Subtransactions, mappedAfterDeserialization.Subtransactions);
-            Assert.AreEqual(expected.MyStock, mappedAfterDeserialization.MyStock);
+            Assert.AreEqual(expected.UserStock, mappedAfterDeserialization.UserStock);
             Assert.AreEqual(expected.ExternalStock, mappedAfterDeserialization.ExternalStock);
         }
 
@@ -92,7 +92,7 @@ namespace CashManagerTests.UnitTests
             Assert.AreEqual(expected.Title, mappedAfterDeserialization.Title);
 
             CollectionAssert.AreEquivalent(expected.Subtransactions, mappedAfterDeserialization.Subtransactions);
-            Assert.AreEqual(expected.MyStock, mappedAfterDeserialization.MyStock);
+            Assert.AreEqual(expected.UserStock, mappedAfterDeserialization.UserStock);
             Assert.AreEqual(expected.ExternalStock, mappedAfterDeserialization.ExternalStock);
         }
     }
