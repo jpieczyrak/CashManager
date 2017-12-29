@@ -60,7 +60,8 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
             Assert.AreEqual(creationDate, parsed.BookDate);
             Assert.AreEqual(creationDate, parsed.TransationSourceCreationDate);
 
-            Assert.AreEqual(expected.InstanceCreationDate, parsed.InstanceCreationDate);
+			var instanceCreationDiff = expected.InstanceCreationDate - parsed.InstanceCreationDate;
+			Assert.LessOrEqual(instanceCreationDiff, TimeSpan.FromSeconds(1));
             
             Assert.AreEqual(expected.Subtransactions.First().Name, parsed.Subtransactions.First().Name);
             Assert.AreEqual(expected.Subtransactions.First().Value, parsed.Subtransactions.First().Value);
