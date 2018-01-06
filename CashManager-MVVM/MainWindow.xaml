@@ -6,8 +6,8 @@
         xmlns:ignore="http://www.galasoft.ch/ignore"
         mc:Ignorable="d ignore"
         Height="300"
-        Width="300"
-        Title="MVVM Light Application"
+        Width="450"
+        Title="Cash Manager - MVVM Light Application"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
     
     <Window.Resources>
@@ -19,14 +19,13 @@
     </Window.Resources>
 
     <Grid x:Name="LayoutRoot">
-
-        <TextBlock FontSize="36"
-                   FontWeight="Bold"
-                   Foreground="Purple"
-                   Text="{Binding WelcomeTitle}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   TextWrapping="Wrap" />
-
+        <DataGrid x:Name="dataGrid" ItemsSource="{Binding Transactions, Mode=TwoWay}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date" Binding="{Binding BookDate, StringFormat=dd.MM.yyyy}" Width="100*"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="100*" />
+                <DataGridTextColumn Header="Desc" Binding="{Binding Note}" Width="100*" />
+                <DataGridTextColumn Header="Value" Binding="{Binding ValueAsProfit}" Width="60*"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

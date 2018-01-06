@@ -8,6 +8,8 @@ using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 
+using GalaSoft.MvvmLight;
+
 using Logic.Properties;
 using Logic.TransactionManagement.TransactionElements;
 using Logic.Utils;
@@ -15,7 +17,7 @@ using Logic.Utils;
 namespace Logic.Model
 {
     [DataContract(Namespace = "")]
-    public class Transaction : INotifyPropertyChanged
+    public class Transaction : ObservableObject
     {
         private string _title;
         private string _note;
