@@ -13,20 +13,20 @@ namespace CashManager_MVVM.Model
     {
         public void GetData(Action<TrulyObservableCollection<Transaction>, Exception> callback)
         {
-            var transactions = TransactionProvider.Transactions;
+            TrulyObservableCollection<Transaction> transactions = null;// = TransactionProvider.Transactions;
 #if DEBUG
-            if (!transactions.Any())
+            if (transactions == null || !transactions.Any())
             {
                 transactions = new TrulyObservableCollection<Transaction>
                 {
                     new Transaction(eTransactionType.Buy, DateTime.Now, "title1", "run", new List<Subtransaction>
                     {
                         new Subtransaction("sub1", 12, "cat1")
-                    }, new Stock("test1"), new Stock("test2"), "run"),
+                    }, new Stock("test1"), new Stock("test2"), "run1"),
                     new Transaction(eTransactionType.Buy, DateTime.Now, "title2", "run", new List<Subtransaction>
                     {
                         new Subtransaction("sub1", 100, "cat2")
-                    }, new Stock("test1"), new Stock("test2"), "run"),
+                    }, new Stock("test1"), new Stock("test2"), "run2"),
                 };
             }
 #endif

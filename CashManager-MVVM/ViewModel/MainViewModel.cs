@@ -5,6 +5,8 @@ using GalaSoft.MvvmLight;
 using Logic.Model;
 using Logic.Utils;
 
+using Transaction = CashManager_MVVM.Model.Transaction;
+
 namespace CashManager_MVVM.ViewModel
 {
     public class MainViewModel : ViewModelBase
