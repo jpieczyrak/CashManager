@@ -97,7 +97,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Design\DesignDataService.cs" />
-    <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataProviders\DataService.cs" />
     <Compile Include="Model\DataProviders\IDataService.cs" />
     <Compile Include="Model\Transaction.cs" />
