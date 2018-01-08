@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.DataProviders;
 
 using Logic.Model;
 using Logic.TransactionManagement.TransactionElements;

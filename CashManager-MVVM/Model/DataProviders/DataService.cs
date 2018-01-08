@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Logic.LogicObjectsProviders;
 using Logic.Model;
 using Logic.TransactionManagement.TransactionElements;
 using Logic.Utils;
 
-namespace CashManager_MVVM.Model
+namespace CashManager_MVVM.Model.DataProviders
 {
     public class DataService : IDataService
     {

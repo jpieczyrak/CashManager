@@ -13,6 +13,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.DataProviders;
 
 namespace CashManager_MVVM.ViewModel
 {
