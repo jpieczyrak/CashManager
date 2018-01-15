@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 
 using GalaSoft.MvvmLight;
 
@@ -158,33 +155,7 @@ namespace CashManager_MVVM.Model
             PropertyChanged += OnPropertyChanged;
         }
 
-        /// <summary>
-        /// Should be used only after parsing data or for test purpose.
-        /// Otherwise please use paramless constructor
-        /// </summary>
-        /// <param name="transactionType">Tranasction type</param>
-        /// <param name="sourceTransactionCreationDate">When transaction was performed</param>
-        /// <param name="title">Title of transaction</param>
-        /// <param name="note">Additional notes</param>
-        /// <param name="subtransactions">Subtransactions - like positions from bill</param>
-        /// <param name="userStock">User stock like wallet / bank account</param>
-        /// <param name="externalStock">External stock like employer / shop</param>
-        /// <param name="sourceInput">Text source of transaction (for parsing purpose) to provide unique id</param>
-        public Transaction(eTransactionType transactionType, DateTime sourceTransactionCreationDate, string title, string note,
-            List<Subtransaction> subtransactions, Stock userStock, Stock externalStock, string sourceInput)
-        {
-            Id = GenerateGUID(sourceInput);
-            Type = transactionType;
-            Title = title;
-            Note = note;
-            _bookDate = TransationSourceCreationDate = sourceTransactionCreationDate;
-            LastEditDate = InstanceCreationDate = DateTime.Now;
-            Subtransactions = new TrulyObservableCollection<Subtransaction>(subtransactions);
-            Tags = new TrulyObservableCollection<Tag>();
-            _userStock = userStock;
-            _externalStock = externalStock;
-            PropertyChanged += OnPropertyChanged;
-        }
+
 
         public Transaction Clone()
         {
@@ -196,24 +167,7 @@ namespace CashManager_MVVM.Model
             LastEditDate = DateTime.Now;
         }
 
-        /// <summary>
-        /// Generates GUID based on input (original transaction text - from excel / bank import etc)
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        private Guid GenerateGUID(string input)
-        {
-            if (!string.IsNullOrWhiteSpace(input))
-            {
-                using (MD5 md5 = MD5.Create())
-                {
-                    byte[] hash = md5.ComputeHash(Encoding.Default.GetBytes(input));
-                    return new Guid(hash);
-                }
-            }
 
-            return Guid.NewGuid();
-        }
 
         private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {

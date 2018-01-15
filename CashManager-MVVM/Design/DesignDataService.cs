@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
+using AutoMapper;
 
 using CashManager_MVVM.Model.DataProviders;
 
-using Logic.Model;
 using Logic.TransactionManagement.TransactionElements;
 using Logic.Utils;
 
@@ -17,22 +19,42 @@ namespace CashManager_MVVM.Design
 
         public void GetData(Action<TrulyObservableCollection<Transaction>, Exception> callback)
         {
-            var transactions = new TrulyObservableCollection<Transaction>
+            var transactions = new List<Logic.DTO.Transaction>
             {
-                new Transaction(eTransactionType.Buy, DateTime.Now, "title1", "notes1", new List<Subtransaction>
-                {
-                    new Subtransaction("sub1", 12, "cat1")
-                }, new Stock("test1"), new Stock("test2"), "design1"),
-                new Transaction(eTransactionType.Buy, DateTime.Now, "title2", "notes2", new List<Subtransaction>
-                {
-                    new Subtransaction("sub1", 100, "cat2")
-                }, new Stock("test1"), new Stock("test2"), "design2"),
-                new Transaction(eTransactionType.Buy, DateTime.Now, "title3", "notes3", new List<Subtransaction>
-                {
-                    new Subtransaction("sub1", 100, "cat3")
-                }, new Stock("test1"), new Stock("test2"), "design3"),
+                new Logic.DTO.Transaction(eTransactionType.Buy, DateTime.Now, "title1", "notes1", new List<Logic.DTO.Subtransaction>
+                    {
+                        new Logic.DTO.Subtransaction
+                        {
+                            CategoryId = Guid.NewGuid(),
+                            Value = 12,
+                            Name = "cat1"
+                        }
+                    }, new Logic.DTO.Stock
+                    {
+                        Name = "test1"
+                    },
+                    new Logic.DTO.Stock
+                    {
+                        Name = "test2"
+                    }, "design1"),
+                new Logic.DTO.Transaction(eTransactionType.Buy, DateTime.Now, "title2", "notes2", new List<Logic.DTO.Subtransaction>
+                    {
+                        new Logic.DTO.Subtransaction
+                        {
+                            CategoryId = Guid.NewGuid(),
+                            Value = 12,
+                            Name = "cat2"
+                        }
+                    }, new Logic.DTO.Stock
+                    {
+                        Name = "test1"
+                    },
+                    new Logic.DTO.Stock
+                    {
+                        Name = "test2"
+                    }, "design2"),
             };
-            callback(transactions, null);
+            callback(new TrulyObservableCollection<Transaction>(transactions.Select(Mapper.Map<Transaction>)), null);
         }
 
         #endregion

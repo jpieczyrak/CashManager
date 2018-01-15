@@ -3,7 +3,7 @@
 using Logic.LogicObjectsProviders;
 using Logic.Model;
 
-namespace Logic.Mapping
+namespace CashManager_MVVM.Mapping
 {
     public class MapperConfiguration
     {

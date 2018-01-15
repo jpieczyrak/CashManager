@@ -1,7 +1,7 @@
 ﻿using System.Windows;
+
 using GalaSoft.MvvmLight.Threading;
 
-using Logic.Mapping;
 
 namespace CashManager_MVVM
 {
@@ -13,7 +13,7 @@ namespace CashManager_MVVM
         static App()
         {
             DispatcherHelper.Initialize();
-            MapperConfiguration.Configure();
+            Mapping.MapperConfiguration.Configure();
         }
     }
 }
