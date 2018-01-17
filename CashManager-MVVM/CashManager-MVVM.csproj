@@ -104,6 +104,7 @@
     <Compile Include="Model\DataProviders\DataService.cs" />
     <Compile Include="Model\DataProviders\IDataService.cs" />
     <Compile Include="Model\Stock.cs" />
+    <Compile Include="Model\Subtransaction.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

@@ -4,6 +4,7 @@ using Logic.LogicObjectsProviders;
 using Logic.Model;
 
 using Stock = CashManager_MVVM.Model.Stock;
+using Subtransaction = CashManager_MVVM.Model.Subtransaction;
 
 namespace CashManager_MVVM.Mapping
 {

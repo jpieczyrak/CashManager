@@ -63,7 +63,7 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
 			var instanceCreationDiff = expected.InstanceCreationDate - parsed.InstanceCreationDate;
 			Assert.LessOrEqual(instanceCreationDiff, TimeSpan.FromSeconds(1));
             
-            Assert.AreEqual(expected.Subtransactions.First().Name, parsed.Subtransactions.First().Name);
+            Assert.AreEqual(expected.Subtransactions.First().Title, parsed.Subtransactions.First().Title);
             Assert.AreEqual(expected.Subtransactions.First().Value, parsed.Subtransactions.First().Value);
 
             Assert.AreEqual(expected.Value, parsed.Value);
@@ -105,7 +105,7 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
             Assert.AreEqual(creationDate, parsed.BookDate);
             Assert.AreEqual(creationDate, parsed.TransationSourceCreationDate);
 
-            Assert.AreEqual(expected.Subtransactions.First().Name, parsed.Subtransactions.First().Name);
+            Assert.AreEqual(expected.Subtransactions.First().Title, parsed.Subtransactions.First().Title);
             Assert.AreEqual(expected.Subtransactions.First().Value, parsed.Subtransactions.First().Value);
 
             Assert.AreEqual(expected.Value, parsed.Value);

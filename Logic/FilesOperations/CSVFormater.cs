@@ -44,7 +44,7 @@ namespace Logic.FilesOperations
         {
             return subtransactions.Aggregate("",
                 (current, s) =>
-                    current + string.Format("{0}{1}{2}{3}{4}{5}", s.Name, SUBELEMENT_ELEMENT_SPLIT_ELEMENT, s.Value,
+                    current + string.Format("{0}{1}{2}{3}{4}{5}", s.Title, SUBELEMENT_ELEMENT_SPLIT_ELEMENT, s.Value,
                         SUBELEMENT_ELEMENT_SPLIT_ELEMENT, s.Category, SUBELEMENT_ELEMENT_SPLIT_ELEMENT));
         }
     }

@@ -7,7 +7,7 @@ namespace Logic.DTO
     public class Subtransaction
     {
         [DataMember]
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         [DataMember]
         public double Value { get; set; }

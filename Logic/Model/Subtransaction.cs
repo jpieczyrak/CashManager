@@ -11,7 +11,7 @@ namespace Logic.Model
     {
         private double _value;
 
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         public double Value
         {
@@ -29,16 +29,16 @@ namespace Logic.Model
 
         private Subtransaction() { }
 
-        public Subtransaction(string name, double value)
+        public Subtransaction(string title, double value)
         {
             _value = value;
-            Name = name;
+            Title = title;
         }
 
-        public Subtransaction(string name, double value, string category)
+        public Subtransaction(string title, double value, string category)
         {
             _value = value;
-            Name = name;
+            Title = title;
             Category = CategoryProvider.FindOrCreate(category);
         }
 

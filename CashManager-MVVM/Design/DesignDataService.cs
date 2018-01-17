@@ -27,7 +27,7 @@ namespace CashManager_MVVM.Design
                         {
                             CategoryId = Guid.NewGuid(),
                             Value = 12,
-                            Name = "cat1"
+                            Title = "cat1"
                         }
                     }, new Logic.DTO.Stock
                     {
@@ -43,7 +43,7 @@ namespace CashManager_MVVM.Design
                         {
                             CategoryId = Guid.NewGuid(),
                             Value = 12,
-                            Name = "cat2"
+                            Title = "cat2"
                         }
                     }, new Logic.DTO.Stock
                     {
