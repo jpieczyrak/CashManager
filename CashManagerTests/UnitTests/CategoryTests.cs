@@ -30,7 +30,7 @@ namespace CashManagerTests.UnitTests
         public void DBTests()
         {
             var parent = CategoryProvider.FindOrCreate("parent");
-            var dto = new Category { Value = "A1", Id = Guid.NewGuid(), ParentId = parent.Id };
+            var dto = new Category { Value = "A1", Id = Guid.NewGuid(), Parent = Mapper.Map<Category>(parent) };
             var expected = Mapper.Map<Logic.Model.Category>(dto);
 
             DatabaseProvider.DB.Save(dto);
@@ -64,7 +64,7 @@ namespace CashManagerTests.UnitTests
         public void SerializationTests()
         {
             var parent = CategoryProvider.FindOrCreate("parent");
-            var dto = new Category { Value = "A1", Id = Guid.NewGuid(), ParentId = parent.Id };
+            var dto = new Category { Value = "A1", Id = Guid.NewGuid(), Parent = Mapper.Map<Category>(parent) };
             var expected = Mapper.Map<Logic.Model.Category>(dto);
 
             string serializedObject = Serializer.XMLSerializeObject(dto);

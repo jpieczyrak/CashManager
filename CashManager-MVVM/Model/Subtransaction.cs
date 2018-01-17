@@ -2,8 +2,6 @@
 
 using GalaSoft.MvvmLight;
 
-using Logic.Model;
-
 namespace CashManager_MVVM.Model
 {
     public class Subtransaction : ObservableObject
