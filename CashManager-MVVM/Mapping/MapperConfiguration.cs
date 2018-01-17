@@ -3,6 +3,8 @@
 using Logic.LogicObjectsProviders;
 using Logic.Model;
 
+using Stock = CashManager_MVVM.Model.Stock;
+
 namespace CashManager_MVVM.Mapping
 {
     public class MapperConfiguration
