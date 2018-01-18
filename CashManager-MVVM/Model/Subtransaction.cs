@@ -54,6 +54,7 @@ namespace CashManager_MVVM.Model
         public Subtransaction()
         {
             Tags = new TrulyObservableCollection<Tag>();
+            Value = new PaymentValue();
         }
 
         #region Override
