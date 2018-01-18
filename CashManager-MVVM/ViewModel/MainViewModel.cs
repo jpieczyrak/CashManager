@@ -1,6 +1,5 @@
-﻿using System.Windows;
-
-using CashManager_MVVM.Model.DataProviders;
+﻿using CashManager_MVVM.Model.DataProviders;
+using CashManager_MVVM.View;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -25,8 +24,7 @@ namespace CashManager_MVVM.ViewModel
         {
             TransactionEditCommand = new RelayCommand(() =>
             {
-                var title = SelectedTransaction.Title;
-                MessageBox.Show("there will be transaction edit window", title);
+                new TransactionView(SelectedTransaction) { Title = SelectedTransaction?.Title ?? string.Empty }.Show();
             });
             _dataService = dataService;
             _dataService.GetData(

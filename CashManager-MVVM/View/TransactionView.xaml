@@ -1,0 +1,46 @@
+﻿<Window x:Class="CashManager_MVVM.View.TransactionView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:CashManager_MVVM.ViewModel"
+        mc:Ignorable="d"
+        Title="TransactionView" Height="300" Width="300" d:DataContext="{d:DesignData TransactionViewModel}">
+
+    <Window.DataContext>
+        <Binding Path="Transaction" Source="{StaticResource Locator}"/>
+    </Window.DataContext>
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Title"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Note"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Type"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Book date"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="User stock"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="External stock"/>
+
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Transaction.Title}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Transaction.Note}"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding TransactionTypes}" SelectedItem="{Binding Transaction.Type}"/>
+        <DatePicker Grid.Row="3" Grid.Column="1" FirstDayOfWeek="Monday" SelectedDate="{Binding Transaction.BookDate}" />
+        <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding UserStocks}" />
+        <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding ExternalStocks}" />
+    </Grid>
+</Window>

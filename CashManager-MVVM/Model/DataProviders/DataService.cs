@@ -57,5 +57,17 @@ namespace CashManager_MVVM.Model.DataProviders
 #endif
             callback(transactions, null);
         }
+        
+
+        public void GetStocks(Action<IEnumerable<Stock>, Exception> callback)
+        {
+            callback(
+                new List<Stock>
+                {
+                    new Stock { Name = "User1", IsUserStock = true },
+                    new Stock { Name = "Ex1" },
+                    new Stock { Name = "Ex2" }
+                }, null);
+        }
     }
 }
