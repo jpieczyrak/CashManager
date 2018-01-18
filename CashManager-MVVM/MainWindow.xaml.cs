@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Reflection;
+using System.Windows;
 using CashManager_MVVM.ViewModel;
 
 namespace CashManager_MVVM
@@ -15,6 +16,7 @@ namespace CashManager_MVVM
         {
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
+            Title += " " + Assembly.GetExecutingAssembly().GetName().Version;
         }
     }
 }
