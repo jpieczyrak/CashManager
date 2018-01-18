@@ -2,8 +2,6 @@
 
 using CashManager_MVVM.Model;
 
-using Logic.LogicObjectsProviders;
-
 using Category = CashManager_MVVM.Model.Category;
 using Stock = CashManager_MVVM.Model.Stock;
 using Subtransaction = CashManager_MVVM.Model.Subtransaction;

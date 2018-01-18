@@ -1,9 +1,10 @@
-﻿using CashManager_MVVM.Model;
+﻿using System.Windows;
+
 using CashManager_MVVM.Model.DataProviders;
 
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
-using Logic.Model;
 using Logic.Utils;
 
 using Transaction = CashManager_MVVM.Model.Transaction;
@@ -16,8 +17,17 @@ namespace CashManager_MVVM.ViewModel
 
         public TrulyObservableCollection<Transaction> Transactions { get; set; }
 
+        public RelayCommand TransactionEditCommand { get; set; }
+
+        public Transaction SelectedTransaction { get; set; }
+
         public MainViewModel(IDataService dataService)
         {
+            TransactionEditCommand = new RelayCommand(() =>
+            {
+                var title = SelectedTransaction.Title;
+                MessageBox.Show("there will be transaction edit window", title);
+            });
             _dataService = dataService;
             _dataService.GetData(
                 (transactions, error) =>
