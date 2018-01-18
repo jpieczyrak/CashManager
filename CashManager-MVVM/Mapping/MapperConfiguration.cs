@@ -6,6 +6,7 @@ using Logic.Model;
 using Category = CashManager_MVVM.Model.Category;
 using Stock = CashManager_MVVM.Model.Stock;
 using Subtransaction = CashManager_MVVM.Model.Subtransaction;
+using Tag = CashManager_MVVM.Model.Tag;
 
 namespace CashManager_MVVM.Mapping
 {
