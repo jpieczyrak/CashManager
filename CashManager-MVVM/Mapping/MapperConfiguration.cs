@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 
+using CashManager_MVVM.Model;
+
 using Logic.LogicObjectsProviders;
-using Logic.Model;
 
 using Category = CashManager_MVVM.Model.Category;
 using Stock = CashManager_MVVM.Model.Stock;
 using Subtransaction = CashManager_MVVM.Model.Subtransaction;
 using Tag = CashManager_MVVM.Model.Tag;
+using Transaction = Logic.Model.Transaction;
 
 namespace CashManager_MVVM.Mapping
 {
@@ -33,6 +35,9 @@ namespace CashManager_MVVM.Mapping
                 
                 config.CreateMap<Subtransaction, Logic.DTO.Subtransaction>();
                 config.CreateMap<Logic.DTO.Subtransaction, Subtransaction>();
+
+                config.CreateMap<PaymentValue, Logic.DTO.PaymentValue>();
+                config.CreateMap<Logic.DTO.PaymentValue, PaymentValue>();
             });
         }
     }

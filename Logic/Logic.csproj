@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="Database\DatabaseProvider.cs" />
     <Compile Include="DTO\Category.cs" />
+    <Compile Include="DTO\PaymentValue.cs" />
     <Compile Include="DTO\Stock.cs" />
     <Compile Include="DTO\Subtransaction.cs" />
     <Compile Include="DTO\Tag.cs" />

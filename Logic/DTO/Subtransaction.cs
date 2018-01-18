@@ -10,7 +10,7 @@ namespace Logic.DTO
         public string Title { get; set; }
 
         [DataMember]
-        public double Value { get; set; }
+        public PaymentValue Value { get; set; }
 
         [DataMember]
         public Guid CategoryId { get; set; }

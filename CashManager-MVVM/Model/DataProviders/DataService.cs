@@ -4,7 +4,6 @@ using System.Linq;
 
 using AutoMapper;
 
-using Logic.Model;
 using Logic.TransactionManagement.TransactionElements;
 using Logic.Utils;
 
@@ -25,7 +24,7 @@ namespace CashManager_MVVM.Model.DataProviders
                             new Logic.DTO.Subtransaction
                             {
                                 CategoryId = Guid.NewGuid(),
-                                Value = 12,
+                                Value = new Logic.DTO.PaymentValue { Value = 12 },
                                 Title = "cat1"
                             }
                         }, new Logic.DTO.Stock
@@ -41,7 +40,7 @@ namespace CashManager_MVVM.Model.DataProviders
                             new Logic.DTO.Subtransaction
                             {
                                 CategoryId = Guid.NewGuid(),
-                                Value = 12,
+                                Value = new Logic.DTO.PaymentValue { Value = 24 },
                                 Title = "cat2"
                             }
                         }, new Logic.DTO.Stock

@@ -6,6 +6,7 @@ using AutoMapper;
 
 using CashManager_MVVM.Model.DataProviders;
 
+using Logic.DTO;
 using Logic.TransactionManagement.TransactionElements;
 using Logic.Utils;
 
@@ -26,7 +27,7 @@ namespace CashManager_MVVM.Design
                         new Logic.DTO.Subtransaction
                         {
                             CategoryId = Guid.NewGuid(),
-                            Value = 12,
+                            Value = new PaymentValue { Value = 12 },
                             Title = "cat1"
                         }
                     }, new Logic.DTO.Stock
@@ -42,7 +43,7 @@ namespace CashManager_MVVM.Design
                         new Logic.DTO.Subtransaction
                         {
                             CategoryId = Guid.NewGuid(),
-                            Value = 12,
+                            Value = new PaymentValue { Value = 24 },
                             Title = "cat2"
                         }
                     }, new Logic.DTO.Stock

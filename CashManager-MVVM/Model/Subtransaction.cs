@@ -6,7 +6,7 @@ namespace CashManager_MVVM.Model
 {
     public class Subtransaction : ObservableObject
     {
-        private double _value;
+        private PaymentValue _value;
         private Category _category;
         private string _title;
 
@@ -16,7 +16,7 @@ namespace CashManager_MVVM.Model
             set => Set(nameof(Title), ref _title, value);
         }
 
-        public double Value
+        public PaymentValue Value
         {
             get => _value;
             set => Set(nameof(Value), ref _value, value);
