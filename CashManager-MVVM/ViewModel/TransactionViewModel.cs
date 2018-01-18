@@ -14,10 +14,15 @@ namespace CashManager_MVVM.ViewModel
     public class TransactionViewModel : ViewModelBase
     {
         private IEnumerable<Stock> _stocks;
+        private Transaction _transaction;
 
         public IEnumerable<eTransactionType> TransactionTypes => Enum.GetValues(typeof(eTransactionType)).Cast<eTransactionType>();
 
-        public Transaction Transaction { get; set; }
+        public Transaction Transaction
+        {
+            get => _transaction;
+            set => Set(nameof(Transaction), ref _transaction, value);
+        }
 
         public IEnumerable<Stock> ExternalStocks => _stocks.Where(x => !x.IsUserStock);
 
