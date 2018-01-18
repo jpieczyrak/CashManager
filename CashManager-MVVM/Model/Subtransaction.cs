@@ -2,10 +2,14 @@
 
 using GalaSoft.MvvmLight;
 
+using Logic.Utils;
+
 namespace CashManager_MVVM.Model
 {
     public class Subtransaction : ObservableObject
     {
+        private TrulyObservableCollection<Tag> _tags;
+
         private PaymentValue _value;
         private Category _category;
         private string _title;
@@ -28,7 +32,25 @@ namespace CashManager_MVVM.Model
             set => Set(nameof(Category), ref _category, value);
         }
 
+        /// <summary>
+        /// Optional tags for whole transaction (like: buying PC 2015)
+        /// </summary>
+        public TrulyObservableCollection<Tag> Tags
+        {
+            get => _tags;
+            set
+            {
+                Set(nameof(Tags), ref _tags, value);
+                _tags.CollectionChanged += (sender, args) => RaisePropertyChanged(nameof(Tags));
+            }
+        }
+
         public Guid Id { get; private set; } = Guid.NewGuid();
+
+        public Subtransaction()
+        {
+            Tags = new TrulyObservableCollection<Tag>();
+        }
 
         #region Override
 

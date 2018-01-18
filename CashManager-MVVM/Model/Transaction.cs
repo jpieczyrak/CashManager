@@ -5,7 +5,6 @@ using System.Linq;
 
 using GalaSoft.MvvmLight;
 
-using Logic.Model;
 using Logic.TransactionManagement.TransactionElements;
 using Logic.Utils;
 
@@ -23,7 +22,6 @@ namespace CashManager_MVVM.Model
         private eTransactionType _type;
 
         private TrulyObservableCollection<Subtransaction> _subtransactions;
-        private TrulyObservableCollection<Tag> _tags;
         private DateTime _lastEditDate;
 
         /// <summary>
@@ -100,19 +98,6 @@ namespace CashManager_MVVM.Model
         }
 
         /// <summary>
-        /// Optional tags for whole transaction (like: buying PC 2015)
-        /// </summary>
-        public TrulyObservableCollection<Tag> Tags
-        {
-            get => _tags;
-            set
-            {
-                Set(nameof(Tags), ref _tags, value);
-                _tags.CollectionChanged += CollectionChanged;
-            }
-        }
-
-        /// <summary>
         /// Transaction type - buying/selling/working - for accounting purpose
         /// </summary>
         public eTransactionType Type
@@ -150,7 +135,6 @@ namespace CashManager_MVVM.Model
             Type = eTransactionType.Buy;
             BookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
 
-            Tags = new TrulyObservableCollection<Tag>();
             Subtransactions = new TrulyObservableCollection<Subtransaction>();
             PropertyChanged += OnPropertyChanged;
         }
@@ -166,9 +150,7 @@ namespace CashManager_MVVM.Model
         {
             LastEditDate = DateTime.Now;
         }
-
-
-
+        
         private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             RaisePropertyChanged(nameof(Value));

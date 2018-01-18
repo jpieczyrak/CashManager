@@ -24,9 +24,6 @@ namespace Logic.DTO
         public List<Subtransaction> Subtransactions { get; set; }
 
         [DataMember]
-        public List<Tag> Tags { get; set; }
-
-        [DataMember]
         public DateTime InstanceCreationDate { get; set; }
 
         [DataMember]
@@ -69,7 +66,6 @@ namespace Logic.DTO
             BookDate = TransationSourceCreationDate = sourceTransactionCreationDate;
             LastEditDate = InstanceCreationDate = DateTime.Now;
             Subtransactions = new List<Subtransaction>(subtransactions);
-            Tags = new List<Tag>();
             UserStock = userStock;
             ExternalStock = externalStock;
         }

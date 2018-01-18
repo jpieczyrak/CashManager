@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Logic.DTO
@@ -17,5 +18,8 @@ namespace Logic.DTO
         
         [DataMember]
         public Guid Id { get; set; }
+
+        [DataMember]
+        public List<Tag> Tags { get; set; }
     }
 }
