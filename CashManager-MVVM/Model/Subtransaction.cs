@@ -23,7 +23,11 @@ namespace CashManager_MVVM.Model
         public PaymentValue Value
         {
             get => _value;
-            set => Set(nameof(Value), ref _value, value);
+            set
+            {
+                Set(nameof(Value), ref _value, value);
+                Value.PropertyChanged += (sender, args) => RaisePropertyChanged(nameof(Value));
+            }
         }
 
         public Category Category

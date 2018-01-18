@@ -120,7 +120,7 @@ namespace CashManager_MVVM.Model
         /// <summary>
         /// Total value of transaction
         /// </summary>
-        public double Value => Subtransactions?.Sum(subtransaction => subtransaction.Value.Value) ?? 0;
+        public double Value => Subtransactions?.Sum(subtransaction => subtransaction.Value?.Value) ?? 0;
 
         /// <summary>
         /// Total value of transaction as profit of user (negative when buying, positive when receiving payments)

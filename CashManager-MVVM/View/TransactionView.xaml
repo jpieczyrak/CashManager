@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:CashManager_MVVM.ViewModel"
         mc:Ignorable="d"
-        Title="TransactionView" Height="300" Width="300" d:DataContext="{d:DesignData TransactionViewModel}">
+        Title="TransactionView" Height="600" Width="400" d:DataContext="{d:DesignData TransactionViewModel}">
 
     <Window.DataContext>
         <Binding Path="Transaction" Source="{StaticResource Locator}"/>
@@ -42,5 +42,27 @@
         <DatePicker Grid.Row="3" Grid.Column="1" FirstDayOfWeek="Monday" SelectedDate="{Binding Transaction.BookDate}" />
         <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding UserStocks}" />
         <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding ExternalStocks}" />
+
+        <DataGrid Grid.Row="7" Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Column="0" ItemsSource="{Binding Transaction.Subtransactions}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="100*"/>
+                <DataGridTemplateColumn Header="Category" Width="100*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding Category}" Command="{Binding ChooseCategoryCommand}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Tags" Width="100*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding Tags}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Value" Binding="{Binding Value.Value, Mode=TwoWay}" Width="100*"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
     </Grid>
 </Window>

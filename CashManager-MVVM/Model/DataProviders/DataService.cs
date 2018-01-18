@@ -25,9 +25,16 @@ namespace CashManager_MVVM.Model.DataProviders
                             {
                                 CategoryId = Guid.NewGuid(),
                                 Value = new Logic.DTO.PaymentValue { Value = 12 },
-                                Title = "cat1"
-                            }
-                        }, new Logic.DTO.Stock
+                                Title = "title cat1"
+                            },
+                            new Logic.DTO.Subtransaction
+                            {
+                                CategoryId = Guid.NewGuid(),
+                                Value = new Logic.DTO.PaymentValue { Value = 15 },
+                                Title = "title cat2"
+                            },
+                        }, 
+                        new Logic.DTO.Stock
                         {
                             Name = "test1"
                         },
@@ -43,7 +50,8 @@ namespace CashManager_MVVM.Model.DataProviders
                                 Value = new Logic.DTO.PaymentValue { Value = 24 },
                                 Title = "cat2"
                             }
-                        }, new Logic.DTO.Stock
+                        }, 
+                        new Logic.DTO.Stock
                         {
                             Name = "test1"
                         },

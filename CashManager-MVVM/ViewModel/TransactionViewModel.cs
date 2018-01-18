@@ -6,6 +6,7 @@ using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.DataProviders;
 
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 using Logic.TransactionManagement.TransactionElements;
 
@@ -27,10 +28,13 @@ namespace CashManager_MVVM.ViewModel
         public IEnumerable<Stock> ExternalStocks => _stocks.Where(x => !x.IsUserStock);
 
         public IEnumerable<Stock> UserStocks => _stocks.Where(x => x.IsUserStock);
-        
+
+        public RelayCommand ChooseCategoryCommand { get; set; }
+
         public TransactionViewModel(IDataService dataService)
         {
             dataService.GetStocks((stocks, exception) => { _stocks = stocks; });
+            ChooseCategoryCommand = new RelayCommand(() => { });
         }
     }
 }
