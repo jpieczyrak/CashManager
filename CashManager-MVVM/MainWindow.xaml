@@ -6,8 +6,8 @@
         xmlns:ignore="http://www.galasoft.ch/ignore"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight" x:Class="CashManager_MVVM.MainWindow"
         mc:Ignorable="d ignore"
-        Height="400"
-        Width="600"
+        Height="600"
+        Width="675"
         Title="Cash Manager - MVVM Light Application">
 
     <Window.Resources>
@@ -23,7 +23,15 @@
     </Window.DataContext>
 
     <Grid x:Name="LayoutRoot">
-        <DataGrid x:Name="transactionsDataGrid" ItemsSource="{Binding Transactions, Mode=TwoWay}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedTransaction}" CanUserAddRows="False" CanUserDeleteRows="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="600*"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400*"/>
+            <ColumnDefinition Width="200*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="transactionsDataGrid" ItemsSource="{Binding Transactions, Mode=TwoWay}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedTransaction}" CanUserAddRows="False" CanUserDeleteRows="False" Grid.ColumnSpan="4" Margin="5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}" Width="100*"/>
                 <DataGridTextColumn Header="Date" Binding="{Binding BookDate, StringFormat=dd.MM.yyyy}" Width="100*"/>
