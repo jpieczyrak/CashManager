@@ -49,6 +49,8 @@ namespace CashManager_MVVM.Model
             }
         }
 
+        public string TagsForGUI => string.Join(", ", Tags);
+
         public Guid Id { get; private set; } = Guid.NewGuid();
 
         public Subtransaction()

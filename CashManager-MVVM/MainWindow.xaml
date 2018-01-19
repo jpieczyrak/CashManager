@@ -33,13 +33,58 @@
         </Grid.ColumnDefinitions>
         <DataGrid x:Name="transactionsDataGrid" ItemsSource="{Binding Transactions, Mode=TwoWay}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedTransaction}" CanUserAddRows="False" CanUserDeleteRows="False" Grid.ColumnSpan="4" Margin="5">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}" Width="100*"/>
                 <DataGridTextColumn Header="Date" Binding="{Binding BookDate, StringFormat=dd.MM.yyyy}" Width="100*"/>
-                <DataGridTextColumn Header="LastEditDate" Binding="{Binding LastEditDate, StringFormat=dd.MM.yy HH:mm:ss:fff, Mode=OneWay}" Width="160*"/>
+                <DataGridTextColumn Header="Last edit" Binding="{Binding LastEditDate, StringFormat=dd.MM.yy HH:mm:ss:fff, Mode=OneWay}" Width="160*"/>
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="100*" />
                 <DataGridTextColumn Header="Desc" Binding="{Binding Note}" Width="100*" />
                 <DataGridTextColumn Header="Value" Binding="{Binding ValueAsProfit, Mode=OneWay}" Width="60*"/>
             </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="50*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" MinWidth="75"/>
+                            <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="Id"/>
+                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Id}"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="User stock"/>
+                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding UserStock.Name}"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="External stock"/>
+                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding ExternalStock.Name}"/>
+                        <Label Grid.Row="3" Grid.Column="0" Content="Type"/>
+                        <Label Grid.Row="3" Grid.Column="1" Content="{Binding Type}"/>
+                        <Label Grid.Row="4" Grid.Column="0" Content="Transation source creation"/>
+                        <Label Grid.Row="4" Grid.Column="1" Content="{Binding TransationSourceCreationDate}" ContentStringFormat="dd.MM.yy HH:mm:ss:fff"/>
+                        <Label Grid.Row="5" Grid.Column="0" Content="Instance creation"/>
+                        <Label Grid.Row="5" Grid.Column="1" Content="{Binding InstanceCreationDate}" ContentStringFormat="dd.MM.yy HH:mm:ss:fff"/>
+                        <Label Grid.Row="6" Grid.Column="0" Content="Book date"/>
+                        <Label Grid.Row="6" Grid.Column="1" Content="{Binding BookDate}" ContentStringFormat="dd.MM.yy HH:mm:ss:fff"/>
+                        <Label Grid.Row="7" Grid.Column="0" Content="Last edit"/>
+                        <Label Grid.Row="7" Grid.Column="1" Content="{Binding LastEditDate}" ContentStringFormat="dd.MM.yy HH:mm:ss:fff"/>
+                        <DataGrid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Subtransactions}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay}" />
+                                <DataGridTextColumn Header="Category" Binding="{Binding Category.Value, Mode=OneWay}" />
+                                <DataGridTextColumn Header="Tags" Binding="{Binding TagsForGUI, Mode=OneWay}" />
+                                <DataGridTextColumn Header="Value" Binding="{Binding Value.Value, Mode=OneWay}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <Custom:EventToCommand Command="{Binding TransactionEditCommand, Mode=OneWay}"/>
