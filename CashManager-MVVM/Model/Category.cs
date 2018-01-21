@@ -14,6 +14,8 @@ namespace CashManager_MVVM.Model
 
         public Guid Id { get; private set; }
 
+        public bool IsExpanded { get; set; } = true;
+
         public string Value
         {
             get => _value;
@@ -25,7 +27,9 @@ namespace CashManager_MVVM.Model
             get => _parent;
             set => Set(nameof(Parent), ref _parent, value);
         }
-        
+
+        public Category[] Children { get; set; }
+
         public bool MatchCategoryFilter(List<Guid> filter)
         {
             var ids = GetCategoriesChain(new Stack<Guid>());

@@ -4,6 +4,7 @@ using System.Linq;
 
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.DataProviders;
+using CashManager_MVVM.View;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -34,7 +35,11 @@ namespace CashManager_MVVM.ViewModel
         public TransactionViewModel(IDataService dataService)
         {
             dataService.GetStocks((stocks, exception) => { _stocks = stocks; });
-            ChooseCategoryCommand = new RelayCommand(() => { });
+            ChooseCategoryCommand = new RelayCommand(() =>
+            {
+                var window = new CategoryPickerView();
+                window.Show();
+            }, () => true);
         }
     }
 }

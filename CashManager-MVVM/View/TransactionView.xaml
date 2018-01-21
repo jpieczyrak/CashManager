@@ -49,14 +49,14 @@
                 <DataGridTemplateColumn Header="Category" Width="100*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="{Binding Category}" Command="{Binding ChooseCategoryCommand}"/>
+                            <Button Content="{Binding Category}" Command="{Binding Transaction.ChooseCategoryCommand, Source={StaticResource Locator}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Tags" Width="100*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="{Binding Tags}"/>
+                            <Button Content="{Binding TagsForGUI}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

@@ -35,6 +35,7 @@ namespace CashManager_MVVM.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<TransactionViewModel>();
+            SimpleIoc.Default.Register<CategoriesViewModel>();
         }
 
         /// <summary>
@@ -47,6 +48,11 @@ namespace CashManager_MVVM.ViewModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
         public TransactionViewModel Transaction => ServiceLocator.Current.GetInstance<TransactionViewModel>();
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
+        public CategoriesViewModel Categories => ServiceLocator.Current.GetInstance<CategoriesViewModel>();
+
 
         /// <summary>
         /// Cleans up all the resources.

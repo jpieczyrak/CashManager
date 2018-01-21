@@ -94,7 +94,7 @@ namespace CashManager_MVVM.Model.DataProviders
                     home_food_base, home_food_chocolates, home_food_tea
 
                 };
-                categories = dtoCategories.Select(Mapper.Map<Category>);
+                categories = dtoCategories.Select(Mapper.Map<Category>).ToArray();
             }
 #endif
             callback(categories, null);
