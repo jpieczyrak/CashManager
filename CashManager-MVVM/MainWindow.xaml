@@ -38,6 +38,13 @@
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="100*" />
                 <DataGridTextColumn Header="Desc" Binding="{Binding Note}" Width="100*" />
                 <DataGridTextColumn Header="Value" Binding="{Binding ValueAsProfit, Mode=OneWay}" Width="60*"/>
+                <DataGridTemplateColumn Header="" Width="60*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <Button Content="Edit" Command="{Binding Main.TransactionEditCommand}" DataContext="{Binding Source={StaticResource Locator}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
