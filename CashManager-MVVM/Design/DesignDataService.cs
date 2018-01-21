@@ -8,7 +8,6 @@ using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.DataProviders;
 
 using Logic.TransactionManagement.TransactionElements;
-using Logic.Utils;
 
 using PaymentValue = Logic.DTO.PaymentValue;
 using Subtransaction = Logic.DTO.Subtransaction;
@@ -20,7 +19,7 @@ namespace CashManager_MVVM.Design
     {
         #region IDataService
 
-        public void GetData(Action<TrulyObservableCollection<Transaction>, Exception> callback)
+        public void GetTransactions(Action<IEnumerable<Transaction>, Exception> callback)
         {
             var transactions = new List<Logic.DTO.Transaction>
             {
@@ -59,7 +58,12 @@ namespace CashManager_MVVM.Design
                         Name = "test2"
                     }, "design2")
             };
-            callback(new TrulyObservableCollection<Transaction>(transactions.Select(Mapper.Map<Transaction>)), null);
+            callback(transactions.Select(Mapper.Map<Transaction>), null);
+        }
+
+        public void GetCategories(Action<IEnumerable<Category>, Exception> callback)
+        {
+            throw new NotImplementedException();
         }
 
         public void GetStocks(Action<IEnumerable<Stock>, Exception> callback)

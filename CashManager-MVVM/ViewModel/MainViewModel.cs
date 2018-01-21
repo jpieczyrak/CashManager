@@ -27,11 +27,11 @@ namespace CashManager_MVVM.ViewModel
                 new TransactionView(SelectedTransaction) { Title = SelectedTransaction?.Title ?? string.Empty }.Show();
             });
             _dataService = dataService;
-            _dataService.GetData(
+            _dataService.GetTransactions(
                 (transactions, error) =>
                 {
                     if (error != null) return;
-                    Transactions = transactions;
+                    Transactions = new TrulyObservableCollection<Transaction>(transactions);
                 });
         }
     }

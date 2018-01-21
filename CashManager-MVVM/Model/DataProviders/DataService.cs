@@ -5,15 +5,14 @@ using System.Linq;
 using AutoMapper;
 
 using Logic.TransactionManagement.TransactionElements;
-using Logic.Utils;
 
 namespace CashManager_MVVM.Model.DataProviders
 {
     public class DataService : IDataService
     {
-        public void GetData(Action<TrulyObservableCollection<Transaction>, Exception> callback)
+        public void GetTransactions(Action<IEnumerable<Transaction>, Exception> callback)
         {
-            TrulyObservableCollection<Transaction> transactions = null;// = TransactionProvider.Transactions;
+            IEnumerable<Transaction> transactions = null;// = TransactionProvider.Transactions;
 #if DEBUG
             if (transactions == null || !transactions.Any())
             {
@@ -60,12 +59,27 @@ namespace CashManager_MVVM.Model.DataProviders
                             Name = "test2"
                         }, "test2"),
                 };
-                transactions = new TrulyObservableCollection<Transaction>(trans.Select(Mapper.Map<Transaction>));
+                transactions = trans.Select(Mapper.Map<Transaction>);
             }
 #endif
             callback(transactions, null);
         }
-        
+
+        public void GetCategories(Action<IEnumerable<Category>, Exception> callback)
+        {
+            IEnumerable<Category> categories = null;
+#if DEBUG
+            if (categories == null || !categories.Any())
+            {
+                var dtoCategories = new List<Logic.DTO.Category>
+                {
+
+                };
+                categories = dtoCategories.Select(Mapper.Map<Category>);
+            }
+#endif
+            callback(categories, null);
+        }
 
         public void GetStocks(Action<IEnumerable<Stock>, Exception> callback)
         {
