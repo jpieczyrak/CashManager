@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.DataProviders;
