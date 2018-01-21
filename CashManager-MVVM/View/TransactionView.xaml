@@ -44,7 +44,7 @@
         <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding UserStocks}" />
         <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding ExternalStocks}" />
 
-        <DataGrid x:Name="dataGrid" Grid.Row="7" Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Column="0" ItemsSource="{Binding Transaction.Subtransactions}" AutoGenerateColumns="False">
+        <DataGrid x:Name="dataGrid" Grid.Row="7" Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Column="0" ItemsSource="{Binding Transaction.Subtransactions}" AutoGenerateColumns="False" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="100*"/>
                 <DataGridTemplateColumn Header="Category" Width="100*">
