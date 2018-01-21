@@ -30,16 +30,17 @@ namespace CashManager_MVVM.ViewModel
 
         public IEnumerable<Stock> UserStocks => _stocks.Where(x => x.IsUserStock);
 
-        public RelayCommand ChooseCategoryCommand { get; set; }
+        public RelayCommand<Subtransaction> ChooseCategoryCommand { get; set; }
 
         public TransactionViewModel(IDataService dataService)
         {
             dataService.GetStocks((stocks, exception) => { _stocks = stocks; });
-            ChooseCategoryCommand = new RelayCommand(() =>
+            ChooseCategoryCommand = new RelayCommand<Subtransaction>(subtransaction =>
             {
-                var window = new CategoryPickerView();
+                var window = new CategoryPickerView(subtransaction.Category);
                 window.Show();
-            }, () => true);
+                window.Closing += (sender, args) => { subtransaction.Category = window.treeView.SelectedItem as Category; };
+            });
         }
     }
 }

@@ -14,21 +14,24 @@ namespace CashManager_MVVM.Model.DataProviders
         {
             IEnumerable<Transaction> transactions = null;// = TransactionProvider.Transactions;
 #if DEBUG
+
             if (transactions == null || !transactions.Any())
             {
+                var cats = new Category[] {};
+                GetCategories((categories, exception) => cats = categories.ToArray());
                 var trans = new List<Logic.DTO.Transaction>
                 {
                     new Logic.DTO.Transaction(eTransactionType.Buy, DateTime.Now, "title1", "notes1", new List<Logic.DTO.Subtransaction>
                         {
                             new Logic.DTO.Subtransaction
                             {
-                                CategoryId = Guid.NewGuid(),
+                                Category = Mapper.Map<Logic.DTO.Category>(cats.FirstOrDefault(x => x.Parent == null)),
                                 Value = new Logic.DTO.PaymentValue { Value = 12 },
                                 Title = "title cat1"
                             },
                             new Logic.DTO.Subtransaction
                             {
-                                CategoryId = Guid.NewGuid(),
+                                Category = Mapper.Map<Logic.DTO.Category>(cats.FirstOrDefault(x => x.Parent != null)),
                                 Value = new Logic.DTO.PaymentValue { Value = 15 },
                                 Title = "title cat2"
                             },
@@ -45,7 +48,7 @@ namespace CashManager_MVVM.Model.DataProviders
                         {
                             new Logic.DTO.Subtransaction
                             {
-                                CategoryId = Guid.NewGuid(),
+                                Category = Mapper.Map<Logic.DTO.Category>(cats.FirstOrDefault(x => x.Parent == null)),
                                 Value = new Logic.DTO.PaymentValue { Value = 24 },
                                 Title = "cat2"
                             }
@@ -59,7 +62,7 @@ namespace CashManager_MVVM.Model.DataProviders
                             Name = "test2"
                         }, "test2"),
                 };
-                transactions = trans.Select(Mapper.Map<Transaction>);
+                transactions = trans.Select(Mapper.Map<Transaction>).ToArray();
             }
 #endif
             callback(transactions, null);

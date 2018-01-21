@@ -30,6 +30,8 @@ namespace CashManager_MVVM.Model
 
         public Category[] Children { get; set; }
 
+        public bool IsSelected { get; set; }
+
         public bool MatchCategoryFilter(List<Guid> filter)
         {
             var ids = GetCategoriesChain(new Stack<Guid>());

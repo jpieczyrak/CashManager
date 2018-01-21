@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:CashManager_MVVM.ViewModel"
+        xmlns:model="clr-namespace:CashManager_MVVM.Model"
         mc:Ignorable="d"
         Title="TransactionView" Height="600" Width="400" d:DataContext="{d:DesignData TransactionViewModel}">
 
@@ -43,13 +44,13 @@
         <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding UserStocks}" />
         <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding ExternalStocks}" />
 
-        <DataGrid Grid.Row="7" Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Column="0" ItemsSource="{Binding Transaction.Subtransactions}" AutoGenerateColumns="False">
+        <DataGrid x:Name="dataGrid" Grid.Row="7" Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Column="0" ItemsSource="{Binding Transaction.Subtransactions}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="100*"/>
                 <DataGridTemplateColumn Header="Category" Width="100*">
                     <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="{Binding Category}" Command="{Binding Transaction.ChooseCategoryCommand, Source={StaticResource Locator}}"/>
+                        <DataTemplate >
+                            <Button Content="{Binding Category.Value, Mode=OneWay}" Command="{Binding Transaction.ChooseCategoryCommand, Source={StaticResource Locator}}" CommandParameter="{Binding Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

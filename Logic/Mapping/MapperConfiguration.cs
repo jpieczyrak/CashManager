@@ -26,14 +26,6 @@ namespace Logic.Mapping
                 config.CreateMap<Tag, Logic.DTO.Tag>();
                 config.CreateMap<Logic.DTO.Tag, Tag>();
 
-                config.CreateMap<Subtransaction, Logic.DTO.Subtransaction>()
-                      .ForMember(dest => dest.CategoryId,
-                          ex => ex.MapFrom(sub => sub.Category.Id));
-                config.CreateMap<Logic.DTO.Subtransaction, Subtransaction>()
-                      .ForMember(dest => dest.Category,
-                          ex => ex.MapFrom(
-                              sub => CategoryProvider.GetById(sub.CategoryId)
-                          ));
             });
         }
     }
