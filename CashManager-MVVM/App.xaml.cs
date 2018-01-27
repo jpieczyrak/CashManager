@@ -1,7 +1,10 @@
 ﻿using System.Windows;
 
-using GalaSoft.MvvmLight.Threading;
+using Autofac;
 
+using CashManager.Infrastructure.Modules;
+
+using GalaSoft.MvvmLight.Threading;
 
 namespace CashManager_MVVM
 {
@@ -14,6 +17,13 @@ namespace CashManager_MVVM
         {
             DispatcherHelper.Initialize();
             Mapping.MapperConfiguration.Configure();
+
+            var builder = new ContainerBuilder();
+            builder.RegisterAssemblyModules(typeof(DatabaseCommunicationModule).Assembly);
+            using (IContainer container = builder.Build())
+            {
+
+            }
         }
     }
 }

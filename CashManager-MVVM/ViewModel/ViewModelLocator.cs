@@ -11,9 +11,9 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Practices.ServiceLocation;
-using CashManager_MVVM.Model;
+
 using CashManager_MVVM.Model.DataProviders;
+
 
 namespace CashManager_MVVM.ViewModel
 {
@@ -28,8 +28,6 @@ namespace CashManager_MVVM.ViewModel
     {
         static ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
             if (ViewModelBase.IsInDesignModeStatic) SimpleIoc.Default.Register<IDataService, Design.DesignDataService>();
             else SimpleIoc.Default.Register<IDataService, DataService>();
 
@@ -43,15 +41,15 @@ namespace CashManager_MVVM.ViewModel
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
-        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
+        public MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
-        public TransactionViewModel Transaction => ServiceLocator.Current.GetInstance<TransactionViewModel>();
+        public TransactionViewModel Transaction => SimpleIoc.Default.GetInstance<TransactionViewModel>();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
-        public CategoriesViewModel Categories => ServiceLocator.Current.GetInstance<CategoriesViewModel>();
+        public CategoriesViewModel Categories => SimpleIoc.Default.GetInstance<CategoriesViewModel>();
 
 
         /// <summary>
