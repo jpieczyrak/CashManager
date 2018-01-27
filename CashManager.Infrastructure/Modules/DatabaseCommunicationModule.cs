@@ -1,11 +1,16 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 
 using Autofac;
 
 using CashManager.DatabaseConnection;
 
 using LiteDB;
+
+using Logic.Infrastructure.Command;
+
+using Module = Autofac.Module;
 
 namespace CashManager.Infrastructure.Modules
 {
@@ -18,6 +23,23 @@ namespace CashManager.Infrastructure.Modules
             var dbPath = "results.litedb"; //todo: from settings
             EnsureDirectoryExists(dbPath);
             builder.Register(x => new LiteRepository($"Filename={dbPath};Journal=true"));
+
+            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(ICommandHandler<>)))
+                   .Where(x => x.IsAssignableTo<ICommandHandler>())
+                   .AsImplementedInterfaces();
+
+            builder.RegisterType<CommandDispatcher>().As<ICommandDispatcher>();
+
+            builder.Register<Func<Type, ICommandHandler>>(c =>
+            {
+                var ctx = c.Resolve<IComponentContext>();
+
+                return t =>
+                {
+                    var handlerType = typeof(ICommandHandler<>).MakeGenericType(t);
+                    return (ICommandHandler)ctx.Resolve(handlerType);
+                };
+            });
         }
 
         private static void RegisterDatabasesBasedOnKey(ContainerBuilder builder, string dbPath)

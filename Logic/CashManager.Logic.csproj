@@ -92,6 +92,12 @@
     <Compile Include="DTO\Subtransaction.cs" />
     <Compile Include="DTO\Tag.cs" />
     <Compile Include="DTO\Transaction.cs" />
+    <Compile Include="Infrastructure\Command\CommandDispatcher.cs" />
+    <Compile Include="Infrastructure\Command\ICommand.cs" />
+    <Compile Include="Infrastructure\Command\ICommandDispatcher.cs" />
+    <Compile Include="Infrastructure\Command\ICommandHandler.cs" />
+    <Compile Include="Infrastructure\Command\NoCommand.cs" />
+    <Compile Include="Infrastructure\Command\NoCommandHandler.cs" />
     <Compile Include="IoC\AutofacConfiguration.cs" />
     <Compile Include="IoC\BuildStrategies\DefaultBuildStrategy.cs" />
     <Compile Include="IoC\eBuildStrategyType.cs" />
@@ -146,6 +152,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\Query\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

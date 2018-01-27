@@ -52,6 +52,10 @@
       <Project>{87960EEB-6F05-4EAC-A784-94E3E4975EE3}</Project>
       <Name>CashManager.DatabaseConnection</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Logic\CashManager.Logic.csproj">
+      <Project>{BF1C3982-4770-45E1-9FAB-189656443F61}</Project>
+      <Name>CashManager.Logic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
