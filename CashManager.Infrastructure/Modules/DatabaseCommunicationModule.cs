@@ -9,6 +9,7 @@ using CashManager.DatabaseConnection;
 using LiteDB;
 
 using Logic.Infrastructure.Command;
+using Logic.Infrastructure.Query;
 
 using Module = Autofac.Module;
 
@@ -24,6 +25,12 @@ namespace CashManager.Infrastructure.Modules
             EnsureDirectoryExists(dbPath);
             builder.Register(x => new LiteRepository($"Filename={dbPath};Journal=true"));
 
+            RegisterCommandHandlers(builder);
+            RegisterQueryHandlers(builder);
+        }
+
+        private static void RegisterCommandHandlers(ContainerBuilder builder)
+        {
             builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(ICommandHandler<>)))
                    .Where(x => x.IsAssignableTo<ICommandHandler>())
                    .AsImplementedInterfaces();
@@ -37,7 +44,27 @@ namespace CashManager.Infrastructure.Modules
                 return t =>
                 {
                     var handlerType = typeof(ICommandHandler<>).MakeGenericType(t);
-                    return (ICommandHandler)ctx.Resolve(handlerType);
+                    return (ICommandHandler) ctx.Resolve(handlerType);
+                };
+            });
+        }
+
+        private static void RegisterQueryHandlers(ContainerBuilder builder)
+        {
+            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(IQueryHandler<,>)))
+                   .Where(x => x.IsAssignableTo<IQueryHandler>())
+                   .AsImplementedInterfaces();
+
+            builder.RegisterType<QueryDispatcher>().As<IQueryDispatcher>();
+
+            builder.Register<Func<Type, IQueryHandler>>(c =>
+            {
+                var ctx = c.Resolve<IComponentContext>();
+
+                return t =>
+                {
+                    var handlerType = typeof(IQueryHandler<,>).MakeGenericType(t);
+                    return (IQueryHandler) ctx.Resolve(handlerType);
                 };
             });
         }

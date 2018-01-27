@@ -116,6 +116,10 @@
     <Compile Include="Infrastructure\Command\ICommandHandler.cs" />
     <Compile Include="Infrastructure\Command\NoCommand.cs" />
     <Compile Include="Infrastructure\Command\NoCommandHandler.cs" />
+    <Compile Include="Infrastructure\Query\IQuery.cs" />
+    <Compile Include="Infrastructure\Query\IQueryDispatcher.cs" />
+    <Compile Include="Infrastructure\Query\IQueryHandler.cs" />
+    <Compile Include="Infrastructure\Query\QueryDispatcher.cs" />
     <Compile Include="IoC\AutofacConfiguration.cs" />
     <Compile Include="IoC\BuildStrategies\DefaultBuildStrategy.cs" />
     <Compile Include="IoC\eBuildStrategyType.cs" />
@@ -171,9 +175,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrastructure\Query\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
