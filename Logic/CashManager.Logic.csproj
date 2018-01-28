@@ -119,6 +119,8 @@
     <Compile Include="Infrastructure\Query\IQuery.cs" />
     <Compile Include="Infrastructure\Query\IQueryDispatcher.cs" />
     <Compile Include="Infrastructure\Query\IQueryHandler.cs" />
+    <Compile Include="Infrastructure\Query\NoQuery.cs" />
+    <Compile Include="Infrastructure\Query\NoQueryHandler.cs" />
     <Compile Include="Infrastructure\Query\QueryDispatcher.cs" />
     <Compile Include="IoC\AutofacConfiguration.cs" />
     <Compile Include="IoC\BuildStrategies\DefaultBuildStrategy.cs" />

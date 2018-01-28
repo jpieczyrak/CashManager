@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 
 using Autofac;
 
@@ -7,6 +8,7 @@ using CashManager.Infrastructure.Modules;
 using GalaSoft.MvvmLight.Threading;
 
 using Logic.Infrastructure.Command;
+using Logic.Infrastructure.Query;
 
 namespace CashManager_MVVM
 {
@@ -26,6 +28,9 @@ namespace CashManager_MVVM
             {
                 var commandDispatcher = container.Resolve<ICommandDispatcher>();
                 commandDispatcher.Execute(new NoCommand());
+
+                var queryDispatcher = container.Resolve<IQueryDispatcher>();
+                var test = queryDispatcher.Execute<NoQuery, IEnumerable<string>>(new NoQuery());
             }
         }
     }

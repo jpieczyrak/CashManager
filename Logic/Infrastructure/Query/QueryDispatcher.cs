@@ -11,7 +11,7 @@ namespace Logic.Infrastructure.Query
             _handlersFactory = handlersFactory;
         }
 
-        public TResult Execute<TQuery, TResult>(TQuery query) where TQuery : IQuery
+        public TResult Execute<TQuery, TResult>(TQuery query) where TQuery : IQuery<TResult>
         {
             IQueryHandler<TQuery, TResult> handler;
 

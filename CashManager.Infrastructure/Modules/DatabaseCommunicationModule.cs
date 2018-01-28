@@ -63,7 +63,9 @@ namespace CashManager.Infrastructure.Modules
 
                 return t =>
                 {
-                    var handlerType = typeof(IQueryHandler<,>).MakeGenericType(t);
+                    var type = typeof(IQueryHandler<,>);
+                    var returnType = ((Type[])((TypeInfo)t).ImplementedInterfaces)[0].GenericTypeArguments[0];
+                    var handlerType = type.MakeGenericType(t, returnType);
                     return (IQueryHandler) ctx.Resolve(handlerType);
                 };
             });

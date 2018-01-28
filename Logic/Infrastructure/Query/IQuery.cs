@@ -1,4 +1,4 @@
 ﻿namespace Logic.Infrastructure.Query
 {
-    public interface IQuery { }
+    public interface IQuery<TResult> { }
 }
