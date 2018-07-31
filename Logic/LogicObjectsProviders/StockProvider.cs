@@ -30,7 +30,7 @@ namespace Logic.LogicObjectsProviders
         {
             var stock = new Stock(name);
             Stocks.Add(stock);
-            DatabaseProvider.DB.Update(Mapper.Map<Stock, DTO.Stock>(stock));
+            DatabaseProvider.DB.Upsert(Mapper.Map<Stock, DTO.Stock>(stock));
 
             return stock;
         }
@@ -60,7 +60,7 @@ namespace Logic.LogicObjectsProviders
             {
                 foreach (Stock stock in notifyCollectionChangedEventArgs.NewItems)
                 {
-                    DatabaseProvider.DB.Update(Mapper.Map<Stock, DTO.Stock>(stock));
+                    DatabaseProvider.DB.Upsert(Mapper.Map<Stock, DTO.Stock>(stock));
                 }
             }
             if (notifyCollectionChangedEventArgs.OldItems != null)

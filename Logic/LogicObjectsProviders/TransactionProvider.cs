@@ -28,7 +28,7 @@ namespace Logic.LogicObjectsProviders
         public static void Add(Transaction transaction)
         {
             Transactions.Add(transaction);
-            DatabaseProvider.DB.Update(Mapper.Map<Transaction, DTO.Transaction>(transaction));
+            DatabaseProvider.DB.Upsert(Mapper.Map<Transaction, DTO.Transaction>(transaction));
         }
 
         private static void TransactionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
@@ -37,7 +37,7 @@ namespace Logic.LogicObjectsProviders
             {
                 foreach (Transaction transaction in notifyCollectionChangedEventArgs.NewItems)
                 {
-                    DatabaseProvider.DB.Update(Mapper.Map<Transaction, DTO.Transaction>(transaction));
+                    DatabaseProvider.DB.Upsert(Mapper.Map<Transaction, DTO.Transaction>(transaction));
                 }
             }
             if (notifyCollectionChangedEventArgs.OldItems != null)

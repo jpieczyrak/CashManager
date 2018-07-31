@@ -21,7 +21,7 @@ namespace CashManager.Infrastructure.Modules
         {
             base.Load(builder);
 
-            var dbPath = "results.litedb"; //todo: from settings
+            string dbPath = "results.litedb"; //todo: from settings
             EnsureDirectoryExists(dbPath);
             builder.Register(x => new LiteRepository($"Filename={dbPath};Journal=true"));
 

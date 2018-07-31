@@ -56,7 +56,7 @@ namespace Logic.LogicObjectsProviders
             {
                 foreach (Category category in notifyCollectionChangedEventArgs.NewItems)
                 {
-                    DatabaseProvider.DB.Update(Mapper.Map<Category, DTO.Category>(category));
+                    DatabaseProvider.DB.Upsert(Mapper.Map<Category, DTO.Category>(category));
                 }
             }
             if (notifyCollectionChangedEventArgs.OldItems != null)
@@ -79,7 +79,7 @@ namespace Logic.LogicObjectsProviders
                 if (!Categories.Contains(category))
                 {
                     Categories.Add(category);
-                    DatabaseProvider.DB.Update(Mapper.Map<Category, DTO.Category>(category));
+                    DatabaseProvider.DB.Upsert(Mapper.Map<Category, DTO.Category>(category));
                 }
             }
         }

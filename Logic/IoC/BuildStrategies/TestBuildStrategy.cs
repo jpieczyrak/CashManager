@@ -1,8 +1,9 @@
-﻿using Autofac;
+﻿using System;
+using System.IO;
 
-using DBInterface;
+using Autofac;
 
-using LiteDBWrapper;
+using LiteDB;
 
 namespace Logic.IoC.BuildStrategies
 {
@@ -16,8 +17,8 @@ namespace Logic.IoC.BuildStrategies
             var containerBuilder = _defaultStrategy.ConfigureBuilder();
 
             //and override what we need
-            containerBuilder.RegisterInstance(new LiteDBFacade(100))
-                            .As<IDatabase>()
+            containerBuilder.RegisterInstance(new LiteDatabase(new StreamDiskService(new MemoryStream()), null, null, TimeSpan.FromMilliseconds(100)))
+                            .As<LiteDatabase>()
                             .SingleInstance();
 
             return containerBuilder.Build();

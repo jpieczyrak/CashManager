@@ -16,9 +16,9 @@ namespace Logic
         public void Save()
         {
             //stocks & transactions
-            foreach (var transaction in Transactions) DatabaseProvider.DB.Update(AutoMapper.Mapper.Map<Transaction, DTO.Transaction>(transaction));
-            foreach (var stock in AvailableStocks) DatabaseProvider.DB.Update(AutoMapper.Mapper.Map<Stock, DTO.Stock>(stock));
-            foreach (var category in Categories) DatabaseProvider.DB.Update(AutoMapper.Mapper.Map<Category, DTO.Category>(category));
+            foreach (var transaction in Transactions) DatabaseProvider.DB.Upsert(AutoMapper.Mapper.Map<Transaction, DTO.Transaction>(transaction));
+            foreach (var stock in AvailableStocks) DatabaseProvider.DB.Upsert(AutoMapper.Mapper.Map<Stock, DTO.Stock>(stock));
+            foreach (var category in Categories) DatabaseProvider.DB.Upsert(AutoMapper.Mapper.Map<Category, DTO.Category>(category));
         }
     }
 }

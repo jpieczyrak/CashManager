@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-using DBInterface;
+using LiteDB;
 
 using Logic.IoC;
 
@@ -8,8 +8,8 @@ namespace Logic.Database
 {
     public class DatabaseProvider
     {
-        private static IDatabase _db;
+        private static LiteDatabase _db;
 
-        public static IDatabase DB => _db ?? (_db = AutofacConfiguration.Container.Resolve<IDatabase>());
+        public static LiteDatabase DB => _db ?? (_db = AutofacConfiguration.Container.Resolve<LiteDatabase>());
     }
 }

@@ -33,7 +33,7 @@ namespace CashManagerTests.UnitTests
             var dto = new Category { Value = "A1", Id = Guid.NewGuid(), Parent = Mapper.Map<Category>(parent) };
             var expected = Mapper.Map<Logic.Model.Category>(dto);
 
-            DatabaseProvider.DB.Save(dto);
+            DatabaseProvider.DB.Upsert(dto);
             var loaded = DatabaseProvider.DB.Read<Category>().FirstOrDefault(c => c.Id == dto.Id);
             var mapped = Mapper.Map<Logic.Model.Category>(loaded);
 

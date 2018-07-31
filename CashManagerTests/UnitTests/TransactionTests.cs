@@ -77,7 +77,7 @@ namespace CashManagerTests.UnitTests
             var dto = Mapper.Map<Logic.DTO.Transaction>(expected);
 
             //when
-            DatabaseProvider.DB.Update(dto);
+            DatabaseProvider.DB.Upsert(dto);
             var loaded = DatabaseProvider.DB.Read<Logic.DTO.Transaction>().FirstOrDefault(t => t.Id == dto.Id);
             var mappedAfterDeserialization = Mapper.Map<Transaction>(loaded);
             

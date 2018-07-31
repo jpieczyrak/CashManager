@@ -52,7 +52,7 @@ namespace Logic.LogicObjectsProviders
         {
             if (notifyCollectionChangedEventArgs.NewItems != null)
                 foreach (Tag tag in notifyCollectionChangedEventArgs.NewItems)
-                    DatabaseProvider.DB.Update(Mapper.Map<Tag, DTO.Tag>(tag));
+                    DatabaseProvider.DB.Upsert(Mapper.Map<Tag, DTO.Tag>(tag));
             if (notifyCollectionChangedEventArgs.OldItems != null)
                 foreach (Tag tag in notifyCollectionChangedEventArgs.OldItems)
                     DatabaseProvider.DB.Remove(Mapper.Map<Tag, DTO.Tag>(tag));
@@ -68,7 +68,7 @@ namespace Logic.LogicObjectsProviders
                 if (!Categories.Contains(tag))
                 {
                     Categories.Add(tag);
-                    DatabaseProvider.DB.Update(Mapper.Map<Tag, DTO.Tag>(tag));
+                    DatabaseProvider.DB.Upsert(Mapper.Map<Tag, DTO.Tag>(tag));
                 }
         }
     }
