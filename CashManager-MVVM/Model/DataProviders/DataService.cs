@@ -95,7 +95,6 @@ namespace CashManager_MVVM.Model.DataProviders
                     fun_games_strategy, fun_games_fps, 
                     home_cleaning, home_food,
                     home_food_base, home_food_chocolates, home_food_tea
-
                 };
                 categories = dtoCategories.Select(Mapper.Map<Category>).ToArray();
             }
