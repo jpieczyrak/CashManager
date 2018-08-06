@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using Logic.Model;
-using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;
 
 namespace Logic.FilesOperations
@@ -27,7 +25,7 @@ namespace Logic.FilesOperations
         {
             string subtransactionsCSV = ToCSV(t.Subtransactions);
 
-            return string.Format("{0}{10}{1}{10}{2}{10}{3}{10}{4}{10}{5}{10}{6}{10}{7}{10}{8}{9}", 
+            return string.Format("{0}{9}{1}{9}{2}{9}{3}{9}{4}{9}{5}{9}{6}{9}{7}{9}{8}", 
                 t.BookDate.ToString(DATE_FORMAT), 
                 t.InstanceCreationDate.ToString(DATE_FORMAT), 
                 t.LastEditDate.ToString(DATE_FORMAT), 
@@ -36,7 +34,7 @@ namespace Logic.FilesOperations
                 t.Type, 
                 subtransactionsCSV, 
                 t.UserStock.Name + SUBELEMENT_ELEMENT_SPLIT_ELEMENT + t.ExternalStock.Name,
-                TRANSACTION_SPLIT_ELEMENT,
+				TRANSACTION_SPLIT_ELEMENT,
                 TRANSACTION_ELEMENT_SPLIT_ELEMENT);
         }
 
@@ -44,8 +42,7 @@ namespace Logic.FilesOperations
         {
             return subtransactions.Aggregate("",
                 (current, s) =>
-                    current + string.Format("{0}{1}{2}{3}{4}{5}", s.Title, SUBELEMENT_ELEMENT_SPLIT_ELEMENT, s.Value,
-                        SUBELEMENT_ELEMENT_SPLIT_ELEMENT, s.Category, SUBELEMENT_ELEMENT_SPLIT_ELEMENT));
+                    current + $"{s.Title}{SUBELEMENT_ELEMENT_SPLIT_ELEMENT}{s.Value}{SUBELEMENT_ELEMENT_SPLIT_ELEMENT}{s.Category}{SUBELEMENT_ELEMENT_SPLIT_ELEMENT}");
         }
     }
 }
