@@ -58,19 +58,5 @@ namespace CashManager_MVVM.Model
             Tags = new TrulyObservableCollection<Tag>();
             Value = new PaymentValue();
         }
-
-        #region Override
-
-        public override bool Equals(object obj)
-        {
-            return obj != null && obj.GetHashCode().Equals(GetHashCode());
-        }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
-
-        #endregion
     }
 }

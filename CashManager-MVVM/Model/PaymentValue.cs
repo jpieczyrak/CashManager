@@ -4,7 +4,7 @@ namespace CashManager_MVVM.Model
 {
     public class PaymentValue : ObservableObject
     {
-        private double _value;
+		private double _value;
 
         public double Value
         {
