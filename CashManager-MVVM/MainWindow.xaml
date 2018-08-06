@@ -4,11 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight" xmlns:local="clr-namespace:CashManager_MVVM" x:Class="CashManager_MVVM.MainWindow"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight" xmlns:local="clr-namespace:CashManager_MVVM"
+    xmlns:viewModel="clr-namespace:CashManager_MVVM.ViewModel"
+    xmlns:model="clr-namespace:CashManager_MVVM.Model"
+    x:Class="CashManager_MVVM.MainWindow"
         mc:Ignorable="d ignore"
         Height="600"
         Width="675"
-        Title="Cash Manager - MVVM Light Application">
+        Title="Cash Manager - MVVM Light Application"
+        d:DataContext="{d:DesignInstance Type=viewModel:MainViewModel, IsDesignTimeCreatable=True}">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -17,10 +21,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
-    <Window.DataContext>
-        <Binding Path="Main" Source="{StaticResource Locator}"/>
-    </Window.DataContext>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -38,16 +38,9 @@
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="100*" />
                 <DataGridTextColumn Header="Desc" Binding="{Binding Note}" Width="100*" />
                 <DataGridTextColumn Header="Value" Binding="{Binding ValueAsProfit, Mode=OneWay}" Width="60*"/>
-                <DataGridTemplateColumn Header="" Width="60*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate >
-                            <Button Content="Edit" Command="{Binding Main.TransactionEditCommand}" DataContext="{Binding Source={StaticResource Locator}}" CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
-                <DataTemplate>
+                <DataTemplate DataType="model:Transaction">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -94,7 +87,7 @@
             </DataGrid.RowDetailsTemplate>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
-                    <Custom:EventToCommand Command="{Binding TransactionEditCommand, Mode=OneWay}" CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"/>
+                    <Custom:EventToCommand Command="{Binding TransactionEditCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </DataGrid>

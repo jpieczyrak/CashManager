@@ -25,7 +25,7 @@ namespace CashManager_MVVM.Design
             GetCategories((categories, exception) => cats = categories.ToArray());
             var transactions = new List<Logic.DTO.Transaction>
             {
-                new Logic.DTO.Transaction(eTransactionType.Buy, DateTime.Now, "title1", "notes1", new List<Subtransaction>
+                new Logic.DTO.Transaction(eTransactionType.Buy, DateTime.Now, "title1 - design", "notes1", new List<Subtransaction>
                     {
                         new Subtransaction
                         {

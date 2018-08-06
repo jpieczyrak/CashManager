@@ -1,10 +1,7 @@
-﻿using System.Windows;
-
-using CashManager_MVVM.Model.DataProviders;
+﻿using CashManager_MVVM.Model.DataProviders;
 using CashManager_MVVM.View;
-
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 
 using Logic.Utils;
 
@@ -15,31 +12,28 @@ namespace CashManager_MVVM.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private readonly IDataService _dataService;
+        private readonly ViewModelFactory _factory;
 
         public TrulyObservableCollection<Transaction> Transactions { get; set; }
 
-        public RelayCommand<Window> TransactionEditCommand { get; set; }
+		public RelayCommand TransactionEditCommand => new RelayCommand(TranactionEdit, () => true);
 
-        public Transaction SelectedTransaction { get; set; }
+		private void TranactionEdit()
+		{
+			var window = new TransactionView(SelectedTransaction, _factory.Create<TransactionViewModel>())
+			{
+				Title = SelectedTransaction?.Title ?? string.Empty,
+				//Left = mainWindow.Left + mainWindow.Width,
+				//Top = mainWindow.Top
+			};
+			window.Show();
+		}
 
-        public MainViewModel(IDataService dataService)
+		public Transaction SelectedTransaction { get; set; }
+
+        public MainViewModel(IDataService dataService, ViewModelFactory factory)
         {
-            TransactionEditCommand = new RelayCommand<Window>(mainWindow =>
-            {
-                var window = new TransactionView(SelectedTransaction)
-                {
-                    Title = SelectedTransaction?.Title ?? string.Empty,
-                    Left = mainWindow.Left + mainWindow.Width,
-                    Top = mainWindow.Top
-                };
-                window.Show();
-                mainWindow.LocationChanged += (sender, args) =>
-                {
-                    window.Left = mainWindow.Left + mainWindow.Width;
-                    window.Top = mainWindow.Top;
-                };
-                mainWindow.Closing += (sender, args) => window.Close();
-            });
+			_factory = factory;
             _dataService = dataService;
             _dataService.GetTransactions(
                 (transactions, error) =>

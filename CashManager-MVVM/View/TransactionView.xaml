@@ -8,10 +8,6 @@
         mc:Ignorable="d"
         Title="TransactionView" Height="600" Width="400" d:DataContext="{d:DesignData TransactionViewModel}">
 
-    <Window.DataContext>
-        <Binding Path="Transaction" Source="{StaticResource Locator}"/>
-    </Window.DataContext>
-
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -51,7 +47,7 @@
                 <DataGridTemplateColumn Header="Category" Width="Auto" MinWidth="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="{Binding Category.Value, Mode=OneWay}" Command="{Binding Transaction.ChooseCategoryCommand, Source={StaticResource Locator}}" CommandParameter="{Binding Mode=OneWay}"/>
+                            <Button Content="{Binding Category.Value, Mode=OneWay}" Command="{Binding ChooseCategoryCommand}" CommandParameter="{Binding Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

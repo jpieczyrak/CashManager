@@ -10,13 +10,11 @@ namespace CashManager_MVVM.View
     /// </summary>
     public partial class TransactionView : Window
     {
-        public TransactionView(Transaction transaction)
+        public TransactionView(Transaction transaction, TransactionViewModel transactionViewModel)
         {
             InitializeComponent();
-            if (DataContext is TransactionViewModel transactionViewModel)
-            {
-                transactionViewModel.Transaction = transaction;
-            }
+			DataContext = transactionViewModel;
+			transactionViewModel.Transaction = transaction;
         }
     }
 }

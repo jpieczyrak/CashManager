@@ -12,10 +12,10 @@ namespace CashManager_MVVM
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
-        public MainWindow()
-        {
+        public MainWindow(MainViewModel viewModel)
+		{
+			DataContext = viewModel;
             InitializeComponent();
-            Closing += (s, e) => ViewModelLocator.Cleanup();
             Title += " " + Assembly.GetExecutingAssembly().GetName().Version;
         }
     }
