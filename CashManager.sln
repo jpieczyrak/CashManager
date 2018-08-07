@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManager.Infrastructure"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManager.DatabaseConnection", "CashManager.DatabaseConnection\CashManager.DatabaseConnection.csproj", "{87960EEB-6F05-4EAC-A784-94E3E4975EE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManager.Data", "CashManager.Data\CashManager.Data.csproj", "{D83C69C0-18F7-4B7F-AF7E-143091A26A30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,6 +116,18 @@ Global
 		{87960EEB-6F05-4EAC-A784-94E3E4975EE3}.Release|x64.Build.0 = Release|Any CPU
 		{87960EEB-6F05-4EAC-A784-94E3E4975EE3}.Release|x86.ActiveCfg = Release|Any CPU
 		{87960EEB-6F05-4EAC-A784-94E3E4975EE3}.Release|x86.Build.0 = Release|Any CPU
+		{D83C69C0-18F7-4B7F-AF7E-143091A26A30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D83C69C0-18F7-4B7F-AF7E-143091A26A30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D83C69C0-18F7-4B7F-AF7E-143091A26A30}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D83C69C0-18F7-4B7F-AF7E-143091A26A30}.Debug|x64.Build.0 = Debug|Any CPU
+		{D83C69C0-18F7-4B7F-AF7E-143091A26A30}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D83C69C0-18F7-4B7F-AF7E-143091A26A30}.Debug|x86.Build.0 = Debug|Any CPU
+		{D83C69C0-18F7-4B7F-AF7E-143091A26A30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D83C69C0-18F7-4B7F-AF7E-143091A26A30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D83C69C0-18F7-4B7F-AF7E-143091A26A30}.Release|x64.ActiveCfg = Release|Any CPU
+		{D83C69C0-18F7-4B7F-AF7E-143091A26A30}.Release|x64.Build.0 = Release|Any CPU
+		{D83C69C0-18F7-4B7F-AF7E-143091A26A30}.Release|x86.ActiveCfg = Release|Any CPU
+		{D83C69C0-18F7-4B7F-AF7E-143091A26A30}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

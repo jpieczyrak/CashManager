@@ -3,10 +3,9 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 
-using GalaSoft.MvvmLight;
+using CashManager.Data;
 
-using Logic.TransactionManagement.TransactionElements;
-using Logic.Utils;
+using GalaSoft.MvvmLight;
 
 namespace CashManager_MVVM.Model
 {

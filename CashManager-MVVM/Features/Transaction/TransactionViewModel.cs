@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using CashManager.Data;
+
 using CashManager_MVVM.Features.Category;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.DataProviders;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-
-using Logic.TransactionManagement.TransactionElements;
 
 namespace CashManager_MVVM.Features.Transaction
 {

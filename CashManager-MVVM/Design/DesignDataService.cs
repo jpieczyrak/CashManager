@@ -4,14 +4,14 @@ using System.Linq;
 
 using AutoMapper;
 
+using CashManager.Data;
+
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.DataProviders;
 
-using Logic.TransactionManagement.TransactionElements;
-
-using PaymentValue = Logic.DTO.PaymentValue;
-using Subtransaction = Logic.DTO.Subtransaction;
-using Tag = Logic.DTO.Tag;
+using PaymentValue = CashManager.Data.DTO.PaymentValue;
+using Subtransaction = CashManager.Data.DTO.Subtransaction;
+using Tag = CashManager.Data.DTO.Tag;
 
 namespace CashManager_MVVM.Design
 {
@@ -23,39 +23,39 @@ namespace CashManager_MVVM.Design
         {
             var cats = new Category[] { };
             GetCategories((categories, exception) => cats = categories.ToArray());
-            var transactions = new List<Logic.DTO.Transaction>
+            var transactions = new List<CashManager.Data.DTO.Transaction>
             {
-                new Logic.DTO.Transaction(eTransactionType.Buy, DateTime.Now, "title1 - design", "notes1", new List<Subtransaction>
+                new CashManager.Data.DTO.Transaction(eTransactionType.Buy, DateTime.Now, "title1 - design", "notes1", new List<Subtransaction>
                     {
                         new Subtransaction
                         {
-                            Category = Mapper.Map<Logic.DTO.Category>(cats.FirstOrDefault(x => x.Parent == null)),
+                            Category = Mapper.Map<CashManager.Data.DTO.Category>(cats.FirstOrDefault(x => x.Parent == null)),
                             Value = new PaymentValue { Value = 12 },
                             Title = "cat1",
                             Tags = new List<Tag> { new Tag { Name = "tag1" } }
                         }
-                    }, new Logic.DTO.Stock
+                    }, new CashManager.Data.DTO.Stock
                     {
                         Name = "test1"
                     },
-                    new Logic.DTO.Stock
+                    new CashManager.Data.DTO.Stock
                     {
                         Name = "test2"
                     }, "design1"),
-                new Logic.DTO.Transaction(eTransactionType.Buy, DateTime.Now, "title2", "notes2", new List<Subtransaction>
+                new CashManager.Data.DTO.Transaction(eTransactionType.Buy, DateTime.Now, "title2", "notes2", new List<Subtransaction>
                     {
                         new Subtransaction
                         {
-                            Category = Mapper.Map<Logic.DTO.Category>(cats.FirstOrDefault(x => x.Parent != null)),
+                            Category = Mapper.Map<CashManager.Data.DTO.Category>(cats.FirstOrDefault(x => x.Parent != null)),
                             Value = new PaymentValue { Value = 24 },
                             Title = "cat2",
                             Tags = new List<Tag> { new Tag { Name = "tag123" } }
                         }
-                    }, new Logic.DTO.Stock
+                    }, new CashManager.Data.DTO.Stock
                     {
                         Name = "test1"
                     },
-                    new Logic.DTO.Stock
+                    new CashManager.Data.DTO.Stock
                     {
                         Name = "test2"
                     }, "design2")
@@ -65,20 +65,20 @@ namespace CashManager_MVVM.Design
 
         public void GetCategories(Action<IEnumerable<Category>, Exception> callback)
         {
-            var root = new Logic.DTO.Category { Id = Guid.NewGuid(), Value = "Root" };
-            var home = new Logic.DTO.Category { Id = Guid.NewGuid(), Value = "Home", Parent = root };
-            var fun = new Logic.DTO.Category { Id = Guid.NewGuid(), Value = "Fun", Parent = root };
-            var fun_PC = new Logic.DTO.Category { Id = Guid.NewGuid(), Value = "PC", Parent = fun };
-            var fun_books = new Logic.DTO.Category { Id = Guid.NewGuid(), Value = "Books", Parent = fun };
-            var fun_games = new Logic.DTO.Category { Id = Guid.NewGuid(), Value = "Games", Parent = fun };
-            var fun_games_strategy = new Logic.DTO.Category { Id = Guid.NewGuid(), Value = "Strategy", Parent = fun_games };
-            var fun_games_fps = new Logic.DTO.Category { Id = Guid.NewGuid(), Value = "FPS", Parent = fun_games };
-            var home_cleaning = new Logic.DTO.Category { Id = Guid.NewGuid(), Value = "Cleaning", Parent = home };
-            var home_food = new Logic.DTO.Category { Id = Guid.NewGuid(), Value = "Food", Parent = home };
-            var home_food_base = new Logic.DTO.Category { Id = Guid.NewGuid(), Value = "Base food", Parent = home_food };
-            var home_food_chocolates = new Logic.DTO.Category { Id = Guid.NewGuid(), Value = "Chocolates", Parent = home_food };
-            var home_food_tea = new Logic.DTO.Category { Id = Guid.NewGuid(), Value = "Tea", Parent = home_food };
-            var dtoCategories = new List<Logic.DTO.Category>
+            var root = new CashManager.Data.DTO.Category { Id = Guid.NewGuid(), Value = "Root" };
+            var home = new CashManager.Data.DTO.Category { Id = Guid.NewGuid(), Value = "Home", Parent = root };
+            var fun = new CashManager.Data.DTO.Category { Id = Guid.NewGuid(), Value = "Fun", Parent = root };
+            var fun_PC = new CashManager.Data.DTO.Category { Id = Guid.NewGuid(), Value = "PC", Parent = fun };
+            var fun_books = new CashManager.Data.DTO.Category { Id = Guid.NewGuid(), Value = "Books", Parent = fun };
+            var fun_games = new CashManager.Data.DTO.Category { Id = Guid.NewGuid(), Value = "Games", Parent = fun };
+            var fun_games_strategy = new CashManager.Data.DTO.Category { Id = Guid.NewGuid(), Value = "Strategy", Parent = fun_games };
+            var fun_games_fps = new CashManager.Data.DTO.Category { Id = Guid.NewGuid(), Value = "FPS", Parent = fun_games };
+            var home_cleaning = new CashManager.Data.DTO.Category { Id = Guid.NewGuid(), Value = "Cleaning", Parent = home };
+            var home_food = new CashManager.Data.DTO.Category { Id = Guid.NewGuid(), Value = "Food", Parent = home };
+            var home_food_base = new CashManager.Data.DTO.Category { Id = Guid.NewGuid(), Value = "Base food", Parent = home_food };
+            var home_food_chocolates = new CashManager.Data.DTO.Category { Id = Guid.NewGuid(), Value = "Chocolates", Parent = home_food };
+            var home_food_tea = new CashManager.Data.DTO.Category { Id = Guid.NewGuid(), Value = "Tea", Parent = home_food };
+            var dtoCategories = new List<CashManager.Data.DTO.Category>
             {
                 root,
                 home, fun,

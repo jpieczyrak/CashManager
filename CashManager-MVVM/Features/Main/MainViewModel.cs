@@ -4,8 +4,6 @@ using CashManager_MVVM.Model.DataProviders;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
-using Logic.Utils;
-
 namespace CashManager_MVVM.Features.Main
 {
     public class MainViewModel : ViewModelBase

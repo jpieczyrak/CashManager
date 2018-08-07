@@ -6,7 +6,6 @@ using Category = CashManager_MVVM.Model.Category;
 using Stock = CashManager_MVVM.Model.Stock;
 using Subtransaction = CashManager_MVVM.Model.Subtransaction;
 using Tag = CashManager_MVVM.Model.Tag;
-using Transaction = Logic.Model.Transaction;
 
 namespace CashManager_MVVM.Mapping
 {
@@ -16,26 +15,26 @@ namespace CashManager_MVVM.Mapping
         {
             Mapper.Initialize(config =>
             {
-                config.CreateMap<Category, Logic.DTO.Category>();
-                config.CreateMap<Logic.DTO.Category, Category>();
+                config.CreateMap<Category, CashManager.Data.DTO.Category>();
+                config.CreateMap<CashManager.Data.DTO.Category, Category>();
 
-                config.CreateMap<Stock, Logic.DTO.Stock>();
-                config.CreateMap<Logic.DTO.Stock, Stock>();
+                config.CreateMap<Stock, CashManager.Data.DTO.Stock>();
+                config.CreateMap<CashManager.Data.DTO.Stock, Stock>();
 
-                config.CreateMap<Transaction, Logic.DTO.Transaction>();
-                config.CreateMap<Logic.DTO.Transaction, Transaction>();
+                config.CreateMap<Transaction, CashManager.Data.DTO.Transaction>();
+                config.CreateMap<CashManager.Data.DTO.Transaction, Transaction>();
 
-                config.CreateMap<Model.Transaction, Logic.DTO.Transaction>();
-                config.CreateMap<Logic.DTO.Transaction, Model.Transaction>();
+                config.CreateMap<Transaction, CashManager.Data.DTO.Transaction>();
+                config.CreateMap<CashManager.Data.DTO.Transaction, Transaction>();
 
-                config.CreateMap<Tag, Logic.DTO.Tag>();
-                config.CreateMap<Logic.DTO.Tag, Tag>();
+                config.CreateMap<Tag, CashManager.Data.DTO.Tag>();
+                config.CreateMap<CashManager.Data.DTO.Tag, Tag>();
                 
-                config.CreateMap<Subtransaction, Logic.DTO.Subtransaction>();
-                config.CreateMap<Logic.DTO.Subtransaction, Subtransaction>();
+                config.CreateMap<Subtransaction, CashManager.Data.DTO.Subtransaction>();
+                config.CreateMap<CashManager.Data.DTO.Subtransaction, Subtransaction>();
 
-                config.CreateMap<PaymentValue, Logic.DTO.PaymentValue>();
-                config.CreateMap<Logic.DTO.PaymentValue, PaymentValue>();
+                config.CreateMap<PaymentValue, CashManager.Data.DTO.PaymentValue>();
+                config.CreateMap<CashManager.Data.DTO.PaymentValue, PaymentValue>();
             });
         }
     }
