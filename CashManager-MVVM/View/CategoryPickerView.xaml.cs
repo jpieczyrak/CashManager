@@ -12,24 +12,18 @@ namespace CashManager_MVVM.View
     /// </summary>
     public partial class CategoryPickerView : Window
     {
-        public CategoryPickerView(Category category)
+        public CategoryPickerView(CategoriesViewModel viewmodel, Category category)
         {
             InitializeComponent();
-            if (DataContext is CategoriesViewModel dataContext)
-            {
-                dataContext.SelectedCategory = category;
-                if (category != null)
-                {
-                    UpdatedSelectedCategories(category, dataContext.Categories);
-                }
-            }
+			DataContext = viewmodel;
+			UpdatedSelectedCategories(category, viewmodel.Categories);
         }
 
         private static void UpdatedSelectedCategories(Category category, IEnumerable<Category> categories)
         {
             foreach (var cat in categories)
             {
-                cat.IsSelected = cat.Value == category.Value;
+                cat.IsSelected = category != null && cat.Value == category.Value;
                 if (cat.Children.Any())
                 {
                     UpdatedSelectedCategories(category, cat.Children);

@@ -12,16 +12,15 @@ namespace CashManager_MVVM.ViewModel
 {
     public class CategoriesViewModel : ViewModelBase
     {
-        public IEnumerable<Category> Categories { get; set; }
-        public Category SelectedCategory { get; set; }
+		public IEnumerable<Category> Categories { get; set; }
 
-        public RelayCommand<Window> CloseCommand { get; set; }
-        public RelayCommand<Category> UpdateSelectedCategory { get; set; }
+		public Category SelectedCategory { get; set; }
+
+		public RelayCommand<Window> CloseCommand => new RelayCommand<Window>(window => window?.Close());
+        public RelayCommand<Category> UpdateSelectedCategory => new RelayCommand<Category>(category => SelectedCategory = category);
 
         public CategoriesViewModel(IDataService dataService)
         {
-            CloseCommand = new RelayCommand<Window>(window => window?.Close());
-            UpdateSelectedCategory = new RelayCommand<Category>(category => SelectedCategory = category);
             dataService.GetCategories((categories, exception) =>
             {
                 if (categories != null)
