@@ -2,24 +2,21 @@
 using System.Linq;
 using System.Windows;
 
-using CashManager_MVVM.Model;
-using CashManager_MVVM.ViewModel;
-
-namespace CashManager_MVVM.View
+namespace CashManager_MVVM.Features.Category
 {
     /// <summary>
     /// Interaction logic for CategoryPickerView.xaml
     /// </summary>
     public partial class CategoryPickerView : Window
     {
-        public CategoryPickerView(CategoriesViewModel viewmodel, Category category)
+        public CategoryPickerView(CategoryViewModel viewmodel, Model.Category category)
         {
             InitializeComponent();
 			DataContext = viewmodel;
 			UpdatedSelectedCategories(category, viewmodel.Categories);
         }
 
-        private static void UpdatedSelectedCategories(Category category, IEnumerable<Category> categories)
+        private static void UpdatedSelectedCategories(Model.Category category, IEnumerable<Model.Category> categories)
         {
             foreach (var cat in categories)
             {

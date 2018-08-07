@@ -2,7 +2,7 @@
 
 using GalaSoft.MvvmLight;
 
-namespace CashManager_MVVM
+namespace CashManager_MVVM.Features
 {
 	public class ViewModelFactory
 	{

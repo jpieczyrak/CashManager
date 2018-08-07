@@ -1,20 +1,19 @@
-﻿using CashManager_MVVM.Model.DataProviders;
-using CashManager_MVVM.View;
+﻿using CashManager_MVVM.Features.Transaction;
+using CashManager_MVVM.Model.DataProviders;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
 using Logic.Utils;
 
-using Transaction = CashManager_MVVM.Model.Transaction;
-
-namespace CashManager_MVVM.ViewModel
+namespace CashManager_MVVM.Features.Main
 {
     public class MainViewModel : ViewModelBase
     {
         private readonly IDataService _dataService;
         private readonly ViewModelFactory _factory;
 
-        public TrulyObservableCollection<Transaction> Transactions { get; set; }
+        public TrulyObservableCollection<Model.Transaction> Transactions { get; set; }
 
 		public RelayCommand TransactionEditCommand => new RelayCommand(TranactionEdit, () => true);
 
@@ -29,7 +28,7 @@ namespace CashManager_MVVM.ViewModel
 			window.Show();
 		}
 
-		public Transaction SelectedTransaction { get; set; }
+		public Model.Transaction SelectedTransaction { get; set; }
 
         public MainViewModel(IDataService dataService, ViewModelFactory factory)
         {
@@ -39,7 +38,7 @@ namespace CashManager_MVVM.ViewModel
                 (transactions, error) =>
                 {
                     if (error != null) return;
-                    Transactions = new TrulyObservableCollection<Transaction>(transactions);
+                    Transactions = new TrulyObservableCollection<Model.Transaction>(transactions);
                 });
         }
     }

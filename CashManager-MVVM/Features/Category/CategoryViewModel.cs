@@ -2,24 +2,23 @@
 using System.Linq;
 using System.Windows;
 
-using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.DataProviders;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
-namespace CashManager_MVVM.ViewModel
+namespace CashManager_MVVM.Features.Category
 {
-    public class CategoriesViewModel : ViewModelBase
+    public class CategoryViewModel : ViewModelBase
     {
-		public IEnumerable<Category> Categories { get; set; }
+		public IEnumerable<Model.Category> Categories { get; set; }
 
-		public Category SelectedCategory { get; set; }
+		public Model.Category SelectedCategory { get; set; }
 
 		public RelayCommand<Window> CloseCommand => new RelayCommand<Window>(window => window?.Close());
-        public RelayCommand<Category> UpdateSelectedCategory => new RelayCommand<Category>(category => SelectedCategory = category);
+        public RelayCommand<Model.Category> UpdateSelectedCategory => new RelayCommand<Model.Category>(category => SelectedCategory = category);
 
-        public CategoriesViewModel(IDataService dataService)
+        public CategoryViewModel(IDataService dataService)
         {
             dataService.GetCategories((categories, exception) =>
             {

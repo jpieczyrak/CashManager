@@ -1,23 +1,24 @@
 ﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ignore="http://www.galasoft.ch/ignore"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight" xmlns:local="clr-namespace:CashManager_MVVM"
-    xmlns:viewModel="clr-namespace:CashManager_MVVM.ViewModel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ignore="http://www.galasoft.ch/ignore"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:Custom="http://www.galasoft.ch/mvvmlight" xmlns:local="clr-namespace:CashManager_MVVM"
     xmlns:model="clr-namespace:CashManager_MVVM.Model"
-    x:Class="CashManager_MVVM.MainWindow"
-        mc:Ignorable="d ignore"
-        Height="600"
-        Width="675"
-        Title="Cash Manager - MVVM Light Application"
-        d:DataContext="{d:DesignInstance Type=viewModel:MainViewModel, IsDesignTimeCreatable=True}">
+    xmlns:main="clr-namespace:CashManager_MVVM.Features.Main"
+    x:Class="CashManager_MVVM.Features.Main.MainWindow"
+    mc:Ignorable="d ignore"
+    Height="600"
+    Width="675"
+    Title="Cash Manager - MVVM Light Application"
+    d:DataContext="{d:DesignInstance Type=main:MainViewModel, IsDesignTimeCreatable=True}">
 
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="../../Skins/MainSkin.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>

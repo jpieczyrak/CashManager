@@ -7,8 +7,9 @@ using Autofac;
 using CashManager.Infrastructure.Modules;
 
 using CashManager_MVVM.Design;
+using CashManager_MVVM.Features;
+using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Model.DataProviders;
-using CashManager_MVVM.ViewModel;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Threading;

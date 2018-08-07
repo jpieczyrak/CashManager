@@ -1,16 +1,13 @@
 ﻿using System.Windows;
 
-using CashManager_MVVM.Model;
-using CashManager_MVVM.ViewModel;
-
-namespace CashManager_MVVM.View
+namespace CashManager_MVVM.Features.Transaction
 {
     /// <summary>
     /// Interaction logic for TransactionView.xaml
     /// </summary>
     public partial class TransactionView : Window
     {
-        public TransactionView(Transaction transaction, TransactionViewModel transactionViewModel)
+        public TransactionView(Model.Transaction transaction, TransactionViewModel transactionViewModel)
         {
             InitializeComponent();
 			DataContext = transactionViewModel;
