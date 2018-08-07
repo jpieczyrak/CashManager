@@ -73,7 +73,6 @@
     <Reference Include="LiteDB, Version=4.1.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\packages\LiteDB.4.1.4\lib\net40\LiteDB.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -97,10 +96,6 @@
     <ProjectReference Include="..\CashManager.DatabaseConnection\CashManager.DatabaseConnection.csproj">
       <Project>{87960EEB-6F05-4EAC-A784-94E3E4975EE3}</Project>
       <Name>CashManager.DatabaseConnection</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Logic\CashManager.Logic.csproj">
-      <Project>{BF1C3982-4770-45E1-9FAB-189656443F61}</Project>
-      <Name>CashManager.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
