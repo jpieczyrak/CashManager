@@ -8,10 +8,13 @@ using CashManager.DatabaseConnection;
 
 using LiteDB;
 
-using Logic.Infrastructure.Command;
-using Logic.Infrastructure.Query;
-
+using CommandDispatcher = CashManager.Infrastructure.Command.CommandDispatcher;
+using ICommandDispatcher = CashManager.Infrastructure.Command.ICommandDispatcher;
+using ICommandHandler = CashManager.Infrastructure.Command.ICommandHandler;
+using IQueryDispatcher = CashManager.Infrastructure.Query.IQueryDispatcher;
+using IQueryHandler = CashManager.Infrastructure.Query.IQueryHandler;
 using Module = Autofac.Module;
+using QueryDispatcher = CashManager.Infrastructure.Query.QueryDispatcher;
 
 namespace CashManager.Infrastructure.Modules
 {
@@ -31,7 +34,7 @@ namespace CashManager.Infrastructure.Modules
 
         private static void RegisterCommandHandlers(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(ICommandHandler<>)))
+            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(Command.ICommandHandler<>)))
                    .Where(x => x.IsAssignableTo<ICommandHandler>())
                    .AsImplementedInterfaces();
 
@@ -43,7 +46,7 @@ namespace CashManager.Infrastructure.Modules
 
                 return t =>
                 {
-                    var handlerType = typeof(ICommandHandler<>).MakeGenericType(t);
+                    var handlerType = typeof(Command.ICommandHandler<>).MakeGenericType(t);
                     return (ICommandHandler) ctx.Resolve(handlerType);
                 };
             });
@@ -51,7 +54,7 @@ namespace CashManager.Infrastructure.Modules
 
         private static void RegisterQueryHandlers(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(IQueryHandler<,>)))
+            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(Query.IQueryHandler<,>)))
                    .Where(x => x.IsAssignableTo<IQueryHandler>())
                    .AsImplementedInterfaces();
 
@@ -63,7 +66,7 @@ namespace CashManager.Infrastructure.Modules
 
                 return t =>
                 {
-                    var type = typeof(IQueryHandler<,>);
+                    var type = typeof(Query.IQueryHandler<,>);
                     var returnType = ((Type[])((TypeInfo)t).ImplementedInterfaces)[0].GenericTypeArguments[0];
                     var handlerType = type.MakeGenericType(t, returnType);
                     return (IQueryHandler) ctx.Resolve(handlerType);

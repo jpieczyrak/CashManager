@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Logic.Infrastructure.Query
+namespace CashManager.Infrastructure.Query
 {
     public class NoQuery : IQuery<IEnumerable<string>>
     {

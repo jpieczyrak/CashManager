@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Logic.Infrastructure.Query
+namespace CashManager.Infrastructure.Query
 {
     public class QueryDispatcher : IQueryDispatcher
     {

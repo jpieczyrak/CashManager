@@ -4,7 +4,9 @@ using System.Windows;
 
 using Autofac;
 
+using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Modules;
+using CashManager.Infrastructure.Query;
 
 using CashManager_MVVM.Design;
 using CashManager_MVVM.Features;
@@ -13,9 +15,6 @@ using CashManager_MVVM.Model.DataProviders;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Threading;
-
-using Logic.Infrastructure.Command;
-using Logic.Infrastructure.Query;
 
 namespace CashManager_MVVM
 {

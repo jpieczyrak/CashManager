@@ -1,4 +1,4 @@
-﻿namespace Logic.Infrastructure.Command
+﻿namespace CashManager.Infrastructure.Command
 {
     public class NoCommand : ICommand
     {

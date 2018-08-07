@@ -1,4 +1,4 @@
-﻿namespace Logic.Infrastructure.Query
+﻿namespace CashManager.Infrastructure.Query
 {
     public interface IQueryHandler { }
 
