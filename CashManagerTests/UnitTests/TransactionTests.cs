@@ -7,7 +7,6 @@ using AutoMapper;
 using Logic.Database;
 using Logic.FilesOperations;
 using Logic.IoC;
-using Logic.LogicObjectsProviders;
 using Logic.Model;
 using Logic.TransactionManagement.TransactionElements;
 
