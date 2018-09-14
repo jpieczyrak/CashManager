@@ -91,11 +91,17 @@
     <Compile Include="Query\NoQuery.cs" />
     <Compile Include="Query\NoQueryHandler.cs" />
     <Compile Include="Query\QueryDispatcher.cs" />
+    <Compile Include="Query\Stocks\StockQueryHandler.cs" />
+    <Compile Include="Query\Stocks\StockQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CashManager.DatabaseConnection\CashManager.DatabaseConnection.csproj">
       <Project>{87960EEB-6F05-4EAC-A784-94E3E4975EE3}</Project>
       <Name>CashManager.DatabaseConnection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CashManager.Data\CashManager.Data.csproj">
+      <Project>{d83c69c0-18f7-4b7f-af7e-143091a26a30}</Project>
+      <Name>CashManager.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
