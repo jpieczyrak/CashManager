@@ -9,5 +9,9 @@ namespace CashManager.Data.DTO
         public Category Parent { get; set; }
 
         public string Value { get; set; }
+		
+		public override bool Equals(object obj) => obj?.GetHashCode() == GetHashCode();
+
+		public override int GetHashCode() => Id.GetHashCode();
     }
 }

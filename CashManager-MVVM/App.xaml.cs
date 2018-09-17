@@ -7,6 +7,7 @@ using Autofac;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Modules;
 using CashManager.Infrastructure.Query;
+using CashManager.Infrastructure.Query.NoQueries;
 
 using CashManager_MVVM.Design;
 using CashManager_MVVM.Features;

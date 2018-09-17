@@ -102,6 +102,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Queries\Categories\CategoryTests.cs" />
+    <Compile Include="Infrastructure\Queries\NoQuery\NoQueryTests.cs" />
     <Compile Include="Infrastructure\Queries\Stock\StockTests.cs" />
     <Compile Include="Parsing\GetinBankParserTests.cs" />
     <Compile Include="TransactionValueTests.cs" />
@@ -132,6 +134,7 @@
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

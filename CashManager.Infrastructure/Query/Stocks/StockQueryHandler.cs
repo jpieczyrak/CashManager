@@ -6,7 +6,7 @@ using LiteDB;
 
 namespace CashManager.Infrastructure.Query.Stocks
 {
-	public class StockQueryHandler : IQueryHandler<StockQuery, Stock[]>, IQuery<Stock[]>
+	public class StockQueryHandler : IQueryHandler<StockQuery, Stock[]>
 	{
 		private readonly LiteRepository _repository;
 		public StockQueryHandler(LiteRepository repository)
