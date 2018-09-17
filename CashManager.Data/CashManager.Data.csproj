@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\Category.cs" />
+    <Compile Include="DTO\Dto.cs" />
     <Compile Include="DTO\PaymentValue.cs" />
     <Compile Include="DTO\Stock.cs" />
     <Compile Include="DTO\Subtransaction.cs" />

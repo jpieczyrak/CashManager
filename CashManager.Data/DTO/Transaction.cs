@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CashManager.Data.DTO
 {
-    public class Transaction
+    public class Transaction : Dto
     {
 		public eTransactionType Type { get; set; }
 
@@ -23,16 +23,11 @@ namespace CashManager.Data.DTO
 
 		public DateTime BookDate { get; set; }
 
-		public Guid Id { get; set; }
-
 		public Stock UserStock { get; set; }
 
 		public Stock ExternalStock { get; set; }
 
-		public Transaction()
-		{
-			Id = Guid.NewGuid();
-		}
+		public Transaction() { }
 
 		/// <summary>
         /// Should be used only after parsing data or for test purpose.
@@ -78,9 +73,5 @@ namespace CashManager.Data.DTO
 
             return Guid.NewGuid();
         }
-		
-		public override bool Equals(object obj) => obj?.GetHashCode() == GetHashCode();
-
-		public override int GetHashCode() => Id.GetHashCode();
     }
 }
