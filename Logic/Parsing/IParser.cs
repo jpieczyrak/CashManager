@@ -6,6 +6,6 @@ namespace Logic.Parsing
 {
     public interface IParser
     {
-        List<Transaction> Parse(string input, Stock userStock);
+        List<Transaction> Parse(string input, Stock userStock, Stock externalStock);
     }
 }

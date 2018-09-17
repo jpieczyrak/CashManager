@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-using Logic.LogicObjectsProviders;
 using Logic.Model;
 using Logic.TransactionManagement.TransactionElements;
 
@@ -18,7 +17,7 @@ namespace Logic.Parsing
 
         #region IParser
 
-        public List<Transaction> Parse(string input, Stock userStock)
+        public List<Transaction> Parse(string input, Stock userStock, Stock externalStock)
         {
             var output = new List<Transaction>();
 
@@ -33,11 +32,11 @@ namespace Logic.Parsing
                 if (transfer.IsMatch(match.Value))
                 {
                     var m = transfer.Match(match.Value);
-                    output.Add(CreateTransaction(m, userStock));
+                    output.Add(CreateTransaction(m, userStock, externalStock));
                 }
                 else
                 {
-                    output.Add(CreateTransaction(match, userStock));
+                    output.Add(CreateTransaction(match, userStock, externalStock));
                 }
             }
 
@@ -46,7 +45,7 @@ namespace Logic.Parsing
 
         #endregion
 
-        private Transaction CreateTransaction(Match match, Stock userStock)
+        private Transaction CreateTransaction(Match match, Stock userStock, Stock externalStock)
         {
             int day = int.Parse(match.Groups["Day"].Value);
             int month = int.Parse(match.Groups["Month"].Value);
@@ -68,9 +67,7 @@ namespace Logic.Parsing
             
             var position = new Position(title, value);
 
-            return new Transaction(transactionType, date, title, note,
-                new List<Position> { position },
-                userStock, StockProvider.Default, match.Value);
+			return new Transaction(transactionType, date, title, note, new List<Position> { position }, userStock, externalStock, match.Value);
         }
     }
 }

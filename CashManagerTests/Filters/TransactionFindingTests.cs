@@ -7,7 +7,7 @@ using Logic.TransactionManagement.TransactionElements;
 
 using NUnit.Framework;
 
-namespace CashManagerTests
+namespace CashManagerTests.Filters
 {
     [TestFixture]
     public class TransactionFindingTests

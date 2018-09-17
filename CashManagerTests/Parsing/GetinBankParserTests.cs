@@ -19,8 +19,8 @@ namespace CashManagerTests.Parsing
         [SetUp]
         public void Setup()
         {
-            MapperConfiguration.Configure();
-            AutofacConfiguration.UseStrategy(eBuildStrategyType.Test);
+            //MapperConfiguration.Configure();
+            //AutofacConfiguration.UseStrategy(eBuildStrategyType.Test);
         }
 
         [Test]
@@ -34,8 +34,8 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
 
             var parser = new GetinBankParser();
 
-            var userStock = StockProvider.AddNew("Getin");
-            var externalStock = StockProvider.Default;
+            var userStock = new Stock("Getin");
+            var externalStock = new Stock("Default");
             var creationDate = new DateTime(2016, 9, 6);
             var expected = new Transaction(eTransactionType.Buy, creationDate, "[Sierpień] Czynsz + media",
                 "JĘDRZEJ PIECZYRAK: PRZELEW WYCHODZĄCY (PLN)",
@@ -46,7 +46,7 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
 
 
             //when
-            var output = parser.Parse(input, userStock);
+            var output = parser.Parse(input, userStock, externalStock);
             var parsed = output.FirstOrDefault();
 
             //then
@@ -80,8 +80,8 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
 
             var parser = new GetinBankParser();
 
-            var userStock = StockProvider.AddNew("Getin");
-            var externalStock = StockProvider.Default;
+			var userStock = new Stock("Getin");
+			var externalStock = new Stock("Default");
             var creationDate = new DateTime(2014, 02, 28);
             var expected = new Transaction(eTransactionType.Work, creationDate, "Wynagrodzenie z tytulu umowy cywilnoprawnej",
                 "Firma SP. Z O.O.: PRZELEW PRZYCHODZĄCY (PLN)",
@@ -91,7 +91,7 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
                 }, userStock, externalStock, input);
 
             //when
-            var output = parser.Parse(input, userStock);
+            var output = parser.Parse(input, userStock, externalStock);
             var parsed = output.FirstOrDefault();
 
             //then

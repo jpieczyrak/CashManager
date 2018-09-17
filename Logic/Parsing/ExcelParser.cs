@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-using Logic.LogicObjectsProviders;
 using Logic.Model;
 using Logic.TransactionManagement.TransactionElements;
 
@@ -10,7 +9,7 @@ namespace Logic.Parsing
 {
     public class ExcelParser : IParser
     {
-        public List<Transaction> Parse(string input, Stock userStock)
+        public List<Transaction> Parse(string input, Stock userStock, Stock externalStock)
         {
             List<Transaction> transactions = new List<Transaction>();
             string[] lines = input.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
@@ -24,31 +23,30 @@ namespace Logic.Parsing
 
                 if (buying)
                 {
-                    transactions.Add(MakeTransaction(userStock, true, values, line));
+                    transactions.Add(MakeTransaction(userStock, externalStock, true, values, line));
                 }
                 if (working)
                 {
-                    transactions.Add(MakeTransaction(userStock, false, values, line));
+                    transactions.Add(MakeTransaction(userStock, externalStock, false, values, line));
                 }
             }
 
             return transactions;
         }
 
-        private Transaction MakeTransaction(Stock userStock, bool outcome, string[] values, string input)
-        {
-            DateTime date = DateTime.ParseExact(values[0], "d.M.yy", CultureInfo.InvariantCulture);
-            string title = values[12];
+		private Transaction MakeTransaction(Stock userStock, Stock externalStock, bool outcome, IReadOnlyList<string> values, string input)
+		{
+			var date = DateTime.ParseExact(values[0], "d.M.yy", CultureInfo.InvariantCulture);
+			string title = values[12];
 
-            eTransactionType type = outcome ? eTransactionType.Buy : eTransactionType.Work;
-            
-            string stringWithValue = outcome ? values[11] : values[10];
-            double value;
-            double.TryParse(stringWithValue, out value);
+			var type = outcome ? eTransactionType.Buy : eTransactionType.Work;
 
-            Position position = new Position(title, value);
+			string stringWithValue = outcome ? values[11] : values[10];
+			double.TryParse(stringWithValue, out double value);
 
-            return new Transaction(type, date, title, "", new List<Position> { position }, userStock, StockProvider.Default, input);
-        }
+			var position = new Position(title, value);
+
+			return new Transaction(type, date, title, "", new List<Position> {position}, userStock, externalStock, input);
+		}
     }
 }
