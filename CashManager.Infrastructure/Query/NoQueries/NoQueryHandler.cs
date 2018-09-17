@@ -2,11 +2,8 @@
 
 namespace CashManager.Infrastructure.Query.NoQueries
 {
-    public class NoQueryHandler : IQueryHandler<NoQuery, IEnumerable<string>>
-    {
-        public IEnumerable<string> Execute(NoQuery query)
-        {
-            return new List<string>();
-        }
-    }
+	public class NoQueryHandler : IQueryHandler<NoQuery, IEnumerable<string>>
+	{
+		public IEnumerable<string> Execute(NoQuery query) => new List<string>();
+	}
 }

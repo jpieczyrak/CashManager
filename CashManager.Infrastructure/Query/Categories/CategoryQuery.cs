@@ -2,8 +2,5 @@
 
 namespace CashManager.Infrastructure.Query.Categories
 {
-	public class CategoryQuery : IQuery<Category[]>
-    {
-		
-	}
+	public class CategoryQuery : IQuery<Category[]> { }
 }

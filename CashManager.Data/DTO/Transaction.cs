@@ -38,7 +38,12 @@ namespace CashManager.Data.DTO
         
         public Stock ExternalStock { get; set; }
 
-        /// <summary>
+		public Transaction()
+		{
+			Id = Guid.NewGuid();
+		}
+
+		/// <summary>
         /// Should be used only after parsing data or for test purpose.
         /// Otherwise please use paramless constructor
         /// </summary>
@@ -82,5 +87,9 @@ namespace CashManager.Data.DTO
 
             return Guid.NewGuid();
         }
+		
+		public override bool Equals(object obj) => obj?.GetHashCode() == GetHashCode();
+
+		public override int GetHashCode() => Id.GetHashCode();
     }
 }

@@ -2,8 +2,5 @@
 
 namespace CashManager.Infrastructure.Query.NoQueries
 {
-    public class NoQuery : IQuery<IEnumerable<string>>
-    {
-        
-    }
+	public class NoQuery : IQuery<IEnumerable<string>> { }
 }

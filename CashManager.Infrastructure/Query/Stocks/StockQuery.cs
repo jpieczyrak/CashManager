@@ -2,8 +2,5 @@
 
 namespace CashManager.Infrastructure.Query.Stocks
 {
-	public class StockQuery : IQuery<Stock[]>
-	{
-
-	}
+	public class StockQuery : IQuery<Stock[]> { }
 }

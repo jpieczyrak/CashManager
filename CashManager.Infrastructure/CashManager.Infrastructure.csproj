@@ -95,6 +95,8 @@
     <Compile Include="Query\QueryDispatcher.cs" />
     <Compile Include="Query\Stocks\StockQueryHandler.cs" />
     <Compile Include="Query\Stocks\StockQuery.cs" />
+    <Compile Include="Query\Transactions\TransactionQuery.cs" />
+    <Compile Include="Query\Transactions\TransactionQueryHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CashManager.DatabaseConnection\CashManager.DatabaseConnection.csproj">

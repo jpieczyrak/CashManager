@@ -105,6 +105,7 @@
     <Compile Include="Infrastructure\Queries\Categories\CategoryTests.cs" />
     <Compile Include="Infrastructure\Queries\NoQuery\NoQueryTests.cs" />
     <Compile Include="Infrastructure\Queries\Stock\StockTests.cs" />
+    <Compile Include="Infrastructure\Queries\Transactions\TransactionsTests.cs" />
     <Compile Include="Parsing\GetinBankParserTests.cs" />
     <Compile Include="TransactionValueTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
