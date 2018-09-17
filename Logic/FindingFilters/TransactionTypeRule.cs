@@ -1,6 +1,5 @@
 ﻿using Logic.Model;
 using Logic.Specification;
-using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;
 
 namespace Logic.FindingFilters
@@ -14,9 +13,9 @@ namespace Logic.FindingFilters
             _transactionType = transactionType;
         }
         
-        public override bool IsSatisfiedBy(Transaction o)
+        public override bool IsSatisfiedBy(Transaction transaction)
         {
-            return o.Type.Equals(_transactionType);
+            return transaction.Type.Equals(_transactionType);
         }
     }
 }

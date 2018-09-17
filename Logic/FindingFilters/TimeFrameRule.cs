@@ -1,7 +1,5 @@
 ﻿using Logic.Model;
 using Logic.Specification;
-using Logic.TransactionManagement;
-using Logic.TransactionManagement.TransactionElements;
 using Logic.Utils;
 
 namespace Logic.FindingFilters
@@ -15,9 +13,9 @@ namespace Logic.FindingFilters
             _timeFrame = timeFrame;
         }
 
-        public override bool IsSatisfiedBy(Transaction o)
+        public override bool IsSatisfiedBy(Transaction transaction)
         {
-            return _timeFrame.Contains(o.BookDate);
+            return _timeFrame.Contains(transaction.BookDate);
         }
     }
 }

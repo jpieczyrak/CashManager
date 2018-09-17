@@ -9,9 +9,9 @@
             _theSpecification = specification;
         }
 
-        public override bool IsSatisfiedBy(T o)
+        public override bool IsSatisfiedBy(T transaction)
         {
-            return !_theSpecification.IsSatisfiedBy(o);
+            return !_theSpecification.IsSatisfiedBy(transaction);
         }
     }
 }

@@ -16,9 +16,9 @@ namespace Logic.Specification
             _expression = expression;
         }
 
-        public override bool IsSatisfiedBy(T o)
+        public override bool IsSatisfiedBy(T transaction)
         {
-            return _expression(o);
+            return _expression(transaction);
         }
     }
 }

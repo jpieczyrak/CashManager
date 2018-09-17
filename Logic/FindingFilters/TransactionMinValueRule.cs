@@ -1,9 +1,5 @@
-﻿using System;
-
-using Logic.Model;
+﻿using Logic.Model;
 using Logic.Specification;
-using Logic.TransactionManagement;
-using Logic.TransactionManagement.TransactionElements;
 
 namespace Logic.FindingFilters
 {
@@ -16,9 +12,9 @@ namespace Logic.FindingFilters
             _minValue = minValue;
         }
 
-        public override bool IsSatisfiedBy(Transaction o)
+        public override bool IsSatisfiedBy(Transaction transaction)
         {
-            return _minValue <= o.Value;
+            return _minValue <= transaction.Value;
         }
     }
 }

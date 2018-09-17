@@ -1,6 +1,5 @@
 using Logic.Model;
 using Logic.Specification;
-using Logic.TransactionManagement;
 using Logic.TransactionManagement.TransactionElements;
 
 namespace Logic.FindingFilters
@@ -14,9 +13,9 @@ namespace Logic.FindingFilters
             this._transactionDirection = transactionDirection;
         }
 
-        public override bool IsSatisfiedBy(Transaction o)
+        public override bool IsSatisfiedBy(Transaction transaction)
         {
-            switch (o.Type)
+            switch (transaction.Type)
             {
                 case eTransactionType.Buy:
                 case eTransactionType.Reinvest:

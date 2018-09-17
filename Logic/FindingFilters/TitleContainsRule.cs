@@ -1,7 +1,5 @@
 ﻿using Logic.Model;
 using Logic.Specification;
-using Logic.TransactionManagement;
-using Logic.TransactionManagement.TransactionElements;
 
 namespace Logic.FindingFilters
 {
@@ -14,9 +12,9 @@ namespace Logic.FindingFilters
             _title = title;
         }
         
-        public override bool IsSatisfiedBy(Transaction o)
+        public override bool IsSatisfiedBy(Transaction transaction)
         {
-            return o.Title.ToLower().Contains(_title.ToLower());
+            return transaction?.Title.ToLower().Contains(_title.ToLower()) ?? false;
         }
     }
 }

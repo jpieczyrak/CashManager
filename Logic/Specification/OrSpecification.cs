@@ -11,10 +11,10 @@
             _rightSpecification = right;
         }
 
-        public override bool IsSatisfiedBy(T o)
+        public override bool IsSatisfiedBy(T transaction)
         {
-            return _leftSpecification.IsSatisfiedBy(o)
-                   || _rightSpecification.IsSatisfiedBy(o);
+            return _leftSpecification.IsSatisfiedBy(transaction)
+                   || _rightSpecification.IsSatisfiedBy(transaction);
         }
     }
 }
