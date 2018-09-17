@@ -7,36 +7,27 @@ namespace CashManager.Data.DTO
 {
     public class Transaction
     {
-        public eTransactionType Type { get; set; }
+		public eTransactionType Type { get; set; }
 
-        public string Title { get; set; }
+		public string Title { get; set; }
 
-        
-        public string Note { get; set; }
-        
-        
-        public List<Subtransaction> Subtransactions { get; set; }
+		public string Note { get; set; }
 
-        
-        public DateTime InstanceCreationDate { get; set; }
+		public List<Subtransaction> Subtransactions { get; set; }
 
-        
-        public DateTime TransationSourceCreationDate { get; set; }
+		public DateTime InstanceCreationDate { get; set; }
 
-        
-        public DateTime LastEditDate { get; set; }
+		public DateTime TransationSourceCreationDate { get; set; }
 
-        
-        public DateTime BookDate { get; set; }
+		public DateTime LastEditDate { get; set; }
 
-        
-        public Guid Id { get; set; }
+		public DateTime BookDate { get; set; }
 
-        
-        public Stock UserStock { get; set; }
+		public Guid Id { get; set; }
 
-        
-        public Stock ExternalStock { get; set; }
+		public Stock UserStock { get; set; }
+
+		public Stock ExternalStock { get; set; }
 
 		public Transaction()
 		{
