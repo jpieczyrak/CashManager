@@ -15,13 +15,12 @@ namespace CashManagerTests.Infrastructure.Queries.Stock
 		public void StockQueryHandler_StockQueryEmptyDatabase_EmptyArray()
 		{
             //given
-			var repository = new LiteRepository(new LiteDatabase(new MemoryStream()));
+			var repository = GetEmptyDatabase();
 			var handler = new StockQueryHandler(repository);
 			var query = new StockQuery();
 
 			//when
 			var result = handler.Execute(query);
-            new LiteDatabase(new MemoryStream()).Dispose();
 
 			//then
 			Assert.NotNull(result);
@@ -32,8 +31,8 @@ namespace CashManagerTests.Infrastructure.Queries.Stock
 		public void StockQueryHandler_StockQueryNotEmptyDatabase_Array()
 		{
             //given
-			var repository = new LiteRepository(new LiteDatabase(new MemoryStream()));
-			var handler = new StockQueryHandler(repository);
+			var repository = GetEmptyDatabase();
+            var handler = new StockQueryHandler(repository);
 			var query = new StockQuery();
 			var stocks = new[]
 			{
@@ -54,10 +53,14 @@ namespace CashManagerTests.Infrastructure.Queries.Stock
 
 			//when
 			var result = handler.Execute(query);
-            new LiteDatabase(new MemoryStream()).Dispose();
 
 			//then
 			Assert.Equal(stocks, result);
 		}
-	}
+
+		private static LiteRepository GetEmptyDatabase()
+		{
+			return new LiteRepository(new LiteDatabase(new MemoryStream()));
+		}
+    }
 }
