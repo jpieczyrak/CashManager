@@ -5,10 +5,10 @@ using System.Linq;
 using AutoMapper;
 
 using CashManager.Data;
+using CashManager.Data.DTO;
 
 using DtoPaymentValue = CashManager.Data.DTO.PaymentValue;
 using DtoCategory = CashManager.Data.DTO.Category;
-using DtoSubtransaction = CashManager.Data.DTO.Subtransaction;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
 using DtoStock = CashManager.Data.DTO.Stock;
 
@@ -27,15 +27,15 @@ namespace CashManager_MVVM.Model.DataProviders
                 GetCategories((categories, exception) => cats = categories.ToArray());
                 var trans = new List<DtoTransaction>
                 {
-                    new DtoTransaction(eTransactionType.Buy, DateTime.Now, "title1", "notes1", new List<DtoSubtransaction>
+                    new DtoTransaction(eTransactionType.Buy, DateTime.Now, "title1", "notes1", new List<CashManager.Data.DTO.Position>
                         {
-                            new DtoSubtransaction
+                            new CashManager.Data.DTO.Position
                             {
                                 Category = Mapper.Map<DtoCategory>(cats.FirstOrDefault(x => x.Parent == null)),
                                 Value = new DtoPaymentValue { Value = 12 },
                                 Title = "title cat1"
                             },
-                            new DtoSubtransaction
+                            new CashManager.Data.DTO.Position
                             {
                                 Category = Mapper.Map<DtoCategory>(cats.FirstOrDefault(x => x.Parent != null)),
                                 Value = new DtoPaymentValue { Value = 15 },
@@ -50,9 +50,9 @@ namespace CashManager_MVVM.Model.DataProviders
                         {
                             Name = "test2"
                         }, "test1"),
-                    new DtoTransaction(eTransactionType.Buy, DateTime.Now, "title2", "notes2", new List<DtoSubtransaction>
+                    new DtoTransaction(eTransactionType.Buy, DateTime.Now, "title2", "notes2", new List<CashManager.Data.DTO.Position>
                         {
-                            new DtoSubtransaction
+                            new CashManager.Data.DTO.Position
                             {
                                 Category = Mapper.Map<DtoCategory>(cats.FirstOrDefault(x => x.Parent == null)),
                                 Value = new DtoPaymentValue { Value = 24 },

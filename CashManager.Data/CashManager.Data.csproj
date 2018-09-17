@@ -75,7 +75,7 @@
     <Compile Include="DTO\Dto.cs" />
     <Compile Include="DTO\PaymentValue.cs" />
     <Compile Include="DTO\Stock.cs" />
-    <Compile Include="DTO\Subtransaction.cs" />
+    <Compile Include="DTO\Position.cs" />
     <Compile Include="DTO\Tag.cs" />
     <Compile Include="DTO\Transaction.cs" />
     <Compile Include="eTransactionType.cs" />

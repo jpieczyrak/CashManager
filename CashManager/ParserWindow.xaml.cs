@@ -88,14 +88,14 @@ namespace CashManager
             Action<Transaction> PBTitle = x =>
             {
                 x.Title = "Obiad FP";
-                x.Subtransactions[0].Category = CategoryProvider.FindOrCreate("Jedzenie - Progress bar");
+                x.Positions[0].Category = CategoryProvider.FindOrCreate("Jedzenie - Progress bar");
             };
             BulkTransactionParametersChanger.Change(_transactions, PBDinner, new[] { PBTitle });
 
             Func<Transaction, bool> FPIncome = x => x.Title.Contains("Wynagrodzenie z tytulu umowy cywilnoprawnej");
             Action<Transaction> FPCategory = x =>
             {
-                x.Subtransactions[0].Category = CategoryProvider.FindOrCreate("Wypłata");
+                x.Positions[0].Category = CategoryProvider.FindOrCreate("Wypłata");
             };
             BulkTransactionParametersChanger.Change(_transactions, FPIncome, new[] { FPCategory });
         }

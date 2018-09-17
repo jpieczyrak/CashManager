@@ -4,7 +4,6 @@ using CashManager_MVVM.Model;
 
 using Category = CashManager_MVVM.Model.Category;
 using Stock = CashManager_MVVM.Model.Stock;
-using Subtransaction = CashManager_MVVM.Model.Subtransaction;
 using Tag = CashManager_MVVM.Model.Tag;
 
 namespace CashManager_MVVM.Mapping
@@ -30,8 +29,8 @@ namespace CashManager_MVVM.Mapping
                 config.CreateMap<Tag, CashManager.Data.DTO.Tag>();
                 config.CreateMap<CashManager.Data.DTO.Tag, Tag>();
                 
-                config.CreateMap<Subtransaction, CashManager.Data.DTO.Subtransaction>();
-                config.CreateMap<CashManager.Data.DTO.Subtransaction, Subtransaction>();
+                config.CreateMap<Position, CashManager.Data.DTO.Position>();
+                config.CreateMap<CashManager.Data.DTO.Position, Position>();
 
                 config.CreateMap<PaymentValue, CashManager.Data.DTO.PaymentValue>();
                 config.CreateMap<CashManager.Data.DTO.PaymentValue, PaymentValue>();

@@ -66,10 +66,10 @@ namespace Logic.Parsing
             string note = $"{sourceName}{(sourceName != "" ? ": " : "")}{operationType} ({currency})";
             var transactionType = positiveSign ? eTransactionType.Work : eTransactionType.Buy;
             
-            var subtransaction = new Subtransaction(title, value);
+            var position = new Position(title, value);
 
             return new Transaction(transactionType, date, title, note,
-                new List<Subtransaction> { subtransaction },
+                new List<Position> { position },
                 userStock, StockProvider.Default, match.Value);
         }
     }

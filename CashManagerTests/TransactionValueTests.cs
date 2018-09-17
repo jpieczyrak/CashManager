@@ -17,10 +17,10 @@ namespace CashManagerTests
             _mystock = new Stock("Mystock");
             _externalStock = new Stock("someone");
             
-            var foodSubtrans = new Subtransaction("Jedzenie", FOOD_COST) { Category = new Category("Cat-Food") };
-            var drugSubtrans = new Subtransaction("Leki", DRUG_COST) { Category = new Category("Cat-Drugs") };
+            var foodSubtrans = new Position("Jedzenie", FOOD_COST) { Category = new Category("Cat-Food") };
+            var drugSubtrans = new Position("Leki", DRUG_COST) { Category = new Category("Cat-Drugs") };
             
-            _outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "", new List<Subtransaction> {foodSubtrans, drugSubtrans}, _mystock, _externalStock, "input");
+            _outcome = new Transaction(eTransactionType.Buy, DateTime.Today, "Buying sth", "", new List<Position> {foodSubtrans, drugSubtrans}, _mystock, _externalStock, "input");
 
         }
         
@@ -42,13 +42,12 @@ namespace CashManagerTests
         public void ShouldShowProperValueWithSign(eTransactionType type, double value, double expected)
         {
             //given
-            
-            var subtransactions = new List<Subtransaction>
+            var positions = new List<Position>
             {
-                new Subtransaction("test1", value / 2),
-                new Subtransaction("test2", value / 2)
+                new Position("test1", value / 2),
+                new Position("test2", value / 2)
             };
-            var transaction = new Transaction(type, DateTime.Now, "title", "note", subtransactions, _mystock, _externalStock, "input");
+            var transaction = new Transaction(type, DateTime.Now, "title", "note", positions, _mystock, _externalStock, "input");
 
             //when
             double actualValue = transaction.ValueAsProfit;

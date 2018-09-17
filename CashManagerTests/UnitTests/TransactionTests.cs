@@ -30,16 +30,16 @@ namespace CashManagerTests.UnitTests
         public void SerializationTests()
         {
             //given
-            var subtransactions = new List<Subtransaction>
+            var positions = new List<Position>
             {
-                new Subtransaction("Sub 1", 12.32, "cat1"),
-                new Subtransaction("Sub 2", 1.32, "cat2")
+                new Position("Sub 1", 12.32, "cat1"),
+                new Position("Sub 2", 1.32, "cat2")
             };
 
             var myStock = new Stock("wallet");
             var externalStock = new Stock("shop");
             var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note",
-                subtransactions, myStock, externalStock, "input");
+                positions, myStock, externalStock, "input");
             var dto = Mapper.Map<Logic.DTO.Transaction>(expected);
 
             //when
@@ -54,7 +54,7 @@ namespace CashManagerTests.UnitTests
             Assert.AreEqual(expected.Note, mappedAfterDeserialization.Note);
             Assert.AreEqual(expected.Title, mappedAfterDeserialization.Title);
 
-            CollectionAssert.AreEquivalent(expected.Subtransactions, mappedAfterDeserialization.Subtransactions);
+            CollectionAssert.AreEquivalent(expected.Positions, mappedAfterDeserialization.Positions);
             Assert.AreEqual(expected.UserStock, mappedAfterDeserialization.UserStock);
             Assert.AreEqual(expected.ExternalStock, mappedAfterDeserialization.ExternalStock);
         }
@@ -63,16 +63,16 @@ namespace CashManagerTests.UnitTests
         public void DatabaseTests()
         {
             //given
-            var subtransactions = new List<Subtransaction>
+            var positions = new List<Position>
             {
-                new Subtransaction("Sub 1", 12.32, "cat1"),
-                new Subtransaction("Sub 2", 1.32, "cat2")
+                new Position("Sub 1", 12.32, "cat1"),
+                new Position("Sub 2", 1.32, "cat2")
             };
 
             var myStock = new Stock("wallet");
             var externalStock = new Stock("shop");
             var expected = new Transaction(eTransactionType.Buy, DateTime.Now, "title", "note",
-                subtransactions, myStock, externalStock, "input");
+                positions, myStock, externalStock, "input");
             var dto = Mapper.Map<Logic.DTO.Transaction>(expected);
 
             //when
@@ -90,7 +90,7 @@ namespace CashManagerTests.UnitTests
             Assert.AreEqual(expected.Note, mappedAfterDeserialization.Note);
             Assert.AreEqual(expected.Title, mappedAfterDeserialization.Title);
 
-            CollectionAssert.AreEquivalent(expected.Subtransactions, mappedAfterDeserialization.Subtransactions);
+            CollectionAssert.AreEquivalent(expected.Positions, mappedAfterDeserialization.Positions);
             Assert.AreEqual(expected.UserStock, mappedAfterDeserialization.UserStock);
             Assert.AreEqual(expected.ExternalStock, mappedAfterDeserialization.ExternalStock);
         }

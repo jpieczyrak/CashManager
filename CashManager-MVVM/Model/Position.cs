@@ -4,7 +4,7 @@ using GalaSoft.MvvmLight;
 
 namespace CashManager_MVVM.Model
 {
-    public class Subtransaction : ObservableObject
+    public class Position : ObservableObject
     {
         private TrulyObservableCollection<Tag> _tags;
 
@@ -51,7 +51,7 @@ namespace CashManager_MVVM.Model
 
         public Guid Id { get; private set; } = Guid.NewGuid();
 
-        public Subtransaction()
+        public Position()
         {
             Tags = new TrulyObservableCollection<Tag>();
             Value = new PaymentValue();

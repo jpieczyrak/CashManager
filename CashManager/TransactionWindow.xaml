@@ -43,7 +43,7 @@
         <Label Content="User stock" Grid.Row="4"/>
         <Label Content="Target stock" Grid.Row="6" Height="24"/>
         <Label Content="Type" HorizontalAlignment="Left" Grid.Row="8" VerticalAlignment="Center" Grid.Column="0" Margin="0" Height="24" Width="35"/>
-        <Label Content="Subtransactions" Margin="0" Grid.Row="9" VerticalAlignment="Center" Grid.ColumnSpan="5" Height="24" Width="94"/>
+        <Label Content="Positions" Margin="0" Grid.Row="9" VerticalAlignment="Center" Grid.ColumnSpan="5" Height="24" Width="94"/>
 
         <!-- Buttons -->
         <Button x:Name="buttonOK" Content="OK" HorizontalAlignment="Center" Margin="44,5,19,5" Grid.Row="11" VerticalAlignment="Center" Width="100" Click="buttonOK_Click" Grid.ColumnSpan="2" Height="25"/>
@@ -59,7 +59,7 @@
         <ComboBox x:Name="comboBoxTransactionType" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" SelectionChanged="comboBoxTransactionType_SelectionChanged" Grid.ColumnSpan="4" Margin="0,1" Height="22"/>
 
 
-        <DataGrid x:Name="dataGridSubtransactions" Margin="5" Grid.ColumnSpan="5" Grid.Row="10" CanUserAddRows="True" AutoGenerateColumns="False" ItemsSource="{Binding Subtransactions}">
+        <DataGrid x:Name="dataGridPositions" Margin="5" Grid.ColumnSpan="5" Grid.Row="10" CanUserAddRows="True" AutoGenerateColumns="False" ItemsSource="{Binding Positions}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="75*"/>
                 <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="75*"/>

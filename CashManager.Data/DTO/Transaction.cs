@@ -13,7 +13,7 @@ namespace CashManager.Data.DTO
 
 		public string Note { get; set; }
 
-		public List<Subtransaction> Subtransactions { get; set; }
+		public List<Position> Positions { get; set; }
 
 		public DateTime InstanceCreationDate { get; set; }
 
@@ -37,12 +37,12 @@ namespace CashManager.Data.DTO
         /// <param name="sourceTransactionCreationDate">When transaction was performed</param>
         /// <param name="title">Title of transaction</param>
         /// <param name="note">Additional notes</param>
-        /// <param name="subtransactions">Subtransactions - like positions from bill</param>
+        /// <param name="positions">Positions - like positions from bill</param>
         /// <param name="userStock">User stock like wallet / bank account</param>
         /// <param name="externalStock">External stock like employer / shop</param>
         /// <param name="sourceInput">Text source of transaction (for parsing purpose) to provide unique id</param>
         public Transaction(eTransactionType transactionType, DateTime sourceTransactionCreationDate, string title, string note,
-            List<Subtransaction> subtransactions, Stock userStock, Stock externalStock, string sourceInput)
+            List<Position> positions, Stock userStock, Stock externalStock, string sourceInput)
         {
             Id = GenerateGUID(sourceInput);
             Type = transactionType;
@@ -50,7 +50,7 @@ namespace CashManager.Data.DTO
             Note = note;
             BookDate = TransationSourceCreationDate = sourceTransactionCreationDate;
             LastEditDate = InstanceCreationDate = DateTime.Now;
-            Subtransactions = new List<Subtransaction>(subtransactions);
+            Positions = new List<Position>(positions);
             UserStock = userStock;
             ExternalStock = externalStock;
         }

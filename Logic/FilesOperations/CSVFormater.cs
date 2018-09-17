@@ -23,7 +23,7 @@ namespace Logic.FilesOperations
 
         public static string ToCSV(Transaction t)
         {
-            string subtransactionsCSV = ToCSV(t.Subtransactions);
+            string positionsCSV = ToCSV(t.Positions);
 
             return string.Format("{0}{9}{1}{9}{2}{9}{3}{9}{4}{9}{5}{9}{6}{9}{7}{9}{8}", 
                 t.BookDate.ToString(DATE_FORMAT), 
@@ -32,15 +32,15 @@ namespace Logic.FilesOperations
                 t.Title, 
                 t.Note,
                 t.Type, 
-                subtransactionsCSV, 
+                positionsCSV, 
                 t.UserStock.Name + SUBELEMENT_ELEMENT_SPLIT_ELEMENT + t.ExternalStock.Name,
 				TRANSACTION_SPLIT_ELEMENT,
                 TRANSACTION_ELEMENT_SPLIT_ELEMENT);
         }
 
-        private static string ToCSV(IEnumerable<Subtransaction> subtransactions)
+        private static string ToCSV(IEnumerable<Position> positions)
         {
-            return subtransactions.Aggregate("",
+            return positions.Aggregate("",
                 (current, s) =>
                     current + $"{s.Title}{SUBELEMENT_ELEMENT_SPLIT_ELEMENT}{s.Value}{SUBELEMENT_ELEMENT_SPLIT_ELEMENT}{s.Category}{SUBELEMENT_ELEMENT_SPLIT_ELEMENT}");
         }

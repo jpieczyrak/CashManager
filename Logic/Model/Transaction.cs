@@ -28,7 +28,7 @@ namespace Logic.Model
         private Stock _externalStock;
         private eTransactionType _type;
 
-        private TrulyObservableCollection<Subtransaction> _subtransactions = new TrulyObservableCollection<Subtransaction>();
+        private TrulyObservableCollection<Position> _positions = new TrulyObservableCollection<Position>();
         private TrulyObservableCollection<Tag> _tags = new TrulyObservableCollection<Tag>();
 
         /// <summary>
@@ -104,16 +104,16 @@ namespace Logic.Model
         }
 
         /// <summary>
-        /// List of subtransactions (like positions on bill)
+        /// List of positions (like positions on bill)
         /// </summary>
-        public TrulyObservableCollection<Subtransaction> Subtransactions
+        public TrulyObservableCollection<Position> Positions
         {
-            get { return _subtransactions; }
+            get { return _positions; }
             set
             {
-                _subtransactions = value;
-                _subtransactions.CollectionChanged += CollectionChanged;
-                OnPropertyChanged(nameof(Subtransactions));
+                _positions = value;
+                _positions.CollectionChanged += CollectionChanged;
+                OnPropertyChanged(nameof(Positions));
             }
         }
 
@@ -162,7 +162,7 @@ namespace Logic.Model
         /// <summary>
         /// Total value of transaction
         /// </summary>
-        public double Value => Subtransactions?.Sum(subtransaction => subtransaction.Value) ?? 0;
+        public double Value => Positions?.Sum(position => position.Value) ?? 0;
 
         /// <summary>
         /// Total value of transaction as profit of user (negative when buying, positive when receiving payments)
@@ -181,7 +181,7 @@ namespace Logic.Model
 
             _tags = new TrulyObservableCollection<Tag>();
             
-            _subtransactions.CollectionChanged += CollectionChanged;
+            _positions.CollectionChanged += CollectionChanged;
             _tags.CollectionChanged += CollectionChanged;
         }
 
@@ -193,12 +193,12 @@ namespace Logic.Model
         /// <param name="sourceTransactionCreationDate">When transaction was performed</param>
         /// <param name="title">Title of transaction</param>
         /// <param name="note">Additional notes</param>
-        /// <param name="subtransactions">Subtransactions - like positions from bill</param>
+        /// <param name="positions">Positions - like positions from bill</param>
         /// <param name="userStock">User stock like wallet / bank account</param>
         /// <param name="externalStock">External stock like employer / shop</param>
         /// <param name="sourceInput">Text source of transaction (for parsing purpose) to provide unique id</param>
         public Transaction(eTransactionType transactionType, DateTime sourceTransactionCreationDate, string title, string note,
-            List<Subtransaction> subtransactions, Stock userStock, Stock externalStock, string sourceInput)
+            List<Position> positions, Stock userStock, Stock externalStock, string sourceInput)
         {
             Id = GenerateGUID(sourceInput);
             Type = transactionType;
@@ -206,7 +206,7 @@ namespace Logic.Model
             Note = note;
             _bookDate = TransationSourceCreationDate = sourceTransactionCreationDate;
             LastEditDate = InstanceCreationDate = DateTime.Now;
-            Subtransactions = new TrulyObservableCollection<Subtransaction>(subtransactions);
+            Positions = new TrulyObservableCollection<Position>(positions);
             _userStock = userStock;
             _externalStock = externalStock;
         }

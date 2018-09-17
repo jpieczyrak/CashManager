@@ -2,7 +2,7 @@
 
 namespace CashManager.Data.DTO
 {
-	public class Subtransaction : Dto
+	public class Position : Dto
 	{
 		public string Title { get; set; }
 

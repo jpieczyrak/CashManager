@@ -7,7 +7,7 @@ using Logic.Properties;
 
 namespace Logic.Model
 {
-    public class Subtransaction : INotifyPropertyChanged
+    public class Position : INotifyPropertyChanged
     {
         private double _value;
 
@@ -27,15 +27,15 @@ namespace Logic.Model
         
         public Guid Id { get; private set; } = Guid.NewGuid();
 
-        private Subtransaction() { }
+        private Position() { }
 
-        public Subtransaction(string title, double value)
+        public Position(string title, double value)
         {
             _value = value;
             Title = title;
         }
 
-        public Subtransaction(string title, double value, string category)
+        public Position(string title, double value, string category)
         {
             _value = value;
             Title = title;

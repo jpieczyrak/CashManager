@@ -106,7 +106,7 @@
     <Compile Include="DTO\Category.cs" />
     <Compile Include="DTO\PaymentValue.cs" />
     <Compile Include="DTO\Stock.cs" />
-    <Compile Include="DTO\Subtransaction.cs" />
+    <Compile Include="DTO\Position.cs" />
     <Compile Include="DTO\Tag.cs" />
     <Compile Include="DTO\Transaction.cs" />
     <Compile Include="IoC\AutofacConfiguration.cs" />
@@ -145,7 +145,7 @@
     <Compile Include="Parsing\ParserFactory.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="TransactionManagement\TransactionElements\eTransactionType.cs" />
-    <Compile Include="Model\Subtransaction.cs" />
+    <Compile Include="Model\Position.cs" />
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Utils\TimeFrame.cs" />
     <Compile Include="Model\Transaction.cs" />

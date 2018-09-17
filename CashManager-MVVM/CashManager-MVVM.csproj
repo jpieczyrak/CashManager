@@ -124,7 +124,7 @@
     <Compile Include="Model\DataProviders\IDataService.cs" />
     <Compile Include="Model\PaymentValue.cs" />
     <Compile Include="Model\Stock.cs" />
-    <Compile Include="Model\Subtransaction.cs" />
+    <Compile Include="Model\Position.cs" />
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Features\ViewModelFactory.cs" />

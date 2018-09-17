@@ -5,15 +5,18 @@ using System.Linq;
 using AutoMapper;
 
 using CashManager.Data;
+using CashManager.Data.DTO;
 
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.DataProviders;
 
+using Category = CashManager_MVVM.Model.Category;
 using PaymentValue = CashManager.Data.DTO.PaymentValue;
-using Subtransaction = CashManager.Data.DTO.Subtransaction;
-
 using DtoTag = CashManager.Data.DTO.Tag;
 using DtoCategory = CashManager.Data.DTO.Category;
+using Position = CashManager.Data.DTO.Position;
+using Stock = CashManager_MVVM.Model.Stock;
+using Transaction = CashManager_MVVM.Model.Transaction;
 
 namespace CashManager_MVVM.Design
 {
@@ -27,9 +30,9 @@ namespace CashManager_MVVM.Design
             GetCategories((categories, exception) => cats = categories.ToArray());
             var transactions = new List<CashManager.Data.DTO.Transaction>
             {
-                new CashManager.Data.DTO.Transaction(eTransactionType.Buy, DateTime.Now, "title1 - design", "notes1", new List<Subtransaction>
+                new CashManager.Data.DTO.Transaction(eTransactionType.Buy, DateTime.Now, "title1 - design", "notes1", new List<Position>
                     {
-                        new Subtransaction
+                        new Position
                         {
                             Category = Mapper.Map<DtoCategory>(cats.FirstOrDefault(x => x.Parent == null)),
                             Value = new PaymentValue { Value = 12 },
@@ -44,9 +47,9 @@ namespace CashManager_MVVM.Design
                     {
                         Name = "test2"
                     }, "design1"),
-                new CashManager.Data.DTO.Transaction(eTransactionType.Buy, DateTime.Now, "title2", "notes2", new List<Subtransaction>
+                new CashManager.Data.DTO.Transaction(eTransactionType.Buy, DateTime.Now, "title2", "notes2", new List<Position>
                     {
-                        new Subtransaction
+                        new Position
                         {
                             Category = Mapper.Map<DtoCategory>(cats.FirstOrDefault(x => x.Parent != null)),
                             Value = new PaymentValue { Value = 24 },

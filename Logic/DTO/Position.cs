@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace Logic.DTO
 {
     [DataContract(Namespace = "")]
-    public class Subtransaction
+    public class Position
     {
         [DataMember]
         public string Title { get; set; }

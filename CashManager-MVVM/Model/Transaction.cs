@@ -20,7 +20,7 @@ namespace CashManager_MVVM.Model
         private Stock _externalStock;
         private eTransactionType _type;
 
-        private TrulyObservableCollection<Subtransaction> _subtransactions;
+        private TrulyObservableCollection<Position> _positions;
         private DateTime _lastEditDate;
 
         /// <summary>
@@ -84,15 +84,15 @@ namespace CashManager_MVVM.Model
         }
 
         /// <summary>
-        /// List of subtransactions (like positions on bill)
+        /// List of positions (like positions on bill)
         /// </summary>
-        public TrulyObservableCollection<Subtransaction> Subtransactions
+        public TrulyObservableCollection<Position> Positions
         {
-            get => _subtransactions;
+            get => _positions;
             set
             {
-                Set(nameof(Subtransactions), ref _subtransactions, value);
-                _subtransactions.CollectionChanged += CollectionChanged;
+                Set(nameof(Positions), ref _positions, value);
+                _positions.CollectionChanged += CollectionChanged;
             }
         }
 
@@ -119,7 +119,7 @@ namespace CashManager_MVVM.Model
         /// <summary>
         /// Total value of transaction
         /// </summary>
-        public double Value => Subtransactions?.Sum(subtransaction => subtransaction.Value?.Value) ?? 0;
+        public double Value => Positions?.Sum(position => position.Value?.Value) ?? 0;
 
         /// <summary>
         /// Total value of transaction as profit of user (negative when buying, positive when receiving payments)
@@ -134,7 +134,7 @@ namespace CashManager_MVVM.Model
             Type = eTransactionType.Buy;
             BookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
 
-            Subtransactions = new TrulyObservableCollection<Subtransaction>();
+            Positions = new TrulyObservableCollection<Position>();
             PropertyChanged += OnPropertyChanged;
         }
 

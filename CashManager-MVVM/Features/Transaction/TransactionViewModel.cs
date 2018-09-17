@@ -23,12 +23,12 @@ namespace CashManager_MVVM.Features.Transaction
 		{
 			_factory = factory;
 			dataService.GetStocks((stocks, exception) => { _stocks = stocks; });
-			ChooseCategoryCommand = new RelayCommand<Subtransaction>(subtransaction =>
+			ChooseCategoryCommand = new RelayCommand<Position>(position =>
 			{
 				var viewmodel = _factory.Invoke(typeof(CategoryViewModel)) as CategoryViewModel;
-				var window = new CategoryPickerView(viewmodel, subtransaction.Category);
+				var window = new CategoryPickerView(viewmodel, position.Category);
 				window.Show();
-				window.Closing += (sender, args) => { subtransaction.Category = viewmodel?.SelectedCategory; };
+				window.Closing += (sender, args) => { position.Category = viewmodel?.SelectedCategory; };
 			});
 		}
 
@@ -44,6 +44,6 @@ namespace CashManager_MVVM.Features.Transaction
 
 		public IEnumerable<Stock> UserStocks => _stocks.Where(x => x.IsUserStock);
 
-		public RelayCommand<Subtransaction> ChooseCategoryCommand { get; set; }
+		public RelayCommand<Position> ChooseCategoryCommand { get; set; }
 	}
 }

@@ -46,9 +46,9 @@ namespace Logic.Parsing
             double value;
             double.TryParse(stringWithValue, out value);
 
-            Subtransaction subtransaction = new Subtransaction(title, value);
+            Position position = new Position(title, value);
 
-            return new Transaction(type, date, title, "", new List<Subtransaction> { subtransaction }, userStock, StockProvider.Default, input);
+            return new Transaction(type, date, title, "", new List<Position> { position }, userStock, StockProvider.Default, input);
         }
     }
 }

@@ -39,9 +39,9 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
             var creationDate = new DateTime(2016, 9, 6);
             var expected = new Transaction(eTransactionType.Buy, creationDate, "[Sierpień] Czynsz + media",
                 "JĘDRZEJ PIECZYRAK: PRZELEW WYCHODZĄCY (PLN)",
-                new List<Subtransaction>
+                new List<Position>
                 {
-                    new Subtransaction("[Sierpień] Czynsz + media", 684.62d)
+                    new Position("[Sierpień] Czynsz + media", 684.62d)
                 }, userStock, externalStock, input);
 
 
@@ -63,8 +63,8 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
 			var instanceCreationDiff = expected.InstanceCreationDate - parsed.InstanceCreationDate;
 			Assert.LessOrEqual(instanceCreationDiff, TimeSpan.FromSeconds(1));
             
-            Assert.AreEqual(expected.Subtransactions.First().Title, parsed.Subtransactions.First().Title);
-            Assert.AreEqual(expected.Subtransactions.First().Value, parsed.Subtransactions.First().Value);
+            Assert.AreEqual(expected.Positions.First().Title, parsed.Positions.First().Title);
+            Assert.AreEqual(expected.Positions.First().Value, parsed.Positions.First().Value);
 
             Assert.AreEqual(expected.Value, parsed.Value);
         }
@@ -85,9 +85,9 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
             var creationDate = new DateTime(2014, 02, 28);
             var expected = new Transaction(eTransactionType.Work, creationDate, "Wynagrodzenie z tytulu umowy cywilnoprawnej",
                 "Firma SP. Z O.O.: PRZELEW PRZYCHODZĄCY (PLN)",
-                new List<Subtransaction>
+                new List<Position>
                 {
-                    new Subtransaction("Wynagrodzenie z tytulu umowy cywilnoprawnej", 1123.12d)
+                    new Position("Wynagrodzenie z tytulu umowy cywilnoprawnej", 1123.12d)
                 }, userStock, externalStock, input);
 
             //when
@@ -105,8 +105,8 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
             Assert.AreEqual(creationDate, parsed.BookDate);
             Assert.AreEqual(creationDate, parsed.TransationSourceCreationDate);
 
-            Assert.AreEqual(expected.Subtransactions.First().Title, parsed.Subtransactions.First().Title);
-            Assert.AreEqual(expected.Subtransactions.First().Value, parsed.Subtransactions.First().Value);
+            Assert.AreEqual(expected.Positions.First().Title, parsed.Positions.First().Title);
+            Assert.AreEqual(expected.Positions.First().Value, parsed.Positions.First().Value);
 
             Assert.AreEqual(expected.Value, parsed.Value);
         }
