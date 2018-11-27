@@ -2,7 +2,7 @@
 
 using Xunit;
 
-namespace CashManagerTests.Infrastructure.Queries.NoQuery
+namespace CashManager.Tests.Infrastructure.Queries.NoQuery
 {
 	public class NoQueryTests
 	{

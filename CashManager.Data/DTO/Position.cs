@@ -4,7 +4,15 @@ namespace CashManager.Data.DTO
 {
 	public class Position : Dto
 	{
-		public string Title { get; set; }
+	    public Position() { }
+
+	    public Position(string title, double value)
+        {
+            Title = title;
+            Value = new PaymentValue() { Value = value };
+        }
+
+        public string Title { get; set; }
 
 		public PaymentValue Value { get; set; }
 
