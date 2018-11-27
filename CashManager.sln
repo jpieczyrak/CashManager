@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManager-GUI", "CashManager\CashManager-GUI.csproj", "{885B525E-CAC1-4A3F-AA86-C720E4CA64A5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManager.LogicOld", "Logic\CashManager.LogicOld.csproj", "{BF1C3982-4770-45E1-9FAB-189656443F61}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManager-MVVM", "CashManager-MVVM\CashManager-MVVM.csproj", "{49BCCABB-E76D-4C04-82A4-20FB886AC076}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManager.Infrastructure", "CashManager.Infrastructure\CashManager.Infrastructure.csproj", "{C0CD5651-D1B7-47F3-B034-A5CB00079B38}"
@@ -29,30 +25,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{885B525E-CAC1-4A3F-AA86-C720E4CA64A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{885B525E-CAC1-4A3F-AA86-C720E4CA64A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{885B525E-CAC1-4A3F-AA86-C720E4CA64A5}.Debug|x64.ActiveCfg = Debug|x64
-		{885B525E-CAC1-4A3F-AA86-C720E4CA64A5}.Debug|x64.Build.0 = Debug|x64
-		{885B525E-CAC1-4A3F-AA86-C720E4CA64A5}.Debug|x86.ActiveCfg = Debug|x86
-		{885B525E-CAC1-4A3F-AA86-C720E4CA64A5}.Debug|x86.Build.0 = Debug|x86
-		{885B525E-CAC1-4A3F-AA86-C720E4CA64A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{885B525E-CAC1-4A3F-AA86-C720E4CA64A5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{885B525E-CAC1-4A3F-AA86-C720E4CA64A5}.Release|x64.ActiveCfg = Release|x64
-		{885B525E-CAC1-4A3F-AA86-C720E4CA64A5}.Release|x64.Build.0 = Release|x64
-		{885B525E-CAC1-4A3F-AA86-C720E4CA64A5}.Release|x86.ActiveCfg = Release|Any CPU
-		{885B525E-CAC1-4A3F-AA86-C720E4CA64A5}.Release|x86.Build.0 = Release|Any CPU
-		{BF1C3982-4770-45E1-9FAB-189656443F61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF1C3982-4770-45E1-9FAB-189656443F61}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF1C3982-4770-45E1-9FAB-189656443F61}.Debug|x64.ActiveCfg = Debug|x64
-		{BF1C3982-4770-45E1-9FAB-189656443F61}.Debug|x64.Build.0 = Debug|x64
-		{BF1C3982-4770-45E1-9FAB-189656443F61}.Debug|x86.ActiveCfg = Debug|x86
-		{BF1C3982-4770-45E1-9FAB-189656443F61}.Debug|x86.Build.0 = Debug|x86
-		{BF1C3982-4770-45E1-9FAB-189656443F61}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF1C3982-4770-45E1-9FAB-189656443F61}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF1C3982-4770-45E1-9FAB-189656443F61}.Release|x64.ActiveCfg = Release|x64
-		{BF1C3982-4770-45E1-9FAB-189656443F61}.Release|x64.Build.0 = Release|x64
-		{BF1C3982-4770-45E1-9FAB-189656443F61}.Release|x86.ActiveCfg = Release|Any CPU
-		{BF1C3982-4770-45E1-9FAB-189656443F61}.Release|x86.Build.0 = Release|Any CPU
 		{49BCCABB-E76D-4C04-82A4-20FB886AC076}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{49BCCABB-E76D-4C04-82A4-20FB886AC076}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49BCCABB-E76D-4C04-82A4-20FB886AC076}.Debug|x64.ActiveCfg = Debug|x64
