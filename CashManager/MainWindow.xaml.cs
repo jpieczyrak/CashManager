@@ -7,11 +7,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-using Logic.FindingFilters;
-using Logic.LogicObjectsProviders;
-using Logic.Mapping;
-using Logic.Model;
-using Logic.Utils;
+using LogicOld.FindingFilters;
+using LogicOld.LogicObjectsProviders;
+using LogicOld.Mapping;
+using LogicOld.Model;
+using LogicOld.Utils;
 
 namespace CashManager
 {

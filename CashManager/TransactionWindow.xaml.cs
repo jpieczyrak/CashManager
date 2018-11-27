@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using Logic;
-using Logic.FindingFilters;
-using Logic.LogicObjectsProviders;
-using Logic.Model;
-using Logic.TransactionManagement.TransactionElements;
+
+using LogicOld;
+using LogicOld.FindingFilters;
+using LogicOld.LogicObjectsProviders;
+using LogicOld.Model;
+using LogicOld.TransactionManagement.TransactionElements;
 
 namespace CashManager
 {

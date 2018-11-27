@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
 
-namespace Logic.FilesOperations
+namespace LogicOld.FilesOperations
 {
     public class Deserializer
     {

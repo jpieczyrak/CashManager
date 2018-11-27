@@ -3,11 +3,11 @@ using System.Linq;
 
 using AutoMapper;
 
-using Logic.Database;
-using Logic.Model;
-using Logic.Utils;
+using LogicOld.Database;
+using LogicOld.Model;
+using LogicOld.Utils;
 
-namespace Logic.LogicObjectsProviders
+namespace LogicOld.LogicObjectsProviders
 {
     public static class TransactionProvider
     {

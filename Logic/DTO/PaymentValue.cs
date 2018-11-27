@@ -1,4 +1,4 @@
-﻿namespace Logic.DTO
+﻿namespace LogicOld.DTO
 {
     public class PaymentValue
     {

@@ -120,9 +120,9 @@
       <Project>{c0cd5651-d1b7-47f3-b034-a5cb00079b38}</Project>
       <Name>CashManager.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Logic\CashManager.Logic.csproj">
+    <ProjectReference Include="..\Logic\CashManager.LogicOld.csproj">
       <Project>{BF1C3982-4770-45E1-9FAB-189656443F61}</Project>
-      <Name>CashManager.Logic</Name>
+      <Name>CashManager.LogicOld</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

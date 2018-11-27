@@ -2,10 +2,11 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-using Logic.LogicObjectsProviders;
-using Logic.Properties;
+using JetBrains.Annotations;
 
-namespace Logic.Model
+using LogicOld.LogicObjectsProviders;
+
+namespace LogicOld.Model
 {
     public class Position : INotifyPropertyChanged
     {

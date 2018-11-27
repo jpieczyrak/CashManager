@@ -1,6 +1,6 @@
 using System;
 
-namespace Logic.Utils
+namespace LogicOld.Utils
 {
     public class TimeFrame
     {

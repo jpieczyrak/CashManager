@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using Logic;
-using Logic.FindingFilters;
-using Logic.LogicObjectsProviders;
-using Logic.Model;
-using Logic.Parsing;
-using Logic.TransactionManagement.BulkModifications;
-using Logic.TransactionManagement.TransactionElements;
+
+using LogicOld;
+using LogicOld.FindingFilters;
+using LogicOld.LogicObjectsProviders;
+using LogicOld.Model;
+using LogicOld.Parsing;
+using LogicOld.TransactionManagement.BulkModifications;
+using LogicOld.TransactionManagement.TransactionElements;
 
 namespace CashManager
 {

@@ -1,7 +1,7 @@
 using System;
 
-using Logic;
-using Logic.Utils;
+using LogicOld;
+using LogicOld.Utils;
 
 namespace CashManager
 {

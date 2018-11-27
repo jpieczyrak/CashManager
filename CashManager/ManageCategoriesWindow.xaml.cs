@@ -1,6 +1,5 @@
 ﻿using System.Windows;
-using Logic;
-using Logic.LogicObjectsProviders;
+using LogicOld.LogicObjectsProviders;
 
 namespace CashManager
 {

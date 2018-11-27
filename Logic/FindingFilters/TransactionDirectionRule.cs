@@ -1,8 +1,8 @@
-using Logic.Model;
-using Logic.Specification;
-using Logic.TransactionManagement.TransactionElements;
+using LogicOld.Model;
+using LogicOld.Specification;
+using LogicOld.TransactionManagement.TransactionElements;
 
-namespace Logic.FindingFilters
+namespace LogicOld.FindingFilters
 {
     public class TransactionDirectionRule : CompositeSpecification<Transaction>
     {

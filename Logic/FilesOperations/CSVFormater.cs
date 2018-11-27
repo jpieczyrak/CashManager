@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using Logic.Model;
-using Logic.TransactionManagement.TransactionElements;
+using LogicOld.Model;
+using LogicOld.TransactionManagement.TransactionElements;
 
-namespace Logic.FilesOperations
+namespace LogicOld.FilesOperations
 {
     public class CSVFormater
     {

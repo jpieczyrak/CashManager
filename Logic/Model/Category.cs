@@ -4,10 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-using Logic.Annotations;
-using Logic.LogicObjectsProviders;
+using JetBrains.Annotations;
 
-namespace Logic.Model
+using LogicOld.LogicObjectsProviders;
+
+namespace LogicOld.Model
 {
     public class Category : INotifyPropertyChanged
     {

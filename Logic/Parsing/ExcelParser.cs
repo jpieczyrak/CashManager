@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-using Logic.Model;
-using Logic.TransactionManagement.TransactionElements;
+using LogicOld.Model;
+using LogicOld.TransactionManagement.TransactionElements;
 
-namespace Logic.Parsing
+namespace LogicOld.Parsing
 {
     public class ExcelParser : IParser
     {

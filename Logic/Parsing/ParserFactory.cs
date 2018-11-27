@@ -1,6 +1,6 @@
 using System;
 
-namespace Logic.Parsing
+namespace LogicOld.Parsing
 {
     public class ParserFactory
     {

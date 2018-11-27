@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Logic.DTO
+namespace LogicOld.DTO
 {
     [DataContract(Namespace = "")]
     public class Position

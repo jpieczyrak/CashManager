@@ -1,9 +1,9 @@
 ﻿using System;
 
-using Logic.Model;
-using Logic.TransactionManagement.TransactionElements;
+using LogicOld.Model;
+using LogicOld.TransactionManagement.TransactionElements;
 
-namespace Logic.TransactionManagement.BulkModifications
+namespace LogicOld.TransactionManagement.BulkModifications
 {
     public static class BulkTransactionParametersChanger
     {

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-using Logic.Model;
+using LogicOld.Model;
 
-namespace Logic.Parsing
+namespace LogicOld.Parsing
 {
     public interface IParser
     {

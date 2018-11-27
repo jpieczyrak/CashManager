@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 
-using Logic.Model;
+using LogicOld.Model;
 
-namespace Logic.Mapping
+namespace LogicOld.Mapping
 {
 	public class MapperConfiguration
 	{

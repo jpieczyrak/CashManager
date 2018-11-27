@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Logic.Specification
+namespace LogicOld.Specification
 {
     public class ExpressionSpecification<T> : CompositeSpecification<T>
     {

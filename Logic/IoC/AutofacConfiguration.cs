@@ -1,8 +1,8 @@
 ﻿using Autofac;
 
-using Logic.IoC.BuildStrategies;
+using LogicOld.IoC.BuildStrategies;
 
-namespace Logic.IoC
+namespace LogicOld.IoC
 {
     public static class AutofacConfiguration
     {

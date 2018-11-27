@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 
-using Logic;
-using Logic.LogicObjectsProviders;
-using Logic.Model;
+using LogicOld;
+using LogicOld.LogicObjectsProviders;
+using LogicOld.Model;
 
 namespace CashManager
 {

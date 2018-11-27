@@ -4,9 +4,9 @@ using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 
-using Logic.TransactionManagement.TransactionElements;
+using LogicOld.TransactionManagement.TransactionElements;
 
-namespace Logic.DTO
+namespace LogicOld.DTO
 {
     [DataContract(Namespace = "")]
     public class Transaction

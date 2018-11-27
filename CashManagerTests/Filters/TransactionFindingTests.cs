@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Logic.FindingFilters;
-using Logic.Model;
-using Logic.TransactionManagement.TransactionElements;
+using LogicOld.FindingFilters;
+using LogicOld.Model;
+using LogicOld.TransactionManagement.TransactionElements;
 
 using NUnit.Framework;
 

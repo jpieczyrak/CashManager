@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 using LiteDB;
 
-namespace Logic.Database
+namespace LogicOld.Database
 {
 	public static class LiteDbExtensions
 	{

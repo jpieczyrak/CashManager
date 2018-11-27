@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManager-GUI", "CashManager\CashManager-GUI.csproj", "{885B525E-CAC1-4A3F-AA86-C720E4CA64A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManager.Logic", "Logic\CashManager.Logic.csproj", "{BF1C3982-4770-45E1-9FAB-189656443F61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManager.LogicOld", "Logic\CashManager.LogicOld.csproj", "{BF1C3982-4770-45E1-9FAB-189656443F61}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManagerTests", "CashManagerTests\CashManagerTests.csproj", "{067456C0-086C-46A8-B37F-1405717B7BFC}"
 EndProject

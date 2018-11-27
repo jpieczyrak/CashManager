@@ -1,7 +1,7 @@
-﻿using Logic.Model;
-using Logic.Specification;
+﻿using LogicOld.Model;
+using LogicOld.Specification;
 
-namespace Logic.FindingFilters
+namespace LogicOld.FindingFilters
 {
     public class TransactionMaxValueRule : CompositeSpecification<Transaction>
     {

@@ -5,7 +5,7 @@ using Autofac;
 
 using LiteDB;
 
-namespace Logic.IoC.BuildStrategies
+namespace LogicOld.IoC.BuildStrategies
 {
     public class TestBuildStrategy : IBuildStrategy
     {

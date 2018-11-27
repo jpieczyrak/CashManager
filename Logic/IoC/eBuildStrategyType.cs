@@ -1,4 +1,4 @@
-﻿namespace Logic.IoC
+﻿namespace LogicOld.IoC
 {
     public enum eBuildStrategyType
     {

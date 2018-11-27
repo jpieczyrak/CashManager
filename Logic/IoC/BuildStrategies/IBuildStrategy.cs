@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace Logic.IoC.BuildStrategies
+namespace LogicOld.IoC.BuildStrategies
 {
     public interface IBuildStrategy
     {

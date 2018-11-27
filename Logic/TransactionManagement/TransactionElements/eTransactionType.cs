@@ -1,4 +1,4 @@
-﻿namespace Logic.TransactionManagement.TransactionElements
+﻿namespace LogicOld.TransactionManagement.TransactionElements
 {
     public enum eTransactionType
     {

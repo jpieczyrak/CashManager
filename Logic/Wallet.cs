@@ -1,9 +1,9 @@
-﻿using Logic.Database;
-using Logic.LogicObjectsProviders;
-using Logic.Model;
-using Logic.Utils;
+﻿using LogicOld.Database;
+using LogicOld.LogicObjectsProviders;
+using LogicOld.Model;
+using LogicOld.Utils;
 
-namespace Logic
+namespace LogicOld
 {
     public class Wallet
     {

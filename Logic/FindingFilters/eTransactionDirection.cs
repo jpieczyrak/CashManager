@@ -1,4 +1,4 @@
-﻿namespace Logic.FindingFilters
+﻿namespace LogicOld.FindingFilters
 {
     public enum eTransactionDirection
     {

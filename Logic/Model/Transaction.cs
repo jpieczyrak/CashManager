@@ -10,11 +10,12 @@ using System.Text;
 
 using GalaSoft.MvvmLight;
 
-using Logic.Properties;
-using Logic.TransactionManagement.TransactionElements;
-using Logic.Utils;
+using JetBrains.Annotations;
 
-namespace Logic.Model
+using LogicOld.TransactionManagement.TransactionElements;
+using LogicOld.Utils;
+
+namespace LogicOld.Model
 {
     [DataContract(Namespace = "")]
     public class Transaction : ObservableObject

@@ -2,9 +2,9 @@
 
 using LiteDB;
 
-using Logic.IoC;
+using LogicOld.IoC;
 
-namespace Logic.Database
+namespace LogicOld.Database
 {
     public class DatabaseProvider
     {

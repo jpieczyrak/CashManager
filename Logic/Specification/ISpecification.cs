@@ -1,4 +1,4 @@
-﻿namespace Logic.Specification
+﻿namespace LogicOld.Specification
 {
     public interface ISpecification<T>
     {

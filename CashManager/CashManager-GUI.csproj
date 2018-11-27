@@ -196,9 +196,9 @@
     <Resource Include="Resources\cash.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Logic\CashManager.Logic.csproj">
+    <ProjectReference Include="..\Logic\CashManager.LogicOld.csproj">
       <Project>{BF1C3982-4770-45E1-9FAB-189656443F61}</Project>
-      <Name>CashManager.Logic</Name>
+      <Name>CashManager.LogicOld</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

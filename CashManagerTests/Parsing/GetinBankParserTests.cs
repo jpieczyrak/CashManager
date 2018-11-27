@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Logic.IoC;
-using Logic.LogicObjectsProviders;
-using Logic.Mapping;
-using Logic.Model;
-using Logic.Parsing;
-using Logic.TransactionManagement.TransactionElements;
+using LogicOld.IoC;
+using LogicOld.LogicObjectsProviders;
+using LogicOld.Mapping;
+using LogicOld.Model;
+using LogicOld.Parsing;
+using LogicOld.TransactionManagement.TransactionElements;
 
 using NUnit.Framework;
 

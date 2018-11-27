@@ -1,4 +1,4 @@
-namespace Logic.Parsing
+namespace LogicOld.Parsing
 {
     public enum eParserInputType
     {

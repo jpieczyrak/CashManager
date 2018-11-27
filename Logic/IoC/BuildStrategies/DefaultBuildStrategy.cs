@@ -2,7 +2,7 @@
 
 using LiteDB;
 
-namespace Logic.IoC.BuildStrategies
+namespace LogicOld.IoC.BuildStrategies
 {
     public class DefaultBuildStrategy : IBuildStrategy
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Logic.Database
+namespace LogicOld.Database
 {
 	public interface IId
 	{

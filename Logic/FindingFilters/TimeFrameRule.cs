@@ -1,8 +1,8 @@
-﻿using Logic.Model;
-using Logic.Specification;
-using Logic.Utils;
+﻿using LogicOld.Model;
+using LogicOld.Specification;
+using LogicOld.Utils;
 
-namespace Logic.FindingFilters
+namespace LogicOld.FindingFilters
 {
     public class TimeFrameRule : CompositeSpecification<Transaction>
     {

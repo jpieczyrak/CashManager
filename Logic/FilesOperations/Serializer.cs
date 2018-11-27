@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
 
-namespace Logic.FilesOperations
+namespace LogicOld.FilesOperations
 {
     public static class Serializer
     {

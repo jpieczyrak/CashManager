@@ -1,4 +1,4 @@
-﻿namespace Logic.Specification
+﻿namespace LogicOld.Specification
 {
     public class AndSpecification<T> : CompositeSpecification<T>
     {

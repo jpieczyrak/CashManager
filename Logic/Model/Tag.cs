@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-using Logic.Annotations;
+using JetBrains.Annotations;
 
-namespace Logic.Model
+namespace LogicOld.Model
 {
     /// <summary>
     /// Stores "tag" information of transaction.
