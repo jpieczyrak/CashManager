@@ -3,11 +3,11 @@ using System.Linq;
 
 using CashManager.Data;
 using CashManager.Data.DTO;
-using CashManager.Logic.Parsing;
+using CashManager.Logic.Parsers;
 
 using Xunit;
 
-namespace CashManager.Tests.Parsing
+namespace CashManager.Tests.Parsers
 {
     public class GetinBankParserTests
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace CashManager.Logic.Parsing
+namespace CashManager.Logic.Parsers
 {
     public class ParserFactory
     {

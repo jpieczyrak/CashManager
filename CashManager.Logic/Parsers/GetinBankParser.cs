@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using CashManager.Data;
 using CashManager.Data.DTO;
 
-namespace CashManager.Logic.Parsing
+namespace CashManager.Logic.Parsers
 {
     public class GetinBankParser : IParser
     {

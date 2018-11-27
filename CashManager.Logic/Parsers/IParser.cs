@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using CashManager.Data.DTO;
 
-namespace CashManager.Logic.Parsing
+namespace CashManager.Logic.Parsers
 {
     public interface IParser
     {

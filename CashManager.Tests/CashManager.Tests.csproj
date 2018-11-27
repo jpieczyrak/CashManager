@@ -56,7 +56,7 @@
     <Compile Include="Infrastructure\Queries\NoQuery\NoQueryTests.cs" />
     <Compile Include="Infrastructure\Queries\Stock\StockTests.cs" />
     <Compile Include="Infrastructure\Queries\Transactions\TransactionsTests.cs" />
-    <Compile Include="Parsing\GetinBankParserTests.cs" />
+    <Compile Include="Parsers\GetinBankParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

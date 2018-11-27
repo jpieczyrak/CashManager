@@ -13,9 +13,9 @@ namespace CashManager_MVVM.Features.Main
 
         public TrulyObservableCollection<Model.Transaction> Transactions { get; set; }
 
-		public RelayCommand TransactionEditCommand => new RelayCommand(TranactionEdit, () => true);
+		public RelayCommand TransactionEditCommand => new RelayCommand(TransactionEdit, () => true);
 
-		private void TranactionEdit()
+		private void TransactionEdit()
 		{
 			var window = new TransactionView(SelectedTransaction, _factory.Create<TransactionViewModel>())
 			{

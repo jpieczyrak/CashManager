@@ -1,4 +1,4 @@
-namespace CashManager.Logic.Parsing
+namespace CashManager.Logic.Parsers
 {
     public enum eParserInputType
     {
