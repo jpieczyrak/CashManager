@@ -11,6 +11,8 @@ namespace Logic.DTO
     [DataContract(Namespace = "")]
     public class Transaction
     {
+        private Transaction() { }
+
         [DataMember]
         public eTransactionType Type { get; set; }
 

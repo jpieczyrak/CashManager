@@ -18,7 +18,7 @@ namespace Logic.IoC.BuildStrategies
         public ContainerBuilder ConfigureBuilder()
         {
             var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterInstance(new LiteDatabase("Filename=litedb.db;Timeout=1000;Journal=true"))
+            containerBuilder.RegisterInstance(new LiteDatabase("Filename=litedb.db;Journal=true"))
                             .As<LiteDatabase>()
                             .SingleInstance();
 

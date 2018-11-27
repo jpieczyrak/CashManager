@@ -52,7 +52,7 @@ namespace CashManager
             eParserInputType parserInputType = (eParserInputType) comboboxInputType.SelectedItem;
             IParser parser = ParserFactory.Create(parserInputType);
 
-            List<Transaction> parsedTransactions = parser.Parse(input, userStock);
+            List<Transaction> parsedTransactions = parser.Parse(input, userStock, null);
             foreach (Transaction transaction in parsedTransactions)
             {
                 _transactions.TransactionsList.Add(transaction);
