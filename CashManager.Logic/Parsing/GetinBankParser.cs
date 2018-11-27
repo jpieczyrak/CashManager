@@ -53,16 +53,16 @@ namespace CashManager.Logic.Parsing
 
             string title = match.Groups["Title"].Value;
             string operationType = match.Groups["OperationType"].Value;
-            string sourceName = match.Groups["SourceName"]?.Value ?? "";
+            string sourceName = match.Groups["SourceName"]?.Value ?? string.Empty;
             string currency = match.Groups["Currency"].Value;
 
             bool positiveSign = match.Groups["Sign"].Value.Equals("+");
-            int bigValue = int.Parse(match.Groups["ValueWithSpaces"].Value.Replace(" ", ""));
+            int bigValue = int.Parse(match.Groups["ValueWithSpaces"].Value.Replace(" ", string.Empty));
             int smallValue = int.Parse(match.Groups["ValueAfterComma"].Value);
 
             double value = bigValue + smallValue / 100.0;
             var date = new DateTime(year, month, day);
-            string note = $"{sourceName}{(sourceName != "" ? ": " : "")}{operationType} ({currency})";
+            string note = $"{sourceName}{(sourceName != string.Empty ? ": " : string.Empty)}{operationType} ({currency})";
             var transactionType = positiveSign ? eTransactionType.Work : eTransactionType.Buy;
             
             var position = new Position(title, value);

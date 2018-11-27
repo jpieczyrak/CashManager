@@ -37,14 +37,8 @@ namespace CashManager.Tests.Infrastructure.Queries.Transactions
             var query = new TransactionQuery();
             var transactions = new[]
             {
-                new Transaction
-                {
-                    Id = new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1)
-                },
-                new Transaction
-                {
-                    Id = new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2)
-                }
+                new Transaction(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1)),
+                new Transaction(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2))
             };
             repository.Database.GetCollection<Transaction>().InsertBulk(transactions);
 

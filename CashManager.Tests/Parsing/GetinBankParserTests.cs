@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using CashManager.Data;
@@ -28,12 +27,12 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
             var creationDate = new DateTime(2016, 9, 6);
             var expected = new Transaction(eTransactionType.Buy, creationDate, "[Sierpień] Czynsz + media",
                 "JĘDRZEJ PIECZYRAK: PRZELEW WYCHODZĄCY (PLN)",
-                new List<Position>
+                new[]
                 {
-                    new Position()
+                    new Position
                     {
                         Title = "[Sierpień] Czynsz + media",
-                        Value = new PaymentValue() { Value = 684.62d }
+                        Value = new PaymentValue { Value = 684.62d }
                     }
                 }, userStock, externalStock, input);
 
@@ -51,7 +50,7 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
             Assert.Equal(expected.ExternalStock, parsed.ExternalStock);
 
             Assert.Equal(creationDate, parsed.BookDate);
-            Assert.Equal(creationDate, parsed.TransationSourceCreationDate);
+            Assert.Equal(creationDate, parsed.TransactionSourceCreationDate);
 
 			var instanceCreationDiff = expected.InstanceCreationDate - parsed.InstanceCreationDate;
 			Assert.InRange(instanceCreationDiff, TimeSpan.FromSeconds(-1), TimeSpan.FromSeconds(1));
@@ -78,10 +77,8 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
             var creationDate = new DateTime(2014, 02, 28);
             var expected = new Transaction(eTransactionType.Work, creationDate, "Wynagrodzenie z tytulu umowy cywilnoprawnej",
                 "Firma SP. Z O.O.: PRZELEW PRZYCHODZĄCY (PLN)",
-                new List<Position>
-                {
-                    new Position("Wynagrodzenie z tytulu umowy cywilnoprawnej", 1123.12d)
-                }, userStock, externalStock, input);
+                new [] { new Position("Wynagrodzenie z tytulu umowy cywilnoprawnej", 1123.12d) }, 
+                userStock, externalStock, input);
 
             //when
             var output = parser.Parse(input, userStock, externalStock);
@@ -96,7 +93,7 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
             Assert.Equal(expected.ExternalStock, parsed.ExternalStock);
 
             Assert.Equal(creationDate, parsed.BookDate);
-            Assert.Equal(creationDate, parsed.TransationSourceCreationDate);
+            Assert.Equal(creationDate, parsed.TransactionSourceCreationDate);
 
             Assert.Equal(expected.Positions.First().Title, parsed.Positions.First().Title);
             Assert.Equal(expected.Positions.First().Value.Value, parsed.Positions.First().Value.Value);

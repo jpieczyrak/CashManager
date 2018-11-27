@@ -35,18 +35,16 @@ namespace CashManager.Tests.Infrastructure.Queries.Categories
             var repository = GetEmptyDatabase();
             var handler = new CategoryQueryHandler(repository);
             var query = new CategoryQuery();
-            var rootCategory = new Category
+            var rootCategory = new Category(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1))
             {
-                Id = new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1),
                 Value = "1",
                 Parent = null
             };
             var categories = new[]
             {
                 rootCategory,
-                new Category
+                new Category(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2))
                 {
-                    Id = new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2),
                     Value = "2",
                     Parent = rootCategory
                 }

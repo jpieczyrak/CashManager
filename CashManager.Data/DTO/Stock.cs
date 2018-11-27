@@ -1,8 +1,14 @@
-﻿namespace CashManager.Data.DTO
+﻿using System;
+
+namespace CashManager.Data.DTO
 {
 	public class Stock : Dto
 	{
-		public string Name { get; set; }
+	    public Stock() { }
+
+	    public Stock(Guid id) { Id = id; }
+
+	    public string Name { get; set; }
 
 		public bool IsUserStock { get; set; }
 	}

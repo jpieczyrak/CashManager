@@ -36,15 +36,13 @@ namespace CashManager.Tests.Infrastructure.Queries.Stock
             var query = new StockQuery();
             var stocks = new[]
             {
-                new Data.DTO.Stock
+                new Data.DTO.Stock(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1))
                 {
-                    Id = new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1),
                     Name = "1",
                     IsUserStock = true
                 },
-                new Data.DTO.Stock
+                new Data.DTO.Stock(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2))
                 {
-                    Id = new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2),
                     Name = "2",
                     IsUserStock = false
                 }

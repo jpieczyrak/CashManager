@@ -17,7 +17,7 @@ namespace CashManager.Data.DTO
 
 		public DateTime InstanceCreationDate { get; set; }
 
-		public DateTime TransationSourceCreationDate { get; set; }
+		public DateTime TransactionSourceCreationDate { get; set; }
 
 		public DateTime LastEditDate { get; set; }
 
@@ -29,7 +29,9 @@ namespace CashManager.Data.DTO
 
 		public Transaction() { }
 
-		/// <summary>
+        public Transaction(Guid id) { Id = id; }
+
+        /// <summary>
         /// Should be used only after parsing data or for test purpose.
         /// Otherwise please use paramless constructor
         /// </summary>
@@ -42,13 +44,13 @@ namespace CashManager.Data.DTO
         /// <param name="externalStock">External stock like employer / shop</param>
         /// <param name="sourceInput">Text source of transaction (for parsing purpose) to provide unique id</param>
         public Transaction(eTransactionType transactionType, DateTime sourceTransactionCreationDate, string title, string note,
-            List<Position> positions, Stock userStock, Stock externalStock, string sourceInput)
+            IEnumerable<Position> positions, Stock userStock, Stock externalStock, string sourceInput)
         {
             Id = GenerateGUID(sourceInput);
             Type = transactionType;
             Title = title;
             Note = note;
-            BookDate = TransationSourceCreationDate = sourceTransactionCreationDate;
+            BookDate = TransactionSourceCreationDate = sourceTransactionCreationDate;
             LastEditDate = InstanceCreationDate = DateTime.Now;
             Positions = new List<Position>(positions);
             UserStock = userStock;

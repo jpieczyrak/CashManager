@@ -5,9 +5,7 @@ using System.Linq;
 using AutoMapper;
 
 using CashManager.Data;
-using CashManager.Data.DTO;
 
-using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.DataProviders;
 
 using Category = CashManager_MVVM.Model.Category;
@@ -70,19 +68,19 @@ namespace CashManager_MVVM.Design
 
         public void GetCategories(Action<IEnumerable<Category>, Exception> callback)
         {
-            var root = new DtoCategory { Id = Guid.NewGuid(), Value = "Root" };
-            var home = new DtoCategory { Id = Guid.NewGuid(), Value = "Home", Parent = root };
-            var fun = new DtoCategory { Id = Guid.NewGuid(), Value = "Fun", Parent = root };
-            var fun_PC = new DtoCategory { Id = Guid.NewGuid(), Value = "PC", Parent = fun };
-            var fun_books = new DtoCategory { Id = Guid.NewGuid(), Value = "Books", Parent = fun };
-            var fun_games = new DtoCategory { Id = Guid.NewGuid(), Value = "Games", Parent = fun };
-            var fun_games_strategy = new DtoCategory { Id = Guid.NewGuid(), Value = "Strategy", Parent = fun_games };
-            var fun_games_fps = new DtoCategory { Id = Guid.NewGuid(), Value = "FPS", Parent = fun_games };
-            var home_cleaning = new DtoCategory { Id = Guid.NewGuid(), Value = "Cleaning", Parent = home };
-            var home_food = new DtoCategory { Id = Guid.NewGuid(), Value = "Food", Parent = home };
-            var home_food_base = new DtoCategory { Id = Guid.NewGuid(), Value = "Base food", Parent = home_food };
-            var home_food_chocolates = new DtoCategory { Id = Guid.NewGuid(), Value = "Chocolates", Parent = home_food };
-            var home_food_tea = new DtoCategory { Id = Guid.NewGuid(), Value = "Tea", Parent = home_food };
+            var root = new DtoCategory { Value = "Root" };
+            var home = new DtoCategory { Value = "Home", Parent = root };
+            var fun = new DtoCategory { Value = "Fun", Parent = root };
+            var fun_PC = new DtoCategory { Value = "PC", Parent = fun };
+            var fun_books = new DtoCategory { Value = "Books", Parent = fun };
+            var fun_games = new DtoCategory { Value = "Games", Parent = fun };
+            var fun_games_strategy = new DtoCategory { Value = "Strategy", Parent = fun_games };
+            var fun_games_fps = new DtoCategory { Value = "FPS", Parent = fun_games };
+            var home_cleaning = new DtoCategory { Value = "Cleaning", Parent = home };
+            var home_food = new DtoCategory { Value = "Food", Parent = home };
+            var home_food_base = new DtoCategory { Value = "Base food", Parent = home_food };
+            var home_food_chocolates = new DtoCategory { Value = "Chocolates", Parent = home_food };
+            var home_food_tea = new DtoCategory { Value = "Tea", Parent = home_food };
             var dtoCategories = new List<DtoCategory>
             {
                 root,
