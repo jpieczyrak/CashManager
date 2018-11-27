@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -36,15 +35,16 @@ namespace Logic.Database
 			return collection.FindAll().ToArray();
 		}
 
-		public static List<T> Query<T>(this LiteDatabase db, Expression<Func<T, bool>> query) where T : class
+		public static T[] Query<T>(this LiteDatabase db, Expression<Func<T, bool>> query) where T : class
 		{
-			return db.GetCollection<T>().Find(query).ToList();
+			return db.GetCollection<T>().Find(query).ToArray();
 		}
 
-		public static void RemoveAll<T>(this LiteDatabase db, Expression<Func<T, bool>> query = null) where T : class
+		public static int RemoveAll<T>(this LiteDatabase db, Expression<Func<T, bool>> query = null) where T : class
 		{
-			if (query == null) db.GetCollection<T>().Delete(LiteDB.Query.All());
-			else db.GetCollection<T>().Delete(query);
+		    return query == null 
+		               ? db.GetCollection<T>().Delete(LiteDB.Query.All()) 
+		               : db.GetCollection<T>().Delete(query);
 		}
 	}
 }
