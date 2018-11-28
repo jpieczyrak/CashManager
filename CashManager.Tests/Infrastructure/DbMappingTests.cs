@@ -50,7 +50,6 @@ namespace CashManager.Tests.Infrastructure
             repo.Database.UpsertBulk(new [] { stock1, stock2});
             repo.Database.UpsertBulk(tags.ToArray());
             repo.Database.UpsertBulk(positions.ToArray());
-            repo.Database.Upsert(paymentValue);
 
             //then
             var actual = repo.Database.Query<Transaction>().First();
@@ -117,11 +116,10 @@ namespace CashManager.Tests.Infrastructure
             repo.Database.UpsertBulk(new [] { stock1, stock2});
             repo.Database.UpsertBulk(tags.ToArray());
             repo.Database.UpsertBulk(positions.ToArray());
-            repo.Database.Upsert(paymentValue);
 
             //modify
-            paymentValue.Value += 666.66;
-            repo.Database.Upsert(paymentValue);
+            transaction.Positions.First().Value.Value += 666.66;
+            repo.Database.Upsert(transaction.Positions.First());
 
             transaction.ExternalStock.Name += "test";
             repo.Database.Upsert(transaction.ExternalStock);

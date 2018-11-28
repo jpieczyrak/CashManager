@@ -17,8 +17,7 @@ namespace CashManager.Infrastructure.DbConnection
             BsonMapper.Global.Entity<Position>()
                       .Id(x => x.Id)
                       .DbRef(x => x.Category)
-                      .DbRef(x => x.Tags)
-                      .DbRef(x => x.Value);
+                      .DbRef(x => x.Tags);
 
             BsonMapper.Global.Entity<Category>()
                       .Id(x => x.Id)
