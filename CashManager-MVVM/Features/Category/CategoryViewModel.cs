@@ -25,10 +25,13 @@ namespace CashManager_MVVM.Features.Category
 
         public CategoryViewModel(IQueryDispatcher queryDispatcher)
         {
-            var dtos = queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery());
-            var categories = dtos.Select(Mapper.Map<Model.Category>).ToArray();
+            var categories = queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery())
+                                            .Select(Mapper.Map<Model.Category>)
+                                            .ToArray();
+
             foreach (var category in categories) category.Children = categories.Where(x => x.Parent?.Id == category?.Id).ToArray();
-            Categories = categories.Where(x => x.Parent == null).ToArray();
+
+            Categories = categories.Where(x => x.Parent == null).ToArray(); //find the root(s)
         }
     }
 }

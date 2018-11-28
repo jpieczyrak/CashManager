@@ -52,12 +52,18 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
         public void UpsertTransactionCommandHandler_EmptyDbUpsertList_ListSaved()
         {
             //given
+            var tags = new List<Tag> { new Tag(), new Tag() };
             var transactions = new[]
             {
-                new Transaction { Note = "test1", Positions = new List<Position> { new Position { Title = "p1" } } },
-                new Transaction { Note = "test2", Positions = new List<Position> { new Position { Title = "p2" } } }
+                new Transaction
+                {
+                    Note = "test1",
+                    Positions = new List<Position> { new Position { Title = "p1", Category = new Category(), Tags = tags } }
+                },
+                new Transaction { Note = "test2", Positions = new List<Position> { new Position { Title = "p2", Category = new Category() } } }
             };
             var positions = transactions.SelectMany(x => x.Positions).OrderBy(x => x.Id).ToArray();
+            var categories = transactions.SelectMany(x => x.Positions).Select(x => x.Category).OrderBy(x => x.Id).ToArray();
 
             var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new UpsertTransactionsCommandHandler(repository);
@@ -74,18 +80,34 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
             Assert.Equal(positions, actualPositions);
             Assert.Equal(positions.Select(x => x.Title), actualPositions.Select(x => x.Title));
             Assert.Equal(positions.Select(x => x.Value.Value), actualPositions.Select(x => x.Value.Value));
+
+            var orderedTags = positions.Where(x => x.Tags != null).SelectMany(x => x.Tags).OrderBy(x => x.Id).ToArray();
+            var actualOrderedTags = actualPositions.Where(x => x.Tags != null).SelectMany(x => x.Tags).OrderBy(x => x.Id).ToArray();
+            Assert.Equal(orderedTags, actualOrderedTags);
+            Assert.Equal(orderedTags.Select(x => x.Name), actualOrderedTags.Select(x => x.Name));
+
+            var actualCategories = repository.Database.Query<Category>().OrderBy(x => x.Id).ToArray();
+            Assert.Equal(categories, actualCategories);
+            Assert.Equal(categories.Select(x => x.Value), actualCategories.Select(x => x.Value));
+            Assert.Equal(categories.Select(x => x.Parent), actualCategories.Select(x => x.Parent));
         }
 
         [Fact]
         public void UpsertTransactionCommandHandler_NotEmptyDbUpsertList_ListUpdated()
         {
             //given
+            var tags = new List<Tag> { new Tag(), new Tag() };
             var transactions = new[]
             {
-                new Transaction { Note = "test1", Positions = new List<Position> { new Position { Title = "p1" } } },
-                new Transaction { Note = "test2", Positions = new List<Position> { new Position { Title = "p2" } } }
+                new Transaction
+                {
+                    Note = "test1",
+                    Positions = new List<Position> { new Position { Title = "p1", Category = new Category(), Tags = tags } }
+                },
+                new Transaction { Note = "test2", Positions = new List<Position> { new Position { Title = "p2", Category = new Category() } } }
             };
             var positions = transactions.SelectMany(x => x.Positions).OrderBy(x => x.Id).ToArray();
+            var categories = transactions.SelectMany(x => x.Positions).Select(x => x.Category).OrderBy(x => x.Id).ToArray();
 
             var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new UpsertTransactionsCommandHandler(repository);
@@ -108,6 +130,16 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
             Assert.Equal(positions, actualPositions);
             Assert.Equal(positions.Select(x => x.Title), actualPositions.Select(x => x.Title));
             Assert.Equal(positions.Select(x => x.Value.Value).ToArray(), actualPositions.Select(x => x.Value.Value).ToArray());
+
+            var orderedTags = positions.Where(x => x.Tags != null).SelectMany(x => x.Tags).OrderBy(x => x.Id).ToArray();
+            var actualOrderedTags = actualPositions.Where(x => x.Tags != null).SelectMany(x => x.Tags).OrderBy(x => x.Id).ToArray();
+            Assert.Equal(orderedTags, actualOrderedTags);
+            Assert.Equal(orderedTags.Select(x => x.Name), actualOrderedTags.Select(x => x.Name));
+
+            var actualCategories = repository.Database.Query<Category>().OrderBy(x => x.Id).ToArray();
+            Assert.Equal(categories, actualCategories);
+            Assert.Equal(categories.Select(x => x.Value), actualCategories.Select(x => x.Value));
+            Assert.Equal(categories.Select(x => x.Parent), actualCategories.Select(x => x.Parent));
         }
     }
 }

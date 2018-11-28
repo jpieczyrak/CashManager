@@ -39,7 +39,8 @@ namespace CashManager_MVVM.Features.Main
             _queryDispatcher = queryDispatcher;
             _factory = factory;
             var items = _queryDispatcher.Execute<TransactionQuery, CashManager.Data.DTO.Transaction[]>(new TransactionQuery());
-            Transactions = new TrulyObservableCollection<Model.Transaction>(items.Select(Mapper.Map<Model.Transaction>));
+            var transactions = items.Select(Mapper.Map<Model.Transaction>).ToArray();
+            Transactions = new TrulyObservableCollection<Model.Transaction>(transactions);
         }
     }
 }

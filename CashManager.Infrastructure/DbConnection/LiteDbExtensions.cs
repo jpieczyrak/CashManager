@@ -30,12 +30,13 @@ namespace CashManager.Infrastructure.DbConnection
             var collection = db.GetCollection<T>();
 
             if (elements == null) return 0;
+            elements = elements.Where(x => x != null).ToArray();
 
             var matching = elements.OfType<Dto>().Select(x => x as T).ToArray();
             if (matching.Any()) count += collection.Upsert(matching);
 
             var notMatching = elements.Except(matching).ToArray();
-            count += notMatching.Where(x => x != null).Sum(x => collection.Upsert(x.GetHashCode(), x) ? 1 : 0);
+            count += notMatching.Sum(x => collection.Upsert(x.GetHashCode(), x) ? 1 : 0);
 
             return count;
         }

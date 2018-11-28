@@ -22,6 +22,9 @@ namespace CashManager.Infrastructure.Command.Transactions
             {
                 var positions = command.Transactions.SelectMany(x => x.Positions).ToArray();
                 _db.UpsertBulk(positions);
+
+                _db.UpsertBulk(positions.Select(x => x.Category).ToArray());
+                _db.UpsertBulk(positions.Where(x => x.Tags != null).SelectMany(x => x.Tags).ToArray());
             }
         }
     }
