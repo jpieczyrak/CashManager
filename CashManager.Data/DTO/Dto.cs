@@ -4,7 +4,7 @@ namespace CashManager.Data.DTO
 {
 	public class Dto
 	{
-		public Guid Id { get; protected set; } = Guid.NewGuid();
+        public Guid Id { get; protected set; } = Guid.NewGuid();
 
 		public override bool Equals(object obj) => obj?.GetHashCode() == GetHashCode();
 

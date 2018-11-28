@@ -5,6 +5,7 @@ using System.Reflection;
 using Autofac;
 
 using CashManager.DatabaseConnection;
+using CashManager.Infrastructure.DbConnection;
 
 using LiteDB;
 
@@ -27,6 +28,7 @@ namespace CashManager.Infrastructure.Modules
             string dbPath = "results.litedb"; //todo: from settings
             EnsureDirectoryExists(dbPath);
             builder.Register(x => new LiteRepository($"Filename={dbPath};Journal=true"));
+            LiteDbMappingManager.SetMappings();
 
             RegisterCommandHandlers(builder);
             RegisterQueryHandlers(builder);

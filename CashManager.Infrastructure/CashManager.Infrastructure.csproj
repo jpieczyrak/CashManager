@@ -89,6 +89,7 @@
     <Compile Include="Command\NoCommands\NoCommandHandler.cs" />
     <Compile Include="DbConnection\LiteDbExtensions.cs" />
     <Compile Include="Modules\DatabaseCommunicationModule.cs" />
+    <Compile Include="DbConnection\LiteDbMappingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\Categories\CategoryQuery.cs" />
     <Compile Include="Query\Categories\CategoryQueryHandler.cs" />
