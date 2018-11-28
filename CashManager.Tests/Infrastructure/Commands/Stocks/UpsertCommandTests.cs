@@ -70,10 +70,10 @@ namespace CashManager.Tests.Infrastructure.Commands.Stocks
         }
 
         [Fact]
-        public void UpsertStockCommandHandler_NamemptyDbUpsertList_ListUpdated()
+        public void UpsertStockCommandHandler_NotEmptyDbUpsertList_ListUpdated()
         {
             //given
-            var Stocks = new[]
+            var stocks = new[]
             {
                 new Stock { Name = "test1" },
                 new Stock { Name = "test2" }
@@ -81,21 +81,18 @@ namespace CashManager.Tests.Infrastructure.Commands.Stocks
 
             var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new UpsertStocksCommandHandler(repository);
-            var command = new UpsertStocksCommand(Stocks);
-            repository.Database.UpsertBulk(Stocks);
-            foreach (var Stock in Stocks) Stock.Name += " - updated";
+            var command = new UpsertStocksCommand(stocks);
+            repository.Database.UpsertBulk(stocks);
+            foreach (var stock in stocks) stock.Name += " - updated";
 
             //when
             handler.Execute(command);
 
             //then
             var orderedStocksInDatabase = repository.Database.Query<Stock>().OrderBy(x => x.Id).ToArray();
-            Stocks = Stocks.OrderBy(x => x.Id).ToArray();
-            Assert.Equal(Stocks, orderedStocksInDatabase);
-            for (int i = 0; i < Stocks.Length; i++)
-            {
-                Assert.Equal(Stocks[i].Name, orderedStocksInDatabase[i].Name);
-            }
+            stocks = stocks.OrderBy(x => x.Id).ToArray();
+            Assert.Equal(stocks, orderedStocksInDatabase);
+            for (int i = 0; i < stocks.Length; i++) Assert.Equal(stocks[i].Name, orderedStocksInDatabase[i].Name);
         }
     }
 }
