@@ -53,7 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dtos\TransactionCreationTests.cs" />
-    <Compile Include="Infrastructure\Extensions\LiteDbExtensionTests.cs" />
+    <Compile Include="Infrastructure\Extensions\LiteDbExtensions\RemoveTests.cs" />
+    <Compile Include="Infrastructure\Extensions\LiteDbExtensions\QueryTests.cs" />
+    <Compile Include="Infrastructure\Extensions\LiteDbExtensions\UpsertTests.cs" />
     <Compile Include="Infrastructure\Queries\Categories\CategoryTests.cs" />
     <Compile Include="Infrastructure\Queries\NoQuery\NoQueryTests.cs" />
     <Compile Include="Infrastructure\Queries\Stock\StockTests.cs" />

@@ -48,15 +48,12 @@ namespace CashManager.Infrastructure.DbConnection
                                   : LiteDB.Query.EQ(ID_FIELD_NAME, element.GetHashCode()));
         }
 
-        public static T[] Read<T>(this LiteDatabase db) where T : class
+        public static T[] Query<T>(this LiteDatabase db, Expression<Func<T, bool>> query = null) where T : class
         {
             var collection = db.GetCollection<T>();
-            return collection.FindAll().ToArray();
-        }
-
-        public static T[] Query<T>(this LiteDatabase db, Expression<Func<T, bool>> query) where T : class
-        {
-            return db.GetCollection<T>().Find(query).ToArray();
+            return query != null 
+                       ? collection.Find(query).ToArray() 
+                       : collection.FindAll().ToArray();
         }
 
         public static int RemoveAll<T>(this LiteDatabase db, Expression<Func<T, bool>> query = null) where T : class

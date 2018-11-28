@@ -11,6 +11,6 @@ namespace CashManager.Infrastructure.Query.Tags
 
 		public TagQueryHandler(LiteRepository repository) => _db = repository.Database;
 
-		public Tag[] Execute(TagQuery query) => _db.Read<Tag>();
+		public Tag[] Execute(TagQuery query) => _db.Query<Tag>();
 	}
 }

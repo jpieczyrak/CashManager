@@ -11,6 +11,6 @@ namespace CashManager.Infrastructure.Query.Stocks
 
 		public StockQueryHandler(LiteRepository repository) => _db = repository.Database;
 
-		public Stock[] Execute(StockQuery query) => _db.Read<Stock>();
+		public Stock[] Execute(StockQuery query) => _db.Query<Stock>();
 	}
 }

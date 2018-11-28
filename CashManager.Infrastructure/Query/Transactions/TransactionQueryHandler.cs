@@ -11,6 +11,6 @@ namespace CashManager.Infrastructure.Query.Transactions
 
 		public TransactionQueryHandler(LiteRepository repository) => _db = repository.Database;
 
-		public Transaction[] Execute(TransactionQuery query) => _db.Read<Transaction>();
+		public Transaction[] Execute(TransactionQuery query) => _db.Query<Transaction>();
 	}
 }

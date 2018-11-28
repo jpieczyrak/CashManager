@@ -11,6 +11,6 @@ namespace CashManager.Infrastructure.Query.Categories
 
 		public CategoryQueryHandler(LiteRepository repository) => _db = repository.Database;
 
-		public Category[] Execute(CategoryQuery query) => _db.Read<Category>();
+		public Category[] Execute(CategoryQuery query) => _db.Query<Category>();
 	}
 }
