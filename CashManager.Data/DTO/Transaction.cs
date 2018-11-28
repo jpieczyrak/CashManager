@@ -38,7 +38,7 @@ namespace CashManager.Data.DTO
         /// Should be used only after parsing data or for test purpose.
         /// Otherwise please use paramless constructor
         /// </summary>
-        /// <param name="transactionType">Tranasction type</param>
+        /// <param name="transactionType">Transaction type</param>
         /// <param name="sourceTransactionCreationDate">When transaction was performed</param>
         /// <param name="title">Title of transaction</param>
         /// <param name="note">Additional notes</param>
