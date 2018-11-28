@@ -6,6 +6,8 @@ using AutoMapper;
 
 using CashManager.Data;
 using CashManager.Data.DTO;
+using CashManager.Infrastructure.Command;
+using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 
@@ -19,13 +21,15 @@ namespace CashManager_MVVM.Features.Transaction
 	public class TransactionViewModel : ViewModelBase
 	{
 	    private readonly IQueryDispatcher _queryDispatcher;
+	    private readonly ICommandDispatcher _commandDispatcher;
 	    private readonly Func<Type, ViewModelBase> _factory;
 		private readonly IEnumerable<Model.Stock> _stocks;
 		private Model.Transaction _transaction;
 
-		public TransactionViewModel(IQueryDispatcher queryDispatcher, Func<Type, ViewModelBase> factory)
+		public TransactionViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, Func<Type, ViewModelBase> factory)
 		{
 		    _queryDispatcher = queryDispatcher;
+		    _commandDispatcher = commandDispatcher;
 		    _factory = factory;
 
 		    var dtos = _queryDispatcher.Execute<StockQuery, Stock[]>(new StockQuery());
@@ -36,7 +40,11 @@ namespace CashManager_MVVM.Features.Transaction
 				var viewmodel = _factory.Invoke(typeof(CategoryViewModel)) as CategoryViewModel;
 				var window = new CategoryPickerView(viewmodel, position.Category);
 				window.Show();
-				window.Closing += (sender, args) => { position.Category = viewmodel?.SelectedCategory; };
+				window.Closing += (sender, args) =>
+				{
+				    position.Category = viewmodel?.SelectedCategory;
+                    _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<CashManager.Data.DTO.Transaction>(_transaction)));
+				};
 			});
 		}
 
