@@ -164,21 +164,115 @@ namespace CashManager.Tests.Infrastructure
             var repo = LiteDbHelper.CreateMemoryDb();
             var category1 = new Category { Value = "parent" };
             var category2 = new Category { Value = "child", Parent = category1 };
-
+            var categories = new[] { category1, category2 };
             //when
-            repo.Database.UpsertBulk(new [] { category2 });
+            repo.Database.Upsert(category2);
 
             repo.Database.GetCollection<Category>().Upsert(category2);
             repo.Database.GetCollection<Category>().Update(category2);
 
             //then
             var loadedCategories = repo.Database.Query<Category>();
+
+            //is there
+            int elementsCount = repo.Query<Category>().Count();
+            Assert.Equal(categories.Length, elementsCount);
+
             Assert.Contains(category2, loadedCategories);
             Assert.Contains(category1, loadedCategories);
+
+            //is same
             Assert.Equal(category2, loadedCategories.First(x => x.Id == category2.Id));
+            Assert.Equal(category2.Value, loadedCategories.First(x => x.Id == category2.Id).Value);
+            Assert.Equal(category2.Parent, loadedCategories.First(x => x.Id == category2.Id).Parent);
+
             Assert.Equal(category1, loadedCategories.First(x => x.Id == category1.Id));
+            Assert.Equal(category1.Value, loadedCategories.First(x => x.Id == category1.Id).Value);
+            Assert.Equal(category1.Parent, loadedCategories.First(x => x.Id == category1.Id).Parent);
+        }
+
+        /// <summary>
+        /// Not supported yet...
+        /// Check on: https://github.com/mbdavid/LiteDB/issues/808
+        /// </summary>
+        [Fact]
+        public void VerySimpleCascadeUpdateWithDbRefTest()
+        {
+            //given
+            var repo = LiteDbHelper.CreateMemoryDb();
+            var category1 = new Category { Value = "parent" };
+            var category2 = new Category { Value = "childA", Parent = category1 };
+            var category3 = new Category { Value = "childB", Parent = category1 };
+            var categories = new[] { category1, category2, category3 };
+            repo.Database.UpsertBulk(categories);
+
+            //when
+            category3.Parent.Value += " test";
+            repo.Database.Upsert(category3);
+
+            //then
+            var loadedCategories = repo.Database.Query<Category>();
+
+            //is there
             int elementsCount = repo.Query<Category>().Count();
-            Assert.Equal(2, elementsCount);
+            Assert.Equal(categories.Length, elementsCount);
+
+            Assert.Contains(category3, loadedCategories);
+            Assert.Contains(category2, loadedCategories);
+            Assert.Contains(category1, loadedCategories);
+
+            //is same
+            Assert.Equal(category3, loadedCategories.First(x => x.Id == category3.Id));
+            Assert.Equal(category3.Value, loadedCategories.First(x => x.Id == category3.Id).Value);
+            Assert.Equal(category3.Parent, loadedCategories.First(x => x.Id == category3.Id).Parent);
+
+            Assert.Equal(category2, loadedCategories.First(x => x.Id == category2.Id));
+            Assert.Equal(category2.Value, loadedCategories.First(x => x.Id == category2.Id).Value);
+            Assert.Equal(category2.Parent, loadedCategories.First(x => x.Id == category2.Id).Parent);
+
+            Assert.Equal(category1, loadedCategories.First(x => x.Id == category1.Id));
+            Assert.Equal(category1.Value, loadedCategories.First(x => x.Id == category1.Id).Value);
+            Assert.Equal(category1.Parent, loadedCategories.First(x => x.Id == category1.Id).Parent);
+        }
+
+        [Fact]
+        public void VerySimpleCascadeReferenceUpdateWithDbRefTest()
+        {
+            //given
+            var repo = LiteDbHelper.CreateMemoryDb();
+            var category1 = new Category { Value = "parent" };
+            var category2 = new Category { Value = "childA", Parent = category1 };
+            var category3 = new Category { Value = "childB", Parent = category1 };
+            var categories = new[] { category1, category2, category3 };
+            repo.Database.UpsertBulk(categories);
+
+            //when
+            category3.Parent = category2;
+            repo.Database.Upsert(category3);
+
+            //then
+            var loadedCategories = repo.Database.Query<Category>();
+
+            //is there
+            int elementsCount = repo.Query<Category>().Count();
+            Assert.Equal(categories.Length, elementsCount);
+
+            Assert.Contains(category3, loadedCategories);
+            Assert.Contains(category2, loadedCategories);
+            Assert.Contains(category1, loadedCategories);
+
+            //is same
+            Assert.Equal(category3, loadedCategories.First(x => x.Id == category3.Id));
+            Assert.Equal(category3.Value, loadedCategories.First(x => x.Id == category3.Id).Value);
+            Assert.Equal(category3.Parent, loadedCategories.First(x => x.Id == category3.Id).Parent);
+
+            Assert.Equal(category2, loadedCategories.First(x => x.Id == category2.Id));
+            Assert.Equal(category2.Value, loadedCategories.First(x => x.Id == category2.Id).Value);
+            Assert.Equal(category2.Parent, loadedCategories.First(x => x.Id == category2.Id).Parent);
+
+            Assert.Equal(category1, loadedCategories.First(x => x.Id == category1.Id));
+            Assert.Equal(category1.Value, loadedCategories.First(x => x.Id == category1.Id).Value);
+            Assert.Equal(category1.Parent, loadedCategories.First(x => x.Id == category1.Id).Parent);
         }
     }
 }
