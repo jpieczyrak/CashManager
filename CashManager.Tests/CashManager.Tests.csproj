@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dtos\TransactionCreationTests.cs" />
     <Compile Include="Infrastructure\Queries\Categories\CategoryTests.cs" />
     <Compile Include="Infrastructure\Queries\NoQuery\NoQueryTests.cs" />
     <Compile Include="Infrastructure\Queries\Stock\StockTests.cs" />

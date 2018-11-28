@@ -27,9 +27,12 @@ namespace CashManager.Data.DTO
 
 		public Stock ExternalStock { get; set; }
 
-		public Transaction() { }
+        public Transaction()
+        {
+            BookDate = TransactionSourceCreationDate = LastEditDate = InstanceCreationDate = DateTime.Now;
+        }
 
-        public Transaction(Guid id) { Id = id; }
+        public Transaction(Guid id) : this() { Id = id; }
 
         /// <summary>
         /// Should be used only after parsing data or for test purpose.
@@ -44,14 +47,13 @@ namespace CashManager.Data.DTO
         /// <param name="externalStock">External stock like employer / shop</param>
         /// <param name="sourceInput">Text source of transaction (for parsing purpose) to provide unique id</param>
         public Transaction(eTransactionType transactionType, DateTime sourceTransactionCreationDate, string title, string note,
-            IEnumerable<Position> positions, Stock userStock, Stock externalStock, string sourceInput)
+            IEnumerable<Position> positions, Stock userStock, Stock externalStock, string sourceInput) : this()
         {
             Id = GenerateGUID(sourceInput);
             Type = transactionType;
             Title = title;
             Note = note;
             BookDate = TransactionSourceCreationDate = sourceTransactionCreationDate;
-            LastEditDate = InstanceCreationDate = DateTime.Now;
             Positions = new List<Position>(positions);
             UserStock = userStock;
             ExternalStock = externalStock;
