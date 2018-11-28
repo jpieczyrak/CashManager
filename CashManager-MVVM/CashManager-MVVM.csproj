@@ -134,6 +134,7 @@
     <Compile Include="Features\Transaction\TransactionView.xaml.cs">
       <DependentUpon>TransactionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Temps\DbFiller.cs" />
     <Compile Include="TrulyObservableCollection.cs" />
     <Page Include="Features\Main\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

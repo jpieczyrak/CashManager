@@ -1,4 +1,4 @@
-﻿namespace CashManager.Infrastructure.Command
+﻿namespace CashManager.Infrastructure.Command.NoCommands
 {
     public class NoCommand : ICommand
     {
