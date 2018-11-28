@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -19,6 +20,20 @@ namespace CashManager.Infrastructure.DbConnection
             if (element is Dto) return collection.Upsert(element);
 
             return collection.Upsert(element.GetHashCode(), element);
+        }
+
+        public static int Upsert<T>(this LiteDatabase db, T[] elements) where T : class
+        {
+            int count = 0;
+            var collection = db.GetCollection<T>();
+
+            var matching = elements.OfType<Dto>().Select(x => x as T).ToArray();
+            if (matching.Any()) count += collection.Upsert(matching);
+
+            var notMatching = elements.Except(matching).ToArray();
+            count += notMatching.Sum(x => collection.Upsert(x.GetHashCode(), x) ? 1 : 0);
+
+            return count;
         }
 
         public static void Remove<T>(this LiteDatabase db, T element) where T : class

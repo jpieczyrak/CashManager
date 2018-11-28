@@ -96,6 +96,8 @@
     <Compile Include="Query\QueryDispatcher.cs" />
     <Compile Include="Query\Stocks\StockQueryHandler.cs" />
     <Compile Include="Query\Stocks\StockQuery.cs" />
+    <Compile Include="Query\Tags\TagQuery.cs" />
+    <Compile Include="Query\Tags\TagQueryHandler.cs" />
     <Compile Include="Query\Transactions\TransactionQuery.cs" />
     <Compile Include="Query\Transactions\TransactionQueryHandler.cs" />
   </ItemGroup>
