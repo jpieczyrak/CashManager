@@ -42,7 +42,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Tags
                 new Tag { Name = "tag4"},
                 new Tag { Name = "tag5"},
             };
-            repository.Database.Upsert(tags);
+            repository.Database.UpsertBulk(tags);
 
             //when
             var result = handler.Execute(query);

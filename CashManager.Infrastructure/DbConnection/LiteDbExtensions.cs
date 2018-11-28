@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -13,16 +12,18 @@ namespace CashManager.Infrastructure.DbConnection
     {
         private const string ID_FIELD_NAME = "_id";
 
+        /// <returns>True if added, false if updated or fail</returns>
         public static bool Upsert<T>(this LiteDatabase db, T element) where T : class
         {
             var collection = db.GetCollection<T>();
 
+            if (element == null) return false;
             if (element is Dto) return collection.Upsert(element);
 
             return collection.Upsert(element.GetHashCode(), element);
         }
 
-        public static int Upsert<T>(this LiteDatabase db, T[] elements) where T : class
+        public static int UpsertBulk<T>(this LiteDatabase db, T[] elements) where T : class
         {
             int count = 0;
             var collection = db.GetCollection<T>();
@@ -31,17 +32,18 @@ namespace CashManager.Infrastructure.DbConnection
             if (matching.Any()) count += collection.Upsert(matching);
 
             var notMatching = elements.Except(matching).ToArray();
-            count += notMatching.Sum(x => collection.Upsert(x.GetHashCode(), x) ? 1 : 0);
+            count += notMatching.Where(x => x != null).Sum(x => collection.Upsert(x.GetHashCode(), x) ? 1 : 0);
 
             return count;
         }
 
-        public static void Remove<T>(this LiteDatabase db, T element) where T : class
+        public static int Remove<T>(this LiteDatabase db, T element) where T : class
         {
             var collection = db.GetCollection<T>();
 
+            if (element == null) return 0;
             var x = element as Dto;
-            collection.Delete(x != null
+            return collection.Delete(x != null
                                   ? LiteDB.Query.EQ(ID_FIELD_NAME, new BsonValue(x.Id))
                                   : LiteDB.Query.EQ(ID_FIELD_NAME, element.GetHashCode()));
         }
