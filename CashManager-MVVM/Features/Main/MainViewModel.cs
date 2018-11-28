@@ -1,5 +1,11 @@
-﻿using CashManager_MVVM.Features.Transaction;
-using CashManager_MVVM.Model.DataProviders;
+﻿using System.Linq;
+
+using AutoMapper;
+
+using CashManager.Infrastructure.Query;
+using CashManager.Infrastructure.Query.Transactions;
+
+using CashManager_MVVM.Features.Transaction;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -8,7 +14,7 @@ namespace CashManager_MVVM.Features.Main
 {
     public class MainViewModel : ViewModelBase
     {
-        private readonly IDataService _dataService;
+        private readonly IQueryDispatcher _queryDispatcher;
         private readonly ViewModelFactory _factory;
 
         public TrulyObservableCollection<Model.Transaction> Transactions { get; set; }
@@ -28,16 +34,12 @@ namespace CashManager_MVVM.Features.Main
 
 		public Model.Transaction SelectedTransaction { get; set; }
 
-        public MainViewModel(IDataService dataService, ViewModelFactory factory)
+        public MainViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
-			_factory = factory;
-            _dataService = dataService;
-            _dataService.GetTransactions(
-                (transactions, error) =>
-                {
-                    if (error != null) return;
-                    Transactions = new TrulyObservableCollection<Model.Transaction>(transactions);
-                });
+            _queryDispatcher = queryDispatcher;
+            _factory = factory;
+            var items = _queryDispatcher.Execute<TransactionQuery, CashManager.Data.DTO.Transaction[]>(new TransactionQuery());
+            Transactions = new TrulyObservableCollection<Model.Transaction>(items.Select(Mapper.Map<Model.Transaction>));
         }
     }
 }

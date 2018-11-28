@@ -2,7 +2,10 @@
 using System.Linq;
 using System.Windows;
 
-using CashManager_MVVM.Model.DataProviders;
+using AutoMapper;
+
+using CashManager.Infrastructure.Query;
+using CashManager.Infrastructure.Query.Categories;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -11,26 +14,21 @@ namespace CashManager_MVVM.Features.Category
 {
     public class CategoryViewModel : ViewModelBase
     {
-		public IEnumerable<Model.Category> Categories { get; set; }
+        public IEnumerable<Model.Category> Categories { get; set; }
 
-		public Model.Category SelectedCategory { get; set; }
+        public Model.Category SelectedCategory { get; set; }
 
-		public RelayCommand<Window> CloseCommand => new RelayCommand<Window>(window => window?.Close());
-        public RelayCommand<Model.Category> UpdateSelectedCategory => new RelayCommand<Model.Category>(category => SelectedCategory = category);
+        public RelayCommand<Window> CloseCommand => new RelayCommand<Window>(window => window?.Close());
 
-        public CategoryViewModel(IDataService dataService)
+        public RelayCommand<Model.Category> UpdateSelectedCategory =>
+            new RelayCommand<Model.Category>(category => SelectedCategory = category);
+
+        public CategoryViewModel(IQueryDispatcher queryDispatcher)
         {
-            dataService.GetCategories((categories, exception) =>
-            {
-                if (categories != null)
-                {
-                    foreach (var category in categories.ToArray())
-                    {
-                        category.Children = categories.Where(x => x.Parent?.Id == category?.Id).ToArray();
-                    }
-                    Categories = categories.Where(x => x.Parent == null).ToArray();
-                }
-            });
+            var dtos = queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery());
+            var categories = dtos.Select(Mapper.Map<Model.Category>).ToArray();
+            foreach (var category in categories) category.Children = categories.Where(x => x.Parent?.Id == category?.Id).ToArray();
+            Categories = categories.Where(x => x.Parent == null).ToArray();
         }
     }
 }

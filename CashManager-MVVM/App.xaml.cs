@@ -4,15 +4,15 @@ using System.Windows;
 
 using Autofac;
 
+using CashManager.Data.DTO;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Modules;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.NoQueries;
+using CashManager.Infrastructure.Query.Stocks;
 
-using CashManager_MVVM.Design;
 using CashManager_MVVM.Features;
 using CashManager_MVVM.Features.Main;
-using CashManager_MVVM.Model.DataProviders;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Threading;
@@ -41,14 +41,11 @@ namespace CashManager_MVVM
 			container.Resolve<MainWindow>().Show();
 		}
 
-		private static ContainerBuilder ContainerBuilder()
+	    private static ContainerBuilder ContainerBuilder()
 		{
 			var builder = new ContainerBuilder();
 			builder.RegisterAssemblyModules(typeof(DatabaseCommunicationModule).Assembly);
 			builder.RegisterType<MainWindow>();
-
-			if (ViewModelBase.IsInDesignModeStatic) builder.RegisterType<DesignDataService>().As<IDataService>();
-			else builder.RegisterType<DataService>().As<IDataService>();
 
 			builder.RegisterAssemblyTypes(typeof(MainViewModel).Assembly)
 				   .Where(t => t.IsSubclassOf(typeof(ViewModelBase)))
@@ -73,6 +70,8 @@ namespace CashManager_MVVM
 
 			var queryDispatcher = container.Resolve<IQueryDispatcher>();
 			var test = queryDispatcher.Execute<NoQuery, IEnumerable<string>>(new NoQuery());
-		}
+
+		    var test1 = queryDispatcher.Execute<StockQuery, Stock[]>(new StockQuery());
+        }
 	}
 }

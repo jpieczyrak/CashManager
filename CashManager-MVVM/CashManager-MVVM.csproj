@@ -117,11 +117,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Mapping\MapperConfiguration.cs" />
     <Compile Include="Model\Category.cs" />
-    <Compile Include="Model\DataProviders\DataService.cs" />
-    <Compile Include="Model\DataProviders\IDataService.cs" />
     <Compile Include="Model\PaymentValue.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\Position.cs" />

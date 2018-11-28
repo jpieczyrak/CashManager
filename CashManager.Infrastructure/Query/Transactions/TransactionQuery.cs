@@ -2,5 +2,5 @@
 
 namespace CashManager.Infrastructure.Query.Transactions
 {
-	public class TransactionQuery : IQuery<Transaction>, IQuery<Transaction[]> { }
+	public class TransactionQuery : IQuery<Transaction[]> { }
 }

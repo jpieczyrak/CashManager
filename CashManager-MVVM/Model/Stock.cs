@@ -6,7 +6,7 @@ namespace CashManager_MVVM.Model
 {
     /// <summary>
     /// Stores name of "part of" your wallet.
-    /// You can have more than one Stock in your Wallet (like bank account, phisic wallet, second bank acc ect)
+    /// You can have more than one Stock in your Wallet (like bank account, physical wallet, second bank acc ect)
     /// </summary>
     public class Stock : ObservableObject
     {

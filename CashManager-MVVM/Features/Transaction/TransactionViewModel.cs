@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using AutoMapper;
+
 using CashManager.Data;
+using CashManager.Data.DTO;
+using CashManager.Infrastructure.Query;
+using CashManager.Infrastructure.Query.Stocks;
 
 using CashManager_MVVM.Features.Category;
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.DataProviders;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -15,15 +18,20 @@ namespace CashManager_MVVM.Features.Transaction
 {
 	public class TransactionViewModel : ViewModelBase
 	{
-		private readonly Func<Type, ViewModelBase> _factory;
-		private IEnumerable<Stock> _stocks;
+	    private readonly IQueryDispatcher _queryDispatcher;
+	    private readonly Func<Type, ViewModelBase> _factory;
+		private readonly IEnumerable<Model.Stock> _stocks;
 		private Model.Transaction _transaction;
 
-		public TransactionViewModel(IDataService dataService, Func<Type, ViewModelBase> factory)
+		public TransactionViewModel(IQueryDispatcher queryDispatcher, Func<Type, ViewModelBase> factory)
 		{
-			_factory = factory;
-			dataService.GetStocks((stocks, exception) => { _stocks = stocks; });
-			ChooseCategoryCommand = new RelayCommand<Position>(position =>
+		    _queryDispatcher = queryDispatcher;
+		    _factory = factory;
+
+		    var dtos = _queryDispatcher.Execute<StockQuery, Stock[]>(new StockQuery());
+            _stocks = dtos.Select(Mapper.Map<Model.Stock>);
+
+			ChooseCategoryCommand = new RelayCommand<Model.Position>(position =>
 			{
 				var viewmodel = _factory.Invoke(typeof(CategoryViewModel)) as CategoryViewModel;
 				var window = new CategoryPickerView(viewmodel, position.Category);
@@ -40,10 +48,10 @@ namespace CashManager_MVVM.Features.Transaction
 			set => Set(nameof(Transaction), ref _transaction, value);
 		}
 
-		public IEnumerable<Stock> ExternalStocks => _stocks.Where(x => !x.IsUserStock);
+		public IEnumerable<Model.Stock> ExternalStocks => _stocks.Where(x => !x.IsUserStock);
 
-		public IEnumerable<Stock> UserStocks => _stocks.Where(x => x.IsUserStock);
+		public IEnumerable<Model.Stock> UserStocks => _stocks.Where(x => x.IsUserStock);
 
-		public RelayCommand<Position> ChooseCategoryCommand { get; set; }
+		public RelayCommand<Model.Position> ChooseCategoryCommand { get; set; }
 	}
 }
