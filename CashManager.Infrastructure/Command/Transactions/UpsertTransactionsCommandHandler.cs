@@ -18,8 +18,11 @@ namespace CashManager.Infrastructure.Command.Transactions
         public void Execute(UpsertTransactionsCommand command)
         {
             _db.UpsertBulk(command.Transactions);
-            var positions = command.Transactions.SelectMany(x => x.Positions).ToArray();
-            _db.UpsertBulk(positions);
+            if (command.Transactions != null)
+            {
+                var positions = command.Transactions.SelectMany(x => x.Positions).ToArray();
+                _db.UpsertBulk(positions);
+            }
         }
     }
 }
