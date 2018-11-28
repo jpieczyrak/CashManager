@@ -28,6 +28,8 @@ namespace CashManager.Infrastructure.DbConnection
             int count = 0;
             var collection = db.GetCollection<T>();
 
+            if (elements == null) return 0;
+
             var matching = elements.OfType<Dto>().Select(x => x as T).ToArray();
             if (matching.Any()) count += collection.Upsert(matching);
 
