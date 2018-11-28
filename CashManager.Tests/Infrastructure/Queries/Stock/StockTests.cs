@@ -1,9 +1,7 @@
 ﻿using System;
-using System.IO;
 
 using CashManager.Infrastructure.Query.Stocks;
-
-using LiteDB;
+using CashManager.Tests.Utils;
 
 using Xunit;
 
@@ -15,7 +13,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Stock
         public void StockQueryHandler_StockQueryEmptyDatabase_EmptyArray()
         {
             //given
-            var repository = GetEmptyDatabase();
+            var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new StockQueryHandler(repository);
             var query = new StockQuery();
 
@@ -31,7 +29,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Stock
         public void StockQueryHandler_StockQueryNotEmptyDatabase_Array()
         {
             //given
-            var repository = GetEmptyDatabase();
+            var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new StockQueryHandler(repository);
             var query = new StockQuery();
             var stocks = new[]
@@ -54,11 +52,6 @@ namespace CashManager.Tests.Infrastructure.Queries.Stock
 
             //then
             Assert.Equal(stocks, result);
-        }
-
-        private static LiteRepository GetEmptyDatabase()
-        {
-            return new LiteRepository(new LiteDatabase(new MemoryStream()));
         }
     }
 }

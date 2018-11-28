@@ -1,10 +1,8 @@
 ﻿using System;
-using System.IO;
 
 using CashManager.Data.DTO;
 using CashManager.Infrastructure.Query.Transactions;
-
-using LiteDB;
+using CashManager.Tests.Utils;
 
 using Xunit;
 
@@ -16,7 +14,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Transactions
         public void TransactionQueryHandler_TransactionQueryEmptyDatabase_EmptyArray()
         {
             //given
-            var repository = GetEmptyDatabase();
+            var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new TransactionQueryHandler(repository);
             var query = new TransactionQuery();
 
@@ -32,7 +30,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Transactions
         public void TransactionQueryHandler_TransactionQueryNotEmptyDatabase_Array()
         {
             //given
-            var repository = GetEmptyDatabase();
+            var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new TransactionQueryHandler(repository);
             var query = new TransactionQuery();
             var transactions = new[]
@@ -47,11 +45,6 @@ namespace CashManager.Tests.Infrastructure.Queries.Transactions
 
             //then
             Assert.Equal(transactions, result);
-        }
-
-        private static LiteRepository GetEmptyDatabase()
-        {
-            return new LiteRepository(new LiteDatabase(new MemoryStream()));
         }
     }
 }

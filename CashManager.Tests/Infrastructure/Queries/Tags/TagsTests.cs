@@ -1,11 +1,9 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 
 using CashManager.Data.DTO;
 using CashManager.Infrastructure.DbConnection;
 using CashManager.Infrastructure.Query.Tags;
-
-using LiteDB;
+using CashManager.Tests.Utils;
 
 using Xunit;
 
@@ -17,7 +15,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Tags
         public void TagQueryHandler_TagQueryEmptyDatabase_EmptyArray()
         {
             //given
-            var repository = GetEmptyDatabase();
+            var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new TagQueryHandler(repository);
             var query = new TagQuery();
 
@@ -33,7 +31,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Tags
         public void TagQueryHandler_TagQueryNotEmptyDatabase_Array()
         {
             //given
-            var repository = GetEmptyDatabase();
+            var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new TagQueryHandler(repository);
             var query = new TagQuery();
             var tags = new[]
@@ -51,11 +49,6 @@ namespace CashManager.Tests.Infrastructure.Queries.Tags
 
             //then
             Assert.Equal(tags.OrderBy(x => x.Id), result.OrderBy(x => x.Id));
-        }
-
-        private static LiteRepository GetEmptyDatabase()
-        {
-            return new LiteRepository(new LiteDatabase(new MemoryStream()));
         }
     }
 }
