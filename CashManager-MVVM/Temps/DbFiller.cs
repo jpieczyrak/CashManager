@@ -9,9 +9,11 @@ using AutoMapper;
 using CashManager.Data;
 using CashManager.Data.DTO;
 using CashManager.Infrastructure.Command;
+using CashManager.Infrastructure.Command.Categories;
 using CashManager.Infrastructure.Command.Stocks;
 using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
+using CashManager.Infrastructure.Query.Categories;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Transactions;
 
@@ -42,6 +44,10 @@ namespace CashManager_MVVM.Temps
                 commandDispatcher.Execute(new UpsertStocksCommand(stocks));
             }
 
+            var categories = queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery());
+            categories = categories.Concat(GetCategories()).Distinct().ToArray();
+            commandDispatcher.Execute(new UpsertCategoriesCommand(categories));
+
             if (!queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()).Any())
             {
                 commandDispatcher.Execute(new UpsertTransactionsCommand(GetTransactions(stocks)));
@@ -54,31 +60,31 @@ namespace CashManager_MVVM.Temps
             var categories = GetCategories();
             var dtoTransactions = new[]
             {
-                new DtoTransaction(eTransactionType.Buy, DateTime.Now, "title1", "notes1", new List<Position>
+                new DtoTransaction(eTransactionType.Buy, DateTime.Now, "title 1", "notes 1", new List<Position>
                     {
                         new Position
                         {
                             Category = Mapper.Map<DtoCategory>(categories.FirstOrDefault(x => x.Parent == null)),
-                            Value = new DtoPaymentValue { Value = 12 },
-                            Title = "title cat1"
+                            Value = new DtoPaymentValue { Value = 10 },
+                            Title = "my position 1"
                         },
                         new Position
                         {
                             Category = Mapper.Map<DtoCategory>(categories.FirstOrDefault(x => x.Parent != null)),
                             Value = new DtoPaymentValue { Value = 15 },
-                            Title = "title cat2"
+                            Title = "my position 2"
                         }
                     },
-                    stocks[0], stocks[1], "test1"),
-                new DtoTransaction(eTransactionType.Buy, DateTime.Now, "title2", "notes2", new List<Position>
+                    stocks[0], stocks[1], "inputsource1"),
+                new DtoTransaction(eTransactionType.Buy, DateTime.Now, "title 2", "notes 2", new List<Position>
                     {
                         new Position
                         {
                             Category = Mapper.Map<DtoCategory>(categories.FirstOrDefault(x => x.Parent == null)),
-                            Value = new DtoPaymentValue { Value = 24 },
-                            Title = "cat2"
+                            Value = new DtoPaymentValue { Value = 55 },
+                            Title = "my position - unknown"
                         }
-                    }, stocks[0], stocks[2], "test2")
+                    }, stocks[0], stocks[2], "inputsource2")
             };
 
             return dtoTransactions;
