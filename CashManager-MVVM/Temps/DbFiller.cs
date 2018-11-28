@@ -9,6 +9,7 @@ using AutoMapper;
 using CashManager.Data;
 using CashManager.Data.DTO;
 using CashManager.Infrastructure.Command;
+using CashManager.Infrastructure.Command.Stocks;
 using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
@@ -38,7 +39,7 @@ namespace CashManager_MVVM.Temps
             if (stocks.Length < 2)
             {
                 stocks = stocks.Concat(GetStocks()).Distinct().ToArray();
-                //save stocks to db
+                commandDispatcher.Execute(new UpsertStocksCommand(stocks));
             }
 
             if (!queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()).Any())

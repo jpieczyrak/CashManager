@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dtos\TransactionCreationTests.cs" />
+    <Compile Include="Infrastructure\Commands\Stocks\UpsertCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Transactions\UpsertCommandTests.cs" />
     <Compile Include="Infrastructure\Extensions\LiteDbExtensions\RemoveTests.cs" />
     <Compile Include="Infrastructure\Extensions\LiteDbExtensions\QueryTests.cs" />

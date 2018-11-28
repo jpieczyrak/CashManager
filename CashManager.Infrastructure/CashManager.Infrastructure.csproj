@@ -81,6 +81,8 @@
     <Compile Include="Command\ICommand.cs" />
     <Compile Include="Command\ICommandDispatcher.cs" />
     <Compile Include="Command\ICommandHandler.cs" />
+    <Compile Include="Command\Stocks\UpsertStocksCommand.cs" />
+    <Compile Include="Command\Stocks\UpsertStocksCommandHandler.cs" />
     <Compile Include="Command\Transactions\UpsertTransactionsCommand.cs" />
     <Compile Include="Command\Transactions\UpsertTransactionsCommandHandler.cs" />
     <Compile Include="Command\NoCommands\NoCommand.cs" />
