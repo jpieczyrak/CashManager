@@ -4,8 +4,6 @@ using System.Linq;
 
 using Autofac;
 
-using AutoMapper;
-
 using CashManager.Data;
 using CashManager.Data.DTO;
 using CashManager.Infrastructure.Command;
@@ -16,11 +14,6 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Categories;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Transactions;
-
-using PaymentValue = CashManager_MVVM.Model.PaymentValue;
-using Category = CashManager_MVVM.Model.Category;
-using Transaction = CashManager_MVVM.Model.Transaction;
-using Stock = CashManager_MVVM.Model.Stock;
 
 using DtoPaymentValue = CashManager.Data.DTO.PaymentValue;
 using DtoCategory = CashManager.Data.DTO.Category;
@@ -64,13 +57,13 @@ namespace CashManager_MVVM.Temps
                     {
                         new Position
                         {
-                            Category = Mapper.Map<DtoCategory>(categories.FirstOrDefault(x => x.Parent == null)),
+                            Category = categories.FirstOrDefault(x => x.Parent == null),
                             Value = new DtoPaymentValue { Value = 10 },
                             Title = "my position 1"
                         },
                         new Position
                         {
-                            Category = Mapper.Map<DtoCategory>(categories.FirstOrDefault(x => x.Parent != null)),
+                            Category = categories.FirstOrDefault(x => x.Parent != null),
                             Value = new DtoPaymentValue { Value = 15 },
                             Title = "my position 2"
                         }
@@ -80,7 +73,7 @@ namespace CashManager_MVVM.Temps
                     {
                         new Position
                         {
-                            Category = Mapper.Map<DtoCategory>(categories.FirstOrDefault(x => x.Parent == null)),
+                            Category = categories.FirstOrDefault(x => x.Parent == null),
                             Value = new DtoPaymentValue { Value = 55 },
                             Title = "my position - unknown"
                         }
