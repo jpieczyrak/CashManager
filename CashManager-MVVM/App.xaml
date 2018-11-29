@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ignore="http://www.galasoft.ch/ignore"
              xmlns:transaction="clr-namespace:CashManager_MVVM.Features.Transaction"
+             xmlns:main="clr-namespace:CashManager_MVVM.Features.Main"
              mc:Ignorable="d ignore">
     <Application.Resources>
         <ResourceDictionary>
