@@ -11,6 +11,7 @@ using CashManager.Infrastructure.Command.Categories;
 using CashManager.Infrastructure.Command.Stocks;
 using CashManager.Infrastructure.Command.Tags;
 using CashManager.Infrastructure.Command.Transactions;
+using CashManager.Infrastructure.Command.TransactionTypes;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Transactions;
 
@@ -38,6 +39,7 @@ namespace CashManager_MVVM.Temps
                 var positions = transactions.SelectMany(x => x.Positions).ToArray();
 
                 commandDispatcher.Execute(new UpsertStocksCommand(stocks));
+                commandDispatcher.Execute(new UpsertTransactionTypesCommand(types));
                 commandDispatcher.Execute(new UpsertCategoriesCommand(categories));
                 commandDispatcher.Execute(new UpsertTagsCommand(positions.Where(x => x.Tags != null).SelectMany(x => x.Tags).ToArray()));
                 commandDispatcher.Execute(new UpsertTransactionsCommand(transactions));

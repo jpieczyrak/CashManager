@@ -45,7 +45,7 @@
                         <Label Grid.Row="2" Grid.Column="0" Content="External stock"/>
                         <Label Grid.Row="2" Grid.Column="1" Content="{Binding ExternalStock.Name}"/>
                         <Label Grid.Row="3" Grid.Column="0" Content="Type"/>
-                        <Label Grid.Row="3" Grid.Column="1" Content="{Binding Type}"/>
+                        <Label Grid.Row="3" Grid.Column="1" Content="{Binding Type.Name}"/>
                         <Label Grid.Row="4" Grid.Column="0" Content="Transaction source creation"/>
                         <Label Grid.Row="4" Grid.Column="1" Content="{Binding TransactionSourceCreationDate}" ContentStringFormat="dd.MM.yy HH:mm:ss:fff"/>
                         <Label Grid.Row="5" Grid.Column="0" Content="Instance creation"/>

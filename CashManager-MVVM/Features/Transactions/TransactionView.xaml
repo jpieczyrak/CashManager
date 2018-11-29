@@ -34,7 +34,7 @@
 
         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Transaction.Title}"/>
         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Transaction.Note}"/>
-        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding TransactionTypes}" SelectedItem="{Binding Transaction.Type}"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding TransactionTypes}" SelectedItem="{Binding Transaction.Type}" DisplayMemberPath="Name" />
         <DatePicker Grid.Row="3" Grid.Column="1" FirstDayOfWeek="Monday" SelectedDate="{Binding Transaction.BookDate}" />
         <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding UserStocks}" SelectedValue="{Binding Transaction.UserStock}" />
         <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding ExternalStocks}" SelectedValue="{Binding Transaction.ExternalStock}" />
