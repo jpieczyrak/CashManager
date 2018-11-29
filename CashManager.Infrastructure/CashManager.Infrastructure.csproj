@@ -83,10 +83,12 @@
     <Compile Include="Command\ICommandHandler.cs" />
     <Compile Include="Command\Categories\UpsertCategoriesCommand.cs" />
     <Compile Include="Command\Categories\UpsertCategoriesCommandHandler.cs" />
-    <Compile Include="Command\Tags\UpsertTagsCommand.cs" />
-    <Compile Include="Command\Tags\UpsertTagsCommandHandler.cs" />
     <Compile Include="Command\Stocks\UpsertStocksCommand.cs" />
     <Compile Include="Command\Stocks\UpsertStocksCommandHandler.cs" />
+    <Compile Include="Command\Tags\UpsertTagsCommand.cs" />
+    <Compile Include="Command\Tags\UpsertTagsCommandHandler.cs" />
+    <Compile Include="Command\Stocks\DeleteStockCommand.cs" />
+    <Compile Include="Command\Stocks\DeleteStockCommandHandler.cs" />
     <Compile Include="Command\Transactions\UpsertTransactionsCommand.cs" />
     <Compile Include="Command\Transactions\UpsertTransactionsCommandHandler.cs" />
     <Compile Include="Command\NoCommands\NoCommand.cs" />
