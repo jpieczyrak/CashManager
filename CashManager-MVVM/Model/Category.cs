@@ -2,17 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using GalaSoft.MvvmLight;
-
 namespace CashManager_MVVM.Model
 {
-    public class Category : ObservableObject
+    public class Category : BaseObservableObject
     {
         private string _value;
 
         private Category _parent;
-
-        public Guid Id { get; private set; }
 
         public bool IsExpanded { get; set; } = true;
 
@@ -53,17 +49,7 @@ namespace CashManager_MVVM.Model
         }
         
         #region Override
-
-        public override bool Equals(object obj)
-        {
-            return obj != null && obj.GetHashCode() == GetHashCode();
-        }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
-
+        
         public override string ToString()
         {
             return Value;

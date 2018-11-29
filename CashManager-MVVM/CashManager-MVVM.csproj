@@ -130,6 +130,7 @@
     </Compile>
     <Compile Include="Features\Transactions\TransactionListViewModel.cs" />
     <Compile Include="Mapping\MapperConfiguration.cs" />
+    <Compile Include="Model\BaseObservableObject.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\PaymentValue.cs" />
     <Compile Include="Model\Stock.cs" />

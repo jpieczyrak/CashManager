@@ -10,10 +10,8 @@ namespace CashManager_MVVM.Model
     /// Tag can be assigned to many transactions.
     /// Sum of values of all tags dont have to be equal to sum of all transaction value (one tag can be assigned to one or more transaction)
     /// </summary>
-    public class Tag : ObservableObject
+    public class Tag : BaseObservableObject
     {
-        public Guid Id { get; private set; } = Guid.NewGuid();
-
         private string _name;
 
         public string Name
@@ -23,11 +21,6 @@ namespace CashManager_MVVM.Model
         }
 
         #region Override
-
-        public override bool Equals(object obj)
-        {
-            return obj?.GetHashCode() == GetHashCode();
-        }
 
         public override int GetHashCode()
         {

@@ -1,10 +1,6 @@
-﻿using System;
-
-using GalaSoft.MvvmLight;
-
-namespace CashManager_MVVM.Model
+﻿namespace CashManager_MVVM.Model
 {
-    public class Position : ObservableObject
+    public class Position : BaseObservableObject
     {
         private TrulyObservableCollection<Tag> _tags;
 
@@ -48,9 +44,7 @@ namespace CashManager_MVVM.Model
         }
 
         public string TagsForGUI => string.Join(", ", Tags);
-
-        public Guid Id { get; private set; } = Guid.NewGuid();
-
+        
         public Position()
         {
             Tags = new TrulyObservableCollection<Tag>();

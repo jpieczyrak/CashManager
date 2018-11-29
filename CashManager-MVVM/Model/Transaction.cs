@@ -3,13 +3,9 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 
-using CashManager.Data;
-
-using GalaSoft.MvvmLight;
-
 namespace CashManager_MVVM.Model
 {
-    public class Transaction : ObservableObject
+    public class Transaction : BaseObservableObject
     {
         private string _title;
         private string _note;
@@ -41,11 +37,6 @@ namespace CashManager_MVVM.Model
             get => _lastEditDate;
             private set => Set(nameof(LastEditDate), ref _lastEditDate, value);
         }
-
-        /// <summary>
-        /// Unique id to recognize transactions
-        /// </summary>
-        public Guid Id { get; private set; }
 
         /// <summary>
         /// Title of transaction
@@ -132,7 +123,6 @@ namespace CashManager_MVVM.Model
 
         public Transaction()
         {
-            Id = Guid.NewGuid();
             BookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
 
             Positions = new TrulyObservableCollection<Position>();
@@ -149,19 +139,5 @@ namespace CashManager_MVVM.Model
             RaisePropertyChanged(nameof(Value));
             RaisePropertyChanged(nameof(ValueAsProfit));
         }
-
-        #region Override
-
-        public override bool Equals(object obj)
-        {
-            return obj != null && obj.GetHashCode().Equals(GetHashCode());
-        }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
-
-        #endregion
     }
 }
