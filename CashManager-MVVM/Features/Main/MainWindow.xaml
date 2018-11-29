@@ -13,8 +13,7 @@
     mc:Ignorable="d ignore"
     Height="600"
     Width="675"
-    Title="Cash Manager - MVVM Light Application"
-    d:DataContext="{d:DesignInstance Type=main:MainViewModel, IsDesignTimeCreatable=True}">
+    Title="Cash Manager - MVVM Light Application">
 
     <Window.Resources>
 

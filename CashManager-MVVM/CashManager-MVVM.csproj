@@ -134,7 +134,7 @@
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Features\ViewModelFactory.cs" />
     <Compile Include="Features\Category\CategoryViewModel.cs" />
-    <Compile Include="Features\Main\MainViewModel.cs" />
+    <Compile Include="Features\Main\ApplicationViewModel.cs" />
     <Compile Include="Features\Transaction\TransactionViewModel.cs" />
     <Compile Include="Features\Category\CategoryPickerView.xaml.cs">
       <DependentUpon>CategoryPickerView.xaml</DependentUpon>

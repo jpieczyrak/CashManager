@@ -8,7 +8,8 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:command="http://www.galasoft.ch/mvvmlight"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="675">
+             d:DesignHeight="600" d:DesignWidth="675"
+             d:DataContext="{d:DesignInstance Type=local:TransactionListViewModel, IsDesignTimeCreatable=True}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="600*"/>

@@ -11,7 +11,7 @@ namespace CashManager_MVVM.Features.Main
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
-        public MainWindow(MainViewModel viewModel)
+        public MainWindow(ApplicationViewModel viewModel)
 		{
 			DataContext = viewModel;
             InitializeComponent();

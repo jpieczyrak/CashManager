@@ -4,11 +4,11 @@ using GalaSoft.MvvmLight;
 
 namespace CashManager_MVVM.Features.Main
 {
-    public class MainViewModel : ViewModelBase
+    public class ApplicationViewModel : ViewModelBase
     {
         public TransactionListViewModel SelectedViewModel { get; set; }
 
-        public MainViewModel(ViewModelFactory factory)
+        public ApplicationViewModel(ViewModelFactory factory)
         {
             SelectedViewModel = factory.Create<TransactionListViewModel>();
         }
