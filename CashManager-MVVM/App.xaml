@@ -3,19 +3,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ignore="http://www.galasoft.ch/ignore"
-             xmlns:transaction="clr-namespace:CashManager_MVVM.Features.Transaction"
-             xmlns:main="clr-namespace:CashManager_MVVM.Features.Main"
+             xmlns:transactions="clr-namespace:CashManager_MVVM.Features.Transactions"
+             xmlns:stocks="clr-namespace:CashManager_MVVM.Features.Stocks"
              mc:Ignorable="d ignore">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Skins/MainSkin.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate DataType="{x:Type transaction:TransactionListViewModel}">
-                <transaction:TransactionListView />
+            <DataTemplate DataType="{x:Type transactions:TransactionListViewModel}">
+                <transactions:TransactionListView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type transaction:TransactionViewModel}">
-                <transaction:TransactionView />
+            <DataTemplate DataType="{x:Type transactions:TransactionViewModel}">
+                <transactions:TransactionView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type stocks:StocksViewModel}">
+                <stocks:StocksView />
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

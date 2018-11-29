@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 
-namespace CashManager_MVVM.Features.Category
+namespace CashManager_MVVM.Features.Categories
 {
     /// <summary>
     /// Interaction logic for CategoryPickerView.xaml

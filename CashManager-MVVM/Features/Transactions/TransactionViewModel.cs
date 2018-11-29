@@ -10,13 +10,13 @@ using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 
-using CashManager_MVVM.Features.Category;
+using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Model;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
-namespace CashManager_MVVM.Features.Transaction
+namespace CashManager_MVVM.Features.Transactions
 {
     public class TransactionViewModel : ViewModelBase
     {

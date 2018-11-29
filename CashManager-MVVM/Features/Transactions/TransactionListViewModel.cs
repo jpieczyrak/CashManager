@@ -10,7 +10,7 @@ using CashManager_MVVM.Features.Main;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
-namespace CashManager_MVVM.Features.Transaction
+namespace CashManager_MVVM.Features.Transactions
 {
     public class TransactionListViewModel : ViewModelBase
     {

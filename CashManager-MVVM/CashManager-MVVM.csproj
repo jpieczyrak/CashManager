@@ -121,10 +121,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Features\Transaction\TransactionListView.xaml.cs">
+    <Compile Include="Features\Stocks\StocksView.xaml.cs">
+      <DependentUpon>StocksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Stocks\StocksViewModel.cs" />
+    <Compile Include="Features\Transactions\TransactionListView.xaml.cs">
       <DependentUpon>TransactionListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Features\Transaction\TransactionListViewModel.cs" />
+    <Compile Include="Features\Transactions\TransactionListViewModel.cs" />
     <Compile Include="Mapping\MapperConfiguration.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\PaymentValue.cs" />
@@ -133,13 +137,13 @@
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Features\ViewModelFactory.cs" />
-    <Compile Include="Features\Category\CategoryViewModel.cs" />
+    <Compile Include="Features\Categories\CategoryViewModel.cs" />
     <Compile Include="Features\Main\ApplicationViewModel.cs" />
-    <Compile Include="Features\Transaction\TransactionViewModel.cs" />
-    <Compile Include="Features\Category\CategoryPickerView.xaml.cs">
+    <Compile Include="Features\Transactions\TransactionViewModel.cs" />
+    <Compile Include="Features\Categories\CategoryPickerView.xaml.cs">
       <DependentUpon>CategoryPickerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Features\Transaction\TransactionView.xaml.cs">
+    <Compile Include="Features\Transactions\TransactionView.xaml.cs">
       <DependentUpon>TransactionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Temps\DbFiller.cs" />
@@ -156,7 +160,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Features\Transaction\TransactionListView.xaml">
+    <Page Include="Features\Stocks\StocksView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Transactions\TransactionListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -164,11 +172,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Features\Category\CategoryPickerView.xaml">
+    <Page Include="Features\Categories\CategoryPickerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Features\Transaction\TransactionView.xaml">
+    <Page Include="Features\Transactions\TransactionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

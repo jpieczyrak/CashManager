@@ -10,7 +10,7 @@ using CashManager.Infrastructure.Query.Categories;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
-namespace CashManager_MVVM.Features.Category
+namespace CashManager_MVVM.Features.Categories
 {
     public class CategoryViewModel : ViewModelBase
     {
