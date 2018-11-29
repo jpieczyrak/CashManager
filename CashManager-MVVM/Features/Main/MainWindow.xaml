@@ -4,11 +4,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ignore="http://www.galasoft.ch/ignore"
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:Custom="http://www.galasoft.ch/mvvmlight" xmlns:local="clr-namespace:CashManager_MVVM"
-    xmlns:model="clr-namespace:CashManager_MVVM.Model"
-    xmlns:main="clr-namespace:CashManager_MVVM.Features.Main"
-    xmlns:transaction="clr-namespace:CashManager_MVVM.Features.Transaction"
     x:Class="CashManager_MVVM.Features.Main.MainWindow"
     mc:Ignorable="d ignore"
     Height="600"
@@ -35,6 +30,6 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <UserControl Grid.Column="1" Grid.Row="0" Content="{Binding SelectedViewModel}"/>
+        <UserControl Grid.Column="1" Grid.Row="0" Content="{Binding SelectedViewModel}" MinWidth="200" MinHeight="400"/>
     </Grid>
 </Window>

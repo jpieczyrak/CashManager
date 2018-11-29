@@ -31,7 +31,7 @@ namespace CashManager_MVVM.Model
         /// <summary>
         /// Date when transaction was performed (in real life, like going to shop or receiving payment)
         /// </summary>
-        public DateTime TransationSourceCreationDate { get; }
+        public DateTime TransactionSourceCreationDate { get; }
 
         /// <summary>
         /// Last time when transation was edited by user (within app)

@@ -8,23 +8,15 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:command="http://www.galasoft.ch/mvvmlight"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="675"
+             d:DesignHeight="200" d:DesignWidth="600"
              d:DataContext="{d:DesignInstance Type=local:TransactionListViewModel, IsDesignTimeCreatable=True}">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="600*"/>
-            <RowDefinition Height="25"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400*"/>
-            <ColumnDefinition Width="200*"/>
-        </Grid.ColumnDefinitions>
-        <DataGrid ItemsSource="{Binding Transactions, Mode=TwoWay}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedTransaction}" CanUserAddRows="False" CanUserDeleteRows="False" Grid.ColumnSpan="4" Margin="5">
+        <DataGrid ItemsSource="{Binding Transactions, Mode=TwoWay}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedTransaction}" CanUserAddRows="False" CanUserDeleteRows="False" Margin="5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date" Binding="{Binding BookDate, StringFormat=dd.MM.yyyy}" Width="100*"/>
                 <DataGridTextColumn Header="Last edit" Binding="{Binding LastEditDate, Mode=OneWay, StringFormat=dd.MM.yy HH:mm:ss:fff}" Width="160*"/>
-                <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="100*" />
-                <DataGridTextColumn Header="Desc" Binding="{Binding Note}" Width="100*" />
+                <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay}" Width="100*" />
+                <DataGridTextColumn Header="Desc" Binding="{Binding Note, Mode=OneWay}" Width="100*" />
                 <DataGridTextColumn Header="Value" Binding="{Binding ValueAsProfit, Mode=OneWay}" Width="60*"/>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
@@ -54,8 +46,8 @@
                         <Label Grid.Row="2" Grid.Column="1" Content="{Binding ExternalStock.Name}"/>
                         <Label Grid.Row="3" Grid.Column="0" Content="Type"/>
                         <Label Grid.Row="3" Grid.Column="1" Content="{Binding Type}"/>
-                        <Label Grid.Row="4" Grid.Column="0" Content="Transation source creation"/>
-                        <Label Grid.Row="4" Grid.Column="1" Content="{Binding TransationSourceCreationDate}" ContentStringFormat="dd.MM.yy HH:mm:ss:fff"/>
+                        <Label Grid.Row="4" Grid.Column="0" Content="Transaction source creation"/>
+                        <Label Grid.Row="4" Grid.Column="1" Content="{Binding TransactionSourceCreationDate}" ContentStringFormat="dd.MM.yy HH:mm:ss:fff"/>
                         <Label Grid.Row="5" Grid.Column="0" Content="Instance creation"/>
                         <Label Grid.Row="5" Grid.Column="1" Content="{Binding InstanceCreationDate}" ContentStringFormat="dd.MM.yy HH:mm:ss:fff"/>
                         <Label Grid.Row="6" Grid.Column="0" Content="Book date"/>
