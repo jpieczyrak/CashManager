@@ -20,20 +20,17 @@ namespace CashManager_MVVM.Mapping
                 config.CreateMap<Stock, CashManager.Data.DTO.Stock>();
                 config.CreateMap<CashManager.Data.DTO.Stock, Stock>();
 
-                config.CreateMap<Transaction, CashManager.Data.DTO.Transaction>();
-                config.CreateMap<CashManager.Data.DTO.Transaction, Transaction>();
-
-                config.CreateMap<Transaction, CashManager.Data.DTO.Transaction>();
-                config.CreateMap<CashManager.Data.DTO.Transaction, Transaction>();
-
                 config.CreateMap<Tag, CashManager.Data.DTO.Tag>();
                 config.CreateMap<CashManager.Data.DTO.Tag, Tag>();
-                
-                config.CreateMap<Position, CashManager.Data.DTO.Position>();
-                config.CreateMap<CashManager.Data.DTO.Position, Position>();
 
                 config.CreateMap<PaymentValue, CashManager.Data.DTO.PaymentValue>();
                 config.CreateMap<CashManager.Data.DTO.PaymentValue, PaymentValue>();
+
+                config.CreateMap<Position, CashManager.Data.DTO.Position>().ConstructUsing(x => new CashManager.Data.DTO.Position());
+                config.CreateMap<CashManager.Data.DTO.Position, Position>();
+
+                config.CreateMap<Transaction, CashManager.Data.DTO.Transaction>();
+                config.CreateMap<CashManager.Data.DTO.Transaction, Transaction>();
             });
         }
     }

@@ -4,9 +4,13 @@ namespace CashManager.Data.DTO
 {
 	public class Position : Dto
 	{
-	    public Position() { Value = new PaymentValue(); }
+	    public Position()
+	    {
+            Value = new PaymentValue();
+	        Tags = new List<Tag>();
+        }
 
-	    public Position(string title, double value)
+	    public Position(string title, double value) : this()
         {
             Title = title;
             Value = new PaymentValue { Value = value };

@@ -1,10 +1,14 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+
+using GalaSoft.MvvmLight;
 
 namespace CashManager_MVVM.Model
 {
     public class PaymentValue : ObservableObject
     {
-		private double _value;
+        public Guid Id { get; private set; } = Guid.NewGuid();
+
+        private double _value;
 
         public double Value
         {

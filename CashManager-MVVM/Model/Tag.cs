@@ -1,3 +1,5 @@
+using System;
+
 using GalaSoft.MvvmLight;
 
 namespace CashManager_MVVM.Model
@@ -10,6 +12,8 @@ namespace CashManager_MVVM.Model
     /// </summary>
     public class Tag : ObservableObject
     {
+        public Guid Id { get; private set; } = Guid.NewGuid();
+
         private string _name;
 
         public string Name
