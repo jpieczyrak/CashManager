@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:transactions="clr-namespace:CashManager_MVVM.Features.Transactions"
         mc:Ignorable="d"
-        Height="600" Width="400" d:DataContext="{d:DesignInstance transactions:TransactionViewModel}">
+        d:DesignHeight="350" d:DesignWidth="400"
+        d:DataContext="{d:DesignInstance transactions:TransactionViewModel}">
 
     <Grid Background="White">
         <Grid.ColumnDefinitions>
