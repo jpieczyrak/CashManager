@@ -9,8 +9,10 @@ using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
+using CashManager.Infrastructure.Query.Transactions;
 
 using CashManager_MVVM.Features.Categories;
+using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Model;
 
 using GalaSoft.MvvmLight;
@@ -20,15 +22,13 @@ namespace CashManager_MVVM.Features.Transactions
 {
     public class TransactionViewModel : ViewModelBase
     {
-        private readonly IQueryDispatcher _queryDispatcher;
-        private readonly ICommandDispatcher _commandDispatcher;
-        private readonly Func<Type, ViewModelBase> _factory;
+        private readonly ViewModelFactory _factory;
         private readonly IEnumerable<Stock> _stocks;
-        private Model.Transaction _transaction;
+        private Transaction _transaction;
 
         public IEnumerable<eTransactionType> TransactionTypes => Enum.GetValues(typeof(eTransactionType)).Cast<eTransactionType>();
 
-        public Model.Transaction Transaction
+        public Transaction Transaction
         {
             get => _transaction;
             set => Set(nameof(Transaction), ref _transaction, value);
@@ -40,27 +40,48 @@ namespace CashManager_MVVM.Features.Transactions
 
         public RelayCommand<Position> ChooseCategoryCommand { get; set; }
 
+        public RelayCommand SaveCommand { get; }
+
+        public RelayCommand CancelCommand { get; }
+
         public TransactionViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
-            Func<Type, ViewModelBase> factory)
+            ViewModelFactory factory)
         {
-            _queryDispatcher = queryDispatcher;
-            _commandDispatcher = commandDispatcher;
+            var queryDispatcher1 = queryDispatcher;
             _factory = factory;
 
-            var dtos = _queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
+            var dtos = queryDispatcher1.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
             _stocks = dtos.Select(Mapper.Map<Stock>);
 
             ChooseCategoryCommand = new RelayCommand<Position>(position =>
             {
-                var viewmodel = _factory.Invoke(typeof(CategoryViewModel)) as CategoryViewModel;
-                var window = new CategoryPickerView(viewmodel, position.Category);
+                var viewModel = _factory.Create<CategoryViewModel>();
+                var window = new CategoryPickerView(viewModel, position.Category);
                 window.Show();
-                window.Closing += (sender, args) =>
-                {
-                    position.Category = viewmodel?.SelectedCategory;
-                    _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<CashManager.Data.DTO.Transaction>(_transaction)));
-                };
+                window.Closing += (sender, args) => { position.Category = viewModel?.SelectedCategory; };
             });
+
+            SaveCommand = new RelayCommand(() =>
+            {
+                commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<CashManager.Data.DTO.Transaction>(_transaction)));
+                NavigateToTransactionListView();
+            });
+
+            CancelCommand = new RelayCommand(() =>
+            {
+                var transaction = queryDispatcher1
+                                  .Execute<TransactionQuery, CashManager.Data.DTO.Transaction[]>(new TransactionQuery())
+                                  .FirstOrDefault();
+                Transaction = Mapper.Map<Transaction>(transaction);
+                NavigateToTransactionListView();
+            });
+        }
+
+        public void NavigateToTransactionListView()
+        {
+            var applicationViewModel = _factory.Create<ApplicationViewModel>();
+            var target = _factory.Create<TransactionListViewModel>();
+            applicationViewModel.SetViewModelCommand.Execute(target);
         }
     }
 }
