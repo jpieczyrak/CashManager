@@ -35,8 +35,8 @@
         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Transaction.Note}"/>
         <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding TransactionTypes}" SelectedItem="{Binding Transaction.Type}"/>
         <DatePicker Grid.Row="3" Grid.Column="1" FirstDayOfWeek="Monday" SelectedDate="{Binding Transaction.BookDate}" />
-        <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding UserStocks}" />
-        <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding ExternalStocks}" />
+        <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding UserStocks}" SelectedValue="{Binding Transaction.UserStock}" />
+        <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding ExternalStocks}" SelectedValue="{Binding Transaction.ExternalStock}" />
 
         <DataGrid Grid.Row="7" Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Column="0" ItemsSource="{Binding Transaction.Positions}" 
                   AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" >
