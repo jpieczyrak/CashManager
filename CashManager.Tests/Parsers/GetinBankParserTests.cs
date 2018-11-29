@@ -25,7 +25,8 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
             var userStock = new Stock { Name = "Getin" };
             var externalStock = new Stock { Name = "Default" };
             var creationDate = new DateTime(2016, 9, 6);
-            var expected = new Transaction(eTransactionType.Buy, creationDate, "[Sierpień] Czynsz + media",
+            var outcomeType = new TransactionType { Outcome = true, Name = "Buy"};
+            var expected = new Transaction(outcomeType, creationDate, "[Sierpień] Czynsz + media",
                 "JĘDRZEJ PIECZYRAK: PRZELEW WYCHODZĄCY (PLN)",
                 new[]
                 {
@@ -38,7 +39,7 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
 
 
             //when
-            var output = parser.Parse(input, userStock, externalStock);
+            var output = parser.Parse(input, userStock, externalStock, outcomeType, null);
             var parsed = output.FirstOrDefault();
 
             //then
@@ -75,13 +76,14 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
             var userStock = new Stock { Name = "Getin" };
             var externalStock = new Stock { Name = "Default" };
             var creationDate = new DateTime(2014, 02, 28);
-            var expected = new Transaction(eTransactionType.Work, creationDate, "Wynagrodzenie z tytulu umowy cywilnoprawnej",
+            var incomeType = new TransactionType { Income = true, Name = "Work" };
+            var expected = new Transaction(incomeType, creationDate, "Wynagrodzenie z tytulu umowy cywilnoprawnej",
                 "Firma SP. Z O.O.: PRZELEW PRZYCHODZĄCY (PLN)",
                 new [] { new Position("Wynagrodzenie z tytulu umowy cywilnoprawnej", 1123.12d) }, 
                 userStock, externalStock, input);
 
             //when
-            var output = parser.Parse(input, userStock, externalStock);
+            var output = parser.Parse(input, userStock, externalStock, null, incomeType);
             var parsed = output.FirstOrDefault();
 
             //then

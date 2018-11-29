@@ -146,6 +146,7 @@
     <Compile Include="Features\Transactions\TransactionView.xaml.cs">
       <DependentUpon>TransactionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\TransactionType.cs" />
     <Compile Include="Temps\DbFiller.cs" />
     <Compile Include="TrulyObservableCollection.cs" />
     <Page Include="Features\Main\MainWindow.xaml">

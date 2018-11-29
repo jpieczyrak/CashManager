@@ -18,7 +18,7 @@ namespace CashManager_MVVM.Model
 
         private Stock _userStock;
         private Stock _externalStock;
-        private eTransactionType _type;
+        private TransactionType _type;
 
         private TrulyObservableCollection<Position> _positions;
         private DateTime _lastEditDate;
@@ -99,7 +99,7 @@ namespace CashManager_MVVM.Model
         /// <summary>
         /// Transaction type - buying/selling/working - for accounting purpose
         /// </summary>
-        public eTransactionType Type
+        public TransactionType Type
         {
             get => _type;
             set => Set(nameof(Type), ref _type, value);
@@ -124,27 +124,21 @@ namespace CashManager_MVVM.Model
         /// <summary>
         /// Total value of transaction as profit of user (negative when buying, positive when receiving payments)
         /// </summary>
-        public double ValueAsProfit => Type == eTransactionType.Buy || Type == eTransactionType.Reinvest
+        public double ValueAsProfit => Type.Outcome
                                            ? -Value
-                                           : (Type != eTransactionType.Transfer ? Value : 0);
+                                           : Type.Income
+                                               ? Value
+                                               : 0;
 
         public Transaction()
         {
             Id = Guid.NewGuid();
-            Type = eTransactionType.Buy;
             BookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
 
             Positions = new TrulyObservableCollection<Position>();
             PropertyChanged += OnPropertyChanged;
         }
-
-
-
-        public Transaction Clone()
-        {
-            return (Transaction) MemberwiseClone();
-        }
-
+        
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             LastEditDate = DateTime.Now;

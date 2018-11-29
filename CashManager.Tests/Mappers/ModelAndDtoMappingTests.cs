@@ -3,8 +3,6 @@ using System.Linq;
 
 using AutoMapper;
 
-using CashManager.Data;
-
 using CashManager_MVVM;
 using CashManager_MVVM.Model;
 
@@ -115,7 +113,7 @@ namespace CashManager.Tests.Mappers
                 BookDate = DateTime.Today,
                 Note = "note",
                 Title = "title",
-                Type = eTransactionType.Reinvest,
+                Type = new TransactionType { Outcome = true, Name = "buy", IsDefault = true },
                 Positions = new TrulyObservableCollection<Position>(new[]
                 {
                     new Position
@@ -158,6 +156,11 @@ namespace CashManager.Tests.Mappers
             Assert.Equal(model.Note, result.Note);
             Assert.Equal(model.Title, result.Title);
             Assert.Equal(model.Type, result.Type);
+            Assert.Equal(model.Type.Id, result.Type.Id);
+            Assert.Equal(model.Type.Name, result.Type.Name);
+            Assert.Equal(model.Type.Income, result.Type.Income);
+            Assert.Equal(model.Type.Outcome, result.Type.Outcome);
+            Assert.Equal(model.Type.IsDefault, result.Type.IsDefault);
 
             Assert.Equal(model.Positions.Select(x => x.Value.Id), dto.Positions.Select(x => x.Value.Id));
 

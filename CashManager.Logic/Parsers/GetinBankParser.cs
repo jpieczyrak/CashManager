@@ -17,7 +17,8 @@ namespace CashManager.Logic.Parsers
 
         #region IParser
 
-        public List<Transaction> Parse(string input, Stock userStock, Stock externalStock)
+        public List<Transaction> Parse(string input, Stock userStock, Stock externalStock,
+            TransactionType defaultOutcome, TransactionType defaultIncome)
         {
             var output = new List<Transaction>();
 
@@ -32,11 +33,11 @@ namespace CashManager.Logic.Parsers
                 if (transfer.IsMatch(match.Value))
                 {
                     var m = transfer.Match(match.Value);
-                    output.Add(CreateTransaction(m, userStock, externalStock));
+                    output.Add(CreateTransaction(m, userStock, externalStock, defaultOutcome, defaultIncome));
                 }
                 else
                 {
-                    output.Add(CreateTransaction(match, userStock, externalStock));
+                    output.Add(CreateTransaction(match, userStock, externalStock, defaultOutcome, defaultIncome));
                 }
             }
 
@@ -45,7 +46,8 @@ namespace CashManager.Logic.Parsers
 
         #endregion
 
-        private Transaction CreateTransaction(Match match, Stock userStock, Stock externalStock)
+        private Transaction CreateTransaction(Match match, Stock userStock, Stock externalStock,
+            TransactionType defaultOutcome, TransactionType defaultIncome)
         {
             int day = int.Parse(match.Groups["Day"].Value);
             int month = int.Parse(match.Groups["Month"].Value);
@@ -63,7 +65,7 @@ namespace CashManager.Logic.Parsers
             double value = bigValue + smallValue / 100.0;
             var date = new DateTime(year, month, day);
             string note = $"{sourceName}{(sourceName != string.Empty ? ": " : string.Empty)}{operationType} ({currency})";
-            var transactionType = positiveSign ? eTransactionType.Work : eTransactionType.Buy;
+            var transactionType = positiveSign ? defaultIncome : defaultOutcome;
             
             var position = new Position(title, value);
 

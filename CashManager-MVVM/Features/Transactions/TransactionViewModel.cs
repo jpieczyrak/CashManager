@@ -28,7 +28,7 @@ namespace CashManager_MVVM.Features.Transactions
         private readonly IEnumerable<Stock> _stocks;
         private Transaction _transaction;
 
-        public IEnumerable<eTransactionType> TransactionTypes => Enum.GetValues(typeof(eTransactionType)).Cast<eTransactionType>();
+        public IEnumerable<TransactionType> TransactionTypes { get; }
 
         public Transaction Transaction
         {
@@ -52,6 +52,8 @@ namespace CashManager_MVVM.Features.Transactions
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
             _factory = factory;
+
+            TransactionTypes = null; //todo: transaction types query
 
             var dtos = _queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
             _stocks = dtos.Select(Mapper.Map<Stock>);

@@ -9,7 +9,8 @@ namespace CashManager.Logic.Parsers
 {
     public class ExcelParser : IParser
     {
-        public List<Transaction> Parse(string input, Stock userStock, Stock externalStock)
+        public List<Transaction> Parse(string input, Stock userStock, Stock externalStock,
+            TransactionType defaultOutcome, TransactionType defaultIncome)
         {
             List<Transaction> transactions = new List<Transaction>();
             string[] lines = input.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
@@ -23,23 +24,24 @@ namespace CashManager.Logic.Parsers
 
                 if (buying)
                 {
-                    transactions.Add(MakeTransaction(userStock, externalStock, true, values, line));
+                    transactions.Add(MakeTransaction(userStock, externalStock, true, values, line, defaultOutcome, defaultIncome));
                 }
                 if (working)
                 {
-                    transactions.Add(MakeTransaction(userStock, externalStock, false, values, line));
+                    transactions.Add(MakeTransaction(userStock, externalStock, false, values, line, defaultOutcome, defaultIncome));
                 }
             }
 
             return transactions;
         }
 
-		private Transaction MakeTransaction(Stock userStock, Stock externalStock, bool outcome, IReadOnlyList<string> values, string input)
+		private Transaction MakeTransaction(Stock userStock, Stock externalStock, bool outcome, IReadOnlyList<string> values, string input,
+		    TransactionType defaultOutcome, TransactionType defaultIncome)
 		{
 			var date = DateTime.ParseExact(values[0], "d.M.yy", CultureInfo.InvariantCulture);
 			string title = values[12];
 
-			var type = outcome ? eTransactionType.Buy : eTransactionType.Work;
+			var type = outcome ? defaultOutcome : defaultIncome;
 
 			string stringWithValue = outcome ? values[11] : values[10];
 			double.TryParse(stringWithValue, out double value);

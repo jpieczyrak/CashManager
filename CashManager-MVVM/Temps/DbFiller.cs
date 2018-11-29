@@ -33,7 +33,8 @@ namespace CashManager_MVVM.Temps
             {
                 var stocks = GetStocks();
                 var categories = GetCategories();
-                var transactions = GetTransactions(stocks, categories);
+                var types = GetTransactionTypes();
+                var transactions = GetTransactions(stocks, categories, types);
                 var positions = transactions.SelectMany(x => x.Positions).ToArray();
 
                 commandDispatcher.Execute(new UpsertStocksCommand(stocks));
@@ -44,11 +45,11 @@ namespace CashManager_MVVM.Temps
 #endif
         }
 
-        private static Transaction[] GetTransactions(Stock[] stocks, Category[] categories)
+        private static Transaction[] GetTransactions(Stock[] stocks, Category[] categories, TransactionType[] types)
         {
             var dtoTransactions = new[]
             {
-                new DtoTransaction(eTransactionType.Buy, DateTime.Now, "title 1", "notes 1", new List<Position>
+                new DtoTransaction(types[1], DateTime.Now, "title 1", "notes 1", new List<Position>
                     {
                         new Position
                         {
@@ -64,13 +65,13 @@ namespace CashManager_MVVM.Temps
                         }
                     },
                     stocks[0], stocks[1], "inputsource1"),
-                new DtoTransaction(eTransactionType.Buy, DateTime.Now, "title 2", "notes 2", new List<Position>
+                new DtoTransaction(types[0], DateTime.Now, "title 2 - work", "notes 2", new List<Position>
                     {
                         new Position
                         {
                             Category = categories.Skip(5).FirstOrDefault(x => x.Parent != null),
-                            Value = new DtoPaymentValue { Value = 55 },
-                            Title = "my position - unknown"
+                            Value = new DtoPaymentValue { Value = 1000 },
+                            Title = "income"
                         }
                     }, stocks[0], stocks[2], "inputsource2")
             };
@@ -120,6 +121,16 @@ namespace CashManager_MVVM.Temps
                 new DtoStock { Name = "User1", IsUserStock = true },
                 new DtoStock { Name = "Ex1" },
                 new DtoStock { Name = "Ex2" }
+            };
+        }
+
+        private static TransactionType[] GetTransactionTypes()
+        {
+            return new[]
+            {
+                new TransactionType { Income = true, Name = "Work" },
+                new TransactionType { Outcome = true, Name = "Buy" },
+                new TransactionType { Name = "Transfer" }
             };
         }
     }

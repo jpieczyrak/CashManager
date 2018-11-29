@@ -52,7 +52,7 @@ namespace CashManager.Tests.Dtos
             var expectedSourceCreationDate = DateTime.Today.AddMilliseconds(-135489);
 
             //when
-            var transaction = new Transaction(eTransactionType.Buy, expectedSourceCreationDate, string.Empty, string.Empty, 
+            var transaction = new Transaction(new TransactionType(), expectedSourceCreationDate, string.Empty, string.Empty, 
                 new Position[0], null, null, string.Empty);
 
             //then
@@ -68,9 +68,9 @@ namespace CashManager.Tests.Dtos
             //given
             string inputText = "Lorem ipsum dolor sit amet.";
             //when
-            var transaction1 = new Transaction(eTransactionType.Buy, DateTime.Today, string.Empty, string.Empty, 
+            var transaction1 = new Transaction(new TransactionType(), DateTime.Today, string.Empty, string.Empty, 
                 new Position[0], null, null, inputText);
-            var transaction2 = new Transaction(eTransactionType.Buy, DateTime.Today, string.Empty, string.Empty, 
+            var transaction2 = new Transaction(new TransactionType(), DateTime.Today, string.Empty, string.Empty, 
                 new Position[0], null, null, inputText);
 
             //then
@@ -84,9 +84,9 @@ namespace CashManager.Tests.Dtos
             string inputText1 = "Lorem ipsum dolor sit amet.";
             string inputText2 = inputText1 + 1;
             //when
-            var transaction1 = new Transaction(eTransactionType.Buy, DateTime.Today, string.Empty, string.Empty, 
+            var transaction1 = new Transaction(new TransactionType(), DateTime.Today, string.Empty, string.Empty, 
                 new Position[0], null, null, inputText1);
-            var transaction2 = new Transaction(eTransactionType.Buy, DateTime.Today, string.Empty, string.Empty, 
+            var transaction2 = new Transaction(new TransactionType(), DateTime.Today, string.Empty, string.Empty, 
                 new Position[0], null, null, inputText2);
 
             //then

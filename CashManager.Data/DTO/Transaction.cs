@@ -7,7 +7,7 @@ namespace CashManager.Data.DTO
 {
     public class Transaction : Dto
     {
-		public eTransactionType Type { get; set; }
+		public TransactionType Type { get; set; }
 
 		public string Title { get; set; }
 
@@ -46,7 +46,7 @@ namespace CashManager.Data.DTO
         /// <param name="userStock">User stock like wallet / bank account</param>
         /// <param name="externalStock">External stock like employer / shop</param>
         /// <param name="sourceInput">Text source of transaction (for parsing purpose) to provide unique id</param>
-        public Transaction(eTransactionType transactionType, DateTime sourceTransactionCreationDate, string title, string note,
+        public Transaction(TransactionType transactionType, DateTime sourceTransactionCreationDate, string title, string note,
             IEnumerable<Position> positions, Stock userStock, Stock externalStock, string sourceInput) : this()
         {
             Id = GenerateGUID(sourceInput);
