@@ -10,6 +10,7 @@ using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Transactions;
+using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Main;
@@ -53,7 +54,9 @@ namespace CashManager_MVVM.Features.Transactions
             _commandDispatcher = commandDispatcher;
             _factory = factory;
 
-            TransactionTypes = null; //todo: transaction types query
+            var transactionTypes = _queryDispatcher
+                .Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery());
+            TransactionTypes = Mapper.Map<TransactionType[]>(transactionTypes);
 
             var dtos = _queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
             _stocks = dtos.Select(Mapper.Map<Stock>);

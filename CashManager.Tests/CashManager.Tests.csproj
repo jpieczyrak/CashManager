@@ -89,6 +89,7 @@
     <Compile Include="Infrastructure\Queries\NoQuery\NoQueryTests.cs" />
     <Compile Include="Infrastructure\Queries\Stock\StockTests.cs" />
     <Compile Include="Infrastructure\Queries\Tags\TagsTests.cs" />
+    <Compile Include="Infrastructure\Queries\TransactionTypes\TransactionTypesTests.cs" />
     <Compile Include="Infrastructure\Queries\Transactions\TransactionsTests.cs" />
     <Compile Include="Mappers\ModelAndDtoMappingTests.cs" />
     <Compile Include="Parsers\GetinBankParserTests.cs" />
