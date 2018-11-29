@@ -1,10 +1,10 @@
-﻿<Window x:Class="CashManager_MVVM.Features.Transaction.TransactionView"
+﻿<UserControl x:Class="CashManager_MVVM.Features.Transaction.TransactionView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="TransactionView" Height="600" Width="400" d:DataContext="{d:DesignData TransactionViewModel}">
+        Height="600" Width="400" d:DataContext="{d:DesignData TransactionViewModel}">
 
     <Grid Background="White">
         <Grid.ColumnDefinitions>
@@ -61,4 +61,4 @@
 
         </DataGrid>
     </Grid>
-</Window>
+</UserControl>

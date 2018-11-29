@@ -23,14 +23,15 @@ namespace CashManager_MVVM.Features.Transaction
 
         private void TransactionEdit()
         {
-            var window = new TransactionView(SelectedTransaction, _factory.Create<TransactionViewModel>())
-            {
-                Title = SelectedTransaction?.Title ?? string.Empty
-                //Left = mainWindow.Left + mainWindow.Width,
-                //Top = mainWindow.Top
-            };
-            window.Show();
+            //var window = new TransactionView(SelectedTransaction, _factory.Create<TransactionViewModel>())
+            //{
+            //    Title = SelectedTransaction?.Title ?? string.Empty
+            //    //Left = mainWindow.Left + mainWindow.Width,
+            //    //Top = mainWindow.Top
+            //};
+            //window.Show();
         }
+
         public TransactionListViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
             _queryDispatcher = queryDispatcher;
