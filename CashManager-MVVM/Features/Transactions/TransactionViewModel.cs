@@ -22,6 +22,8 @@ namespace CashManager_MVVM.Features.Transactions
 {
     public class TransactionViewModel : ViewModelBase
     {
+        private readonly IQueryDispatcher _queryDispatcher;
+        private readonly ICommandDispatcher _commandDispatcher;
         private readonly ViewModelFactory _factory;
         private readonly IEnumerable<Stock> _stocks;
         private Transaction _transaction;
@@ -47,10 +49,11 @@ namespace CashManager_MVVM.Features.Transactions
         public TransactionViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
             ViewModelFactory factory)
         {
-            var queryDispatcher1 = queryDispatcher;
+            _queryDispatcher = queryDispatcher;
+            _commandDispatcher = commandDispatcher;
             _factory = factory;
 
-            var dtos = queryDispatcher1.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
+            var dtos = _queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
             _stocks = dtos.Select(Mapper.Map<Stock>);
 
             ChooseCategoryCommand = new RelayCommand<Position>(position =>
@@ -63,13 +66,13 @@ namespace CashManager_MVVM.Features.Transactions
 
             SaveCommand = new RelayCommand(() =>
             {
-                commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<CashManager.Data.DTO.Transaction>(_transaction)));
+                _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<CashManager.Data.DTO.Transaction>(_transaction)));
                 NavigateToTransactionListView();
             });
 
             CancelCommand = new RelayCommand(() =>
             {
-                var transaction = queryDispatcher1
+                var transaction = _queryDispatcher
                                   .Execute<TransactionQuery, CashManager.Data.DTO.Transaction[]>(new TransactionQuery())
                                   .FirstOrDefault();
                 Transaction = Mapper.Map<Transaction>(transaction);
