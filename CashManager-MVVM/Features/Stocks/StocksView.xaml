@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:stocks="clr-namespace:CashManager_MVVM.Features.Stocks"
              mc:Ignorable="d" 
-             d:DesignHeight="120" d:DesignWidth="450"
+             d:DesignHeight="150" d:DesignWidth="450"
              d:DataContext="{d:DesignInstance Type=stocks:StocksViewModel, IsDesignTimeCreatable=True}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <ItemsControl Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Stocks}" Grid.RowSpan="2">
             <ItemsControl.ItemTemplate>
@@ -18,22 +18,21 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Name}" MinWidth="100"/>
-                        <Button Grid.Column="2" Content="Edit"
-                                Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                CommandParameter="{Binding}"
-                                Margin="5" Width="120" Height="25"/>
+                        <TextBox Grid.Column="0" Text="{Binding Name}" MinWidth="100" Margin="5"/>
+                        <CheckBox Grid.Column="1" IsChecked="{Binding IsUserStock}" Content="User stock" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
                         <Button Grid.Column="3" Content="Remove"
-                                Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                 CommandParameter="{Binding}"
                                 Margin="5" Width="120" Height="25"/>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <Button Grid.Row="1" Content="Add stock" Command="{Binding AddStockCommand}"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="30" Margin="5"/>
     </Grid>
 </UserControl>
