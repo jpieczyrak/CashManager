@@ -69,6 +69,10 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
             var handler = new UpsertTransactionsCommandHandler(repository);
             var command = new UpsertTransactionsCommand(transactions);
 
+            //these already should exist in db
+            repository.Database.UpsertBulk(tags.ToArray());
+            repository.Database.UpsertBulk(categories);
+
             //when
             handler.Execute(command);
 
@@ -102,9 +106,25 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
                 new Transaction
                 {
                     Note = "test1",
-                    Positions = new List<Position> { new Position { Title = "p1", Category = new Category(), Tags = tags } }
+                    Positions = new List<Position>
+                    {
+                        new Position
+                        {
+                            Title = "p1",
+                            Category = new Category(),
+                            Tags = tags,
+                            Value = new PaymentValue { Value = 123.45 }
+                        },
+                        new Position
+                        {
+                            Title = "p2",
+                            Category = new Category(),
+                            Tags = tags,
+                            Value = new PaymentValue { Value = 234.56 }
+                        }
+                    }
                 },
-                new Transaction { Note = "test2", Positions = new List<Position> { new Position { Title = "p2", Category = new Category() } } }
+                new Transaction { Note = "test2", Positions = new List<Position> { new Position { Title = "p3", Category = new Category() } } }
             };
             var positions = transactions.SelectMany(x => x.Positions).OrderBy(x => x.Id).ToArray();
             var categories = transactions.SelectMany(x => x.Positions).Select(x => x.Category).OrderBy(x => x.Id).ToArray();
@@ -113,7 +133,11 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
             var handler = new UpsertTransactionsCommandHandler(repository);
             var command = new UpsertTransactionsCommand(transactions);
 
+            //these already should exist in db
+            repository.Database.UpsertBulk(tags.ToArray());
+            repository.Database.UpsertBulk(categories);
             repository.Database.UpsertBulk(transactions);
+
             foreach (var transaction in transactions) transaction.Note += " - updated";
             foreach (var position in positions) position.Value.Value += 1.0;
 
