@@ -8,7 +8,7 @@ namespace CashManager.Infrastructure.Command.Transactions
 
         public UpsertTransactionsCommand(Transaction transaction)
         {
-            Transactions = new Transaction[] { transaction };
+            Transactions = transaction != null ? new[] { transaction } : new Transaction[0];
         }
 
         public UpsertTransactionsCommand(Transaction[] transactions)

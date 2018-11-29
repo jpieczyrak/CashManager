@@ -18,7 +18,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
             //given
             var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new UpsertTransactionsCommandHandler(repository);
-            var command = new UpsertTransactionsCommand(null);
+            var command = new UpsertTransactionsCommand((Transaction)null);
 
             //when
             handler.Execute(command);
