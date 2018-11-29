@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using CashManager_MVVM.Features.Stocks;
 using CashManager_MVVM.Features.Transactions;
 
 using GalaSoft.MvvmLight;
@@ -28,6 +29,7 @@ namespace CashManager_MVVM.Features.Main
             ViewModels = new Dictionary<string, ViewModelBase>
             {
                 { "Transactions list", factory.Create<TransactionListViewModel>() },
+                { "Stocks manager", factory.Create<StocksViewModel>() },
                 { "empty", null }
             };
             SelectedViewModel = ViewModels.FirstOrDefault().Value;
