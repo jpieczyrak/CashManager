@@ -45,7 +45,7 @@
                 <DataGridTemplateColumn Header="Category" Width="Auto" MinWidth="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="{Binding Category.Value, Mode=OneWay}" Command="{Binding Path=DataContext.ChooseCategoryCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" CommandParameter="{Binding Mode=OneWay}"/>
+                            <Button Content="{Binding Category.Value, Mode=OneWay}" Command="{Binding Path=DataContext.ChooseCategoryCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" CommandParameter="{Binding Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

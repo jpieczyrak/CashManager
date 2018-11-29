@@ -7,11 +7,9 @@ namespace CashManager_MVVM.Features.Transaction
     /// </summary>
     public partial class TransactionView : UserControl
     {
-        public TransactionView(Model.Transaction transaction, TransactionViewModel transactionViewModel)
+        public TransactionView()
         {
             InitializeComponent();
-			DataContext = transactionViewModel;
-			transactionViewModel.Transaction = transaction;
         }
     }
 }

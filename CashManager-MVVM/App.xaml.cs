@@ -59,12 +59,17 @@ namespace CashManager_MVVM
 			builder.RegisterAssemblyModules(typeof(DatabaseCommunicationModule).Assembly);
 			builder.RegisterType<MainWindow>();
 
-			builder.RegisterAssemblyTypes(typeof(ApplicationViewModel).Assembly)
-				   .Where(t => t.IsSubclassOf(typeof(ViewModelBase)))
+            builder.RegisterAssemblyTypes(typeof(ApplicationViewModel).Assembly)
+				   .Where(t => t.IsSubclassOf(typeof(ViewModelBase)) && !string.Equals(t.Name, nameof(ApplicationViewModel)))
 				   .Named<ViewModelBase>(x => x.Name)
 				   .As(t => t);
+		    builder.RegisterType<ApplicationViewModel>()
+		           .As<ApplicationViewModel>()
+		           .Named<ViewModelBase>(nameof(ApplicationViewModel))
+		           .SingleInstance()
+		           .ExternallyOwned();
 
-			builder.RegisterType<ViewModelFactory>().As<ViewModelFactory>();
+            builder.RegisterType<ViewModelFactory>().As<ViewModelFactory>();
 
 			builder.Register<Func<Type, ViewModelBase>>(c =>
 			{
