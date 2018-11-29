@@ -46,7 +46,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Transactions
             var result = handler.Execute(query);
 
             //then
-            Assert.Equal(transactions, result);
+            Assert.Equal(transactions.OrderBy(x => x.Id), result.OrderBy(x => x.Id));
         }
 
         [Fact]

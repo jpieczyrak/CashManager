@@ -29,24 +29,24 @@ namespace CashManager.Tests.Infrastructure.Queries.TransactionTypes
         }
 
         [Fact]
-        public void TransactionTypesQueryHandler_TransactionTypesQueryNotEmptyDatabaseWithNoQuery_AllTransactionTypes()
+        public void TransactionTypesQueryHandler_NotEmptyDatabaseWithNoQuery_AllTransactionTypes()
         {
             //given
             var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new TransactionTypesQueryHandler(repository);
             var query = new TransactionTypesQuery();
-            var transactions = new[]
+            var transactionTypes = new[]
             {
                 new TransactionType(), 
                 new TransactionType(), 
             };
-            repository.Database.GetCollection<TransactionType>().InsertBulk(transactions);
+            repository.Database.GetCollection<TransactionType>().InsertBulk(transactionTypes);
 
             //when
             var result = handler.Execute(query);
 
             //then
-            Assert.Equal(transactions, result);
+            Assert.Equal(transactionTypes.OrderBy(x => x.Id), result.OrderBy(x => x.Id));
         }
 
         [Fact]
