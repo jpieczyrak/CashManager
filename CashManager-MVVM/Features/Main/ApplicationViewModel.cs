@@ -21,11 +21,7 @@ namespace CashManager_MVVM.Features.Main
             private set
             {
                 Set(ref _selectedViewModel, value, nameof(SelectedViewModel));
-                //todo: refactor this? changed on command interaction?
-                if (_selectedViewModel is TransactionListViewModel model)
-                {
-                    model.LoadTransactionsFromDatabase();
-                }
+                if (_selectedViewModel is IUpdateable model) model.Update();
             }
         }
 

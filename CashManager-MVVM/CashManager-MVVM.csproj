@@ -117,6 +117,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Features\IUpdateable.cs" />
     <Compile Include="Features\Parsers\ParseView.xaml.cs">
       <DependentUpon>ParseView.xaml</DependentUpon>
     </Compile>

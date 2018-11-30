@@ -13,7 +13,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 namespace CashManager_MVVM.Features.Transactions
 {
-    public class TransactionListViewModel : ViewModelBase
+    public class TransactionListViewModel : ViewModelBase, IUpdateable
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ViewModelFactory _factory;
@@ -24,20 +24,24 @@ namespace CashManager_MVVM.Features.Transactions
 
         public Transaction SelectedTransaction { get; set; }
 
-        public RelayCommand UpdateSourceCommand { get; set; }
+        public TransactionListViewModel() { }
 
-        public TransactionListViewModel()
-        {
-            UpdateSourceCommand = new RelayCommand(LoadTransactionsFromDatabase);
-        }
-
-        public TransactionListViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory) : this()
+        public TransactionListViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
             _queryDispatcher = queryDispatcher;
             _factory = factory;
         }
 
-        public void LoadTransactionsFromDatabase()
+        #region IUpdateable
+
+        public void Update()
+        {
+            LoadTransactionsFromDatabase();
+        }
+
+        #endregion
+
+        private void LoadTransactionsFromDatabase()
         {
             if (_queryDispatcher != null)
             {
