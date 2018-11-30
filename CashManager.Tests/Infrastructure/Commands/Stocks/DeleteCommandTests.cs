@@ -9,7 +9,7 @@ using Xunit;
 
 namespace CashManager.Tests.Infrastructure.Commands.Stocks
 {
-    public class DeleteStockCommandTests
+    public class DeleteCommandTests
     {
         [Fact]
         public void DeleteStockCommandHandler_NullEmptyDb_EmptyDb()

@@ -5,6 +5,7 @@
              xmlns:ignore="http://www.galasoft.ch/ignore"
              xmlns:transactions="clr-namespace:CashManager_MVVM.Features.Transactions"
              xmlns:stocks="clr-namespace:CashManager_MVVM.Features.Stocks"
+             xmlns:transactionTypes="clr-namespace:CashManager_MVVM.Features.TransactionTypes"
              mc:Ignorable="d ignore">
     <Application.Resources>
         <ResourceDictionary>
@@ -19,6 +20,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type stocks:StocksViewModel}">
                 <stocks:StocksView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type transactionTypes:TransactionTypesViewModel}">
+                <transactionTypes:TransactionTypesView />
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

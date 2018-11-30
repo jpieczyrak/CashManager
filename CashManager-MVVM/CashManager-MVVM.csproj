@@ -121,6 +121,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Features\TransactionTypes\TransactionTypesView.xaml.cs">
+      <DependentUpon>TransactionTypesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\TransactionTypes\TransactionTypesViewModel.cs" />
     <Compile Include="Features\Stocks\StocksView.xaml.cs">
       <DependentUpon>StocksView.xaml</DependentUpon>
     </Compile>
@@ -162,6 +166,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Features\TransactionTypes\TransactionTypesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Features\Stocks\StocksView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

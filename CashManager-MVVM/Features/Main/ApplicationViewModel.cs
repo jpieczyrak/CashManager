@@ -3,6 +3,7 @@ using System.Linq;
 
 using CashManager_MVVM.Features.Stocks;
 using CashManager_MVVM.Features.Transactions;
+using CashManager_MVVM.Features.TransactionTypes;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -30,6 +31,7 @@ namespace CashManager_MVVM.Features.Main
             {
                 { "Transactions list", factory.Create<TransactionListViewModel>() },
                 { "Stocks manager", factory.Create<StocksViewModel>() },
+                { "Types manager", factory.Create<TransactionTypesViewModel>() },
                 { "empty", null }
             };
             SelectedViewModel = ViewModels.FirstOrDefault().Value;

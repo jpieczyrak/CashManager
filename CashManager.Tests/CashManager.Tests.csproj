@@ -77,9 +77,10 @@
   <ItemGroup>
     <Compile Include="Dtos\TransactionCreationTests.cs" />
     <Compile Include="Infrastructure\Commands\Categories\UpsertCommandTests.cs" />
-    <Compile Include="Infrastructure\Commands\Stocks\DeleteStockCommandTests.cs" />
+    <Compile Include="Infrastructure\Commands\Stocks\DeleteCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Tags\UpsertCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Stocks\UpsertCommandTests.cs" />
+    <Compile Include="Infrastructure\Commands\TransactionTypes\DeleteCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\TransactionTypes\UpsertCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Transactions\UpsertCommandTests.cs" />
     <Compile Include="Infrastructure\DbMappingTests.cs" />

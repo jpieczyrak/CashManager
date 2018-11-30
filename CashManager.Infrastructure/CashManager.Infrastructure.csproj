@@ -89,6 +89,8 @@
     <Compile Include="Command\Tags\UpsertTagsCommandHandler.cs" />
     <Compile Include="Command\Stocks\DeleteStockCommand.cs" />
     <Compile Include="Command\Stocks\DeleteStockCommandHandler.cs" />
+    <Compile Include="Command\TransactionTypes\DeleteTransactionTypeCommand.cs" />
+    <Compile Include="Command\TransactionTypes\DeleteTransactionTypeCommandHandler.cs" />
     <Compile Include="Command\TransactionTypes\UpsertTransactionTypesCommand.cs" />
     <Compile Include="Command\TransactionTypes\UpsertTransactionTypesCommandHandler.cs" />
     <Compile Include="Command\Transactions\UpsertTransactionsCommand.cs" />
