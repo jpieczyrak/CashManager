@@ -6,6 +6,7 @@
              xmlns:transactions="clr-namespace:CashManager_MVVM.Features.Transactions"
              xmlns:stocks="clr-namespace:CashManager_MVVM.Features.Stocks"
              xmlns:transactionTypes="clr-namespace:CashManager_MVVM.Features.TransactionTypes"
+             xmlns:parsers="clr-namespace:CashManager_MVVM.Features.Parsers"
              mc:Ignorable="d ignore">
     <Application.Resources>
         <ResourceDictionary>
@@ -23,6 +24,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type transactionTypes:TransactionTypesViewModel}">
                 <transactionTypes:TransactionTypesView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type parsers:ParseViewModel}">
+                <parsers:ParseView />
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

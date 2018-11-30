@@ -117,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Features\Parsers\ParseView.xaml.cs">
+      <DependentUpon>ParseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Parsers\ParseViewModel.cs" />
     <Compile Include="Features\TransactionTypes\TransactionTypesView.xaml.cs">
       <DependentUpon>TransactionTypesView.xaml</DependentUpon>
     </Compile>
@@ -162,6 +166,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Features\Parsers\ParseView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Features\TransactionTypes\TransactionTypesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -225,6 +233,10 @@
     <ProjectReference Include="..\CashManager.Infrastructure\CashManager.Infrastructure.csproj">
       <Project>{C0CD5651-D1B7-47F3-B034-A5CB00079B38}</Project>
       <Name>CashManager.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CashManager.Logic\CashManager.Logic.csproj">
+      <Project>{9ec1c76c-cb71-4020-bab9-8b83b140def2}</Project>
+      <Name>CashManager.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

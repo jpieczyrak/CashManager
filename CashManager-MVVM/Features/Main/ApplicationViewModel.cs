@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using CashManager_MVVM.Features.Parsers;
 using CashManager_MVVM.Features.Stocks;
 using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Features.TransactionTypes;
@@ -17,7 +18,15 @@ namespace CashManager_MVVM.Features.Main
         public ViewModelBase SelectedViewModel
         {
             get => _selectedViewModel;
-            private set => Set(ref _selectedViewModel, value, nameof(SelectedViewModel));
+            private set
+            {
+                Set(ref _selectedViewModel, value, nameof(SelectedViewModel));
+                //todo: refactor this? changed on command interaction?
+                if (_selectedViewModel is TransactionListViewModel model)
+                {
+                    model.LoadTransactionsFromDatabase();
+                }
+            }
         }
 
         public Dictionary<string, ViewModelBase> ViewModels { get; private set; }
@@ -32,6 +41,7 @@ namespace CashManager_MVVM.Features.Main
                 { "Transactions list", factory.Create<TransactionListViewModel>() },
                 { "Stocks manager", factory.Create<StocksViewModel>() },
                 { "Types manager", factory.Create<TransactionTypesViewModel>() },
+                { "Parser", factory.Create<ParseViewModel>() },
                 { "empty", null }
             };
             SelectedViewModel = ViewModels.FirstOrDefault().Value;
