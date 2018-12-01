@@ -14,7 +14,10 @@ namespace CashManager.Tests.Parsers
         public void SimpleOutcomeParseTest()
         {
             //given
-            string input = @"Zaznacz
+            string input = @"
+some trash
+
+Zaznacz
 	
 	30-11-2018 / 30-11-2018 	
 Typ: TRANSAKCJA KARTĄ PŁATNICZĄ
