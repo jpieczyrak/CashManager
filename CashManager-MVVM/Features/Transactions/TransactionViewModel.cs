@@ -31,6 +31,7 @@ namespace CashManager_MVVM.Features.Transactions
         private readonly IEnumerable<Stock> _stocks;
         private Transaction _transaction;
         private bool _shouldBeCleanuped;
+        private CategoryViewModel _categoryViewModel;
 
         public IEnumerable<TransactionType> TransactionTypes { get; }
 
@@ -53,34 +54,52 @@ namespace CashManager_MVVM.Features.Transactions
         public TransactionViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
             ViewModelFactory factory)
         {
-            Transaction = new Transaction();
-
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
             _factory = factory;
+            _categoryViewModel = _factory.Create<CategoryViewModel>();
 
             TransactionTypes = Mapper.Map<TransactionType[]>(_queryDispatcher
                 .Execute<TransactionTypesQuery, DtoTransactionType[]>(new TransactionTypesQuery()));
 
             _stocks = _queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()).Select(Mapper.Map<Stock>);
+            
+            Transaction = CreateNewTransaction();
 
             ChooseCategoryCommand = new RelayCommand<Position>(position =>
             {
-                var viewModel = _factory.Create<CategoryViewModel>();
-                var window = new CategoryPickerView(viewModel, position.Category);
+                var window = new CategoryPickerView(_categoryViewModel, position.Category);
                 window.Show();
-                window.Closing += (sender, args) => { position.Category = viewModel?.SelectedCategory; };
+                window.Closing += (sender, args) => { position.Category = _categoryViewModel?.SelectedCategory; };
             });
 
             SaveCommand = new RelayCommand(ExecuteSaveCommand, CanExecuteSaveCommand);
             CancelCommand = new RelayCommand(ExecuteCancelCommand);
         }
 
+        private Transaction CreateNewTransaction()
+        {
+            return new Transaction
+            {
+                Type = TransactionTypes.FirstOrDefault(x => x.IsDefault && x.Outcome),
+                UserStock = UserStocks.FirstOrDefault(x => x.IsUserStock),
+                ExternalStock = ExternalStocks.FirstOrDefault(),
+                Positions = new TrulyObservableCollection<Position>(new[]
+                {
+                    new Position
+                    {
+                        Title = "empty",
+                        Category = _categoryViewModel.Categories.FirstOrDefault(x => x.Parent == null)
+                    }
+                })
+            };
+        }
+
         #region IUpdateable
 
         public void Update()
         {
-            if (_shouldBeCleanuped) Transaction = new Transaction();
+            if (_shouldBeCleanuped) Transaction = CreateNewTransaction();
         }
 
         #endregion
