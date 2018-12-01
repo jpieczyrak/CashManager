@@ -150,7 +150,7 @@ namespace CashManager.Tests.Mappers
             Assert.Equal(model.ExternalStock.Id, result.ExternalStock.Id);
             Assert.Equal(model.UserStock.Name, result.UserStock.Name);
             Assert.Equal(model.UserStock.Id, result.UserStock.Id);
-            Assert.NotEqual(model.InstanceCreationDate, result.InstanceCreationDate);
+            Assert.Equal(model.InstanceCreationDate, result.InstanceCreationDate);
             Assert.NotEqual(model.LastEditDate, result.LastEditDate);
             Assert.Equal(model.TransactionSourceCreationDate, result.TransactionSourceCreationDate);
             Assert.Equal(model.Note, result.Note);
