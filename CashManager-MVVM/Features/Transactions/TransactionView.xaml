@@ -32,15 +32,15 @@
         <Label Grid.Row="4" Grid.Column="0" Content="User stock"/>
         <Label Grid.Row="5" Grid.Column="0" Content="External stock"/>
 
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Transaction.Title}"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Transaction.Note}"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Transaction.Title, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Transaction.Note, UpdateSourceTrigger=PropertyChanged}"/>
         <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding TransactionTypes}" SelectedItem="{Binding Transaction.Type}" DisplayMemberPath="Name" />
         <DatePicker Grid.Row="3" Grid.Column="1" FirstDayOfWeek="Monday" SelectedDate="{Binding Transaction.BookDate}" />
         <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding UserStocks}" SelectedValue="{Binding Transaction.UserStock}" />
         <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding ExternalStocks}" SelectedValue="{Binding Transaction.ExternalStock}" />
 
         <DataGrid Grid.Row="6" Grid.ColumnSpan="2" Grid.Column="0" ItemsSource="{Binding Transaction.Positions}" 
-                  AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" >
+                  AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" CanUserAddRows="True" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>
                 <DataGridTemplateColumn Header="Category" Width="Auto" MinWidth="100">

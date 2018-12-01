@@ -35,6 +35,9 @@ namespace CashManager_MVVM.Features.Main
             ViewModels = new Dictionary<string, ViewModelBase>
             {
                 { "Transactions list", factory.Create<TransactionListViewModel>() },
+                { "Add simple", factory.Create<TransactionViewModel>() },
+                { "Add advanced", factory.Create<TransactionViewModel>() },
+                { "Add as company", factory.Create<TransactionViewModel>() },
                 { "Stocks manager", factory.Create<StocksViewModel>() },
                 { "Types manager", factory.Create<TransactionTypesViewModel>() },
                 { "Parser", factory.Create<ParseViewModel>() },

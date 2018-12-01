@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using AutoMapper;
 
-using CashManager.Data;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
@@ -17,17 +15,22 @@ using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Model;
 
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
+
+using DtoStock = CashManager.Data.DTO.Stock;
+using DtoTransactionType = CashManager.Data.DTO.TransactionType;
+using DtoTransaction = CashManager.Data.DTO.Transaction;
 
 namespace CashManager_MVVM.Features.Transactions
 {
-    public class TransactionViewModel : ViewModelBase
+    public class TransactionViewModel : ViewModelBase, IUpdateable
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ViewModelFactory _factory;
         private readonly IEnumerable<Stock> _stocks;
         private Transaction _transaction;
+        private bool _shouldBeCleanuped;
 
         public IEnumerable<TransactionType> TransactionTypes { get; }
 
@@ -50,16 +53,16 @@ namespace CashManager_MVVM.Features.Transactions
         public TransactionViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
             ViewModelFactory factory)
         {
+            Transaction = new Transaction();
+
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
             _factory = factory;
 
-            var transactionTypes = _queryDispatcher
-                .Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery());
-            TransactionTypes = Mapper.Map<TransactionType[]>(transactionTypes);
+            TransactionTypes = Mapper.Map<TransactionType[]>(_queryDispatcher
+                .Execute<TransactionTypesQuery, DtoTransactionType[]>(new TransactionTypesQuery()));
 
-            var dtos = _queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
-            _stocks = dtos.Select(Mapper.Map<Stock>);
+            _stocks = _queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()).Select(Mapper.Map<Stock>);
 
             ChooseCategoryCommand = new RelayCommand<Position>(position =>
             {
@@ -69,23 +72,41 @@ namespace CashManager_MVVM.Features.Transactions
                 window.Closing += (sender, args) => { position.Category = viewModel?.SelectedCategory; };
             });
 
-            SaveCommand = new RelayCommand(() =>
-            {
-                _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<CashManager.Data.DTO.Transaction>(_transaction)));
-                NavigateToTransactionListView();
-            });
-
-            CancelCommand = new RelayCommand(() =>
-            {
-                var transaction = _queryDispatcher
-                                  .Execute<TransactionQuery, CashManager.Data.DTO.Transaction[]>(new TransactionQuery())
-                                  .FirstOrDefault();
-                Transaction = Mapper.Map<Transaction>(transaction);
-                NavigateToTransactionListView();
-            });
+            SaveCommand = new RelayCommand(ExecuteSaveCommand, CanExecuteSaveCommand);
+            CancelCommand = new RelayCommand(ExecuteCancelCommand);
         }
 
-        public void NavigateToTransactionListView()
+        #region IUpdateable
+
+        public void Update()
+        {
+            if (_shouldBeCleanuped) Transaction = new Transaction();
+        }
+
+        #endregion
+
+        private void ExecuteCancelCommand()
+        {
+            var transaction = _queryDispatcher
+                              .Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery(x => x.Id == Transaction.Id))
+                              .FirstOrDefault();
+            if (transaction != null) Transaction = Mapper.Map<Transaction>(transaction);
+            NavigateToTransactionListView();
+        }
+
+        private bool CanExecuteSaveCommand()
+        {
+            return !string.IsNullOrEmpty(Transaction.Title) && Transaction.Positions.Any() && Transaction.Type != null;
+        }
+
+        private void ExecuteSaveCommand()
+        {
+            _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction>(_transaction)));
+            NavigateToTransactionListView();
+            _shouldBeCleanuped = true;
+        }
+
+        private void NavigateToTransactionListView()
         {
             var applicationViewModel = _factory.Create<ApplicationViewModel>();
             var target = _factory.Create<TransactionListViewModel>();
