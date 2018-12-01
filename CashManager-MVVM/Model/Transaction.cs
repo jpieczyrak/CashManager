@@ -17,7 +17,6 @@ namespace CashManager_MVVM.Model
         private TransactionType _type;
 
         private TrulyObservableCollection<Position> _positions;
-        private DateTime _lastEditDate;
 
         /// <summary>
         /// Date when transaction was first created within application
@@ -30,13 +29,9 @@ namespace CashManager_MVVM.Model
         public DateTime TransactionSourceCreationDate { get; }
 
         /// <summary>
-        /// Last time when transation was edited by user (within app)
+        /// Last time when transaction was edited by user (within app)
         /// </summary>
-        public DateTime LastEditDate
-        {
-            get => _lastEditDate;
-            private set => Set(nameof(LastEditDate), ref _lastEditDate, value);
-        }
+        public DateTime LastEditDate { get; private set; }
 
         /// <summary>
         /// Title of transaction
