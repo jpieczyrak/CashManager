@@ -31,6 +31,7 @@ namespace CashManager_MVVM.Features.Transactions
         private readonly CategoryViewModel _categoryViewModel;
         private IEnumerable<Stock> _stocks;
         private Transaction _transaction;
+        private bool _shouldCreateTransaction;
 
         public IEnumerable<TransactionType> TransactionTypes { get; set; }
 
@@ -83,13 +84,14 @@ namespace CashManager_MVVM.Features.Transactions
                                       .OrderBy(x => x.InstanceCreationDate)
                                       .ToArray();
             
-            Transaction = CreateNewTransaction();
+            if (_shouldCreateTransaction || Transaction == null) Transaction = CreateNewTransaction();
         }
 
         #endregion
 
         private Transaction CreateNewTransaction()
         {
+            _shouldCreateTransaction = false;
             return new Transaction
             {
                 Type = TransactionTypes.FirstOrDefault(x => x.IsDefault && x.Outcome),
@@ -124,6 +126,7 @@ namespace CashManager_MVVM.Features.Transactions
         {
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction>(_transaction)));
             NavigateToTransactionListView();
+            _shouldCreateTransaction = true;
         }
 
         private void NavigateToTransactionListView()
