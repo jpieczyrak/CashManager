@@ -40,6 +40,7 @@
     <Compile Include="Parsers\GetinBankParser.cs" />
     <Compile Include="Parsers\IdeaBankParser.cs" />
     <Compile Include="Parsers\IParser.cs" />
+    <Compile Include="Parsers\MillenniumBankParser.cs" />
     <Compile Include="Parsers\ParserFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
