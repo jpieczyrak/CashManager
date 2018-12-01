@@ -22,7 +22,7 @@ using DtoTransaction = CashManager.Data.DTO.Transaction;
 
 namespace CashManager_MVVM.Features.Parsers
 {
-    public class ParseViewModel : ViewModelBase
+    public class ParseViewModel : ViewModelBase, IUpdateable
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
@@ -76,19 +76,6 @@ namespace CashManager_MVVM.Features.Parsers
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
 
-            var stocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()));
-            UserStocks = stocks.Where(x => x.IsUserStock).ToArray();
-            ExternalStocks = stocks.Where(x => !x.IsUserStock).ToArray();
-            SelectedUserStock = UserStocks.FirstOrDefault();
-            SelectedExternalStock = ExternalStocks.FirstOrDefault();
-
-            var types = Mapper.Map<TransactionType[]>(
-                queryDispatcher.Execute<TransactionTypesQuery, DtoTransactionType[]>(new TransactionTypesQuery()));
-            IncomeTransactionTypes = types.Where(x => x.Income).OrderBy(x => x.IsDefault).ToArray();
-            OutcomeTransactionTypes = types.Where(x => x.Outcome).OrderBy(x => x.IsDefault).ToArray();
-            DefaultIncomeTransactionType = IncomeTransactionTypes.FirstOrDefault();
-            DefaultOutcomeTransactionType = OutcomeTransactionTypes.FirstOrDefault();
-
             Parsers = new Dictionary<string, IParser>
             {
                 { "Getin bank", new GetinBankParser() },
@@ -124,6 +111,22 @@ namespace CashManager_MVVM.Features.Parsers
 
             ResultsListViewModel = new TransactionListViewModel { Transactions = new TrulyObservableCollection<Transaction>(transactions) };
             RaisePropertyChanged(nameof(ResultsListViewModel));
+        }
+
+        public void Update()
+        {
+            var stocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()));
+            UserStocks = stocks.Where(x => x.IsUserStock).ToArray();
+            ExternalStocks = stocks.Where(x => !x.IsUserStock).ToArray();
+            SelectedUserStock = UserStocks.FirstOrDefault();
+            SelectedExternalStock = ExternalStocks.FirstOrDefault();
+
+            var types = Mapper.Map<TransactionType[]>(
+                _queryDispatcher.Execute<TransactionTypesQuery, DtoTransactionType[]>(new TransactionTypesQuery()));
+            IncomeTransactionTypes = types.Where(x => x.Income).OrderBy(x => x.IsDefault).ToArray();
+            OutcomeTransactionTypes = types.Where(x => x.Outcome).OrderBy(x => x.IsDefault).ToArray();
+            DefaultIncomeTransactionType = IncomeTransactionTypes.FirstOrDefault();
+            DefaultOutcomeTransactionType = OutcomeTransactionTypes.FirstOrDefault();
         }
     }
 }

@@ -28,12 +28,11 @@ namespace CashManager_MVVM.Features.Transactions
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ViewModelFactory _factory;
-        private readonly IEnumerable<Stock> _stocks;
+        private readonly CategoryViewModel _categoryViewModel;
+        private IEnumerable<Stock> _stocks;
         private Transaction _transaction;
-        private bool _shouldBeCleanuped;
-        private CategoryViewModel _categoryViewModel;
 
-        public IEnumerable<TransactionType> TransactionTypes { get; }
+        public IEnumerable<TransactionType> TransactionTypes { get; set; }
 
         public Transaction Transaction
         {
@@ -59,12 +58,7 @@ namespace CashManager_MVVM.Features.Transactions
             _factory = factory;
             _categoryViewModel = _factory.Create<CategoryViewModel>();
 
-            TransactionTypes = Mapper.Map<TransactionType[]>(_queryDispatcher
-                .Execute<TransactionTypesQuery, DtoTransactionType[]>(new TransactionTypesQuery()));
-
-            _stocks = _queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()).Select(Mapper.Map<Stock>);
-            
-            Transaction = CreateNewTransaction();
+            Update();
 
             ChooseCategoryCommand = new RelayCommand<Position>(position =>
             {
@@ -76,6 +70,19 @@ namespace CashManager_MVVM.Features.Transactions
             SaveCommand = new RelayCommand(ExecuteSaveCommand, CanExecuteSaveCommand);
             CancelCommand = new RelayCommand(ExecuteCancelCommand);
         }
+
+        #region IUpdateable
+
+        public void Update()
+        {
+            TransactionTypes = Mapper.Map<TransactionType[]>(_queryDispatcher
+                .Execute<TransactionTypesQuery, DtoTransactionType[]>(new TransactionTypesQuery()));
+            _stocks = _queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()).Select(Mapper.Map<Stock>);
+            
+            Transaction = CreateNewTransaction();
+        }
+
+        #endregion
 
         private Transaction CreateNewTransaction()
         {
@@ -95,15 +102,6 @@ namespace CashManager_MVVM.Features.Transactions
             };
         }
 
-        #region IUpdateable
-
-        public void Update()
-        {
-            if (_shouldBeCleanuped) Transaction = CreateNewTransaction();
-        }
-
-        #endregion
-
         private void ExecuteCancelCommand()
         {
             var transaction = _queryDispatcher
@@ -122,7 +120,6 @@ namespace CashManager_MVVM.Features.Transactions
         {
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction>(_transaction)));
             NavigateToTransactionListView();
-            _shouldBeCleanuped = true;
         }
 
         private void NavigateToTransactionListView()
