@@ -46,7 +46,7 @@ namespace CashManager_MVVM.Features.Transactions
             if (_queryDispatcher != null)
             {
                 var items = _queryDispatcher.Execute<TransactionQuery, CashManager.Data.DTO.Transaction[]>(new TransactionQuery());
-                var transactions = items.Select(Mapper.Map<Transaction>).ToArray();
+                var transactions = items.Select(Mapper.Map<Transaction>).OrderByDescending(x => x.BookDate).ToArray();
                 Transactions = new TrulyObservableCollection<Transaction>(transactions);
             }
         }
