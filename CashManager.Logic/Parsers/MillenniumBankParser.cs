@@ -18,7 +18,9 @@ namespace CashManager.Logic.Parsers
             if (string.IsNullOrEmpty(input)) return null;
 
             var results = new List<Transaction>();
-            var elements = input.Replace("\t", string.Empty).Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            var elements = input.Replace("\t", string.Empty)
+                                .Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            elements = elements.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
             if (elements.Length >= LINES_PER_ENTRY)
             {
                 int i = 0;

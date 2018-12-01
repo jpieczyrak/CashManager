@@ -108,7 +108,7 @@ spam not valid trash";
         {
             //given
             string input = @"Zaznacz
-	
+	 
 	26-11-2018 / 26-11-2018 	
 Typ: PRZELEW PRZYCHODZĄCY 
 Tytuł: Za kwiatki
