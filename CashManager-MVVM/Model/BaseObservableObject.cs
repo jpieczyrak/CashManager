@@ -6,7 +6,12 @@ namespace CashManager_MVVM.Model
 {
     public abstract class BaseObservableObject : ObservableObject
     {
-        public Guid Id { get; private set; } = Guid.NewGuid();
+        public Guid Id { get; protected set; } = Guid.NewGuid();
+
+        /// <summary>
+        /// Date when transaction was first created within application
+        /// </summary>
+        public DateTime InstanceCreationDate { get; protected set; } = DateTime.Now;
 
         #region Override
 

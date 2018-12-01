@@ -116,15 +116,21 @@ namespace CashManager_MVVM.Features.Parsers
         public void Update()
         {
             var stocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()));
-            UserStocks = stocks.Where(x => x.IsUserStock).ToArray();
-            ExternalStocks = stocks.Where(x => !x.IsUserStock).ToArray();
+            UserStocks = stocks.Where(x => x.IsUserStock)
+                               .OrderBy(x => x.InstanceCreationDate)
+                               .ToArray();
+            ExternalStocks = stocks.Where(x => !x.IsUserStock)
+                                   .OrderBy(x => x.InstanceCreationDate)
+                                   .ToArray();
             SelectedUserStock = UserStocks.FirstOrDefault();
             SelectedExternalStock = ExternalStocks.FirstOrDefault();
 
             var types = Mapper.Map<TransactionType[]>(
-                _queryDispatcher.Execute<TransactionTypesQuery, DtoTransactionType[]>(new TransactionTypesQuery()));
-            IncomeTransactionTypes = types.Where(x => x.Income).OrderBy(x => x.IsDefault).ToArray();
-            OutcomeTransactionTypes = types.Where(x => x.Outcome).OrderBy(x => x.IsDefault).ToArray();
+                _queryDispatcher.Execute<TransactionTypesQuery, DtoTransactionType[]>(new TransactionTypesQuery()))
+                              .OrderBy(x => x.InstanceCreationDate)
+                              .ToArray();
+            IncomeTransactionTypes = types.Where(x => x.Income).OrderBy(x => x.IsDefault).ThenBy(x => x.InstanceCreationDate).ToArray();
+            OutcomeTransactionTypes = types.Where(x => x.Outcome).OrderBy(x => x.IsDefault).ThenBy(x => x.InstanceCreationDate).ToArray();
             DefaultIncomeTransactionType = IncomeTransactionTypes.FirstOrDefault();
             DefaultOutcomeTransactionType = OutcomeTransactionTypes.FirstOrDefault();
         }

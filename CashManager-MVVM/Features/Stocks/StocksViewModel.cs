@@ -29,7 +29,9 @@ namespace CashManager_MVVM.Features.Stocks
         {
             _commandDispatcher = commandDispatcher;
 
-            var stocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery()));
+            var stocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery()))
+                               .OrderBy(x => x.InstanceCreationDate)
+                               .ToArray();
             Stocks = new TrulyObservableCollection<Stock>(stocks);
             Stocks.CollectionChanged += StocksOnCollectionChanged;
 

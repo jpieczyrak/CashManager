@@ -39,7 +39,6 @@ namespace CashManager.Tests.Infrastructure
                 ExternalStock = stock2,
                 Positions = positions,
                 BookDate = DateTime.Today,
-                InstanceCreationDate = DateTime.Today,
                 LastEditDate = DateTime.Today,
                 TransactionSourceCreationDate = DateTime.Today
             };
@@ -105,7 +104,6 @@ namespace CashManager.Tests.Infrastructure
                 ExternalStock = stock2,
                 Positions = positions,
                 BookDate = DateTime.Today,
-                InstanceCreationDate = DateTime.Today,
                 LastEditDate = DateTime.Today,
                 TransactionSourceCreationDate = DateTime.Today
             };

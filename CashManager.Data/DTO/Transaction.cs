@@ -15,8 +15,6 @@ namespace CashManager.Data.DTO
 
 		public List<Position> Positions { get; set; }
 
-		public DateTime InstanceCreationDate { get; set; }
-
 		public DateTime TransactionSourceCreationDate { get; set; }
 
 		public DateTime LastEditDate { get; set; }

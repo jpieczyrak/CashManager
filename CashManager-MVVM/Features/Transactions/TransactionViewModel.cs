@@ -76,8 +76,12 @@ namespace CashManager_MVVM.Features.Transactions
         public void Update()
         {
             TransactionTypes = Mapper.Map<TransactionType[]>(_queryDispatcher
-                .Execute<TransactionTypesQuery, DtoTransactionType[]>(new TransactionTypesQuery()));
-            _stocks = _queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()).Select(Mapper.Map<Stock>);
+                                         .Execute<TransactionTypesQuery, DtoTransactionType[]>(new TransactionTypesQuery()))
+                                     .OrderBy(x => x.InstanceCreationDate)
+                                     .ToArray(); ;
+            _stocks = _queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()).Select(Mapper.Map<Stock>)
+                                      .OrderBy(x => x.InstanceCreationDate)
+                                      .ToArray();
             
             Transaction = CreateNewTransaction();
         }

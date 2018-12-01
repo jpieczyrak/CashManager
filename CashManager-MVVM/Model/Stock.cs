@@ -21,7 +21,7 @@
             set => Set(nameof(IsUserStock), ref _isUserStock, value);
         }
 
-       #region Override
+        #region Override
 
         public override string ToString()
         {

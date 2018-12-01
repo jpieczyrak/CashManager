@@ -19,11 +19,6 @@ namespace CashManager_MVVM.Model
         private TrulyObservableCollection<Position> _positions;
 
         /// <summary>
-        /// Date when transaction was first created within application
-        /// </summary>
-        public DateTime InstanceCreationDate { get; private set; }
-
-        /// <summary>
         /// Date when transaction was performed (in real life, like going to shop or receiving payment)
         /// </summary>
         public DateTime TransactionSourceCreationDate { get; private set; }
