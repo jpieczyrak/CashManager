@@ -13,11 +13,17 @@
     <Grid>
         <DataGrid ItemsSource="{Binding Transactions, Mode=TwoWay}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedTransaction}" CanUserAddRows="False" CanUserDeleteRows="False" Margin="5" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date" Binding="{Binding BookDate, StringFormat=dd.MM.yyyy}" Width="100*"/>
-                <DataGridTextColumn Header="Last edit" Binding="{Binding LastEditDate, Mode=OneWay, StringFormat=dd.MM.yy HH:mm:ss:fff}" Width="160*"/>
-                <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay}" Width="100*" />
-                <DataGridTextColumn Header="Desc" Binding="{Binding Note, Mode=OneWay}" Width="100*" />
-                <DataGridTextColumn Header="Value" Binding="{Binding ValueAsProfit, Mode=OneWay}" Width="60*"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding BookDate, StringFormat=dd.MM.yyyy}" Width="Auto"/>
+                <DataGridTextColumn Header="Last edit" Binding="{Binding LastEditDate, Mode=OneWay, StringFormat=dd.MM.yy HH:mm:ss:fff}" Width="Auto"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay}" Width="*" />
+                <DataGridTextColumn Header="Desc" Binding="{Binding Note, Mode=OneWay}" Width="Auto" MaxWidth="200" />
+                <DataGridTextColumn Header="Value" Binding="{Binding ValueAsProfit, Mode=OneWay, StringFormat={}{0:#,##0.00 zł}}" Width="Auto" MinWidth="70">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate DataType="model:Transaction">
