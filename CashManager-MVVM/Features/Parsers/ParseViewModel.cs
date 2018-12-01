@@ -79,6 +79,7 @@ namespace CashManager_MVVM.Features.Parsers
             Parsers = new Dictionary<string, IParser>
             {
                 { "Getin bank", new GetinBankParser() },
+                { "Idea bank", new IdeaBankParser() },
                 { "Excel", new ExcelParser() }
             };
             SelectedParser = Parsers.FirstOrDefault();

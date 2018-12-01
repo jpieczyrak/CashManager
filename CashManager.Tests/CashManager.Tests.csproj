@@ -94,6 +94,7 @@
     <Compile Include="Infrastructure\Queries\Transactions\TransactionsTests.cs" />
     <Compile Include="Mappers\ModelAndDtoMappingTests.cs" />
     <Compile Include="Parsers\GetinBankParserTests.cs" />
+    <Compile Include="Parsers\IdeaBankTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\LiteDbHelper.cs" />
   </ItemGroup>

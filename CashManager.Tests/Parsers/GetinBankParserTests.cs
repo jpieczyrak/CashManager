@@ -25,7 +25,7 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
             var userStock = new Stock { Name = "Getin" };
             var externalStock = new Stock { Name = "Default" };
             var creationDate = new DateTime(2016, 9, 6);
-            var outcomeType = new TransactionType { Outcome = true, Name = "Buy"};
+            var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
             var expected = new Transaction(outcomeType, creationDate, "[Sierpień] Czynsz + media",
                 "JĘDRZEJ PIECZYRAK: PRZELEW WYCHODZĄCY (PLN)",
                 new[]

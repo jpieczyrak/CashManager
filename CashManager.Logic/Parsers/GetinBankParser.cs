@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-using CashManager.Data;
 using CashManager.Data.DTO;
 
 namespace CashManager.Logic.Parsers
