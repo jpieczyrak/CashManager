@@ -51,6 +51,8 @@ namespace CashManager_MVVM.Features.Transactions
 
         public RelayCommand CancelCommand { get; }
 
+        public RelayCommand AddNewPosition { get; }
+
         public TransactionViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
             ViewModelFactory factory)
         {
@@ -68,6 +70,7 @@ namespace CashManager_MVVM.Features.Transactions
                 window.Closing += (sender, args) => { position.Category = _categoryViewModel?.SelectedCategory; };
             });
 
+            AddNewPosition = new RelayCommand(() => Transaction.Positions.Add(new Position { Title = "new" }));
             SaveCommand = new RelayCommand(ExecuteSaveCommand, CanExecuteSaveCommand);
             CancelCommand = new RelayCommand(ExecuteCancelCommand);
         }
