@@ -10,7 +10,11 @@ namespace CashManager_MVVM.Model
         public double Value
         {
             get => _value;
-            set => Set(nameof(Value), ref _value, value);
+            set
+            {
+                Set(nameof(Value), ref _value, value);
+                Date = DateTime.Now;
+            }
         }
 
         public DateTime Date
