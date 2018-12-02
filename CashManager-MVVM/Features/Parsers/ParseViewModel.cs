@@ -12,6 +12,7 @@ using CashManager.Infrastructure.Query.TransactionTypes;
 using CashManager.Logic.Parsers;
 
 using CashManager_MVVM.Features.Transactions;
+using CashManager_MVVM.Messages;
 using CashManager_MVVM.Model;
 
 using GalaSoft.MvvmLight;
@@ -106,6 +107,7 @@ namespace CashManager_MVVM.Features.Parsers
                 {
                     SelectedUserStock.Balance = Mapper.Map<Balance>(balance);
                     _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock[]>(new [] { SelectedUserStock } )));
+                    MessengerInstance.Send(new StockUpdateMessage(SelectedUserStock));
                 }
             }
         }

@@ -8,6 +8,7 @@ using CashManager.Infrastructure.Command.Stocks;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 
+using CashManager_MVVM.Messages;
 using CashManager_MVVM.Model;
 
 using GalaSoft.MvvmLight;
@@ -39,6 +40,8 @@ namespace CashManager_MVVM.Features.Stocks
             RemoveCommand = new RelayCommand<Stock>(x =>
             {
                 _commandDispatcher.Execute(new DeleteStockCommand(Mapper.Map<CashManager.Data.DTO.Stock>(x)));
+
+                x.IsUserStock = false; //hack to make update message remove the stock for summary todo: fix
                 Stocks.Remove(x);
             });
         }
@@ -47,6 +50,8 @@ namespace CashManager_MVVM.Features.Stocks
         {
             var stocks = Stocks.Select(Mapper.Map<CashManager.Data.DTO.Stock>).ToArray();
             _commandDispatcher.Execute(new UpsertStocksCommand(stocks));
+
+            MessengerInstance.Send(new StockUpdateMessage(Stocks.ToArray()));
         }
     }
 }
