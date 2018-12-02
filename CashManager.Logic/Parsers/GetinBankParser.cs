@@ -44,7 +44,7 @@ namespace CashManager.Logic.Parsers
                 }
             }
 
-            Balance = _balances.OrderByDescending(x => x.Date).FirstOrDefault();
+            Balance = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
             _balances.Clear();
 
             return output.ToArray();
@@ -80,7 +80,7 @@ namespace CashManager.Logic.Parsers
                 double balance = bigValueBalance + smallValueBalance / 100.0;
                 note += $" Saldo: {balance:#,##0.00}";
 
-                _balances.Add(new Balance { Value = balance, Date = date } );
+                _balances.Add(new Balance(date, balance));
             }
 
             var transactionType = positiveSign ? defaultIncome : defaultOutcome;

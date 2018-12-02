@@ -51,7 +51,7 @@ namespace CashManager.Logic.Parsers
                             positions, userStock, externalStock, string.Join("\n", elements.Skip(i - 1).Take(4)));
 
                         results.Add(transaction);
-                        _balances.Add(new Balance { Value = balance, Date = date });
+                        _balances.Add(new Balance(date, balance));
                     }
                     catch (Exception e) { }
 
@@ -59,7 +59,7 @@ namespace CashManager.Logic.Parsers
                 }
             }
 
-            Balance = _balances.OrderByDescending(x => x.Date).FirstOrDefault();
+            Balance = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
             _balances.Clear();
 
             return results.ToArray();

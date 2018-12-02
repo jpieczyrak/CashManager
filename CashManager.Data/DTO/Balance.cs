@@ -6,6 +6,12 @@ namespace CashManager.Data.DTO
     {
         public double Value { get; set; }
 
-        public DateTime Date { get; set; }
+        public Balance(DateTime date, double value)
+        {
+            Value = value;
+            LastEditDate = date;
+        }
+
+        public Balance() { }
     }
 }

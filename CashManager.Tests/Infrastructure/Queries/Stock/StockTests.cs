@@ -39,7 +39,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Stock
                 {
                     Name = "1",
                     IsUserStock = true,
-                    Balance = new Balance { Date = DateTime.Today, Value = 12.34 }
+                    Balance = new Balance { Value = 12.34 }
                 },
                 new Data.DTO.Stock(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2))
                 {
@@ -56,7 +56,6 @@ namespace CashManager.Tests.Infrastructure.Queries.Stock
             Assert.Equal(stocks, result);
             Assert.Equal(stocks[0].Balance, result[0].Balance);
             Assert.Equal(stocks[0].Balance.Value, result[0].Balance.Value);
-            Assert.Equal(stocks[0].Balance.Date, result[0].Balance.Date);
         }
     }
 }

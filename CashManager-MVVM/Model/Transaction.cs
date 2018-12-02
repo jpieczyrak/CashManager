@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
 
 namespace CashManager_MVVM.Model
@@ -22,12 +21,7 @@ namespace CashManager_MVVM.Model
         /// Date when transaction was performed (in real life, like going to shop or receiving payment)
         /// </summary>
         public DateTime TransactionSourceCreationDate { get; private set; }
-
-        /// <summary>
-        /// Last time when transaction was edited by user (within app)
-        /// </summary>
-        public DateTime LastEditDate { get; private set; }
-
+        
         /// <summary>
         /// Title of transaction
         /// </summary>
@@ -116,12 +110,6 @@ namespace CashManager_MVVM.Model
             BookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
 
             Positions = new TrulyObservableCollection<Position>();
-            PropertyChanged += OnPropertyChanged;
-        }
-        
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            LastEditDate = DateTime.Now;
         }
         
         private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

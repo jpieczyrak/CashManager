@@ -23,7 +23,7 @@ namespace CashManager.Tests.Dtos
             Assert.InRange(transaction.BookDate, expectedLow, expectedHigh);
             Assert.InRange(transaction.InstanceCreationDate, expectedLow, expectedHigh);
             Assert.InRange(transaction.LastEditDate, expectedLow, expectedHigh);
-            Assert.InRange(transaction.TransactionSourceCreationDate, expectedLow, expectedHigh);
+            Assert.Equal(DateTime.MinValue, transaction.TransactionSourceCreationDate);
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace CashManager.Tests.Dtos
             Assert.InRange(transaction.BookDate, expectedLow, expectedHigh);
             Assert.InRange(transaction.InstanceCreationDate, expectedLow, expectedHigh);
             Assert.InRange(transaction.LastEditDate, expectedLow, expectedHigh);
-            Assert.InRange(transaction.TransactionSourceCreationDate, expectedLow, expectedHigh);
+            Assert.Equal(DateTime.MinValue, transaction.TransactionSourceCreationDate);
         }
 
         [Fact]

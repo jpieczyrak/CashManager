@@ -33,7 +33,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Stocks
             //given
             var stocks = new[]
             {
-                new Stock { Name = "test1", Balance = new Balance { Date = DateTime.Today, Value = 12.45 } }
+                new Stock { Name = "test1", Balance = new Balance { Value = 12.45 } }
             };
 
             var repository = LiteDbHelper.CreateMemoryDb();
@@ -48,7 +48,6 @@ namespace CashManager.Tests.Infrastructure.Commands.Stocks
             Assert.Equal(stocks.OrderBy(x => x.Id), orderedStocksInDatabase);
             Assert.Equal(stocks[0].Balance, orderedStocksInDatabase[0].Balance);
             Assert.Equal(stocks[0].Balance.Value, orderedStocksInDatabase[0].Balance.Value);
-            Assert.Equal(stocks[0].Balance.Date, orderedStocksInDatabase[0].Balance.Date);
         }
 
         [Fact]

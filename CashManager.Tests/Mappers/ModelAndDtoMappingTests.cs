@@ -86,19 +86,34 @@ namespace CashManager.Tests.Mappers
         public void PaymentValueModelToDtoToModelTest()
         {
             //given 
-            var model1 = new PaymentValue { Value = 12 };
-            var model2 = new PaymentValue { Value = 15 };
+            var model = new PaymentValue { Value = 12 };
 
             //when
-            var result1 = Mapper.Map<PaymentValue>(Mapper.Map<Data.DTO.PaymentValue>(model1));
-            var result2 = Mapper.Map<PaymentValue>(Mapper.Map<Data.DTO.PaymentValue>(model2));
+            var result = Mapper.Map<PaymentValue>(Mapper.Map<Data.DTO.PaymentValue>(model));
 
             //then
-            Assert.Equal(model1.Id, result1.Id);
-            Assert.Equal(model1.Value, result1.Value);
+            Assert.Equal(model.Id, result.Id);
+            Assert.Equal(model.Value, result.Value);
+        }
 
-            Assert.Equal(model2.Id, result2.Id);
-            Assert.Equal(model2.Value, result2.Value);
+        [Fact]
+        public void SimpleTransactionLastEditDateChangeMappingTest()
+        {
+            //given 
+            var model = new Transaction();
+            model.Note = "now last edit date should be updated";
+
+            //when
+            var dto = Mapper.Map<Data.DTO.Transaction>(model);
+            var result = Mapper.Map<Transaction>(dto);
+
+            //then
+            Assert.Equal(model.Id, dto.Id);
+            Assert.Equal(model.Note, dto.Note);
+            Assert.Equal(model.LastEditDate, dto.LastEditDate);
+            Assert.Equal(model.Id, result.Id);
+            Assert.Equal(model.Note, result.Note);
+            Assert.Equal(model.LastEditDate, result.LastEditDate);
         }
 
         [Fact]
@@ -155,7 +170,7 @@ namespace CashManager.Tests.Mappers
             Assert.Equal(model.UserStock.Balance, result.UserStock.Balance);
             Assert.Equal(model.UserStock.Balance.Value, result.UserStock.Balance.Value);
             Assert.Equal(model.InstanceCreationDate, result.InstanceCreationDate);
-            Assert.NotEqual(model.LastEditDate, result.LastEditDate);
+            Assert.Equal(model.LastEditDate, result.LastEditDate);
             Assert.Equal(model.TransactionSourceCreationDate, result.TransactionSourceCreationDate);
             Assert.Equal(model.Note, result.Note);
             Assert.Equal(model.Title, result.Title);

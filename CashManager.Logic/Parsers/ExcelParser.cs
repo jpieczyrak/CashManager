@@ -8,7 +8,7 @@ namespace CashManager.Logic.Parsers
 {
     public class ExcelParser : IParser
     {
-        public Balance Balance { get; private set; } = new Balance { Value = 0 };
+        public Balance Balance { get; private set; } = new Balance();
 
         #region IParser
 

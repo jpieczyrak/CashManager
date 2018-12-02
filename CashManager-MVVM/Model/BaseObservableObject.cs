@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 using GalaSoft.MvvmLight;
 
@@ -12,6 +13,21 @@ namespace CashManager_MVVM.Model
         /// Date when transaction was first created within application
         /// </summary>
         public DateTime InstanceCreationDate { get; protected set; } = DateTime.Now;
+
+        /// <summary>
+        /// Last time when transaction was edited by user (within app)
+        /// </summary>
+        public DateTime LastEditDate { get; protected set; }
+
+        protected BaseObservableObject()
+        {
+            PropertyChanged += OnPropertyChanged;
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            LastEditDate = DateTime.Now;
+        }
 
         #region Override
 

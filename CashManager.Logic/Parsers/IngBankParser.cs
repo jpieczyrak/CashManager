@@ -28,7 +28,7 @@ namespace CashManager.Logic.Parsers
             foreach (Match match in regex.Matches(input))
                 output.Add(CreateTransaction(match, userStock, externalStock, defaultOutcome, defaultIncome));
 
-            Balance = _balances.OrderByDescending(x => x.Date).FirstOrDefault();
+            Balance = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
             _balances.Clear();
 
             return output.ToArray();
@@ -65,7 +65,7 @@ namespace CashManager.Logic.Parsers
                 double balance = bigValueBalance + smallValueBalance / 100.0;
                 note = $"{category}, {sourceName} saldo: {balance:#,##0.00} ({currency})";
 
-                _balances.Add(new Balance { Value = balance, Date = date });
+                _balances.Add(new Balance(date, balance));
             }
 
             var transactionType = positiveSign ? defaultIncome : defaultOutcome;

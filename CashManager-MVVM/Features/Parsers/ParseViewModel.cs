@@ -103,7 +103,7 @@ namespace CashManager_MVVM.Features.Parsers
             var balance = SelectedParser.Value.Balance;
             if (balance != null)
             {
-                if (SelectedUserStock.Balance == null || balance.Date > SelectedUserStock.Balance.Date)
+                if (SelectedUserStock.Balance == null || balance.LastEditDate > SelectedUserStock.Balance.LastEditDate)
                 {
                     SelectedUserStock.Balance = Mapper.Map<Balance>(balance);
                     _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock[]>(new [] { SelectedUserStock } )));
