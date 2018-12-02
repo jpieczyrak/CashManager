@@ -122,6 +122,10 @@
       <DependentUpon>ParseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Parsers\ParseViewModel.cs" />
+    <Compile Include="Features\Stocks\StockSummaryView.xaml.cs">
+      <DependentUpon>StockSummaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Stocks\StockSummaryViewModel.cs" />
     <Compile Include="Features\TransactionTypes\TransactionTypesView.xaml.cs">
       <DependentUpon>TransactionTypesView.xaml</DependentUpon>
     </Compile>
@@ -171,6 +175,10 @@
     <Page Include="Features\Parsers\ParseView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Stocks\StockSummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\TransactionTypes\TransactionTypesView.xaml">
       <Generator>MSBuild:Compile</Generator>

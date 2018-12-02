@@ -28,6 +28,9 @@
             <DataTemplate DataType="{x:Type parsers:ParseViewModel}">
                 <parsers:ParseView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type stocks:StockSummaryViewModel}">
+                <stocks:StockSummaryView />
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

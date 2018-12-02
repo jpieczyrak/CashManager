@@ -25,6 +25,7 @@ namespace CashManager_MVVM.Features.Main
             }
         }
 
+        public StockSummaryViewModel SummaryViewModel { get; }
         public Dictionary<string, ViewModelBase> ViewModels { get; private set; }
 
         public RelayCommand<ViewModelBase> SetViewModelCommand { get; private set; }
@@ -43,6 +44,7 @@ namespace CashManager_MVVM.Features.Main
                 { "empty", null }
             };
             SelectedViewModel = ViewModels.FirstOrDefault().Value;
+            SummaryViewModel = factory.Create<StockSummaryViewModel>();
         }
     }
 }
