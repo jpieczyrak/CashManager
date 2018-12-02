@@ -8,6 +8,7 @@
     {
         private string _name;
         private bool _isUserStock;
+        private double _balance;
 
         public string Name
         {
@@ -19,6 +20,12 @@
         {
             get => _isUserStock;
             set => Set(nameof(IsUserStock), ref _isUserStock, value);
+        }
+
+        public double Balance
+        {
+            get => _balance;
+            set => Set(nameof(Balance), ref _balance, value);
         }
 
         #region Override

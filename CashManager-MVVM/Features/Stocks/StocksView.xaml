@@ -19,12 +19,14 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0" Text="{Binding Name}" MinWidth="100" Margin="5"/>
+                        <TextBox Grid.Column="0" Text="{Binding Name}" MinWidth="100" Margin="5" ToolTip="Stock name"/>
                         <CheckBox Grid.Column="1" IsChecked="{Binding IsUserStock}" Content="User stock" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
-                        <Button Grid.Column="3" Content="Remove"
+                        <TextBox Grid.Column="2" IsEnabled="{Binding IsUserStock}" Text="{Binding Balance}" Width="60" TextAlignment="Right" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Current balance"/>
+                        <Button Grid.Column="4" Content="Remove"
                                 Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                 CommandParameter="{Binding}"
                                 Margin="5" Width="120" Height="25"/>

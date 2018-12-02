@@ -11,5 +11,7 @@ namespace CashManager.Data.DTO
 	    public string Name { get; set; }
 
 		public bool IsUserStock { get; set; }
+
+		public double Balance { get; set; }
 	}
 }

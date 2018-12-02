@@ -106,9 +106,10 @@ namespace CashManager.Tests.Mappers
         {
             //given 
             var categoryParent = new Category { Value = "cat1", Parent = null };
+            double balance = 123.45d;
             var model = new Transaction
             {
-                UserStock = new Stock { Name = "1st", IsUserStock = true },
+                UserStock = new Stock { Name = "1st", IsUserStock = true, Balance = balance },
                 ExternalStock = new Stock { Name = "2nd", IsUserStock = false },
                 BookDate = DateTime.Today,
                 Note = "note",
@@ -148,8 +149,10 @@ namespace CashManager.Tests.Mappers
             Assert.Equal(model.BookDate, result.BookDate);
             Assert.Equal(model.ExternalStock.Name, result.ExternalStock.Name);
             Assert.Equal(model.ExternalStock.Id, result.ExternalStock.Id);
+            Assert.Equal(model.ExternalStock.Balance, result.ExternalStock.Balance);
             Assert.Equal(model.UserStock.Name, result.UserStock.Name);
             Assert.Equal(model.UserStock.Id, result.UserStock.Id);
+            Assert.Equal(model.UserStock.Balance, result.UserStock.Balance);
             Assert.Equal(model.InstanceCreationDate, result.InstanceCreationDate);
             Assert.NotEqual(model.LastEditDate, result.LastEditDate);
             Assert.Equal(model.TransactionSourceCreationDate, result.TransactionSourceCreationDate);
