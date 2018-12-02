@@ -99,7 +99,15 @@ namespace CashManager_MVVM.Features.Parsers
         private void ExecuteSaveCommand()
         {
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction[]>(ResultsListViewModel.Transactions)));
-            _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock[]>(SelectedUserStock)));
+            var balance = SelectedParser.Value.Balance;
+            if (balance != null)
+            {
+                if (SelectedUserStock.Balance == null || balance.Date > SelectedUserStock.Balance.Date)
+                {
+                    SelectedUserStock.Balance = Mapper.Map<Balance>(balance);
+                    _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock[]>(new [] { SelectedUserStock } )));
+                }
+            }
         }
 
         private bool CanExecuteParseCommand()

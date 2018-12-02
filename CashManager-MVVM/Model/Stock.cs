@@ -10,6 +10,11 @@
         private bool _isUserStock;
         private Balance _balance;
 
+        public Stock()
+        {
+            _balance = new Balance();
+        }
+
         public string Name
         {
             get => _name;

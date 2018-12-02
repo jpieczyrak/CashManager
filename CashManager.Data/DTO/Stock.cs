@@ -4,7 +4,7 @@ namespace CashManager.Data.DTO
 {
 	public class Stock : Dto
 	{
-	    public Stock() { }
+	    public Stock() { Balance = new Balance(); }
 
 	    public Stock(Guid id) { Id = id; }
 
