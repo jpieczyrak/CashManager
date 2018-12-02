@@ -8,7 +8,7 @@
     {
         private string _name;
         private bool _isUserStock;
-        private double _balance;
+        private Balance _balance;
 
         public string Name
         {
@@ -22,7 +22,7 @@
             set => Set(nameof(IsUserStock), ref _isUserStock, value);
         }
 
-        public double Balance
+        public Balance Balance
         {
             get => _balance;
             set => Set(nameof(Balance), ref _balance, value);

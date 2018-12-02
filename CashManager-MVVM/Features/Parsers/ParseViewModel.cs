@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 
 using CashManager.Infrastructure.Command;
+using CashManager.Infrastructure.Command.Stocks;
 using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
@@ -98,6 +99,7 @@ namespace CashManager_MVVM.Features.Parsers
         private void ExecuteSaveCommand()
         {
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction[]>(ResultsListViewModel.Transactions)));
+            _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock[]>(SelectedUserStock)));
         }
 
         private bool CanExecuteParseCommand()

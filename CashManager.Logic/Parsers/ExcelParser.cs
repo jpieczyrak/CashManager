@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-using CashManager.Data;
 using CashManager.Data.DTO;
 
 namespace CashManager.Logic.Parsers

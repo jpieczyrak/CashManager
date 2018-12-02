@@ -17,6 +17,9 @@ namespace CashManager_MVVM.Mapping
                 config.CreateMap<Category, CashManager.Data.DTO.Category>();
                 config.CreateMap<CashManager.Data.DTO.Category, Category>();
 
+                config.CreateMap<Balance, CashManager.Data.DTO.Balance>();
+                config.CreateMap<CashManager.Data.DTO.Balance, Balance>();
+
                 config.CreateMap<Stock, CashManager.Data.DTO.Stock>();
                 config.CreateMap<CashManager.Data.DTO.Stock, Stock>();
 

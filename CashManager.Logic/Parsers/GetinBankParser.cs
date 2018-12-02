@@ -60,9 +60,7 @@ namespace CashManager.Logic.Parsers
             bool positiveSign = match.Groups["Sign"].Value.Equals("+");
             int bigValue = int.Parse(match.Groups["ValueWithSpaces"].Value.Replace(" ", string.Empty));
             int smallValue = int.Parse(match.Groups["ValueAfterComma"].Value);
-
-
-
+            
             double value = bigValue + smallValue / 100.0;
             var date = new DateTime(year, month, day);
             string note = $"{sourceName}{(sourceName != string.Empty ? ": " : string.Empty)}{operationType} ({currency})";
@@ -77,7 +75,6 @@ namespace CashManager.Logic.Parsers
             }
 
             var transactionType = positiveSign ? defaultIncome : defaultOutcome;
-            
             var position = new Position(title, value);
 
 			return new Transaction(transactionType, date, title, note, new List<Position> { position }, userStock, externalStock, match.Value);
