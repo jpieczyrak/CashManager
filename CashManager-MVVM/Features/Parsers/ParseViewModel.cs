@@ -81,6 +81,7 @@ namespace CashManager_MVVM.Features.Parsers
                 { "Getin bank", new GetinBankParser() },
                 { "Idea bank", new IdeaBankParser() },
                 { "Millennium bank", new MillenniumBankParser() },
+                { "Ing bank", new IngBankParser() },
                 { "Excel", new ExcelParser() }
             };
             SelectedParser = Parsers.FirstOrDefault();

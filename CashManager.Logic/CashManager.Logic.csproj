@@ -39,6 +39,7 @@
     <Compile Include="Parsers\ExcelParser.cs" />
     <Compile Include="Parsers\GetinBankParser.cs" />
     <Compile Include="Parsers\IdeaBankParser.cs" />
+    <Compile Include="Parsers\IngBankParser.cs" />
     <Compile Include="Parsers\IParser.cs" />
     <Compile Include="Parsers\MillenniumBankParser.cs" />
     <Compile Include="Parsers\ParserFactory.cs" />
