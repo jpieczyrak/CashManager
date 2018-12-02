@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 using CashManager.Data.DTO;
@@ -8,15 +9,18 @@ namespace CashManager.Logic.Parsers
 {
     public class GetinBankParser : IParser
     {
+        private readonly List<Balance> _balances = new List<Balance>();
         private const string TRANSFER_REGEX =
             @"(?<Day>\d{2})\.(?<Month>\d{2})\.(?<Year>\d{4}) \– (?<OperationType>(\S| )*)(\r\n|\n)(?<SourceName>(\S| )*) \– (?<Title>(\S| )*)(\r\n|\n)*(?<Sign>(-|\+))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*) (?<Currency>\S*)( saldo po operacji: (?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*) (?<BalanceCurrency>\S*))?";
 
         private const string CARD_OPERATION_REGEX =
             @"(?<Day>\d{2})\.(?<Month>\d{2})\.(?<Year>\d{4}) (\–|\-) (?<OperationType>(\S| )*)(\r\n|\n)(?<Title>(\S| )*)(\r\n|\n)*(?<Sign>(-|\+))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*) (?<Currency>\S*)( saldo po operacji: (?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*) (?<BalanceCurrency>\S*))?";
 
+        public Balance Balance { get; private set; }
+
         #region IParser
 
-        public List<Transaction> Parse(string input, Stock userStock, Stock externalStock,
+        public Transaction[] Parse(string input, Stock userStock, Stock externalStock,
             TransactionType defaultOutcome, TransactionType defaultIncome)
         {
             var output = new List<Transaction>();
@@ -40,7 +44,10 @@ namespace CashManager.Logic.Parsers
                 }
             }
 
-            return output;
+            Balance = _balances.OrderByDescending(x => x.Date).FirstOrDefault();
+            _balances.Clear();
+
+            return output.ToArray();
         }
 
         #endregion
@@ -60,7 +67,7 @@ namespace CashManager.Logic.Parsers
             bool positiveSign = match.Groups["Sign"].Value.Equals("+");
             int bigValue = int.Parse(match.Groups["ValueWithSpaces"].Value.Replace(" ", string.Empty));
             int smallValue = int.Parse(match.Groups["ValueAfterComma"].Value);
-            
+
             double value = bigValue + smallValue / 100.0;
             var date = new DateTime(year, month, day);
             string note = $"{sourceName}{(sourceName != string.Empty ? ": " : string.Empty)}{operationType} ({currency})";
@@ -72,12 +79,15 @@ namespace CashManager.Logic.Parsers
                 int smallValueBalance = int.Parse(match.Groups["BalanceValueAfterComma"].Value);
                 double balance = bigValueBalance + smallValueBalance / 100.0;
                 note += $" Saldo: {balance:#,##0.00}";
+
+                _balances.Add(new Balance { Value = balance, Date = date } );
             }
 
             var transactionType = positiveSign ? defaultIncome : defaultOutcome;
             var position = new Position(title, value);
 
-			return new Transaction(transactionType, date, title, note, new List<Position> { position }, userStock, externalStock, match.Value);
+            return new Transaction(transactionType, date, title, note, new List<Position> { position }, userStock, externalStock,
+                match.Value);
         }
     }
 }

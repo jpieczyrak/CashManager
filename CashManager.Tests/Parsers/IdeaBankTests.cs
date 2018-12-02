@@ -23,8 +23,9 @@ trash scam";
             var externalStock = new Stock { Name = "Default" };
             var creationDate = new DateTime(2018, 11, 27);
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
+            double balance = 1665.36;
             var expected = new Transaction(outcomeType, creationDate, "Opłata za kartę - 10/2018",
-                $"Saldo: {1665.36:#,##0.00}",
+                $"Saldo: {balance:#,##0.00}",
                 new[]
                 {
                     new Position
@@ -40,6 +41,7 @@ trash scam";
 
             //then
             ValidateTransaction(result, expected);
+            Assert.Equal(balance, parser.Balance.Value);
         }
 
         [Fact]
@@ -64,8 +66,9 @@ spam not valid trash";
             var externalStock = new Stock { Name = "Default" };
             var creationDate = new DateTime(2018, 11, 27);
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
+            double balance = 1665.36;
             var expected = new Transaction(outcomeType, creationDate, "Opłata za kartę - 10/2018",
-                $"Saldo: {1665.36:#,##0.00}",
+                $"Saldo: {balance:#,##0.00}",
                 new[]
                 {
                     new Position
@@ -80,11 +83,9 @@ spam not valid trash";
             var results = parser.Parse(input, userStock, externalStock, outcomeType, null);
 
             //then
-            Assert.Equal(2, results.Count);
-            for (int i = 0; i < results.Count; i++)
-            {
-                ValidateTransaction(results[i], expected);
-            }
+            Assert.Equal(2, results.Length);
+            foreach (var result in results) ValidateTransaction(result, expected);
+            Assert.Equal(balance, parser.Balance.Value);
         }
 
         [Fact]
@@ -96,7 +97,7 @@ spam not valid trash";
 02.11.2018
 50,00 PLN
 
-4 375,81
+1 375,81
 
 ";
             var userStock = new Stock { Name = "Idea bank" };
@@ -104,8 +105,9 @@ spam not valid trash";
             var creationDate = new DateTime(2018, 11, 2);
             var outcomeType = new TransactionType { Income = true, Name = "Income" };
             string title = "Premia - Promocja Premiowanie za Bankowanie - 10.2018";
+            double balance = 1375.81;
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"Saldo: {4375.81:#,##0.00}",
+                $"Saldo: {balance:#,##0.00}",
                 new[]
                 {
                     new Position
@@ -121,6 +123,7 @@ spam not valid trash";
 
             //then
             ValidateTransaction(result, expected);
+            Assert.Equal(balance, parser.Balance.Value);
         }
     }
 }

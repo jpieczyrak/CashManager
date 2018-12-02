@@ -8,7 +8,11 @@ namespace CashManager.Logic.Parsers
 {
     public class ExcelParser : IParser
     {
-        public List<Transaction> Parse(string input, Stock userStock, Stock externalStock,
+        public Balance Balance { get; private set; } = new Balance { Value = 0 };
+
+        #region IParser
+
+        public Transaction[] Parse(string input, Stock userStock, Stock externalStock,
             TransactionType defaultOutcome, TransactionType defaultIncome)
         {
             List<Transaction> transactions = new List<Transaction>();
@@ -21,33 +25,30 @@ namespace CashManager.Logic.Parsers
                 bool buying = !string.IsNullOrEmpty(values[11]);
                 bool working = !string.IsNullOrEmpty(values[10]);
 
-                if (buying)
-                {
-                    transactions.Add(MakeTransaction(userStock, externalStock, true, values, line, defaultOutcome, defaultIncome));
-                }
+                if (buying) transactions.Add(MakeTransaction(userStock, externalStock, true, values, line, defaultOutcome, defaultIncome));
                 if (working)
-                {
                     transactions.Add(MakeTransaction(userStock, externalStock, false, values, line, defaultOutcome, defaultIncome));
-                }
             }
 
-            return transactions;
+            return transactions.ToArray();
         }
 
-		private Transaction MakeTransaction(Stock userStock, Stock externalStock, bool outcome, IReadOnlyList<string> values, string input,
-		    TransactionType defaultOutcome, TransactionType defaultIncome)
-		{
-			var date = DateTime.ParseExact(values[0], "d.M.yy", CultureInfo.InvariantCulture);
-			string title = values[12];
+        #endregion
 
-			var type = outcome ? defaultOutcome : defaultIncome;
+        private Transaction MakeTransaction(Stock userStock, Stock externalStock, bool outcome, IReadOnlyList<string> values, string input,
+            TransactionType defaultOutcome, TransactionType defaultIncome)
+        {
+            var date = DateTime.ParseExact(values[0], "d.M.yy", CultureInfo.InvariantCulture);
+            string title = values[12];
 
-			string stringWithValue = outcome ? values[11] : values[10];
-			double.TryParse(stringWithValue, out double value);
+            var type = outcome ? defaultOutcome : defaultIncome;
 
-			var position = new Position(title, value);
+            string stringWithValue = outcome ? values[11] : values[10];
+            double.TryParse(stringWithValue, out double value);
 
-			return new Transaction(type, date, title, "", new List<Position> {position}, userStock, externalStock, input);
-		}
+            var position = new Position(title, value);
+
+            return new Transaction(type, date, title, "", new List<Position> { position }, userStock, externalStock, input);
+        }
     }
 }

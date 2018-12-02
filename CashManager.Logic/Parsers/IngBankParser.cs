@@ -9,11 +9,16 @@ namespace CashManager.Logic.Parsers
 {
     public class IngBankParser : IParser
     {
-        private const string REGEX_PATTERN = @"(?<Day>\d{2})\.(?<Month>\d{2})\.(?<Year>\d{4}).*\r?\nKategoria +(?<Category>.*)\r?\n.*\r?\n(?<Title>(.*\r?\n)(.*\r?\n)?(.*\r?\n)?)\r?\nKwota\r?\n(.*\r?\n)?(.*\r?\n)?(?<Sign>(\-)?)(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*) (?<Currency>\S*)(\r?\n)*Konto\r?\n(?<Account>.*)(\r?\n)*Saldo po transakcji(\r?\n)*(?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*) +(?<BalanceCurrency>\S*)";
+        private const string REGEX_PATTERN =
+            @"(?<Day>\d{2})\.(?<Month>\d{2})\.(?<Year>\d{4}).*\r?\nKategoria +(?<Category>.*)\r?\n.*\r?\n(?<Title>(.*\r?\n)(.*\r?\n)?(.*\r?\n)?)\r?\nKwota\r?\n(.*\r?\n)?(.*\r?\n)?(?<Sign>(\-)?)(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*) (?<Currency>\S*)(\r?\n)*Konto\r?\n(?<Account>.*)(\r?\n)*Saldo po transakcji(\r?\n)*(?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*) +(?<BalanceCurrency>\S*)";
+
+        private readonly List<Balance> _balances = new List<Balance>();
+
+        public Balance Balance { get; private set; }
 
         #region IParser
 
-        public List<Transaction> Parse(string input, Stock userStock, Stock externalStock,
+        public Transaction[] Parse(string input, Stock userStock, Stock externalStock,
             TransactionType defaultOutcome, TransactionType defaultIncome)
         {
             var output = new List<Transaction>();
@@ -23,7 +28,10 @@ namespace CashManager.Logic.Parsers
             foreach (Match match in regex.Matches(input))
                 output.Add(CreateTransaction(match, userStock, externalStock, defaultOutcome, defaultIncome));
 
-            return output;
+            Balance = _balances.OrderByDescending(x => x.Date).FirstOrDefault();
+            _balances.Clear();
+
+            return output.ToArray();
         }
 
         #endregion
@@ -35,7 +43,8 @@ namespace CashManager.Logic.Parsers
             int month = int.Parse(match.Groups["Month"].Value);
             int year = int.Parse(match.Groups["Year"].Value);
 
-            string title = string.Join(" ", match.Groups["Title"].Value.Split('\n').Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x.Trim()));
+            string title = string.Join(" ",
+                match.Groups["Title"].Value.Split('\n').Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x.Trim()));
             string sourceName = match.Groups["Account"]?.Value.Trim() ?? string.Empty;
             string currency = match.Groups["Currency"].Value.Trim();
             string category = match.Groups["Category"].Value.Trim();
@@ -43,7 +52,7 @@ namespace CashManager.Logic.Parsers
             bool positiveSign = match.Groups["Sign"].Value.Equals("+");
             int bigValue = int.Parse(match.Groups["ValueWithSpaces"].Value.Replace(" ", string.Empty));
             int smallValue = int.Parse(match.Groups["ValueAfterComma"].Value);
-            
+
             double value = bigValue + smallValue / 100.0;
             var date = new DateTime(year, month, day);
             string note = "";
@@ -55,13 +64,16 @@ namespace CashManager.Logic.Parsers
                 int smallValueBalance = int.Parse(match.Groups["BalanceValueAfterComma"].Value);
                 double balance = bigValueBalance + smallValueBalance / 100.0;
                 note = $"{category}, {sourceName} saldo: {balance:#,##0.00} ({currency})";
+
+                _balances.Add(new Balance { Value = balance, Date = date });
             }
 
             var transactionType = positiveSign ? defaultIncome : defaultOutcome;
 
             var position = new Position(title, value);
 
-            return new Transaction(transactionType, date, title, note, new List<Position> { position }, userStock, externalStock, match.Value);
+            return new Transaction(transactionType, date, title, note, new List<Position> { position }, userStock, externalStock,
+                match.Value);
         }
     }
 }

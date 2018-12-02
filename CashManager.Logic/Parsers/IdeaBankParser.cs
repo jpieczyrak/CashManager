@@ -8,17 +8,20 @@ namespace CashManager.Logic.Parsers
 {
     public class IdeaBankParser : IParser
     {
+        private readonly List<Balance> _balances = new List<Balance>();
         private const int LINES_PER_ENTRY = 4;
+
+        public Balance Balance { get; private set; }
 
         #region IParser
 
-        public List<Transaction> Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome,
+        public Transaction[] Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome,
             TransactionType defaultIncome)
         {
             if (string.IsNullOrEmpty(input)) return null;
 
             var results = new List<Transaction>();
-            var elements = input.Split(new [] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            var elements = input.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
             if (elements.Length >= LINES_PER_ENTRY)
             {
                 int i = 0;
@@ -35,20 +38,23 @@ namespace CashManager.Logic.Parsers
                         bool income = value > 0.0d;
 
                         var positions = new[] { new Position(title, Math.Abs(value)) };
-                        var transaction = new Transaction(income ? defaultIncome : defaultOutcome, date, title, $"Saldo: {balance:#,##0.00}",
+                        var transaction = new Transaction(income ? defaultIncome : defaultOutcome, date, title,
+                            $"Saldo: {balance:#,##0.00}",
                             positions, userStock, externalStock, string.Join("\n", elements.Skip(i - 1).Take(LINES_PER_ENTRY)));
-                        
+
                         results.Add(transaction);
+                        _balances.Add(new Balance { Value = balance, Date = date });
                     }
-                    catch (Exception e)
-                    {
-                        
-                    }
+                    catch (Exception e) { }
+
                     i += LINES_PER_ENTRY;
                 }
             }
 
-            return results;
+            Balance = _balances.OrderByDescending(x => x.Date).FirstOrDefault();
+            _balances.Clear();
+
+            return results.ToArray();
         }
 
         #endregion

@@ -9,10 +9,13 @@ namespace CashManager.Logic.Parsers
     public class MillenniumBankParser : IParser
     {
         private const int LINES_PER_ENTRY = 7;
+        private readonly List<Balance> _balances = new List<Balance>();
+
+        public Balance Balance { get; private set; }
 
         #region IParser
 
-        public List<Transaction> Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome,
+        public Transaction[] Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome,
             TransactionType defaultIncome)
         {
             if (string.IsNullOrEmpty(input)) return null;
@@ -48,6 +51,7 @@ namespace CashManager.Logic.Parsers
                             positions, userStock, externalStock, string.Join("\n", elements.Skip(i - 1).Take(4)));
 
                         results.Add(transaction);
+                        _balances.Add(new Balance { Value = balance, Date = date });
                     }
                     catch (Exception e) { }
 
@@ -55,7 +59,10 @@ namespace CashManager.Logic.Parsers
                 }
             }
 
-            return results;
+            Balance = _balances.OrderByDescending(x => x.Date).FirstOrDefault();
+            _balances.Clear();
+
+            return results.ToArray();
         }
 
         #endregion

@@ -32,8 +32,9 @@ Saldo: 1 253,76 PLN
             var creationDate = new DateTime(2018, 11, 30);
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
             string title = "Centrum Niskich Cen Sp.Gliwice";
+            double balance = 1253.76;
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"TRANSAKCJA KARTĄ PŁATNICZĄ, Saldo: {1253.76:#,##0.00}",
+                $"TRANSAKCJA KARTĄ PŁATNICZĄ, Saldo: {balance:#,##0.00}",
                 new[]
                 {
                     new Position
@@ -49,6 +50,7 @@ Saldo: 1 253,76 PLN
 
             //then
             ValidateTransaction(result, expected);
+            Assert.Equal(balance, parser.Balance.Value);
         }
 
         [Fact]
@@ -86,8 +88,9 @@ spam not valid trash";
             var creationDate = new DateTime(2018, 11, 30);
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
             string title = "Centrum Niskich Cen Sp.Gliwice";
+            double balance = 1253.76;
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"TRANSAKCJA KARTĄ PŁATNICZĄ, Saldo: {1253.76:#,##0.00}",
+                $"TRANSAKCJA KARTĄ PŁATNICZĄ, Saldo: {balance:#,##0.00}",
                 new[]
                 {
                     new Position
@@ -102,8 +105,9 @@ spam not valid trash";
             var results = parser.Parse(input, userStock, externalStock, outcomeType, null);
 
             //then
-            Assert.Equal(2, results.Count);
+            Assert.Equal(2, results.Length);
             foreach (var transaction in results) ValidateTransaction(transaction, expected);
+            Assert.Equal(balance, parser.Balance.Value);
         }
 
         [Fact]
@@ -125,8 +129,9 @@ Saldo: 1 253,76 PLN
             var creationDate = new DateTime(2018, 11, 26);
             var outcomeType = new TransactionType { Income = true, Name = "Income" };
             string title = "Za kwiatki";
+            double balance = 1253.76;
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"PRZELEW PRZYCHODZĄCY, Saldo: {1253.76:#,##0.00}",
+                $"PRZELEW PRZYCHODZĄCY, Saldo: {balance:#,##0.00}",
                 new[]
                 {
                     new Position
@@ -142,6 +147,7 @@ Saldo: 1 253,76 PLN
 
             //then
             ValidateTransaction(result, expected);
+            Assert.Equal(balance, parser.Balance.Value);
         }
     }
 }

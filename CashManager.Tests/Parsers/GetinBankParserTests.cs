@@ -62,8 +62,9 @@ CENTRUM NISKICH CEN SP, GLIWICE , PL
             var creationDate = new DateTime(2018, 10, 25);
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
             string title = "CENTRUM NISKICH CEN SP, GLIWICE , PL";
+            double balance = 2735.57;
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"Operacja kartą (PLN) Saldo: {2735.57:#,##0.00}",
+                $"Operacja kartą (PLN) Saldo: {balance:#,##0.00}",
                 new[]
                 {
                     new Position
@@ -80,6 +81,7 @@ CENTRUM NISKICH CEN SP, GLIWICE , PL
 
             //then
             ValidateTransaction(result, expected);
+            Assert.Equal(balance, parser.Balance.Value);
         }
 
         [Fact]
@@ -98,8 +100,9 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
             var creationDate = new DateTime(2014, 02, 28);
             var incomeType = new TransactionType { Income = true, Name = "Work" };
             string title = "Wynagrodzenie z tytulu umowy cywilnoprawnej";
+            double balance = 1574.38;
             var expected = new Transaction(incomeType, creationDate, title,
-                $"Firma SP. Z O.O.: PRZELEW PRZYCHODZĄCY (PLN) Saldo: {1574.38:#,##0.00}",
+                $"Firma SP. Z O.O.: PRZELEW PRZYCHODZĄCY (PLN) Saldo: {balance:#,##0.00}",
                 new [] { new Position(title, 1123.12d) }, 
                 userStock, externalStock, input);
 
@@ -109,6 +112,7 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
 
             //then
             ValidateTransaction(result, expected);
+            Assert.Equal(balance, parser.Balance.Value);
         }
     }
 }

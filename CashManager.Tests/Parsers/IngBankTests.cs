@@ -83,8 +83,9 @@ Saldo po transakcji
             var creationDate = new DateTime(2018, 12, 1);
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
             string title = "Przelew własny";
+            double balance = 1881.05;
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"Transfer wewnętrzny, KONTO Direct saldo: {1881.05:#,##0.00} (PLN)",
+                $"Transfer wewnętrzny, KONTO Direct saldo: {balance:#,##0.00} (PLN)",
                 new[]
                 {
                     new Position
@@ -100,6 +101,7 @@ Saldo po transakcji
 
             //then
             ValidateTransaction(result, expected);
+            Assert.Equal(balance, parser.Balance.Value);
         }
 
         [Fact]
@@ -178,8 +180,9 @@ trash";
             var creationDate = new DateTime(2018, 12, 2);
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
             string title = @"ICON FITNESS GLIWICE GLIWICE PL Płatność kartą 02.12.2018 Nr karty 4246xx9261";
+            double balance = 1832.05;
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"Rozrywka i podróże, KONTO Direct saldo: {1832.05:#,##0.00} (PLN)",
+                $"Rozrywka i podróże, KONTO Direct saldo: {balance:#,##0.00} (PLN)",
                 new[]
                 {
                     new Position
@@ -194,8 +197,9 @@ trash";
             var results = parser.Parse(input, userStock, externalStock, outcomeType, null);
 
             //then
-            Assert.Equal(3, results.Count);
+            Assert.Equal(3, results.Length);
             foreach (var transaction in results) ValidateTransaction(transaction, expected);
+            Assert.Equal(balance, parser.Balance.Value);
         }
 
         [Fact]
@@ -226,8 +230,9 @@ trash
             var creationDate = new DateTime(2018, 12, 1);
             var outcomeType = new TransactionType { Income = true, Name = "Work" };
             string title = @"NALICZONE ODSETKI";
+            double balance = 1479.68;
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"Przychód, Smart Saver saldo: {1479.68:#,##0.00} (PLN)",
+                $"Przychód, Smart Saver saldo: {balance:#,##0.00} (PLN)",
                 new[]
                 {
                     new Position
@@ -243,6 +248,7 @@ trash
 
             //then
             ValidateTransaction(result, expected);
+            Assert.Equal(balance, parser.Balance.Value);
         }
     }
 }

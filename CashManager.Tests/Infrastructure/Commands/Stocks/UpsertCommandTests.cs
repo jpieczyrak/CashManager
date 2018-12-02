@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using CashManager.Data.DTO;
 using CashManager.Infrastructure.Command.Stocks;
@@ -30,21 +31,24 @@ namespace CashManager.Tests.Infrastructure.Commands.Stocks
         public void UpsertStockCommandHandler_EmptyDbUpsertOneObject_ObjectSaved()
         {
             //given
-            var Stocks = new[]
+            var stocks = new[]
             {
-                new Stock { Name = "test1" }
+                new Stock { Name = "test1", Balance = new Balance { Date = DateTime.Today, Value = 12.45 } }
             };
 
             var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new UpsertStocksCommandHandler(repository);
-            var command = new UpsertStocksCommand(Stocks);
+            var command = new UpsertStocksCommand(stocks);
 
             //when
             handler.Execute(command);
 
             //then
-            var orderedStocksInDatabase = repository.Database.Query<Stock>().OrderBy(x => x.Id);
-            Assert.Equal(Stocks.OrderBy(x => x.Id), orderedStocksInDatabase);
+            var orderedStocksInDatabase = repository.Database.Query<Stock>().OrderBy(x => x.Id).ToArray();
+            Assert.Equal(stocks.OrderBy(x => x.Id), orderedStocksInDatabase);
+            Assert.Equal(stocks[0].Balance, orderedStocksInDatabase[0].Balance);
+            Assert.Equal(stocks[0].Balance.Value, orderedStocksInDatabase[0].Balance.Value);
+            Assert.Equal(stocks[0].Balance.Date, orderedStocksInDatabase[0].Balance.Date);
         }
 
         [Fact]
