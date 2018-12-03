@@ -24,7 +24,7 @@ namespace CashManager_MVVM.Model
             set => Set(nameof(Parent), ref _parent, value);
         }
 
-        public Category[] Children { get; set; }
+        public List<Category> Children { get; set; }
 
         public bool IsSelected { get; set; }
 

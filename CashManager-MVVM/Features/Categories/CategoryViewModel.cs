@@ -29,7 +29,7 @@ namespace CashManager_MVVM.Features.Categories
                                             .Select(Mapper.Map<Model.Category>)
                                             .ToArray();
 
-            foreach (var category in categories) category.Children = categories.Where(x => x.Parent?.Id == category?.Id).ToArray();
+            foreach (var category in categories) category.Children = categories.Where(x => x.Parent?.Id == category?.Id).ToList();
 
             Categories = categories.Where(x => x.Parent == null).ToArray(); //find the root(s)
         }

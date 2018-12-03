@@ -7,6 +7,7 @@
              xmlns:stocks="clr-namespace:CashManager_MVVM.Features.Stocks"
              xmlns:transactionTypes="clr-namespace:CashManager_MVVM.Features.TransactionTypes"
              xmlns:parsers="clr-namespace:CashManager_MVVM.Features.Parsers"
+             xmlns:categories="clr-namespace:CashManager_MVVM.Features.Categories"
              mc:Ignorable="d ignore">
     <Application.Resources>
         <ResourceDictionary>
@@ -30,6 +31,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type stocks:StockSummaryViewModel}">
                 <stocks:StockSummaryView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type categories:CategoryManagerViewModel}">
+                <categories:CategoryManagerView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

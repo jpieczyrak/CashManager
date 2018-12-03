@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Parsers;
 using CashManager_MVVM.Features.Stocks;
 using CashManager_MVVM.Features.Transactions;
@@ -35,6 +36,7 @@ namespace CashManager_MVVM.Features.Main
             SetViewModelCommand = new RelayCommand<ViewModelBase>(view => SelectedViewModel = view);
             ViewModels = new Dictionary<string, ViewModelBase>
             {
+                { "Category manager", factory.Create<CategoryManagerViewModel>() },
                 { "Transactions list", factory.Create<TransactionListViewModel>() },
                 { "Add transaction", factory.Create<TransactionViewModel>() },
                 { "Add as company", factory.Create<TransactionViewModel>() },
