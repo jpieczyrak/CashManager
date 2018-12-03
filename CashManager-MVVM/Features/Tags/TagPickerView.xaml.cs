@@ -1,5 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+
+using CashManager_MVVM.Model;
 
 namespace CashManager_MVVM.Features.Tags
 {
@@ -15,13 +18,8 @@ namespace CashManager_MVVM.Features.Tags
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
-            // Let ComboBox's original method handle it
             base.OnPreviewKeyDown(e);
-
-            // Manually check if the ComboBox handled an "Enter" key
-            // If yes, set e.Handled back to false so that Command binding can consume the same event
-            if (e.Key == Key.Enter)
-                e.Handled = false;
+            if (e.Key == Key.Enter) e.Handled = false;
         }
     }
 }

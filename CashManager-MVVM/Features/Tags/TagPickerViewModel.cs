@@ -21,7 +21,7 @@ namespace CashManager_MVVM.Features.Tags
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
-        private readonly List<Tag> _tags;
+        private readonly TrulyObservableCollection<Tag> _tags;
         private string _text;
         private TrulyObservableCollection<Tag> _observableTags;
 
@@ -34,6 +34,8 @@ namespace CashManager_MVVM.Features.Tags
         public Tag SelectedTag { get; set; }
 
         public Tag[] SelectedTags => _tags.Where(x => x.IsSelected).ToArray();
+
+        public string SelectedTagsString => string.Join(", ", SelectedTags.OrderBy(x => x.Name));
 
         public string Text
         {
@@ -54,9 +56,10 @@ namespace CashManager_MVVM.Features.Tags
             _commandDispatcher = commandDispatcher;
             AddNewTagCommand = new RelayCommand(ExecuteAddNewTagCommand, CanExecuteAddNewTagCommand);
             var dtos = _queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery());
-            _tags = new List<Tag>(Mapper.Map<Tag[]>(dtos).OrderBy(x => !x.IsSelected).ThenBy(x => x.Name));
+            _tags = new TrulyObservableCollection<Tag>(Mapper.Map<Tag[]>(dtos).OrderBy(x => !x.IsSelected).ThenBy(x => x.Name));
             foreach (var tag in _tags) tag.IsSelected = false;
             Tags = new TrulyObservableCollection<Tag>(_tags);
+            _tags.CollectionChanged += (sender, args) => RaisePropertyChanged(nameof(SelectedTagsString));
         }
 
         public void SelectTags(IEnumerable<Tag> tags)

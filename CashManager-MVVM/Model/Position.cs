@@ -1,4 +1,6 @@
-﻿using CashManager_MVVM.Features.Tags;
+﻿using System.Linq;
+
+using CashManager_MVVM.Features.Tags;
 
 namespace CashManager_MVVM.Model
 {
@@ -7,6 +9,7 @@ namespace CashManager_MVVM.Model
         private PaymentValue _value;
         private Category _category;
         private string _title;
+        private Tag[] _tags;
 
         public string Title
         {
@@ -33,8 +36,12 @@ namespace CashManager_MVVM.Model
         /// <summary>
         /// Optional tags for whole transaction (like: buying PC 2015)
         /// </summary>
-        public Tag[] Tags { get; set; }
-        
+        public Tag[] Tags
+        {
+            get => _tags;
+            set => Set(nameof(Tags), ref _tags, value);
+        }
+
         public TagPickerViewModel TagViewModel { get; set; }
 
         public Position()
