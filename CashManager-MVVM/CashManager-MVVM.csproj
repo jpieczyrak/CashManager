@@ -134,6 +134,10 @@
       <DependentUpon>TagPickerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Tags\TagPickerViewModel.cs" />
+    <Compile Include="Features\Transactions\TransactionSearchView.xaml.cs">
+      <DependentUpon>TransactionSearchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Transactions\TransactionSearchViewModel.cs" />
     <Compile Include="Features\TransactionTypes\TransactionTypesView.xaml.cs">
       <DependentUpon>TransactionTypesView.xaml</DependentUpon>
     </Compile>
@@ -155,6 +159,7 @@
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\Position.cs" />
     <Compile Include="Model\Tag.cs" />
+    <Compile Include="Model\TimeFrame.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Features\ViewModelFactory.cs" />
     <Compile Include="Features\Categories\CategoryViewModel.cs" />
@@ -195,6 +200,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\Tags\TagPickerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Transactions\TransactionSearchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

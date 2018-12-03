@@ -37,6 +37,7 @@ namespace CashManager_MVVM.Features.Main
             SetViewModelCommand = new RelayCommand<ViewModelBase>(view => SelectedViewModel = view);
             ViewModels = new Dictionary<string, ViewModelBase>
             {
+                { "Transactions search", factory.Create<TransactionSearchViewModel>() },
                 { "Transactions list", factory.Create<TransactionListViewModel>() },
                 { "Add transaction", factory.Create<TransactionViewModel>() },
                 { "Stocks manager", factory.Create<StocksViewModel>() },
