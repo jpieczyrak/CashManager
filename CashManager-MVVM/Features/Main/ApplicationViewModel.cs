@@ -39,7 +39,6 @@ namespace CashManager_MVVM.Features.Main
             {
                 { "Transactions list", factory.Create<TransactionListViewModel>() },
                 { "Add transaction", factory.Create<TransactionViewModel>() },
-                { "Add as company", factory.Create<TransactionViewModel>() },
                 { "Stocks manager", factory.Create<StocksViewModel>() },
                 { "Category manager", factory.Create<CategoryManagerViewModel>() },
                 { "Types manager", factory.Create<TransactionTypesViewModel>() },
