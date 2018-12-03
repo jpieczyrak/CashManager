@@ -1,7 +1,3 @@
-using System;
-
-using GalaSoft.MvvmLight;
-
 namespace CashManager_MVVM.Model
 {
     /// <summary>
@@ -13,11 +9,18 @@ namespace CashManager_MVVM.Model
     public class Tag : BaseObservableObject
     {
         private string _name;
+        private bool _isSelected = true;
 
         public string Name
         {
             get => _name;
             set => Set(nameof(Name), ref _name, value);
+        }
+
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => Set(nameof(IsSelected), ref _isSelected, value);
         }
 
         #region Override

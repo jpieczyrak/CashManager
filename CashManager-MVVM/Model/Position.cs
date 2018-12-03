@@ -1,9 +1,9 @@
-﻿namespace CashManager_MVVM.Model
+﻿using CashManager_MVVM.Features.Tags;
+
+namespace CashManager_MVVM.Model
 {
     public class Position : BaseObservableObject
     {
-        private TrulyObservableCollection<Tag> _tags;
-
         private PaymentValue _value;
         private Category _category;
         private string _title;
@@ -33,21 +33,13 @@
         /// <summary>
         /// Optional tags for whole transaction (like: buying PC 2015)
         /// </summary>
-        public TrulyObservableCollection<Tag> Tags
-        {
-            get => _tags;
-            set
-            {
-                Set(nameof(Tags), ref _tags, value);
-                _tags.CollectionChanged += (sender, args) => RaisePropertyChanged(nameof(Tags));
-            }
-        }
-
-        public string TagsForGUI => string.Join(", ", Tags);
+        public Tag[] Tags { get; set; }
         
+        public TagPickerViewModel TagViewModel { get; set; }
+
         public Position()
         {
-            _tags = new TrulyObservableCollection<Tag>();
+            Tags = new Tag[0];
             _value = new PaymentValue();
         }
     }

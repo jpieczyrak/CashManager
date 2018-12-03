@@ -8,6 +8,7 @@
              xmlns:transactionTypes="clr-namespace:CashManager_MVVM.Features.TransactionTypes"
              xmlns:parsers="clr-namespace:CashManager_MVVM.Features.Parsers"
              xmlns:categories="clr-namespace:CashManager_MVVM.Features.Categories"
+             xmlns:tags="clr-namespace:CashManager_MVVM.Features.Tags"
              mc:Ignorable="d ignore">
     <Application.Resources>
         <ResourceDictionary>
@@ -34,6 +35,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type categories:CategoryManagerViewModel}">
                 <categories:CategoryManagerView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type tags:TagPickerViewModel}">
+                <tags:TagPickerView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

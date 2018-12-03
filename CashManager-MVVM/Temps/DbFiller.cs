@@ -35,7 +35,8 @@ namespace CashManager_MVVM.Temps
                 var stocks = GetStocks();
                 var categories = GetCategories();
                 var types = GetTransactionTypes();
-                var transactions = GetTransactions(stocks, categories, types);
+                var tags = GetTags();
+                var transactions = GetTransactions(stocks, categories, types, tags);
                 var positions = transactions.SelectMany(x => x.Positions).ToArray();
 
                 commandDispatcher.Execute(new UpsertStocksCommand(stocks));
@@ -47,7 +48,7 @@ namespace CashManager_MVVM.Temps
 #endif
         }
 
-        private static Transaction[] GetTransactions(Stock[] stocks, Category[] categories, TransactionType[] types)
+        private static Transaction[] GetTransactions(Stock[] stocks, Category[] categories, TransactionType[] types, Tag[] tags)
         {
             var dtoTransactions = new[]
             {
@@ -57,13 +58,15 @@ namespace CashManager_MVVM.Temps
                         {
                             Category = categories.FirstOrDefault(x => x.Parent == null),
                             Value = new DtoPaymentValue { Value = 10 },
-                            Title = "my position 1"
+                            Title = "my position 1",
+                            Tags = new List<Tag> { tags[0] }
                         },
                         new Position
                         {
                             Category = categories.FirstOrDefault(x => x.Parent != null),
                             Value = new DtoPaymentValue { Value = 15 },
-                            Title = "my position 2"
+                            Title = "my position 2",
+                            Tags = new List<Tag> { tags[1] }
                         }
                     },
                     stocks[0], stocks[1], "inputsource1"),
@@ -73,7 +76,8 @@ namespace CashManager_MVVM.Temps
                         {
                             Category = categories.Skip(5).FirstOrDefault(x => x.Parent != null),
                             Value = new DtoPaymentValue { Value = 1000 },
-                            Title = "income"
+                            Title = "income",
+                            Tags = new List<Tag> { tags[0], tags[2] }
                         }
                     }, stocks[0], stocks[2], "inputsource2")
             };
@@ -133,6 +137,16 @@ namespace CashManager_MVVM.Temps
                 new TransactionType { Income = true, Name = "Work" },
                 new TransactionType { Outcome = true, Name = "Buy" },
                 new TransactionType { Name = "Transfer" }
+            };
+        }
+
+        private static Tag[] GetTags()
+        {
+            return new Tag[]
+            {
+                new Tag { Name = "tag1" }, 
+                new Tag { Name = "tag2" }, 
+                new Tag { Name = "tag3" }, 
             };
         }
     }

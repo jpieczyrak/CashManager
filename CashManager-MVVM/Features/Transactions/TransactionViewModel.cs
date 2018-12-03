@@ -7,16 +7,19 @@ using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
+using CashManager.Infrastructure.Query.Tags;
 using CashManager.Infrastructure.Query.Transactions;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Main;
+using CashManager_MVVM.Features.Tags;
 using CashManager_MVVM.Model;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
+using DtoTag = CashManager.Data.DTO.Tag;
 using DtoStock = CashManager.Data.DTO.Stock;
 using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
@@ -88,6 +91,12 @@ namespace CashManager_MVVM.Features.Transactions
                                       .ToArray();
             
             if (_shouldCreateTransaction || Transaction == null) Transaction = CreateNewTransaction();
+
+            foreach (var position in Transaction.Positions)
+            {
+                position.TagViewModel = _factory.Create<TagPickerViewModel>();
+                position.TagViewModel.SelectTags(position.Tags);
+            }
         }
 
         #endregion
@@ -105,7 +114,8 @@ namespace CashManager_MVVM.Features.Transactions
                     new Position
                     {
                         Title = "empty",
-                        Category = _categoryViewModel.Categories.FirstOrDefault(x => x.Parent == null)
+                        Category = _categoryViewModel.Categories.FirstOrDefault(x => x.Parent == null),
+                        TagViewModel = _factory.Create<TagPickerViewModel>()
                     }
                 })
             };
@@ -127,6 +137,7 @@ namespace CashManager_MVVM.Features.Transactions
 
         private void ExecuteSaveCommand()
         {
+            foreach (var position in _transaction.Positions) position.Tags = position.TagViewModel.SelectedTags;
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction>(_transaction)));
             NavigateToTransactionListView();
             _shouldCreateTransaction = true;

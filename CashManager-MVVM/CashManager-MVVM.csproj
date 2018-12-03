@@ -130,6 +130,10 @@
       <DependentUpon>StockSummaryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Stocks\StockSummaryViewModel.cs" />
+    <Compile Include="Features\Tags\TagPickerView.xaml.cs">
+      <DependentUpon>TagPickerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Tags\TagPickerViewModel.cs" />
     <Compile Include="Features\TransactionTypes\TransactionTypesView.xaml.cs">
       <DependentUpon>TransactionTypesView.xaml</DependentUpon>
     </Compile>
@@ -187,6 +191,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Features\Stocks\StockSummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Tags\TagPickerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

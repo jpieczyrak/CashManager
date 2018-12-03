@@ -56,7 +56,7 @@
                 <DataGridTemplateColumn Header="Tags" Width="Auto" MinWidth="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="{Binding TagsForGUI}"/>
+                            <UserControl Content="{Binding TagViewModel}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

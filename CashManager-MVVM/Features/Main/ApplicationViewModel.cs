@@ -4,6 +4,7 @@ using System.Linq;
 using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Parsers;
 using CashManager_MVVM.Features.Stocks;
+using CashManager_MVVM.Features.Tags;
 using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Features.TransactionTypes;
 
@@ -42,6 +43,7 @@ namespace CashManager_MVVM.Features.Main
                 { "Stocks manager", factory.Create<StocksViewModel>() },
                 { "Category manager", factory.Create<CategoryManagerViewModel>() },
                 { "Types manager", factory.Create<TransactionTypesViewModel>() },
+                { "Tags manager", factory.Create<TagPickerViewModel>() },
                 { "Parser", factory.Create<ParseViewModel>() },
                 { "empty", null }
             };
