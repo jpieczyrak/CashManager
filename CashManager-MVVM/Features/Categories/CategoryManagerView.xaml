@@ -7,11 +7,20 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"
-        Height="300" Width="300" d:DataContext="{d:DesignData CategoriesViewModel}">
+        Height="300" Width="300" d:DataContext="{d:DesignData CategoryManagerViewModel}">
 
     <Grid>
-        <TreeView x:Name="treeView" ItemsSource="{Binding Categories}" Margin="5" IsHitTestVisible="True"
-                  DragOver="treeView_DragOver" Drop="treeView_Drop" MouseMove="treeView_MouseMove" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TreeView x:Name="treeView" ItemsSource="{Binding Categories}" Margin="5" Grid.ColumnSpan="2"
+                  DragOver="treeView_DragOver" Drop="treeView_Drop" MouseMove="treeView_MouseMove" IsHitTestVisible="True">
+
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
@@ -34,6 +43,14 @@
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectedItemChanged" SourceObject="{Binding ElementName=treeView}">
+                    <i:InvokeCommandAction Command="{Binding UpdateSelectedCategory}" CommandParameter="{Binding SelectedItem, ElementName=treeView, Mode=OneWay}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </TreeView>
+
+        <Button Grid.Row="1" Grid.Column="0" Content="Add" Width="120" Command="{Binding AddCategoryCommand}" />
+        <Button Grid.Row="1" Grid.Column="1" Content="Remove" Width="120" Command="{Binding RemoveCategoryCommand}" />
     </Grid>
 </UserControl>

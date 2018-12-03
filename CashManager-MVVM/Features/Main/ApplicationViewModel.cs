@@ -36,11 +36,11 @@ namespace CashManager_MVVM.Features.Main
             SetViewModelCommand = new RelayCommand<ViewModelBase>(view => SelectedViewModel = view);
             ViewModels = new Dictionary<string, ViewModelBase>
             {
-                { "Category manager", factory.Create<CategoryManagerViewModel>() },
                 { "Transactions list", factory.Create<TransactionListViewModel>() },
                 { "Add transaction", factory.Create<TransactionViewModel>() },
                 { "Add as company", factory.Create<TransactionViewModel>() },
                 { "Stocks manager", factory.Create<StocksViewModel>() },
+                { "Category manager", factory.Create<CategoryManagerViewModel>() },
                 { "Types manager", factory.Create<TransactionTypesViewModel>() },
                 { "Parser", factory.Create<ParseViewModel>() },
                 { "empty", null }

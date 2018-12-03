@@ -16,19 +16,18 @@ namespace CashManager_MVVM.Features.Categories
 {
     public class CategoryViewModel : ViewModelBase
     {
-        public IEnumerable<Model.Category> Categories { get; set; }
+        public IEnumerable<Category> Categories { get; set; }
 
-        public Model.Category SelectedCategory { get; set; }
+        public Category SelectedCategory { get; set; }
 
         public RelayCommand<Window> CloseCommand => new RelayCommand<Window>(window => window?.Close());
 
-        public RelayCommand<Model.Category> UpdateSelectedCategory =>
-            new RelayCommand<Model.Category>(category => SelectedCategory = category);
+        public RelayCommand<Category> UpdateSelectedCategory => new RelayCommand<Category>(category => SelectedCategory = category);
 
         public CategoryViewModel(IQueryDispatcher queryDispatcher)
         {
             var categories = queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery())
-                                            .Select(Mapper.Map<Model.Category>)
+                                            .Select(Mapper.Map<Category>)
                                             .ToArray();
 
             foreach (var category in categories) category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category?.Id));

@@ -77,6 +77,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\Categories\DeleteStockCommand.cs" />
+    <Compile Include="Command\Categories\DeleteStockCommandHandler.cs" />
     <Compile Include="Command\CommandDispatcher.cs" />
     <Compile Include="Command\ICommand.cs" />
     <Compile Include="Command\ICommandDispatcher.cs" />
