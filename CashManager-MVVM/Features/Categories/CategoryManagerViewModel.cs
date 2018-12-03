@@ -111,6 +111,7 @@ namespace CashManager_MVVM.Features.Categories
                 parent.Children.Remove(selected);
                 UpsertCategories(selected.Children.ToArray());
                 _commandDispatcher.Execute(new DeleteCategoryCommand(Mapper.Map<DtoCategory>(selected)));
+                //todo: find all tran.positions which used selected category and change it for parent. then save.
             }
         }
 
