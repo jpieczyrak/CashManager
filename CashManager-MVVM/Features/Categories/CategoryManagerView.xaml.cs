@@ -1,8 +1,6 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Utils;
@@ -20,25 +18,19 @@ namespace CashManager_MVVM.Features.Categories
 
         private void treeView_DragOver(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(typeof(Category)))
-                e.Effects = DragDropEffects.Move;
-            else
-                e.Effects = DragDropEffects.None;
+            e.Effects = e.Data.GetDataPresent(typeof(Category)) ? DragDropEffects.Move : DragDropEffects.None;
         }
 
         private void treeView_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof(Category)))
             {
-                var sourceCategory = (Category)e.Data.GetData(typeof(Category));
+                var sourceCategory = (Category) e.Data.GetData(typeof(Category));
                 if (sourceCategory != null)
                 {
                     var targetCategory = TreeViewHelper.GetObjectAtLocation<Category>(e.GetPosition(this), treeView);
 
-                    var sourceParent = sourceCategory.Parent;
-                    sourceCategory.Parent = targetCategory;
-                    targetCategory.Children.Add(sourceCategory);
-                    //sourceParent.Children?.Remove(sourceCategory);
+                    (DataContext as CategoryManagerViewModel)?.Move(sourceCategory, targetCategory);
                 }
             }
         }
@@ -51,10 +43,7 @@ namespace CashManager_MVVM.Features.Categories
                 DragDrop.DoDragDrop(treeView, treeView.SelectedValue, DragDropEffects.Move);
             }
 
-            if (_isDragging && e.LeftButton != MouseButtonState.Pressed)
-            {
-                _isDragging = false;
-            }
+            if (_isDragging && e.LeftButton != MouseButtonState.Pressed) _isDragging = false;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace CashManager_MVVM.Model
             set => Set(nameof(Parent), ref _parent, value);
         }
 
-        public List<Category> Children { get; set; }
+        public TrulyObservableCollection<Category> Children { get; set; }
 
         public bool IsSelected { get; set; }
 

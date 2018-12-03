@@ -7,6 +7,8 @@ using AutoMapper;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Categories;
 
+using CashManager_MVVM.Model;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
@@ -29,7 +31,7 @@ namespace CashManager_MVVM.Features.Categories
                                             .Select(Mapper.Map<Model.Category>)
                                             .ToArray();
 
-            foreach (var category in categories) category.Children = categories.Where(x => x.Parent?.Id == category?.Id).ToList();
+            foreach (var category in categories) category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category?.Id));
 
             Categories = categories.Where(x => x.Parent == null).ToArray(); //find the root(s)
         }
