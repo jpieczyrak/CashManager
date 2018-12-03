@@ -35,8 +35,8 @@
             </TreeView.ItemContainerStyle>
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type model:Category}" ItemsSource="{Binding Children}" >
-                    <StackPanel Orientation="Horizontal" IsHitTestVisible="True" AllowDrop="True">
-                        <TextBlock Text="{Binding Value}" />
+                    <StackPanel Orientation="Horizontal" IsHitTestVisible="True" AllowDrop="True" Background="Bisque">
+                        <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Text=" (" Foreground="Blue" />
                         <TextBlock Text="{Binding Children.Count}" Foreground="Blue" />
                         <TextBlock Text=")" Foreground="Blue" />

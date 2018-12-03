@@ -49,7 +49,7 @@ namespace CashManager_MVVM.Features.Categories
 
         public void Move(Category sourceCategory, Category targetCategory)
         {
-            if (sourceCategory.Parent != null && sourceCategory.Id != targetCategory.Id)
+            if (sourceCategory != null && targetCategory != null && sourceCategory.Parent != null && sourceCategory.Id != targetCategory.Id)
             {
                 var sourceParentId = sourceCategory.Parent.Id;
 

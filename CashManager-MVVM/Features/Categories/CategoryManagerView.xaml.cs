@@ -40,7 +40,10 @@ namespace CashManager_MVVM.Features.Categories
             if (!_isDragging && e.LeftButton == MouseButtonState.Pressed)
             {
                 _isDragging = true;
-                DragDrop.DoDragDrop(treeView, treeView.SelectedValue, DragDropEffects.Move);
+                if (treeView.SelectedValue != null)
+                {
+                    DragDrop.DoDragDrop(treeView, treeView.SelectedValue, DragDropEffects.Move);
+                }
             }
 
             if (_isDragging && e.LeftButton != MouseButtonState.Pressed) _isDragging = false;
