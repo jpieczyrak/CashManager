@@ -9,11 +9,7 @@ namespace CashManager_MVVM.Model
         public double Value
         {
             get => _value;
-            set
-            {
-                Set(nameof(Value), ref _value, value);
-                LastEditDate = DateTime.Now;
-            }
+            set => Set(nameof(Value), ref _value, value);
         }
     }
 }

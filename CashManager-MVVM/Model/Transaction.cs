@@ -107,9 +107,9 @@ namespace CashManager_MVVM.Model
 
         public Transaction()
         {
-            BookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
+            _bookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
 
-            Positions = new TrulyObservableCollection<Position>();
+            _positions = new TrulyObservableCollection<Position>();
         }
         
         private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

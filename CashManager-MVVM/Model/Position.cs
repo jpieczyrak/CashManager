@@ -47,8 +47,8 @@
         
         public Position()
         {
-            Tags = new TrulyObservableCollection<Tag>();
-            Value = new PaymentValue();
+            _tags = new TrulyObservableCollection<Tag>();
+            _value = new PaymentValue();
         }
     }
 }
