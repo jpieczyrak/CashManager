@@ -7,7 +7,6 @@ using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
-using CashManager.Infrastructure.Query.Tags;
 using CashManager.Infrastructure.Query.Transactions;
 using CashManager.Infrastructure.Query.TransactionTypes;
 

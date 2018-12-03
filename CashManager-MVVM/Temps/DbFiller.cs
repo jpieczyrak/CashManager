@@ -4,7 +4,6 @@ using System.Linq;
 
 using Autofac;
 
-using CashManager.Data;
 using CashManager.Data.DTO;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Categories;
@@ -124,7 +123,8 @@ namespace CashManager_MVVM.Temps
         {
             return new[]
             {
-                new DtoStock { Name = "User1", IsUserStock = true },
+                new DtoStock { Name = "User1", IsUserStock = true, Balance = new Balance(DateTime.MinValue, 100)},
+                new DtoStock { Name = "Wallet", IsUserStock = true, Balance = new Balance(DateTime.MinValue, 1048576) },
                 new DtoStock { Name = "Ex1" },
                 new DtoStock { Name = "Ex2" }
             };
@@ -136,7 +136,8 @@ namespace CashManager_MVVM.Temps
             {
                 new TransactionType { Income = true, Name = "Work" },
                 new TransactionType { Outcome = true, Name = "Buy" },
-                new TransactionType { Name = "Transfer" }
+                new TransactionType { Name = "Transfer" },
+                new TransactionType { Income = true, Name = "Gifts" }
             };
         }
 
@@ -144,9 +145,9 @@ namespace CashManager_MVVM.Temps
         {
             return new Tag[]
             {
-                new Tag { Name = "tag1" }, 
-                new Tag { Name = "tag2" }, 
-                new Tag { Name = "tag3" }, 
+                new Tag { Name = "tag 1" }, 
+                new Tag { Name = "tag 2" }, 
+                new Tag { Name = "tag 3" }, 
             };
         }
     }
