@@ -135,20 +135,20 @@ namespace CashManager.Tests.Mappers
                     new Position
                     {
                         Value = new PaymentValue { Value = 12 },
-                        Tags = new TrulyObservableCollection<Tag>(new[]
+                        Tags = new[]
                         {
                             new Tag { Name = "asd" }
-                        }),
+                        },
                         Category = categoryParent,
                         Title = "title1"
                     },
                     new Position
                     {
                         Value = new PaymentValue { Value = 22 },
-                        Tags = new TrulyObservableCollection<Tag>(new[]
+                        Tags = new[]
                         {
                             new Tag { Name = "dsa" }
-                        }),
+                        },
                         Category = new Category { Value = "cat2", Parent = categoryParent },
                         Title = "title2"
                     },
