@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 using GalaSoft.MvvmLight;
 
-namespace CashManager_MVVM.Model
+namespace CashManager_MVVM.Model.Common
 {
     public abstract class BaseObservableObject : ObservableObject
     {

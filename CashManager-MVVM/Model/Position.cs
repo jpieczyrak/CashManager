@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
 using CashManager_MVVM.Features.Tags;
+using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
 {

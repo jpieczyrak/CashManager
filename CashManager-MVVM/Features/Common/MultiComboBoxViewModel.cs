@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Common;
 
 using GalaSoft.MvvmLight;
 
@@ -8,10 +9,10 @@ namespace CashManager_MVVM.Features.Common
 {
     public class MultiComboBoxViewModel : ViewModelBase
     {
-        private readonly TrulyObservableCollection<ISelectable> _filtrableInput;
-        private ISelectable _selectedValue;
+        private readonly TrulyObservableCollection<BaseSelectable> _filtrableInput;
+        private BaseSelectable _selectedValue;
         private string _text;
-        private TrulyObservableCollection<ISelectable> _results;
+        private TrulyObservableCollection<BaseSelectable> _results;
 
         public string Text
         {
@@ -22,17 +23,17 @@ namespace CashManager_MVVM.Features.Common
                 var items = _filtrableInput.Where(x => x.Name.ToLower().Contains(_text.ToLower()))
                                            .OrderBy(x => !x.IsSelected)
                                            .ThenBy(x => x.Name);
-                Results = new TrulyObservableCollection<ISelectable>(items);
+                Results = new TrulyObservableCollection<BaseSelectable>(items);
             }
         }
 
-        public ISelectable SelectedValue
+        public BaseSelectable SelectedValue
         {
             get => _selectedValue;
             set => Set(nameof(SelectedValue), ref _selectedValue, value);
         }
 
-        public TrulyObservableCollection<ISelectable> Results
+        public TrulyObservableCollection<BaseSelectable> Results
         {
             get => _results;
             set => Set(nameof(Results), ref _results, value);
@@ -45,13 +46,13 @@ namespace CashManager_MVVM.Features.Common
         public MultiComboBoxViewModel()
         {
             //todo: remove
-            _filtrableInput = new TrulyObservableCollection<ISelectable>
+            _filtrableInput = new TrulyObservableCollection<BaseSelectable>
             {
                 new Tag { Name = "aaa", IsSelected = true },
                 new Tag { Name = "aab", IsSelected = false },
                 new Tag { Name = "abc", IsSelected = true }
             };
-            Results = new TrulyObservableCollection<ISelectable>(_filtrableInput);
+            Results = new TrulyObservableCollection<BaseSelectable>(_filtrableInput);
         }
     }
 }

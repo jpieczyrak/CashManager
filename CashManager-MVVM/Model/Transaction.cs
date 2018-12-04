@@ -2,6 +2,8 @@
 using System.Collections.Specialized;
 using System.Linq;
 
+using CashManager_MVVM.Model.Common;
+
 namespace CashManager_MVVM.Model
 {
     public class Transaction : BaseObservableObject

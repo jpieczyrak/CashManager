@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using CashManager_MVVM.Model.Common;
+
 namespace CashManager_MVVM.Model
 {
     public class Category : BaseObservableObject

@@ -1,4 +1,6 @@
-﻿namespace CashManager_MVVM.Model
+﻿using CashManager_MVVM.Model.Common;
+
+namespace CashManager_MVVM.Model
 {
     /// <summary>
     /// Stores name of "part of" your wallet.

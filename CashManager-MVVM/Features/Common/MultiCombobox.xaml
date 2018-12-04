@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
+             xmlns:common1="clr-namespace:CashManager_MVVM.Model.Common"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=common:MultiComboBoxViewModel, IsDesignTimeCreatable=True}">
     <Grid MinWidth="100" VerticalAlignment="Center" >
@@ -15,13 +16,10 @@
         <ComboBox Grid.Row="1" ItemsSource="{Binding Results}" Text="{Binding Text, Mode=TwoWay}" SelectedValue="{Binding SelectedValue}"
             IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="false">
             <ComboBox.Resources>
-                <DataTemplate DataType="{x:Type common:ISelectable}" >
+                <DataTemplate DataType="{x:Type common1:BaseSelectable}" >
                     <StackPanel Orientation="Horizontal">
                         <CheckBox IsChecked="{Binding IsSelected}"/>
-                        <!-- Not working!!?!?!? -->
                         <TextBlock Text="{Binding Name}" Margin="5,0" />
-                        <TextBlock Text="{Binding IsSelected}" Margin="5,0" />
-                        <!-- Not working!!?!?!? -->
                     </StackPanel>
                 </DataTemplate>
             </ComboBox.Resources>
