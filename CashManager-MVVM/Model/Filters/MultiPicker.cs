@@ -9,9 +9,9 @@ namespace CashManager_MVVM.Model.Filters
 
         public BaseSelectable[] Results { get; private set; }
 
-        public MultiPicker(string userStock, BaseSelectable[] source, BaseSelectable[] selected = null)
+        public MultiPicker(string description, BaseSelectable[] source, BaseSelectable[] selected = null)
         {
-            Title = userStock;
+            Description = description;
             ComboBox = new MultiComboBoxViewModel();
             ComboBox.SetInput(source, selected);
             ComboBox.PropertyChanged += (sender, args) => Results = ComboBox.Results;

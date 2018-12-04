@@ -19,9 +19,9 @@ namespace CashManager_MVVM.Model.Filters
             set => Set(nameof(To), ref _to, value);
         }
 
-        public TimeFrame(string title)
+        public TimeFrame(string description)
         {
-            Title = title;
+            Description = description;
 
             var today = DateTime.Today;
             _from = new DateTime(today.Year, today.Month, 1);

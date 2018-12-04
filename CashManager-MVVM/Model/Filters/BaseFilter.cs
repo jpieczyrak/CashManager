@@ -12,6 +12,6 @@ namespace CashManager_MVVM.Model.Filters
             set => Set(nameof(IsChecked), ref _isChecked, value);
         }
 
-        public string Title { get; protected set; }
+        public string Description { get; protected set; }
     }
 }

@@ -1,4 +1,3 @@
-using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
