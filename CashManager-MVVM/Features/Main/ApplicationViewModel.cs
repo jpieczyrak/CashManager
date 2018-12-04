@@ -38,7 +38,6 @@ namespace CashManager_MVVM.Features.Main
             SetViewModelCommand = new RelayCommand<ViewModelBase>(view => SelectedViewModel = view);
             ViewModels = new Dictionary<string, ViewModelBase>
             {
-                { "asd", factory.Create<MultiComboBoxViewModel>() },
                 { "Transactions search", factory.Create<TransactionSearchViewModel>() },
                 { "Transactions list", factory.Create<TransactionListViewModel>() },
                 { "Add transaction", factory.Create<TransactionViewModel>() },
@@ -46,8 +45,7 @@ namespace CashManager_MVVM.Features.Main
                 { "Category manager", factory.Create<CategoryManagerViewModel>() },
                 { "Types manager", factory.Create<TransactionTypesViewModel>() },
                 { "Tags manager", factory.Create<TagPickerViewModel>() },
-                { "Parser", factory.Create<ParseViewModel>() },
-                { "empty", null }
+                { "Parser", factory.Create<ParseViewModel>() }
             };
             SelectedViewModel = ViewModels.FirstOrDefault().Value;
             SummaryViewModel = factory.Create<StockSummaryViewModel>();
