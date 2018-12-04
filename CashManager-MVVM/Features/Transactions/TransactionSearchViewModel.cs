@@ -1,6 +1,7 @@
 ﻿using CashManager.Infrastructure.Query;
 
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Filters;
 
 using GalaSoft.MvvmLight;
 

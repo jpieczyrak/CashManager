@@ -155,11 +155,12 @@
     <Compile Include="Model\Balance.cs" />
     <Compile Include="Model\BaseObservableObject.cs" />
     <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\Filters\BaseFilter.cs" />
     <Compile Include="Model\PaymentValue.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\Position.cs" />
     <Compile Include="Model\Tag.cs" />
-    <Compile Include="Model\TimeFrame.cs" />
+    <Compile Include="Model\Filters\TimeFrame.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Features\ViewModelFactory.cs" />
     <Compile Include="Features\Categories\CategoryViewModel.cs" />

@@ -1,13 +1,11 @@
 ﻿using System;
 
-using GalaSoft.MvvmLight;
-
-namespace CashManager_MVVM.Model
+namespace CashManager_MVVM.Model.Filters
 {
-    public class TimeFrame : ObservableObject
+    public class TimeFrame : BaseFilter
     {
-        private DateTime _from = DateTime.Today;
-        private DateTime _to = DateTime.Today.AddDays(1);
+        private DateTime _from;
+        private DateTime _to;
         private bool _isChecked;
 
         public DateTime From
@@ -28,11 +26,13 @@ namespace CashManager_MVVM.Model
             set => Set(nameof(To), ref _to, value);
         }
 
-        public string Title { get; }
-
         public TimeFrame(string title)
         {
             Title = title;
+
+            var today = DateTime.Today;
+            _from = new DateTime(today.Year, today.Month, 1);
+            _to = _from.AddMonths(1).AddDays(-1);
         }
     }
 }
