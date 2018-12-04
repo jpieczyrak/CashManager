@@ -22,6 +22,7 @@ namespace CashManager_MVVM.Features.Categories
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
+        private string _categoryName;
 
         public TrulyObservableCollection<Category> Categories { get; private set; }
 
@@ -33,8 +34,15 @@ namespace CashManager_MVVM.Features.Categories
 
         public Category SelectedCategory { get; private set; }
 
+        public string CategoryName
+        {
+            get => _categoryName;
+            set => Set(nameof(CategoryName), ref _categoryName, value);
+        }
+
         public CategoryManagerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
         {
+            _categoryName = "New category";
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
             var categories = _queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery())
@@ -85,7 +93,7 @@ namespace CashManager_MVVM.Features.Categories
         private void ExecuteAddCategoryCommand()
         {
             var parent = SelectedCategory ?? Categories.FirstOrDefault();
-            var category = parent != null ? new Category { Value = "New category" } : new Category { Value = "Root" };
+            var category = parent != null ? new Category { Value = CategoryName } : new Category { Value = "Root" };
             if (parent != null)
             {
                 parent.Children.Add(category);
@@ -97,7 +105,7 @@ namespace CashManager_MVVM.Features.Categories
 
         private void ExecuteRemoveCategoryCommand()
         {
-            if (SelectedCategory != null && SelectedCategory.Parent != null)
+            if (SelectedCategory?.Parent != null)
             {
                 var input = Categories.ToArray();
                 var selected = Find(input, SelectedCategory.Id);
