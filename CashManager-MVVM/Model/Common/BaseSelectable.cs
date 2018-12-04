@@ -3,7 +3,7 @@
     public class BaseSelectable : BaseObservableObject, ISelectable
     {
         private string _name;
-        private bool _isSelected = true;
+        private bool _isSelected;
 
         public string Name
         {

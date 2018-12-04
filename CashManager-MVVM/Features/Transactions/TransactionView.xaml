@@ -65,7 +65,7 @@
                     <DataGridTemplateColumn Header="Tags" Width="Auto" MinWidth="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding TagViewModel.SelectedTagsString}"/>
+                                <TextBlock Text="{Binding TagViewModel.SelectedString}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

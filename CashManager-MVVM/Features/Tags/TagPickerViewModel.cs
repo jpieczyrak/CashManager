@@ -17,6 +17,9 @@ using DtoTag = CashManager.Data.DTO.Tag;
 
 namespace CashManager_MVVM.Features.Tags
 {
+    /// <summary>
+    /// Obsolete
+    /// </summary>
     public class TagPickerViewModel : ViewModelBase
     {
         private readonly IQueryDispatcher _queryDispatcher;

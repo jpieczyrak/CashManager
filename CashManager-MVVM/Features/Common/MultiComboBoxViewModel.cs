@@ -1,19 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
-using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 
 namespace CashManager_MVVM.Features.Common
 {
     public class MultiComboBoxViewModel : ViewModelBase
     {
-        private readonly TrulyObservableCollection<BaseSelectable> _filtrableInput;
+        private TrulyObservableCollection<BaseSelectable> _internalDisplayableSearchResults;
+        private TrulyObservableCollection<BaseSelectable> _filtrableInput;
         private BaseSelectable _selectedValue;
         private string _text;
-        private TrulyObservableCollection<BaseSelectable> _results;
 
         public string Text
         {
@@ -24,7 +23,7 @@ namespace CashManager_MVVM.Features.Common
                 var items = _filtrableInput.Where(x => x.Name.ToLower().Contains(_text.ToLower()))
                                            .OrderBy(x => !x.IsSelected)
                                            .ThenBy(x => x.Name);
-                Results = new TrulyObservableCollection<BaseSelectable>(items);
+                InternalDisplayableSearchResults = new TrulyObservableCollection<BaseSelectable>(items);
             }
         }
 
@@ -34,20 +33,59 @@ namespace CashManager_MVVM.Features.Common
             set => Set(nameof(SelectedValue), ref _selectedValue, value);
         }
 
-        public TrulyObservableCollection<BaseSelectable> Results
+        /// <summary>
+        /// Used for displaying data inside of control
+        /// </summary>
+        public TrulyObservableCollection<BaseSelectable> InternalDisplayableSearchResults
         {
-            get => _results;
-            set => Set(nameof(Results), ref _results, value);
+            get => _internalDisplayableSearchResults;
+            private set => Set(nameof(InternalDisplayableSearchResults), ref _internalDisplayableSearchResults, value);
         }
+
+        /// <summary>
+        /// Returns only selected elements
+        /// </summary>
+        public BaseSelectable[] Results => _filtrableInput.Where(x => x.IsSelected).OrderBy(x => x.Name).ToArray();
 
         public string SelectedString => _filtrableInput != null
                                             ? string.Join(", ", _filtrableInput.Where(x => x.IsSelected).OrderBy(x => x.Name))
                                             : string.Empty;
 
-        public MultiComboBoxViewModel(IEnumerable<BaseSelectable> input)
+        public RelayCommand AddCommand { get; private set; }
+
+        public MultiComboBoxViewModel()
         {
+            AddCommand = new RelayCommand(ExecuteAddCommand, CanExecuteAddCommand);
+            //todo: receive msg (element updated) -> add to list as not selected
+        }
+
+        public void SetInput(BaseSelectable[] input, BaseSelectable[] selected = null)
+        {
+            if (selected != null)
+            {
+                var dict = input.ToDictionary(x => x.Id, x => x);
+                foreach (var x in selected) dict[x.Id].IsSelected = true;
+            }
+
             _filtrableInput = new TrulyObservableCollection<BaseSelectable>(input);
-            Results = new TrulyObservableCollection<BaseSelectable>(_filtrableInput);
+            InternalDisplayableSearchResults = new TrulyObservableCollection<BaseSelectable>(_filtrableInput);
+
+            _filtrableInput.CollectionChanged += (sender, args) => RaisePropertyChanged(nameof(SelectedString));
+        }
+
+        private void ExecuteAddCommand()
+        {
+            var item = new BaseSelectable { Name = Text, IsSelected = true };
+            InternalDisplayableSearchResults.Add(item);
+            _filtrableInput.Add(item);
+            //todo: message new element (save it. update other lists)
+            Text = string.Empty;
+        }
+
+        private bool CanExecuteAddCommand()
+        {
+            return SelectedValue == null && !string.IsNullOrWhiteSpace(_text)
+                                         && !_filtrableInput.Select(x => x.Name.ToLower()).Contains(_text.ToLower());
         }
     }
 }

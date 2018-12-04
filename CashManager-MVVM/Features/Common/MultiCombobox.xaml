@@ -13,7 +13,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="{Binding SelectedString}" HorizontalAlignment="Center"/>
-        <ComboBox Grid.Row="1" ItemsSource="{Binding Results}" Text="{Binding Text, Mode=TwoWay}" SelectedValue="{Binding SelectedValue}"
+        <ComboBox Grid.Row="1" ItemsSource="{Binding InternalDisplayableSearchResults}" Text="{Binding Text, Mode=TwoWay}" SelectedValue="{Binding SelectedValue}"
             IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="false">
             <ComboBox.Resources>
                 <DataTemplate DataType="{x:Type common:BaseSelectable}" >
@@ -23,6 +23,9 @@
                     </StackPanel>
                 </DataTemplate>
             </ComboBox.Resources>
+            <ComboBox.InputBindings>
+                <KeyBinding Command="{Binding AddCommand}" Key="Enter" />
+            </ComboBox.InputBindings>
         </ComboBox>
     </Grid>
 </UserControl>
