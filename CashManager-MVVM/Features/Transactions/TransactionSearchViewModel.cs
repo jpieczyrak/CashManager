@@ -1,9 +1,16 @@
-﻿using CashManager.Infrastructure.Query;
+﻿using System.Linq;
+
+using AutoMapper;
+
+using CashManager.Infrastructure.Query;
+using CashManager.Infrastructure.Query.Stocks;
 
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Filters;
 
 using GalaSoft.MvvmLight;
+
+using DtoStock = CashManager.Data.DTO.Stock;
 
 namespace CashManager_MVVM.Features.Transactions
 {
@@ -14,6 +21,7 @@ namespace CashManager_MVVM.Features.Transactions
         private TimeFrame _bookDate = new TimeFrame("Book date");
         private TimeFrame _createDate = new TimeFrame("Create date");
         private TimeFrame _lastEditDate = new TimeFrame("Last edit date");
+        private MultiPicker _userStocks;
 
         public TransactionListViewModel TransactionsListViewModel { get; }
 
@@ -40,11 +48,20 @@ namespace CashManager_MVVM.Features.Transactions
             get => _lastEditDate;
             set => Set(nameof(LastEditDate), ref _lastEditDate, value);
         }
+
+        public MultiPicker UserStocks
+        {
+            get => _userStocks;
+            set => Set(nameof(UserStocks), ref _userStocks, value);
+        }
         
         public TransactionSearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
             _queryDispatcher = queryDispatcher;
             TransactionsListViewModel = factory.Create<TransactionListViewModel>();
+
+            var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()));
+            UserStocks = new MultiPicker("User stock", availableStocks.Where(x => x.IsUserStock).ToArray());
         }
     }
 }

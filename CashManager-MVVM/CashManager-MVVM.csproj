@@ -162,6 +162,7 @@
     <Compile Include="Model\Common\BaseObservableObject.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Filters\BaseFilter.cs" />
+    <Compile Include="Model\Filters\MultiPicker.cs" />
     <Compile Include="Model\PaymentValue.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\Position.cs" />

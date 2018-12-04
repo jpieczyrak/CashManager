@@ -61,6 +61,25 @@
                 </Grid>
             </Border>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type filters:MultiPicker}">
+            <Border BorderThickness="1" CornerRadius="5" BorderBrush="#4F4F4F4F" Margin="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Separator Grid.Column="0" Grid.Row="0" Margin="5,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Title}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="#FF4F4F4F" FontWeight="Bold" />
+                    <Separator Grid.Column="2" Grid.Row="0" Margin="5,0"/>
+                    <UserControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="5,0" Content="{Binding ComboBox}"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid>
@@ -90,6 +109,7 @@
             <UserControl Grid.Row="3" Grid.Column="0" Content="{Binding CreateDate}" />
             <UserControl Grid.Row="3" Grid.Column="1" Content="{Binding BookDate}" />
             <UserControl Grid.Row="3" Grid.Column="2" Content="{Binding LastEditDate}" />
+            <UserControl Grid.Row="4" Grid.Column="0" Content="{Binding UserStocks}" />
 
         </Grid>
 

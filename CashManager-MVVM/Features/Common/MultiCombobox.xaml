@@ -18,8 +18,7 @@
             <ComboBox.Resources>
                 <DataTemplate DataType="{x:Type common:BaseSelectable}" >
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox IsChecked="{Binding IsSelected}"/>
-                        <TextBlock Text="{Binding Name}" Margin="5,0" />
+                        <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding Name}" Padding="5,0" />
                     </StackPanel>
                 </DataTemplate>
             </ComboBox.Resources>
