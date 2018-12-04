@@ -22,6 +22,7 @@ namespace CashManager_MVVM.Features.Transactions
         private TimeFrame _createDate = new TimeFrame("Create date");
         private TimeFrame _lastEditDate = new TimeFrame("Last edit date");
         private MultiPicker _userStocks;
+        private MultiPicker _externalStocks;
 
         public TransactionListViewModel TransactionsListViewModel { get; }
 
@@ -54,6 +55,12 @@ namespace CashManager_MVVM.Features.Transactions
             get => _userStocks;
             set => Set(nameof(UserStocks), ref _userStocks, value);
         }
+
+        public MultiPicker ExternalStocks
+        {
+            get => _externalStocks;
+            set => Set(nameof(ExternalStocks), ref _externalStocks, value);
+        }
         
         public TransactionSearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
@@ -62,6 +69,7 @@ namespace CashManager_MVVM.Features.Transactions
 
             var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()));
             UserStocks = new MultiPicker("User stock", availableStocks.Where(x => x.IsUserStock).ToArray());
+            ExternalStocks = new MultiPicker("External stock", Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
         }
     }
 }
