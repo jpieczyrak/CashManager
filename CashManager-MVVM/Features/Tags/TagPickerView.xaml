@@ -11,12 +11,12 @@
         <ComboBox IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="false" 
                   ItemsSource="{Binding Tags}" SelectedValue="{Binding SelectedTag}" Text="{Binding Text, Mode=TwoWay}" >
             <ComboBox.Resources>
-                <HierarchicalDataTemplate DataType="{x:Type model:Tag}" >
+                <DataTemplate DataType="{x:Type model:Tag}" >
                     <StackPanel Orientation="Horizontal">
                         <CheckBox IsChecked="{Binding IsSelected}" />
                         <TextBlock Text="{Binding Name}" Margin="5,0" />
                     </StackPanel>
-                </HierarchicalDataTemplate>
+                </DataTemplate>
             </ComboBox.Resources>
             <ComboBox.InputBindings>
                 <KeyBinding Command="{Binding AddNewTagCommand}" Key="Enter" />

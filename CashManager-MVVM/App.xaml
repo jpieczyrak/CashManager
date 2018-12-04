@@ -9,6 +9,7 @@
              xmlns:parsers="clr-namespace:CashManager_MVVM.Features.Parsers"
              xmlns:categories="clr-namespace:CashManager_MVVM.Features.Categories"
              xmlns:tags="clr-namespace:CashManager_MVVM.Features.Tags"
+             xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
              mc:Ignorable="d ignore">
     <Application.Resources>
         <ResourceDictionary>
@@ -41,6 +42,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type tags:TagPickerViewModel}">
                 <tags:TagPickerView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type common:MultiComboBoxViewModel}">
+                <common:MultiComboBox/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

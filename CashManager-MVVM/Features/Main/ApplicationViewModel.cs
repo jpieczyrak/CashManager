@@ -2,6 +2,7 @@
 using System.Linq;
 
 using CashManager_MVVM.Features.Categories;
+using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Parsers;
 using CashManager_MVVM.Features.Stocks;
 using CashManager_MVVM.Features.Tags;
@@ -37,6 +38,7 @@ namespace CashManager_MVVM.Features.Main
             SetViewModelCommand = new RelayCommand<ViewModelBase>(view => SelectedViewModel = view);
             ViewModels = new Dictionary<string, ViewModelBase>
             {
+                { "asd", factory.Create<MultiComboBoxViewModel>() },
                 { "Transactions search", factory.Create<TransactionSearchViewModel>() },
                 { "Transactions list", factory.Create<TransactionListViewModel>() },
                 { "Add transaction", factory.Create<TransactionViewModel>() },

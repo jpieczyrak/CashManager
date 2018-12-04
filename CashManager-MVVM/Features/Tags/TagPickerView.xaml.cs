@@ -1,8 +1,5 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
-
-using CashManager_MVVM.Model;
 
 namespace CashManager_MVVM.Features.Tags
 {

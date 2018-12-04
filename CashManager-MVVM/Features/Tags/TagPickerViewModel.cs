@@ -42,7 +42,7 @@ namespace CashManager_MVVM.Features.Tags
             get => _text;
             set
             {
-                _text = value;
+                Set(nameof(Text), ref _text, value);
                 var tags = _tags.Where(x => x.Name.ToLower().Contains(_text.ToLower())).OrderBy(x => !x.IsSelected).ThenBy(x => x.Name);
                 Tags = new TrulyObservableCollection<Tag>(tags);
             }

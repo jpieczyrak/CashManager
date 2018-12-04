@@ -121,6 +121,11 @@
       <DependentUpon>CategoryManagerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Categories\CategoryManagerViewModel.cs" />
+    <Compile Include="Features\Common\ISelectable.cs" />
+    <Compile Include="Features\Common\MultiCombobox.xaml.cs">
+      <DependentUpon>MultiCombobox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Common\MultiComboBoxViewModel.cs" />
     <Compile Include="Features\IUpdateable.cs" />
     <Compile Include="Features\Parsers\ParseView.xaml.cs">
       <DependentUpon>ParseView.xaml</DependentUpon>
@@ -177,6 +182,10 @@
     <Compile Include="TrulyObservableCollection.cs" />
     <Compile Include="Utils\TreeViewHelper.cs" />
     <Page Include="Features\Categories\CategoryManagerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Common\MultiCombobox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

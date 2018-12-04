@@ -1,3 +1,5 @@
+using CashManager_MVVM.Features.Common;
+
 namespace CashManager_MVVM.Model
 {
     /// <summary>
@@ -6,7 +8,7 @@ namespace CashManager_MVVM.Model
     /// Tag can be assigned to many transactions.
     /// Sum of values of all tags dont have to be equal to sum of all transaction value (one tag can be assigned to one or more transaction)
     /// </summary>
-    public class Tag : BaseObservableObject
+    public class Tag : BaseObservableObject, ISelectable
     {
         private string _name;
         private bool _isSelected = true;
