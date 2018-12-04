@@ -6,18 +6,11 @@ namespace CashManager_MVVM.Model.Filters
     {
         private DateTime _from;
         private DateTime _to;
-        private bool _isChecked;
 
         public DateTime From
         {
             get => _from;
             set => Set(nameof(From), ref _from, value);
-        }
-
-        public bool IsChecked
-        {
-            get => _isChecked;
-            set => Set(nameof(IsChecked), ref _isChecked, value);
         }
 
         public DateTime To
