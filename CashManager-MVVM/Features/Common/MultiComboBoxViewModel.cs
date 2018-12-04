@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
@@ -43,15 +44,9 @@ namespace CashManager_MVVM.Features.Common
                                             ? string.Join(", ", _filtrableInput.Where(x => x.IsSelected).OrderBy(x => x.Name))
                                             : string.Empty;
 
-        public MultiComboBoxViewModel()
+        public MultiComboBoxViewModel(IEnumerable<BaseSelectable> input)
         {
-            //todo: remove
-            _filtrableInput = new TrulyObservableCollection<BaseSelectable>
-            {
-                new Tag { Name = "aaa", IsSelected = true },
-                new Tag { Name = "aab", IsSelected = false },
-                new Tag { Name = "abc", IsSelected = true }
-            };
+            _filtrableInput = new TrulyObservableCollection<BaseSelectable>(input);
             Results = new TrulyObservableCollection<BaseSelectable>(_filtrableInput);
         }
     }

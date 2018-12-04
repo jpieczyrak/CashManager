@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
-             xmlns:common1="clr-namespace:CashManager_MVVM.Model.Common"
+             xmlns:common="clr-namespace:CashManager_MVVM.Model.Common"
+             xmlns:features="clr-namespace:CashManager_MVVM.Features.Common"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance Type=common:MultiComboBoxViewModel, IsDesignTimeCreatable=True}">
+             d:DataContext="{d:DesignInstance Type=features:MultiComboBoxViewModel, IsDesignTimeCreatable=True}">
     <Grid MinWidth="100" VerticalAlignment="Center" >
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -16,7 +16,7 @@
         <ComboBox Grid.Row="1" ItemsSource="{Binding Results}" Text="{Binding Text, Mode=TwoWay}" SelectedValue="{Binding SelectedValue}"
             IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="false">
             <ComboBox.Resources>
-                <DataTemplate DataType="{x:Type common1:BaseSelectable}" >
+                <DataTemplate DataType="{x:Type common:BaseSelectable}" >
                     <StackPanel Orientation="Horizontal">
                         <CheckBox IsChecked="{Binding IsSelected}"/>
                         <TextBlock Text="{Binding Name}" Margin="5,0" />
