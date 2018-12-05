@@ -123,6 +123,9 @@ namespace CashManager_MVVM.Features.Transactions
 
             TransactionsListViewModel = factory.Create<TransactionListViewModel>();
 
+            Title.PropertyChanged += OnPropertyChanged;
+            Note.PropertyChanged += OnPropertyChanged;
+
             var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()));
             UserStocks = new MultiPicker("User stock", availableStocks.Where(x => x.IsUserStock).ToArray());
             ExternalStocks = new MultiPicker("External stock", Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
