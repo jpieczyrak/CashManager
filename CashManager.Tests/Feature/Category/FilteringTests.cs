@@ -74,6 +74,19 @@ namespace CashManager.Tests.Feature.Category
         }
 
         [Fact]
+        public void MatchCategoryFilter_Null_False()
+        {
+            //given
+            var category = new CashManager_MVVM.Model.Category { Name = "a1" };
+
+            //when
+            bool result = category.MatchCategoryFilter((CashManager_MVVM.Model.Category) null);
+
+            //then
+            Assert.False(result);
+        }
+
+        [Fact]
         public void MatchCategoryFilter_Child_True()
         {
             //given

@@ -22,7 +22,7 @@ namespace CashManager_MVVM.Model
 
         public bool MatchCategoryFilter(Category category)
         {
-            return category.GetParentsId().Contains(Id);
+            return category?.GetParentsId().Contains(Id) ?? false;
         }
 
         public bool MatchCategoryFilter(List<Guid> filter)
