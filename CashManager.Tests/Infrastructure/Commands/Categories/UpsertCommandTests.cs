@@ -32,7 +32,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Categories
             //given
             var categories = new[]
             {
-                new Category { Value = "test1" }
+                new Category { Name = "test1" }
             };
 
             var repository = LiteDbHelper.CreateMemoryDb();
@@ -53,8 +53,8 @@ namespace CashManager.Tests.Infrastructure.Commands.Categories
             //given
             var categories = new[]
             {
-                new Category { Value = "test1" },
-                new Category { Value = "test2" }
+                new Category { Name = "test1" },
+                new Category { Name = "test2" }
             };
 
             var repository = LiteDbHelper.CreateMemoryDb();
@@ -75,15 +75,15 @@ namespace CashManager.Tests.Infrastructure.Commands.Categories
             //given
             var categories = new[]
             {
-                new Category { Value = "test1" },
-                new Category { Value = "test2" }
+                new Category { Name = "test1" },
+                new Category { Name = "test2" }
             };
 
             var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new UpsertCategoriesCommandHandler(repository);
             var command = new UpsertCategoriesCommand(categories);
             repository.Database.UpsertBulk(categories);
-            foreach (var category in categories) category.Value += " - updated";
+            foreach (var category in categories) category.Name += " - updated";
 
             //when
             handler.Execute(command);
@@ -92,7 +92,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Categories
             var orderedCategoryInDatabase = repository.Database.Query<Category>().OrderBy(x => x.Id).ToArray();
             categories = categories.OrderBy(x => x.Id).ToArray();
             Assert.Equal(categories, orderedCategoryInDatabase);
-            for (int i = 0; i < categories.Length; i++) Assert.Equal(categories[i].Value, orderedCategoryInDatabase[i].Value);
+            for (int i = 0; i < categories.Length; i++) Assert.Equal(categories[i].Name, orderedCategoryInDatabase[i].Name);
         }
     }
 }

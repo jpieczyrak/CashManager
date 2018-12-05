@@ -20,7 +20,7 @@ namespace CashManager_MVVM.Features.Categories
         {
             foreach (var cat in categories)
             {
-                cat.IsSelected = category != null && cat.Value == category.Value;
+                cat.IsSelected = category != null && cat.Name == category.Name;
                 if (cat.Children.Any())
                 {
                     UpdatedSelectedCategories(category, cat.Children);

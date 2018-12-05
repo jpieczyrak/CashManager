@@ -35,7 +35,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Categories
             var query = new CategoryQuery();
             var rootCategory = new Category(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1))
             {
-                Value = "1",
+                Name = "1",
                 Parent = null
             };
             var categories = new[]
@@ -43,7 +43,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Categories
                 rootCategory,
                 new Category(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2))
                 {
-                    Value = "2",
+                    Name = "2",
                     Parent = rootCategory
                 }
             };

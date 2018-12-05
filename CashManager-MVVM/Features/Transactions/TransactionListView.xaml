@@ -64,7 +64,7 @@
                         <DataGrid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Positions}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay}" />
-                                <DataGridTextColumn Header="Category" Binding="{Binding Category.Value, Mode=OneWay}" />
+                                <DataGridTextColumn Header="Category" Binding="{Binding Category.Name, Mode=OneWay}" />
                                 <DataGridTextColumn Header="Tags" Binding="{Binding TagsForGUI, Mode=OneWay}" />
                                 <DataGridTextColumn Header="Value" Binding="{Binding Value.Value, Mode=OneWay}" />
                             </DataGrid.Columns>

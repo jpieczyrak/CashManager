@@ -92,7 +92,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
 
             var actualCategories = repository.Database.Query<Category>().OrderBy(x => x.Id).ToArray();
             Assert.Equal(categories, actualCategories);
-            Assert.Equal(categories.Select(x => x.Value), actualCategories.Select(x => x.Value));
+            Assert.Equal(categories.Select(x => x.Name), actualCategories.Select(x => x.Name));
             Assert.Equal(categories.Select(x => x.Parent), actualCategories.Select(x => x.Parent));
         }
 
@@ -162,7 +162,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
 
             var actualCategories = repository.Database.Query<Category>().OrderBy(x => x.Id).ToArray();
             Assert.Equal(categories, actualCategories);
-            Assert.Equal(categories.Select(x => x.Value), actualCategories.Select(x => x.Value));
+            Assert.Equal(categories.Select(x => x.Name), actualCategories.Select(x => x.Name));
             Assert.Equal(categories.Select(x => x.Parent), actualCategories.Select(x => x.Parent));
         }
     }

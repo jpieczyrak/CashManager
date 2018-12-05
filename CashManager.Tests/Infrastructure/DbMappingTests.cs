@@ -19,8 +19,8 @@ namespace CashManager.Tests.Infrastructure
             var repo = LiteDbHelper.CreateMemoryDb();
             var stock1 = new Stock();
             var stock2 = new Stock();
-            var parentCategory = new Category { Value = "parent" };
-            var category = new Category { Parent = parentCategory, Value = "child" };
+            var parentCategory = new Category { Name = "parent" };
+            var category = new Category { Parent = parentCategory, Name = "child" };
             var paymentValue = new PaymentValue { Value = 123.45 };
             var tags = new List<Tag> { new Tag { Name = "a" }, new Tag { Name = "b" } };
             var positions = new List<Position>
@@ -62,7 +62,7 @@ namespace CashManager.Tests.Infrastructure
             Assert.Equal(transaction.UserStock.IsUserStock, actual.UserStock.IsUserStock);
 
             Assert.Equal(transaction.Positions.First().Category, actual.Positions.First().Category);
-            Assert.Equal(transaction.Positions.First().Category.Value, actual.Positions.First().Category.Value);
+            Assert.Equal(transaction.Positions.First().Category.Name, actual.Positions.First().Category.Name);
             Assert.Equal(transaction.Positions.First().Category.Parent, actual.Positions.First().Category.Parent);
 
             Assert.Equal(transaction.Positions.First().Tags, actual.Positions.First().Tags);
@@ -72,7 +72,7 @@ namespace CashManager.Tests.Infrastructure
             Assert.Equal(transaction.Positions.First().Value.Value, actual.Positions.First().Value.Value);
 
             Assert.Equal(transaction.Positions.First().Category.Parent, actual.Positions.First().Category.Parent);
-            Assert.Equal(transaction.Positions.First().Category.Parent.Value, actual.Positions.First().Category.Parent.Value);
+            Assert.Equal(transaction.Positions.First().Category.Parent.Name, actual.Positions.First().Category.Parent.Name);
             Assert.Equal(transaction.Positions.First().Category.Parent.Parent, actual.Positions.First().Category.Parent.Parent);
         }
 
@@ -83,8 +83,8 @@ namespace CashManager.Tests.Infrastructure
             var repo = LiteDbHelper.CreateMemoryDb();
             var stock1 = new Stock();
             var stock2 = new Stock();
-            var parentCategory = new Category { Value = "parent" };
-            var category = new Category { Parent = parentCategory, Value = "child" };
+            var parentCategory = new Category { Name = "parent" };
+            var category = new Category { Parent = parentCategory, Name = "child" };
             var paymentValue = new PaymentValue { Value = 123.45 };
             var tags = new List<Tag> { new Tag { Name = "a" }, new Tag { Name = "b" } };
             var positions = new List<Position>
@@ -133,7 +133,7 @@ namespace CashManager.Tests.Infrastructure
             Assert.Equal(transaction.UserStock.IsUserStock, actual.UserStock.IsUserStock);
 
             Assert.Equal(transaction.Positions.First().Category, actual.Positions.First().Category);
-            Assert.Equal(transaction.Positions.First().Category.Value, actual.Positions.First().Category.Value);
+            Assert.Equal(transaction.Positions.First().Category.Name, actual.Positions.First().Category.Name);
             Assert.Equal(transaction.Positions.First().Category.Parent, actual.Positions.First().Category.Parent);
 
             Assert.Equal(transaction.Positions.First().Tags, actual.Positions.First().Tags);
@@ -143,7 +143,7 @@ namespace CashManager.Tests.Infrastructure
             Assert.Equal(transaction.Positions.First().Value.Value, actual.Positions.First().Value.Value);
 
             Assert.Equal(transaction.Positions.First().Category.Parent, actual.Positions.First().Category.Parent);
-            Assert.Equal(transaction.Positions.First().Category.Parent.Value, actual.Positions.First().Category.Parent.Value);
+            Assert.Equal(transaction.Positions.First().Category.Parent.Name, actual.Positions.First().Category.Parent.Name);
             Assert.Equal(transaction.Positions.First().Category.Parent.Parent, actual.Positions.First().Category.Parent.Parent);
         }
 
@@ -156,8 +156,8 @@ namespace CashManager.Tests.Infrastructure
         {
             //given
             var repo = LiteDbHelper.CreateMemoryDb();
-            var category1 = new Category { Value = "parent" };
-            var category2 = new Category { Value = "child", Parent = category1 };
+            var category1 = new Category { Name = "parent" };
+            var category2 = new Category { Name = "child", Parent = category1 };
             var categories = new[] { category1, category2 };
             //when
             repo.Database.Upsert(category2);
@@ -177,11 +177,11 @@ namespace CashManager.Tests.Infrastructure
 
             //is same
             Assert.Equal(category2, loadedCategories.First(x => x.Id == category2.Id));
-            Assert.Equal(category2.Value, loadedCategories.First(x => x.Id == category2.Id).Value);
+            Assert.Equal(category2.Name, loadedCategories.First(x => x.Id == category2.Id).Name);
             Assert.Equal(category2.Parent, loadedCategories.First(x => x.Id == category2.Id).Parent);
 
             Assert.Equal(category1, loadedCategories.First(x => x.Id == category1.Id));
-            Assert.Equal(category1.Value, loadedCategories.First(x => x.Id == category1.Id).Value);
+            Assert.Equal(category1.Name, loadedCategories.First(x => x.Id == category1.Id).Name);
             Assert.Equal(category1.Parent, loadedCategories.First(x => x.Id == category1.Id).Parent);
         }
 
@@ -194,14 +194,14 @@ namespace CashManager.Tests.Infrastructure
         {
             //given
             var repo = LiteDbHelper.CreateMemoryDb();
-            var category1 = new Category { Value = "parent" };
-            var category2 = new Category { Value = "childA", Parent = category1 };
-            var category3 = new Category { Value = "childB", Parent = category1 };
+            var category1 = new Category { Name = "parent" };
+            var category2 = new Category { Name = "childA", Parent = category1 };
+            var category3 = new Category { Name = "childB", Parent = category1 };
             var categories = new[] { category1, category2, category3 };
             repo.Database.UpsertBulk(categories);
 
             //when
-            category3.Parent.Value += " test";
+            category3.Parent.Name += " test";
             repo.Database.Upsert(category3);
 
             //then
@@ -217,15 +217,15 @@ namespace CashManager.Tests.Infrastructure
 
             //is same
             Assert.Equal(category3, loadedCategories.First(x => x.Id == category3.Id));
-            Assert.Equal(category3.Value, loadedCategories.First(x => x.Id == category3.Id).Value);
+            Assert.Equal(category3.Name, loadedCategories.First(x => x.Id == category3.Id).Name);
             Assert.Equal(category3.Parent, loadedCategories.First(x => x.Id == category3.Id).Parent);
 
             Assert.Equal(category2, loadedCategories.First(x => x.Id == category2.Id));
-            Assert.Equal(category2.Value, loadedCategories.First(x => x.Id == category2.Id).Value);
+            Assert.Equal(category2.Name, loadedCategories.First(x => x.Id == category2.Id).Name);
             Assert.Equal(category2.Parent, loadedCategories.First(x => x.Id == category2.Id).Parent);
 
             Assert.Equal(category1, loadedCategories.First(x => x.Id == category1.Id));
-            Assert.Equal(category1.Value, loadedCategories.First(x => x.Id == category1.Id).Value);
+            Assert.Equal(category1.Name, loadedCategories.First(x => x.Id == category1.Id).Name);
             Assert.Equal(category1.Parent, loadedCategories.First(x => x.Id == category1.Id).Parent);
         }
 
@@ -234,9 +234,9 @@ namespace CashManager.Tests.Infrastructure
         {
             //given
             var repo = LiteDbHelper.CreateMemoryDb();
-            var category1 = new Category { Value = "parent" };
-            var category2 = new Category { Value = "childA", Parent = category1 };
-            var category3 = new Category { Value = "childB", Parent = category1 };
+            var category1 = new Category { Name = "parent" };
+            var category2 = new Category { Name = "childA", Parent = category1 };
+            var category3 = new Category { Name = "childB", Parent = category1 };
             var categories = new[] { category1, category2, category3 };
             repo.Database.UpsertBulk(categories);
 
@@ -257,15 +257,15 @@ namespace CashManager.Tests.Infrastructure
 
             //is same
             Assert.Equal(category3, loadedCategories.First(x => x.Id == category3.Id));
-            Assert.Equal(category3.Value, loadedCategories.First(x => x.Id == category3.Id).Value);
+            Assert.Equal(category3.Name, loadedCategories.First(x => x.Id == category3.Id).Name);
             Assert.Equal(category3.Parent, loadedCategories.First(x => x.Id == category3.Id).Parent);
 
             Assert.Equal(category2, loadedCategories.First(x => x.Id == category2.Id));
-            Assert.Equal(category2.Value, loadedCategories.First(x => x.Id == category2.Id).Value);
+            Assert.Equal(category2.Name, loadedCategories.First(x => x.Id == category2.Id).Name);
             Assert.Equal(category2.Parent, loadedCategories.First(x => x.Id == category2.Id).Parent);
 
             Assert.Equal(category1, loadedCategories.First(x => x.Id == category1.Id));
-            Assert.Equal(category1.Value, loadedCategories.First(x => x.Id == category1.Id).Value);
+            Assert.Equal(category1.Name, loadedCategories.First(x => x.Id == category1.Id).Name);
             Assert.Equal(category1.Parent, loadedCategories.First(x => x.Id == category1.Id).Parent);
         }
     }

@@ -6,19 +6,11 @@ using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
 {
-    public class Category : BaseObservableObject
+    public class Category : BaseSelectable
     {
-        private string _value;
-
         private Category _parent;
 
         public bool IsExpanded { get; set; } = true;
-
-        public string Value
-        {
-            get => _value;
-            set => Set(nameof(Value), ref _value, value);
-        }
 
         public Category Parent
         {
@@ -27,8 +19,6 @@ namespace CashManager_MVVM.Model
         }
 
         public TrulyObservableCollection<Category> Children { get; set; } = new TrulyObservableCollection<Category>();
-
-        public bool IsSelected { get; set; }
 
         public bool MatchCategoryFilter(List<Guid> filter)
         {
@@ -54,7 +44,7 @@ namespace CashManager_MVVM.Model
         
         public override string ToString()
         {
-            return Value;
+            return Name;
         }
 
         #endregion

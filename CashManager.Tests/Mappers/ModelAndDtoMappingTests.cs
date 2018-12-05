@@ -23,8 +23,8 @@ namespace CashManager.Tests.Mappers
         public void ModelToDtoTest()
         {
             //given 
-            var model1 = new Category { Value = "parent" };
-            var model2 = new Category { Value = "child", Parent = model1 };
+            var model1 = new Category { Name = "parent" };
+            var model2 = new Category { Name = "child", Parent = model1 };
 
             //when
             var result1 = Mapper.Map<Data.DTO.Category>(model1);
@@ -32,20 +32,20 @@ namespace CashManager.Tests.Mappers
 
             //then
             Assert.Equal(model1.Id, result1.Id);
-            Assert.Equal(model1.Value, result1.Value);
+            Assert.Equal(model1.Name, result1.Name);
 
             Assert.Equal(model2.Id, result2.Id);
-            Assert.Equal(model2.Value, result2.Value);
+            Assert.Equal(model2.Name, result2.Name);
             Assert.Equal(model2.Parent.Id, result2.Parent.Id);
-            Assert.Equal(model2.Parent.Value, result2.Parent.Value);
+            Assert.Equal(model2.Parent.Name, result2.Parent.Name);
         }
 
         [Fact]
         public void DtoToModelTest()
         {
             //given 
-            var dto1 = new Data.DTO.Category { Value = "parent" };
-            var dto2 = new Data.DTO.Category { Value = "child", Parent = dto1 };
+            var dto1 = new Data.DTO.Category { Name = "parent" };
+            var dto2 = new Data.DTO.Category { Name = "child", Parent = dto1 };
 
             //when
             var result1 = Mapper.Map<Category>(dto1);
@@ -53,20 +53,20 @@ namespace CashManager.Tests.Mappers
 
             //then
             Assert.Equal(dto1.Id, result1.Id);
-            Assert.Equal(dto1.Value, result1.Value);
+            Assert.Equal(dto1.Name, result1.Name);
 
             Assert.Equal(dto2.Id, result2.Id);
-            Assert.Equal(dto2.Value, result2.Value);
+            Assert.Equal(dto2.Name, result2.Name);
             Assert.Equal(dto2.Parent.Id, result2.Parent.Id);
-            Assert.Equal(dto2.Parent.Value, result2.Parent.Value);
+            Assert.Equal(dto2.Parent.Name, result2.Parent.Name);
         }
 
         [Fact]
         public void ModelToDtoToModelTest()
         {
             //given 
-            var model1 = new Category { Value = "parent" };
-            var model2 = new Category { Value = "child", Parent = model1 };
+            var model1 = new Category { Name = "parent" };
+            var model2 = new Category { Name = "child", Parent = model1 };
 
             //when
             var result1 = Mapper.Map<Category>(Mapper.Map<Data.DTO.Category>(model1));
@@ -74,12 +74,12 @@ namespace CashManager.Tests.Mappers
 
             //then
             Assert.Equal(model1.Id, result1.Id);
-            Assert.Equal(model1.Value, result1.Value);
+            Assert.Equal(model1.Name, result1.Name);
 
             Assert.Equal(model2.Id, result2.Id);
-            Assert.Equal(model2.Value, result2.Value);
+            Assert.Equal(model2.Name, result2.Name);
             Assert.Equal(model2.Parent.Id, result2.Parent.Id);
-            Assert.Equal(model2.Parent.Value, result2.Parent.Value);
+            Assert.Equal(model2.Parent.Name, result2.Parent.Name);
         }
 
         [Fact]
@@ -120,7 +120,7 @@ namespace CashManager.Tests.Mappers
         public void TransactionModelToDtoToModelTest()
         {
             //given 
-            var categoryParent = new Category { Value = "cat1", Parent = null };
+            var categoryParent = new Category { Name = "cat1", Parent = null };
             double balance = 123.45d;
             var model = new Transaction
             {
@@ -149,7 +149,7 @@ namespace CashManager.Tests.Mappers
                         {
                             new Tag { Name = "dsa" }
                         },
-                        Category = new Category { Value = "cat2", Parent = categoryParent },
+                        Category = new Category { Name = "cat2", Parent = categoryParent },
                         Title = "title2"
                     },
                 })
@@ -194,7 +194,7 @@ namespace CashManager.Tests.Mappers
             Assert.Equal(model.Positions.SelectMany(x => x.Tags).Select(x => x.Id), result.Positions.SelectMany(x => x.Tags).Select(x => x.Id));
 
             Assert.Equal(model.Positions.Select(x => x.Category), result.Positions.Select(x => x.Category));
-            Assert.Equal(model.Positions.Select(x => x.Category.Value), result.Positions.Select(x => x.Category.Value));
+            Assert.Equal(model.Positions.Select(x => x.Category.Name), result.Positions.Select(x => x.Category.Name));
             Assert.Equal(model.Positions.Select(x => x.Category.Id), result.Positions.Select(x => x.Category.Id));
             Assert.Equal(model.Positions.Select(x => x.Category.Parent), result.Positions.Select(x => x.Category.Parent));
         }

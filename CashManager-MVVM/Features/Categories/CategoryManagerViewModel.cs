@@ -93,7 +93,7 @@ namespace CashManager_MVVM.Features.Categories
         private void ExecuteAddCategoryCommand()
         {
             var parent = SelectedCategory ?? Categories.FirstOrDefault();
-            var category = parent != null ? new Category { Value = CategoryName } : new Category { Value = "Root" };
+            var category = parent != null ? new Category { Name = CategoryName } : new Category { Name = "Root" };
             if (parent != null)
             {
                 parent.Children.Add(category);

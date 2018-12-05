@@ -3,6 +3,7 @@
 using AutoMapper;
 
 using CashManager.Infrastructure.Query;
+using CashManager.Infrastructure.Query.Categories;
 using CashManager.Infrastructure.Query.Stocks;
 
 using CashManager_MVVM.Model;
@@ -11,6 +12,7 @@ using CashManager_MVVM.Model.Filters;
 using GalaSoft.MvvmLight;
 
 using DtoStock = CashManager.Data.DTO.Stock;
+using DtoCategory = CashManager.Data.DTO.Category;
 
 namespace CashManager_MVVM.Features.Transactions
 {
@@ -23,6 +25,7 @@ namespace CashManager_MVVM.Features.Transactions
         private TimeFrame _lastEditDate = new TimeFrame("Last edit date");
         private MultiPicker _userStocks;
         private MultiPicker _externalStocks;
+        private MultiPicker _categories;
 
         public TransactionListViewModel TransactionsListViewModel { get; }
 
@@ -61,6 +64,12 @@ namespace CashManager_MVVM.Features.Transactions
             get => _externalStocks;
             set => Set(nameof(ExternalStocks), ref _externalStocks, value);
         }
+
+        public MultiPicker Categories
+        {
+            get => _categories;
+            set => Set(nameof(Categories), ref _categories, value);
+        }
         
         public TransactionSearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
@@ -70,6 +79,9 @@ namespace CashManager_MVVM.Features.Transactions
             var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()));
             UserStocks = new MultiPicker("User stock", availableStocks.Where(x => x.IsUserStock).ToArray());
             ExternalStocks = new MultiPicker("External stock", Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
+            
+            var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
+            Categories = new MultiPicker("Categories", categories);
         }
     }
 }

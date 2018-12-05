@@ -104,6 +104,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBox Grid.Row="0" Grid.Column="1" />
             <TextBox Grid.Row="1" Grid.Column="1" />
@@ -113,6 +114,7 @@
             <UserControl Grid.Row="3" Grid.Column="2" Content="{Binding LastEditDate}" />
             <UserControl Grid.Row="4" Grid.Column="0" Content="{Binding UserStocks}" />
             <UserControl Grid.Row="4" Grid.Column="1" Content="{Binding ExternalStocks}" />
+            <UserControl Grid.Row="5" Grid.Column="1" Content="{Binding Categories}" />
 
         </Grid>
 
