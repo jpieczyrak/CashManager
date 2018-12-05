@@ -14,9 +14,9 @@ namespace CashManager.Tests.Mappers
 {
     public class ModelAndDtoMappingTests
     {
-        static ModelAndDtoMappingTests()
+        public ModelAndDtoMappingTests()
         {
-            MapperConfiguration.Configure(); //call it only once
+            MapperConfiguration.Configure();
         }
 
         [Fact]
