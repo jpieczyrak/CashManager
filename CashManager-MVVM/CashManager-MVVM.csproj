@@ -164,6 +164,7 @@
     <Compile Include="Model\Filters\BaseFilter.cs" />
     <Compile Include="Model\Filters\MultiPicker.cs" />
     <Compile Include="Model\Filters\RangeFilter.cs" />
+    <Compile Include="Model\Filters\TextFilter.cs" />
     <Compile Include="Model\PaymentValue.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\Position.cs" />

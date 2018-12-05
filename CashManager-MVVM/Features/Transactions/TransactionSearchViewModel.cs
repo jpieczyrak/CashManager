@@ -24,6 +24,8 @@ namespace CashManager_MVVM.Features.Transactions
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private TrulyObservableCollection<Transaction> _matchingTransactions;
+        private TextFilter _title = new TextFilter("Title");
+        private TextFilter _note = new TextFilter("Note");
         private TimeFrame _bookDate = new TimeFrame("Book date");
         private TimeFrame _createDate = new TimeFrame("Create date");
         private TimeFrame _lastEditDate = new TimeFrame("Last edit date");
@@ -94,6 +96,18 @@ namespace CashManager_MVVM.Features.Transactions
         {
             get => _transactionValueFilter;
             set => Set(nameof(TransactionValueFilter), ref _transactionValueFilter, value);
+        }
+
+        public TextFilter Title
+        {
+            get => _title;
+            set => Set(nameof(Title), ref _title, value);
+        }
+
+        public TextFilter Note
+        {
+            get => _note;
+            set => Set(nameof(Note), ref _note, value);
         }
         
         public TransactionSearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)

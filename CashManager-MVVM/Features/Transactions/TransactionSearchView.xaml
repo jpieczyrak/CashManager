@@ -133,6 +133,27 @@
                 </Grid>
             </Border>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type filters:TextFilter}">
+            <Border BorderThickness="1" CornerRadius="5" BorderBrush="#4F4F4F4F" Margin="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Separator Grid.Column="0" Grid.Row="0" Margin="5,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="#FF4F4F4F" FontWeight="Bold" />
+                    <Separator Grid.Column="2" Grid.Row="0" Margin="5,0"/>
+                    <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="5" Text="{Binding Value}"/>
+                    <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="5,2" Content="Enabled" IsChecked="{Binding IsChecked}" HorizontalAlignment="Center"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid>
@@ -158,9 +179,8 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" Grid.Column="1" />
-            <TextBox Grid.Row="1" Grid.Column="1" />
-            <TextBox Grid.Row="2" Grid.Column="1" />
+            <UserControl Grid.Row="0" Grid.Column="1" Content="{Binding Title}" />
+            <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding Note}" />
             <UserControl Grid.Row="3" Grid.Column="0" Content="{Binding CreateDate}" />
             <UserControl Grid.Row="3" Grid.Column="1" Content="{Binding BookDate}" />
             <UserControl Grid.Row="3" Grid.Column="2" Content="{Binding LastEditDate}" />
