@@ -106,8 +106,8 @@
                         <Separator Grid.Column="2" Margin="5,0"/>
                     </Grid>
 
-                    <TextBox Grid.Row="2" Grid.Column="0" Margin="5" Text="{Binding Min}" />
-                    <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding Max}" />
+                    <TextBox Grid.Row="2" Grid.Column="0" Margin="5" Text="{Binding Min, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding Max, UpdateSourceTrigger=PropertyChanged}" />
                     <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,2" Content="Enabled" IsChecked="{Binding IsChecked}" HorizontalAlignment="Center"/>
                 </Grid>
             </Border>

@@ -146,8 +146,10 @@ namespace CashManager_MVVM.Features.Transactions
             var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()));
             Tags = new MultiPicker("Tags", tags);
             Tags.PropertyChanged += OnPropertyChanged;
-
+            
             TransactionValueFilter = new RangeFilter("Transaction value");
+            TransactionValueFilter.PropertyChanged += OnPropertyChanged;
+
             OnPropertyChanged(this, null);
         }
 
@@ -203,6 +205,11 @@ namespace CashManager_MVVM.Features.Transactions
             if (LastEditDate.IsChecked)
             {
                 transactions = transactions.Where(x => x.LastEditDate >= LastEditDate.From && x.LastEditDate <= LastEditDate.To);
+            }
+
+            if (TransactionValueFilter.IsChecked)
+            {
+                transactions = transactions.Where(x => x.ValueAsProfit >= TransactionValueFilter.Min && x.ValueAsProfit <= TransactionValueFilter.Max);
             }
 
             Transactions = transactions.ToArray();
