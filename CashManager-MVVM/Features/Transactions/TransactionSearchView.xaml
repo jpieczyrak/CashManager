@@ -114,6 +114,8 @@
             <UserControl Grid.Row="3" Grid.Column="2" Content="{Binding LastEditDate}" />
             <UserControl Grid.Row="4" Grid.Column="0" Content="{Binding UserStocks}" />
             <UserControl Grid.Row="4" Grid.Column="1" Content="{Binding ExternalStocks}" />
+
+            <UserControl Grid.Row="5" Grid.Column="0" Content="{Binding Tags}" />
             <UserControl Grid.Row="5" Grid.Column="1" Content="{Binding Categories}" />
             <UserControl Grid.Row="5" Grid.Column="2" Content="{Binding Types}" />
 
