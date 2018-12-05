@@ -20,9 +20,7 @@ namespace CashManager_MVVM.Features.Common
             set
             {
                 Set(nameof(Text), ref _text, value);
-                var items = _filtrableInput.Where(x => x.Name.ToLower().Contains(_text.ToLower()))
-                                           .OrderBy(x => !x.IsSelected)
-                                           .ThenBy(x => x.Name);
+                var items = _filtrableInput.Where(x => x.Name.ToLower().Contains(_text.ToLower())).OrderBy(x => !x.IsSelected);
                 InternalDisplayableSearchResults = new TrulyObservableCollection<BaseSelectable>(items);
             }
         }
@@ -50,7 +48,7 @@ namespace CashManager_MVVM.Features.Common
         public bool AnySelected => Results?.Any() ?? false;
 
         public string SelectedString => _filtrableInput != null
-                                            ? string.Join(", ", _filtrableInput.Where(x => x.IsSelected).OrderBy(x => x.Name).Select(x => x.Name))
+                                            ? string.Join(", ", _filtrableInput.Where(x => x.IsSelected).OrderBy(x => x.Name).Select(x => x.Name.Trim()))
                                             : string.Empty;
 
         public RelayCommand AddCommand { get; private set; }

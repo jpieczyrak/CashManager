@@ -51,6 +51,11 @@ namespace CashManager_MVVM.Model
             return Parent?.GetParentsId().Concat(results).ToArray() ?? results;
         }
 
+        public int CountParents()
+        {
+            return Parent?.CountParents() + 1 ?? 0;
+        }
+
         #region Override
 
         public override string ToString()

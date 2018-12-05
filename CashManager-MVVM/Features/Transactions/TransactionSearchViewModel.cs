@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
@@ -130,21 +131,22 @@ namespace CashManager_MVVM.Features.Transactions
             LastEditDate.PropertyChanged += OnPropertyChanged;
             CreateDate.PropertyChanged += OnPropertyChanged;
 
-            var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()));
+            var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery())).OrderBy(x => x.Name);
             UserStocks = new MultiPicker("User stock", availableStocks.Where(x => x.IsUserStock).ToArray());
             ExternalStocks = new MultiPicker("External stock", Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
             UserStocks.PropertyChanged += OnPropertyChanged;
             ExternalStocks.PropertyChanged += OnPropertyChanged;
             
             var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
+            categories = BuildGraphicalOrder(categories).ToArray();
             Categories = new MultiPicker("Categories", categories);
             Categories.PropertyChanged += OnPropertyChanged;
 
-            var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery()));
+            var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
             Types = new MultiPicker("Types", types);
             Types.PropertyChanged += OnPropertyChanged;
 
-            var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()));
+            var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
             Tags = new MultiPicker("Tags", tags);
             Tags.PropertyChanged += OnPropertyChanged;
             
@@ -152,6 +154,20 @@ namespace CashManager_MVVM.Features.Transactions
             TransactionValueFilter.PropertyChanged += OnPropertyChanged;
 
             OnPropertyChanged(this, null);
+        }
+
+        private List<Category> BuildGraphicalOrder(Category[] categories, Category root = null, int index = 0)
+        {
+            var results = new List<Category>();
+            if (root != null) results.Add(root);
+            var children = categories.Where(x => Equals(x.Parent, root)).ToArray();
+            foreach (var category in children)
+            {
+                category.Name = $"{string.Join(string.Empty, Enumerable.Range(0, index).Select(x => " "))}{category.Name}";
+                results.AddRange(BuildGraphicalOrder(categories, category, index + 1));
+            }
+
+            return results;
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
