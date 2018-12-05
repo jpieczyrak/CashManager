@@ -138,6 +138,7 @@ namespace CashManager_MVVM.Features.Transactions
             
             var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
             Categories = new MultiPicker("Categories", categories);
+            Categories.PropertyChanged += OnPropertyChanged;
 
             var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery()));
             Types = new MultiPicker("Types", types);
@@ -165,7 +166,12 @@ namespace CashManager_MVVM.Features.Transactions
             }
             else if (Note.IsChecked) transactions = transactions.Where(x => x.Note.ToLower().Contains(Note.Value.ToLower()));
 
-            //todo: categories
+            if (Categories.IsChecked)
+            {
+                var categories = Categories.Results.OfType<Category>().ToArray();
+                transactions = transactions.Where(x => x.Positions.Select(y => y.Category).Any(y => categories.Any(z =>
+                    z.MatchCategoryFilter(y))));
+            }
 
             if (Tags.IsChecked)
             {
