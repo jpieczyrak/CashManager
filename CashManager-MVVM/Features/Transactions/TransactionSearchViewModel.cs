@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 
 using AutoMapper;
 
@@ -6,6 +8,7 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Categories;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Tags;
+using CashManager.Infrastructure.Query.Transactions;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.Model;
@@ -17,13 +20,14 @@ using DtoTag = CashManager.Data.DTO.Tag;
 using DtoStock = CashManager.Data.DTO.Stock;
 using DtoCategory = CashManager.Data.DTO.Category;
 using DtoType = CashManager.Data.DTO.TransactionType;
+using DtoTransaction = CashManager.Data.DTO.Transaction;
 
 namespace CashManager_MVVM.Features.Transactions
 {
     public class TransactionSearchViewModel : ViewModelBase
     {
         private readonly IQueryDispatcher _queryDispatcher;
-        private TrulyObservableCollection<Transaction> _matchingTransactions;
+        private readonly Transaction[] _allTransactions;
         private TextFilter _title = new TextFilter("Title");
         private TextFilter _note = new TextFilter("Note");
         private TimeFrame _bookDate = new TimeFrame("Book date");
@@ -35,14 +39,9 @@ namespace CashManager_MVVM.Features.Transactions
         private MultiPicker _types;
         private MultiPicker _tags;
         private RangeFilter _transactionValueFilter;
+        private Transaction[] _transactions;
 
         public TransactionListViewModel TransactionsListViewModel { get; }
-
-        public TrulyObservableCollection<Transaction> MatchingTransactions
-        {
-            get => _matchingTransactions;
-            set => Set(nameof(MatchingTransactions), ref _matchingTransactions, value);
-        }
 
         public TimeFrame BookDate
         {
@@ -109,10 +108,19 @@ namespace CashManager_MVVM.Features.Transactions
             get => _note;
             set => Set(nameof(Note), ref _note, value);
         }
+
+        public Transaction[] Transactions
+        {
+            get => _transactions;
+            set => Set(nameof(Transactions), ref _transactions, value);
+        }
         
         public TransactionSearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
             _queryDispatcher = queryDispatcher;
+            _allTransactions = Mapper.Map<Transaction[]>(queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()));
+            Transactions = _allTransactions.ToArray();
+
             TransactionsListViewModel = factory.Create<TransactionListViewModel>();
 
             var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()));
@@ -124,11 +132,50 @@ namespace CashManager_MVVM.Features.Transactions
 
             var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery()));
             Types = new MultiPicker("Types", types);
+            Types.PropertyChanged += OnPropertyChanged;
 
             var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()));
             Tags = new MultiPicker("Tags", tags);
 
             TransactionValueFilter = new RangeFilter("Transaction value");
+            OnPropertyChanged(this, null);
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            var transactions = _allTransactions.AsEnumerable();
+            if (Title.IsChecked)
+            {
+                if (Note.IsChecked)
+                    transactions = transactions.Where(x =>
+                        x.Title.ToLower().Contains(Title.Value.ToLower()) || x.Note.ToLower().Contains(Note.Value.ToLower()));
+                else transactions = transactions.Where(x => x.Title.ToLower().Contains(Title.Value.ToLower()));
+            }
+            else if (Note.IsChecked) transactions = transactions.Where(x => x.Note.ToLower().Contains(Note.Value.ToLower()));
+
+            //todo: categories
+
+            if (Tags.IsChecked)
+            {
+                var tags = new HashSet<Tag>(Tags.Results.OfType<Tag>());
+                transactions = transactions.Where(x => x.Positions.SelectMany(y => y.Tags).Any(y => tags.Contains(y)));
+            }
+
+            //todo: fix if Results is null or empty
+            if (Types.IsChecked)
+            {
+                var types = new HashSet<TransactionType>(Types.Results.OfType<TransactionType>());
+                transactions = transactions.Where(x => types.Contains(x.Type));
+            }
+
+            Transactions = transactions.ToArray();
+
+            //Todo: change to binding. remove this:
+            TransactionsListViewModel.Transactions.Clear();
+            foreach (var transaction in Transactions)
+            {
+                TransactionsListViewModel.Transactions.Add(transaction);
+            }
         }
     }
 }
