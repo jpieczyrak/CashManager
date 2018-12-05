@@ -32,7 +32,7 @@ namespace CashManager_MVVM.Features.Transactions
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ViewModelFactory _factory;
-        private readonly CategoryViewModel _categoryViewModel;
+        private readonly CategoryPickerViewModel _categoryPickerViewModel;
         private IEnumerable<Stock> _stocks;
         private Transaction _transaction;
         private bool _shouldCreateTransaction;
@@ -64,15 +64,15 @@ namespace CashManager_MVVM.Features.Transactions
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
             _factory = factory;
-            _categoryViewModel = _factory.Create<CategoryViewModel>();
+            _categoryPickerViewModel = _factory.Create<CategoryPickerViewModel>();
 
             Update();
 
             ChooseCategoryCommand = new RelayCommand<Position>(position =>
             {
-                var window = new CategoryPickerView(_categoryViewModel, position.Category);
+                var window = new CategoryPickerView(_categoryPickerViewModel, position.Category);
                 window.Show();
-                window.Closing += (sender, args) => { position.Category = _categoryViewModel?.SelectedCategory; };
+                window.Closing += (sender, args) => { position.Category = _categoryPickerViewModel?.SelectedCategory; };
             });
 
             AddNewPosition = new RelayCommand(ExecuteAddPositionCommand);
@@ -133,7 +133,7 @@ namespace CashManager_MVVM.Features.Transactions
             var position = new Position
             {
                 Title = "new position",
-                Category = _categoryViewModel.Categories.FirstOrDefault(x => x.Parent == null),
+                Category = _categoryPickerViewModel.Categories.FirstOrDefault(x => x.Parent == null),
                 TagViewModel = _factory.Create<MultiComboBoxViewModel>()
             };
             position.TagViewModel.SetInput(CopyOfTags(_tags), position.Tags);

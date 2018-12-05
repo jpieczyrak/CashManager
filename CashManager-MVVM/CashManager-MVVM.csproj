@@ -172,7 +172,7 @@
     <Compile Include="Model\Filters\TimeFrame.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Features\ViewModelFactory.cs" />
-    <Compile Include="Features\Categories\CategoryViewModel.cs" />
+    <Compile Include="Features\Categories\CategoryPickerViewModel.cs" />
     <Compile Include="Features\Main\ApplicationViewModel.cs" />
     <Compile Include="Features\Transactions\TransactionViewModel.cs" />
     <Compile Include="Features\Categories\CategoryPickerView.xaml.cs">

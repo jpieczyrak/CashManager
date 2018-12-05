@@ -9,7 +9,7 @@ namespace CashManager_MVVM.Features.Categories
     /// </summary>
     public partial class CategoryPickerView : Window
     {
-        public CategoryPickerView(CategoryViewModel viewmodel, Model.Category category)
+        public CategoryPickerView(CategoryPickerViewModel viewmodel, Model.Category category)
         {
             InitializeComponent();
 			DataContext = viewmodel;

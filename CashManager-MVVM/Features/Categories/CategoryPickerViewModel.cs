@@ -14,7 +14,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace CashManager_MVVM.Features.Categories
 {
-    public class CategoryViewModel : ViewModelBase
+    public class CategoryPickerViewModel : ViewModelBase
     {
         public IEnumerable<Category> Categories { get; set; }
 
@@ -24,7 +24,7 @@ namespace CashManager_MVVM.Features.Categories
 
         public RelayCommand<Category> UpdateSelectedCategory => new RelayCommand<Category>(category => SelectedCategory = category);
 
-        public CategoryViewModel(IQueryDispatcher queryDispatcher)
+        public CategoryPickerViewModel(IQueryDispatcher queryDispatcher)
         {
             var categories = queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery())
                                             .Select(Mapper.Map<Category>)
