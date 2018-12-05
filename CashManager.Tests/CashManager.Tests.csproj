@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dtos\TransactionCreationTests.cs" />
+    <Compile Include="Feature\Category\FilteringTests.cs" />
     <Compile Include="Infrastructure\Commands\Categories\DeleteCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Categories\UpsertCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Stocks\DeleteCommandTests.cs" />

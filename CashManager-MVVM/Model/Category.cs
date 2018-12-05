@@ -20,6 +20,11 @@ namespace CashManager_MVVM.Model
 
         public TrulyObservableCollection<Category> Children { get; set; } = new TrulyObservableCollection<Category>();
 
+        public bool MatchCategoryFilter(Category category)
+        {
+            return category.GetParentsId().Contains(Id);
+        }
+
         public bool MatchCategoryFilter(List<Guid> filter)
         {
             var ids = GetCategoriesChain(new Stack<Guid>());
@@ -39,9 +44,15 @@ namespace CashManager_MVVM.Model
 
             return ids;
         }
-        
+
+        public Guid[] GetParentsId()
+        {
+            var results = new[] { Id };
+            return Parent?.GetParentsId().Concat(results).ToArray() ?? results;
+        }
+
         #region Override
-        
+
         public override string ToString()
         {
             return Name;
