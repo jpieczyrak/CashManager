@@ -172,8 +172,7 @@ namespace CashManager_MVVM.Features.Transactions
                 var tags = new HashSet<Tag>(Tags.Results.OfType<Tag>());
                 transactions = transactions.Where(x => x.Positions.SelectMany(y => y.Tags).Any(y => tags.Contains(y)));
             }
-
-            //todo: fix if Results is null or empty
+            
             if (Types.IsChecked)
             {
                 var types = new HashSet<TransactionType>(Types.Results.OfType<TransactionType>());
