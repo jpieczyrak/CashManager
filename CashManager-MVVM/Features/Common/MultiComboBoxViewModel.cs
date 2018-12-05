@@ -47,6 +47,8 @@ namespace CashManager_MVVM.Features.Common
         /// </summary>
         public BaseSelectable[] Results => _filtrableInput.Where(x => x.IsSelected).OrderBy(x => x.Name).ToArray();
 
+        public bool AnySelected => Results?.Any() ?? false;
+
         public string SelectedString => _filtrableInput != null
                                             ? string.Join(", ", _filtrableInput.Where(x => x.IsSelected).OrderBy(x => x.Name).Select(x => x.Name))
                                             : string.Empty;
@@ -70,7 +72,11 @@ namespace CashManager_MVVM.Features.Common
             _filtrableInput = new TrulyObservableCollection<BaseSelectable>(input);
             InternalDisplayableSearchResults = new TrulyObservableCollection<BaseSelectable>(_filtrableInput);
 
-            _filtrableInput.CollectionChanged += (sender, args) => RaisePropertyChanged(nameof(SelectedString));
+            _filtrableInput.CollectionChanged += (sender, args) =>
+            {
+                RaisePropertyChanged(nameof(SelectedString));
+                RaisePropertyChanged(nameof(AnySelected));
+            };
         }
 
         private void ExecuteAddCommand()

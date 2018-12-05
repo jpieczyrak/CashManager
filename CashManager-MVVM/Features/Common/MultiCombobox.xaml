@@ -7,12 +7,16 @@
              xmlns:features="clr-namespace:CashManager_MVVM.Features.Common"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=features:MultiComboBoxViewModel, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+
     <Grid MinWidth="100" VerticalAlignment="Center" >
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="{Binding SelectedString}" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Text="{Binding SelectedString}" HorizontalAlignment="Center" Visibility="{Binding AnySelected, Converter={StaticResource BoolToVis}}" />
         <ComboBox Grid.Row="1" ItemsSource="{Binding InternalDisplayableSearchResults}" Text="{Binding Text, Mode=TwoWay}" SelectedValue="{Binding SelectedValue}"
             IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="false">
             <ComboBox.Resources>
