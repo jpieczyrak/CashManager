@@ -126,6 +126,10 @@ namespace CashManager_MVVM.Features.Transactions
             Title.PropertyChanged += OnPropertyChanged;
             Note.PropertyChanged += OnPropertyChanged;
 
+            BookDate.PropertyChanged += OnPropertyChanged;
+            LastEditDate.PropertyChanged += OnPropertyChanged;
+            CreateDate.PropertyChanged += OnPropertyChanged;
+
             var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()));
             UserStocks = new MultiPicker("User stock", availableStocks.Where(x => x.IsUserStock).ToArray());
             ExternalStocks = new MultiPicker("External stock", Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
@@ -184,6 +188,21 @@ namespace CashManager_MVVM.Features.Transactions
             {
                 var stocks = new HashSet<Stock>(ExternalStocks.Results.OfType<Stock>());
                 transactions = transactions.Where(x => stocks.Contains(x.ExternalStock));
+            }
+
+            if (CreateDate.IsChecked)
+            {
+                transactions = transactions.Where(x => x.InstanceCreationDate >= CreateDate.From && x.InstanceCreationDate <= CreateDate.To);
+            }
+
+            if (BookDate.IsChecked)
+            {
+                transactions = transactions.Where(x => x.BookDate >= BookDate.From && x.BookDate <= BookDate.To);
+            }
+
+            if (LastEditDate.IsChecked)
+            {
+                transactions = transactions.Where(x => x.LastEditDate >= LastEditDate.From && x.LastEditDate <= LastEditDate.To);
             }
 
             Transactions = transactions.ToArray();
