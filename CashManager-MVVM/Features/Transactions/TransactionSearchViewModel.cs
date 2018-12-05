@@ -32,6 +32,7 @@ namespace CashManager_MVVM.Features.Transactions
         private MultiPicker _categories;
         private MultiPicker _types;
         private MultiPicker _tags;
+        private RangeFilter _transactionValueFilter;
 
         public TransactionListViewModel TransactionsListViewModel { get; }
 
@@ -88,6 +89,12 @@ namespace CashManager_MVVM.Features.Transactions
             get => _tags;
             set => Set(nameof(Tags), ref _tags, value);
         }
+
+        public RangeFilter TransactionValueFilter
+        {
+            get => _transactionValueFilter;
+            set => Set(nameof(TransactionValueFilter), ref _transactionValueFilter, value);
+        }
         
         public TransactionSearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
@@ -106,6 +113,8 @@ namespace CashManager_MVVM.Features.Transactions
 
             var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()));
             Tags = new MultiPicker("Tags", tags);
+
+            TransactionValueFilter = new RangeFilter("Transaction value");
         }
     }
 }
