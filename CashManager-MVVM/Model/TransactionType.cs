@@ -2,19 +2,12 @@
 
 namespace CashManager_MVVM.Model
 {
-    public class TransactionType : BaseObservableObject
+    public class TransactionType : BaseSelectable
     {
-        private string _name;
         private bool _income;
         private bool _outcome;
         private bool _isDefault;
-
-        public string Name
-        {
-            get => _name;
-            set => Set(nameof(Name), ref _name, value);
-        }
-
+        
         public bool Income
         {
             get => _income;

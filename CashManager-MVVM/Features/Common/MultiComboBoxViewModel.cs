@@ -48,7 +48,7 @@ namespace CashManager_MVVM.Features.Common
         public BaseSelectable[] Results => _filtrableInput.Where(x => x.IsSelected).OrderBy(x => x.Name).ToArray();
 
         public string SelectedString => _filtrableInput != null
-                                            ? string.Join(", ", _filtrableInput.Where(x => x.IsSelected).OrderBy(x => x.Name))
+                                            ? string.Join(", ", _filtrableInput.Where(x => x.IsSelected).OrderBy(x => x.Name).Select(x => x.Name))
                                             : string.Empty;
 
         public RelayCommand AddCommand { get; private set; }

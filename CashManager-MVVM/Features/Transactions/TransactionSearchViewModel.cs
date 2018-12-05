@@ -5,6 +5,7 @@ using AutoMapper;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Categories;
 using CashManager.Infrastructure.Query.Stocks;
+using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Filters;
@@ -13,6 +14,7 @@ using GalaSoft.MvvmLight;
 
 using DtoStock = CashManager.Data.DTO.Stock;
 using DtoCategory = CashManager.Data.DTO.Category;
+using DtoType = CashManager.Data.DTO.TransactionType;
 
 namespace CashManager_MVVM.Features.Transactions
 {
@@ -26,6 +28,7 @@ namespace CashManager_MVVM.Features.Transactions
         private MultiPicker _userStocks;
         private MultiPicker _externalStocks;
         private MultiPicker _categories;
+        private MultiPicker _types;
 
         public TransactionListViewModel TransactionsListViewModel { get; }
 
@@ -70,6 +73,12 @@ namespace CashManager_MVVM.Features.Transactions
             get => _categories;
             set => Set(nameof(Categories), ref _categories, value);
         }
+
+        public MultiPicker Types
+        {
+            get => _types;
+            set => Set(nameof(Types), ref _types, value);
+        }
         
         public TransactionSearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
@@ -82,6 +91,9 @@ namespace CashManager_MVVM.Features.Transactions
             
             var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
             Categories = new MultiPicker("Categories", categories);
+
+            var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery()));
+            Types = new MultiPicker("Types", types);
         }
     }
 }
