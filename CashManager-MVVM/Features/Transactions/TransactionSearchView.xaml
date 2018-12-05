@@ -175,24 +175,21 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <UserControl Grid.Row="0" Grid.Column="1" Content="{Binding Title}" />
-            <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding Note}" />
-            <UserControl Grid.Row="3" Grid.Column="0" Content="{Binding CreateDate}" />
-            <UserControl Grid.Row="3" Grid.Column="1" Content="{Binding BookDate}" />
-            <UserControl Grid.Row="3" Grid.Column="2" Content="{Binding LastEditDate}" />
-            <UserControl Grid.Row="4" Grid.Column="0" Content="{Binding UserStocks}" />
-            <UserControl Grid.Row="4" Grid.Column="1" Content="{Binding ExternalStocks}" />
+            <UserControl Grid.Row="0" Grid.Column="0" Content="{Binding Title}" />
+            <UserControl Grid.Row="0" Grid.Column="1" Content="{Binding Note}" />
+            <UserControl Grid.Row="0" Grid.Column="2" Content="{Binding TransactionValueFilter}" />
 
-            <UserControl Grid.Row="5" Grid.Column="0" Content="{Binding Tags}" />
-            <UserControl Grid.Row="5" Grid.Column="1" Content="{Binding Categories}" />
-            <UserControl Grid.Row="5" Grid.Column="2" Content="{Binding Types}" />
+            <UserControl Grid.Row="1" Grid.Column="0" Content="{Binding Tags}" />
+            <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding Categories}" />
+            <UserControl Grid.Row="1" Grid.Column="2" Content="{Binding Types}" />
 
-            <UserControl Grid.Row="6" Grid.Column="0" Content="{Binding TransactionValueFilter}" />
+            <UserControl Grid.Row="2" Grid.Column="0" Content="{Binding CreateDate}" />
+            <UserControl Grid.Row="2" Grid.Column="1" Content="{Binding BookDate}" />
+            <UserControl Grid.Row="2" Grid.Column="2" Content="{Binding LastEditDate}" />
 
+            <UserControl Grid.Row="3" Grid.Column="0" Content="{Binding UserStocks}" />
+            <UserControl Grid.Row="3" Grid.Column="1" Content="{Binding ExternalStocks}" />
         </Grid>
 
         <UserControl Grid.Row="1" Content="{Binding TransactionsListViewModel}" />
