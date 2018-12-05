@@ -3,12 +3,9 @@ using System.Windows.Input;
 
 namespace CashManager_MVVM.Features.Tags
 {
-    /// <summary>
-    /// Interaction logic for TagPicker.xaml
-    /// </summary>
-    public partial class TagPickerView : UserControl
+    public partial class TagManagerView : UserControl
     {
-        public TagPickerView()
+        public TagManagerView()
         {
             InitializeComponent();
         }

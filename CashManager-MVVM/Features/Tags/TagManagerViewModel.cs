@@ -20,7 +20,7 @@ namespace CashManager_MVVM.Features.Tags
     /// <summary>
     /// Obsolete
     /// </summary>
-    public class TagPickerViewModel : ViewModelBase
+    public class TagManagerViewModel : ViewModelBase
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
@@ -53,7 +53,7 @@ namespace CashManager_MVVM.Features.Tags
 
         public RelayCommand AddNewTagCommand { get; }
 
-        public TagPickerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
+        public TagManagerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
         {
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;

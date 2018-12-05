@@ -40,8 +40,8 @@
             <DataTemplate DataType="{x:Type categories:CategoryManagerViewModel}">
                 <categories:CategoryManagerView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type tags:TagPickerViewModel}">
-                <tags:TagPickerView/>
+            <DataTemplate DataType="{x:Type tags:TagManagerViewModel}">
+                <tags:TagManagerView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type common:MultiComboBoxViewModel}">
                 <common:MultiComboBox/>
