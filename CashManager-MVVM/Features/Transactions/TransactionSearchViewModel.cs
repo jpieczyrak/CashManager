@@ -136,6 +136,7 @@ namespace CashManager_MVVM.Features.Transactions
 
             var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()));
             Tags = new MultiPicker("Tags", tags);
+            Tags.PropertyChanged += OnPropertyChanged;
 
             TransactionValueFilter = new RangeFilter("Transaction value");
             OnPropertyChanged(this, null);
