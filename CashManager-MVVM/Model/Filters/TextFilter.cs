@@ -2,7 +2,7 @@
 {
     public class TextFilter : BaseFilter
     {
-        private string _value;
+        private string _value = string.Empty;
 
         public string Value
         {
