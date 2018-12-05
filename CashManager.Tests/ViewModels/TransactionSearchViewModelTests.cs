@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using System.Linq;
+
+using Autofac;
 
 using CashManager_MVVM.Features.Transactions;
 
@@ -50,7 +52,9 @@ namespace CashManager.Tests.ViewModels
 
             //then
             Assert.NotEmpty(vm.Transactions);
-            Assert.Single(vm.Transactions);
+            var matching = Transactions.Where(x => x.Title.ToLower().Contains(vm.Title.Value.ToLower())).ToArray();
+            Assert.Equal(matching.Length, vm.Transactions.Length);
+            Assert.Equal(matching.Select(x => x.Id), vm.Transactions.Select(x => x.Id));
         }
     }
 }
