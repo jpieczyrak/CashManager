@@ -129,6 +129,8 @@ namespace CashManager_MVVM.Features.Transactions
             var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()));
             UserStocks = new MultiPicker("User stock", availableStocks.Where(x => x.IsUserStock).ToArray());
             ExternalStocks = new MultiPicker("External stock", Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
+            UserStocks.PropertyChanged += OnPropertyChanged;
+            ExternalStocks.PropertyChanged += OnPropertyChanged;
             
             var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
             Categories = new MultiPicker("Categories", categories);
@@ -170,6 +172,18 @@ namespace CashManager_MVVM.Features.Transactions
             {
                 var types = new HashSet<TransactionType>(Types.Results.OfType<TransactionType>());
                 transactions = transactions.Where(x => types.Contains(x.Type));
+            }
+
+            if (UserStocks.IsChecked)
+            {
+                var stocks = new HashSet<Stock>(UserStocks.Results.OfType<Stock>());
+                transactions = transactions.Where(x => stocks.Contains(x.UserStock));
+            }
+
+            if (ExternalStocks.IsChecked)
+            {
+                var stocks = new HashSet<Stock>(ExternalStocks.Results.OfType<Stock>());
+                transactions = transactions.Where(x => stocks.Contains(x.ExternalStock));
             }
 
             Transactions = transactions.ToArray();
