@@ -87,6 +87,8 @@
     <Compile Include="Command\Categories\UpsertCategoriesCommandHandler.cs" />
     <Compile Include="Command\Stocks\UpsertStocksCommand.cs" />
     <Compile Include="Command\Stocks\UpsertStocksCommandHandler.cs" />
+    <Compile Include="Command\Tags\DeleteStockCommand.cs" />
+    <Compile Include="Command\Tags\DeleteStockCommandHandler.cs" />
     <Compile Include="Command\Tags\UpsertTagsCommand.cs" />
     <Compile Include="Command\Tags\UpsertTagsCommandHandler.cs" />
     <Compile Include="Command\Stocks\DeleteStockCommand.cs" />

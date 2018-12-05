@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using AutoMapper;
 
@@ -17,16 +16,12 @@ using DtoTag = CashManager.Data.DTO.Tag;
 
 namespace CashManager_MVVM.Features.Tags
 {
-    /// <summary>
-    /// Obsolete
-    /// </summary>
     public class TagManagerViewModel : ViewModelBase
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
-        private readonly TrulyObservableCollection<Tag> _tags;
-        private string _text;
         private TrulyObservableCollection<Tag> _observableTags;
+        private string _tagName;
 
         public TrulyObservableCollection<Tag> Tags
         {
@@ -36,57 +31,46 @@ namespace CashManager_MVVM.Features.Tags
 
         public Tag SelectedTag { get; set; }
 
-        public Tag[] SelectedTags => _tags.Where(x => x.IsSelected).ToArray();
+        public RelayCommand AddCommand { get; }
 
-        public string SelectedTagsString => string.Join(", ", SelectedTags.OrderBy(x => x.Name));
+        public RelayCommand<Tag> RemoveCommand { get; }
 
-        public string Text
+        public string TagName
         {
-            get => _text;
-            set
-            {
-                Set(nameof(Text), ref _text, value);
-                var tags = _tags.Where(x => x.Name.ToLower().Contains(_text.ToLower())).OrderBy(x => !x.IsSelected).ThenBy(x => x.Name);
-                Tags = new TrulyObservableCollection<Tag>(tags);
-            }
+            get => _tagName;
+            set => Set(nameof(_tagName), ref _tagName, value);
         }
-
-        public RelayCommand AddNewTagCommand { get; }
 
         public TagManagerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
         {
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
-            AddNewTagCommand = new RelayCommand(ExecuteAddNewTagCommand, CanExecuteAddNewTagCommand);
+
+            AddCommand = new RelayCommand(ExecuteAddCommand, CanExecuteAddCommand);
+            RemoveCommand = new RelayCommand<Tag>(ExecuteRemoveCommand);
+
             var dtos = _queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery());
-            _tags = new TrulyObservableCollection<Tag>(Mapper.Map<Tag[]>(dtos).OrderBy(x => !x.IsSelected).ThenBy(x => x.Name));
-            foreach (var tag in _tags) tag.IsSelected = false;
-            Tags = new TrulyObservableCollection<Tag>(_tags);
-            _tags.CollectionChanged += (sender, args) => RaisePropertyChanged(nameof(SelectedTagsString));
+            _observableTags = new TrulyObservableCollection<Tag>(Mapper.Map<Tag[]>(dtos).OrderBy(x => x.Name));
+            Tags = new TrulyObservableCollection<Tag>(_observableTags);
         }
 
-        public void SelectTags(IEnumerable<Tag> tags)
+        private void ExecuteRemoveCommand(Tag tag)
         {
-            var common = _tags.Zip(tags, (source, updater) =>
-            {
-                source.IsSelected = updater.IsSelected;
-                return source;
-            }).ToArray();
+            _commandDispatcher.Execute(new DeleteTagCommand(Mapper.Map<DtoTag>(tag)));
+            Tags.Remove(tag);
         }
 
-        private bool CanExecuteAddNewTagCommand()
+        private bool CanExecuteAddCommand()
         {
-            return SelectedTag == null && !string.IsNullOrWhiteSpace(_text)
-                                       && !_tags.Select(x => x.Name.ToLower()).Contains(_text.ToLower());
+            return SelectedTag == null && !string.IsNullOrWhiteSpace(_tagName)
+                                       && !_observableTags.Select(x => x.Name.ToLower()).Contains(_tagName.ToLower());
         }
 
-        private void ExecuteAddNewTagCommand()
+        private void ExecuteAddCommand()
         {
-            var tag = new Tag { Name = Text, IsSelected = true };
+            var tag = new Tag { Name = _tagName };
             Tags.Add(tag);
-            _tags.Add(tag);
             _commandDispatcher.Execute(new UpsertTagsCommand(Mapper.Map<DtoTag[]>(new[] { tag })));
-            Text = string.Empty;
         }
     }
 }

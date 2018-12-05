@@ -82,6 +82,7 @@
     <Compile Include="Infrastructure\Commands\Categories\DeleteCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Categories\UpsertCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Stocks\DeleteCommandTests.cs" />
+    <Compile Include="Infrastructure\Commands\Tags\DeleteCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Tags\UpsertCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Stocks\UpsertCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\TransactionTypes\DeleteCommandTests.cs" />
