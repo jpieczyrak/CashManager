@@ -151,7 +151,7 @@ namespace CashManager.Tests.Infrastructure
         /// Not supported yet...
         /// Check on: https://github.com/mbdavid/LiteDB/issues/808
         /// </summary>
-        [Fact]
+        [Fact(Skip = "Not supported (by LiteDb) yet...")]
         public void VerySimpleCascadeSaveWithDbRefTest()
         {
             //given
@@ -189,7 +189,7 @@ namespace CashManager.Tests.Infrastructure
         /// Not supported yet...
         /// Check on: https://github.com/mbdavid/LiteDB/issues/808
         /// </summary>
-        [Fact]
+        [Fact(Skip = "Not supported (by LiteDb) yet...")]
         public void VerySimpleCascadeUpdateWithDbRefTest()
         {
             //given
