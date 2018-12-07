@@ -26,52 +26,6 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
-            <DataGrid.RowDetailsTemplate>
-                <DataTemplate DataType="model:Transaction">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Label Grid.Row="0" Grid.Column="0" Content="Id"/>
-                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Id}"/>
-                        <Label Grid.Row="1" Grid.Column="0" Content="User stock"/>
-                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding UserStock.Name}"/>
-                        <Label Grid.Row="2" Grid.Column="0" Content="External stock"/>
-                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding ExternalStock.Name}"/>
-                        <Label Grid.Row="3" Grid.Column="0" Content="Type"/>
-                        <Label Grid.Row="3" Grid.Column="1" Content="{Binding Type.Name}"/>
-                        <Label Grid.Row="4" Grid.Column="0" Content="Transaction source creation"/>
-                        <Label Grid.Row="4" Grid.Column="1" Content="{Binding TransactionSourceCreationDate}" ContentStringFormat="dd.MM.yy HH:mm:ss:fff"/>
-                        <Label Grid.Row="5" Grid.Column="0" Content="Instance creation"/>
-                        <Label Grid.Row="5" Grid.Column="1" Content="{Binding InstanceCreationDate}" ContentStringFormat="dd.MM.yy HH:mm:ss:fff"/>
-                        <Label Grid.Row="6" Grid.Column="0" Content="Book date"/>
-                        <Label Grid.Row="6" Grid.Column="1" Content="{Binding BookDate}" ContentStringFormat="dd.MM.yy HH:mm:ss:fff"/>
-                        <Label Grid.Row="7" Grid.Column="0" Content="Last edit"/>
-                        <Label Grid.Row="7" Grid.Column="1" Content="{Binding LastEditDate}" ContentStringFormat="dd.MM.yy HH:mm:ss:fff"/>
-                        <DataGrid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Positions}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay}" />
-                                <DataGridTextColumn Header="Category" Binding="{Binding Category.Name, Mode=OneWay}" />
-                                <DataGridTextColumn Header="Tags" Binding="{Binding TagsForGUI, Mode=OneWay}" />
-                                <DataGridTextColumn Header="Value" Binding="{Binding Value.Value, Mode=OneWay}" />
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </Grid>
-                </DataTemplate>
-            </DataGrid.RowDetailsTemplate>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <command:EventToCommand Command="{Binding TransactionEditCommand}"/>
