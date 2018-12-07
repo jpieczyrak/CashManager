@@ -160,7 +160,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- search -->
@@ -193,10 +192,5 @@
         </Grid>
 
         <UserControl Grid.Row="1" Content="{Binding TransactionsListViewModel}" />
-
-        <!-- Summary -->
-        <Grid Grid.Row="2">
-
-        </Grid>
     </Grid>
 </UserControl>
