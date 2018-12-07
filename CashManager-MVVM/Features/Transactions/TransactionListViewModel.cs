@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Specialized;
+using System.Linq;
 
 using AutoMapper;
 
@@ -17,16 +19,33 @@ namespace CashManager_MVVM.Features.Transactions
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ViewModelFactory _factory;
+        private TrulyObservableCollection<Transaction> _transactions;
 
-        public TrulyObservableCollection<Transaction> Transactions { get; set; } = new TrulyObservableCollection<Transaction>();
+        public TrulyObservableCollection<Transaction> Transactions
+        {
+            get => _transactions;
+            set
+            {
+                if (_transactions != null) _transactions.CollectionChanged -= TransactionsOnCollectionChanged;
+                _transactions = value;
+                _transactions.CollectionChanged += TransactionsOnCollectionChanged;
+            }
+
+        }
 
         public RelayCommand TransactionEditCommand => new RelayCommand(TransactionEdit, () => true);
 
         public Transaction SelectedTransaction { get; set; }
 
-        public TransactionListViewModel() { }
+        public Summary Summary { get; set; }
 
-        public TransactionListViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
+        public TransactionListViewModel()
+        {
+            Summary = new Summary();
+            Transactions = new TrulyObservableCollection<Transaction>();
+        }
+
+        public TransactionListViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory) : this()
         {
             _queryDispatcher = queryDispatcher;
             _factory = factory;
@@ -40,6 +59,12 @@ namespace CashManager_MVVM.Features.Transactions
         }
 
         #endregion
+        
+        private void TransactionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            Summary.GrossIncome = Transactions.Where(x => x.ValueAsProfit > 0).Sum(x => x.Value);
+            Summary.GrossOutcome = Transactions.Where(x => x.ValueAsProfit < 0).Sum(x => x.Value);
+        }
 
         private void LoadTransactionsFromDatabase()
         {
