@@ -14,11 +14,13 @@
         <DataGrid ItemsSource="{Binding Transactions, Mode=TwoWay}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedTransaction}" 
                   CanUserAddRows="False" CanUserDeleteRows="False" Margin="5" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date" Binding="{Binding BookDate, StringFormat=dd.MM.yyyy}" Width="Auto"/>
-                <DataGridTextColumn Header="Last edit" Binding="{Binding LastEditDate, Mode=OneWay, StringFormat=dd.MM.yy HH:mm:ss:fff}" Width="Auto"/>
-                <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay}" Width="*" />
-                <DataGridTextColumn Header="Desc" Binding="{Binding Note, Mode=OneWay}" Width="Auto" MaxWidth="200" />
-                <DataGridTextColumn Header="Value" Binding="{Binding ValueAsProfit, Mode=OneWay, StringFormat={}{0:#,##0.00 zł}}" Width="Auto" MinWidth="70">
+                <DataGridTextColumn Header="Book date" Binding="{Binding BookDate, StringFormat=dd.MM.yyyy}" Width="64" MaxWidth="64" MinWidth="64" />
+                <DataGridTextColumn Header="Last edit" Binding="{Binding LastEditDate, Mode=OneWay, StringFormat=dd.MM.yy HH:mm:ss}" Width="100" MaxWidth="100" MinWidth="100"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay}" Width="3*" MinWidth="100" />
+                <DataGridTextColumn Header="Note" Binding="{Binding Note, Mode=OneWay}" Width="*" MaxWidth="160" />
+                <DataGridTextColumn Header="User stock" Binding="{Binding UserStock.Name, Mode=OneWay}" Width="Auto" MaxWidth="80" />
+                <DataGridTextColumn Header="Type" Binding="{Binding Type.Name, Mode=OneWay}" Width="Auto" MaxWidth="80" />
+                <DataGridTextColumn Header="Value" Binding="{Binding ValueAsProfit, Mode=OneWay, StringFormat={}{0:#,##0.00 zł}}" Width="Auto" MinWidth="70" MaxWidth="100">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Right"/>
