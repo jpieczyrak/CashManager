@@ -33,6 +33,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Content="Title"/>
@@ -41,6 +43,8 @@
             <Label Grid.Row="3" Grid.Column="0" Content="Book date"/>
             <Label Grid.Row="4" Grid.Column="0" Content="User stock"/>
             <Label Grid.Row="5" Grid.Column="0" Content="External stock"/>
+            <Label Grid.Row="6" Grid.Column="0" Content="Creation date"/>
+            <Label Grid.Row="7" Grid.Column="0" Content="Last edit date"/>
 
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Transaction.Title, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Transaction.Note, UpdateSourceTrigger=PropertyChanged}"/>
@@ -49,9 +53,12 @@
             <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding UserStocks}" SelectedValue="{Binding Transaction.UserStock}" />
             <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding ExternalStocks}" SelectedValue="{Binding Transaction.ExternalStock}" />
 
-            <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Width="120" Margin="5" Command="{Binding AddNewPosition}" Content="Add position" />
+            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Transaction.InstanceCreationDate, StringFormat={}{0:dd.MM.yyyy HH:mm:ss:fff}}"/>
+            <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding Transaction.LastEditDate, StringFormat={}{0:dd.MM.yyyy HH:mm:ss:fff}}"/>
 
-            <DataGrid Grid.Row="7" Grid.ColumnSpan="2" Grid.Column="0" ItemsSource="{Binding Transaction.Positions}" MaxHeight="225" VerticalScrollBarVisibility="Auto"
+            <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Width="120" Margin="5" Command="{Binding AddNewPosition}" Content="Add position" />
+
+            <DataGrid Grid.Row="9" Grid.ColumnSpan="2" Grid.Column="0" ItemsSource="{Binding Transaction.Positions}" MaxHeight="225" VerticalScrollBarVisibility="Auto"
                   AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" CanUserAddRows="False" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>
