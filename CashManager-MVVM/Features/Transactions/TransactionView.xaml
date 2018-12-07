@@ -62,14 +62,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Tags" Width="Auto" MinWidth="100">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding TagViewModel.SelectedString}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Tags edit" Width="Auto" >
+                    <DataGridTemplateColumn Header="Tags" Width="Auto" >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <UserControl Content="{Binding TagViewModel}" />
