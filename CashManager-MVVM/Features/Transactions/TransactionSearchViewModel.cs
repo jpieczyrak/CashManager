@@ -236,11 +236,9 @@ namespace CashManager_MVVM.Features.Transactions
             Transactions = transactions.ToArray();
 
             //Todo: change to binding. remove this:
-            TransactionsListViewModel.Transactions.Clear();
-            foreach (var transaction in Transactions)
-            {
-                TransactionsListViewModel.Transactions.Add(transaction);
-            }
+            //TransactionsListViewModel.Transactions.Clear();
+            //foreach (var transaction in Transactions) TransactionsListViewModel.Transactions.Add(transaction);
+
         }
     }
 }

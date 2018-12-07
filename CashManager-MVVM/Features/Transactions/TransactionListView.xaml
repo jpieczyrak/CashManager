@@ -15,7 +15,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <DataGrid ItemsSource="{Binding Transactions, Mode=TwoWay}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedTransaction}" 
+        <DataGrid ItemsSource="{Binding Transactions, Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}" 
+                  AutoGenerateColumns="False" SelectedItem="{Binding SelectedTransaction}" 
                   CanUserAddRows="False" CanUserDeleteRows="False" Margin="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Book date" Binding="{Binding BookDate, StringFormat=dd.MM.yyyy}" Width="64" MaxWidth="64" MinWidth="64" />
