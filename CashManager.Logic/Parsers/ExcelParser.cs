@@ -15,19 +15,28 @@ namespace CashManager.Logic.Parsers
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock,
             TransactionType defaultOutcome, TransactionType defaultIncome)
         {
-            List<Transaction> transactions = new List<Transaction>();
-            string[] lines = input.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            var transactions = new List<Transaction>();
 
-            foreach (string line in lines)
+            try
             {
-                string[] values = line.Split(';');
+                string[] lines = input.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-                bool buying = !string.IsNullOrEmpty(values[11]);
-                bool working = !string.IsNullOrEmpty(values[10]);
+                foreach (string line in lines)
+                {
+                    string[] values = line.Split(';');
 
-                if (buying) transactions.Add(MakeTransaction(userStock, externalStock, true, values, line, defaultOutcome, defaultIncome));
-                if (working)
-                    transactions.Add(MakeTransaction(userStock, externalStock, false, values, line, defaultOutcome, defaultIncome));
+                    bool buying = !string.IsNullOrEmpty(values[11]);
+                    bool working = !string.IsNullOrEmpty(values[10]);
+
+                    if (buying) transactions.Add(MakeTransaction(userStock, externalStock, true, values, line, defaultOutcome, defaultIncome));
+                    if (working)
+                        transactions.Add(MakeTransaction(userStock, externalStock, false, values, line, defaultOutcome, defaultIncome));
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
 
             return transactions.ToArray();
