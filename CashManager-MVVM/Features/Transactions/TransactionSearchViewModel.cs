@@ -239,7 +239,10 @@ namespace CashManager_MVVM.Features.Transactions
                 transactions = transactions.Where(x => x.ValueAsProfit >= TransactionValueFilter.Min && x.ValueAsProfit <= TransactionValueFilter.Max);
             }
 
-            Transactions = transactions.ToArray();
+            Transactions = transactions
+                           .OrderByDescending(x => x.BookDate)
+                           .ThenByDescending(x => x.InstanceCreationDate)
+                           .ToArray();
 
             //Todo: change to dependency property binding. remove this:
             TransactionsListViewModel.Transactions.Clear();
