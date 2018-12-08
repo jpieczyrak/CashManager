@@ -92,7 +92,7 @@ namespace CashManager_MVVM.Features.Transactions
             TransactionTypes = Mapper.Map<TransactionType[]>(_queryDispatcher
                                          .Execute<TransactionTypesQuery, DtoTransactionType[]>(new TransactionTypesQuery()))
                                      .OrderBy(x => x.InstanceCreationDate)
-                                     .ToArray(); ;
+                                     .ToArray();
             _stocks = _queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()).Select(Mapper.Map<Stock>)
                                       .OrderBy(x => x.InstanceCreationDate)
                                       .ToArray();
