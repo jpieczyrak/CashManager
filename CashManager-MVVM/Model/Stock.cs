@@ -19,7 +19,11 @@ namespace CashManager_MVVM.Model
         public bool IsUserStock
         {
             get => _isUserStock;
-            set => Set(nameof(IsUserStock), ref _isUserStock, value);
+            set
+            {
+                Set(nameof(IsUserStock), ref _isUserStock, value);
+                RaisePropertyChanged(nameof(IsEditable));
+            }
         }
 
         public Balance Balance
@@ -27,6 +31,8 @@ namespace CashManager_MVVM.Model
             get => _balance;
             set => Set(nameof(Balance), ref _balance, value);
         }
+
+        public bool IsEditable => !IsUserStock;
 
         #region Override
 
