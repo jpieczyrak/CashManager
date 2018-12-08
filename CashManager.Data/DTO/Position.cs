@@ -13,7 +13,7 @@ namespace CashManager.Data.DTO
 	    public Position(string title, double value) : this()
         {
             Title = title;
-            Value = new PaymentValue { Value = value };
+            Value = new PaymentValue { GrossValue = value };
         }
 
         public string Title { get; set; }

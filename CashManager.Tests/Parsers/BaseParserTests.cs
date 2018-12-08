@@ -25,9 +25,9 @@ namespace CashManager.Tests.Parsers
             Assert.InRange(instanceCreationDiff, TimeSpan.FromSeconds(-1), TimeSpan.FromSeconds(1));
 
             Assert.Equal(expected.Positions.First().Title, result.Positions.First().Title);
-            Assert.Equal(expected.Positions.First().Value.Value, result.Positions.First().Value.Value);
+            Assert.Equal(expected.Positions.First().Value.GrossValue, result.Positions.First().Value.GrossValue);
 
-            Assert.Equal(expected.Positions.Sum(x => x.Value.Value), result.Positions.Sum(x => x.Value.Value));
+            Assert.Equal(expected.Positions.Sum(x => x.Value.GrossValue), result.Positions.Sum(x => x.Value.GrossValue));
         }
     }
 }

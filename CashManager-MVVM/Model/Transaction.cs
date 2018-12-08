@@ -96,7 +96,7 @@ namespace CashManager_MVVM.Model
         /// <summary>
         /// Total value of transaction
         /// </summary>
-        public double Value => Positions?.Sum(position => position.Value?.Value) ?? 0;
+        public double Value => Positions?.Sum(position => position.Value?.GrossValue) ?? 0;
 
         /// <summary>
         /// Total value of transaction as profit of user (negative when buying, positive when receiving payments)

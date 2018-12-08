@@ -32,7 +32,7 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
                     new Position
                     {
                         Title = "[Sierpień] Czynsz + media",
-                        Value = new PaymentValue { Value = 684.62d }
+                        Value = new PaymentValue { GrossValue = 684.62d }
                     }
                 }, userStock, externalStock, input);
 
@@ -70,7 +70,7 @@ CENTRUM NISKICH CEN SP, GLIWICE , PL
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { Value = 47.07d }
+                        Value = new PaymentValue { GrossValue = 47.07d }
                     }
                 }, userStock, externalStock, input);
 

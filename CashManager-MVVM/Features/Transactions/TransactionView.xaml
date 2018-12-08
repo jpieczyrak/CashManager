@@ -81,7 +81,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Value" Binding="{Binding Value.Value, Mode=TwoWay}" Width="Auto" MinWidth="50"/>
+                    <DataGridTextColumn Header="Value" Binding="{Binding Value.GrossValue, Mode=TwoWay}" Width="Auto" MinWidth="50"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

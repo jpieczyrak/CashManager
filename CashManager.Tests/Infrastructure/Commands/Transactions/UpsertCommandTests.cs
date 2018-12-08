@@ -83,7 +83,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
             var actualPositions = repository.Database.Query<Position>().OrderBy(x => x.Id).ToArray();
             Assert.Equal(positions, actualPositions);
             Assert.Equal(positions.Select(x => x.Title), actualPositions.Select(x => x.Title));
-            Assert.Equal(positions.Select(x => x.Value.Value), actualPositions.Select(x => x.Value.Value));
+            Assert.Equal(positions.Select(x => x.Value.GrossValue), actualPositions.Select(x => x.Value.GrossValue));
 
             var orderedTags = positions.Where(x => x.Tags != null).SelectMany(x => x.Tags).OrderBy(x => x.Id).ToArray();
             var actualOrderedTags = actualPositions.Where(x => x.Tags != null).SelectMany(x => x.Tags).OrderBy(x => x.Id).ToArray();
@@ -113,14 +113,14 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
                             Title = "p1",
                             Category = new Category(),
                             Tags = tags,
-                            Value = new PaymentValue { Value = 123.45 }
+                            Value = new PaymentValue { GrossValue = 123.45 }
                         },
                         new Position
                         {
                             Title = "p2",
                             Category = new Category(),
                             Tags = tags,
-                            Value = new PaymentValue { Value = 234.56 }
+                            Value = new PaymentValue { GrossValue = 234.56 }
                         }
                     }
                 },
@@ -139,7 +139,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
             repository.Database.UpsertBulk(transactions);
 
             foreach (var transaction in transactions) transaction.Note += " - updated";
-            foreach (var position in positions) position.Value.Value += 1.0;
+            foreach (var position in positions) position.Value.GrossValue += 1.0;
 
             //when
             handler.Execute(command);
@@ -153,7 +153,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
             var actualPositions = repository.Database.Query<Position>().OrderBy(x => x.Id).ToArray();
             Assert.Equal(positions, actualPositions);
             Assert.Equal(positions.Select(x => x.Title), actualPositions.Select(x => x.Title));
-            Assert.Equal(positions.Select(x => x.Value.Value).ToArray(), actualPositions.Select(x => x.Value.Value).ToArray());
+            Assert.Equal(positions.Select(x => x.Value.GrossValue).ToArray(), actualPositions.Select(x => x.Value.GrossValue).ToArray());
 
             var orderedTags = positions.Where(x => x.Tags != null).SelectMany(x => x.Tags).OrderBy(x => x.Id).ToArray();
             var actualOrderedTags = actualPositions.Where(x => x.Tags != null).SelectMany(x => x.Tags).OrderBy(x => x.Id).ToArray();

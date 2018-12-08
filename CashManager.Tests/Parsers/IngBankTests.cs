@@ -48,7 +48,7 @@ trash";
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { Value = 49.0d }
+                        Value = new PaymentValue { GrossValue = 49.0d }
                     }
                 }, userStock, externalStock, input);
             var parser = new IngBankParser();
@@ -91,7 +91,7 @@ Saldo po transakcji
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { Value = 110.0d }
+                        Value = new PaymentValue { GrossValue = 110.0d }
                     }
                 }, userStock, externalStock, input);
             var parser = new IngBankParser();
@@ -188,7 +188,7 @@ trash";
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { Value = 49.0d }
+                        Value = new PaymentValue { GrossValue = 49.0d }
                     }
                 }, userStock, externalStock, input);
             var parser = new IngBankParser();
@@ -238,7 +238,7 @@ trash
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { Value = 2.63d }
+                        Value = new PaymentValue { GrossValue = 2.63d }
                     }
                 }, userStock, externalStock, input);
             var parser = new IngBankParser();

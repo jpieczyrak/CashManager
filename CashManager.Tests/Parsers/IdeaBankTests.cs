@@ -31,7 +31,7 @@ trash scam";
                     new Position
                     {
                         Title = "Opłata za kartę - 10/2018",
-                        Value = new PaymentValue { Value = 8.0d }
+                        Value = new PaymentValue { GrossValue = 8.0d }
                     }
                 }, userStock, externalStock, input);
             var parser = new IdeaBankParser();
@@ -74,7 +74,7 @@ spam not valid trash";
                     new Position
                     {
                         Title = "Opłata za kartę - 10/2018",
-                        Value = new PaymentValue { Value = 8.0d }
+                        Value = new PaymentValue { GrossValue = 8.0d }
                     }
                 }, userStock, externalStock, input);
             var parser = new IdeaBankParser();
@@ -113,7 +113,7 @@ spam not valid trash";
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { Value = 50.0d }
+                        Value = new PaymentValue { GrossValue = 50.0d }
                     }
                 }, userStock, externalStock, input);
             var parser = new IdeaBankParser();

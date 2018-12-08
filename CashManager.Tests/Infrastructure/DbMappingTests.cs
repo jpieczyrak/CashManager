@@ -21,7 +21,7 @@ namespace CashManager.Tests.Infrastructure
             var stock2 = new Stock();
             var parentCategory = new Category { Name = "parent" };
             var category = new Category { Parent = parentCategory, Name = "child" };
-            var paymentValue = new PaymentValue { Value = 123.45 };
+            var paymentValue = new PaymentValue { GrossValue = 123.45 };
             var tags = new List<Tag> { new Tag { Name = "a" }, new Tag { Name = "b" } };
             var positions = new List<Position>
             {
@@ -69,7 +69,7 @@ namespace CashManager.Tests.Infrastructure
 
             Assert.Equal(transaction.Positions.First(), actual.Positions.First());
             Assert.Equal(transaction.Positions.First().Value, actual.Positions.First().Value);
-            Assert.Equal(transaction.Positions.First().Value.Value, actual.Positions.First().Value.Value);
+            Assert.Equal(transaction.Positions.First().Value.GrossValue, actual.Positions.First().Value.GrossValue);
 
             Assert.Equal(transaction.Positions.First().Category.Parent, actual.Positions.First().Category.Parent);
             Assert.Equal(transaction.Positions.First().Category.Parent.Name, actual.Positions.First().Category.Parent.Name);
@@ -85,7 +85,7 @@ namespace CashManager.Tests.Infrastructure
             var stock2 = new Stock();
             var parentCategory = new Category { Name = "parent" };
             var category = new Category { Parent = parentCategory, Name = "child" };
-            var paymentValue = new PaymentValue { Value = 123.45 };
+            var paymentValue = new PaymentValue { GrossValue = 123.45 };
             var tags = new List<Tag> { new Tag { Name = "a" }, new Tag { Name = "b" } };
             var positions = new List<Position>
             {
@@ -114,7 +114,7 @@ namespace CashManager.Tests.Infrastructure
             repo.Database.UpsertBulk(positions.ToArray());
 
             //modify
-            transaction.Positions.First().Value.Value += 666.66;
+            transaction.Positions.First().Value.GrossValue += 666.66;
             repo.Database.Upsert(transaction.Positions.First());
 
             transaction.ExternalStock.Name += "test";
@@ -140,7 +140,7 @@ namespace CashManager.Tests.Infrastructure
 
             Assert.Equal(transaction.Positions.First(), actual.Positions.First());
             Assert.Equal(transaction.Positions.First().Value, actual.Positions.First().Value);
-            Assert.Equal(transaction.Positions.First().Value.Value, actual.Positions.First().Value.Value);
+            Assert.Equal(transaction.Positions.First().Value.GrossValue, actual.Positions.First().Value.GrossValue);
 
             Assert.Equal(transaction.Positions.First().Category.Parent, actual.Positions.First().Category.Parent);
             Assert.Equal(transaction.Positions.First().Category.Parent.Name, actual.Positions.First().Category.Parent.Name);

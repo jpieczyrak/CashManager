@@ -86,14 +86,14 @@ namespace CashManager.Tests.Mappers
         public void PaymentValueModelToDtoToModelTest()
         {
             //given 
-            var model = new PaymentValue { Value = 12 };
+            var model = new PaymentValue { GrossValue = 12 };
 
             //when
             var result = Mapper.Map<PaymentValue>(Mapper.Map<Data.DTO.PaymentValue>(model));
 
             //then
             Assert.Equal(model.Id, result.Id);
-            Assert.Equal(model.Value, result.Value);
+            Assert.Equal(model.GrossValue, result.GrossValue);
         }
 
         [Fact]
@@ -134,7 +134,7 @@ namespace CashManager.Tests.Mappers
                 {
                     new Position
                     {
-                        Value = new PaymentValue { Value = 12 },
+                        Value = new PaymentValue { GrossValue = 12 },
                         Tags = new[]
                         {
                             new Tag { Name = "asd" }
@@ -144,7 +144,7 @@ namespace CashManager.Tests.Mappers
                     },
                     new Position
                     {
-                        Value = new PaymentValue { Value = 22 },
+                        Value = new PaymentValue { GrossValue = 22 },
                         Tags = new[]
                         {
                             new Tag { Name = "dsa" }
@@ -186,7 +186,7 @@ namespace CashManager.Tests.Mappers
             Assert.Equal(model.Positions.Count, result.Positions.Count);
             Assert.Equal(model.Positions.Select(x => x.Id), result.Positions.Select(x => x.Id));
 
-            Assert.Equal(model.Positions.Select(x => x.Value.Value), result.Positions.Select(x => x.Value.Value));
+            Assert.Equal(model.Positions.Select(x => x.Value.GrossValue), result.Positions.Select(x => x.Value.GrossValue));
             Assert.Equal(model.Positions.Select(x => x.Value.Id), result.Positions.Select(x => x.Value.Id));
 
             Assert.Equal(model.Positions.SelectMany(x => x.Tags).Count(), result.Positions.SelectMany(x => x.Tags).Count());

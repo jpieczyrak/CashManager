@@ -40,7 +40,7 @@ Saldo: 1 253,76 PLN
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { Value = 35.8d }
+                        Value = new PaymentValue { GrossValue = 35.8d }
                     }
                 }, userStock, externalStock, input);
             var parser = new MillenniumBankParser();
@@ -96,7 +96,7 @@ spam not valid trash";
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { Value = 35.8d }
+                        Value = new PaymentValue { GrossValue = 35.8d }
                     }
                 }, userStock, externalStock, input);
             var parser = new MillenniumBankParser();
@@ -137,7 +137,7 @@ Saldo: 1 253,76 PLN
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { Value = 13.5d }
+                        Value = new PaymentValue { GrossValue = 13.5d }
                     }
                 }, userStock, externalStock, input);
             var parser = new MillenniumBankParser();

@@ -56,14 +56,14 @@ namespace CashManager_MVVM.Temps
                         new Position
                         {
                             Category = categories.FirstOrDefault(x => x.Parent == null),
-                            Value = new DtoPaymentValue { Value = 10 },
+                            Value = new DtoPaymentValue { GrossValue = 10 },
                             Title = "my position 1",
                             Tags = new List<Tag> { tags[0] }
                         },
                         new Position
                         {
                             Category = categories.FirstOrDefault(x => x.Parent != null),
-                            Value = new DtoPaymentValue { Value = 15 },
+                            Value = new DtoPaymentValue { GrossValue = 15 },
                             Title = "my position 2",
                             Tags = new List<Tag> { tags[1] }
                         }
@@ -74,7 +74,7 @@ namespace CashManager_MVVM.Temps
                         new Position
                         {
                             Category = categories.Skip(5).FirstOrDefault(x => x.Parent != null),
-                            Value = new DtoPaymentValue { Value = 1000 },
+                            Value = new DtoPaymentValue { GrossValue = 1000 },
                             Title = "income",
                             Tags = new List<Tag> { tags[0], tags[2] }
                         }
