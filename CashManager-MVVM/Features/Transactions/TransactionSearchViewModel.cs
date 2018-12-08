@@ -1,5 +1,4 @@
-﻿using System.CodeDom.Compiler;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
@@ -25,10 +24,10 @@ using DtoTransaction = CashManager.Data.DTO.Transaction;
 
 namespace CashManager_MVVM.Features.Transactions
 {
-    public class TransactionSearchViewModel : ViewModelBase
+    public class TransactionSearchViewModel : ViewModelBase, IUpdateable
     {
         private readonly IQueryDispatcher _queryDispatcher;
-        private readonly Transaction[] _allTransactions;
+        private Transaction[] _allTransactions;
         private TextFilter _title = new TextFilter("Title");
         private TextFilter _note = new TextFilter("Note");
         private TimeFrame _bookDate = new TimeFrame("Book date");
@@ -119,10 +118,14 @@ namespace CashManager_MVVM.Features.Transactions
         public TransactionSearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
             _queryDispatcher = queryDispatcher;
-            _allTransactions = Mapper.Map<Transaction[]>(queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()));
-            Transactions = _allTransactions.ToArray();
-
             TransactionsListViewModel = factory.Create<TransactionListViewModel>();
+            Update();
+        }
+
+        public void Update()
+        {
+            _allTransactions = Mapper.Map<Transaction[]>(_queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()));
+            Transactions = _allTransactions.ToArray();
 
             Title.PropertyChanged += OnPropertyChanged;
             Note.PropertyChanged += OnPropertyChanged;
@@ -131,25 +134,28 @@ namespace CashManager_MVVM.Features.Transactions
             LastEditDate.PropertyChanged += OnPropertyChanged;
             CreateDate.PropertyChanged += OnPropertyChanged;
 
-            var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery())).OrderBy(x => x.Name);
+            var availableStocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery())).OrderBy(x => x.Name);
             UserStocks = new MultiPicker("User stock", availableStocks.Where(x => x.IsUserStock).ToArray());
-            ExternalStocks = new MultiPicker("External stock", Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
+            ExternalStocks =
+                new MultiPicker("External stock",
+                    Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
             UserStocks.PropertyChanged += OnPropertyChanged;
             ExternalStocks.PropertyChanged += OnPropertyChanged;
-            
-            var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
+
+            var categories = Mapper.Map<Category[]>(_queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
             categories = BuildGraphicalOrder(categories).ToArray();
             Categories = new MultiPicker("Categories", categories);
             Categories.PropertyChanged += OnPropertyChanged;
 
-            var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
+            var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery())
+                                                                     .OrderBy(x => x.Name));
             Types = new MultiPicker("Types", types);
             Types.PropertyChanged += OnPropertyChanged;
 
-            var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
+            var tags = Mapper.Map<Tag[]>(_queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
             Tags = new MultiPicker("Tags", tags);
             Tags.PropertyChanged += OnPropertyChanged;
-            
+
             TransactionValueFilter = new RangeFilter("Transaction value");
             TransactionValueFilter.PropertyChanged += OnPropertyChanged;
 

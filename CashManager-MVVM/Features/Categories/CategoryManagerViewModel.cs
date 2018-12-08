@@ -5,7 +5,6 @@ using AutoMapper;
 
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Categories;
-using CashManager.Infrastructure.Command.Stocks;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Categories;
 
