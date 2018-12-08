@@ -51,6 +51,7 @@ namespace CashManager_MVVM.Features.Transactions
         public IEnumerable<Stock> UserStocks => _stocks.Where(x => x.IsUserStock);
 
         public RelayCommand<Position> ChooseCategoryCommand { get; set; }
+        public RelayCommand<Position> RemovePositionCommand { get; set; }
 
         public RelayCommand SaveCommand { get; }
 
@@ -74,6 +75,7 @@ namespace CashManager_MVVM.Features.Transactions
                 window.Show();
                 window.Closing += (sender, args) => { position.Category = _categoryPickerViewModel?.SelectedCategory; };
             });
+            RemovePositionCommand = new RelayCommand<Position>(position => Transaction.Positions.Remove(position));
 
             AddNewPosition = new RelayCommand(ExecuteAddPositionCommand);
             SaveCommand = new RelayCommand(ExecuteSaveCommand, CanExecuteSaveCommand);
