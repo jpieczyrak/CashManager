@@ -107,6 +107,7 @@
     <Compile Include="Parsers\IdeaBankTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\LiteDbHelper.cs" />
+    <Compile Include="ViewModels\StocksViewModelTests.cs" />
     <Compile Include="ViewModels\TransactionSearchViewModelTests.cs" />
     <Compile Include="ViewModels\ViewModelTests.cs" />
   </ItemGroup>
