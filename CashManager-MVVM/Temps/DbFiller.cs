@@ -156,8 +156,8 @@ namespace CashManager_MVVM.Temps
         {
             return new[]
             {
-                new TransactionType { Income = true, Name = "Work" },
-                new TransactionType { Outcome = true, Name = "Buy" },
+                new TransactionType { Income = true, Name = "Work", IsDefault = true },
+                new TransactionType { Outcome = true, Name = "Buy", IsDefault = true },
                 new TransactionType { Name = "Transfer" },
                 new TransactionType { Income = true, Name = "Gifts" }
             };
