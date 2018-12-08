@@ -39,10 +39,10 @@ namespace CashManager_MVVM.Features.Stocks
             AddStockCommand = new RelayCommand(() => { Stocks.Add(new Stock()); });
             RemoveCommand = new RelayCommand<Stock>(x =>
             {
-                _commandDispatcher.Execute(new DeleteStockCommand(Mapper.Map<CashManager.Data.DTO.Stock>(x)));
-
                 x.IsUserStock = false; //hack to make update message remove the stock for summary todo: fix
                 Stocks.Remove(x);
+
+                _commandDispatcher.Execute(new DeleteStockCommand(Mapper.Map<CashManager.Data.DTO.Stock>(x)));
             });
         }
 
