@@ -51,24 +51,24 @@ namespace CashManager_MVVM.Temps
         {
             var dtoTransactions = new[]
             {
-                new DtoTransaction(types[1], DateTime.Now, "title 1", "notes 1", new List<Position>
+                new DtoTransaction(types[1], DateTime.Now, "title 1 - buying some stuff", "notes 1", new List<Position>
                     {
                         new Position
                         {
                             Category = categories.FirstOrDefault(x => x.Parent == null),
                             Value = new DtoPaymentValue { TaxPercentValue = 8, GrossValue = 10},
-                            Title = "my position 1",
+                            Title = "my position 1 - apples",
                             Tags = new List<Tag> { tags[0] }
                         },
                         new Position
                         {
                             Category = categories.FirstOrDefault(x => x.Parent != null),
                             Value = new DtoPaymentValue {  TaxPercentValue = 5, GrossValue = 15 },
-                            Title = "my position 2",
+                            Title = "my position 2 - tea",
                             Tags = new List<Tag> { tags[1] }
                         }
                     },
-                    stocks[0], stocks[1], "inputsource1"),
+                    stocks[0], stocks[2], "inputsource1"),
                 new DtoTransaction(types[0], DateTime.Now, "title 2 - work", "notes 2", new List<Position>
                     {
                         new Position
@@ -78,7 +78,29 @@ namespace CashManager_MVVM.Temps
                             Title = "income",
                             Tags = new List<Tag> { tags[0], tags[2] }
                         }
-                    }, stocks[0], stocks[2], "inputsource2")
+                    }, stocks[0], stocks[3], "inputsource2"),
+                new DtoTransaction(types[1], DateTime.Now, "title 3 - buying more stuff", "stuff!!!", new List<Position>
+                    {
+                        new Position
+                        {
+                            Category = categories.FirstOrDefault(x => x.Parent == null),
+                            Value = new DtoPaymentValue { TaxPercentValue = 23, GrossValue = 2499 },
+                            Title = "sth expensive",
+                            Tags = new List<Tag> { tags[0] }
+                        },
+                    },
+                    stocks[1], stocks[3], "inputsource3"),
+                new DtoTransaction(types[1], DateTime.Now, "title 4 - buying even more stuff", "stuff, stuff!!!", new List<Position>
+                    {
+                        new Position
+                        {
+                            Category = categories.FirstOrDefault(x => x.Parent == null),
+                            Value = new DtoPaymentValue { TaxPercentValue = 23, NetValue = 7129 },
+                            Title = "sth expensive 2",
+                            Tags = new List<Tag> { tags[1], tags[2] }
+                        },
+                    },
+                    stocks[1], stocks[2], "inputsource4"),
             };
 
             return dtoTransactions;
