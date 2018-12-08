@@ -25,25 +25,6 @@ namespace CashManager_MVVM.Features.Transactions
 
         public TransactionListView()
         {
-            //todo: cleanup
-            Transactions = new[]
-            {
-                new Transaction
-                {
-                    Title = "asd",
-                    Positions = new TrulyObservableCollection<Position>
-                    {
-                        new Position { Title = "", Value = new PaymentValue { Value = 12 } }
-                    },
-                    BookDate = DateTime.Now,
-                    Note = "",
-                    Type = new TransactionType
-                    {
-                        Income = true,
-                        Name = "asdasd"
-                    }
-                }
-            };
             InitializeComponent();
         }
     }

@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <DataGrid ItemsSource="{Binding Transactions, Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}" 
+        <DataGrid ItemsSource="{Binding Transactions, Mode=OneWay}" 
                   AutoGenerateColumns="False" SelectedItem="{Binding SelectedTransaction}" 
                   CanUserAddRows="False" CanUserDeleteRows="False" Margin="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
             <DataGrid.Columns>
