@@ -11,7 +11,7 @@ namespace CashManager.Tests.ViewModels
     public class StocksViewModelTests : ViewModelTests
     {
         [Fact]
-        public void AfterStockRemoveStockIsRemoved()
+        public void RemoveCommandExecute_FirstStock_FirstStockIsRemoved()
         {
             //given
             SetupDatabase();
