@@ -51,7 +51,7 @@ namespace CashManager_MVVM.Temps
         {
             var dtoTransactions = new[]
             {
-                new DtoTransaction(types[1], DateTime.Now, "title 1 - buying some stuff", "notes 1", new List<Position>
+                new DtoTransaction(types[1], DateTime.Now.AddDays(-45), "title 1 - buying some stuff", "notes 1", new List<Position>
                     {
                         new Position
                         {
@@ -69,7 +69,7 @@ namespace CashManager_MVVM.Temps
                         }
                     },
                     stocks[0], stocks[2], "inputsource1"),
-                new DtoTransaction(types[0], DateTime.Now, "title 2 - work", "notes 2", new List<Position>
+                new DtoTransaction(types[0], DateTime.Now.AddDays(-30), "title 2 - work", "notes 2", new List<Position>
                     {
                         new Position
                         {
@@ -79,7 +79,7 @@ namespace CashManager_MVVM.Temps
                             Tags = new List<Tag> { tags[0], tags[2] }
                         }
                     }, stocks[0], stocks[3], "inputsource2"),
-                new DtoTransaction(types[1], DateTime.Now, "title 3 - buying more stuff", "stuff!!!", new List<Position>
+                new DtoTransaction(types[1], DateTime.Now.AddDays(-20).AddHours(12), "title 3 - buying more stuff", "stuff!!!", new List<Position>
                     {
                         new Position
                         {
