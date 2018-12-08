@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.Linq;
 
 using AutoMapper;
@@ -29,8 +28,8 @@ namespace CashManager_MVVM.Features.Transactions
                 if (_transactions != null) _transactions.CollectionChanged -= TransactionsOnCollectionChanged;
                 _transactions = value;
                 _transactions.CollectionChanged += TransactionsOnCollectionChanged;
+                TransactionsOnCollectionChanged(this, null);
             }
-
         }
 
         public RelayCommand TransactionEditCommand => new RelayCommand(TransactionEdit, () => true);
