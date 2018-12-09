@@ -35,7 +35,7 @@ namespace CashManager.Tests.ViewModels
 
             //then
             Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(Transactions.Length, vm.Transactions.Length);
+            Assert.Equal(DtoTransactions.Length, vm.Transactions.Length);
         }
 
         [Fact]
@@ -44,7 +44,7 @@ namespace CashManager.Tests.ViewModels
             //given
             SetupDatabase();
             var vm = _container.Resolve<TransactionSearchViewModel>();
-            vm.Title.Value = Transactions[0].Title;
+            vm.Title.Value = DtoTransactions[0].Title;
             vm.Title.IsChecked = true;
 
             //when
@@ -52,7 +52,7 @@ namespace CashManager.Tests.ViewModels
 
             //then
             Assert.NotEmpty(vm.Transactions);
-            var matching = Transactions.Where(x => x.Title.ToLower().Contains(vm.Title.Value.ToLower())).ToArray();
+            var matching = DtoTransactions.Where(x => x.Title.ToLower().Contains(vm.Title.Value.ToLower())).ToArray();
             Assert.Equal(matching.Length, vm.Transactions.Length);
             Assert.Equal(matching.Select(x => x.Id), vm.Transactions.Select(x => x.Id));
         }
