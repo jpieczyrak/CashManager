@@ -20,7 +20,6 @@ namespace CashManager_MVVM.Temps
     {
         public static void Fill(IContainer container)
         {
-#if DEBUG
             var queryDispatcher = container.Resolve<IQueryDispatcher>();
             var commandDispatcher = container.Resolve<ICommandDispatcher>();
 
@@ -31,15 +30,13 @@ namespace CashManager_MVVM.Temps
                 var types = DefaultDataProvider.GetTransactionTypes();
                 var tags = DefaultDataProvider.GetTags();
                 var transactions = DefaultDataProvider.GetTransactions(stocks, categories, types, tags);
-                var positions = transactions.SelectMany(x => x.Positions).ToArray();
 
                 commandDispatcher.Execute(new UpsertStocksCommand(stocks));
                 commandDispatcher.Execute(new UpsertTransactionTypesCommand(types));
                 commandDispatcher.Execute(new UpsertCategoriesCommand(categories));
-                commandDispatcher.Execute(new UpsertTagsCommand(positions.Where(x => x.Tags != null).SelectMany(x => x.Tags).ToArray()));
+                commandDispatcher.Execute(new UpsertTagsCommand(tags));
                 commandDispatcher.Execute(new UpsertTransactionsCommand(transactions));
             }
-#endif
         }
     }
 }

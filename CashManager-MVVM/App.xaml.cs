@@ -26,10 +26,13 @@ namespace CashManager_MVVM
 			base.OnStartup(e);
 
 			var builder = AutofacConfiguration.ContainerBuilder();
-
 			var container = builder.Build(); //it could be using, but then there is problem with resolving func factory... anyway it will die with app.
-		    DbFiller.Fill(container);
-			container.Resolve<MainWindow>().Show();
+
+#if DEBUG
+		    DbFiller.Fill(container); //fill with default data
+#endif
+
+            container.Resolve<MainWindow>().Show();
 		}
 	}
 }
