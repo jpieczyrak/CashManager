@@ -89,7 +89,7 @@
 
         </Grid>
 
-        <Button Grid.Row="2" Grid.Column="0" Content="Save" Command="{Binding SaveCommand}" Width="120" Height="25" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button Grid.Row="2" Grid.Column="1" Content="Cancel" Command="{Binding CancelCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="120" Margin="5"/>
+        <Button Grid.Row="2" Grid.Column="0" Content="Save" Command="{Binding SaveTransactionCommand}" Width="120" Height="25" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Grid.Row="2" Grid.Column="1" Content="Cancel" Command="{Binding CancelTransactionCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="120" Margin="5"/>
     </Grid>
 </UserControl>

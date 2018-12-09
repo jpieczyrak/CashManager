@@ -51,11 +51,12 @@ namespace CashManager_MVVM.Features.Transactions
         public IEnumerable<Stock> UserStocks => _stocks.Where(x => x.IsUserStock);
 
         public RelayCommand<Position> ChooseCategoryCommand { get; set; }
+
         public RelayCommand<Position> RemovePositionCommand { get; set; }
 
-        public RelayCommand SaveCommand { get; }
+        public RelayCommand SaveTransactionCommand { get; }
 
-        public RelayCommand CancelCommand { get; }
+        public RelayCommand CancelTransactionCommand { get; }
 
         public RelayCommand AddNewPosition { get; }
 
@@ -75,16 +76,12 @@ namespace CashManager_MVVM.Features.Transactions
                 window.Show();
                 window.Closing += (sender, args) => { position.Category = _categoryPickerViewModel?.SelectedCategory; };
             });
-            RemovePositionCommand = new RelayCommand<Position>(position => Transaction.Positions.Remove(position));
 
             AddNewPosition = new RelayCommand(ExecuteAddPositionCommand);
-            SaveCommand = new RelayCommand(ExecuteSaveCommand, CanExecuteSaveCommand);
-            CancelCommand = new RelayCommand(ExecuteCancelCommand);
-        }
+            RemovePositionCommand = new RelayCommand<Position>(position => Transaction.Positions.Remove(position));
 
-        private void ExecuteAddPositionCommand()
-        {
-            Transaction.Positions.Add(CreatePosition());
+            SaveTransactionCommand = new RelayCommand(ExecuteSaveTransactionCommand, CanExecuteSaveTransactionCommand);
+            CancelTransactionCommand = new RelayCommand(ExecuteCancelTransactionCommand);
         }
 
         #region IUpdateable
@@ -100,9 +97,9 @@ namespace CashManager_MVVM.Features.Transactions
                                       .ToArray();
 
             _tags = Mapper.Map<Tag[]>(_queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()))
-                              .OrderBy(x => !x.IsSelected)
-                              .ThenBy(x => x.Name)
-                              .ToArray();
+                          .OrderBy(x => !x.IsSelected)
+                          .ThenBy(x => x.Name)
+                          .ToArray();
 
             if (_shouldCreateTransaction || Transaction == null) Transaction = CreateNewTransaction();
 
@@ -113,9 +110,14 @@ namespace CashManager_MVVM.Features.Transactions
             }
         }
 
-        private BaseSelectable[] CopyOfTags(Tag[] tags) => Mapper.Map<Tag[]>(Mapper.Map<DtoTag[]>(tags));
-
         #endregion
+
+        private void ExecuteAddPositionCommand()
+        {
+            Transaction.Positions.Add(CreatePosition());
+        }
+
+        private BaseSelectable[] CopyOfTags(Tag[] tags) => Mapper.Map<Tag[]>(Mapper.Map<DtoTag[]>(tags));
 
         private Transaction CreateNewTransaction()
         {
@@ -126,7 +128,7 @@ namespace CashManager_MVVM.Features.Transactions
                 Type = TransactionTypes.FirstOrDefault(x => x.IsDefault && x.Outcome),
                 UserStock = UserStocks.FirstOrDefault(x => x.IsUserStock),
                 ExternalStock = ExternalStocks.FirstOrDefault(),
-                Positions = new TrulyObservableCollection<Position>(new[] { CreatePosition() } )
+                Positions = new TrulyObservableCollection<Position>(new[] { CreatePosition() })
             };
         }
 
@@ -143,7 +145,7 @@ namespace CashManager_MVVM.Features.Transactions
             return position;
         }
 
-        private void ExecuteCancelCommand()
+        private void ExecuteCancelTransactionCommand()
         {
             var transaction = _queryDispatcher
                               .Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery(x => x.Id == Transaction.Id))
@@ -152,12 +154,12 @@ namespace CashManager_MVVM.Features.Transactions
             NavigateToTransactionListView();
         }
 
-        private bool CanExecuteSaveCommand()
+        private bool CanExecuteSaveTransactionCommand()
         {
             return !string.IsNullOrEmpty(Transaction.Title) && Transaction.Positions.Any() && Transaction.Type != null;
         }
 
-        private void ExecuteSaveCommand()
+        private void ExecuteSaveTransactionCommand()
         {
             foreach (var position in _transaction.Positions) position.Tags = position.TagViewModel.Results.OfType<Tag>().ToArray();
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction>(_transaction)));
