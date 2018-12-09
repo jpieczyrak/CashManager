@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 
 using Autofac;
@@ -7,14 +6,10 @@ using Autofac;
 using AutoMapper;
 
 using CashManager.Infrastructure.DbConnection;
-using CashManager.Infrastructure.Modules;
 using CashManager.Logic.DefaultData;
 
-using CashManager_MVVM.Features;
-using CashManager_MVVM.Features.Main;
+using CashManager_MVVM.DI;
 using CashManager_MVVM.Model;
-
-using GalaSoft.MvvmLight;
 
 using LiteDB;
 
@@ -71,26 +66,9 @@ namespace CashManager.Tests.ViewModels
         protected static IContainer GetContainer()
         {
             MapperConfiguration.Configure();
-            var builder = new ContainerBuilder();
-            builder.RegisterAssemblyModules(typeof(DatabaseCommunicationModule).Assembly);
+            var builder = AutofacConfiguration.ContainerBuilder();
 
-            builder.RegisterAssemblyTypes(typeof(ApplicationViewModel).Assembly)
-                   .Where(t => t.IsSubclassOf(typeof(ViewModelBase)) && !string.Equals(t.Name, nameof(ApplicationViewModel)))
-                   .Named<ViewModelBase>(x => x.Name)
-                   .As(t => t);
-            builder.RegisterType<ApplicationViewModel>()
-                   .As<ApplicationViewModel>()
-                   .Named<ViewModelBase>(nameof(ApplicationViewModel))
-                   .SingleInstance()
-                   .ExternallyOwned();
-
-            builder.RegisterType<ViewModelFactory>().As<ViewModelFactory>();
-
-            builder.Register<Func<Type, ViewModelBase>>(c =>
-            {
-                var context = c.Resolve<IComponentContext>();
-                return type => context.ResolveNamed<ViewModelBase>(type.Name);
-            });
+            //override db register
             builder.Register(x => new LiteRepository(new LiteDatabase(new MemoryStream()))).SingleInstance().ExternallyOwned();
 
             return builder.Build();
