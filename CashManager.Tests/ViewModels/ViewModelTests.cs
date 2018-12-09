@@ -4,13 +4,15 @@ using System.Linq;
 
 using Autofac;
 
-using CashManager.Data.DTO;
+using AutoMapper;
+
 using CashManager.Infrastructure.DbConnection;
 using CashManager.Infrastructure.Modules;
 using CashManager.Logic.DefaultData;
 
 using CashManager_MVVM.Features;
 using CashManager_MVVM.Features.Main;
+using CashManager_MVVM.Model;
 
 using GalaSoft.MvvmLight;
 
@@ -18,18 +20,32 @@ using LiteDB;
 
 using MapperConfiguration = CashManager_MVVM.Mapping.MapperConfiguration;
 
+using DtoCategory = CashManager.Data.DTO.Category;
+using DtoPosition = CashManager.Data.DTO.Position;
+using DtoTransaction = CashManager.Data.DTO.Transaction;
+using DtoTransactionType = CashManager.Data.DTO.TransactionType;
+using DtoStock = CashManager.Data.DTO.Stock;
+using DtoTag = CashManager.Data.DTO.Tag;
+
 namespace CashManager.Tests.ViewModels
 {
     public class ViewModelTests
     {
         protected readonly IContainer _container;
 
-        protected Transaction[] DtoTransactions { get; set; }
-        protected Position[] DtoPositions => DtoTransactions.SelectMany(x => x.Positions).ToArray();
-        protected Category[] DtoCategories { get; set; }
-        protected Tag[] DtoTags { get; set; }
-        protected TransactionType[] DtoTypes { get; set; }
-        protected Stock[] DtoStocks { get; set; }
+        protected DtoTransaction[] DtoTransactions { get; set; }
+        protected DtoPosition[] DtoPositions => DtoTransactions.SelectMany(x => x.Positions).ToArray();
+        protected DtoCategory[] DtoCategories { get; set; }
+        protected DtoTag[] DtoTags { get; set; }
+        protected DtoTransactionType[] DtoTypes { get; set; }
+        protected DtoStock[] DtoStocks { get; set; }
+
+        protected Transaction[] Transactions => Mapper.Map<Transaction[]>(DtoTransactions);
+        protected Position[] Positions => Mapper.Map<Position[]>(DtoPositions);
+        protected Category[] Categories => Mapper.Map<Category[]>(DtoCategories);
+        protected Tag[] Tags => Mapper.Map<Tag[]>(DtoTags);
+        protected TransactionType[] Types => Mapper.Map<TransactionType[]>(DtoTypes);
+        protected Stock[] Stocks => Mapper.Map<Stock[]>(DtoStocks);
 
         public ViewModelTests()
         {

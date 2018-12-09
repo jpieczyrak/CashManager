@@ -12,10 +12,7 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Transactions;
 using CashManager.Logic.DefaultData;
 
-using DtoPaymentValue = CashManager.Data.DTO.PaymentValue;
-using DtoCategory = CashManager.Data.DTO.Category;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
-using DtoStock = CashManager.Data.DTO.Stock;
 
 namespace CashManager_MVVM.Temps
 {
