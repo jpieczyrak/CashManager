@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:transactions="clr-namespace:CashManager_MVVM.Features.Transactions"
         mc:Ignorable="d"
-        d:DesignHeight="450" d:DesignWidth="600"
+        d:DesignHeight="650" d:DesignWidth="600"
         d:DataContext="{d:DesignInstance transactions:TransactionViewModel}">
 
     <Grid Background="White">
@@ -14,7 +14,6 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -34,7 +33,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Content="Title"/>
@@ -62,34 +61,34 @@
             <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding Transaction.LastEditDate, StringFormat={}{0:dd.MM.yyyy HH:mm:ss:fff}}" VerticalAlignment="Center"/>
 
             <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Width="120" Margin="5" Command="{Binding AddNewPosition}" Content="Add position" />
-
-            <ScrollViewer Grid.Row="9" Grid.ColumnSpan="2" Grid.Column="0" MaxHeight="225" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Grid.Row="9" Grid.ColumnSpan="2" Grid.Column="0" VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding Transaction.Positions}" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="120"/>
-                                    <ColumnDefinition Width="*" MinWidth="100" />
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="100"/>
-                                </Grid.ColumnDefinitions>
+                            <Border BorderThickness="1" CornerRadius="5" BorderBrush="#4F4F4F4F" Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="*" MinWidth="100" />
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <TextBox Grid.Column="0" Text="{Binding Title}" Margin="5" VerticalAlignment="Center"/>
-                                <Button Grid.Column="1" Margin="5" Content="{Binding Category.Name, Mode=OneWay}" Command="{Binding Path=DataContext.ChooseCategoryCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" CommandParameter="{Binding Mode=OneWay}" VerticalAlignment="Center"/>
-                                <UserControl Grid.Column="2" Margin="5" Content="{Binding TagViewModel}" VerticalAlignment="Center" />
-                                <UserControl Grid.Column="3" Margin="5" Content="{Binding Value}" VerticalAlignment="Center" />
-                                <Button Grid.Column="4" Content="Remove" VerticalAlignment="Center" Command="{Binding DataContext.RemovePositionCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type transactions:TransactionView}}}" CommandParameter="{Binding Mode=OneWay}"/>
-                            </Grid>
+                                    <TextBox Grid.Column="0" Text="{Binding Title}" Margin="5" VerticalAlignment="Center"/>
+                                    <Button Grid.Column="1" Margin="5" Content="{Binding Category.Name, Mode=OneWay}" Command="{Binding Path=DataContext.ChooseCategoryCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" CommandParameter="{Binding Mode=OneWay}" VerticalAlignment="Center"/>
+                                    <UserControl Grid.Column="2" Margin="5" Content="{Binding TagViewModel}" VerticalAlignment="Center" />
+                                    <UserControl Grid.Column="3" Margin="5" Content="{Binding Value}" VerticalAlignment="Center" />
+                                    <Button Grid.Column="4" Content="Remove" VerticalAlignment="Center" Command="{Binding DataContext.RemovePositionCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type transactions:TransactionView}}}" CommandParameter="{Binding Mode=OneWay}"/>
+                                </Grid>
+                            </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-
         </Grid>
 
-        <Button Grid.Row="2" Grid.Column="0" Content="Save" Command="{Binding SaveTransactionCommand}" Width="120" Height="25" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button Grid.Row="2" Grid.Column="1" Content="Cancel" Command="{Binding CancelTransactionCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="120" Margin="5"/>
+        <Button Grid.Row="1" Grid.Column="0" Content="Save" Command="{Binding SaveTransactionCommand}" Width="120" Height="25" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Grid.Row="1" Grid.Column="1" Content="Cancel" Command="{Binding CancelTransactionCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="120" Margin="5"/>
     </Grid>
 </UserControl>
