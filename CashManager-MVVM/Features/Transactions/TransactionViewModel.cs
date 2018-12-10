@@ -170,8 +170,7 @@ namespace CashManager_MVVM.Features.Transactions
         private void NavigateToTransactionSearchView()
         {
             var applicationViewModel = _factory.Create<ApplicationViewModel>();
-            var target = _factory.Create<TransactionSearchViewModel>();
-            applicationViewModel.SetViewModelCommand.Execute(target);
+            applicationViewModel.GoBack();
         }
     }
 }

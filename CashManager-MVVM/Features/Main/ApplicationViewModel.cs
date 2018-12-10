@@ -2,7 +2,6 @@
 using System.Linq;
 
 using CashManager_MVVM.Features.Categories;
-using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Parsers;
 using CashManager_MVVM.Features.Stocks;
 using CashManager_MVVM.Features.Tags;
@@ -23,10 +22,13 @@ namespace CashManager_MVVM.Features.Main
             get => _selectedViewModel;
             private set
             {
+                PreviousSelectedViewModel = _selectedViewModel;
                 Set(ref _selectedViewModel, value, nameof(SelectedViewModel));
                 if (_selectedViewModel is IUpdateable model) model.Update();
             }
         }
+
+        public ViewModelBase PreviousSelectedViewModel { get; private set; }
 
         public StockSummaryViewModel SummaryViewModel { get; }
         public Dictionary<string, ViewModelBase> ViewModels { get; private set; }
@@ -47,8 +49,13 @@ namespace CashManager_MVVM.Features.Main
                 { "Tags manager", factory.Create<TagManagerViewModel>() },
                 { "Parser", factory.Create<ParseViewModel>() }
             };
-            SelectedViewModel = ViewModels.FirstOrDefault().Value;
+            PreviousSelectedViewModel = SelectedViewModel = ViewModels.FirstOrDefault().Value;
             SummaryViewModel = factory.Create<StockSummaryViewModel>();
+        }
+
+        public void GoBack()
+        {
+            SelectedViewModel = PreviousSelectedViewModel;
         }
     }
 }
