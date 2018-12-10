@@ -69,9 +69,9 @@
                                 <Border BorderThickness="1" CornerRadius="5" BorderBrush="#4F4F4F4F" Margin="5">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="10*"/>
                                             <ColumnDefinition Width="120"/>
-                                            <ColumnDefinition Width="*" MinWidth="100" />
+                                            <ColumnDefinition Width="7*" MinWidth="110" MaxWidth="150" />
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="100"/>
                                         </Grid.ColumnDefinitions>
