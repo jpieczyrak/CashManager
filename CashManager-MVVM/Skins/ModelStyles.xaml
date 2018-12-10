@@ -3,7 +3,7 @@
                     xmlns:model="clr-namespace:CashManager_MVVM.Model">
 
     <DataTemplate DataType="{x:Type model:PaymentValue}">
-        <Border BorderThickness="1" CornerRadius="5" BorderBrush="#4F4F4F4F" Margin="5">
+        <Border BorderThickness="1" CornerRadius="5" BorderBrush="#4F4F4F4F" Margin="2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" MinWidth="50"/>
