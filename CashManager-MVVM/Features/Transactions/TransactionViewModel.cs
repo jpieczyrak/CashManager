@@ -151,7 +151,7 @@ namespace CashManager_MVVM.Features.Transactions
                               .Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery(x => x.Id == Transaction.Id))
                               .FirstOrDefault();
             if (transaction != null) Transaction = Mapper.Map<Transaction>(transaction);
-            NavigateToTransactionSearchView();
+            NavigateBackToTransactionSearchView();
         }
 
         private bool CanExecuteSaveTransactionCommand()
@@ -163,14 +163,13 @@ namespace CashManager_MVVM.Features.Transactions
         {
             foreach (var position in _transaction.Positions) position.Tags = position.TagViewModel.Results.OfType<Tag>().ToArray();
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction>(_transaction)));
-            NavigateToTransactionSearchView();
+            NavigateBackToTransactionSearchView();
             _shouldCreateTransaction = true;
         }
 
-        private void NavigateToTransactionSearchView()
+        private void NavigateBackToTransactionSearchView()
         {
-            var applicationViewModel = _factory.Create<ApplicationViewModel>();
-            applicationViewModel.GoBack();
+            _factory.Create<ApplicationViewModel>().GoBack();
         }
     }
 }
