@@ -5,19 +5,19 @@
     <Color x:Key="LightTextColor">White</Color>
     <SolidColorBrush x:Key="LightTextColorBrush">White</SolidColorBrush>
 
-    <Color x:Key="BackgroundColor">#FF0B0C06</Color>
-    <SolidColorBrush x:Key="BackgroundColorBrush">#FF0B0C06</SolidColorBrush>
+    <Color x:Key="BackgroundColor">#FF181615</Color>
+    <SolidColorBrush x:Key="BackgroundColorBrush">#FF181615</SolidColorBrush>
 
-    <Color x:Key="DeactivatedColor">#FF555749</Color>
-    <SolidColorBrush x:Key="DeactivatedColorBrush">#FF555749</SolidColorBrush>
+    <Color x:Key="DeactivatedColor">#FF484848</Color>
+    <SolidColorBrush x:Key="DeactivatedColorBrush">#FF484848</SolidColorBrush>
 
-    <Color x:Key="AccentColor1">#FF222320</Color>
-    <SolidColorBrush x:Key="AccentColor1Brush">#FF222320</SolidColorBrush>
+    <Color x:Key="AccentColor1">#FF756354</Color>
+    <SolidColorBrush x:Key="AccentColor1Brush">#FF756354</SolidColorBrush>
 
-    <Color x:Key="AccentColor2">#FF191B0F</Color>
-    <SolidColorBrush x:Key="AccentColor2Brush">#FF191B0F</SolidColorBrush>
+    <Color x:Key="AccentColor2">#FF302317</Color>
+    <SolidColorBrush x:Key="AccentColor2Brush">#FF302317</SolidColorBrush>
 
-    <Color x:Key="AccentTextColor">#FF0B0C06</Color>
-    <SolidColorBrush x:Key="AccentTextColorBrush">#FF0B0C06</SolidColorBrush>
+    <Color x:Key="AccentTextColor">#FFA35D00</Color>
+    <SolidColorBrush x:Key="AccentTextColorBrush">#FFA35D00</SolidColorBrush>
 
 </ResourceDictionary>

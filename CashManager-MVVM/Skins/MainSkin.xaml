@@ -12,16 +12,16 @@
     </Style>
 
     <LinearGradientBrush x:Key="Button.MouseOver.Background" EndPoint="0.5,1" StartPoint="0.5,0">
-        <GradientStop Color="{StaticResource AccentColor1}" Offset="0.4"/>
-        <GradientStop Color="{StaticResource AccentColor2}" Offset="1"/>
+        <GradientStop Color="{StaticResource AccentColor2}" Offset="0"/>
+        <GradientStop Color="{StaticResource AccentColor1}" Offset="0.84"/>
     </LinearGradientBrush>
     
     <Style TargetType="{x:Type Button}">
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    <GradientStop Color="{DynamicResource AccentColor2}" Offset="0.4"/>
-                    <GradientStop Color="{DynamicResource AccentColor1}" Offset="1"/>
+                    <GradientStop Color="{DynamicResource AccentColor1}" Offset="0.16"/>
+                    <GradientStop Color="{DynamicResource AccentColor2}" Offset="1"/>
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
@@ -52,8 +52,8 @@
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border" Value="{StaticResource DeactivatedColorBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource AccentTextColorBrush}"/>
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource AccentTextColorBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource AccentColor1Brush}"/>
+                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource AccentColor1Brush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
