@@ -150,7 +150,7 @@
                     <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="#FF4F4F4F" FontWeight="Bold" />
                     <Separator Grid.Column="2" Grid.Row="0" Margin="5,0"/>
                     <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="5" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"/>
-                    <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="5,2" Content="Enabled" IsChecked="{Binding IsChecked}" HorizontalAlignment="Center"/>
+                    <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="5,2" Content="Enabled" IsChecked="{Binding IsChecked}" HorizontalAlignment="Center" Template="{DynamicResource CheckBoxControlTemplate}"/>
                 </Grid>
             </Border>
         </DataTemplate>

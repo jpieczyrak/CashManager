@@ -10,10 +10,14 @@
              xmlns:categories="clr-namespace:CashManager_MVVM.Features.Categories"
              xmlns:tags="clr-namespace:CashManager_MVVM.Features.Tags"
              xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
+             xmlns:skins="clr-namespace:CashManager_MVVM.Skins"
              mc:Ignorable="d ignore">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <skins:ColorsResourceDictionary DarkSource="Skins/DarkColors.xaml"
+                                                DefaultSource="Skins/DarkColors.xaml"
+                                                Source="Skins/DarkColors.xaml"/>
                 <ResourceDictionary Source="Skins/MainSkin.xaml" />
                 <ResourceDictionary Source="Skins/ModelStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>

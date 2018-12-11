@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CashManager_MVVM.Skins">
+
+    <Color x:Key="LightTextColor">White</Color>
+    <SolidColorBrush x:Key="LightTextColorBrush">White</SolidColorBrush>
+
+    <Color x:Key="BackgroundColor">#FF0B0C06</Color>
+    <SolidColorBrush x:Key="BackgroundColorBrush">#FF0B0C06</SolidColorBrush>
+
+    <Color x:Key="DeactivatedColor">#FF555749</Color>
+    <SolidColorBrush x:Key="DeactivatedColorBrush">#FF555749</SolidColorBrush>
+
+    <Color x:Key="AccentColor1">#FF222320</Color>
+    <SolidColorBrush x:Key="AccentColor1Brush">#FF222320</SolidColorBrush>
+
+    <Color x:Key="AccentColor2">#FF191B0F</Color>
+    <SolidColorBrush x:Key="AccentColor2Brush">#FF191B0F</SolidColorBrush>
+
+    <Color x:Key="AccentTextColor">#FF0B0C06</Color>
+    <SolidColorBrush x:Key="AccentTextColorBrush">#FF0B0C06</SolidColorBrush>
+
+</ResourceDictionary>

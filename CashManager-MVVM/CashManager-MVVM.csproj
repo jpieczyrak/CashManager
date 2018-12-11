@@ -184,6 +184,8 @@
       <DependentUpon>TransactionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\TransactionType.cs" />
+    <Compile Include="Skins\ColorsResourceDictionary.cs" />
+    <Compile Include="Skins\SkinColors.cs" />
     <Compile Include="Temps\DbFiller.cs" />
     <Compile Include="TrulyObservableCollection.cs" />
     <Compile Include="Utils\TreeViewHelper.cs" />
@@ -232,6 +234,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\Transactions\TransactionListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\DarkColors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\LightColors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

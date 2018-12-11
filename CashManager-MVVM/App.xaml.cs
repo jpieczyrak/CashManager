@@ -4,6 +4,7 @@ using Autofac;
 
 using CashManager_MVVM.DI;
 using CashManager_MVVM.Features.Main;
+using CashManager_MVVM.Skins;
 using CashManager_MVVM.Temps;
 
 using GalaSoft.MvvmLight.Threading;
@@ -15,13 +16,16 @@ namespace CashManager_MVVM
 	/// </summary>
 	public partial class App : Application
 	{
-		static App()
+	    internal static SkinColors SkinColors { get; private set; }
+
+        static App()
 		{
 			DispatcherHelper.Initialize();
 			Mapping.MapperConfiguration.Configure();
+		    SkinColors = SkinColors.Dark;
 		}
 
-		protected override void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
 		{
 			base.OnStartup(e);
 

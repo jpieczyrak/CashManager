@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CashManager_MVVM.Skins">
+
+    <SolidColorBrush x:Key="ControlLightColor1Brush">#FF555749</SolidColorBrush>
+    <SolidColorBrush x:Key="ControlLightColor2Brush">#FF222320</SolidColorBrush>
+    <SolidColorBrush x:Key="ControlAccentColor1Brush">#FF191B0F</SolidColorBrush>
+    <SolidColorBrush x:Key="ControlAccentColor2Brush">#FF0B0C06</SolidColorBrush>
+    <SolidColorBrush x:Key="ControlMediumColorBrush">#FF898787</SolidColorBrush>
+
+    <SolidColorBrush x:Key="LightTextColorBrush">White</SolidColorBrush>
+
+    <Color x:Key="ControlLightColor1">#FF555749</Color>
+    <Color x:Key="ControlLightColor2">#FF222320</Color>
+    <Color x:Key="ControlAccentColor1">#FF191B0F</Color>
+    <Color x:Key="ControlAccentColor2">#FF0B0C06</Color>
+    <Color x:Key="ControlMediumColor">#FF898787</Color>
+
+    <Color x:Key="LightTextColor">White</Color>
+</ResourceDictionary>
