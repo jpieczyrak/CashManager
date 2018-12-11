@@ -8,7 +8,7 @@
         d:DesignHeight="650" d:DesignWidth="600"
         d:DataContext="{d:DesignInstance transactions:TransactionViewModel}">
 
-    <Grid Background="White">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
