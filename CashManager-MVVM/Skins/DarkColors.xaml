@@ -5,6 +5,9 @@
     <Color x:Key="LightTextColor">White</Color>
     <SolidColorBrush x:Key="LightTextColorBrush">White</SolidColorBrush>
 
+    <Color x:Key="GreyOutTextColor">#FF939393</Color>
+    <SolidColorBrush x:Key="GreyOutTextColorBrush" Color="#FF939393"/>
+
     <Color x:Key="BackgroundColor">#FF181615</Color>
     <SolidColorBrush x:Key="BackgroundColorBrush">#FF181615</SolidColorBrush>
 

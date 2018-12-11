@@ -4,14 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CashManager_MVVM.Features.Transactions"
-             xmlns:model="clr-namespace:CashManager_MVVM.Model"
              xmlns:filters="clr-namespace:CashManager_MVVM.Model.Filters"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:TransactionSearchViewModel, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type filters:TimeFrame}">
-            <Border BorderThickness="1" CornerRadius="5" BorderBrush="#4F4F4F4F" Margin="5">
+            <Border BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource GreyOutTextColorBrush}" Margin="5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -30,9 +29,9 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Separator Grid.Column="0" Margin="5,0"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="#FF4F4F4F" FontWeight="Bold" />
-                        <Separator Grid.Column="2" Margin="5,0"/>
+                        <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="0" Margin="5,0"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{StaticResource GreyOutTextColorBrush}" FontWeight="Bold" />
+                        <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="2" Margin="5,0"/>
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="0" >
                         <Grid.ColumnDefinitions>
@@ -40,9 +39,9 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Separator Grid.Column="0" Margin="5,0"/>
-                        <TextBlock Grid.Column="1" Text="From" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="#FF4F4F4F" />
-                        <Separator Grid.Column="2" Margin="5,0"/>
+                        <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="0" Margin="5,0"/>
+                        <TextBlock Grid.Column="1" Text="From" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{StaticResource GreyOutTextColorBrush}" />
+                        <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="2" Margin="5,0"/>
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="1" >
                         <Grid.ColumnDefinitions>
@@ -50,9 +49,9 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Separator Grid.Column="0" Margin="5,0"/>
-                        <TextBlock Grid.Column="1" Text="To" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="#FF4F4F4F" />
-                        <Separator Grid.Column="2" Margin="5,0"/>
+                        <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="0" Margin="5,0"/>
+                        <TextBlock Grid.Column="1" Text="To" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{StaticResource GreyOutTextColorBrush}" />
+                        <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="2" Margin="5,0"/>
                     </Grid>
 
                     <DatePicker Grid.Row="2" Grid.Column="0" Margin="5" FirstDayOfWeek="Monday" SelectedDate="{Binding From}" />
@@ -62,7 +61,7 @@
             </Border>
         </DataTemplate>
         <DataTemplate DataType="{x:Type filters:RangeFilter}">
-            <Border BorderThickness="1" CornerRadius="5" BorderBrush="#4F4F4F4F" Margin="5">
+            <Border BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource GreyOutTextColorBrush}" Margin="5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -81,9 +80,9 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Separator Grid.Column="0" Margin="5,0"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="#FF4F4F4F" FontWeight="Bold" />
-                        <Separator Grid.Column="2" Margin="5,0"/>
+                        <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="0" Margin="5,0"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{StaticResource GreyOutTextColorBrush}" FontWeight="Bold" />
+                        <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="2" Margin="5,0"/>
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="0" >
                         <Grid.ColumnDefinitions>
@@ -91,9 +90,9 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Separator Grid.Column="0" Margin="5,0"/>
-                        <TextBlock Grid.Column="1" Text="Min" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="#FF4F4F4F" />
-                        <Separator Grid.Column="2" Margin="5,0"/>
+                        <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="0" Margin="5,0"/>
+                        <TextBlock Grid.Column="1" Text="Min" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{StaticResource GreyOutTextColorBrush}" />
+                        <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="2" Margin="5,0"/>
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="1" >
                         <Grid.ColumnDefinitions>
@@ -101,9 +100,9 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Separator Grid.Column="0" Margin="5,0"/>
-                        <TextBlock Grid.Column="1" Text="Max" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="#FF4F4F4F" />
-                        <Separator Grid.Column="2" Margin="5,0"/>
+                        <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="0" Margin="5,0"/>
+                        <TextBlock Grid.Column="1" Text="Max" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{StaticResource GreyOutTextColorBrush}" />
+                        <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="2" Margin="5,0"/>
                     </Grid>
 
                     <TextBox Grid.Row="2" Grid.Column="0" Margin="5" Text="{Binding Min, UpdateSourceTrigger=PropertyChanged}" />
@@ -113,7 +112,7 @@
             </Border>
         </DataTemplate>
         <DataTemplate DataType="{x:Type filters:MultiPicker}">
-            <Border BorderThickness="1" CornerRadius="5" BorderBrush="#4F4F4F4F" Margin="5">
+            <Border BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource GreyOutTextColorBrush}" Margin="5">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -125,16 +124,16 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Separator Grid.Column="0" Grid.Row="0" Margin="5,0"/>
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="#FF4F4F4F" FontWeight="Bold" />
-                    <Separator Grid.Column="2" Grid.Row="0" Margin="5,0"/>
+                    <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="0" Grid.Row="0" Margin="5,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{StaticResource GreyOutTextColorBrush}" FontWeight="Bold" />
+                    <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="2" Grid.Row="0" Margin="5,0"/>
                     <UserControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="5" Content="{Binding ComboBox}" VerticalAlignment="Bottom"/>
                     <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="5,2" Content="Enabled" IsChecked="{Binding IsChecked}" HorizontalAlignment="Center"/>
                 </Grid>
             </Border>
         </DataTemplate>
         <DataTemplate DataType="{x:Type filters:TextFilter}">
-            <Border BorderThickness="1" CornerRadius="5" BorderBrush="#4F4F4F4F" Margin="5">
+            <Border BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource GreyOutTextColorBrush}" Margin="5">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -146,9 +145,9 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Separator Grid.Column="0" Grid.Row="0" Margin="5,0"/>
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="#FF4F4F4F" FontWeight="Bold" />
-                    <Separator Grid.Column="2" Grid.Row="0" Margin="5,0"/>
+                    <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="0" Grid.Row="0" Margin="5,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{StaticResource GreyOutTextColorBrush}" FontWeight="Bold" />
+                    <Separator Background="{StaticResource GreyOutTextColorBrush}" Grid.Column="2" Grid.Row="0" Margin="5,0"/>
                     <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="5" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"/>
                     <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="5,2" Content="Enabled" IsChecked="{Binding IsChecked}" HorizontalAlignment="Center" Template="{DynamicResource CheckBoxControlTemplate}"/>
                 </Grid>
