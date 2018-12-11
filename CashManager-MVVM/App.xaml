@@ -16,10 +16,11 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <skins:ColorsResourceDictionary DarkSource="Skins/Colors/DarkColors.xaml"
-                                                DefaultSource="Skins/Colors/DarkColors.xaml"
+                                                DefaultSource="Skins/Colors/LightColors.xaml"
                                                 Source="Skins/Colors/DarkColors.xaml"/>
+                <ResourceDictionary Source="Skins/Controls/ComboBoxSkin.xaml" />
                 <ResourceDictionary Source="Skins/MainSkin.xaml" />
-                <ResourceDictionary Source="Skins/ModelStyles.xaml"/>
+                <ResourceDictionary Source="Skins/Controls/ModelStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type transactions:TransactionSearchViewModel}">
                 <transactions:TransactionSearchView />
