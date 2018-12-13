@@ -39,4 +39,10 @@
         <GradientStop Color="{StaticResource HoverBorderAccentOptionalColor}" Offset="0" />
         <GradientStop Color="{StaticResource HoverBorderAccentColor}" Offset="1" />
     </LinearGradientBrush>
+    
+    <!-- Override -->
+    <LinearGradientBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="{StaticResource HoverBorderAccentOptionalColor}" Offset="0" />
+        <GradientStop Color="{StaticResource HoverBorderAccentColor}" Offset="1" />
+    </LinearGradientBrush>
 </ResourceDictionary>
