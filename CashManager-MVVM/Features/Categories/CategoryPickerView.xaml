@@ -9,8 +9,8 @@
         mc:Ignorable="d"
         Title="CategoryPickerView" Height="300" Width="300" d:DataContext="{d:DesignData CategoriesViewModel}">
 
-    <Grid>
-        <TreeView x:Name="treeView" ItemsSource="{Binding Categories}" Margin="5" >
+    <Grid Background="{StaticResource ControlBackgroundBrush}">
+        <TreeView x:Name="treeView" ItemsSource="{Binding Categories}" Margin="5" Background="{StaticResource ControlBackgroundBrush}">
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
@@ -27,9 +27,9 @@
                 <HierarchicalDataTemplate DataType="{x:Type model:Category}" ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Name}" />
-                        <TextBlock Text=" (" Foreground="Blue" />
-                        <TextBlock Text="{Binding Children.Count}" Foreground="Blue" />
-                        <TextBlock Text=")" Foreground="Blue" />
+                        <TextBlock Text=" (" Foreground="{StaticResource HoverBorderAccentBrush}" />
+                        <TextBlock Text="{Binding Children.Count}" Foreground="{StaticResource HoverBorderAccentBrush}" />
+                        <TextBlock Text=")" Foreground="{StaticResource HoverBorderAccentBrush}" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
