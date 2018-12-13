@@ -2,32 +2,27 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 
     <Style TargetType="{x:Type CheckBox}">
-        <Setter Property="Foreground" Value="{StaticResource LightTextColorBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
     </Style>
     <Style TargetType="{x:Type TextBlock}">
-        <Setter Property="Foreground" Value="{StaticResource LightTextColorBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
     </Style>
     <Style TargetType="{x:Type TextBox}">
-        <Setter Property="Foreground" Value="{StaticResource LightTextColorBrush}" />
-        <Setter Property="Background" Value="{StaticResource BackgroundColorBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+        <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}" />
     </Style>
 
-    <LinearGradientBrush x:Key="Button.MouseOver.Background" EndPoint="0.5,1" StartPoint="0.5,0">
-        <GradientStop Color="{StaticResource AccentColor2}" Offset="0"/>
-        <GradientStop Color="{StaticResource AccentColor1}" Offset="0.84"/>
-    </LinearGradientBrush>
-    
     <Style TargetType="{x:Type Button}">
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    <GradientStop Color="{DynamicResource AccentColor1}" Offset="0.16"/>
-                    <GradientStop Color="{DynamicResource AccentColor2}" Offset="1"/>
+                    <GradientStop Color="{DynamicResource HoverBorderAccentColor}" Offset="0.16"/>
+                    <GradientStop Color="{DynamicResource HoverBorderAccentOptionalColor}" Offset="1"/>
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
         <Setter Property="BorderBrush" Value="{DynamicResource DeactivatedColorBrush}"/>
-        <Setter Property="Foreground" Value="{StaticResource LightTextColorBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -44,17 +39,17 @@
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource AccentTextColorBrush}"/>
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource HoverControlBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderBrush}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource AccentColor1Brush}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource AccentTextColorBrush}"/>
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource ControlBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderBrush}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource DeactivatedColorBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource AccentColor1Brush}"/>
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource AccentColor1Brush}"/>
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource DisabledControlBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource DisabledBorderBrush}"/>
+                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource DisabledForegroundBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

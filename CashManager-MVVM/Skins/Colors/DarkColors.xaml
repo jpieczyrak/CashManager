@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:CashManager_MVVM.Skins">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- Texts -->
     <Color x:Key="ForegroundColor">White</Color>
@@ -22,7 +21,7 @@
 
     <!-- Backgrounds -->
     <Color x:Key="BackgroundAccentColor">#4c4c4c</Color>
-    <Color x:Key="BackgroundMainColor">#FF161616</Color>
+    <Color x:Key="BackgroundMainColor">#161616</Color>
     <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundMainColor}"/>
 
     <LinearGradientBrush x:Key="ControlBackgroundBrush" EndPoint="0,1" StartPoint="0,0">
@@ -40,27 +39,4 @@
         <GradientStop Color="{StaticResource HoverBorderAccentOptionalColor}" Offset="0" />
         <GradientStop Color="{StaticResource HoverBorderAccentColor}" Offset="1" />
     </LinearGradientBrush>
-    
-
-
-    <Color x:Key="LightTextColor">White</Color>
-    <SolidColorBrush x:Key="LightTextColorBrush" Color="{StaticResource LightTextColor}"/>
-
-    <Color x:Key="GreyOutTextColor">#FF939393</Color>
-    <SolidColorBrush x:Key="GreyOutTextColorBrush" Color="{StaticResource GreyOutTextColor}"/>
-
-    <Color x:Key="BackgroundColor">#FF161616</Color>
-
-    <Color x:Key="DeactivatedColor">#FF484848</Color>
-    <SolidColorBrush x:Key="DeactivatedColorBrush" Color="{StaticResource DeactivatedColor}"/>
-
-    <Color x:Key="AccentColor1">#FF756354</Color>
-    <SolidColorBrush x:Key="AccentColor1Brush" Color="{StaticResource AccentColor1}"/>
-
-    <Color x:Key="AccentColor2">#FF302317</Color>
-    <SolidColorBrush x:Key="AccentColor2Brush" Color="{StaticResource AccentColor2}"/>
-
-    <Color x:Key="AccentTextColor">#FFA35D00</Color>
-    <SolidColorBrush x:Key="AccentTextColorBrush" Color="{StaticResource AccentTextColor}" />
-
 </ResourceDictionary>
