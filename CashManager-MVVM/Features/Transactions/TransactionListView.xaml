@@ -15,9 +15,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <DataGrid ItemsSource="{Binding Transactions, Mode=OneWay}" 
+        <DataGrid ItemsSource="{Binding Transactions, Mode=OneWay}"
                   AutoGenerateColumns="False" SelectedItem="{Binding SelectedTransaction}" 
-                  CanUserAddRows="False" CanUserDeleteRows="False" Margin="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
+                  CanUserAddRows="False" CanUserDeleteRows="False" Margin="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Style="{DynamicResource DataGridStyle}" RowStyle="{DynamicResource DataGridRowStyle}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}" RowHeaderStyle="{DynamicResource DataGridRowHeaderStyle}" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Book date" Binding="{Binding BookDate, StringFormat=dd.MM.yyyy}" Width="64" MaxWidth="64" MinWidth="64" />
                 <DataGridTextColumn Header="Last edit" Binding="{Binding LastEditDate, Mode=OneWay, StringFormat=dd.MM.yy HH:mm:ss}" Width="100" MaxWidth="100" MinWidth="100"/>
