@@ -21,9 +21,7 @@
             IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="false" >
             <ComboBox.Resources>
                 <DataTemplate DataType="{x:Type common:BaseSelectable}" >
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding Name}" Padding="5,0" />
-                    </StackPanel>
+                    <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding Name}" Padding="5,0" />
                 </DataTemplate>
             </ComboBox.Resources>
             <ComboBox.InputBindings>
