@@ -15,8 +15,8 @@
     <Color x:Key="DisabledBorderColor">#727272</Color>
     <SolidColorBrush x:Key="DisabledBorderBrush" Color="{StaticResource DisabledBorderColor}" />
 
-    <Color x:Key="HoverBorderAccentOptionalColor">#da5e69</Color>
-    <Color x:Key="HoverBorderAccentColor">#d12e27</Color>
+    <Color x:Key="HoverBorderAccentOptionalColor">#CD6C2F</Color>
+    <Color x:Key="HoverBorderAccentColor">#A13E00</Color>
     <SolidColorBrush x:Key="HoverBorderAccentBrush" Color="{StaticResource HoverBorderAccentColor}" />
 
     <!-- Backgrounds -->
