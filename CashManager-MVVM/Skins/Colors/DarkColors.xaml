@@ -3,24 +3,24 @@
                     xmlns:local="clr-namespace:CashManager_MVVM.Skins">
 
     <Color x:Key="LightTextColor">White</Color>
-    <SolidColorBrush x:Key="LightTextColorBrush">White</SolidColorBrush>
+    <SolidColorBrush x:Key="LightTextColorBrush" Color="{StaticResource LightTextColor}"/>
 
     <Color x:Key="GreyOutTextColor">#FF939393</Color>
-    <SolidColorBrush x:Key="GreyOutTextColorBrush" Color="#FF939393"/>
+    <SolidColorBrush x:Key="GreyOutTextColorBrush" Color="{StaticResource GreyOutTextColor}"/>
 
     <Color x:Key="BackgroundColor">#FF181615</Color>
-    <SolidColorBrush x:Key="BackgroundColorBrush">#FF181615</SolidColorBrush>
+    <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundColor}"/>
 
     <Color x:Key="DeactivatedColor">#FF484848</Color>
-    <SolidColorBrush x:Key="DeactivatedColorBrush">#FF484848</SolidColorBrush>
+    <SolidColorBrush x:Key="DeactivatedColorBrush" Color="{StaticResource DeactivatedColor}"/>
 
     <Color x:Key="AccentColor1">#FF756354</Color>
-    <SolidColorBrush x:Key="AccentColor1Brush">#FF756354</SolidColorBrush>
+    <SolidColorBrush x:Key="AccentColor1Brush" Color="{StaticResource AccentColor1}"/>
 
     <Color x:Key="AccentColor2">#FF302317</Color>
-    <SolidColorBrush x:Key="AccentColor2Brush">#FF302317</SolidColorBrush>
+    <SolidColorBrush x:Key="AccentColor2Brush" Color="{StaticResource AccentColor2}"/>
 
     <Color x:Key="AccentTextColor">#FFA35D00</Color>
-    <SolidColorBrush x:Key="AccentTextColorBrush">#FFA35D00</SolidColorBrush>
+    <SolidColorBrush x:Key="AccentTextColorBrush" Color="{StaticResource AccentTextColor}" />
 
 </ResourceDictionary>
