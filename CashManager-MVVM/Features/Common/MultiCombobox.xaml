@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="{Binding SelectedString}" HorizontalAlignment="Center" Visibility="{Binding AnySelected, Converter={StaticResource BoolToVis}}" />
         <ComboBox Grid.Row="1" ItemsSource="{Binding InternalDisplayableSearchResults}" Text="{Binding Text, Mode=TwoWay}" SelectedValue="{Binding SelectedValue}"
-            IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="false" Template="{DynamicResource ComboBoxControlTemplate1}">
+            IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="false" >
             <ComboBox.Resources>
                 <DataTemplate DataType="{x:Type common:BaseSelectable}" >
                     <StackPanel Orientation="Horizontal">
