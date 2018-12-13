@@ -11,10 +11,6 @@
         <Setter Property="Foreground" Value="{StaticResource LightTextColorBrush}" />
         <Setter Property="Background" Value="{StaticResource BackgroundColorBrush}" />
     </Style>
-    <Style TargetType="{x:Type ComboBox}">
-        <Setter Property="Foreground" Value="{StaticResource LightTextColorBrush}" />
-        <Setter Property="Background" Value="{StaticResource BackgroundColorBrush}" />
-    </Style>
 
     <LinearGradientBrush x:Key="Button.MouseOver.Background" EndPoint="0.5,1" StartPoint="0.5,0">
         <GradientStop Color="{StaticResource AccentColor2}" Offset="0"/>
