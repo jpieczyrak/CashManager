@@ -19,6 +19,7 @@
                                                 DefaultSource="Skins/Colors/LightColors.xaml"
                                                 Source="Skins/Colors/DarkColors.xaml"/>
                 <ResourceDictionary Source="Skins/Controls/ComboBoxSkin.xaml" />
+                <ResourceDictionary Source="Skins/Controls/DataGridSkin.xaml" />
                 <ResourceDictionary Source="Skins/MainSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/ModelStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
