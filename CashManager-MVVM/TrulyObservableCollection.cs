@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 
 namespace CashManager_MVVM
 {
@@ -20,6 +21,18 @@ namespace CashManager_MVVM
             {
                 Add(item);
             }
+        }
+
+        public int AddRange(IEnumerable<T> items)
+        {
+            int count = 0;
+            foreach (var item in items)
+            {
+                Add(item);
+                count++;
+            }
+
+            return count;
         }
 
         private void FullObservableCollectionCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
