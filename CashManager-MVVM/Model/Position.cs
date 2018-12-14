@@ -25,6 +25,7 @@ namespace CashManager_MVVM.Model
             {
                 Set(nameof(Value), ref _value, value);
                 Value.PropertyChanged += (sender, args) => RaisePropertyChanged(nameof(Value));
+                RaisePropertyChanged(nameof(GrossValueGuiString));
             }
         }
 
@@ -55,6 +56,11 @@ namespace CashManager_MVVM.Model
         /// Mass replacer purpose only
         /// </summary>
         public Transaction Parent { get; set; }
+
+        public bool Income => Parent.Type.Income && !Parent.Type.Outcome;
+        public bool Outcome => !Parent.Type.Income && Parent.Type.Outcome;
+
+        public string GrossValueGuiString => $"{(Outcome ? "-" : string.Empty)}{Value.GrossValue:F} zł";
 
         public Position()
         {

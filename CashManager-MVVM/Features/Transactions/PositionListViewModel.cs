@@ -38,10 +38,8 @@ namespace CashManager_MVVM.Features.Transactions
 
         private void PositionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
-            Summary.GrossIncome = Positions.Where(x => x.Parent.Type.Income && !x.Parent.Type.Outcome)
-                                           .Sum(x => x.Value.GrossValue);
-            Summary.GrossOutcome = Positions.Where(x => !x.Parent.Type.Income && x.Parent.Type.Outcome)
-                                            .Sum(x => x.Value.GrossValue);
+            Summary.GrossIncome = Positions.Where(x => x.Income).Sum(x => x.Value.GrossValue);
+            Summary.GrossOutcome = Positions.Where(x => x.Outcome).Sum(x => x.Value.GrossValue);
         }
     }
 }
