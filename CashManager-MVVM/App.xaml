@@ -3,15 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ignore="http://www.galasoft.ch/ignore"
-             xmlns:transactions="clr-namespace:CashManager_MVVM.Features.Transactions"
-             xmlns:stocks="clr-namespace:CashManager_MVVM.Features.Stocks"
-             xmlns:transactionTypes="clr-namespace:CashManager_MVVM.Features.TransactionTypes"
-             xmlns:parsers="clr-namespace:CashManager_MVVM.Features.Parsers"
-             xmlns:categories="clr-namespace:CashManager_MVVM.Features.Categories"
-             xmlns:tags="clr-namespace:CashManager_MVVM.Features.Tags"
-             xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
              xmlns:skins="clr-namespace:CashManager_MVVM.Skins"
-             xmlns:search="clr-namespace:CashManager_MVVM.Features.Search"
              mc:Ignorable="d ignore">
     <Application.Resources>
         <ResourceDictionary>
@@ -35,43 +27,8 @@
                 <ResourceDictionary Source="Skins/DataModels/Selectors.xaml" />
                 <ResourceDictionary Source="Skins/DataModels/PaymentValue.xaml"/>
                 <ResourceDictionary Source="Skins/DataModels/Summary.xaml"/>
+                <ResourceDictionary Source="Skins/DataModels/ViewModels.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate DataType="{x:Type search:SearchViewModel}">
-                <search:SearchView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type transactions:MassReplacerViewModel}">
-                <transactions:MassReplacerView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type transactions:TransactionListViewModel}">
-                <transactions:TransactionListView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type transactions:PositionListViewModel}">
-                <transactions:PositionListView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type transactions:TransactionViewModel}">
-                <transactions:TransactionView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type transactionTypes:TransactionTypesViewModel}">
-                <transactionTypes:TransactionTypesView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type parsers:ParseViewModel}">
-                <parsers:ParseView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type stocks:StocksViewModel}">
-                <stocks:StocksView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type stocks:StockSummaryViewModel}">
-                <stocks:StockSummaryView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type categories:CategoryManagerViewModel}">
-                <categories:CategoryManagerView/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type tags:TagManagerViewModel}">
-                <tags:TagManagerView/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type common:MultiComboBoxViewModel}">
-                <common:MultiComboBox/>
-            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
