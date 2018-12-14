@@ -12,7 +12,7 @@ using CashManager.Infrastructure.Query.Transactions;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Filters;
+using CashManager_MVVM.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 

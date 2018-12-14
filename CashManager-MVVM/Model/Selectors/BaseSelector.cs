@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 
-namespace CashManager_MVVM.Model.Filters
+namespace CashManager_MVVM.Model.Selectors
 {
     public class BaseSelector : ObservableObject
     {

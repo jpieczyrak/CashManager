@@ -1,4 +1,4 @@
-﻿namespace CashManager_MVVM.Model.Filters
+﻿namespace CashManager_MVVM.Model.Selectors
 {
     public class RangeSelector : BaseSelector
     {

@@ -1,4 +1,4 @@
-﻿using CashManager_MVVM.Model.Filters;
+﻿using CashManager_MVVM.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 

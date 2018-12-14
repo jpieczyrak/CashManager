@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CashManager_MVVM.Model.Filters
+namespace CashManager_MVVM.Model.Selectors
 {
     public class TimeFrame : BaseSelector
     {

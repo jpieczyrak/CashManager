@@ -1,7 +1,7 @@
 ﻿using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Model.Common;
 
-namespace CashManager_MVVM.Model.Filters
+namespace CashManager_MVVM.Model.Selectors
 {
     public class MultiPicker : BaseSelector
     {
