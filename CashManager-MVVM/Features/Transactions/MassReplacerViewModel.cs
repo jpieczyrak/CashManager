@@ -109,15 +109,15 @@ namespace CashManager_MVVM.Features.Transactions
         private bool CanExecutePerformCommand()
         {
             return (_bookDateSelector.IsChecked
-                   || (_userStocksSelector.IsChecked && _userStocksSelector.Results.Any()))
-                   || (_externalStocksSelector.IsChecked && _externalStocksSelector.Results.Any())
-                   || (_titleSelector.IsChecked && !string.IsNullOrWhiteSpace(_titleSelector.Value))
-                   || _noteSelector.IsChecked
-                   || (_positionTitleSelector.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleSelector.Value))
-                   || (_categoriesSelector.IsChecked && _categoriesSelector.Results.Any())
-                   || (_typesSelector.IsChecked && _typesSelector.Results.Any())
-                   || _tagsSelector.IsChecked
-                && SearchViewModel.Transactions.Any();
+                     || (_userStocksSelector.IsChecked && _userStocksSelector.Results.Any())
+                     || (_externalStocksSelector.IsChecked && _externalStocksSelector.Results.Any())
+                     || (_titleSelector.IsChecked && !string.IsNullOrWhiteSpace(_titleSelector.Value))
+                     || _noteSelector.IsChecked
+                     || (_positionTitleSelector.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleSelector.Value))
+                     || (_categoriesSelector.IsChecked && _categoriesSelector.Results.Any())
+                     || (_typesSelector.IsChecked && _typesSelector.Results.Any())
+                     || _tagsSelector.IsChecked) 
+                   && SearchViewModel.Transactions.Any();
         }
 
         private void ExecutePerformCommand()
@@ -130,6 +130,8 @@ namespace CashManager_MVVM.Features.Transactions
             if (_noteSelector.IsChecked)
                 foreach (var transaction in transactions)
                     transaction.Note = _noteSelector.Value;
+
+            //todo: check - only selected positions if in positions mode
             if (_positionTitleSelector.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleSelector.Value))
                 foreach (var position in transactions.SelectMany(x => x.Positions))
                     position.Title = _positionTitleSelector.Value;
@@ -146,7 +148,8 @@ namespace CashManager_MVVM.Features.Transactions
             if (_externalStocksSelector.IsChecked && _externalStocksSelector.Results.Any())
                 foreach (var transaction in transactions)
                     transaction.ExternalStock = _externalStocksSelector.Results.OfType<Stock>().FirstOrDefault();
-            
+
+            //todo: check - only selected positions if in positions mode
             if (_categoriesSelector.IsChecked && _categoriesSelector.Results.Any())
                 foreach (var position in transactions.SelectMany(x => x.Positions))
                     position.Category = _categoriesSelector.Results.OfType<Category>().FirstOrDefault();
