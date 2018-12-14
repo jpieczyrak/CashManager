@@ -148,6 +148,7 @@ namespace CashManager_MVVM.Features.Search
             {
                 Set(nameof(IsTransactionsSearch), ref _isTransactionsSearch, value);
                 if (value) SetTitle(SearchType.Transactions);
+                OnPropertyChanged(null, null);
             }
         }
 
@@ -158,6 +159,7 @@ namespace CashManager_MVVM.Features.Search
             {
                 Set(nameof(IsPositionsSearch), ref _isPositionsSearch, value);
                 if (value) SetTitle(SearchType.Positions);
+                OnPropertyChanged(null, null);
             }
         }
 
