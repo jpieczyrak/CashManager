@@ -49,7 +49,7 @@
             <UserControl Grid.Row="2" Grid.Column="1" Content="{Binding UserStocksSelector}" />
             <UserControl Grid.Row="2" Grid.Column="2" Content="{Binding ExternalStocksSelector}" />
             
-            <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="Perform" Margin="5" Command="{Binding PerformCommand}"/>
+            <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="Perform" Margin="10" Command="{Binding PerformCommand}" Height="40" Width="150"/>
         </Grid>
     </Grid>
 </UserControl>
