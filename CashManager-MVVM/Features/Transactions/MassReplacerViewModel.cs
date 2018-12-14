@@ -148,19 +148,12 @@ namespace CashManager_MVVM.Features.Transactions
 
 
             if (_categoriesSelector.IsChecked && _categoriesSelector.Results.Any())
-            {
                 foreach (var position in transactions.SelectMany(x => x.Positions))
-                {
                     position.Category = _categoriesSelector.Results.OfType<Category>().FirstOrDefault();
-                }
-            }
+
             if (_tagsSelector.IsChecked)
-            {
                 foreach (var position in transactions.SelectMany(x => x.Positions))
-                {
                     position.Tags = _tagsSelector.Results.OfType<Tag>().ToArray();
-                }
-            }
 
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<Transaction[]>(transactions)));
         }
