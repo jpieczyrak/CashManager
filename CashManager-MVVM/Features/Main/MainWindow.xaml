@@ -7,7 +7,7 @@
     xmlns:main="clr-namespace:CashManager_MVVM.Features.Main"
     x:Class="CashManager_MVVM.Features.Main.MainWindow"
     mc:Ignorable="d ignore"
-    Height="600" Width="1024"
+    Width="1024" Height="768"
     Title="Cash Manager - MVVM Light Application">
 
     <Grid Background="{DynamicResource BackgroundColorBrush}">
