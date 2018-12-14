@@ -168,12 +168,13 @@ namespace CashManager_MVVM.Features.Transactions
             var transactions = _allTransactions.AsEnumerable();
             if (TitleFilter.IsChecked)
             {
-                if (NoteFilter.IsChecked)
-                    transactions = transactions.Where(x =>
-                        x.Title.ToLower().Contains(TitleFilter.Value.ToLower()) || x.Note.ToLower().Contains(NoteFilter.Value.ToLower()));
-                else transactions = transactions.Where(x => x.Title.ToLower().Contains(TitleFilter.Value.ToLower()));
+                transactions = transactions.Where(x => x.Title.ToLower().Contains(TitleFilter.Value.ToLower()));
             }
-            else if (NoteFilter.IsChecked) transactions = transactions.Where(x => x.Note.ToLower().Contains(NoteFilter.Value.ToLower()));
+
+            if (NoteFilter.IsChecked)
+            {
+                transactions = transactions.Where(x => !string.IsNullOrEmpty(x.Note) && x.Note.ToLower().Contains(NoteFilter.Value.ToLower()));
+            }
 
             if (CategoriesFilter.IsChecked)
             {
