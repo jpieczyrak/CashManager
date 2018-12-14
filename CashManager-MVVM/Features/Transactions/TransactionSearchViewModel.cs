@@ -31,9 +31,9 @@ namespace CashManager_MVVM.Features.Transactions
         private Transaction[] _allTransactions;
         private TextSelector _titleFilter = new TextSelector("Title");
         private TextSelector _noteFilter = new TextSelector("Note");
-        private TimeFrame _bookDateFilter = new TimeFrame("Book date");
-        private TimeFrame _createDateFilter = new TimeFrame("Create date");
-        private TimeFrame _lastEditDateFilter = new TimeFrame("Last edit date");
+        private DateFrame _bookDateFilter = new DateFrame("Book date");
+        private DateFrame _createDateFilter = new DateFrame("Create date");
+        private DateFrame _lastEditDateFilter = new DateFrame("Last edit date");
         private MultiPicker _userStocksFilter;
         private MultiPicker _externalStocksFilter;
         private MultiPicker _categoriesFilter;
@@ -44,19 +44,19 @@ namespace CashManager_MVVM.Features.Transactions
 
         public TransactionListViewModel TransactionsListViewModel { get; }
 
-        public TimeFrame BookDateFilter
+        public DateFrame BookDateFilter
         {
             get => _bookDateFilter;
             set => Set(nameof(BookDateFilter), ref _bookDateFilter, value);
         }
 
-        public TimeFrame CreateDateFilter
+        public DateFrame CreateDateFilter
         {
             get => _createDateFilter;
             set => Set(nameof(CreateDateFilter), ref _createDateFilter, value);
         }
 
-        public TimeFrame LastEditDateFilter
+        public DateFrame LastEditDateFilter
         {
             get => _lastEditDateFilter;
             set => Set(nameof(LastEditDateFilter), ref _lastEditDateFilter, value);

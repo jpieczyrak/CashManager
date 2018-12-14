@@ -177,7 +177,7 @@
     <Compile Include="Model\Position.cs" />
     <Compile Include="Model\Summary.cs" />
     <Compile Include="Model\Tag.cs" />
-    <Compile Include="Model\Selectors\TimeFrame.cs" />
+    <Compile Include="Model\Selectors\DateFrame.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Features\ViewModelFactory.cs" />
     <Compile Include="Features\Categories\CategoryPickerViewModel.cs" />

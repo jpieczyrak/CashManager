@@ -2,7 +2,7 @@
 
 namespace CashManager_MVVM.Model.Selectors
 {
-    public class TimeFrame : BaseSelector
+    public class DateFrame : BaseSelector
     {
         private DateTime _from;
         private DateTime _to;
@@ -19,7 +19,7 @@ namespace CashManager_MVVM.Model.Selectors
             set => Set(nameof(To), ref _to, value);
         }
 
-        public TimeFrame(string description)
+        public DateFrame(string description)
         {
             Description = description;
 
