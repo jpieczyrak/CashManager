@@ -31,6 +31,7 @@ namespace CashManager_MVVM.Features.Transactions
         private Transaction[] _allTransactions;
         private TextSelector _titleFilter = new TextSelector("Title");
         private TextSelector _noteFilter = new TextSelector("Note");
+        private TextSelector _positionTitleFilter = new TextSelector("Position title");
         private DateFrame _bookDateFilter = new DateFrame("Book date");
         private DateFrame _createDateFilter = new DateFrame("Create date");
         private DateFrame _lastEditDateFilter = new DateFrame("Last edit date");
@@ -110,6 +111,12 @@ namespace CashManager_MVVM.Features.Transactions
             set => Set(nameof(NoteFilter), ref _noteFilter, value);
         }
 
+        public TextSelector PositionTitleFilter
+        {
+            get => _positionTitleFilter;
+            set => Set(nameof(PositionTitleFilter), ref _positionTitleFilter, value);
+        }
+
         public Transaction[] Transactions
         {
             get => _transactions;
@@ -130,6 +137,7 @@ namespace CashManager_MVVM.Features.Transactions
 
             TitleFilter.PropertyChanged += OnPropertyChanged;
             NoteFilter.PropertyChanged += OnPropertyChanged;
+            PositionTitleFilter.PropertyChanged += OnPropertyChanged;
 
             BookDateFilter.PropertyChanged += OnPropertyChanged;
             LastEditDateFilter.PropertyChanged += OnPropertyChanged;
@@ -174,6 +182,11 @@ namespace CashManager_MVVM.Features.Transactions
             if (NoteFilter.IsChecked)
             {
                 transactions = transactions.Where(x => !string.IsNullOrEmpty(x.Note) && x.Note.ToLower().Contains(NoteFilter.Value.ToLower()));
+            }
+
+            if (PositionTitleFilter.IsChecked)
+            {
+                transactions = transactions.Where(x => x.Positions.Any(y => y.Title.ToLower().Contains(PositionTitleFilter.Value.ToLower())));
             }
 
             if (CategoriesFilter.IsChecked)

@@ -27,7 +27,7 @@
             </Grid.RowDefinitions>
             <UserControl Grid.Row="0" Grid.Column="0" Content="{Binding TitleFilter}" />
             <UserControl Grid.Row="0" Grid.Column="1" Content="{Binding NoteFilter}" />
-            <!-- todo: Add position title search -->
+            <UserControl Grid.Row="0" Grid.Column="2" Content="{Binding PositionTitleFilter}" />
 
             <UserControl Grid.Row="1" Grid.Column="0" Content="{Binding TagsFilter}" />
             <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding CategoriesFilter}" />
