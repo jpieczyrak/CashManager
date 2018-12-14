@@ -7,7 +7,6 @@ namespace CashManager_MVVM.Skins
     {
         private Uri _roundShape;
         private Uri _rectShape;
-        private Uri _defaultSource;
 
         public Uri RoundShape
         {
@@ -29,16 +28,6 @@ namespace CashManager_MVVM.Skins
             }
         }
 
-        public Uri DefaultSource
-        {
-            get => _defaultSource;
-            set
-            {
-                _defaultSource = value;
-                UpdateSource();
-            }
-        }
-
         private void UpdateSource()
         {
             Uri selected;
@@ -50,11 +39,11 @@ namespace CashManager_MVVM.Skins
                 case SkinShapes.Rect:
                     selected = RectShape;
                     break;
-                case SkinShapes.Default:
                 default:
-                    selected = DefaultSource;
+                    selected = RoundShape;
                     break;
             }
+
             if (selected != null && Source != selected) Source = selected;
         }
     }

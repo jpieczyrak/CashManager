@@ -16,11 +16,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <skins:ColorsResourceDictionary DarkSource="Skins/Colors/DarkColors.xaml"
-                                                DefaultSource="Skins/Colors/LightColors.xaml"
-                                                Source="Skins/Colors/DarkColors.xaml"/>
+                                                LightSource="Skins/Colors/LightColors.xaml"/>
                 <skins:ShapesResourceDictionary RoundShape="Skins/Shapes/RoundShapes.xaml"
-                                                RectShape="Skins/Shapes/RectShapes.xaml"
-                                                DefaultSource="Skins/Shapes/RoundShapes.xaml"/>
+                                                RectShape="Skins/Shapes/RectShapes.xaml"/>
                 <ResourceDictionary Source="Skins/Controls/ComboBoxSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/DataGridSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/CheckBoxSkin.xaml" />

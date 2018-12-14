@@ -3,7 +3,6 @@
     internal enum SkinShapes
     {
         Round,
-        Rect,
-        Default
+        Rect
     }
 }

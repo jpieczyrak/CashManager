@@ -3,7 +3,6 @@
     internal enum SkinColors
     {
         Dark,
-        Light,
-        Default
+        Light
     }
 }

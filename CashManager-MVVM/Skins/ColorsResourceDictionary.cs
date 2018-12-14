@@ -6,7 +6,7 @@ namespace CashManager_MVVM.Skins
     internal class ColorsResourceDictionary : ResourceDictionary
     {
         private Uri _darkSource;
-        private Uri _defaultSource;
+        private Uri _lightSource;
 
         public Uri DarkSource
         {
@@ -18,19 +18,32 @@ namespace CashManager_MVVM.Skins
             }
         }
 
-        public Uri DefaultSource
+        public Uri LightSource
         {
-            get => _defaultSource;
+            get => _lightSource;
             set
             {
-                _defaultSource = value;
+                _lightSource = value;
                 UpdateSource();
             }
         }
 
         private void UpdateSource()
         {
-            var selected = App.SkinColors == SkinColors.Dark ? DarkSource : DefaultSource;
+            Uri selected;
+            switch (App.SkinColors)
+            {
+                case SkinColors.Dark:
+                    selected = DarkSource;
+                    break;
+                case SkinColors.Light:
+                    selected = LightSource;
+                    break;
+                default:
+                    selected = LightSource;
+                    break;
+            }
+
             if (selected != null && Source != selected) Source = selected;
         }
     }
