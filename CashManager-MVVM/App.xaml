@@ -29,8 +29,8 @@
                 <ResourceDictionary Source="Skins/Controls/ScrollBarSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/ButtonSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/TextBoxSkin.xaml" />
+                <ResourceDictionary Source="Skins/Controls/TextBlockSkin.xaml" />
                 <ResourceDictionary Source="Skins/DataModels/Selectors.xaml" />
-                <ResourceDictionary Source="Skins/MainSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/ModelStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type transactions:TransactionSearchViewModel}">
