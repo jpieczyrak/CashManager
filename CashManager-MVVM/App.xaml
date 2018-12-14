@@ -24,6 +24,7 @@
                 <ResourceDictionary Source="Skins/Controls/CheckBoxSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/DatePickerSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/ScrollBarSkin.xaml" />
+                <ResourceDictionary Source="Skins/DataModels/Selectors.xaml" />
                 <ResourceDictionary Source="Skins/MainSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/ModelStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
