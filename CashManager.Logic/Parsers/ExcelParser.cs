@@ -53,7 +53,7 @@ namespace CashManager.Logic.Parsers
             var type = outcome ? defaultOutcome : defaultIncome;
 
             string stringWithValue = outcome ? values[11] : values[10];
-            double.TryParse(stringWithValue, out double value);
+            decimal.TryParse(stringWithValue, out decimal value);
 
             var position = new Position(title, value);
 

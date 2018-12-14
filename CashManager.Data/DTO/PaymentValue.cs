@@ -2,10 +2,10 @@
 {
     public class PaymentValue : Dto
     {
-        public double GrossValue { get; set; }
+        public decimal GrossValue { get; set; }
 
-        public double NetValue { get; set; }
+        public decimal NetValue { get; set; }
 
-        public double TaxPercentValue { get; set; }
+        public decimal TaxPercentValue { get; set; }
     }
 }

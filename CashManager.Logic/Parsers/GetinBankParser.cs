@@ -68,7 +68,7 @@ namespace CashManager.Logic.Parsers
             int bigValue = int.Parse(match.Groups["ValueWithSpaces"].Value.Replace(" ", string.Empty));
             int smallValue = int.Parse(match.Groups["ValueAfterComma"].Value);
 
-            double value = bigValue + smallValue / 100.0;
+            decimal value = bigValue + smallValue / 100m;
             var date = new DateTime(year, month, day);
             string note = $"{sourceName}{(sourceName != string.Empty ? ": " : string.Empty)}{operationType} ({currency})";
 
@@ -77,7 +77,7 @@ namespace CashManager.Logic.Parsers
             {
                 int bigValueBalance = int.Parse(match.Groups["BalanceValueWithSpaces"].Value.Replace(" ", string.Empty));
                 int smallValueBalance = int.Parse(match.Groups["BalanceValueAfterComma"].Value);
-                double balance = bigValueBalance + smallValueBalance / 100.0;
+                decimal balance = bigValueBalance + smallValueBalance / 100m;
                 note += $" Saldo: {balance:#,##0.00}";
 
                 _balances.Add(new Balance(date, balance));

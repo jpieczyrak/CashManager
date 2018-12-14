@@ -32,10 +32,10 @@ namespace CashManager.Logic.Parsers
                         string title = elements[i];
                         DateTime date = DateTime.Parse(elements[i + 1]);
                         string stringValue = elements[i + 2].Replace(" PLN", string.Empty).Replace(" ", string.Empty);
-                        double value = double.Parse(stringValue);
-                        double balance = double.Parse(elements[i + 3].Replace(" ", string.Empty));
+                        decimal value = decimal.Parse(stringValue);
+                        decimal balance = decimal.Parse(elements[i + 3].Replace(" ", string.Empty));
 
-                        bool income = value > 0.0d;
+                        bool income = value > 0m;
 
                         var positions = new[] { new Position(title, Math.Abs(value)) };
                         var transaction = new Transaction(income ? defaultIncome : defaultOutcome, date, title,

@@ -121,7 +121,7 @@ namespace CashManager.Tests.Mappers
         {
             //given 
             var categoryParent = new Category { Name = "cat1", Parent = null };
-            double balance = 123.45d;
+            decimal balance = 123.45m;
             var model = new Transaction
             {
                 UserStock = new Stock { Name = "1st", IsUserStock = true, Balance = new Balance { Value = balance } },

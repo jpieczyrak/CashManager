@@ -33,7 +33,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Stocks
             //given
             var stocks = new[]
             {
-                new Stock { Name = "test1", Balance = new Balance { Value = 12.45 } }
+                new Stock { Name = "test1", Balance = new Balance { Value = 12.45m } }
             };
 
             var repository = LiteDbHelper.CreateMemoryDb();

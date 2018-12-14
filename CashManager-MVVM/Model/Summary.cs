@@ -4,11 +4,11 @@ namespace CashManager_MVVM.Model
 {
     public class Summary : ObservableObject
     {
-        private double _grossIncome;
-        private double _grossOutcome;
-        private double _grossBalance;
+        private decimal _grossIncome;
+        private decimal _grossOutcome;
+        private decimal _grossBalance;
 
-        public double GrossIncome
+        public decimal GrossIncome
         {
             get => _grossIncome;
             set
@@ -18,7 +18,7 @@ namespace CashManager_MVVM.Model
             }
         }
 
-        public double GrossOutcome
+        public decimal GrossOutcome
         {
             get => _grossOutcome;
             set
@@ -28,7 +28,7 @@ namespace CashManager_MVVM.Model
             }
         }
 
-        public double GrossBalance
+        public decimal GrossBalance
         {
             get => _grossBalance;
             set => Set(nameof(GrossBalance), ref _grossBalance, value);

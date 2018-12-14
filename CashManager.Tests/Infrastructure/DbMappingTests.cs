@@ -21,7 +21,7 @@ namespace CashManager.Tests.Infrastructure
             var stock2 = new Stock();
             var parentCategory = new Category { Name = "parent" };
             var category = new Category { Parent = parentCategory, Name = "child" };
-            var paymentValue = new PaymentValue { GrossValue = 123.45 };
+            var paymentValue = new PaymentValue { GrossValue = 123.45m };
             var tags = new List<Tag> { new Tag { Name = "a" }, new Tag { Name = "b" } };
             var positions = new List<Position>
             {
@@ -85,7 +85,7 @@ namespace CashManager.Tests.Infrastructure
             var stock2 = new Stock();
             var parentCategory = new Category { Name = "parent" };
             var category = new Category { Parent = parentCategory, Name = "child" };
-            var paymentValue = new PaymentValue { GrossValue = 123.45 };
+            var paymentValue = new PaymentValue { GrossValue = 123.45m };
             var tags = new List<Tag> { new Tag { Name = "a" }, new Tag { Name = "b" } };
             var positions = new List<Position>
             {
@@ -114,7 +114,7 @@ namespace CashManager.Tests.Infrastructure
             repo.Database.UpsertBulk(positions.ToArray());
 
             //modify
-            transaction.Positions.First().Value.GrossValue += 666.66;
+            transaction.Positions.First().Value.GrossValue += 666.66m;
             repo.Database.Upsert(transaction.Positions.First());
 
             transaction.ExternalStock.Name += "test";

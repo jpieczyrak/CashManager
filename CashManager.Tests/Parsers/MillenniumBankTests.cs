@@ -32,7 +32,7 @@ Saldo: 1 253,76 PLN
             var creationDate = new DateTime(2018, 11, 30);
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
             string title = "Centrum Niskich Cen Sp.Gliwice";
-            double balance = 1253.76;
+            decimal balance = 1253.76m;
             var expected = new Transaction(outcomeType, creationDate, title,
                 $"TRANSAKCJA KARTĄ PŁATNICZĄ, Saldo: {balance:#,##0.00}",
                 new[]
@@ -40,7 +40,7 @@ Saldo: 1 253,76 PLN
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { GrossValue = 35.8d }
+                        Value = new PaymentValue { GrossValue = 35.8m }
                     }
                 }, userStock, externalStock, input);
             var parser = new MillenniumBankParser();
@@ -88,7 +88,7 @@ spam not valid trash";
             var creationDate = new DateTime(2018, 11, 30);
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
             string title = "Centrum Niskich Cen Sp.Gliwice";
-            double balance = 1253.76;
+            decimal balance = 1253.76m;
             var expected = new Transaction(outcomeType, creationDate, title,
                 $"TRANSAKCJA KARTĄ PŁATNICZĄ, Saldo: {balance:#,##0.00}",
                 new[]
@@ -96,7 +96,7 @@ spam not valid trash";
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { GrossValue = 35.8d }
+                        Value = new PaymentValue { GrossValue = 35.8m }
                     }
                 }, userStock, externalStock, input);
             var parser = new MillenniumBankParser();
@@ -129,7 +129,7 @@ Saldo: 1 253,76 PLN
             var creationDate = new DateTime(2018, 11, 26);
             var outcomeType = new TransactionType { Income = true, Name = "Income" };
             string title = "Za kwiatki";
-            double balance = 1253.76;
+            decimal balance = 1253.76m;
             var expected = new Transaction(outcomeType, creationDate, title,
                 $"PRZELEW PRZYCHODZĄCY, Saldo: {balance:#,##0.00}",
                 new[]
@@ -137,7 +137,7 @@ Saldo: 1 253,76 PLN
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { GrossValue = 13.5d }
+                        Value = new PaymentValue { GrossValue = 13.5m }
                     }
                 }, userStock, externalStock, input);
             var parser = new MillenniumBankParser();

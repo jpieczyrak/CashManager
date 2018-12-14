@@ -32,7 +32,7 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
                     new Position
                     {
                         Title = "[Sierpień] Czynsz + media",
-                        Value = new PaymentValue { GrossValue = 684.62d }
+                        Value = new PaymentValue { GrossValue = 684.62m }
                     }
                 }, userStock, externalStock, input);
 
@@ -62,7 +62,7 @@ CENTRUM NISKICH CEN SP, GLIWICE , PL
             var creationDate = new DateTime(2018, 10, 25);
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
             string title = "CENTRUM NISKICH CEN SP, GLIWICE , PL";
-            double balance = 2735.57;
+            decimal balance = 2735.57m;
             var expected = new Transaction(outcomeType, creationDate, title,
                 $"Operacja kartą (PLN) Saldo: {balance:#,##0.00}",
                 new[]
@@ -70,7 +70,7 @@ CENTRUM NISKICH CEN SP, GLIWICE , PL
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { GrossValue = 47.07d }
+                        Value = new PaymentValue { GrossValue = 47.07m }
                     }
                 }, userStock, externalStock, input);
 
@@ -100,10 +100,10 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
             var creationDate = new DateTime(2014, 02, 28);
             var incomeType = new TransactionType { Income = true, Name = "Work" };
             string title = "Wynagrodzenie z tytulu umowy cywilnoprawnej";
-            double balance = 1574.38;
+            decimal balance = 1574.38m;
             var expected = new Transaction(incomeType, creationDate, title,
                 $"Firma SP. Z O.O.: PRZELEW PRZYCHODZĄCY (PLN) Saldo: {balance:#,##0.00}",
-                new [] { new Position(title, 1123.12d) }, 
+                new [] { new Position(title, 1123.12m) }, 
                 userStock, externalStock, input);
 
             //when

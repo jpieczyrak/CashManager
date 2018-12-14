@@ -96,16 +96,16 @@ namespace CashManager_MVVM.Model
         /// <summary>
         /// Total value of transaction
         /// </summary>
-        public double Value => Positions?.Sum(position => position.Value?.GrossValue) ?? 0;
+        public decimal Value => Positions?.Sum(position => position.Value?.GrossValue) ?? 0;
 
         /// <summary>
         /// Total value of transaction as profit of user (negative when buying, positive when receiving payments)
         /// </summary>
-        public double ValueAsProfit => Type.Outcome
+        public decimal ValueAsProfit => Type.Outcome
                                            ? -Value
                                            : Type.Income
                                                ? Value
-                                               : 0;
+                                               : 0m;
 
         public Transaction()
         {

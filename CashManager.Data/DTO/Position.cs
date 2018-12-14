@@ -10,7 +10,7 @@ namespace CashManager.Data.DTO
 	        Tags = new List<Tag>();
         }
 
-	    public Position(string title, double value) : this()
+	    public Position(string title, decimal value) : this()
         {
             Title = title;
             Value = new PaymentValue { GrossValue = value };

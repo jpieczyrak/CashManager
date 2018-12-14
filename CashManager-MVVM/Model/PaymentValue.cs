@@ -4,12 +4,12 @@ namespace CashManager_MVVM.Model
 {
     public class PaymentValue : BaseObservableObject
     {
-        private double _grossValue;
-        private double _netValue;
-        private double _taxPercentValue;
+        private decimal _grossValue;
+        private decimal _netValue;
+        private decimal _taxPercentValue;
         private bool _taxLocked = true;
 
-        public double GrossValue
+        public decimal GrossValue
         {
             get => _grossValue;
             set
@@ -20,7 +20,7 @@ namespace CashManager_MVVM.Model
             }
         }
 
-        public double NetValue
+        public decimal NetValue
         {
             get => _netValue;
             set
@@ -31,7 +31,7 @@ namespace CashManager_MVVM.Model
             }
         }
 
-        public double TaxPercentValue
+        public decimal TaxPercentValue
         {
             get => _taxPercentValue;
             set
@@ -50,25 +50,25 @@ namespace CashManager_MVVM.Model
 
         private void UpdateTax()
         {
-            if (_netValue > 0)
+            if (_netValue > 0m)
             {
-                double oldValue = _taxPercentValue;
-                _taxPercentValue = (_grossValue - _netValue) * 100d / _netValue;
+                decimal oldValue = _taxPercentValue;
+                _taxPercentValue = (_grossValue - _netValue) * 100m / _netValue;
                 if (_taxPercentValue != oldValue) RaisePropertyChanged(nameof(TaxPercentValue));
             }
         }
 
         private void UpdateNet()
         {
-            double oldNet = _netValue;
-            _netValue = _grossValue / (100d + _taxPercentValue) * 100d;
+            decimal oldNet = _netValue;
+            _netValue = _grossValue / (100m + _taxPercentValue) * 100m;
             if (oldNet != _netValue) RaisePropertyChanged(nameof(NetValue));
         }
 
         private void UpdateGross()
         {
-            double oldValue = _grossValue;
-            _grossValue = _netValue * (100d + _taxPercentValue) / 100d;
+            decimal oldValue = _grossValue;
+            _grossValue = _netValue * (100m + _taxPercentValue) / 100m;
             if (_grossValue != oldValue) RaisePropertyChanged(nameof(GrossValue));
         }
 
@@ -77,14 +77,14 @@ namespace CashManager_MVVM.Model
         /// <summary>
         /// Used by mapper
         /// </summary>
-        public PaymentValue(double netValue, double grossValue, double taxPercentValue)
+        public PaymentValue(decimal netValue, decimal grossValue, decimal taxPercentValue)
         {
             _netValue = netValue;
             _grossValue = grossValue;
             _taxPercentValue = taxPercentValue;
-            if (_netValue == 0) UpdateNet();
-            if (_grossValue == 0) UpdateGross();
-            if (_taxPercentValue == 0) UpdateTax();
+            if (_netValue == 0m) UpdateNet();
+            if (_grossValue == 0m) UpdateGross();
+            if (_taxPercentValue == 0m) UpdateTax();
             RaisePropertyChanged(nameof(TaxGuiString));
         }
 

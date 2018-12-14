@@ -113,14 +113,14 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
                             Title = "p1",
                             Category = new Category(),
                             Tags = tags,
-                            Value = new PaymentValue { GrossValue = 123.45 }
+                            Value = new PaymentValue { GrossValue = 123.45m }
                         },
                         new Position
                         {
                             Title = "p2",
                             Category = new Category(),
                             Tags = tags,
-                            Value = new PaymentValue { GrossValue = 234.56 }
+                            Value = new PaymentValue { GrossValue = 234.56m }
                         }
                     }
                 },
@@ -139,7 +139,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
             repository.Database.UpsertBulk(transactions);
 
             foreach (var transaction in transactions) transaction.Note += " - updated";
-            foreach (var position in positions) position.Value.GrossValue += 1.0;
+            foreach (var position in positions) position.Value.GrossValue += 1.0m;
 
             //when
             handler.Execute(command);

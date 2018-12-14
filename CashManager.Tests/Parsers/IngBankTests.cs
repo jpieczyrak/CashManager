@@ -48,7 +48,7 @@ trash";
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { GrossValue = 49.0d }
+                        Value = new PaymentValue { GrossValue = 49.0m }
                     }
                 }, userStock, externalStock, input);
             var parser = new IngBankParser();
@@ -83,7 +83,7 @@ Saldo po transakcji
             var creationDate = new DateTime(2018, 12, 1);
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
             string title = "Przelew własny";
-            double balance = 1881.05;
+            decimal balance = 1881.05m;
             var expected = new Transaction(outcomeType, creationDate, title,
                 $"Transfer wewnętrzny, KONTO Direct saldo: {balance:#,##0.00} (PLN)",
                 new[]
@@ -91,7 +91,7 @@ Saldo po transakcji
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { GrossValue = 110.0d }
+                        Value = new PaymentValue { GrossValue = 110.0m }
                     }
                 }, userStock, externalStock, input);
             var parser = new IngBankParser();
@@ -180,7 +180,7 @@ trash";
             var creationDate = new DateTime(2018, 12, 2);
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
             string title = @"ICON FITNESS GLIWICE GLIWICE PL Płatność kartą 02.12.2018 Nr karty 4246xx9261";
-            double balance = 1832.05;
+            decimal balance = 1832.05m;
             var expected = new Transaction(outcomeType, creationDate, title,
                 $"Rozrywka i podróże, KONTO Direct saldo: {balance:#,##0.00} (PLN)",
                 new[]
@@ -188,7 +188,7 @@ trash";
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { GrossValue = 49.0d }
+                        Value = new PaymentValue { GrossValue = 49.0m }
                     }
                 }, userStock, externalStock, input);
             var parser = new IngBankParser();
@@ -230,7 +230,7 @@ trash
             var creationDate = new DateTime(2018, 12, 1);
             var outcomeType = new TransactionType { Income = true, Name = "Work" };
             string title = @"NALICZONE ODSETKI";
-            double balance = 1479.68;
+            decimal balance = 1479.68m;
             var expected = new Transaction(outcomeType, creationDate, title,
                 $"Przychód, Smart Saver saldo: {balance:#,##0.00} (PLN)",
                 new[]
@@ -238,7 +238,7 @@ trash
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { GrossValue = 2.63d }
+                        Value = new PaymentValue { GrossValue = 2.63m }
                     }
                 }, userStock, externalStock, input);
             var parser = new IngBankParser();

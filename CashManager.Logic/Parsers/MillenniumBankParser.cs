@@ -38,14 +38,14 @@ namespace CashManager.Logic.Parsers
                             string title = elements[i + 3].Split(':')[1].Trim();
                             DateTime date = DateTime.Parse(elements[i + 1].Split('/')[0].Trim());
                             string stringValue = elements[i + 4].Replace(" PLN", string.Empty).Replace(" ", string.Empty).Trim();
-                            double value = double.Parse(stringValue);
+                            decimal value = decimal.Parse(stringValue);
                             string balanceString = elements[i + 5]
                                                    .Replace("Saldo:", string.Empty)
                                                    .Replace(" ", string.Empty)
                                                    .Replace("PLN", string.Empty);
-                            double balance = double.Parse(balanceString);
+                            decimal balance = decimal.Parse(balanceString);
 
-                            bool income = value > 0.0d;
+                            bool income = value > 0m;
 
                             var positions = new[] { new Position(title, Math.Abs(value)) };
                             string note = $"{type}, Saldo: {balance:#,##0.00}";

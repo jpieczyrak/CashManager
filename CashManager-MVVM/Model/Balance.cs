@@ -6,9 +6,9 @@ namespace CashManager_MVVM.Model
 {
     public class Balance : BaseObservableObject
     {
-        private double _value;
+        private decimal _value;
 
-        public double Value
+        public decimal Value
         {
             get => _value;
             set => Set(nameof(Value), ref _value, value);

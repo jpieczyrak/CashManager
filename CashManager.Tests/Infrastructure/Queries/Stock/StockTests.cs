@@ -39,7 +39,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Stock
                 {
                     Name = "1",
                     IsUserStock = true,
-                    Balance = new Balance { Value = 12.34 }
+                    Balance = new Balance { Value = 12.34m }
                 },
                 new Data.DTO.Stock(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2))
                 {

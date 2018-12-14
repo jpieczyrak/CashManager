@@ -4,9 +4,9 @@ namespace CashManager.Data.DTO
 {
     public class Balance : Dto
     {
-        public double Value { get; set; }
+        public decimal Value { get; set; }
 
-        public Balance(DateTime date, double value)
+        public Balance(DateTime date, decimal value)
         {
             Value = value;
             LastEditDate = date;

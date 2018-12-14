@@ -23,7 +23,7 @@ trash scam";
             var externalStock = new Stock { Name = "Default" };
             var creationDate = new DateTime(2018, 11, 27);
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
-            double balance = 1665.36;
+            decimal balance = 1665.36m;
             var expected = new Transaction(outcomeType, creationDate, "Opłata za kartę - 10/2018",
                 $"Saldo: {balance:#,##0.00}",
                 new[]
@@ -31,7 +31,7 @@ trash scam";
                     new Position
                     {
                         Title = "Opłata za kartę - 10/2018",
-                        Value = new PaymentValue { GrossValue = 8.0d }
+                        Value = new PaymentValue { GrossValue = 8.0m }
                     }
                 }, userStock, externalStock, input);
             var parser = new IdeaBankParser();
@@ -66,7 +66,7 @@ spam not valid trash";
             var externalStock = new Stock { Name = "Default" };
             var creationDate = new DateTime(2018, 11, 27);
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
-            double balance = 1665.36;
+            decimal balance = 1665.36m;
             var expected = new Transaction(outcomeType, creationDate, "Opłata za kartę - 10/2018",
                 $"Saldo: {balance:#,##0.00}",
                 new[]
@@ -74,7 +74,7 @@ spam not valid trash";
                     new Position
                     {
                         Title = "Opłata za kartę - 10/2018",
-                        Value = new PaymentValue { GrossValue = 8.0d }
+                        Value = new PaymentValue { GrossValue = 8.0m }
                     }
                 }, userStock, externalStock, input);
             var parser = new IdeaBankParser();
@@ -105,7 +105,7 @@ spam not valid trash";
             var creationDate = new DateTime(2018, 11, 2);
             var outcomeType = new TransactionType { Income = true, Name = "Income" };
             string title = "Premia - Promocja Premiowanie za Bankowanie - 10.2018";
-            double balance = 1375.81;
+            decimal balance = 1375.81m;
             var expected = new Transaction(outcomeType, creationDate, title,
                 $"Saldo: {balance:#,##0.00}",
                 new[]
@@ -113,7 +113,7 @@ spam not valid trash";
                     new Position
                     {
                         Title = title,
-                        Value = new PaymentValue { GrossValue = 50.0d }
+                        Value = new PaymentValue { GrossValue = 50.0m }
                     }
                 }, userStock, externalStock, input);
             var parser = new IdeaBankParser();
