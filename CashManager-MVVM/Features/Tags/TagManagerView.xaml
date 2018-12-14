@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:CashManager_MVVM.Features.Tags"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:TagManagerViewModel, IsDesignTimeCreatable=True}">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

@@ -4,9 +4,5 @@
     <Style TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
     </Style>
-    <Style TargetType="{x:Type TextBox}">
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-        <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
-    </Style>
 
 </ResourceDictionary>
