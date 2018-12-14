@@ -107,7 +107,50 @@ namespace CashManager_MVVM.Features.Transactions
 
         private void ExecutePerformCommand()
         {
-            //todo: change
+            var transactions = TransactionsSearchViewModel.Transactions;
+
+            if (_titleSelector.IsChecked && !string.IsNullOrWhiteSpace(_titleSelector.Value))
+                foreach (var transaction in transactions)
+                    transaction.Title = _titleSelector.Value;
+            if (_noteSelector.IsChecked)
+                foreach (var transaction in transactions)
+                    transaction.Note = _noteSelector.Value;
+            if (_bookDateSelector.IsChecked)
+                foreach (var transaction in transactions)
+                    transaction.BookDate = _bookDateSelector.Value;
+            if (_typesSelector.IsChecked)
+                foreach (var transaction in transactions)
+                    transaction.Type = _typesSelector.Results.OfType<TransactionType>().FirstOrDefault();
+
+            if (_userStocksSelector.IsChecked && _userStocksSelector.Results.Any())
+                foreach (var transaction in transactions)
+                    transaction.UserStock = _userStocksSelector.Results.OfType<Stock>().FirstOrDefault();
+            if (_externalStocksSelector.IsChecked && _externalStocksSelector.Results.Any())
+                foreach (var transaction in transactions)
+                    transaction.UserStock = _externalStocksSelector.Results.OfType<Stock>().FirstOrDefault();
+
+
+            if (_categoriesSelector.IsChecked && _categoriesSelector.Results.Any())
+            {
+                foreach (var position in transactions.SelectMany(x => x.Positions))
+                {
+                    position.Category = _categoriesSelector.Results.OfType<Category>().FirstOrDefault();
+                }
+            }
+            if (_tagsSelector.IsChecked)
+            {
+                foreach (var position in transactions.SelectMany(x => x.Positions))
+                {
+                    position.Tags = _tagsSelector.Results.OfType<Tag>().ToArray();
+                }
+            }
+
+            //todo: save
+            //todo: notify???
+            //var all = TransactionsSearchViewModel.TransactionsListViewModel.Transactions.ToArray();
+            //TransactionsSearchViewModel.TransactionsListViewModel.Transactions.Clear();
+            //var updatedSource = TransactionsSearchViewModel.Transactions
+            //TransactionsSearchViewModel.TransactionsListViewModel.Transactions.Add();
         }
 
         public void Update()
