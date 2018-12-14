@@ -3,7 +3,7 @@
                     xmlns:filters="clr-namespace:CashManager_MVVM.Model.Filters">
 
     <DataTemplate DataType="{x:Type filters:TimeFrame}">
-        <Border BorderThickness="1" CornerRadius="{DynamicResource BigCornerRadius}" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="5">
+        <Border BorderThickness="1" CornerRadius="5" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="5">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -54,7 +54,7 @@
         </Border>
     </DataTemplate>
     <DataTemplate DataType="{x:Type filters:RangeSelector}">
-        <Border BorderThickness="1" CornerRadius="{DynamicResource BigCornerRadius}" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="5">
+        <Border BorderThickness="1" CornerRadius="5" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="5">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -105,7 +105,7 @@
         </Border>
     </DataTemplate>
     <DataTemplate DataType="{x:Type filters:MultiPicker}">
-        <Border BorderThickness="1" CornerRadius="{DynamicResource BigCornerRadius}" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="5">
+        <Border BorderThickness="1" CornerRadius="5" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="5">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -126,7 +126,7 @@
         </Border>
     </DataTemplate>
     <DataTemplate DataType="{x:Type filters:TextSelector}">
-        <Border BorderThickness="1" CornerRadius="{DynamicResource BigCornerRadius}" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="5">
+        <Border BorderThickness="1" CornerRadius="5" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="5">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
