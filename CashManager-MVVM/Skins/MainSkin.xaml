@@ -29,17 +29,17 @@
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource HoverControlBackgroundBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderBrush}"/>
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource HoverControlBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BorderBrush}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource ControlBackgroundBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderBrush}"/>
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource ControlBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BorderBrush}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource DisabledControlBackgroundBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource DisabledBorderBrush}"/>
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource DisabledForegroundBrush}"/>
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource DisabledControlBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource DisabledBorderBrush}"/>
+                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource DisabledForegroundBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
