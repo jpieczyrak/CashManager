@@ -43,7 +43,11 @@ namespace CashManager_MVVM.Features.Transactions
         public Transaction Transaction
         {
             get => _transaction;
-            set => Set(nameof(Transaction), ref _transaction, value);
+            set
+            {
+                Set(nameof(Transaction), ref _transaction, value);
+                _shouldCreateTransaction = false;
+            }
         }
 
         public IEnumerable<Stock> ExternalStocks => _stocks.Where(x => !x.IsUserStock);
@@ -102,6 +106,7 @@ namespace CashManager_MVVM.Features.Transactions
                           .ToArray();
 
             if (_shouldCreateTransaction || Transaction == null) Transaction = CreateNewTransaction();
+            _shouldCreateTransaction = true;
 
             foreach (var position in Transaction.Positions)
             {
@@ -121,8 +126,6 @@ namespace CashManager_MVVM.Features.Transactions
 
         private Transaction CreateNewTransaction()
         {
-            _shouldCreateTransaction = false;
-
             return new Transaction
             {
                 Type = TransactionTypes.FirstOrDefault(x => x.IsDefault && x.Outcome),
@@ -150,7 +153,7 @@ namespace CashManager_MVVM.Features.Transactions
             var transaction = _queryDispatcher
                               .Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery(x => x.Id == Transaction.Id))
                               .FirstOrDefault();
-            if (transaction != null) Transaction = Mapper.Map<Transaction>(transaction);
+            if (transaction != null) _transaction = Mapper.Map<Transaction>(transaction);
             NavigateBackToTransactionSearchView();
         }
 
@@ -164,7 +167,6 @@ namespace CashManager_MVVM.Features.Transactions
             foreach (var position in _transaction.Positions) position.Tags = position.TagViewModel.Results.OfType<Tag>().ToArray();
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction>(_transaction)));
             NavigateBackToTransactionSearchView();
-            _shouldCreateTransaction = true;
         }
 
         private void NavigateBackToTransactionSearchView()

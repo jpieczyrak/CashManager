@@ -20,12 +20,9 @@ namespace CashManager_MVVM.DI
             builder.RegisterType<MainWindow>();
 
             builder.RegisterAssemblyTypes(typeof(ApplicationViewModel).Assembly)
-                   .Where(t => t.IsSubclassOf(typeof(ViewModelBase)) && !string.Equals(t.Name, nameof(ApplicationViewModel)))
+                   .Where(t => t.IsSubclassOf(typeof(ViewModelBase)))
                    .Named<ViewModelBase>(x => x.Name)
-                   .As(t => t);
-            builder.RegisterType<ApplicationViewModel>()
-                   .As<ApplicationViewModel>()
-                   .Named<ViewModelBase>(nameof(ApplicationViewModel))
+                   .As(t => t)
                    .SingleInstance()
                    .ExternallyOwned();
 
