@@ -22,7 +22,7 @@
                 <DataGridTextColumn Header="Last edit" Binding="{Binding LastEditDate, Mode=OneWay, StringFormat=dd.MM.yy HH:mm:ss}" Width="100" MaxWidth="100" MinWidth="100"/>
                 <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay}" Width="3*" MinWidth="100" />
                 <DataGridTextColumn Header="Category" Binding="{Binding Category.Name, Mode=OneWay}" Width="Auto" MinWidth="100" />
-                <DataGridTextColumn Header="Tags" Binding="{Binding Tags, Mode=OneWay}" Width="Auto" MinWidth="100" />
+                <DataGridTextColumn Header="Tags" Binding="{Binding TagsGuiString, Mode=OneWay}" Width="Auto" MinWidth="100" />
                 <DataGridTextColumn Header="Net" Binding="{Binding Value.NetValue, Mode=OneWay, StringFormat={}{0:#,##0.00 zł}}" Width="Auto" MinWidth="70" MaxWidth="100">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
@@ -47,7 +47,7 @@
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
-                    <command:EventToCommand Command="{Binding TransactionEditCommand}"/>
+                    <command:EventToCommand Command="{Binding PositionEditCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </DataGrid>

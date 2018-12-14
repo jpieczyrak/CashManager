@@ -1,4 +1,6 @@
-﻿using CashManager_MVVM.Features.Common;
+﻿using System.Linq;
+
+using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
@@ -38,8 +40,14 @@ namespace CashManager_MVVM.Model
         public Tag[] Tags
         {
             get => _tags;
-            set => Set(nameof(Tags), ref _tags, value);
+            set
+            {
+                Set(nameof(Tags), ref _tags, value); 
+                RaisePropertyChanged(nameof(TagsGuiString));
+            }
         }
+
+        public string TagsGuiString => string.Join(", ", Tags.OrderBy(x => x.Name));
 
         public MultiComboBoxViewModel TagViewModel { get; set; }
 
