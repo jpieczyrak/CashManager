@@ -51,6 +51,11 @@ namespace CashManager_MVVM.Model
 
         public MultiComboBoxViewModel TagViewModel { get; set; }
 
+        /// <summary>
+        /// Mass replacer purpose only
+        /// </summary>
+        public Transaction Parent { get; set; }
+
         public Position()
         {
             Tags = new Tag[0];

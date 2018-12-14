@@ -43,7 +43,13 @@ namespace CashManager_MVVM.Mapping
                         config.CreateMap<CashManager.Data.DTO.Position, Position>();
 
                         config.CreateMap<Transaction, CashManager.Data.DTO.Transaction>();
-                        config.CreateMap<CashManager.Data.DTO.Transaction, Transaction>();
+                        config.CreateMap<CashManager.Data.DTO.Transaction, Transaction>().AfterMap((dto, model) =>
+                        {
+                            foreach (var position in model.Positions)
+                            {
+                                position.Parent = model;
+                            }
+                        });
                     });
                     _isInitialized = true;
                 }
