@@ -27,7 +27,7 @@
             </Grid.RowDefinitions>
             <UserControl Grid.Row="0" Grid.Column="0" Content="{Binding TitleFilter}" />
             <UserControl Grid.Row="0" Grid.Column="1" Content="{Binding NoteFilter}" />
-            <UserControl Grid.Row="0" Grid.Column="2" Content="{Binding TransactionValueFilter}" />
+            <!-- todo: Add position title search -->
 
             <UserControl Grid.Row="1" Grid.Column="0" Content="{Binding TagsFilter}" />
             <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding CategoriesFilter}" />
@@ -39,6 +39,7 @@
 
             <UserControl Grid.Row="3" Grid.Column="0" Content="{Binding UserStocksFilter}" />
             <UserControl Grid.Row="3" Grid.Column="1" Content="{Binding ExternalStocksFilter}" />
+            <UserControl Grid.Row="3" Grid.Column="2" Content="{Binding TransactionValueFilter}" />
         </Grid>
 
         <local:TransactionListView Grid.Row="1" Content="{Binding TransactionsListViewModel}" Transactions="{Binding Transactions, Mode=TwoWay}"  />
