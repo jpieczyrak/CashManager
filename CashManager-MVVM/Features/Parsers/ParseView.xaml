@@ -28,7 +28,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Margin="5" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" 
-                 MaxHeight="120" MinHeight="40" TextWrapping="WrapWithOverflow" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+                 MaxHeight="150" MinHeight="60" TextWrapping="WrapWithOverflow" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
 
         <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Text="Parser"/>
         <ComboBox Grid.Row="2" Grid.Column="0" Margin="5" ItemsSource="{Binding Parsers}" 
