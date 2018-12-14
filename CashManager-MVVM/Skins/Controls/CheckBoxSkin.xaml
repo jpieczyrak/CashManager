@@ -73,7 +73,7 @@
     </ControlTemplate>
 
     <Style TargetType="{x:Type CheckBox}">
-        <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="Template" Value="{DynamicResource CheckBoxControlTemplate}"/>
     </Style>
 </ResourceDictionary>

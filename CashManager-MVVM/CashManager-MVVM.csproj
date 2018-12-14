@@ -123,6 +123,10 @@
       <DependentUpon>CategoryManagerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Categories\CategoryManagerViewModel.cs" />
+    <Compile Include="Features\Transactions\MassReplacerView.xaml.cs">
+      <DependentUpon>MassReplacerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Transactions\MassReplacerViewModel.cs" />
     <Compile Include="Model\Common\BaseSelectable.cs" />
     <Compile Include="Model\Common\ISelectable.cs" />
     <Compile Include="Features\Common\MultiCombobox.xaml.cs">
@@ -223,6 +227,10 @@
     <Page Include="Features\Tags\TagManagerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Transactions\MassReplacerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Features\Transactions\TransactionSearchView.xaml">
       <SubType>Designer</SubType>

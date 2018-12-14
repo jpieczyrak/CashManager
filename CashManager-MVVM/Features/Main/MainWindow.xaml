@@ -10,7 +10,7 @@
     Height="600" Width="1024"
     Title="Cash Manager - MVVM Light Application">
 
-    <Grid Background="{StaticResource BackgroundColorBrush}">
+    <Grid Background="{DynamicResource BackgroundColorBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>

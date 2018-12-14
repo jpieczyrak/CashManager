@@ -31,6 +31,9 @@
             <DataTemplate DataType="{x:Type transactions:TransactionSearchViewModel}">
                 <transactions:TransactionSearchView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type transactions:MassReplacerViewModel}">
+                <transactions:MassReplacerView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type transactions:TransactionListViewModel}">
                 <transactions:TransactionListView />
             </DataTemplate>
