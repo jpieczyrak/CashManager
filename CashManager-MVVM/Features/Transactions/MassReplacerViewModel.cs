@@ -2,6 +2,8 @@
 
 using AutoMapper;
 
+using CashManager.Infrastructure.Command;
+using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Categories;
 using CashManager.Infrastructure.Query.Stocks;
@@ -15,11 +17,14 @@ using CashManager_MVVM.Model.Selectors;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
+using Transaction = CashManager.Data.DTO.Transaction;
+
 namespace CashManager_MVVM.Features.Transactions
 {
     public class MassReplacerViewModel : ViewModelBase, IUpdateable
     {
         private readonly IQueryDispatcher _queryDispatcher;
+        private readonly ICommandDispatcher _commandDispatcher;
         private readonly ViewModelFactory _factory;
         private TextSelector _titleSelector = new TextSelector("Title");
         private TextSelector _noteSelector = new TextSelector("Note");
@@ -82,9 +87,10 @@ namespace CashManager_MVVM.Features.Transactions
 
         public RelayCommand PerformCommand { get; }
 
-        public MassReplacerViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
+        public MassReplacerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory)
         {
             _queryDispatcher = queryDispatcher;
+            _commandDispatcher = commandDispatcher;
             _factory = factory;
             TransactionsSearchViewModel = _factory.Create<TransactionSearchViewModel>();
             PerformCommand = new RelayCommand(ExecutePerformCommand, CanExecutePerformCommand);
@@ -145,12 +151,7 @@ namespace CashManager_MVVM.Features.Transactions
                 }
             }
 
-            //todo: save
-            //todo: notify???
-            //var all = TransactionsSearchViewModel.TransactionsListViewModel.Transactions.ToArray();
-            //TransactionsSearchViewModel.TransactionsListViewModel.Transactions.Clear();
-            //var updatedSource = TransactionsSearchViewModel.Transactions
-            //TransactionsSearchViewModel.TransactionsListViewModel.Transactions.Add();
+            _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<Transaction[]>(transactions)));
         }
 
         public void Update()
