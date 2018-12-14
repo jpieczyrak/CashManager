@@ -21,10 +21,13 @@
 
     <!-- Backgrounds -->
     <Color x:Key="BackgroundAccentColor">#bbbbbb</Color>
-    <Color x:Key="BackgroundMainColor">#cfcfcf</Color>
+    <Color x:Key="BackgroundMainColor">#f0f0f0</Color>
     <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundMainColor}"/>
 
-    <SolidColorBrush x:Key="ControlBackgroundBrush" Color="{StaticResource DisabledBorderColor}"/>
+    <LinearGradientBrush x:Key="ControlBackgroundBrush" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="{StaticResource BackgroundAccentColor}" Offset="0" />
+        <GradientStop Color="{StaticResource DisabledForegroundColor}" Offset="1" />
+    </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="DisabledControlBackgroundBrush" EndPoint="0,1" StartPoint="0,0">
         <GradientStop Color="{StaticResource ForegroundColor}" Offset="0" />
