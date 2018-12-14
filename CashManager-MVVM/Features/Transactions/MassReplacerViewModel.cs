@@ -11,6 +11,7 @@ using CashManager.Infrastructure.Query.Tags;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.Features.Categories;
+using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
 
@@ -36,7 +37,7 @@ namespace CashManager_MVVM.Features.Transactions
         private MultiPicker _typesSelector;
         private MultiPicker _tagsSelector;
 
-        public TransactionSearchViewModel TransactionsSearchViewModel { get; private set; }
+        public SearchViewModel SearchViewModel { get; private set; }
 
         public DateSelector BookDateSelector
         {
@@ -99,7 +100,7 @@ namespace CashManager_MVVM.Features.Transactions
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
             _factory = factory;
-            TransactionsSearchViewModel = _factory.Create<TransactionSearchViewModel>();
+            SearchViewModel = _factory.Create<SearchViewModel>();
             PerformCommand = new RelayCommand(ExecutePerformCommand, CanExecutePerformCommand);
 
             Update();
@@ -116,12 +117,12 @@ namespace CashManager_MVVM.Features.Transactions
                    || (_categoriesSelector.IsChecked && _categoriesSelector.Results.Any())
                    || (_typesSelector.IsChecked && _typesSelector.Results.Any())
                    || _tagsSelector.IsChecked
-                && TransactionsSearchViewModel.Transactions.Any();
+                && SearchViewModel.Transactions.Any();
         }
 
         private void ExecutePerformCommand()
         {
-            var transactions = TransactionsSearchViewModel.Transactions;
+            var transactions = SearchViewModel.Transactions;
 
             if (_titleSelector.IsChecked && !string.IsNullOrWhiteSpace(_titleSelector.Value))
                 foreach (var transaction in transactions)

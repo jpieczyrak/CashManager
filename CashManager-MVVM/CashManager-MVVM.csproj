@@ -129,7 +129,7 @@
     </Compile>
     <Compile Include="Features\Transactions\MassReplacerViewModel.cs" />
     <Compile Include="Features\Transactions\PositionListViewModel.cs" />
-    <Compile Include="Features\Transactions\SearchType.cs" />
+    <Compile Include="Features\Search\SearchType.cs" />
     <Compile Include="Features\Transactions\PositionListView.xaml.cs">
       <DependentUpon>PositionListView.xaml</DependentUpon>
     </Compile>
@@ -152,10 +152,10 @@
       <DependentUpon>TagManagerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Tags\TagManagerViewModel.cs" />
-    <Compile Include="Features\Transactions\TransactionSearchView.xaml.cs">
-      <DependentUpon>TransactionSearchView.xaml</DependentUpon>
+    <Compile Include="Features\Search\SearchView.xaml.cs">
+      <DependentUpon>SearchView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Features\Transactions\TransactionSearchViewModel.cs" />
+    <Compile Include="Features\Search\SearchViewModel.cs" />
     <Compile Include="Features\TransactionTypes\TransactionTypesView.xaml.cs">
       <DependentUpon>TransactionTypesView.xaml</DependentUpon>
     </Compile>
@@ -243,7 +243,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Features\Transactions\TransactionSearchView.xaml">
+    <Page Include="Features\Search\SearchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

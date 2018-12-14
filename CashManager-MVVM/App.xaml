@@ -11,6 +11,7 @@
              xmlns:tags="clr-namespace:CashManager_MVVM.Features.Tags"
              xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
              xmlns:skins="clr-namespace:CashManager_MVVM.Skins"
+             xmlns:search="clr-namespace:CashManager_MVVM.Features.Search"
              mc:Ignorable="d ignore">
     <Application.Resources>
         <ResourceDictionary>
@@ -34,8 +35,8 @@
                 <ResourceDictionary Source="Skins/DataModels/PaymentValue.xaml"/>
                 <ResourceDictionary Source="Skins/DataModels/Summary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate DataType="{x:Type transactions:TransactionSearchViewModel}">
-                <transactions:TransactionSearchView />
+            <DataTemplate DataType="{x:Type search:SearchViewModel}">
+                <search:SearchView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type transactions:MassReplacerViewModel}">
                 <transactions:MassReplacerView />

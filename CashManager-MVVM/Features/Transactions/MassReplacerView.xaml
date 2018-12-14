@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CashManager_MVVM.Features.Transactions"
+             xmlns:search="clr-namespace:CashManager_MVVM.Features.Search"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:MassReplacerViewModel, IsDesignTimeCreatable=True}">
 
@@ -14,7 +15,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <local:TransactionSearchView Grid.Row="0" Content="{Binding TransactionsSearchViewModel}"/>
+        <search:SearchView Grid.Row="0" Content="{Binding SearchViewModel}"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

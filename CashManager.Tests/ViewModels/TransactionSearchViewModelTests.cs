@@ -2,6 +2,7 @@
 
 using Autofac;
 
+using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Features.Transactions;
 
 using Xunit;
@@ -14,7 +15,7 @@ namespace CashManager.Tests.ViewModels
         public void OnPropertyChanged_Clean_AllTransactions()
         {
             //given
-            var vm = _container.Resolve<TransactionSearchViewModel>();
+            var vm = _container.Resolve<SearchViewModel>();
 
             //when
             vm.RaisePropertyChanged(nameof(vm.Transactions));
@@ -28,7 +29,7 @@ namespace CashManager.Tests.ViewModels
         {
             //given
             SetupDatabase();
-            var vm = _container.Resolve<TransactionSearchViewModel>();
+            var vm = _container.Resolve<SearchViewModel>();
 
             //when
             vm.RaisePropertyChanged(nameof(vm.Transactions));
@@ -43,7 +44,7 @@ namespace CashManager.Tests.ViewModels
         {
             //given
             SetupDatabase();
-            var vm = _container.Resolve<TransactionSearchViewModel>();
+            var vm = _container.Resolve<SearchViewModel>();
             vm.TitleFilter.Value = Transactions[0].Title;
             vm.TitleFilter.IsChecked = true;
 

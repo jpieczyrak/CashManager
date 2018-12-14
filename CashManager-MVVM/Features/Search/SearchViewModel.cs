@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
@@ -13,11 +12,11 @@ using CashManager.Infrastructure.Query.Transactions;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.Features.Categories;
+using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
 
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
 
 using DtoTag = CashManager.Data.DTO.Tag;
 using DtoStock = CashManager.Data.DTO.Stock;
@@ -25,9 +24,9 @@ using DtoCategory = CashManager.Data.DTO.Category;
 using DtoType = CashManager.Data.DTO.TransactionType;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
 
-namespace CashManager_MVVM.Features.Transactions
+namespace CashManager_MVVM.Features.Search
 {
-    public class TransactionSearchViewModel : ViewModelBase, IUpdateable
+    public class SearchViewModel : ViewModelBase, IUpdateable
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private Transaction[] _allTransactions;
@@ -162,7 +161,7 @@ namespace CashManager_MVVM.Features.Transactions
             }
         }
 
-        public TransactionSearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
+        public SearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
             _queryDispatcher = queryDispatcher;
             TransactionsListViewModel = factory.Create<TransactionListViewModel>();
