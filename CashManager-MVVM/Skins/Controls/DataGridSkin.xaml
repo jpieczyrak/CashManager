@@ -7,6 +7,8 @@
         <Setter Property="Background" Value="{DynamicResource BackgroundColorBrush}"/>
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource DisabledBorderBrush}"/>
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource DisabledBorderBrush}"/>
+        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource DisabledBorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
