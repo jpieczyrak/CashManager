@@ -23,7 +23,7 @@ namespace CashManager_MVVM.Features.Transactions
         private readonly ViewModelFactory _factory;
         private TextSelector _titleSelector = new TextSelector("Title");
         private TextSelector _noteSelector = new TextSelector("Note");
-        private DateFrame _bookDateSelector = new DateFrame("Book date");
+        private DateSelector _bookDateSelector = new DateSelector("Book date");
         private MultiPicker _userStocksSelector;
         private MultiPicker _externalStocksSelector;
         private MultiPicker _categoriesSelector;
@@ -32,7 +32,7 @@ namespace CashManager_MVVM.Features.Transactions
 
         public TransactionSearchViewModel TransactionsSearchViewModel { get; private set; }
 
-        public DateFrame BookDateSelector
+        public DateSelector BookDateSelector
         {
             get => _bookDateSelector;
             set => Set(nameof(BookDateSelector), ref _bookDateSelector, value);
