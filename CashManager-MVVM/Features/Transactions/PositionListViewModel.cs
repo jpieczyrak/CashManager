@@ -36,11 +36,12 @@ namespace CashManager_MVVM.Features.Transactions
             Positions = new TrulyObservableCollection<Position>();
         }
 
-        private void PositionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        private void PositionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
-            //todo: minus values
-            Summary.GrossIncome = Positions.Where(x => x.Value.GrossValue > 0).Sum(x => x.Value.GrossValue);
-            Summary.GrossOutcome = Positions.Where(x => x.Value.GrossValue < 0).Sum(x => x.Value.GrossValue);
+            Summary.GrossIncome = Positions.Where(x => x.Parent.Type.Income && !x.Parent.Type.Outcome)
+                                           .Sum(x => x.Value.GrossValue);
+            Summary.GrossOutcome = Positions.Where(x => !x.Parent.Type.Income && x.Parent.Type.Outcome)
+                                            .Sum(x => x.Value.GrossValue);
         }
     }
 }
