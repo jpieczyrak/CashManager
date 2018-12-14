@@ -2,17 +2,15 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource DeactivatedColorBrush}"/>
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="border" 
-                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderBrush="{DynamicResource DisabledBorderBrush}" 
                             BorderThickness="{TemplateBinding BorderThickness}" 
-                            Background="{TemplateBinding Background}" 
+                            Background="{DynamicResource ControlBackgroundBrush}" 
                             SnapsToDevicePixels="true" CornerRadius="{DynamicResource BigCornerRadius}" MinWidth="100" MinHeight="25" ClipToBounds="True">
                         <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
@@ -25,7 +23,7 @@
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BorderBrush}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{DynamicResource ControlBackgroundBrush}"/>
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource HoverControlBackgroundBrush}"/>
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BorderBrush}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
