@@ -44,11 +44,13 @@ namespace CashManager_MVVM.Features.Transactions
         private MultiPicker _tagsFilter;
         private RangeSelector _transactionValueFilter;
         private Transaction[] _transactions;
+        private Position[] _positions;
         private string _title;
         private bool _isTransactionsSearch;
         private bool _isPositionsSearch;
 
         public TransactionListViewModel TransactionsListViewModel { get; }
+        public PositionListViewModel PositionsListViewModel { get; }
 
         public DateFrame BookDateFilter
         {
@@ -127,6 +129,13 @@ namespace CashManager_MVVM.Features.Transactions
             get => _transactions;
             set => Set(nameof(Transactions), ref _transactions, value);
         }
+
+        public Position[] Positions
+        {
+            get => _positions;
+            set => Set(nameof(Positions), ref _positions, value);
+        }
+
         public string Title
         {
             get => _title;
@@ -157,6 +166,7 @@ namespace CashManager_MVVM.Features.Transactions
         {
             _queryDispatcher = queryDispatcher;
             TransactionsListViewModel = factory.Create<TransactionListViewModel>();
+            PositionsListViewModel = factory.Create<PositionListViewModel>();
             IsTransactionsSearch = true;
             Update();
         }
@@ -211,9 +221,19 @@ namespace CashManager_MVVM.Features.Transactions
         {
             if (_allTransactions == null || !_allTransactions.Any()) return;
             if (IsTransactionsSearch) FilterTransactions();
+            else if (IsPositionsSearch) FilterPositions();
         }
 
         private void FilterTransactions()
+        {
+            GetFilteredTransactions();
+
+            //Todo: change to dependency property binding. remove this:
+            TransactionsListViewModel.Transactions.Clear();
+            foreach (var transaction in Transactions) TransactionsListViewModel.Transactions.Add(transaction);
+        }
+
+        private Transaction[] GetFilteredTransactions()
         {
             var transactions = _allTransactions.AsEnumerable();
             if (TitleFilter.IsChecked)
@@ -289,9 +309,35 @@ namespace CashManager_MVVM.Features.Transactions
                            .ThenByDescending(x => x.InstanceCreationDate)
                            .ToArray();
 
-            //Todo: change to dependency property binding. remove this:
-            TransactionsListViewModel.Transactions.Clear();
-            foreach (var transaction in Transactions) TransactionsListViewModel.Transactions.Add(transaction);
+            return Transactions;
+        }
+
+        private void FilterPositions()
+        {
+            var transactions = GetFilteredTransactions();
+            IEnumerable<Position> positions = transactions.SelectMany(x => x.Positions).ToArray();
+
+            if (CategoriesFilter.IsChecked && CategoriesFilter.Results.Any())
+            {
+                var categories = CategoriesFilter.Results.OfType<Category>().ToArray();
+                positions = positions.Where(x => categories.Any(y => y.MatchCategoryFilter(x.Category)));
+            }
+
+            if (TagsFilter.IsChecked)
+            {
+                var tags = new HashSet<Tag>(TagsFilter.Results.OfType<Tag>());
+                positions = positions.Where(x => x.Tags.Any(y => tags.Contains(y)));
+            }
+
+            if (TransactionValueFilter.IsChecked)
+            {
+                positions = positions.Where(x => x.Value.GrossValue >= TransactionValueFilter.Min && x.Value.GrossValue <= TransactionValueFilter.Max);
+            }
+
+            Positions = positions.ToArray();
+
+            PositionsListViewModel.Positions.Clear();
+            foreach (var position in Positions) PositionsListViewModel.Positions.Add(position);
         }
     }
 }

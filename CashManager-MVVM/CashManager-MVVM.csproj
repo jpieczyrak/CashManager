@@ -128,7 +128,11 @@
       <DependentUpon>MassReplacerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Transactions\MassReplacerViewModel.cs" />
+    <Compile Include="Features\Transactions\PositionListViewModel.cs" />
     <Compile Include="Features\Transactions\SearchType.cs" />
+    <Compile Include="Features\Transactions\PositionListView.xaml.cs">
+      <DependentUpon>PositionListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Common\BaseSelectable.cs" />
     <Compile Include="Model\Common\ISelectable.cs" />
     <Compile Include="Features\Common\MultiCombobox.xaml.cs">
@@ -232,6 +236,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\Transactions\MassReplacerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Transactions\PositionListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

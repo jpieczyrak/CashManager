@@ -42,6 +42,9 @@
             <DataTemplate DataType="{x:Type transactions:TransactionListViewModel}">
                 <transactions:TransactionListView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type transactions:PositionListViewModel}">
+                <transactions:PositionListView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type transactions:TransactionViewModel}">
                 <transactions:TransactionView />
             </DataTemplate>

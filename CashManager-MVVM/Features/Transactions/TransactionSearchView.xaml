@@ -7,6 +7,10 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:TransactionSearchViewModel, IsDesignTimeCreatable=True}">
 
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="bool2VisibilityConverter"/>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -58,6 +62,7 @@
             <UserControl Grid.Row="3" Grid.Column="2" Content="{Binding TransactionValueFilter}" />
         </Grid>
 
-        <local:TransactionListView Grid.Row="2" Content="{Binding TransactionsListViewModel}" Transactions="{Binding Transactions, Mode=TwoWay}"  />
+        <local:TransactionListView Grid.Row="2" Content="{Binding TransactionsListViewModel}" Transactions="{Binding Transactions, Mode=TwoWay}" Visibility="{Binding IsTransactionsSearch, Converter={StaticResource bool2VisibilityConverter}}" />
+        <UserControl Grid.Row="2" Content="{Binding PositionsListViewModel}" Visibility="{Binding IsPositionsSearch, Converter={StaticResource bool2VisibilityConverter}}" />
     </Grid>
 </UserControl>
