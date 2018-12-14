@@ -266,8 +266,8 @@
             </VisualStateManager.VisualStateGroups>
             <Border x:Name="Border" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="Transparent" CornerRadius="1" Opacity="1" Padding="{TemplateBinding Padding}">
                 <Grid x:Name="WatermarkContent" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                    <Border x:Name="ContentElement" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"/>
-                    <Border x:Name="watermark_decorator" BorderBrush="{DynamicResource DisabledBorderBrush}" BorderThickness="1">
+                    <Border x:Name="ContentElement" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0"/>
+                    <Border x:Name="watermark_decorator" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0">
                         <ContentControl x:Name="PART_Watermark" Focusable="False" IsHitTestVisible="False" Opacity="0" Padding="2"/>
                     </Border>
                     <ScrollViewer x:Name="PART_ContentHost" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="0" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
