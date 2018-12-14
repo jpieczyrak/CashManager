@@ -4,11 +4,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ignore="http://www.galasoft.ch/ignore"
-    xmlns:main="clr-namespace:CashManager_MVVM.Features.Main"
     x:Class="CashManager_MVVM.Features.Main.MainWindow"
     mc:Ignorable="d ignore"
     Width="1024" Height="768"
-    Title="Cash Manager - MVVM Light Application">
+    Title="Cash Manager">
 
     <Grid Background="{DynamicResource BackgroundColorBrush}">
         <Grid.RowDefinitions>
