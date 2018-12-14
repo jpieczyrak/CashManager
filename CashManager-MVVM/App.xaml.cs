@@ -18,11 +18,14 @@ namespace CashManager_MVVM
 	{
 	    internal static SkinColors SkinColors { get; private set; }
 
-        static App()
+	    internal static SkinShapes SkinShape { get; private set; }
+
+	    static App()
 		{
 			DispatcherHelper.Initialize();
 			Mapping.MapperConfiguration.Configure();
 		    SkinColors = SkinColors.Dark;
+		    SkinShape = SkinShapes.Round;
 		}
 
         protected override void OnStartup(StartupEventArgs e)

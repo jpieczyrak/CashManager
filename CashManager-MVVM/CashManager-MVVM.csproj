@@ -186,7 +186,9 @@
     </Compile>
     <Compile Include="Model\TransactionType.cs" />
     <Compile Include="Skins\ColorsResourceDictionary.cs" />
+    <Compile Include="Skins\ShapesResourceDictionary.cs" />
     <Compile Include="Skins\SkinColors.cs" />
+    <Compile Include="Skins\SkinShapes.cs" />
     <Compile Include="Temps\DbFiller.cs" />
     <Compile Include="TrulyObservableCollection.cs" />
     <Compile Include="Utils\TreeViewHelper.cs" />
@@ -279,6 +281,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\Transactions\TransactionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Shapes\RectShapes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\Shapes\RoundShapes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -24,13 +24,13 @@
                 <Border
                     x:Name="Border"
                     Grid.ColumnSpan="2"
-                    CornerRadius="3"
+                    CornerRadius="{DynamicResource SmallCornerRadius}"
                     Background="{StaticResource HoverControlBackgroundBrush}"
                     BorderBrush="{StaticResource BorderBrush}"
                     BorderThickness="1" />
                 <Border x:Name="BorderToggle"
                         Grid.Column="0"
-                        CornerRadius="3,0,0,3"
+                        CornerRadius="{DynamicResource SmallRightCornerRadius}"
                         Background="{StaticResource ControlBackgroundBrush}"
                         BorderBrush="{StaticResource BorderBrush}"
                         Margin="1"
@@ -43,7 +43,7 @@
                     VerticalAlignment="Center"
                     Data="M 0 0 L 4 4 L 8 0 Z" />
             </Grid>
-            <Border Background="{StaticResource GlassOverlayBrush}" Margin="1" CornerRadius="3" />
+            <Border Background="{StaticResource GlassOverlayBrush}" Margin="1" CornerRadius="{DynamicResource SmallCornerRadius}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
@@ -136,7 +136,7 @@
                                 <Border
                                     x:Name="DropDownBorder"
                                     Background="{StaticResource BackgroundBrushPopUp}"
-                                    BorderThickness="1,1,1,1" CornerRadius="3" Margin="0,3,0,3"
+                                    BorderThickness="1,1,1,1" CornerRadius="{DynamicResource SmallCornerRadius}" Margin="0,3,0,3"
                                     BorderBrush="{StaticResource BorderBrush}" />
                                 <ScrollViewer Margin="0,3" SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />

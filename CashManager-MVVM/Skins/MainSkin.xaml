@@ -21,7 +21,7 @@
                             BorderBrush="{TemplateBinding BorderBrush}" 
                             BorderThickness="{TemplateBinding BorderThickness}" 
                             Background="{TemplateBinding Background}" 
-                            SnapsToDevicePixels="true" CornerRadius="5" MinWidth="100" MinHeight="25" ClipToBounds="True">
+                            SnapsToDevicePixels="true" CornerRadius="{DynamicResource BigCornerRadius}" MinWidth="100" MinHeight="25" ClipToBounds="True">
                         <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
                     <ControlTemplate.Triggers>

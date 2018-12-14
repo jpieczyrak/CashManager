@@ -61,12 +61,12 @@
             <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding Transaction.LastEditDate, StringFormat={}{0:dd.MM.yyyy HH:mm:ss:fff}}" VerticalAlignment="Center"/>
 
             <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Width="120" Margin="5" Command="{Binding AddNewPosition}" Content="Add position" />
-            <Border BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource DisabledForegroundBrush}" Margin="0,5" Grid.Row="9" Grid.ColumnSpan="2" Grid.Column="0">
+            <Border BorderThickness="1" CornerRadius="{DynamicResource BigCornerRadius}" BorderBrush="{StaticResource DisabledForegroundBrush}" Margin="0,5" Grid.Row="9" Grid.ColumnSpan="2" Grid.Column="0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding Transaction.Positions}" >
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderThickness="1" CornerRadius="5" BorderBrush="{StaticResource DisabledForegroundBrush}" Margin="5">
+                                <Border BorderThickness="1" CornerRadius="{DynamicResource BigCornerRadius}" BorderBrush="{StaticResource DisabledForegroundBrush}" Margin="5">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="10*"/>
