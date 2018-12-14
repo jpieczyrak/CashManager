@@ -5,8 +5,8 @@
 
     <!-- Combobox specific styles -->
     <LinearGradientBrush x:Key="BackgroundBrushPopUp" EndPoint="0,1" StartPoint="0,0">
-        <GradientStop Color="{StaticResource DisabledBorderColor}" Offset="1" />
-        <GradientStop Color="{StaticResource BackgroundAccentColor}" Offset="0" />
+        <GradientStop Color="{DynamicResource DisabledBorderColor}" Offset="1" />
+        <GradientStop Color="{DynamicResource BackgroundAccentColor}" Offset="0" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="GlassOverlayBrush" EndPoint="0,1" StartPoint="0,0">
         <GradientStop Color="#80FFFFFF" Offset="0" />
@@ -25,20 +25,20 @@
                     x:Name="Border"
                     Grid.ColumnSpan="2"
                     CornerRadius="{DynamicResource SmallCornerRadius}"
-                    Background="{StaticResource HoverControlBackgroundBrush}"
-                    BorderBrush="{StaticResource BorderBrush}"
+                    Background="{DynamicResource HoverControlBackgroundBrush}"
+                    BorderBrush="{DynamicResource BorderBrush}"
                     BorderThickness="1" />
                 <Border x:Name="BorderToggle"
                         Grid.Column="0"
                         CornerRadius="{DynamicResource SmallRightCornerRadius}"
-                        Background="{StaticResource ControlBackgroundBrush}"
-                        BorderBrush="{StaticResource BorderBrush}"
+                        Background="{DynamicResource ControlBackgroundBrush}"
+                        BorderBrush="{DynamicResource BorderBrush}"
                         Margin="1"
                         BorderThickness="0,0,1,0" />
                 <Path
                     x:Name="Arrow"
                     Grid.Column="1"
-                    Fill="{StaticResource BorderBrush}"
+                    Fill="{DynamicResource BorderBrush}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Data="M 0 0 L 4 4 L 8 0 Z" />
@@ -47,19 +47,19 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="{StaticResource HoverControlBackgroundBrush}" />
+                <Setter TargetName="Border" Property="Background" Value="{DynamicResource HoverControlBackgroundBrush}" />
                 <Setter TargetName="Border" Property="BorderThickness" Value="1" />
-                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource HoverBorderAccentBrush}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource HoverBorderAccentBrush}" />
 
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="Border" Property="Background"
-                        Value="{StaticResource DisabledControlBackgroundBrush}" />
+                        Value="{DynamicResource DisabledControlBackgroundBrush}" />
                 <Setter TargetName="BorderToggle" Property="Background"
-                        Value="{StaticResource DisabledControlBackgroundBrush}" />
-                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}" />
-                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
-                <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource DisabledBorderBrush}" />
+                        Value="{DynamicResource DisabledControlBackgroundBrush}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource DisabledBorderBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}" />
+                <Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource DisabledBorderBrush}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -73,7 +73,7 @@
         <Setter Property="Height" Value="Auto" />
         <Setter Property="Padding" Value="4,0" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="Foreground" Value="{StaticResource BorderBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource BorderBrush}" />
         <Setter Property="IsSynchronizedWithCurrentItem" Value="False" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -137,7 +137,7 @@
                                     x:Name="DropDownBorder"
                                     Background="{StaticResource BackgroundBrushPopUp}"
                                     BorderThickness="1,1,1,1" CornerRadius="{DynamicResource SmallCornerRadius}" Margin="0,3,0,3"
-                                    BorderBrush="{StaticResource BorderBrush}" />
+                                    BorderBrush="{DynamicResource BorderBrush}" />
                                 <ScrollViewer Margin="0,3" SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>
@@ -149,8 +149,8 @@
                             <Setter TargetName="DropDownBorder" Property="MinHeight" Value="80" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
-                            <Setter Property="Background" Value="{StaticResource DisabledControlBackgroundBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}" />
+                            <Setter Property="Background" Value="{DynamicResource DisabledControlBackgroundBrush}" />
                         </Trigger>
                         <Trigger Property="IsGrouping" Value="true">
                             <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
@@ -184,10 +184,10 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsHighlighted" Value="true">
                             <Setter TargetName="Border" Property="Background"
-                                    Value="{StaticResource HoverControlBackgroundBrush}" />
+                                    Value="{DynamicResource HoverControlBackgroundBrush}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
