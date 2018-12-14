@@ -131,13 +131,10 @@ namespace CashManager_MVVM.Features.Transactions
                 foreach (var transaction in transactions)
                     transaction.Note = _noteSelector.Value;
 
-            //todo: check - only selected positions if in positions mode
-            if (_positionTitleSelector.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleSelector.Value))
-                foreach (var position in transactions.SelectMany(x => x.Positions))
-                    position.Title = _positionTitleSelector.Value;
             if (_bookDateSelector.IsChecked)
                 foreach (var transaction in transactions)
                     transaction.BookDate = _bookDateSelector.Value;
+
             if (_typesSelector.IsChecked && _typesSelector.Results.Any())
                 foreach (var transaction in transactions)
                     transaction.Type = _typesSelector.Results.OfType<TransactionType>().FirstOrDefault();
@@ -149,13 +146,17 @@ namespace CashManager_MVVM.Features.Transactions
                 foreach (var transaction in transactions)
                     transaction.ExternalStock = _externalStocksSelector.Results.OfType<Stock>().FirstOrDefault();
 
-            //todo: check - only selected positions if in positions mode
+            var positions = SearchViewModel.IsTransactionsSearch 
+                                ? transactions.SelectMany(x => x.Positions).ToArray()
+                                : SearchViewModel.Positions;
+            if (_positionTitleSelector.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleSelector.Value))
+                foreach (var position in positions)
+                    position.Title = _positionTitleSelector.Value;
             if (_categoriesSelector.IsChecked && _categoriesSelector.Results.Any())
-                foreach (var position in transactions.SelectMany(x => x.Positions))
+                foreach (var position in positions)
                     position.Category = _categoriesSelector.Results.OfType<Category>().FirstOrDefault();
-
             if (_tagsSelector.IsChecked)
-                foreach (var position in transactions.SelectMany(x => x.Positions))
+                foreach (var position in positions)
                     position.Tags = _tagsSelector.Results.OfType<Tag>().ToArray();
 
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<Transaction[]>(transactions)));
