@@ -124,7 +124,7 @@ namespace CashManager_MVVM.Features.Transactions
             if (_bookDateSelector.IsChecked)
                 foreach (var transaction in transactions)
                     transaction.BookDate = _bookDateSelector.Value;
-            if (_typesSelector.IsChecked)
+            if (_typesSelector.IsChecked && _typesSelector.Results.Any())
                 foreach (var transaction in transactions)
                     transaction.Type = _typesSelector.Results.OfType<TransactionType>().FirstOrDefault();
 
@@ -166,8 +166,7 @@ namespace CashManager_MVVM.Features.Transactions
             categories = CategoryDesignHelper.BuildGraphicalOrder(categories).ToArray();
             CategoriesSelector = new MultiPicker("Categories", categories);
 
-            var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery())
-                                                                     .OrderBy(x => x.Name));
+            var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
             TypesSelector = new MultiPicker("Types", types);
 
             var tags = Mapper.Map<Tag[]>(_queryDispatcher.Execute<TagQuery, CashManager.Data.DTO.Tag[]>(new TagQuery()).OrderBy(x => x.Name));
