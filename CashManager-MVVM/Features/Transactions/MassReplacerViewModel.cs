@@ -144,9 +144,8 @@ namespace CashManager_MVVM.Features.Transactions
                     transaction.UserStock = _userStocksSelector.Results.OfType<Stock>().FirstOrDefault();
             if (_externalStocksSelector.IsChecked && _externalStocksSelector.Results.Any())
                 foreach (var transaction in transactions)
-                    transaction.UserStock = _externalStocksSelector.Results.OfType<Stock>().FirstOrDefault();
-
-
+                    transaction.ExternalStock = _externalStocksSelector.Results.OfType<Stock>().FirstOrDefault();
+            
             if (_categoriesSelector.IsChecked && _categoriesSelector.Results.Any())
                 foreach (var position in transactions.SelectMany(x => x.Positions))
                     position.Category = _categoriesSelector.Results.OfType<Category>().FirstOrDefault();
