@@ -11,6 +11,7 @@ using CashManager.Infrastructure.Query.Tags;
 using CashManager.Infrastructure.Query.Transactions;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
+using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
 
@@ -143,7 +144,7 @@ namespace CashManager_MVVM.Features.Transactions
             ExternalStocksFilter.PropertyChanged += OnPropertyChanged;
 
             var categories = Mapper.Map<Category[]>(_queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
-            categories = BuildGraphicalOrder(categories).ToArray();
+            categories = CategoryDesignHelper.BuildGraphicalOrder(categories).ToArray();
             CategoriesFilter = new MultiPicker("Categories", categories);
             CategoriesFilter.PropertyChanged += OnPropertyChanged;
 
@@ -160,20 +161,6 @@ namespace CashManager_MVVM.Features.Transactions
             TransactionValueFilter.PropertyChanged += OnPropertyChanged;
 
             OnPropertyChanged(this, null);
-        }
-
-        private List<Category> BuildGraphicalOrder(Category[] categories, Category root = null, int index = 0)
-        {
-            var results = new List<Category>();
-            if (root != null) results.Add(root);
-            var children = categories.Where(x => Equals(x.Parent, root)).ToArray();
-            foreach (var category in children)
-            {
-                category.Name = $"{string.Join(string.Empty, Enumerable.Range(0, index).Select(x => " "))}{category.Name}";
-                results.AddRange(BuildGraphicalOrder(categories, category, index + 1));
-            }
-
-            return results;
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

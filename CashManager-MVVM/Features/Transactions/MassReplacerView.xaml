@@ -11,7 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <local:TransactionSearchView Grid.Row="0" Content="{Binding TransactionsSearchViewModel}"/>
@@ -35,22 +35,21 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <UserControl Grid.Row="0" Grid.Column="0" Content="{Binding TitleSelector}" />
             <UserControl Grid.Row="0" Grid.Column="1" Content="{Binding NoteSelector}" />
-            <UserControl Grid.Row="0" Grid.Column="2" Content="{Binding TransactionValueSelector}" />
+            <!-- todo: Add position title selector -->
 
             <UserControl Grid.Row="1" Grid.Column="0" Content="{Binding TagsSelector}" />
             <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding CategoriesSelector}" />
             <UserControl Grid.Row="1" Grid.Column="2" Content="{Binding TypesSelector}" />
 
-            <UserControl Grid.Row="2" Grid.Column="0" Content="{Binding CreateDateSelector}" />
-            <UserControl Grid.Row="2" Grid.Column="1" Content="{Binding BookDateSelector}" />
-            <UserControl Grid.Row="2" Grid.Column="2" Content="{Binding LastEditDateSelector}" />
-
-            <UserControl Grid.Row="3" Grid.Column="0" Content="{Binding UserStocksSelector}" />
-            <UserControl Grid.Row="3" Grid.Column="1" Content="{Binding ExternalStocksSelector}" />
+            <UserControl Grid.Row="2" Grid.Column="0" Content="{Binding BookDateSelector}" />
+            <UserControl Grid.Row="2" Grid.Column="1" Content="{Binding UserStocksSelector}" />
+            <UserControl Grid.Row="2" Grid.Column="2" Content="{Binding ExternalStocksSelector}" />
+            
+            <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="Perform" Margin="5" Command="{Binding PerformCommand}"/>
         </Grid>
     </Grid>
 </UserControl>

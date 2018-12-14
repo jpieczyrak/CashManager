@@ -119,6 +119,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DI\AutofacConfiguration.cs" />
+    <Compile Include="Features\Categories\CategoryDesignHelper.cs" />
     <Compile Include="Features\Categories\CategoryManagerView.xaml.cs">
       <DependentUpon>CategoryManagerView.xaml</DependentUpon>
     </Compile>
