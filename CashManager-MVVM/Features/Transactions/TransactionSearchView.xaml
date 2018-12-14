@@ -10,10 +10,26 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
+            <RadioButton Grid.Column="1" Command="{Binding SearchTypeChangeCommand}" CommandParameter="{x:Static local:SearchType.Transactions}" IsChecked="True" ToolTip="Transactions search" />
+            <TextBlock Grid.Column="2" Text="{Binding Title}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="11" FontStyle="Italic" Foreground="{DynamicResource DisabledForegroundBrush}" FontWeight="Bold" Margin="10,0"/>
+            <RadioButton Grid.Column="3" Command="{Binding SearchTypeChangeCommand}" CommandParameter="{x:Static local:SearchType.Positions}" ToolTip="Positions search" />
+            <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="4" Margin="5,0"/>
+        </Grid>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -42,6 +58,6 @@
             <UserControl Grid.Row="3" Grid.Column="2" Content="{Binding TransactionValueFilter}" />
         </Grid>
 
-        <local:TransactionListView Grid.Row="1" Content="{Binding TransactionsListViewModel}" Transactions="{Binding Transactions, Mode=TwoWay}"  />
+        <local:TransactionListView Grid.Row="2" Content="{Binding TransactionsListViewModel}" Transactions="{Binding Transactions, Mode=TwoWay}"  />
     </Grid>
 </UserControl>

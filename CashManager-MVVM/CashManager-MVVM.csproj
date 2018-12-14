@@ -128,6 +128,7 @@
       <DependentUpon>MassReplacerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Transactions\MassReplacerViewModel.cs" />
+    <Compile Include="Features\Transactions\SearchType.cs" />
     <Compile Include="Model\Common\BaseSelectable.cs" />
     <Compile Include="Model\Common\ISelectable.cs" />
     <Compile Include="Features\Common\MultiCombobox.xaml.cs">

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
@@ -16,6 +17,7 @@ using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
 
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 
 using DtoTag = CashManager.Data.DTO.Tag;
 using DtoStock = CashManager.Data.DTO.Stock;
@@ -42,6 +44,8 @@ namespace CashManager_MVVM.Features.Transactions
         private MultiPicker _tagsFilter;
         private RangeSelector _transactionValueFilter;
         private Transaction[] _transactions;
+        private SearchType _searchType;
+        private string _title;
 
         public TransactionListViewModel TransactionsListViewModel { get; }
 
@@ -122,11 +126,20 @@ namespace CashManager_MVVM.Features.Transactions
             get => _transactions;
             set => Set(nameof(Transactions), ref _transactions, value);
         }
-        
+        public string Title
+        {
+            get => _title;
+            set => Set(nameof(Title), ref _title, value);
+        }
+
+        public RelayCommand<SearchType> SearchTypeChangeCommand { get; }
+
         public TransactionSearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
             _queryDispatcher = queryDispatcher;
             TransactionsListViewModel = factory.Create<TransactionListViewModel>();
+            SearchTypeChangeCommand = new RelayCommand<SearchType>(ExecuteSearchTypeChanged);
+            SearchTypeChangeCommand.Execute(SearchType.Transactions);
             Update();
         }
 
@@ -171,7 +184,20 @@ namespace CashManager_MVVM.Features.Transactions
             OnPropertyChanged(this, null);
         }
 
+        private void ExecuteSearchTypeChanged(SearchType searchType)
+        {
+            _searchType = searchType;
+            Title = $"{searchType} search";
+            OnPropertyChanged(null, null);
+        }
+
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            if (_allTransactions == null || !_allTransactions.Any()) return;
+            if (_searchType == SearchType.Transactions) FilterTransactions();
+        }
+
+        private void FilterTransactions()
         {
             var transactions = _allTransactions.AsEnumerable();
             if (TitleFilter.IsChecked)
@@ -201,7 +227,7 @@ namespace CashManager_MVVM.Features.Transactions
                 var tags = new HashSet<Tag>(TagsFilter.Results.OfType<Tag>());
                 transactions = transactions.Where(x => x.Positions.SelectMany(y => y.Tags).Any(y => tags.Contains(y)));
             }
-            
+
             if (TypesFilter.IsChecked)
             {
                 var types = new HashSet<TransactionType>(TypesFilter.Results.OfType<TransactionType>());
@@ -222,7 +248,8 @@ namespace CashManager_MVVM.Features.Transactions
 
             if (CreateDateFilter.IsChecked)
             {
-                transactions = transactions.Where(x => x.InstanceCreationDate >= CreateDateFilter.From && x.InstanceCreationDate <= CreateDateFilter.To);
+                transactions = transactions.Where(x =>
+                    x.InstanceCreationDate >= CreateDateFilter.From && x.InstanceCreationDate <= CreateDateFilter.To);
             }
 
             if (BookDateFilter.IsChecked)
@@ -237,7 +264,8 @@ namespace CashManager_MVVM.Features.Transactions
 
             if (TransactionValueFilter.IsChecked)
             {
-                transactions = transactions.Where(x => x.ValueAsProfit >= TransactionValueFilter.Min && x.ValueAsProfit <= TransactionValueFilter.Max);
+                transactions = transactions.Where(x =>
+                    x.ValueAsProfit >= TransactionValueFilter.Min && x.ValueAsProfit <= TransactionValueFilter.Max);
             }
 
             Transactions = transactions
