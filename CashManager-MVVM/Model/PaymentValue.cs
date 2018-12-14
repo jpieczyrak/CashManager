@@ -38,6 +38,7 @@ namespace CashManager_MVVM.Model
             {
                 Set(nameof(TaxPercentValue), ref _taxPercentValue, value);
                 UpdateGross();
+                RaisePropertyChanged(nameof(TaxGuiString));
             }
         }
 
@@ -71,6 +72,8 @@ namespace CashManager_MVVM.Model
             if (_grossValue != oldValue) RaisePropertyChanged(nameof(GrossValue));
         }
 
+        public string TaxGuiString => $"{TaxPercentValue:###}%";
+
         /// <summary>
         /// Used by mapper
         /// </summary>
@@ -82,6 +85,7 @@ namespace CashManager_MVVM.Model
             if (_netValue == 0) UpdateNet();
             if (_grossValue == 0) UpdateGross();
             if (_taxPercentValue == 0) UpdateTax();
+            RaisePropertyChanged(nameof(TaxGuiString));
         }
 
         public PaymentValue()

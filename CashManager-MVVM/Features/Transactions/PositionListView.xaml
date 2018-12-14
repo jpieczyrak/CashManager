@@ -30,7 +30,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Tax" Binding="{Binding Value.TaxPercentValue, Mode=OneWay, StringFormat={}{0:##0%}}" Width="Auto" MinWidth="40" MaxWidth="100">
+                <DataGridTextColumn Header="Tax" Binding="{Binding Value.TaxGuiString}" Width="Auto" MinWidth="40" MaxWidth="100">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Right"/>
