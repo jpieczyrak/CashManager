@@ -44,8 +44,9 @@ namespace CashManager_MVVM.Features.Transactions
         private MultiPicker _tagsFilter;
         private RangeSelector _transactionValueFilter;
         private Transaction[] _transactions;
-        private SearchType _searchType;
         private string _title;
+        private bool _isTransactionsSearch;
+        private bool _isPositionsSearch;
 
         public TransactionListViewModel TransactionsListViewModel { get; }
 
@@ -132,14 +133,31 @@ namespace CashManager_MVVM.Features.Transactions
             set => Set(nameof(Title), ref _title, value);
         }
 
-        public RelayCommand<SearchType> SearchTypeChangeCommand { get; }
+        public bool IsTransactionsSearch
+        {
+            get => _isTransactionsSearch;
+            set
+            {
+                Set(nameof(IsTransactionsSearch), ref _isTransactionsSearch, value);
+                if (value) SetTitle(SearchType.Transactions);
+            }
+        }
+
+        public bool IsPositionsSearch
+        {
+            get => _isPositionsSearch;
+            set
+            {
+                Set(nameof(IsPositionsSearch), ref _isPositionsSearch, value);
+                if (value) SetTitle(SearchType.Positions);
+            }
+        }
 
         public TransactionSearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
             _queryDispatcher = queryDispatcher;
             TransactionsListViewModel = factory.Create<TransactionListViewModel>();
-            SearchTypeChangeCommand = new RelayCommand<SearchType>(ExecuteSearchTypeChanged);
-            SearchTypeChangeCommand.Execute(SearchType.Transactions);
+            IsTransactionsSearch = true;
             Update();
         }
 
@@ -180,21 +198,19 @@ namespace CashManager_MVVM.Features.Transactions
 
             TransactionValueFilter = new RangeSelector("Transaction value");
             TransactionValueFilter.PropertyChanged += OnPropertyChanged;
-
+            
             OnPropertyChanged(this, null);
         }
 
-        private void ExecuteSearchTypeChanged(SearchType searchType)
+        private void SetTitle(SearchType searchType)
         {
-            _searchType = searchType;
             Title = $"{searchType} search";
-            OnPropertyChanged(null, null);
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             if (_allTransactions == null || !_allTransactions.Any()) return;
-            if (_searchType == SearchType.Transactions) FilterTransactions();
+            if (IsTransactionsSearch) FilterTransactions();
         }
 
         private void FilterTransactions()

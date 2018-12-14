@@ -23,9 +23,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
-            <RadioButton Grid.Column="1" Command="{Binding SearchTypeChangeCommand}" CommandParameter="{x:Static local:SearchType.Transactions}" IsChecked="True" ToolTip="Transactions search" />
+            <RadioButton Grid.Column="1" IsChecked="{Binding IsTransactionsSearch}" ToolTip="Transactions search" />
             <TextBlock Grid.Column="2" Text="{Binding Title}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="11" FontStyle="Italic" Foreground="{DynamicResource DisabledForegroundBrush}" FontWeight="Bold" Margin="10,0"/>
-            <RadioButton Grid.Column="3" Command="{Binding SearchTypeChangeCommand}" CommandParameter="{x:Static local:SearchType.Positions}" ToolTip="Positions search" />
+            <RadioButton Grid.Column="3" IsChecked="{Binding IsPositionsSearch}" ToolTip="Positions search" />
             <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="4" Margin="5,0"/>
         </Grid>
 
