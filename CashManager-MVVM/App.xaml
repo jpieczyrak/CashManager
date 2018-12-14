@@ -32,6 +32,7 @@
                 <ResourceDictionary Source="Skins/Controls/TextBlockSkin.xaml" />
                 <ResourceDictionary Source="Skins/DataModels/Selectors.xaml" />
                 <ResourceDictionary Source="Skins/DataModels/PaymentValue.xaml"/>
+                <ResourceDictionary Source="Skins/DataModels/Summary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type transactions:TransactionSearchViewModel}">
                 <transactions:TransactionSearchView />
