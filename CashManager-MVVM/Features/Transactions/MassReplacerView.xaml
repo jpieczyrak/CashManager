@@ -39,7 +39,7 @@
             </Grid.RowDefinitions>
             <UserControl Grid.Row="0" Grid.Column="0" Content="{Binding TitleSelector}" />
             <UserControl Grid.Row="0" Grid.Column="1" Content="{Binding NoteSelector}" />
-            <!-- todo: Add position title selector -->
+            <UserControl Grid.Row="0" Grid.Column="2" Content="{Binding PositionTitleSelector}" />
 
             <UserControl Grid.Row="1" Grid.Column="0" Content="{Binding TagsSelector}" />
             <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding CategoriesSelector}" />

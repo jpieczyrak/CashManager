@@ -28,6 +28,7 @@ namespace CashManager_MVVM.Features.Transactions
         private readonly ViewModelFactory _factory;
         private TextSelector _titleSelector = new TextSelector("Title");
         private TextSelector _noteSelector = new TextSelector("Note");
+        private TextSelector _positionTitleSelector = new TextSelector("Position title");
         private DateSelector _bookDateSelector = new DateSelector("Book date");
         private MultiPicker _userStocksSelector;
         private MultiPicker _externalStocksSelector;
@@ -85,6 +86,12 @@ namespace CashManager_MVVM.Features.Transactions
             set => Set(nameof(NoteSelector), ref _noteSelector, value);
         }
 
+        public TextSelector PositionTitleSelector
+        {
+            get => _positionTitleSelector;
+            set => Set(nameof(PositionTitleSelector), ref _positionTitleSelector, value);
+        }
+
         public RelayCommand PerformCommand { get; }
 
         public MassReplacerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory)
@@ -105,6 +112,7 @@ namespace CashManager_MVVM.Features.Transactions
                    || (_externalStocksSelector.IsChecked && _externalStocksSelector.Results.Any())
                    || (_titleSelector.IsChecked && !string.IsNullOrWhiteSpace(_titleSelector.Value))
                    || _noteSelector.IsChecked
+                   || (_positionTitleSelector.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleSelector.Value))
                    || (_categoriesSelector.IsChecked && _categoriesSelector.Results.Any())
                    || (_typesSelector.IsChecked && _typesSelector.Results.Any())
                    || _tagsSelector.IsChecked
@@ -121,6 +129,9 @@ namespace CashManager_MVVM.Features.Transactions
             if (_noteSelector.IsChecked)
                 foreach (var transaction in transactions)
                     transaction.Note = _noteSelector.Value;
+            if (_positionTitleSelector.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleSelector.Value))
+                foreach (var position in transactions.SelectMany(x => x.Positions))
+                    position.Title = _positionTitleSelector.Value;
             if (_bookDateSelector.IsChecked)
                 foreach (var transaction in transactions)
                     transaction.BookDate = _bookDateSelector.Value;
