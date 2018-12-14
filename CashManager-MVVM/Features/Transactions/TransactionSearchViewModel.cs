@@ -28,85 +28,85 @@ namespace CashManager_MVVM.Features.Transactions
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private Transaction[] _allTransactions;
-        private TextFilter _title = new TextFilter("Title");
-        private TextFilter _note = new TextFilter("Note");
-        private TimeFrame _bookDate = new TimeFrame("Book date");
-        private TimeFrame _createDate = new TimeFrame("Create date");
-        private TimeFrame _lastEditDate = new TimeFrame("Last edit date");
-        private MultiPicker _userStocks;
-        private MultiPicker _externalStocks;
-        private MultiPicker _categories;
-        private MultiPicker _types;
-        private MultiPicker _tags;
-        private RangeFilter _transactionValueFilter;
+        private TextSelector _titleFilter = new TextSelector("Title");
+        private TextSelector _noteFilter = new TextSelector("Note");
+        private TimeFrame _bookDateFilter = new TimeFrame("Book date");
+        private TimeFrame _createDateFilter = new TimeFrame("Create date");
+        private TimeFrame _lastEditDateFilter = new TimeFrame("Last edit date");
+        private MultiPicker _userStocksFilter;
+        private MultiPicker _externalStocksFilter;
+        private MultiPicker _categoriesFilter;
+        private MultiPicker _typesFilter;
+        private MultiPicker _tagsFilter;
+        private RangeSelector _transactionValueFilter;
         private Transaction[] _transactions;
 
         public TransactionListViewModel TransactionsListViewModel { get; }
 
-        public TimeFrame BookDate
+        public TimeFrame BookDateFilter
         {
-            get => _bookDate;
-            set => Set(nameof(BookDate), ref _bookDate, value);
+            get => _bookDateFilter;
+            set => Set(nameof(BookDateFilter), ref _bookDateFilter, value);
         }
 
-        public TimeFrame CreateDate
+        public TimeFrame CreateDateFilter
         {
-            get => _createDate;
-            set => Set(nameof(CreateDate), ref _createDate, value);
+            get => _createDateFilter;
+            set => Set(nameof(CreateDateFilter), ref _createDateFilter, value);
         }
 
-        public TimeFrame LastEditDate
+        public TimeFrame LastEditDateFilter
         {
-            get => _lastEditDate;
-            set => Set(nameof(LastEditDate), ref _lastEditDate, value);
+            get => _lastEditDateFilter;
+            set => Set(nameof(LastEditDateFilter), ref _lastEditDateFilter, value);
         }
 
-        public MultiPicker UserStocks
+        public MultiPicker UserStocksFilter
         {
-            get => _userStocks;
-            set => Set(nameof(UserStocks), ref _userStocks, value);
+            get => _userStocksFilter;
+            set => Set(nameof(UserStocksFilter), ref _userStocksFilter, value);
         }
 
-        public MultiPicker ExternalStocks
+        public MultiPicker ExternalStocksFilter
         {
-            get => _externalStocks;
-            set => Set(nameof(ExternalStocks), ref _externalStocks, value);
+            get => _externalStocksFilter;
+            set => Set(nameof(ExternalStocksFilter), ref _externalStocksFilter, value);
         }
 
-        public MultiPicker Categories
+        public MultiPicker CategoriesFilter
         {
-            get => _categories;
-            set => Set(nameof(Categories), ref _categories, value);
+            get => _categoriesFilter;
+            set => Set(nameof(CategoriesFilter), ref _categoriesFilter, value);
         }
 
-        public MultiPicker Types
+        public MultiPicker TypesFilter
         {
-            get => _types;
-            set => Set(nameof(Types), ref _types, value);
+            get => _typesFilter;
+            set => Set(nameof(TypesFilter), ref _typesFilter, value);
         }
 
-        public MultiPicker Tags
+        public MultiPicker TagsFilter
         {
-            get => _tags;
-            set => Set(nameof(Tags), ref _tags, value);
+            get => _tagsFilter;
+            set => Set(nameof(TagsFilter), ref _tagsFilter, value);
         }
 
-        public RangeFilter TransactionValueFilter
+        public RangeSelector TransactionValueFilter
         {
             get => _transactionValueFilter;
             set => Set(nameof(TransactionValueFilter), ref _transactionValueFilter, value);
         }
 
-        public TextFilter Title
+        public TextSelector TitleFilter
         {
-            get => _title;
-            set => Set(nameof(Title), ref _title, value);
+            get => _titleFilter;
+            set => Set(nameof(TitleFilter), ref _titleFilter, value);
         }
 
-        public TextFilter Note
+        public TextSelector NoteFilter
         {
-            get => _note;
-            set => Set(nameof(Note), ref _note, value);
+            get => _noteFilter;
+            set => Set(nameof(NoteFilter), ref _noteFilter, value);
         }
 
         public Transaction[] Transactions
@@ -127,36 +127,36 @@ namespace CashManager_MVVM.Features.Transactions
             _allTransactions = Mapper.Map<Transaction[]>(_queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()));
             Transactions = _allTransactions.ToArray();
 
-            Title.PropertyChanged += OnPropertyChanged;
-            Note.PropertyChanged += OnPropertyChanged;
+            TitleFilter.PropertyChanged += OnPropertyChanged;
+            NoteFilter.PropertyChanged += OnPropertyChanged;
 
-            BookDate.PropertyChanged += OnPropertyChanged;
-            LastEditDate.PropertyChanged += OnPropertyChanged;
-            CreateDate.PropertyChanged += OnPropertyChanged;
+            BookDateFilter.PropertyChanged += OnPropertyChanged;
+            LastEditDateFilter.PropertyChanged += OnPropertyChanged;
+            CreateDateFilter.PropertyChanged += OnPropertyChanged;
 
             var availableStocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery())).OrderBy(x => x.Name);
-            UserStocks = new MultiPicker("User stock", availableStocks.Where(x => x.IsUserStock).ToArray());
-            ExternalStocks =
+            UserStocksFilter = new MultiPicker("User stock", availableStocks.Where(x => x.IsUserStock).ToArray());
+            ExternalStocksFilter =
                 new MultiPicker("External stock",
                     Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
-            UserStocks.PropertyChanged += OnPropertyChanged;
-            ExternalStocks.PropertyChanged += OnPropertyChanged;
+            UserStocksFilter.PropertyChanged += OnPropertyChanged;
+            ExternalStocksFilter.PropertyChanged += OnPropertyChanged;
 
             var categories = Mapper.Map<Category[]>(_queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
             categories = BuildGraphicalOrder(categories).ToArray();
-            Categories = new MultiPicker("Categories", categories);
-            Categories.PropertyChanged += OnPropertyChanged;
+            CategoriesFilter = new MultiPicker("Categories", categories);
+            CategoriesFilter.PropertyChanged += OnPropertyChanged;
 
             var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery())
                                                                      .OrderBy(x => x.Name));
-            Types = new MultiPicker("Types", types);
-            Types.PropertyChanged += OnPropertyChanged;
+            TypesFilter = new MultiPicker("Types", types);
+            TypesFilter.PropertyChanged += OnPropertyChanged;
 
             var tags = Mapper.Map<Tag[]>(_queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
-            Tags = new MultiPicker("Tags", tags);
-            Tags.PropertyChanged += OnPropertyChanged;
+            TagsFilter = new MultiPicker("Tags", tags);
+            TagsFilter.PropertyChanged += OnPropertyChanged;
 
-            TransactionValueFilter = new RangeFilter("Transaction value");
+            TransactionValueFilter = new RangeSelector("Transaction value");
             TransactionValueFilter.PropertyChanged += OnPropertyChanged;
 
             OnPropertyChanged(this, null);
@@ -179,59 +179,59 @@ namespace CashManager_MVVM.Features.Transactions
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             var transactions = _allTransactions.AsEnumerable();
-            if (Title.IsChecked)
+            if (TitleFilter.IsChecked)
             {
-                if (Note.IsChecked)
+                if (NoteFilter.IsChecked)
                     transactions = transactions.Where(x =>
-                        x.Title.ToLower().Contains(Title.Value.ToLower()) || x.Note.ToLower().Contains(Note.Value.ToLower()));
-                else transactions = transactions.Where(x => x.Title.ToLower().Contains(Title.Value.ToLower()));
+                        x.Title.ToLower().Contains(TitleFilter.Value.ToLower()) || x.Note.ToLower().Contains(NoteFilter.Value.ToLower()));
+                else transactions = transactions.Where(x => x.Title.ToLower().Contains(TitleFilter.Value.ToLower()));
             }
-            else if (Note.IsChecked) transactions = transactions.Where(x => x.Note.ToLower().Contains(Note.Value.ToLower()));
+            else if (NoteFilter.IsChecked) transactions = transactions.Where(x => x.Note.ToLower().Contains(NoteFilter.Value.ToLower()));
 
-            if (Categories.IsChecked)
+            if (CategoriesFilter.IsChecked)
             {
-                var categories = Categories.Results.OfType<Category>().ToArray();
+                var categories = CategoriesFilter.Results.OfType<Category>().ToArray();
                 transactions = transactions.Where(x => x.Positions.Select(y => y.Category).Any(y => categories.Any(z =>
                     z.MatchCategoryFilter(y))));
             }
 
-            if (Tags.IsChecked)
+            if (TagsFilter.IsChecked)
             {
-                var tags = new HashSet<Tag>(Tags.Results.OfType<Tag>());
+                var tags = new HashSet<Tag>(TagsFilter.Results.OfType<Tag>());
                 transactions = transactions.Where(x => x.Positions.SelectMany(y => y.Tags).Any(y => tags.Contains(y)));
             }
             
-            if (Types.IsChecked)
+            if (TypesFilter.IsChecked)
             {
-                var types = new HashSet<TransactionType>(Types.Results.OfType<TransactionType>());
+                var types = new HashSet<TransactionType>(TypesFilter.Results.OfType<TransactionType>());
                 transactions = transactions.Where(x => types.Contains(x.Type));
             }
 
-            if (UserStocks.IsChecked)
+            if (UserStocksFilter.IsChecked)
             {
-                var stocks = new HashSet<Stock>(UserStocks.Results.OfType<Stock>());
+                var stocks = new HashSet<Stock>(UserStocksFilter.Results.OfType<Stock>());
                 transactions = transactions.Where(x => stocks.Contains(x.UserStock));
             }
 
-            if (ExternalStocks.IsChecked)
+            if (ExternalStocksFilter.IsChecked)
             {
-                var stocks = new HashSet<Stock>(ExternalStocks.Results.OfType<Stock>());
+                var stocks = new HashSet<Stock>(ExternalStocksFilter.Results.OfType<Stock>());
                 transactions = transactions.Where(x => stocks.Contains(x.ExternalStock));
             }
 
-            if (CreateDate.IsChecked)
+            if (CreateDateFilter.IsChecked)
             {
-                transactions = transactions.Where(x => x.InstanceCreationDate >= CreateDate.From && x.InstanceCreationDate <= CreateDate.To);
+                transactions = transactions.Where(x => x.InstanceCreationDate >= CreateDateFilter.From && x.InstanceCreationDate <= CreateDateFilter.To);
             }
 
-            if (BookDate.IsChecked)
+            if (BookDateFilter.IsChecked)
             {
-                transactions = transactions.Where(x => x.BookDate >= BookDate.From && x.BookDate <= BookDate.To);
+                transactions = transactions.Where(x => x.BookDate >= BookDateFilter.From && x.BookDate <= BookDateFilter.To);
             }
 
-            if (LastEditDate.IsChecked)
+            if (LastEditDateFilter.IsChecked)
             {
-                transactions = transactions.Where(x => x.LastEditDate >= LastEditDate.From && x.LastEditDate <= LastEditDate.To);
+                transactions = transactions.Where(x => x.LastEditDate >= LastEditDateFilter.From && x.LastEditDate <= LastEditDateFilter.To);
             }
 
             if (TransactionValueFilter.IsChecked)

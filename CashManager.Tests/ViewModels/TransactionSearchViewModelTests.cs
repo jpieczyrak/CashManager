@@ -44,15 +44,15 @@ namespace CashManager.Tests.ViewModels
             //given
             SetupDatabase();
             var vm = _container.Resolve<TransactionSearchViewModel>();
-            vm.Title.Value = Transactions[0].Title;
-            vm.Title.IsChecked = true;
+            vm.TitleFilter.Value = Transactions[0].Title;
+            vm.TitleFilter.IsChecked = true;
 
             //when
             vm.RaisePropertyChanged(nameof(vm.Transactions));
 
             //then
             Assert.NotEmpty(vm.Transactions);
-            var matching = Transactions.Where(x => x.Title.ToLower().Contains(vm.Title.Value.ToLower())).ToArray();
+            var matching = Transactions.Where(x => x.Title.ToLower().Contains(vm.TitleFilter.Value.ToLower())).ToArray();
             Assert.Equal(matching.Length, vm.Transactions.Length);
             Assert.Equal(matching.Select(x => x.Id), vm.Transactions.Select(x => x.Id));
         }

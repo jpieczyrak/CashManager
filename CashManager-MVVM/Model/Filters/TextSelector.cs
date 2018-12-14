@@ -1,6 +1,6 @@
 ﻿namespace CashManager_MVVM.Model.Filters
 {
-    public class TextFilter : BaseFilter
+    public class TextSelector : BaseSelector
     {
         private string _value = string.Empty;
 
@@ -10,7 +10,7 @@
             set => Set(nameof(Value), ref _value, value);
         }
 
-        public TextFilter(string description)
+        public TextSelector(string description)
         {
             Description = description;
         }

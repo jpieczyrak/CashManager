@@ -27,20 +27,20 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <UserControl Grid.Row="0" Grid.Column="0" Content="{Binding Title}" />
-            <UserControl Grid.Row="0" Grid.Column="1" Content="{Binding Note}" />
+            <UserControl Grid.Row="0" Grid.Column="0" Content="{Binding TitleFilter}" />
+            <UserControl Grid.Row="0" Grid.Column="1" Content="{Binding NoteFilter}" />
             <UserControl Grid.Row="0" Grid.Column="2" Content="{Binding TransactionValueFilter}" />
 
-            <UserControl Grid.Row="1" Grid.Column="0" Content="{Binding Tags}" />
-            <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding Categories}" />
-            <UserControl Grid.Row="1" Grid.Column="2" Content="{Binding Types}" />
+            <UserControl Grid.Row="1" Grid.Column="0" Content="{Binding TagsFilter}" />
+            <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding CategoriesFilter}" />
+            <UserControl Grid.Row="1" Grid.Column="2" Content="{Binding TypesFilter}" />
 
-            <UserControl Grid.Row="2" Grid.Column="0" Content="{Binding CreateDate}" />
-            <UserControl Grid.Row="2" Grid.Column="1" Content="{Binding BookDate}" />
-            <UserControl Grid.Row="2" Grid.Column="2" Content="{Binding LastEditDate}" />
+            <UserControl Grid.Row="2" Grid.Column="0" Content="{Binding CreateDateFilter}" />
+            <UserControl Grid.Row="2" Grid.Column="1" Content="{Binding BookDateFilter}" />
+            <UserControl Grid.Row="2" Grid.Column="2" Content="{Binding LastEditDateFilter}" />
 
-            <UserControl Grid.Row="3" Grid.Column="0" Content="{Binding UserStocks}" />
-            <UserControl Grid.Row="3" Grid.Column="1" Content="{Binding ExternalStocks}" />
+            <UserControl Grid.Row="3" Grid.Column="0" Content="{Binding UserStocksFilter}" />
+            <UserControl Grid.Row="3" Grid.Column="1" Content="{Binding ExternalStocksFilter}" />
         </Grid>
 
         <local:TransactionListView Grid.Row="1" Content="{Binding TransactionsListViewModel}" Transactions="{Binding Transactions, Mode=TwoWay}"  />

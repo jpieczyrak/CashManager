@@ -21,22 +21,22 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border x:Name="border" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Background="{StaticResource ControlBackgroundBrush}" SnapsToDevicePixels="true">
+                    <Border x:Name="border" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Background="{DynamicResource ControlBackgroundBrush}" SnapsToDevicePixels="true">
                         <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource HoverControlBackgroundBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource HoverBorderAccentBrush}"/>
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource HoverControlBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource HoverBorderAccentBrush}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource HoverControlBackgroundBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource HoverBorderAccentBrush}"/>
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource HoverControlBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource HoverBorderAccentBrush}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource DisabledControlBackgroundBrush}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource DisabledBorderBrush}"/>
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource DisabledControlBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource DisabledBorderBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -62,13 +62,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
-                    <Rectangle x:Name="rectangle" Fill="{StaticResource DisabledBorderBrush}" Height="{TemplateBinding Height}" SnapsToDevicePixels="True" Width="{TemplateBinding Width}"/>
+                    <Rectangle x:Name="rectangle" Fill="{DynamicResource DisabledBorderBrush}" Height="{TemplateBinding Height}" SnapsToDevicePixels="True" Width="{TemplateBinding Width}"/>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Fill" TargetName="rectangle" Value="{StaticResource HoverControlBackgroundBrush}"/>
+                            <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource HoverControlBackgroundBrush}"/>
                         </Trigger>
                         <Trigger Property="IsDragging" Value="true">
-                            <Setter Property="Fill" TargetName="rectangle" Value="{StaticResource HoverControlBackgroundBrush}"/>
+                            <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource HoverControlBackgroundBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -81,13 +81,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
-                    <Rectangle x:Name="rectangle" Fill="{StaticResource DisabledBorderBrush}" Height="{TemplateBinding Height}" SnapsToDevicePixels="True" Width="{TemplateBinding Width}"/>
+                    <Rectangle x:Name="rectangle" Fill="{DynamicResource DisabledBorderBrush}" Height="{TemplateBinding Height}" SnapsToDevicePixels="True" Width="{TemplateBinding Width}"/>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Fill" TargetName="rectangle" Value="{StaticResource HoverControlBackgroundBrush}"/>
+                            <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource HoverControlBackgroundBrush}"/>
                         </Trigger>
                         <Trigger Property="IsDragging" Value="true">
-                            <Setter Property="Fill" TargetName="rectangle" Value="{StaticResource HoverControlBackgroundBrush}"/>
+                            <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource HoverControlBackgroundBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -97,8 +97,8 @@
     <Style TargetType="{x:Type ScrollBar}">
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
         <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
-        <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="BorderThickness" Value="1,0"/>
         <Setter Property="Width" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"/>
@@ -137,32 +137,32 @@
                                 <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineDownButton}" Value="true"/>
                                 <Condition Binding="{Binding IsPressed, ElementName=PART_LineDownButton}" Value="true"/>
                             </MultiDataTrigger.Conditions>
-                            <Setter Property="Fill" TargetName="ArrowBottom" Value="{StaticResource HoverBorderAccentBrush}"/>
+                            <Setter Property="Fill" TargetName="ArrowBottom" Value="{DynamicResource HoverBorderAccentBrush}"/>
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineUpButton}" Value="true"/>
                                 <Condition Binding="{Binding IsPressed, ElementName=PART_LineUpButton}" Value="true"/>
                             </MultiDataTrigger.Conditions>
-                            <Setter Property="Fill" TargetName="ArrowTop" Value="{StaticResource HoverBorderAccentBrush}"/>
+                            <Setter Property="Fill" TargetName="ArrowTop" Value="{DynamicResource HoverBorderAccentBrush}"/>
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineDownButton}" Value="true"/>
                                 <Condition Binding="{Binding IsPressed, ElementName=PART_LineDownButton}" Value="false"/>
                             </MultiDataTrigger.Conditions>
-                            <Setter Property="Fill" TargetName="ArrowBottom" Value="{StaticResource HoverBorderAccentBrush}"/>
+                            <Setter Property="Fill" TargetName="ArrowBottom" Value="{DynamicResource HoverBorderAccentBrush}"/>
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineUpButton}" Value="true"/>
                                 <Condition Binding="{Binding IsPressed, ElementName=PART_LineUpButton}" Value="false"/>
                             </MultiDataTrigger.Conditions>
-                            <Setter Property="Fill" TargetName="ArrowTop" Value="{StaticResource HoverBorderAccentBrush}"/>
+                            <Setter Property="Fill" TargetName="ArrowTop" Value="{DynamicResource HoverBorderAccentBrush}"/>
                         </MultiDataTrigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Fill" TargetName="ArrowTop" Value="{StaticResource DisabledBorderBrush}"/>
-                            <Setter Property="Fill" TargetName="ArrowBottom" Value="{StaticResource DisabledBorderBrush}"/>
+                            <Setter Property="Fill" TargetName="ArrowTop" Value="{DynamicResource DisabledBorderBrush}"/>
+                            <Setter Property="Fill" TargetName="ArrowBottom" Value="{DynamicResource DisabledBorderBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -186,7 +186,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="1"/>
                                 <RepeatButton x:Name="PART_LineLeftButton" Command="{x:Static ScrollBar.LineLeftCommand}" IsEnabled="{TemplateBinding IsMouseOver}" Style="{StaticResource ScrollBarButton}">
-                                    <Path x:Name="ArrowLeft" Data="M 3.18,7 C3.18,7 5,7 5,7 5,7 1.81,3.5 1.81,3.5 1.81,3.5 5,0 5,0 5,0 3.18,0 3.18,0 3.18,0 0,3.5 0,3.5 0,3.5 3.18,7 3.18,7 z" Fill="{StaticResource BorderBrush}" Margin="3" Stretch="Uniform"/>
+                                    <Path x:Name="ArrowLeft" Data="M 3.18,7 C3.18,7 5,7 5,7 5,7 1.81,3.5 1.81,3.5 1.81,3.5 5,0 5,0 5,0 3.18,0 3.18,0 3.18,0 0,3.5 0,3.5 0,3.5 3.18,7 3.18,7 z" Fill="{DynamicResource BorderBrush}" Margin="3" Stretch="Uniform"/>
                                 </RepeatButton>
                                 <Track x:Name="PART_Track" Grid.Column="1" IsEnabled="{TemplateBinding IsMouseOver}">
                                     <Track.DecreaseRepeatButton>
@@ -200,7 +200,7 @@
                                     </Track.Thumb>
                                 </Track>
                                 <RepeatButton x:Name="PART_LineRightButton" Grid.Column="2" Command="{x:Static ScrollBar.LineRightCommand}" IsEnabled="{TemplateBinding IsMouseOver}" Style="{StaticResource ScrollBarButton}">
-                                    <Path x:Name="ArrowRight" Data="M 1.81,7 C1.81,7 0,7 0,7 0,7 3.18,3.5 3.18,3.5 3.18,3.5 0,0 0,0 0,0 1.81,0 1.81,0 1.81,0 5,3.5 5,3.5 5,3.5 1.81,7 1.81,7 z" Fill="{StaticResource BorderBrush}" Margin="3" Stretch="Uniform"/>
+                                    <Path x:Name="ArrowRight" Data="M 1.81,7 C1.81,7 0,7 0,7 0,7 3.18,3.5 3.18,3.5 3.18,3.5 0,0 0,0 0,0 1.81,0 1.81,0 1.81,0 5,3.5 5,3.5 5,3.5 1.81,7 1.81,7 z" Fill="{DynamicResource BorderBrush}" Margin="3" Stretch="Uniform"/>
                                 </RepeatButton>
                             </Grid>
                             <ControlTemplate.Triggers>
@@ -209,32 +209,32 @@
                                         <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineRightButton}" Value="true"/>
                                         <Condition Binding="{Binding IsPressed, ElementName=PART_LineRightButton}" Value="true"/>
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="Fill" TargetName="ArrowRight" Value="{StaticResource HoverBorderAccentBrush}"/>
+                                    <Setter Property="Fill" TargetName="ArrowRight" Value="{DynamicResource HoverBorderAccentBrush}"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineLeftButton}" Value="true"/>
                                         <Condition Binding="{Binding IsPressed, ElementName=PART_LineLeftButton}" Value="true"/>
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="Fill" TargetName="ArrowLeft" Value="{StaticResource HoverBorderAccentBrush}"/>
+                                    <Setter Property="Fill" TargetName="ArrowLeft" Value="{DynamicResource HoverBorderAccentBrush}"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineRightButton}" Value="true"/>
                                         <Condition Binding="{Binding IsPressed, ElementName=PART_LineRightButton}" Value="false"/>
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="Fill" TargetName="ArrowRight" Value="{StaticResource HoverBorderAccentBrush}"/>
+                                    <Setter Property="Fill" TargetName="ArrowRight" Value="{DynamicResource HoverBorderAccentBrush}"/>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineLeftButton}" Value="true"/>
                                         <Condition Binding="{Binding IsPressed, ElementName=PART_LineLeftButton}" Value="false"/>
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="Fill" TargetName="ArrowLeft" Value="{StaticResource HoverBorderAccentBrush}"/>
+                                    <Setter Property="Fill" TargetName="ArrowLeft" Value="{DynamicResource HoverBorderAccentBrush}"/>
                                 </MultiDataTrigger>
                                 <Trigger Property="IsEnabled" Value="false">
-                                    <Setter Property="Fill" TargetName="ArrowLeft" Value="{StaticResource DisabledBorderBrush}"/>
-                                    <Setter Property="Fill" TargetName="ArrowRight" Value="{StaticResource DisabledBorderBrush}"/>
+                                    <Setter Property="Fill" TargetName="ArrowLeft" Value="{DynamicResource DisabledBorderBrush}"/>
+                                    <Setter Property="Fill" TargetName="ArrowRight" Value="{DynamicResource DisabledBorderBrush}"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

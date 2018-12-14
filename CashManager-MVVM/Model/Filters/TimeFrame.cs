@@ -2,7 +2,7 @@
 
 namespace CashManager_MVVM.Model.Filters
 {
-    public class TimeFrame : BaseFilter
+    public class TimeFrame : BaseSelector
     {
         private DateTime _from;
         private DateTime _to;

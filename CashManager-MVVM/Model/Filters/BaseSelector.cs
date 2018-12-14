@@ -2,7 +2,7 @@
 
 namespace CashManager_MVVM.Model.Filters
 {
-    public class BaseFilter : ObservableObject
+    public class BaseSelector : ObservableObject
     {
         private bool _isChecked;
 

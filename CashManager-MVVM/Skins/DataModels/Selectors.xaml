@@ -53,7 +53,7 @@
             </Grid>
         </Border>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type filters:RangeFilter}">
+    <DataTemplate DataType="{x:Type filters:RangeSelector}">
         <Border BorderThickness="1" CornerRadius="{DynamicResource BigCornerRadius}" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="5">
             <Grid>
                 <Grid.RowDefinitions>
@@ -125,7 +125,7 @@
             </Grid>
         </Border>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type filters:TextFilter}">
+    <DataTemplate DataType="{x:Type filters:TextSelector}">
         <Border BorderThickness="1" CornerRadius="{DynamicResource BigCornerRadius}" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="5">
             <Grid>
                 <Grid.ColumnDefinitions>

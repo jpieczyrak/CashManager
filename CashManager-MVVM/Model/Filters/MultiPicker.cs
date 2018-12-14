@@ -3,7 +3,7 @@ using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model.Filters
 {
-    public class MultiPicker : BaseFilter
+    public class MultiPicker : BaseSelector
     {
         private BaseSelectable[] _results;
 

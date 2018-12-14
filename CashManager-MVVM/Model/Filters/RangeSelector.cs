@@ -1,6 +1,6 @@
 ﻿namespace CashManager_MVVM.Model.Filters
 {
-    public class RangeFilter : BaseFilter
+    public class RangeSelector : BaseSelector
     {
         private double _min;
         private double _max;
@@ -17,7 +17,7 @@
             set => Set(nameof(Max), ref _max, value);
         }
 
-        public RangeFilter(string description)
+        public RangeSelector(string description)
         {
             Description = description;
         }
