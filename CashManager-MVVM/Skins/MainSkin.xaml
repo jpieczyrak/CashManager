@@ -10,7 +10,7 @@
     </Style>
 
     <Style TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/> 
+        <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource DeactivatedColorBrush}"/>
         <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}"/>
 
