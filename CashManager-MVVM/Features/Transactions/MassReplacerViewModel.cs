@@ -94,14 +94,15 @@ namespace CashManager_MVVM.Features.Transactions
 
         private bool CanExecutePerformCommand()
         {
-            return _bookDateSelector.IsChecked 
+            return (_bookDateSelector.IsChecked 
                    || _categoriesSelector.IsChecked 
                    || _externalStocksSelector.IsChecked
                    || _noteSelector.IsChecked
                    || _tagsSelector.IsChecked
                    || _titleSelector.IsChecked
                    || _typesSelector.IsChecked
-                   || _userStocksSelector.IsChecked;
+                   || _userStocksSelector.IsChecked)
+                && TransactionsSearchViewModel.Transactions.Any();
         }
 
         private void ExecutePerformCommand()
