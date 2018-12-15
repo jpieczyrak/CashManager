@@ -221,6 +221,8 @@ namespace CashManager_MVVM.Features.Search
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             if (_allTransactions == null || !_allTransactions.Any()) return;
+
+            //todo filter only if any enabled
             if (IsTransactionsSearch) FilterTransactions();
             else if (IsPositionsSearch) FilterPositions();
         }
@@ -317,6 +319,11 @@ namespace CashManager_MVVM.Features.Search
         {
             var transactions = GetFilteredTransactions();
             IEnumerable<Position> positions = transactions.SelectMany(x => x.Positions).ToArray();
+            
+            if (PositionTitleFilter.IsChecked)
+            {
+                positions = positions.Where(x => x.Title.ToLower().Contains(PositionTitleFilter.Value.ToLower()));
+            }
 
             if (CategoriesFilter.IsChecked && CategoriesFilter.Results.Any())
             {
