@@ -335,7 +335,7 @@ namespace CashManager_MVVM.Features.Search
                 positions = positions.Where(x => x.Value.GrossValue >= TransactionValueFilter.Min && x.Value.GrossValue <= TransactionValueFilter.Max);
             }
 
-            Positions = positions.ToArray();
+            Positions = positions.OrderByDescending(x => x.Parent.BookDate).ToArray();
 
             PositionsListViewModel.Positions.Clear();
             foreach (var position in Positions) PositionsListViewModel.Positions.Add(position);
