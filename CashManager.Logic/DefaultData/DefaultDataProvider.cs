@@ -6,9 +6,9 @@ using CashManager.Data.DTO;
 
 namespace CashManager.Logic.DefaultData
 {
-    public static class DefaultDataProvider
+    public class DefaultDataProvider : IDataProvider
     {
-        public static Transaction[] GetTransactions(Stock[] stocks, Category[] categories, TransactionType[] types, Tag[] tags)
+        public Transaction[] GetTransactions(Stock[] stocks, Category[] categories, TransactionType[] types, Tag[] tags)
         {
             var dtoTransactions = new[]
             {
@@ -67,7 +67,7 @@ namespace CashManager.Logic.DefaultData
             return dtoTransactions;
         }
 
-        public static Category[] GetCategories()
+        public Category[] GetCategories()
         {
             var root = new Category { Name = "Root" };
             var home = new Category { Name = "Home", Parent = root };
@@ -102,7 +102,7 @@ namespace CashManager.Logic.DefaultData
             return dtoCategories;
         }
 
-        public static Stock[] GetStocks()
+        public Stock[] GetStocks()
         {
             return new[]
             {
@@ -113,7 +113,7 @@ namespace CashManager.Logic.DefaultData
             };
         }
 
-        public static TransactionType[] GetTransactionTypes()
+        public TransactionType[] GetTransactionTypes()
         {
             return new[]
             {
@@ -124,7 +124,7 @@ namespace CashManager.Logic.DefaultData
             };
         }
 
-        public static Tag[] GetTags()
+        public Tag[] GetTags()
         {
             return new Tag[]
             {

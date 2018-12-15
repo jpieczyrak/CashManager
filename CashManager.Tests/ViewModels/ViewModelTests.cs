@@ -46,11 +46,12 @@ namespace CashManager.Tests.ViewModels
         {
             _container = GetContainer();
 
-            DtoTags = DefaultDataProvider.GetTags();
-            DtoStocks = DefaultDataProvider.GetStocks();
-            DtoCategories = DefaultDataProvider.GetCategories();
-            DtoTypes = DefaultDataProvider.GetTransactionTypes();
-            DtoTransactions = DefaultDataProvider.GetTransactions(DtoStocks, DtoCategories, DtoTypes, DtoTags);
+            var defaultDataProvider = new DefaultDataProvider();
+            DtoTags = defaultDataProvider.GetTags();
+            DtoStocks = defaultDataProvider.GetStocks();
+            DtoCategories = defaultDataProvider.GetCategories();
+            DtoTypes = defaultDataProvider.GetTransactionTypes();
+            DtoTransactions = defaultDataProvider.GetTransactions(DtoStocks, DtoCategories, DtoTypes, DtoTags);
         }
 
         protected void SetupDatabase()

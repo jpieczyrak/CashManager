@@ -25,11 +25,13 @@ namespace CashManager_MVVM.Temps
 
             if (!queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()).Any())
             {
-                var stocks = DefaultDataProvider.GetStocks();
-                var categories = DefaultDataProvider.GetCategories();
-                var types = DefaultDataProvider.GetTransactionTypes();
-                var tags = DefaultDataProvider.GetTags();
-                var transactions = DefaultDataProvider.GetTransactions(stocks, categories, types, tags);
+                var defaultDataProvider = new DefaultDataProvider();
+
+                var stocks = defaultDataProvider.GetStocks();
+                var categories = defaultDataProvider.GetCategories();
+                var types = defaultDataProvider.GetTransactionTypes();
+                var tags = defaultDataProvider.GetTags();
+                var transactions = defaultDataProvider.GetTransactions(stocks, categories, types, tags);
 
                 commandDispatcher.Execute(new UpsertStocksCommand(stocks));
                 commandDispatcher.Execute(new UpsertTransactionTypesCommand(types));

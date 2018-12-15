@@ -67,11 +67,17 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bogus, Version=25.0.2.0, Culture=neutral, PublicKeyToken=fa1bb3f3f218129a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bogus.25.0.2\lib\net40\Bogus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefaultData\DefaultDataProvider.cs" />
+    <Compile Include="DefaultData\IDataProvider.cs" />
+    <Compile Include="DefaultData\MassDataProvider.cs" />
     <Compile Include="Parsers\eParserInputType.cs" />
     <Compile Include="Parsers\ExcelParser.cs" />
     <Compile Include="Parsers\GetinBankParser.cs" />
@@ -87,6 +93,9 @@
       <Project>{d83c69c0-18f7-4b7f-af7e-143091a26a30}</Project>
       <Name>CashManager.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
