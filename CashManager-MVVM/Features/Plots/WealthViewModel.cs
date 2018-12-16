@@ -86,7 +86,7 @@ namespace CashManager_MVVM.Features.Plots
                                      ? UserStocksFilter.Results.OfType<Stock>().ToArray()
                                      : null;
 
-            if (selectedStocks != null)
+            if (selectedStocks != null && selectedStocks.Any())
             {
                 DateTime stockDate = selectedStocks.Max(x => x.LastEditDate);
                 decimal actualValue = selectedStocks.Sum(x => x.Balance.Value);
@@ -104,7 +104,7 @@ namespace CashManager_MVVM.Features.Plots
                                  return new DataPoint(DateTimeAxis.ToDouble(x.BookDate), value);
                              })
                              .OrderBy(x => x.X)
-                             .Concat(!BookDateFilter.IsChecked || stockDate <= BookDateFilter.To
+                             .Concat(!BookDateFilter.IsChecked || stockDate.Date <= BookDateFilter.To
                                          ? new[] { new DataPoint(DateTimeAxis.ToDouble(stockDate), (double) actualValue) }
                                          : new DataPoint[0])
                              .ToArray();
