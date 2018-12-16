@@ -144,8 +144,16 @@ namespace CashManager_MVVM.Features.Parsers
                 _queryDispatcher.Execute<TransactionTypesQuery, DtoTransactionType[]>(new TransactionTypesQuery()))
                               .OrderBy(x => x.InstanceCreationDate)
                               .ToArray();
-            IncomeTransactionTypes = types.Where(x => x.Income).OrderBy(x => x.IsDefault).ThenBy(x => x.InstanceCreationDate).ToArray();
-            OutcomeTransactionTypes = types.Where(x => x.Outcome).OrderBy(x => x.IsDefault).ThenBy(x => x.InstanceCreationDate).ToArray();
+            IncomeTransactionTypes = types
+                                     .Where(x => x.Income)
+                                     .OrderBy(x => !x.IsDefault)
+                                     .ThenBy(x => x.InstanceCreationDate)
+                                     .ToArray();
+            OutcomeTransactionTypes = types
+                                      .Where(x => x.Outcome)
+                                      .OrderBy(x => !x.IsDefault)
+                                      .ThenBy(x => x.InstanceCreationDate)
+                                      .ToArray();
             DefaultIncomeTransactionType = IncomeTransactionTypes.FirstOrDefault();
             DefaultOutcomeTransactionType = OutcomeTransactionTypes.FirstOrDefault();
         }
