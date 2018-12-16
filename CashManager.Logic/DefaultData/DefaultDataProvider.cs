@@ -119,7 +119,8 @@ namespace CashManager.Logic.DefaultData
             {
                 new TransactionType { Income = true, Name = "Work", IsDefault = true },
                 new TransactionType { Outcome = true, Name = "Buy", IsDefault = true },
-                new TransactionType { Name = "Transfer" },
+                new TransactionType { Name = "Transfer in", Income = true },
+                new TransactionType { Name = "Transfer out", Outcome = true },
                 new TransactionType { Income = true, Name = "Gifts" }
             };
         }
