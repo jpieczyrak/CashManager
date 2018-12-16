@@ -14,8 +14,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <DataGrid ItemsSource="{Binding Positions, Mode=OneWay}"
-                  AutoGenerateColumns="False" SelectedItem="{Binding SelectedPosition}" 
+        <DataGrid ItemsSource="{Binding Positions, Mode=OneWay, IsAsync=True}"
+                  AutoGenerateColumns="False" SelectedItem="{Binding SelectedPosition}"
+                  EnableRowVirtualization="True" EnableColumnVirtualization="True" ScrollViewer.CanContentScroll="True"
                   CanUserAddRows="False" CanUserDeleteRows="False" Margin="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Last edit" Binding="{Binding LastEditDate, Mode=OneWay, StringFormat=dd.MM.yy HH:mm:ss}" Width="100" MaxWidth="100" MinWidth="100"/>
