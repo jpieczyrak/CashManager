@@ -9,6 +9,7 @@ namespace CashManager.Logic.Parsers
     public class IdeaBankParser : IParser
     {
         private readonly List<Balance> _balances = new List<Balance>();
+        private const string NOT_PERFORMED_TRANSACTION = "-";
         private const int LINES_PER_ENTRY = 4;
 
         public Balance Balance { get; private set; }
@@ -46,7 +47,12 @@ namespace CashManager.Logic.Parsers
                         results.Add(transaction);
                         _balances.Add(new Balance(date, balance));
                     }
-                    catch (Exception e) { }
+                    catch (Exception e)
+                    {
+                        bool hasTitle = !string.IsNullOrEmpty(elements[0]);
+                        bool isSkippedTransaction = NOT_PERFORMED_TRANSACTION.Equals(elements[1].Trim());
+                        if (hasTitle && isSkippedTransaction) i -= 2;
+                    }
 
                     i += LINES_PER_ENTRY;
                 }
