@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="CashManager_MVVM.Features.Plots.WealthView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:plots="clr-namespace:CashManager_MVVM.Features.Plots"
+             xmlns:oxy="http://oxyplot.org/wpf"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=plots:WealthViewModel, IsDesignTimeCreatable=True}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <UserControl Grid.Column="0" Content="{Binding BookDateFilter}" />
+            <UserControl Grid.Column="1" Content="{Binding UserStocksFilter}" />
+        </Grid>
+
+        <oxy:PlotView Grid.Row="1" Model="{Binding Wealth}" Background="{DynamicResource BackgroundColorBrush}" Foreground="{DynamicResource ForegroundBrush}" />
+    </Grid>
+</UserControl>

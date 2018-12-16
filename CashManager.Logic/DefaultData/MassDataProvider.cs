@@ -90,7 +90,8 @@ namespace CashManager.Logic.DefaultData
         {
             var factory = new Faker<Stock>()
                 .RuleFor(stock => stock.Name, (faker, stock) => faker.Company.CompanySuffix())
-                .RuleFor(stock => stock.IsUserStock, (faker, stock) => faker.Random.Bool())
+                .RuleFor(stock => stock.IsUserStock, faker => faker.Random.Bool())
+                .RuleFor(stock => stock.LastEditDate, faker => faker.Date.Recent(1))
                 .RuleFor(stock => stock.Balance, (faker, stock) => new Balance(faker.Date.Recent(30), faker.Random.Decimal(10m, 1000000m)));
             return factory.Generate(5).ToArray();
         }

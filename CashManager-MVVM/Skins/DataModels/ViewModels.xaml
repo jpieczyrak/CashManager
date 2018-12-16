@@ -7,10 +7,14 @@
                     xmlns:transactionTypes="clr-namespace:CashManager_MVVM.Features.TransactionTypes"
                     xmlns:transactions="clr-namespace:CashManager_MVVM.Features.Transactions"
                     xmlns:parsers="clr-namespace:CashManager_MVVM.Features.Parsers"
-                    xmlns:search="clr-namespace:CashManager_MVVM.Features.Search">
+                    xmlns:search="clr-namespace:CashManager_MVVM.Features.Search"
+                    xmlns:plots="clr-namespace:CashManager_MVVM.Features.Plots">
 
     <DataTemplate DataType="{x:Type search:SearchViewModel}">
         <search:SearchView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type plots:WealthViewModel}">
+        <plots:WealthView />
     </DataTemplate>
     <DataTemplate DataType="{x:Type transactions:MassReplacerViewModel}">
         <transactions:MassReplacerView />
