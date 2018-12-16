@@ -100,15 +100,15 @@ namespace CashManager_MVVM.Features.Plots
                              .Where(x => selectedStocks.Contains(x.UserStock)) //or external?
                              .OrderByDescending(x => x.BookDate)
                              .GroupBy(x => x.BookDate)
-                             .Select(x => new { BookDate = x.Key, Value = x.Sum(y => y.ValueAsProfit) })
-                             .Where(x => !BookDateFilter.IsChecked || x.BookDate >= BookDateFilter.From && x.BookDate <= BookDateFilter.To)
                              .Select(x =>
                              {
-                                 actualValue -= x.Value;
+                                 actualValue -= x.Sum(y => y.ValueAsProfit);
                                  double value = (double) actualValue;
-                                 return new DataPoint(DateTimeAxis.ToDouble(x.BookDate), value);
+                                 return new { BookDate = x.Key, Value = value} ;
                              })
-                             .OrderBy(x => x.X)
+                             .Where(x => !BookDateFilter.IsChecked || x.BookDate >= BookDateFilter.From && x.BookDate <= BookDateFilter.To)
+                             .OrderBy(x => x.BookDate)
+                             .Select(x => new DataPoint(DateTimeAxis.ToDouble(x.BookDate), x.Value))
                              .Concat(!BookDateFilter.IsChecked || stockDate.Date <= BookDateFilter.To
                                          ? new[] { new DataPoint(DateTimeAxis.ToDouble(stockDate), (double)actualValue) }
                                          : new DataPoint[0])
