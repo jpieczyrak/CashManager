@@ -90,6 +90,9 @@ namespace CashManager_MVVM.Features.Plots
 
             var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
             TypesFilter = new MultiPicker("Types", types);
+            foreach (var x in TypesFilter.ComboBox.InternalDisplayableSearchResults.OfType<TransactionType>())
+                x.IsSelected = x.Outcome;
+            TypesFilter.IsChecked = true;
             TypesFilter.PropertyChanged += OnPropertyChanged;
 
             OnPropertyChanged(this, null);
