@@ -16,7 +16,6 @@ using CashManager_MVVM.Model.Selectors;
 using GalaSoft.MvvmLight;
 
 using OxyPlot;
-using OxyPlot.Axes;
 using OxyPlot.Series;
 
 using DtoStock = CashManager.Data.DTO.Stock;
@@ -129,7 +128,7 @@ namespace CashManager_MVVM.Features.Plots
                              .Select(x =>
                              {
                                  decimal value = x.Sum(y => y.Value.GrossValue);
-                                 return new { Label = x.Key, Value = value} ;
+                                 return new { Title = x.Key, Value = value} ;
                              })
                              .OrderByDescending(x => x.Value)
                              .ToArray();
@@ -141,11 +140,11 @@ namespace CashManager_MVVM.Features.Plots
                     {
                         ColumnCategories.Series.Add(new ColumnSeries
                         {
-                            Title = value.Label,
+                            Title = value.Title,
                             ItemsSource = new [] { value },
-                            ValueField = "Value"
+                            ValueField = nameof(value.Value)
                         });
-                        series.Slices.Add(new PieSlice(value.Label, (double)value.Value));
+                        series.Slices.Add(new PieSlice(value.Title, (double)value.Value));
                     }
                     PieCategories.Series.Add(series);
                 }
@@ -155,7 +154,6 @@ namespace CashManager_MVVM.Features.Plots
             ColumnCategories.ResetAllAxes();
 
             PieCategories.InvalidatePlot(true);
-            PieCategories.ResetAllAxes();
         }
     }
 }
