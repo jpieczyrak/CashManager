@@ -9,9 +9,12 @@ namespace CashManager.Logic.DefaultData
 {
     public class MassDataProvider : IDataProvider
     {
+        private readonly DefaultDataProvider _default;
+
         public MassDataProvider()
         {
             Randomizer.Seed = new Random(123321);
+            _default = new DefaultDataProvider();
         }
 
         #region IDataProvider
@@ -44,48 +47,13 @@ namespace CashManager.Logic.DefaultData
                     faker.Date.Recent(365),
                     faker.Commerce.Product(),
                     faker.Commerce.Ean8(),
-                    positionsFactory.Generate(faker.Random.Int(1, 5)),
+                    positionsFactory.Generate(faker.Random.Int(1, 3)),
                     faker.PickRandom(userStocks),
                     faker.PickRandom(externalStocks),
                     $"input source {counter++}"));
             return factory.Generate(250).ToArray();
         }
-
-        public Category[] GetCategories()
-        {
-            var root = new Category { Name = "Root" };
-            var home = new Category { Name = "Home", Parent = root };
-            var fun = new Category { Name = "Fun", Parent = root };
-            var fun_PC = new Category { Name = "PC", Parent = fun };
-            var fun_books = new Category { Name = "Books", Parent = fun };
-            var fun_games = new Category { Name = "Games", Parent = fun };
-            var fun_games_strategy = new Category { Name = "Strategy", Parent = fun_games };
-            var fun_games_fps = new Category { Name = "FPS", Parent = fun_games };
-            var home_cleaning = new Category { Name = "Cleaning", Parent = home };
-            var home_food = new Category { Name = "Food", Parent = home };
-            var home_food_base = new Category { Name = "Base food", Parent = home_food };
-            var home_food_chocolates = new Category { Name = "Chocolates", Parent = home_food };
-            var home_food_tea = new Category { Name = "Tea", Parent = home_food };
-            var dtoCategories = new[]
-            {
-                root,
-                home,
-                fun,
-                fun_PC,
-                fun_books,
-                fun_games,
-                fun_games_strategy,
-                fun_games_fps,
-                home_cleaning,
-                home_food,
-                home_food_base,
-                home_food_chocolates,
-                home_food_tea
-            };
-
-            return dtoCategories;
-        }
-
+        
         public Stock[] GetStocks()
         {
             var factory = new Faker<Stock>()
@@ -96,23 +64,16 @@ namespace CashManager.Logic.DefaultData
             return factory.Generate(5).ToArray();
         }
 
-        public TransactionType[] GetTransactionTypes()
-        {
-            return new[]
-            {
-                new TransactionType { Income = true, Name = "Work", IsDefault = true },
-                new TransactionType { Outcome = true, Name = "Buy", IsDefault = true },
-                new TransactionType { Name = "Transfer" },
-                new TransactionType { Income = true, Name = "Gifts" }
-            };
-        }
-
         public Tag[] GetTags()
         {
             var factory = new Faker<Tag>()
                 .RuleFor(tag => tag.Name, (faker, tag) => faker.Company.Random.Word());
             return factory.Generate(25).ToArray();
         }
+        
+        public TransactionType[] GetTransactionTypes() => _default.GetTransactionTypes();
+        public Category[] GetCategories() => _default.GetCategories();
+
 
         #endregion
     }
