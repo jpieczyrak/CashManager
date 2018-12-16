@@ -50,7 +50,7 @@
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
-                    <command:EventToCommand Command="{Binding PositionEditCommand}"/>
+                    <command:EventToCommand Command="{Binding TransactionEditCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </DataGrid>

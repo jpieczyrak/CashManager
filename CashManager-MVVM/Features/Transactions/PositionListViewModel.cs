@@ -1,6 +1,7 @@
 ﻿using System.Collections.Specialized;
 using System.Linq;
 
+using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Model;
 
 using GalaSoft.MvvmLight;
@@ -10,6 +11,7 @@ namespace CashManager_MVVM.Features.Transactions
 {
     public class PositionListViewModel : ViewModelBase
     {
+        private readonly ViewModelFactory _factory;
         private TrulyObservableCollection<Position> _positions;
 
         public TrulyObservableCollection<Position> Positions
@@ -24,14 +26,15 @@ namespace CashManager_MVVM.Features.Transactions
             }
         }
 
-        public RelayCommand PositionEditCommand => new RelayCommand(() => { }, () => false); //todo:
+        public RelayCommand TransactionEditCommand => new RelayCommand(TransactionEdit);
 
-        public Transaction SelectedPosition { get; set; }
+        public Position SelectedPosition { get; set; }
 
         public Summary Summary { get; set; }
 
-        public PositionListViewModel()
+        public PositionListViewModel(ViewModelFactory factory)
         {
+            _factory = factory;
             Summary = new Summary();
             Positions = new TrulyObservableCollection<Position>();
         }
@@ -40,6 +43,14 @@ namespace CashManager_MVVM.Features.Transactions
         {
             Summary.GrossIncome = Positions.Where(x => x.Income).Sum(x => x.Value.GrossValue);
             Summary.GrossOutcome = Positions.Where(x => x.Outcome).Sum(x => x.Value.GrossValue);
+        }
+
+        private void TransactionEdit()
+        {
+            var applicationViewModel = _factory.Create<ApplicationViewModel>();
+            var transactionViewModel = _factory.Create<TransactionViewModel>();
+            transactionViewModel.Transaction = SelectedPosition.Parent;
+            applicationViewModel.SetViewModelCommand.Execute(transactionViewModel);
         }
     }
 }
