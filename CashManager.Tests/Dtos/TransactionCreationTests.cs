@@ -1,6 +1,5 @@
 ﻿using System;
 
-using CashManager.Data;
 using CashManager.Data.DTO;
 
 using Xunit;

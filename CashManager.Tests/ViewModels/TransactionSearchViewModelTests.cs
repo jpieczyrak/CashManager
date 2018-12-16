@@ -3,7 +3,6 @@
 using Autofac;
 
 using CashManager_MVVM.Features.Search;
-using CashManager_MVVM.Features.Transactions;
 
 using Xunit;
 

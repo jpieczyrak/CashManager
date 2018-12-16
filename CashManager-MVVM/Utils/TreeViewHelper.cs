@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Utils
