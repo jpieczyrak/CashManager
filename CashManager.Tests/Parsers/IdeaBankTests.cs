@@ -103,10 +103,10 @@ spam not valid trash";
             var userStock = new Stock { Name = "Idea bank" };
             var externalStock = new Stock { Name = "Default" };
             var creationDate = new DateTime(2018, 11, 2);
-            var outcomeType = new TransactionType { Income = true, Name = "Income" };
+            var incomeType = new TransactionType { Income = true, Name = "Income" };
             string title = "Premia - Promocja Premiowanie za Bankowanie - 10.2018";
             decimal balance = 1375.81m;
-            var expected = new Transaction(outcomeType, creationDate, title,
+            var expected = new Transaction(incomeType, creationDate, title,
                 $"Saldo: {balance:#,##0.00}",
                 new[]
                 {
@@ -119,7 +119,7 @@ spam not valid trash";
             var parser = new IdeaBankParser();
 
             //when
-            var result = parser.Parse(input, userStock, externalStock, outcomeType, null).FirstOrDefault();
+            var result = parser.Parse(input, userStock, externalStock, null, incomeType).FirstOrDefault();
 
             //then
             ValidateTransaction(result, expected);

@@ -127,10 +127,10 @@ Saldo: 1 253,76 PLN
             var userStock = new Stock { Name = "Millennium bank" };
             var externalStock = new Stock { Name = "Default" };
             var creationDate = new DateTime(2018, 11, 26);
-            var outcomeType = new TransactionType { Income = true, Name = "Income" };
+            var income = new TransactionType { Income = true, Name = "Income" };
             string title = "Za kwiatki";
             decimal balance = 1253.76m;
-            var expected = new Transaction(outcomeType, creationDate, title,
+            var expected = new Transaction(income, creationDate, title,
                 $"PRZELEW PRZYCHODZĄCY, Saldo: {balance:#,##0.00}",
                 new[]
                 {
@@ -143,7 +143,7 @@ Saldo: 1 253,76 PLN
             var parser = new MillenniumBankParser();
 
             //when
-            var result = parser.Parse(input, userStock, externalStock, outcomeType, null).FirstOrDefault();
+            var result = parser.Parse(input, userStock, externalStock, null, income).FirstOrDefault();
 
             //then
             ValidateTransaction(result, expected);
