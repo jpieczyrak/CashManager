@@ -51,7 +51,12 @@ namespace CashManager_MVVM.Features.Plots
         public WealthViewModel(IQueryDispatcher queryDispatcher)
         {
             _queryDispatcher = queryDispatcher;
-            Wealth = new PlotModel();
+            Wealth = new PlotModel
+            {
+                LegendPlacement = LegendPlacement.Outside,
+                LegendOrientation = LegendOrientation.Horizontal,
+                LegendPosition = LegendPosition.BottomCenter
+            };
             Wealth.Axes.Add(new DateTimeAxis());
             Update();
         }
@@ -111,7 +116,11 @@ namespace CashManager_MVVM.Features.Plots
 
                 if (values.Any())
                 {
-                    var series = new LineSeries();
+                    var series = new AreaSeries
+                    {
+                        Title = "Wealth",
+                        MarkerType = MarkerType.Cross
+                    };
                     series.Points.AddRange(values);
                     Wealth.Series.Add(series);
                 }
