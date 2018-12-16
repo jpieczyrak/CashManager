@@ -127,7 +127,7 @@ spam not valid trash";
         }
 
         [Fact]
-        public void ShouldProperlySkipNotPerformedTransaction()
+        public void ShouldProperlySkipNotPerformedTransactionWhichIsAtStartOfInputString()
         {
             //given
             string input = @" Za fakturę Kancelaria podatkowa
@@ -160,6 +160,48 @@ Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa
 
             //then
             ValidateTransaction(result, expected);
+            Assert.Equal(balance, parser.Balance.Value);
+        }
+
+        [Fact]
+        public void ShouldProperlySkipNotPerformedTransactionWhichIsInTheMiddleOfInputString()
+        {
+            //given
+            string input = @"Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa
+02.12.2018
+-36,35 PLN
+1 063,65
+Za fakturę Kancelaria podatkowa
+-
+Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa
+02.12.2018
+-36,35 PLN
+1 063,65
+";
+            var userStock = new Stock { Name = "Idea bank" };
+            var externalStock = new Stock { Name = "Default" };
+            var creationDate = new DateTime(2018, 12, 2);
+            var outcomeType = new TransactionType { Outcome = true, Name = "Outcome" };
+            string title = "Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa";
+            decimal balance = 1063.65m;
+            var expected = new Transaction(outcomeType, creationDate, title,
+                $"Saldo: {balance:#,##0.00}",
+                new[]
+                {
+                    new Position
+                    {
+                        Title = title,
+                        Value = new PaymentValue { GrossValue = 36.35m }
+                    }
+                }, userStock, externalStock, input);
+            var parser = new IdeaBankParser();
+
+            //when
+            var results = parser.Parse(input, userStock, externalStock, outcomeType, null);
+
+            //then
+            ValidateTransaction(results[0], expected);
+            ValidateTransaction(results[1], expected);
             Assert.Equal(balance, parser.Balance.Value);
         }
     }

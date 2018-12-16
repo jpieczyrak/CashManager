@@ -49,8 +49,8 @@ namespace CashManager.Logic.Parsers
                     }
                     catch (Exception e)
                     {
-                        bool hasTitle = !string.IsNullOrEmpty(elements[0]);
-                        bool isSkippedTransaction = NOT_PERFORMED_TRANSACTION.Equals(elements[1].Trim());
+                        bool hasTitle = !string.IsNullOrEmpty(elements[i]);
+                        bool isSkippedTransaction = NOT_PERFORMED_TRANSACTION.Equals(elements[i + 1].Trim());
                         if (hasTitle && isSkippedTransaction) i -= 2;
                     }
 
