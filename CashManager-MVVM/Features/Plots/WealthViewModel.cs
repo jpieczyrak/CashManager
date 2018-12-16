@@ -22,7 +22,7 @@ using DtoTransaction = CashManager.Data.DTO.Transaction;
 
 namespace CashManager_MVVM.Features.Plots
 {
-    public class WealthViewModel : ViewModelBase
+    public class WealthViewModel : ViewModelBase, IUpdateable
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private Transaction[] _allTransactions;
@@ -97,7 +97,7 @@ namespace CashManager_MVVM.Features.Plots
                 decimal actualValue = selectedStocks.Sum(x => x.Balance.Value);
 
                 var values = _allTransactions
-                             .Where(x => selectedStocks.Contains(x.UserStock))
+                             .Where(x => selectedStocks.Contains(x.UserStock)) //or external?
                              .OrderByDescending(x => x.BookDate)
                              .GroupBy(x => x.BookDate)
                              .Select(x => new { BookDate = x.Key, Value = x.Sum(y => y.ValueAsProfit) })
@@ -110,7 +110,7 @@ namespace CashManager_MVVM.Features.Plots
                              })
                              .OrderBy(x => x.X)
                              .Concat(!BookDateFilter.IsChecked || stockDate.Date <= BookDateFilter.To
-                                         ? new[] { new DataPoint(DateTimeAxis.ToDouble(stockDate), (double) actualValue) }
+                                         ? new[] { new DataPoint(DateTimeAxis.ToDouble(stockDate), (double)actualValue) }
                                          : new DataPoint[0])
                              .ToArray();
 
