@@ -1,0 +1,124 @@
+ing:
+
+Dziœ 02.12.2018
+Kategoria  Rozrywka i podró¿e
+Opis
+ICON FITNESS GLIWICE GLIWICE PL
+
+P³atnoœæ kart¹ 02.12.2018 Nr karty 4246xx9261
+
+Kwota
+blokada:
+
+-49,00 PLN
+
+Konto
+KONTO Direct
+
+Saldo po transakcji
+4 832,05 PLN
+
+Wczoraj 01.12.2018,Kategoria Transfer wewnêtrzny,Przelew w³asny,Kwota 110,00 PLN,Konto K@rta wirtualna ING VISA,Saldo po transakcji 110,00 PLNrozwiñ poni¿ej szczegó³y
+DataWczoraj 01.12.2018
+Kategoria  Transfer wewnêtrzny
+Opis
+Przelew w³asny
+
+Kwota
+110,00 PLN
+
+Konto
+K@rta wirtualna ING VISA
+
+Saldo po transakcji
+110,00 PLN
+
+Wczoraj 01.12.2018,Kategoria Transfer wewnêtrzny,Przelew w³asny,Kwota -110,00 PLN,Konto KONTO Direct,Saldo po transakcji 4 881,05 PLNrozwiñ poni¿ej szczegó³y
+DataWczoraj 01.12.2018
+Kategoria  Transfer wewnêtrzny
+Opis
+Przelew w³asny
+
+Kwota
+-110,00 PLN
+
+Konto
+KONTO Direct
+
+Saldo po transakcji
+4 881,05 PLN
+
+Wczoraj 01.12.2018,Kategoria Finanse,OBC.PODATEK OD ODSET,Kwota -0,50 PLN,Konto Smart Saver,Saldo po transakcji 1 479,18 PLNrozwiñ poni¿ej szczegó³y
+DataWczoraj 01.12.2018
+Kategoria  Finanse
+Opis
+OBC.PODATEK OD ODSET
+
+Kwota
+-0,50 PLN
+
+Konto
+Smart Saver
+
+Saldo po transakcji
+1 479,18 PLN
+
+Wczoraj 01.12.2018,Kategoria Przychód,NALICZONE ODSETKI,Kwota 2,63 PLN,Konto Smart Saver,Saldo po transakcji 1 479,68 PLNrozwiñ poni¿ej szczegó³y
+DataWczoraj 01.12.2018
+Kategoria  Przychód
+Opis
+NALICZONE ODSETKI
+
+Kwota
+2,63 PLN
+
+Konto
+Smart Saver
+
+Saldo po transakcji
+1 479,68 PLN
+
+Wczoraj 01.12.2018,Kategoria Finanse,OBC.PODATEK OD ODSET,Kwota -0,74 PLN,Konto Otwarte Konto Oszczêdnoœciowe,Saldo po transakcji 6 707,34 PLNrozwiñ poni¿ej szczegó³y
+DataWczoraj 01.12.2018
+Kategoria  Finanse
+Opis
+OBC.PODATEK OD ODSET
+
+Kwota
+-0,74 PLN
+
+Konto
+Otwarte Konto Oszczêdnoœciowe
+
+Saldo po transakcji
+6 707,34 PLN
+
+Wczoraj 01.12.2018,Kategoria Przychód,NALICZONE ODSETKI,Kwota 3,85 PLN,Konto Otwarte Konto Oszczêdnoœciowe,Saldo po transakcji 6 708,08 PLNrozwiñ poni¿ej szczegó³y
+DataWczoraj 01.12.2018
+Kategoria  Przychód
+Opis
+NALICZONE ODSETKI
+
+Kwota
+3,85 PLN
+
+Konto
+Otwarte Konto Oszczêdnoœciowe
+
+Saldo po transakcji
+6 708,08 PLN
+
+Cz. 29.11.2018,Kategoria Transfer wewnêtrzny,przelew Smart Saver P³atnoœæ kart¹ 27.11.2018 Nr karty 4246xx9261 Kwo...,Kwota 6,01 PLN,Konto Smart Saver,Saldo po transakcji 1 477,05 PLNrozwiñ poni¿ej szczegó³y
+DataCz. 29.11.2018
+Kategoria  Transfer wewnêtrzny
+Opis
+przelew Smart Saver P³atnoœæ kart¹ 27.11.2018 Nr karty 4246xx9261 Kwo...
+
+Kwota
+6,01 PLN
+
+Konto
+Smart Saver
+
+Saldo po transakcji
+1 477,05 PLN
