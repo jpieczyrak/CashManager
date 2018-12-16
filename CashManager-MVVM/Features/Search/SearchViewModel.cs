@@ -28,6 +28,8 @@ namespace CashManager_MVVM.Features.Search
 {
     public class SearchViewModel : ViewModelBase, IUpdateable
     {
+        #region fields
+
         private readonly IQueryDispatcher _queryDispatcher;
         private Transaction[] _allTransactions;
         private TextSelector _titleFilter = new TextSelector("Title");
@@ -48,6 +50,10 @@ namespace CashManager_MVVM.Features.Search
         private bool _isTransactionsSearch;
         private bool _isPositionsSearch;
 
+        #endregion
+
+        #region properties
+        
         public TransactionListViewModel TransactionsListViewModel { get; }
         public PositionListViewModel PositionsListViewModel { get; }
 
@@ -163,6 +169,18 @@ namespace CashManager_MVVM.Features.Search
             }
         }
 
+        public bool IsAnySelected => _bookDateFilter.IsChecked
+                                     || _userStocksFilter.IsChecked && _userStocksFilter.Results.Any()
+                                     || _externalStocksFilter.IsChecked && _externalStocksFilter.Results.Any()
+                                     || _titleFilter.IsChecked && !string.IsNullOrWhiteSpace(_titleFilter.Value)
+                                     || _noteFilter.IsChecked
+                                     || _positionTitleFilter.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleFilter.Value)
+                                     || _categoriesFilter.IsChecked && _categoriesFilter.Results.Any()
+                                     || _typesFilter.IsChecked && _typesFilter.Results.Any()
+                                     || _tagsFilter.IsChecked;
+
+        #endregion
+
         public SearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
             _queryDispatcher = queryDispatcher;
@@ -221,11 +239,21 @@ namespace CashManager_MVVM.Features.Search
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             if (_allTransactions == null || !_allTransactions.Any()) return;
+            if (!IsAnySelected)
+            {
+                if (IsTransactionsSearch)
+                {
+                    if (TransactionsListViewModel.Transactions.Count == _allTransactions.Length) return;
+                }
+                else if (IsPositionsSearch)
+                    if (PositionsListViewModel.Positions.Count == _allTransactions.Sum(x => x.Positions.Count)) return;
+            }
 
-            //todo filter only if any enabled
             if (IsTransactionsSearch) FilterTransactions();
             else if (IsPositionsSearch) FilterPositions();
         }
+
+        #region filtering
 
         private void FilterTransactions()
         {
@@ -233,7 +261,7 @@ namespace CashManager_MVVM.Features.Search
 
             //Todo: change to dependency property binding. remove this:
             TransactionsListViewModel.Transactions.Clear();
-            foreach (var transaction in Transactions) TransactionsListViewModel.Transactions.Add(transaction);
+            TransactionsListViewModel.Transactions.AddRange(Transactions);
         }
 
         private Transaction[] GetFilteredTransactions()
@@ -345,7 +373,9 @@ namespace CashManager_MVVM.Features.Search
             Positions = positions.OrderByDescending(x => x.Parent.BookDate).ToArray();
 
             PositionsListViewModel.Positions.Clear();
-            foreach (var position in Positions) PositionsListViewModel.Positions.Add(position);
+            PositionsListViewModel.Positions.AddRange(Positions);
         }
+
+        #endregion
     }
 }
