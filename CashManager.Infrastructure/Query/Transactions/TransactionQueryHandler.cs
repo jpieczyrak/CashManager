@@ -1,6 +1,5 @@
-﻿using System.Linq;
-
-using CashManager.Data.DTO;
+﻿using CashManager.Data.DTO;
+using CashManager.Infrastructure.DbConnection;
 
 using LiteDB;
 
@@ -8,10 +7,10 @@ namespace CashManager.Infrastructure.Query.Transactions
 {
 	public class TransactionQueryHandler : IQueryHandler<TransactionQuery, Transaction[]>
 	{
-		private readonly LiteRepository _repository;
+		private readonly LiteDatabase _db;
 
-		public TransactionQueryHandler(LiteRepository repository) => _repository = repository;
+		public TransactionQueryHandler(LiteRepository repository) => _db = repository.Database;
 
-		public Transaction[] Execute(TransactionQuery query) => _repository.Database.GetCollection<Transaction>().FindAll().ToArray();
+		public Transaction[] Execute(TransactionQuery query) => _db.Query(query.Query);
 	}
 }

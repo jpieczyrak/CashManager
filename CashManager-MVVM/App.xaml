@@ -2,8 +2,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:ignore="http://www.galasoft.ch/ignore" mc:Ignorable="d ignore">
+             xmlns:ignore="http://www.galasoft.ch/ignore"
+             xmlns:skins="clr-namespace:CashManager_MVVM.Skins"
+             mc:Ignorable="d ignore">
     <Application.Resources>
-
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Using source (for custom dict) for design preview purpose -->
+                <skins:ColorsResourceDictionary Source="Skins/Colors/DarkColors.xaml"
+                                                DarkSource="Skins/Colors/DarkColors.xaml"
+                                                LightSource="Skins/Colors/LightColors.xaml"/>
+                <skins:ShapesResourceDictionary Source="Skins/Shapes/RoundShapes.xaml"
+                                                RoundShape="Skins/Shapes/RoundShapes.xaml"
+                                                RectShape="Skins/Shapes/RectShapes.xaml"/>
+                <ResourceDictionary Source="Skins/Controls/ComboBoxSkin.xaml" />
+                <ResourceDictionary Source="Skins/Controls/DataGridSkin.xaml" />
+                <ResourceDictionary Source="Skins/Controls/CheckBoxSkin.xaml" />
+                <ResourceDictionary Source="Skins/Controls/DatePickerSkin.xaml" />
+                <ResourceDictionary Source="Skins/Controls/ScrollBarSkin.xaml" />
+                <ResourceDictionary Source="Skins/Controls/ButtonSkin.xaml" />
+                <ResourceDictionary Source="Skins/Controls/TextBoxSkin.xaml" />
+                <ResourceDictionary Source="Skins/Controls/TextBlockSkin.xaml" />
+                <ResourceDictionary Source="Skins/Controls/TooltipSkin.xaml" />
+                <ResourceDictionary Source="Skins/Controls/PlotViewSkin.xaml" />
+                <ResourceDictionary Source="Skins/DataModels/Selectors.xaml" />
+                <ResourceDictionary Source="Skins/DataModels/PaymentValue.xaml"/>
+                <ResourceDictionary Source="Skins/DataModels/Summary.xaml"/>
+                <ResourceDictionary Source="Skins/DataModels/ViewModels.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

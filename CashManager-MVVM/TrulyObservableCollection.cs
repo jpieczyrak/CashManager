@@ -22,6 +22,18 @@ namespace CashManager_MVVM
             }
         }
 
+        public int AddRange(IEnumerable<T> items)
+        {
+            int count = 0;
+            foreach (var item in items)
+            {
+                Add(item);
+                count++;
+            }
+
+            return count;
+        }
+
         private void FullObservableCollectionCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null)

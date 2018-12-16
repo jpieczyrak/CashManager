@@ -1,10 +1,8 @@
 ﻿using System;
-using System.IO;
 
 using CashManager.Data.DTO;
 using CashManager.Infrastructure.Query.Categories;
-
-using LiteDB;
+using CashManager.Tests.Utils;
 
 using Xunit;
 
@@ -16,7 +14,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Categories
         public void CategoryQueryHandler_CategoryQueryEmptyDatabase_EmptyArray()
         {
             //given
-            var repository = GetEmptyDatabase();
+            var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new CategoryQueryHandler(repository);
             var query = new CategoryQuery();
 
@@ -32,22 +30,20 @@ namespace CashManager.Tests.Infrastructure.Queries.Categories
         public void CategoryQueryHandler_CategoryQueryNotEmptyDatabase_Array()
         {
             //given
-            var repository = GetEmptyDatabase();
+            var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new CategoryQueryHandler(repository);
             var query = new CategoryQuery();
-            var rootCategory = new Category
+            var rootCategory = new Category(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1))
             {
-                Id = new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1),
-                Value = "1",
+                Name = "1",
                 Parent = null
             };
             var categories = new[]
             {
                 rootCategory,
-                new Category
+                new Category(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2))
                 {
-                    Id = new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2),
-                    Value = "2",
+                    Name = "2",
                     Parent = rootCategory
                 }
             };
@@ -58,11 +54,6 @@ namespace CashManager.Tests.Infrastructure.Queries.Categories
 
             //then
             Assert.Equal(categories, result);
-        }
-
-        private static LiteRepository GetEmptyDatabase()
-        {
-            return new LiteRepository(new LiteDatabase(new MemoryStream()));
         }
     }
 }

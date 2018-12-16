@@ -5,6 +5,7 @@ using System.Reflection;
 using Autofac;
 
 using CashManager.DatabaseConnection;
+using CashManager.Infrastructure.DbConnection;
 
 using LiteDB;
 
@@ -27,6 +28,7 @@ namespace CashManager.Infrastructure.Modules
             string dbPath = "results.litedb"; //todo: from settings
             EnsureDirectoryExists(dbPath);
             builder.Register(x => new LiteRepository($"Filename={dbPath};Journal=true"));
+            LiteDbMappingManager.SetMappings();
 
             RegisterCommandHandlers(builder);
             RegisterQueryHandlers(builder);
@@ -42,12 +44,12 @@ namespace CashManager.Infrastructure.Modules
 
             builder.Register<Func<Type, ICommandHandler>>(c =>
             {
-                var ctx = c.Resolve<IComponentContext>();
+                var context = c.Resolve<IComponentContext>();
 
-                return t =>
+                return type =>
                 {
-                    var handlerType = typeof(Command.ICommandHandler<>).MakeGenericType(t);
-                    return (ICommandHandler) ctx.Resolve(handlerType);
+                    var handlerType = typeof(Command.ICommandHandler<>).MakeGenericType(type);
+                    return (ICommandHandler) context.Resolve(handlerType);
                 };
             });
         }
@@ -62,14 +64,13 @@ namespace CashManager.Infrastructure.Modules
 
             builder.Register<Func<Type, IQueryHandler>>(c =>
             {
-                var ctx = c.Resolve<IComponentContext>();
+                var context = c.Resolve<IComponentContext>();
 
-                return t =>
+                return type =>
                 {
-                    var type = typeof(Query.IQueryHandler<,>);
-                    var returnType = ((Type[])((TypeInfo)t).ImplementedInterfaces)[0].GenericTypeArguments[0];
-                    var handlerType = type.MakeGenericType(t, returnType);
-                    return (IQueryHandler) ctx.Resolve(handlerType);
+                    var returnType = ((Type[])((TypeInfo)type).ImplementedInterfaces)[0].GenericTypeArguments[0];
+                    var handlerType = typeof(Query.IQueryHandler<,>).MakeGenericType(type, returnType);
+                    return (IQueryHandler) context.Resolve(handlerType);
                 };
             });
         }

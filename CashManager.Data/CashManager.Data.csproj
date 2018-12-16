@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CashManager.Data</RootNamespace>
     <AssemblyName>CashManager.Data</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -71,14 +71,15 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\Balance.cs" />
     <Compile Include="DTO\Category.cs" />
     <Compile Include="DTO\Dto.cs" />
+    <Compile Include="DTO\TransactionType.cs" />
     <Compile Include="DTO\PaymentValue.cs" />
     <Compile Include="DTO\Stock.cs" />
     <Compile Include="DTO\Position.cs" />
     <Compile Include="DTO\Tag.cs" />
     <Compile Include="DTO\Transaction.cs" />
-    <Compile Include="eTransactionType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

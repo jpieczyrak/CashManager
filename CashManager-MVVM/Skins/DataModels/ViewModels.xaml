@@ -1,0 +1,56 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
+                    xmlns:tags="clr-namespace:CashManager_MVVM.Features.Tags"
+                    xmlns:categories="clr-namespace:CashManager_MVVM.Features.Categories"
+                    xmlns:stocks="clr-namespace:CashManager_MVVM.Features.Stocks"
+                    xmlns:transactionTypes="clr-namespace:CashManager_MVVM.Features.TransactionTypes"
+                    xmlns:transactions="clr-namespace:CashManager_MVVM.Features.Transactions"
+                    xmlns:parsers="clr-namespace:CashManager_MVVM.Features.Parsers"
+                    xmlns:search="clr-namespace:CashManager_MVVM.Features.Search"
+                    xmlns:plots="clr-namespace:CashManager_MVVM.Features.Plots">
+
+    <DataTemplate DataType="{x:Type search:SearchViewModel}">
+        <search:SearchView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type transactions:MassReplacerViewModel}">
+        <transactions:MassReplacerView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type transactions:TransactionListViewModel}">
+        <transactions:TransactionListView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type transactions:PositionListViewModel}">
+        <transactions:PositionListView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type transactions:TransactionViewModel}">
+        <transactions:TransactionView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type transactionTypes:TransactionTypesViewModel}">
+        <transactionTypes:TransactionTypesView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type parsers:ParseViewModel}">
+        <parsers:ParseView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type stocks:StocksViewModel}">
+        <stocks:StocksView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type stocks:StockSummaryViewModel}">
+        <stocks:StockSummaryView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type categories:CategoryManagerViewModel}">
+        <categories:CategoryManagerView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type tags:TagManagerViewModel}">
+        <tags:TagManagerView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type common:MultiComboBoxViewModel}">
+        <common:MultiComboBox/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type plots:WealthViewModel}">
+        <plots:WealthView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type plots:CategoriesPlotViewModel}">
+        <plots:CategoriesPlotView />
+    </DataTemplate>
+
+</ResourceDictionary>

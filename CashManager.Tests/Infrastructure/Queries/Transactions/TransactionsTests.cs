@@ -1,10 +1,10 @@
 ﻿using System;
-using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
 
 using CashManager.Data.DTO;
 using CashManager.Infrastructure.Query.Transactions;
-
-using LiteDB;
+using CashManager.Tests.Utils;
 
 using Xunit;
 
@@ -16,7 +16,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Transactions
         public void TransactionQueryHandler_TransactionQueryEmptyDatabase_EmptyArray()
         {
             //given
-            var repository = GetEmptyDatabase();
+            var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new TransactionQueryHandler(repository);
             var query = new TransactionQuery();
 
@@ -29,22 +29,16 @@ namespace CashManager.Tests.Infrastructure.Queries.Transactions
         }
 
         [Fact]
-        public void TransactionQueryHandler_TransactionQueryNotEmptyDatabase_Array()
+        public void TransactionQueryHandler_TransactionQueryNotEmptyDatabaseWithNoQuery_AllTransactions()
         {
             //given
-            var repository = GetEmptyDatabase();
+            var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new TransactionQueryHandler(repository);
             var query = new TransactionQuery();
             var transactions = new[]
             {
-                new Transaction
-                {
-                    Id = new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1)
-                },
-                new Transaction
-                {
-                    Id = new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2)
-                }
+                new Transaction(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1)),
+                new Transaction(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2))
             };
             repository.Database.GetCollection<Transaction>().InsertBulk(transactions);
 
@@ -52,12 +46,31 @@ namespace CashManager.Tests.Infrastructure.Queries.Transactions
             var result = handler.Execute(query);
 
             //then
-            Assert.Equal(transactions, result);
+            Assert.Equal(transactions.OrderBy(x => x.Id), result.OrderBy(x => x.Id));
         }
 
-        private static LiteRepository GetEmptyDatabase()
+        [Fact]
+        public void TransactionQueryHandler_TransactionQueryNotEmptyDatabaseWithQuery_MatchingArray()
         {
-            return new LiteRepository(new LiteDatabase(new MemoryStream()));
+            //given
+            var repository = LiteDbHelper.CreateMemoryDb();
+            var handler = new TransactionQueryHandler(repository);
+            Expression<Func<Transaction, bool>> linqQuery = x => x.Title.Contains("1");
+            var query = new TransactionQuery(linqQuery);
+            var transactions = new[]
+            {
+                new Transaction(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1)) { Title = "t1" },
+                new Transaction(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2)) { Title = "t2" }
+            };
+            repository.Database.GetCollection<Transaction>().InsertBulk(transactions);
+            var matchingTransactions = transactions.AsQueryable().Where(linqQuery).ToArray();
+
+            //when
+            var result = handler.Execute(query);
+
+            //then
+            Assert.Equal(matchingTransactions.Length, result.Length);
+            Assert.Equal(matchingTransactions, result);
         }
     }
 }

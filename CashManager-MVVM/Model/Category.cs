@@ -2,25 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using GalaSoft.MvvmLight;
+using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
 {
-    public class Category : ObservableObject
+    public class Category : BaseSelectable
     {
-        private string _value;
-
         private Category _parent;
 
-        public Guid Id { get; private set; }
-
         public bool IsExpanded { get; set; } = true;
-
-        public string Value
-        {
-            get => _value;
-            set => Set(nameof(Value), ref _value, value);
-        }
 
         public Category Parent
         {
@@ -28,9 +18,12 @@ namespace CashManager_MVVM.Model
             set => Set(nameof(Parent), ref _parent, value);
         }
 
-        public Category[] Children { get; set; }
+        public TrulyObservableCollection<Category> Children { get; set; } = new TrulyObservableCollection<Category>();
 
-        public bool IsSelected { get; set; }
+        public bool MatchCategoryFilter(Category category)
+        {
+            return category?.GetParentsId().Contains(Id) ?? false;
+        }
 
         public bool MatchCategoryFilter(List<Guid> filter)
         {
@@ -51,22 +44,23 @@ namespace CashManager_MVVM.Model
 
             return ids;
         }
-        
+
+        public Guid[] GetParentsId()
+        {
+            var results = new[] { Id };
+            return Parent?.GetParentsId().Concat(results).ToArray() ?? results;
+        }
+
+        public int CountParents()
+        {
+            return Parent?.CountParents() + 1 ?? 0;
+        }
+
         #region Override
-
-        public override bool Equals(object obj)
-        {
-            return obj != null && obj.GetHashCode() == GetHashCode();
-        }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
 
         public override string ToString()
         {
-            return Value;
+            return Name;
         }
 
         #endregion

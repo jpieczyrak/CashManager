@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CashManager_MVVM</RootNamespace>
     <AssemblyName>CashManager-MVVM</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -85,8 +85,8 @@
     <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net47\CommonServiceLocator.dll</HintPath>
+    <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.3\lib\net45\CommonServiceLocator.dll</HintPath>
     </Reference>
     <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
@@ -97,6 +97,13 @@
     <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Core.1.0.0\lib\net45\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Wpf.1.0.0\lib\net45\OxyPlot.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -117,27 +124,108 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Design\DesignDataService.cs" />
+    <Compile Include="DI\AutofacConfiguration.cs" />
+    <Compile Include="Features\Categories\CategoryDesignHelper.cs" />
+    <Compile Include="Features\Categories\CategoryManagerView.xaml.cs">
+      <DependentUpon>CategoryManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Categories\CategoryManagerViewModel.cs" />
+    <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
+      <DependentUpon>CategoriesPlotView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Plots\PlotHelper.cs" />
+    <Compile Include="Features\Plots\WealthView.xaml.cs">
+      <DependentUpon>WealthView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Plots\CategoriesPlotViewModel.cs" />
+    <Compile Include="Features\Plots\WealthViewModel.cs" />
+    <Compile Include="Features\Transactions\MassReplacerView.xaml.cs">
+      <DependentUpon>MassReplacerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Transactions\MassReplacerViewModel.cs" />
+    <Compile Include="Features\Transactions\PositionListViewModel.cs" />
+    <Compile Include="Features\Search\SearchType.cs" />
+    <Compile Include="Features\Transactions\PositionListView.xaml.cs">
+      <DependentUpon>PositionListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Common\BaseSelectable.cs" />
+    <Compile Include="Model\Common\ISelectable.cs" />
+    <Compile Include="Features\Common\MultiCombobox.xaml.cs">
+      <DependentUpon>MultiCombobox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Common\MultiComboBoxViewModel.cs" />
+    <Compile Include="Features\IUpdateable.cs" />
+    <Compile Include="Features\Parsers\ParseView.xaml.cs">
+      <DependentUpon>ParseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Parsers\ParseViewModel.cs" />
+    <Compile Include="Features\Stocks\StockSummaryView.xaml.cs">
+      <DependentUpon>StockSummaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Stocks\StockSummaryViewModel.cs" />
+    <Compile Include="Features\Tags\TagManagerView.xaml.cs">
+      <DependentUpon>TagManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Tags\TagManagerViewModel.cs" />
+    <Compile Include="Features\Search\SearchView.xaml.cs">
+      <DependentUpon>SearchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Search\SearchViewModel.cs" />
+    <Compile Include="Features\TransactionTypes\TransactionTypesView.xaml.cs">
+      <DependentUpon>TransactionTypesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\TransactionTypes\TransactionTypesViewModel.cs" />
+    <Compile Include="Features\Stocks\StocksView.xaml.cs">
+      <DependentUpon>StocksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Stocks\StocksViewModel.cs" />
+    <Compile Include="Features\Transactions\TransactionListView.xaml.cs">
+      <DependentUpon>TransactionListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Transactions\TransactionListViewModel.cs" />
     <Compile Include="Mapping\MapperConfiguration.cs" />
+    <Compile Include="Messages\StockUpdateMessage.cs" />
+    <Compile Include="Model\Balance.cs" />
+    <Compile Include="Model\Common\BaseObservableObject.cs" />
     <Compile Include="Model\Category.cs" />
-    <Compile Include="Model\DataProviders\DataService.cs" />
-    <Compile Include="Model\DataProviders\IDataService.cs" />
+    <Compile Include="Model\Selectors\BaseSelector.cs" />
+    <Compile Include="Model\Selectors\DateSelector.cs" />
+    <Compile Include="Model\Selectors\MultiPicker.cs" />
+    <Compile Include="Model\Selectors\RangeSelector.cs" />
+    <Compile Include="Model\Selectors\TextSelector.cs" />
     <Compile Include="Model\PaymentValue.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\Position.cs" />
+    <Compile Include="Model\Summary.cs" />
     <Compile Include="Model\Tag.cs" />
+    <Compile Include="Model\Selectors\DateFrame.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Features\ViewModelFactory.cs" />
-    <Compile Include="Features\Category\CategoryViewModel.cs" />
-    <Compile Include="Features\Main\MainViewModel.cs" />
-    <Compile Include="Features\Transaction\TransactionViewModel.cs" />
-    <Compile Include="Features\Category\CategoryPickerView.xaml.cs">
+    <Compile Include="Features\Categories\CategoryPickerViewModel.cs" />
+    <Compile Include="Features\Main\ApplicationViewModel.cs" />
+    <Compile Include="Features\Transactions\TransactionViewModel.cs" />
+    <Compile Include="Features\Categories\CategoryPickerView.xaml.cs">
       <DependentUpon>CategoryPickerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Features\Transaction\TransactionView.xaml.cs">
+    <Compile Include="Features\Transactions\TransactionView.xaml.cs">
       <DependentUpon>TransactionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\TransactionType.cs" />
+    <Compile Include="Skins\ColorsResourceDictionary.cs" />
+    <Compile Include="Skins\ShapesResourceDictionary.cs" />
+    <Compile Include="Skins\SkinColors.cs" />
+    <Compile Include="Skins\SkinShapes.cs" />
+    <Compile Include="Temps\DbFiller.cs" />
     <Compile Include="TrulyObservableCollection.cs" />
+    <Compile Include="Utils\TreeViewHelper.cs" />
+    <Page Include="Features\Categories\CategoryManagerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Common\MultiCombobox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Features\Main\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -150,15 +238,127 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Skins\MainSkin.xaml">
+    <Page Include="Features\Parsers\ParseView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Features\Category\CategoryPickerView.xaml">
+    <Page Include="Features\Plots\CategoriesPlotView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Plots\WealthView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Stocks\StockSummaryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Features\Transaction\TransactionView.xaml">
+    <Page Include="Features\Tags\TagManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Transactions\MassReplacerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Transactions\PositionListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Search\SearchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\TransactionTypes\TransactionTypesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Stocks\StocksView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Transactions\TransactionListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Colors\DarkColors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Colors\LightColors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\ButtonSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\CheckBoxSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\ComboBoxSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\Controls\DataGridSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\DatePickerSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\PlotViewSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\TooltipSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\DataModels\PaymentValue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\ScrollBarSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\TextBoxSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\DataModels\Selectors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\TextBlockSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Categories\CategoryPickerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Transactions\TransactionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\DataModels\Summary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\DataModels\ViewModels.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Shapes\RectShapes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\Shapes\RoundShapes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -201,6 +401,10 @@
     <ProjectReference Include="..\CashManager.Infrastructure\CashManager.Infrastructure.csproj">
       <Project>{C0CD5651-D1B7-47F3-B034-A5CB00079B38}</Project>
       <Name>CashManager.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CashManager.Logic\CashManager.Logic.csproj">
+      <Project>{9ec1c76c-cb71-4020-bab9-8b83b140def2}</Project>
+      <Name>CashManager.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

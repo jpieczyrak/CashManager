@@ -1,50 +1,44 @@
-﻿using System;
-
-using GalaSoft.MvvmLight;
+﻿using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
 {
     /// <summary>
     /// Stores name of "part of" your wallet.
-    /// You can have more than one Stock in your Wallet (like bank account, phisic wallet, second bank acc ect)
+    /// You can have more than one Stock in your Wallet (like bank account, physical wallet, second bank acc ect)
     /// </summary>
-    public class Stock : ObservableObject
+    public class Stock : BaseSelectable
     {
-        private string _name;
         private bool _isUserStock;
+        private Balance _balance;
 
-        /// <summary>
-        /// Only for db purpose
-        /// </summary>
-        public Guid Id { get; private set; } = Guid.NewGuid();
-
-        public string Name
+        public Stock()
         {
-            get => _name;
-            set => Set(nameof(Name), ref _name, value);
+            _balance = new Balance();
         }
 
         public bool IsUserStock
         {
             get => _isUserStock;
-            set => Set(nameof(IsUserStock), ref _isUserStock, value);
+            set
+            {
+                Set(nameof(IsUserStock), ref _isUserStock, value);
+                RaisePropertyChanged(nameof(IsEditable));
+            }
         }
 
-       #region Override
-
-        public override bool Equals(object obj)
+        public Balance Balance
         {
-            return obj?.GetHashCode() == GetHashCode();
+            get => _balance;
+            set => Set(nameof(Balance), ref _balance, value);
         }
 
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
+        public bool IsEditable => !IsUserStock;
+
+        #region Override
 
         public override string ToString()
         {
-            return $"{Name}-{Id}";
+            return Name;
         }
 
         #endregion

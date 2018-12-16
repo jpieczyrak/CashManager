@@ -1,9 +1,8 @@
 ﻿using System;
-using System.IO;
 
+using CashManager.Data.DTO;
 using CashManager.Infrastructure.Query.Stocks;
-
-using LiteDB;
+using CashManager.Tests.Utils;
 
 using Xunit;
 
@@ -15,7 +14,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Stock
         public void StockQueryHandler_StockQueryEmptyDatabase_EmptyArray()
         {
             //given
-            var repository = GetEmptyDatabase();
+            var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new StockQueryHandler(repository);
             var query = new StockQuery();
 
@@ -31,20 +30,19 @@ namespace CashManager.Tests.Infrastructure.Queries.Stock
         public void StockQueryHandler_StockQueryNotEmptyDatabase_Array()
         {
             //given
-            var repository = GetEmptyDatabase();
+            var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new StockQueryHandler(repository);
             var query = new StockQuery();
             var stocks = new[]
             {
-                new Data.DTO.Stock
+                new Data.DTO.Stock(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1))
                 {
-                    Id = new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1),
                     Name = "1",
-                    IsUserStock = true
+                    IsUserStock = true,
+                    Balance = new Balance { Value = 12.34m }
                 },
-                new Data.DTO.Stock
+                new Data.DTO.Stock(new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2))
                 {
-                    Id = new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 2),
                     Name = "2",
                     IsUserStock = false
                 }
@@ -56,11 +54,8 @@ namespace CashManager.Tests.Infrastructure.Queries.Stock
 
             //then
             Assert.Equal(stocks, result);
-        }
-
-        private static LiteRepository GetEmptyDatabase()
-        {
-            return new LiteRepository(new LiteDatabase(new MemoryStream()));
+            Assert.Equal(stocks[0].Balance, result[0].Balance);
+            Assert.Equal(stocks[0].Balance.Value, result[0].Balance.Value);
         }
     }
 }

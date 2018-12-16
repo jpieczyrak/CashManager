@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="CashManager_MVVM.Features.Parsers.ParseView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:parsers="clr-namespace:CashManager_MVVM.Features.Parsers"
+             xmlns:transactions="clr-namespace:CashManager_MVVM.Features.Transactions"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="600"
+             d:DataContext="{d:DesignInstance Type=parsers:ParseViewModel, IsDesignTimeCreatable=True}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Margin="5" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" 
+                 MaxHeight="150" MinHeight="60" TextWrapping="WrapWithOverflow" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Text="Parser"/>
+        <ComboBox Grid.Row="2" Grid.Column="0" Margin="5" ItemsSource="{Binding Parsers}" 
+                  DisplayMemberPath="Key" SelectedItem="{Binding SelectedParser}" />
+
+        <TextBlock Grid.Row="1" Grid.Column="1" Margin="5" Text="Default income type"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" Margin="5" ItemsSource="{Binding IncomeTransactionTypes}" DisplayMemberPath="Name" SelectedItem="{Binding DefaultIncomeTransactionType}"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="2" Margin="5" Text="Default outcome type"/>
+        <ComboBox Grid.Row="2" Grid.Column="2" Margin="5" ItemsSource="{Binding OutcomeTransactionTypes}" DisplayMemberPath="Name" SelectedItem="{Binding DefaultOutcomeTransactionType}"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="3" Margin="5" Text="User stock"/>
+        <ComboBox Grid.Row="2" Grid.Column="3" Margin="5" ItemsSource="{Binding UserStocks}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedUserStock}"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="4" Margin="5" Text="Default external stock"/>
+        <ComboBox Grid.Row="2" Grid.Column="4" Margin="5" ItemsSource="{Binding ExternalStocks}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedExternalStock}"/>
+
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Margin="5" Content="Parse" Command="{Binding ParseCommand}"/>
+
+        <UserControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" Margin="5,10" Content="{Binding ResultsListViewModel}"/>
+
+        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5"  Margin="5" Content="Save" Command="{Binding SaveCommand}" Width="120" Height="25"/>
+    </Grid>
+</UserControl>

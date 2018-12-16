@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
 
-using CashManager.Data;
-
-using GalaSoft.MvvmLight;
+using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
 {
-    public class Transaction : ObservableObject
+    public class Transaction : BaseObservableObject
     {
         private string _title;
         private string _note;
@@ -18,35 +15,15 @@ namespace CashManager_MVVM.Model
 
         private Stock _userStock;
         private Stock _externalStock;
-        private eTransactionType _type;
+        private TransactionType _type;
 
         private TrulyObservableCollection<Position> _positions;
-        private DateTime _lastEditDate;
-
-        /// <summary>
-        /// Date when transaction was first created within application
-        /// </summary>
-        public DateTime InstanceCreationDate { get; }
 
         /// <summary>
         /// Date when transaction was performed (in real life, like going to shop or receiving payment)
         /// </summary>
-        public DateTime TransationSourceCreationDate { get; }
-
-        /// <summary>
-        /// Last time when transation was edited by user (within app)
-        /// </summary>
-        public DateTime LastEditDate
-        {
-            get => _lastEditDate;
-            private set => Set(nameof(LastEditDate), ref _lastEditDate, value);
-        }
-
-        /// <summary>
-        /// Unique id to recognize transactions
-        /// </summary>
-        public Guid Id { get; private set; }
-
+        public DateTime TransactionSourceCreationDate { get; private set; }
+        
         /// <summary>
         /// Title of transaction
         /// </summary>
@@ -99,7 +76,7 @@ namespace CashManager_MVVM.Model
         /// <summary>
         /// Transaction type - buying/selling/working - for accounting purpose
         /// </summary>
-        public eTransactionType Type
+        public TransactionType Type
         {
             get => _type;
             set => Set(nameof(Type), ref _type, value);
@@ -119,35 +96,22 @@ namespace CashManager_MVVM.Model
         /// <summary>
         /// Total value of transaction
         /// </summary>
-        public double Value => Positions?.Sum(position => position.Value?.Value) ?? 0;
+        public decimal Value => Positions?.Sum(position => position.Value?.GrossValue) ?? 0;
 
         /// <summary>
         /// Total value of transaction as profit of user (negative when buying, positive when receiving payments)
         /// </summary>
-        public double ValueAsProfit => Type == eTransactionType.Buy || Type == eTransactionType.Reinvest
+        public decimal ValueAsProfit => Type.Outcome
                                            ? -Value
-                                           : (Type != eTransactionType.Transfer ? Value : 0);
+                                           : Type.Income
+                                               ? Value
+                                               : 0m;
 
         public Transaction()
         {
-            Id = Guid.NewGuid();
-            Type = eTransactionType.Buy;
-            BookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
+            _bookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
 
-            Positions = new TrulyObservableCollection<Position>();
-            PropertyChanged += OnPropertyChanged;
-        }
-
-
-
-        public Transaction Clone()
-        {
-            return (Transaction) MemberwiseClone();
-        }
-
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            LastEditDate = DateTime.Now;
+            _positions = new TrulyObservableCollection<Position>();
         }
         
         private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -155,19 +119,5 @@ namespace CashManager_MVVM.Model
             RaisePropertyChanged(nameof(Value));
             RaisePropertyChanged(nameof(ValueAsProfit));
         }
-
-        #region Override
-
-        public override bool Equals(object obj)
-        {
-            return obj != null && obj.GetHashCode().Equals(GetHashCode());
-        }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
-
-        #endregion
     }
 }

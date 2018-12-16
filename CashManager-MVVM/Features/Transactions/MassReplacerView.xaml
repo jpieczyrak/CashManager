@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="CashManager_MVVM.Features.Transactions.MassReplacerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CashManager_MVVM.Features.Transactions"
+             xmlns:search="clr-namespace:CashManager_MVVM.Features.Search"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=local:MassReplacerViewModel, IsDesignTimeCreatable=True}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <search:SearchView Grid.Row="0" Content="{Binding SearchViewModel}"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
+            <TextBlock Grid.Column="1" Text="Mass replace" TextAlignment="Center" HorizontalAlignment="Center" FontSize="11" FontStyle="Italic" Foreground="{DynamicResource DisabledForegroundBrush}" FontWeight="Bold" />
+            <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <UserControl Grid.Row="0" Grid.Column="0" Content="{Binding TitleSelector}" />
+            <UserControl Grid.Row="0" Grid.Column="1" Content="{Binding NoteSelector}" />
+            <UserControl Grid.Row="0" Grid.Column="2" Content="{Binding PositionTitleSelector}" />
+
+            <UserControl Grid.Row="1" Grid.Column="0" Content="{Binding TagsSelector}" />
+            <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding CategoriesSelector}" />
+            <UserControl Grid.Row="1" Grid.Column="2" Content="{Binding TypesSelector}" />
+
+            <UserControl Grid.Row="2" Grid.Column="0" Content="{Binding BookDateSelector}" />
+            <UserControl Grid.Row="2" Grid.Column="1" Content="{Binding UserStocksSelector}" />
+            <UserControl Grid.Row="2" Grid.Column="2" Content="{Binding ExternalStocksSelector}" />
+            
+            <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="Perform" Margin="10" Command="{Binding PerformCommand}" Height="40" Width="150"/>
+        </Grid>
+    </Grid>
+</UserControl>

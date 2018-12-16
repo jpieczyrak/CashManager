@@ -1,16 +1,16 @@
-﻿using System;
+﻿using System.Linq;
 
-using GalaSoft.MvvmLight;
+using CashManager_MVVM.Features.Common;
+using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
 {
-    public class Position : ObservableObject
+    public class Position : BaseObservableObject
     {
-        private TrulyObservableCollection<Tag> _tags;
-
         private PaymentValue _value;
         private Category _category;
         private string _title;
+        private Tag[] _tags;
 
         public string Title
         {
@@ -25,6 +25,7 @@ namespace CashManager_MVVM.Model
             {
                 Set(nameof(Value), ref _value, value);
                 Value.PropertyChanged += (sender, args) => RaisePropertyChanged(nameof(Value));
+                RaisePropertyChanged(nameof(GrossValueGuiString));
             }
         }
 
@@ -37,24 +38,34 @@ namespace CashManager_MVVM.Model
         /// <summary>
         /// Optional tags for whole transaction (like: buying PC 2015)
         /// </summary>
-        public TrulyObservableCollection<Tag> Tags
+        public Tag[] Tags
         {
             get => _tags;
             set
             {
-                Set(nameof(Tags), ref _tags, value);
-                _tags.CollectionChanged += (sender, args) => RaisePropertyChanged(nameof(Tags));
+                Set(nameof(Tags), ref _tags, value); 
+                RaisePropertyChanged(nameof(TagsGuiString));
             }
         }
 
-        public string TagsForGUI => string.Join(", ", Tags);
+        public string TagsGuiString => string.Join(", ", Tags.OrderBy(x => x.Name));
 
-        public Guid Id { get; private set; } = Guid.NewGuid();
+        public MultiComboBoxViewModel TagViewModel { get; set; }
+
+        /// <summary>
+        /// Mass replacer purpose only
+        /// </summary>
+        public Transaction Parent { get; set; }
+
+        public bool Income => Parent.Type.Income && !Parent.Type.Outcome;
+        public bool Outcome => !Parent.Type.Income && Parent.Type.Outcome;
+
+        public string GrossValueGuiString => $"{(Outcome ? "-" : string.Empty)}{Value.GrossValue:F} zł";
 
         public Position()
         {
-            Tags = new TrulyObservableCollection<Tag>();
-            Value = new PaymentValue();
+            Tags = new Tag[0];
+            _value = new PaymentValue();
         }
     }
 }
