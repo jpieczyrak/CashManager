@@ -15,6 +15,7 @@ namespace CashManager.Tests.Parsers
             Assert.Equal(expected.BookDate, result.BookDate);
             Assert.Equal(expected.Title, result.Title);
             Assert.Equal(expected.Note, result.Note);
+            Assert.Equal(expected.Type, result.Type);
             Assert.Equal(expected.UserStock, result.UserStock);
             Assert.Equal(expected.ExternalStock, result.ExternalStock);
 
