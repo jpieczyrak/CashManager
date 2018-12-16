@@ -65,18 +65,8 @@ namespace CashManager_MVVM.Features.Plots
         public CategoriesPlotViewModel(IQueryDispatcher queryDispatcher)
         {
             _queryDispatcher = queryDispatcher;
-            ColumnCategories = new PlotModel
-            {
-                LegendPlacement = LegendPlacement.Outside,
-                LegendOrientation = LegendOrientation.Horizontal,
-                LegendPosition = LegendPosition.BottomCenter
-            };
-            PieCategories = new PlotModel
-            {
-                LegendPlacement = LegendPlacement.Outside,
-                LegendOrientation = LegendOrientation.Horizontal,
-                LegendPosition = LegendPosition.BottomCenter
-            };
+            ColumnCategories = PlotHelper.CreatePlotModel();
+            PieCategories = PlotHelper.CreatePlotModel();
             Update();
         }
 

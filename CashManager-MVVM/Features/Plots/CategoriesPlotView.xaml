@@ -32,8 +32,40 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <oxy:PlotView Grid.Column="0" Model="{Binding ColumnCategories}" Background="{DynamicResource BackgroundColorBrush}" Foreground="{DynamicResource ForegroundBrush}" />
-            <oxy:PlotView Grid.Column="1" Model="{Binding PieCategories}" Background="{DynamicResource BackgroundColorBrush}" Foreground="{DynamicResource ForegroundBrush}" />
+            <oxy:PlotView Grid.Column="0" Model="{Binding ColumnCategories}" >
+                <oxy:PlotView.DefaultTrackerTemplate>
+                    <ControlTemplate>
+                        <oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}" VerticalLineVisibility="Collapsed" HorizontalLineVisibility="Collapsed">
+                            <oxy:TrackerControl.Background>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="{DynamicResource DisabledBorderColor}" />
+                                    <GradientStop Offset="1" Color="{DynamicResource BackgroundAccentColor}" />
+                                </LinearGradientBrush>
+                            </oxy:TrackerControl.Background>
+                            <oxy:TrackerControl.Content>
+                                <TextBlock Text="{Binding}" Margin="8" />
+                            </oxy:TrackerControl.Content>
+                        </oxy:TrackerControl>
+                    </ControlTemplate>
+                </oxy:PlotView.DefaultTrackerTemplate>
+            </oxy:PlotView>
+            <oxy:PlotView Grid.Column="1" Model="{Binding PieCategories}" >
+                <oxy:PlotView.DefaultTrackerTemplate>
+                    <ControlTemplate>
+                        <oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}" VerticalLineVisibility="Collapsed" HorizontalLineVisibility="Collapsed">
+                            <oxy:TrackerControl.Background>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="{DynamicResource DisabledBorderColor}" />
+                                    <GradientStop Offset="1" Color="{DynamicResource BackgroundAccentColor}" />
+                                </LinearGradientBrush>
+                            </oxy:TrackerControl.Background>
+                            <oxy:TrackerControl.Content>
+                                <TextBlock Text="{Binding}" Margin="8" />
+                            </oxy:TrackerControl.Content>
+                        </oxy:TrackerControl>
+                    </ControlTemplate>
+                </oxy:PlotView.DefaultTrackerTemplate>
+            </oxy:PlotView>
         </Grid>
     </Grid>
 </UserControl>

@@ -133,6 +133,7 @@
     <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
       <DependentUpon>CategoriesPlotView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Features\Plots\PlotHelper.cs" />
     <Compile Include="Features\Plots\WealthView.xaml.cs">
       <DependentUpon>WealthView.xaml</DependentUpon>
     </Compile>
@@ -306,6 +307,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Skins\Controls\DatePickerSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\PlotViewSkin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

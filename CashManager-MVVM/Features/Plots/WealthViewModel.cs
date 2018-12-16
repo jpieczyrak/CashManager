@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Media;
 
 using AutoMapper;
 
@@ -51,12 +53,7 @@ namespace CashManager_MVVM.Features.Plots
         public WealthViewModel(IQueryDispatcher queryDispatcher)
         {
             _queryDispatcher = queryDispatcher;
-            Wealth = new PlotModel
-            {
-                LegendPlacement = LegendPlacement.Outside,
-                LegendOrientation = LegendOrientation.Horizontal,
-                LegendPosition = LegendPosition.BottomCenter
-            };
+            Wealth = PlotHelper.CreatePlotModel();
             Wealth.Axes.Add(new DateTimeAxis());
             Update();
         }
