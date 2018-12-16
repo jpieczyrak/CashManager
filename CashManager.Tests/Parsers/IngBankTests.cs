@@ -228,10 +228,10 @@ trash
             var userStock = new Stock { Name = "Ing bank" };
             var externalStock = new Stock { Name = "Default" };
             var creationDate = new DateTime(2018, 12, 1);
-            var outcomeType = new TransactionType { Income = true, Name = "Work" };
+            var incomeType = new TransactionType { Income = true, Name = "Work" };
             string title = @"NALICZONE ODSETKI";
             decimal balance = 1479.68m;
-            var expected = new Transaction(outcomeType, creationDate, title,
+            var expected = new Transaction(incomeType, creationDate, title,
                 $"Przychód, Smart Saver saldo: {balance:#,##0.00} (PLN)",
                 new[]
                 {
@@ -244,7 +244,7 @@ trash
             var parser = new IngBankParser();
 
             //when
-            var result = parser.Parse(input, userStock, externalStock, outcomeType, null).FirstOrDefault();
+            var result = parser.Parse(input, userStock, externalStock, null, incomeType).FirstOrDefault();
 
             //then
             ValidateTransaction(result, expected);

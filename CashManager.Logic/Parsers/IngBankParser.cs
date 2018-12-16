@@ -49,7 +49,7 @@ namespace CashManager.Logic.Parsers
             string currency = match.Groups["Currency"].Value.Trim();
             string category = match.Groups["Category"].Value.Trim();
 
-            bool positiveSign = match.Groups["Sign"].Value.Equals("+");
+            bool negativeSign = match.Groups["Sign"].Value.Equals("-");
             int bigValue = int.Parse(match.Groups["ValueWithSpaces"].Value.Replace(" ", string.Empty));
             int smallValue = int.Parse(match.Groups["ValueAfterComma"].Value);
 
@@ -68,7 +68,7 @@ namespace CashManager.Logic.Parsers
                 _balances.Add(new Balance(date, balance));
             }
 
-            var transactionType = positiveSign ? defaultIncome : defaultOutcome;
+            var transactionType = negativeSign ? defaultOutcome : defaultIncome;
 
             var position = new Position(title, value);
 
