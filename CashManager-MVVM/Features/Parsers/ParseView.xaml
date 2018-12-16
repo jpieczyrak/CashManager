@@ -14,9 +14,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -48,8 +46,8 @@
 
         <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Margin="5" Content="Parse" Command="{Binding ParseCommand}"/>
 
-        <UserControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5" Margin="5" Content="{Binding ResultsListViewModel}" MaxHeight="250"/>
+        <UserControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" Margin="5,10" Content="{Binding ResultsListViewModel}"/>
 
-        <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="5"  Margin="5" Content="Save" Command="{Binding SaveCommand}" Width="120" Height="25"/>
+        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5"  Margin="5" Content="Save" Command="{Binding SaveCommand}" Width="120" Height="25"/>
     </Grid>
 </UserControl>
