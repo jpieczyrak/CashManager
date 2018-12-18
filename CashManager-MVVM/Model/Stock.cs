@@ -52,7 +52,7 @@ namespace CashManager_MVVM.Model
 
         public Stock()
         {
-            _balance = new Balance();
+            Balance = new Balance();
         }
 
         ~Stock()

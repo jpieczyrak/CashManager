@@ -28,7 +28,7 @@
         <ItemsControl Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Stocks}" >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Balance.Value, StringFormat={}{0:#,##0.00 zł}}" Margin="5" ToolTip="Balance" HorizontalAlignment="Right" TextAlignment="Right"/>
+                    <TextBlock Text="{Binding UserBalance, StringFormat={}{0:#,##0.00 zł}}" Margin="5" ToolTip="Balance" HorizontalAlignment="Right" TextAlignment="Right"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

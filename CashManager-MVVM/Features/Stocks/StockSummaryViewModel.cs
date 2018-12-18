@@ -23,7 +23,7 @@ namespace CashManager_MVVM.Features.Stocks
             private set => Set(nameof(Stocks), ref _stocks, value);
         }
 
-        public decimal Total => Stocks?.Sum(x => x.Balance.Value) ?? 0m;
+        public decimal Total => Stocks?.Sum(x => x.UserBalance) ?? 0m;
 
         public StockSummaryViewModel(IQueryDispatcher queryDispatcher)
         {
