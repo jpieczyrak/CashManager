@@ -1,4 +1,6 @@
-﻿using CashManager_MVVM.Model.Common;
+﻿using System.ComponentModel;
+
+using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
 {
@@ -10,11 +12,7 @@ namespace CashManager_MVVM.Model
     {
         private bool _isUserStock;
         private Balance _balance;
-
-        public Stock()
-        {
-            _balance = new Balance();
-        }
+        private decimal _userOwnershipPercent = 100;
 
         public bool IsUserStock
         {
@@ -29,10 +27,43 @@ namespace CashManager_MVVM.Model
         public Balance Balance
         {
             get => _balance;
-            set => Set(nameof(Balance), ref _balance, value);
+            set
+            {
+                if (_balance != null) _balance.PropertyChanged -= BalanceOnPropertyChanged;
+                Set(nameof(Balance), ref _balance, value);
+                if (_balance != null) _balance.PropertyChanged += BalanceOnPropertyChanged;
+                RaisePropertyChanged(nameof(UserBalance));
+            }
+        }
+
+        public decimal UserOwnershipPercent
+        {
+            get => _userOwnershipPercent;
+            set
+            {
+                Set(nameof(UserOwnershipPercent), ref _userOwnershipPercent, value);
+                RaisePropertyChanged(nameof(UserBalance));
+            }
         }
 
         public bool IsEditable => !IsUserStock;
+
+        public decimal UserBalance => UserOwnershipPercent != 0m ? Balance.Value * UserOwnershipPercent / 100m : 0m;
+
+        public Stock()
+        {
+            _balance = new Balance();
+        }
+
+        ~Stock()
+        {
+            _balance.PropertyChanged -= BalanceOnPropertyChanged;
+        }
+
+        private void BalanceOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            RaisePropertyChanged(nameof(Balance));
+        }
 
         #region Override
 
