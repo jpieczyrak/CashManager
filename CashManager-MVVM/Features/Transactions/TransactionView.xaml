@@ -15,8 +15,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="5*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" MinHeight="40" MaxHeight="150"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
@@ -92,28 +92,28 @@
             </Border>
         </Grid>
 
-
         <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="1"
                 CornerRadius="{DynamicResource BigCornerRadius}"
                 BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="0,5"
                 dd:DragDrop.IsDropTarget="True" 
-                dd:DragDrop.DropHandler="{Binding}">
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                <ItemsControl ItemsSource="{Binding LoadedBills}">
+                dd:DragDrop.DropHandler="{Binding}"
+                ToolTip="Drop bills here">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <ItemsControl ItemsSource="{Binding LoadedBills}" HorizontalAlignment="Center">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="5*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding DisplayName}" TextAlignment="Center"
-                                       HorizontalAlignment="Left" FontSize="10" FontStyle="Italic" Margin="5"
-                                       Foreground="{DynamicResource DisabledForegroundBrush}" FontWeight="Bold" />
-                                <Image Grid.Column="1" Source="{Binding Image}" Stretch="Uniform" MaxHeight="80"/>
-                            </Grid>
+                            <Image Source="{Binding Image}" 
+                                   ToolTip="{Binding DisplayName}" 
+                                   Stretch="Uniform"
+                                   MaxHeight="120" 
+                                   Margin="5,0" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                 </ItemsControl>
             </ScrollViewer>
         </Border>
