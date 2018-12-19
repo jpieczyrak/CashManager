@@ -13,6 +13,7 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Tags;
 using CashManager.Infrastructure.Query.Transactions;
+using CashManager.Infrastructure.Query.Transactions.Bills;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.Features.Categories;
@@ -48,7 +49,10 @@ namespace CashManager_MVVM.Features.Transactions
         private Tag[] _tags;
 
         public IEnumerable<TransactionType> TransactionTypes { get; set; }
-        public ObservableCollection<string> NewFiles { get; private set; }
+
+        public ObservableCollection<string> NewBillsFilepaths { get; private set; }
+
+        public ObservableCollection<BillImage> LoadedBills { get; private set; }
 
         public Transaction Transaction
         {
@@ -84,7 +88,8 @@ namespace CashManager_MVVM.Features.Transactions
 
             Update();
 
-            NewFiles = new ObservableCollection<string>();
+            NewBillsFilepaths = new ObservableCollection<string>();
+
             ChooseCategoryCommand = new RelayCommand<Position>(position =>
             {
                 var window = new CategoryPickerView(_categoryPickerViewModel, position.Category);
@@ -124,6 +129,9 @@ namespace CashManager_MVVM.Features.Transactions
                 position.TagViewModel = _factory.Create<MultiComboBoxViewModel>();
                 position.TagViewModel.SetInput(CopyOfTags(_tags), position.Tags);
             }
+
+            NewBillsFilepaths?.Clear();
+            LoadedBills = new ObservableCollection<BillImage>(Transaction.StoredFiles.Select(CreateBillImage));
         }
 
         #endregion
@@ -178,10 +186,11 @@ namespace CashManager_MVVM.Features.Transactions
             foreach (var position in _transaction.Positions)
                 position.Tags = position.TagViewModel.Results.OfType<Tag>().ToArray();
 
-            var bills = NewFiles.Select(x => new StoredFileInfo(x, Transaction.Id)).ToArray();
+            var bills = NewBillsFilepaths.Select(x => new StoredFileInfo(x, Transaction.Id)).ToArray();
             _commandDispatcher.Execute(new UpsertBillsCommand(Mapper.Map<DtoStoredFileInfo[]>(bills)));
-            NewFiles.Clear();
+            NewBillsFilepaths.Clear();
 
+            foreach (var bill in bills) Transaction.StoredFiles.Add(bill);
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction>(_transaction)));
             NavigateBackToTransactionSearchView();
         }
@@ -213,10 +222,16 @@ namespace CashManager_MVVM.Features.Transactions
             var files = GetProperFilepaths(dropInfo);
             foreach (string file in files)
             {
-                //Transaction.StoredFiles.Add(new StoredFileInfo(file));
-                NewFiles.Add(file);
-                //todo: display mini pics in list, near to the name
+                NewBillsFilepaths.Add(file);
+                var billImage = new BillImage(Path.GetFileNameWithoutExtension(file), File.ReadAllBytes(file));
+                if (!LoadedBills.Contains(billImage)) LoadedBills.Add(billImage);
             }
+        }
+        
+        private BillImage CreateBillImage(StoredFileInfo fileInfo)
+        {
+            var image = _queryDispatcher.Execute<BillQuery, byte[]>(new BillQuery(fileInfo.DbAlias));
+            return new BillImage(fileInfo.DisplayName, image);
         }
     }
 }
