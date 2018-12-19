@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 
+using CashManager.Data.Extensions;
+
 using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
@@ -28,9 +30,13 @@ namespace CashManager_MVVM.Model
         /// </summary>
         public string SourceName { get; private set; }
 
+        private StoredFileInfo() { }
+
         public StoredFileInfo(string file, Guid transactionId)
         {
             SourceName = file;
+            DisplayName = Path.GetFileNameWithoutExtension(file);
+            Id = DisplayName.GenerateGuid();
             DbAlias = CreateDbFileAlias(file, transactionId);
         }
 

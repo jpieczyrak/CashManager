@@ -81,6 +81,7 @@
     <Compile Include="DTO\Position.cs" />
     <Compile Include="DTO\Tag.cs" />
     <Compile Include="DTO\Transaction.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
