@@ -119,6 +119,8 @@
     <Compile Include="Query\Stocks\StockQuery.cs" />
     <Compile Include="Query\Tags\TagQuery.cs" />
     <Compile Include="Query\Tags\TagQueryHandler.cs" />
+    <Compile Include="Query\Transactions\Bills\BillQuery.cs" />
+    <Compile Include="Query\Transactions\Bills\BillQueryHandler.cs" />
     <Compile Include="Query\TransactionTypes\TransactionTypesQuery.cs" />
     <Compile Include="Query\TransactionTypes\TransactionTypesQueryHandler.cs" />
     <Compile Include="Query\Transactions\TransactionQuery.cs" />

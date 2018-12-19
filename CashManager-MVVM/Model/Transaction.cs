@@ -128,7 +128,8 @@ namespace CashManager_MVVM.Model
         {
             _bookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
 
-            _positions = new TrulyObservableCollection<Position>();
+            Positions = new TrulyObservableCollection<Position>();
+            StoredFiles = new ObservableCollection<StoredFileInfo>();
         }
         
         private void PositionsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

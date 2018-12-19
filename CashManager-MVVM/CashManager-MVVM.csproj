@@ -148,6 +148,7 @@
     <Compile Include="Features\Transactions\PositionListView.xaml.cs">
       <DependentUpon>PositionListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\BillImage.cs" />
     <Compile Include="Model\Common\BaseSelectable.cs" />
     <Compile Include="Model\Common\ISelectable.cs" />
     <Compile Include="Features\Common\MultiCombobox.xaml.cs">
