@@ -1,6 +1,4 @@
-﻿using System;
-
-using LiteDB;
+﻿using LiteDB;
 
 namespace CashManager.Infrastructure.Command.Transactions.Bills
 {
@@ -16,11 +14,7 @@ namespace CashManager.Infrastructure.Command.Transactions.Bills
         public void Execute(UpsertBillsCommand command)
         {
             foreach (var bill in command.Bills)
-            {
                 _db.FileStorage.Upload(bill.DbAlias, bill.SourceName);
-                var info = _db.FileStorage.FindById(bill.DbAlias);
-                Console.WriteLine(info.Length);
-            }
         }
     }
 }

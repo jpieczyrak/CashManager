@@ -190,7 +190,7 @@ namespace CashManager_MVVM.Features.Transactions
             _commandDispatcher.Execute(new UpsertBillsCommand(Mapper.Map<DtoStoredFileInfo[]>(bills)));
             NewBillsFilepaths.Clear();
 
-            foreach (var bill in bills) Transaction.StoredFiles.Add(bill);
+            foreach (var bill in bills) if (!Transaction.StoredFiles.Contains(bill)) Transaction.StoredFiles.Add(bill);
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction>(_transaction)));
             NavigateBackToTransactionSearchView();
         }
@@ -222,16 +222,17 @@ namespace CashManager_MVVM.Features.Transactions
             var files = GetProperFilepaths(dropInfo);
             foreach (string file in files)
             {
-                NewBillsFilepaths.Add(file);
-                var billImage = new BillImage(Path.GetFileNameWithoutExtension(file), File.ReadAllBytes(file));
-                if (!LoadedBills.Contains(billImage)) LoadedBills.Add(billImage);
+                if (!NewBillsFilepaths.Contains(file)) NewBillsFilepaths.Add(file);
+                var billImage = new BillImage(file, Path.GetFileNameWithoutExtension(file), File.ReadAllBytes(file));
+                if (LoadedBills.Contains(billImage)) LoadedBills.Remove(billImage);
+                LoadedBills.Add(billImage);
             }
         }
         
         private BillImage CreateBillImage(StoredFileInfo fileInfo)
         {
             var image = _queryDispatcher.Execute<BillQuery, byte[]>(new BillQuery(fileInfo.DbAlias));
-            return new BillImage(fileInfo.DisplayName, image);
+            return new BillImage(fileInfo.SourceName, fileInfo.DisplayName, image);
         }
     }
 }

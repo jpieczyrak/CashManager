@@ -36,7 +36,7 @@ namespace CashManager_MVVM.Model
         {
             SourceName = file;
             DisplayName = Path.GetFileNameWithoutExtension(file);
-            Id = DisplayName.GenerateGuid();
+            Id = file.GenerateGuid();
             DbAlias = CreateDbFileAlias(file, transactionId);
         }
 
