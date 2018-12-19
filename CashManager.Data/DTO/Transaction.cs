@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
+
+using CashManager.Data.Extensions;
 
 namespace CashManager.Data.DTO
 {
@@ -15,7 +15,9 @@ namespace CashManager.Data.DTO
 
 		public List<Position> Positions { get; set; }
 
-		public DateTime TransactionSourceCreationDate { get; set; }
+		public List<StoredFileInfo> StoredFiles { get; set; }
+
+        public DateTime TransactionSourceCreationDate { get; set; }
         
 		public DateTime BookDate { get; set; }
 
@@ -29,7 +31,11 @@ namespace CashManager.Data.DTO
             BookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
         }
 
-        public Transaction(Guid id) : this() { Id = id; }
+        public Transaction(Guid id) : this()
+        {
+            Id = id;
+            StoredFiles = new List<StoredFileInfo>();
+        }
 
         /// <summary>
         /// Should be used only after parsing data or for test purpose.
