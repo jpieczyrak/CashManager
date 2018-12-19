@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Windows;
 
 using AutoMapper;
 
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Transactions;
+using CashManager.Infrastructure.Command.Transactions.Bills;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Tags;
@@ -20,15 +24,20 @@ using CashManager_MVVM.Model.Common;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
+using GongSolutions.Wpf.DragDrop;
+
 using DtoTag = CashManager.Data.DTO.Tag;
 using DtoStock = CashManager.Data.DTO.Stock;
 using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
+using DtoStoredFileInfo = CashManager.Data.DTO.StoredFileInfo;
 
 namespace CashManager_MVVM.Features.Transactions
 {
-    public class TransactionViewModel : ViewModelBase, IUpdateable
+    public class TransactionViewModel : ViewModelBase, IUpdateable, IDropTarget
     {
+        //todo: on unload / hide etc - cancel changes to transaction
+
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ViewModelFactory _factory;
@@ -39,6 +48,7 @@ namespace CashManager_MVVM.Features.Transactions
         private Tag[] _tags;
 
         public IEnumerable<TransactionType> TransactionTypes { get; set; }
+        public ObservableCollection<string> NewFiles { get; private set; }
 
         public Transaction Transaction
         {
@@ -74,6 +84,7 @@ namespace CashManager_MVVM.Features.Transactions
 
             Update();
 
+            NewFiles = new ObservableCollection<string>();
             ChooseCategoryCommand = new RelayCommand<Position>(position =>
             {
                 var window = new CategoryPickerView(_categoryPickerViewModel, position.Category);
@@ -164,7 +175,13 @@ namespace CashManager_MVVM.Features.Transactions
 
         private void ExecuteSaveTransactionCommand()
         {
-            foreach (var position in _transaction.Positions) position.Tags = position.TagViewModel.Results.OfType<Tag>().ToArray();
+            foreach (var position in _transaction.Positions)
+                position.Tags = position.TagViewModel.Results.OfType<Tag>().ToArray();
+
+            var bills = NewFiles.Select(x => new StoredFileInfo(x, Transaction.Id)).ToArray();
+            _commandDispatcher.Execute(new UpsertBillsCommand(Mapper.Map<DtoStoredFileInfo[]>(bills)));
+            NewFiles.Clear();
+
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction>(_transaction)));
             NavigateBackToTransactionSearchView();
         }
@@ -172,6 +189,34 @@ namespace CashManager_MVVM.Features.Transactions
         private void NavigateBackToTransactionSearchView()
         {
             _factory.Create<ApplicationViewModel>().GoBack();
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            dropInfo.Effects = GetProperFilepaths(dropInfo).Any()
+                                   ? DragDropEffects.Copy
+                                   : DragDropEffects.None;
+        }
+
+        private string[] GetProperFilepaths(IDropInfo dropInfo)
+        {
+            string[] allowedExtensions = { ".jpg", ".png", ".bmp" };
+            return ((DataObject) dropInfo.Data).GetFileDropList()
+                                               .OfType<string>()
+                                               .Where(x => !string.IsNullOrWhiteSpace(x))
+                                               .Where(x => allowedExtensions.Contains(Path.GetExtension(x).ToLower()))
+                                               .ToArray();
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            var files = GetProperFilepaths(dropInfo);
+            foreach (string file in files)
+            {
+                //Transaction.StoredFiles.Add(new StoredFileInfo(file));
+                NewFiles.Add(file);
+                //todo: display mini pics in list, near to the name
+            }
         }
     }
 }

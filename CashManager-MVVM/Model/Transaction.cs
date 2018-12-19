@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 
@@ -18,6 +19,7 @@ namespace CashManager_MVVM.Model
         private TransactionType _type;
 
         private TrulyObservableCollection<Position> _positions;
+        private ObservableCollection<StoredFileInfo> _storedFiles;
 
         /// <summary>
         /// Date when transaction was performed (in real life, like going to shop or receiving payment)
@@ -68,8 +70,23 @@ namespace CashManager_MVVM.Model
             get => _positions;
             set
             {
+                if (_positions != null) _positions.CollectionChanged -= PositionsCollectionChanged;
                 Set(nameof(Positions), ref _positions, value);
-                _positions.CollectionChanged += CollectionChanged;
+                _positions.CollectionChanged += PositionsCollectionChanged;
+            }
+        }
+
+        /// <summary>
+        /// List of bills
+        /// </summary>
+        public ObservableCollection<StoredFileInfo> StoredFiles
+        {
+            get => _storedFiles;
+            private set
+            {
+                if (_storedFiles != null) _storedFiles.CollectionChanged -= StoredFilesOnCollectionChanged;
+                Set(nameof(StoredFiles), ref _storedFiles, value);
+                _storedFiles.CollectionChanged += StoredFilesOnCollectionChanged;
             }
         }
 
@@ -114,10 +131,15 @@ namespace CashManager_MVVM.Model
             _positions = new TrulyObservableCollection<Position>();
         }
         
-        private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void PositionsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             RaisePropertyChanged(nameof(Value));
             RaisePropertyChanged(nameof(ValueAsProfit));
+        }
+
+        private void StoredFilesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            RaisePropertyChanged(nameof(StoredFiles));
         }
     }
 }
