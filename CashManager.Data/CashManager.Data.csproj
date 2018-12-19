@@ -74,6 +74,7 @@
     <Compile Include="DTO\Balance.cs" />
     <Compile Include="DTO\Category.cs" />
     <Compile Include="DTO\Dto.cs" />
+    <Compile Include="DTO\StoredFileInfo.cs" />
     <Compile Include="DTO\TransactionType.cs" />
     <Compile Include="DTO\PaymentValue.cs" />
     <Compile Include="DTO\Stock.cs" />

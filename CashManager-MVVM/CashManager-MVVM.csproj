@@ -196,6 +196,7 @@
     <Compile Include="Model\PaymentValue.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\Position.cs" />
+    <Compile Include="Model\StoredFileInfo.cs" />
     <Compile Include="Model\Summary.cs" />
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Model\Selectors\DateFrame.cs" />

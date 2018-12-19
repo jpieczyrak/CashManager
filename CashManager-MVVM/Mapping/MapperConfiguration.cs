@@ -39,6 +39,9 @@ namespace CashManager_MVVM.Mapping
                         config.CreateMap<TransactionType, CashManager.Data.DTO.TransactionType>();
                         config.CreateMap<CashManager.Data.DTO.TransactionType, TransactionType>();
 
+                        config.CreateMap<StoredFileInfo, CashManager.Data.DTO.StoredFileInfo>();
+                        config.CreateMap<CashManager.Data.DTO.StoredFileInfo, StoredFileInfo>();
+
                         config.CreateMap<Position, CashManager.Data.DTO.Position>()
                               .ConstructUsing(x => new CashManager.Data.DTO.Position());
                         config.CreateMap<CashManager.Data.DTO.Position, Position>();
