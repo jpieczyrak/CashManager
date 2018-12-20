@@ -27,7 +27,7 @@ namespace CashManager_MVVM.Features.Plots
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private Transaction[] _allTransactions;
-        private DateFrame _bookDateFilter = DateFrame.Create(DateFrameType.BookDate);
+        private DateFrame _bookDateFilter = new DateFrame(DateFrameType.BookDate);
         private MultiPicker _userStocksFilter;
         private PlotModel _columnCategories;
         private PlotModel _pieCategories;

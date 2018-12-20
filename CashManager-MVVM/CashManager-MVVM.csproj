@@ -151,6 +151,7 @@
     <Compile Include="Features\Transactions\PositionListView.xaml.cs">
       <DependentUpon>PositionListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Commands\DateFrameFilterFilter.cs" />
     <Compile Include="Model\BillImage.cs" />
     <Compile Include="Model\Common\BaseSelectable.cs" />
     <Compile Include="Model\Common\IEditable.cs" />
@@ -197,7 +198,7 @@
     <Compile Include="Model\Selectors\BaseSelector.cs" />
     <Compile Include="Model\Selectors\DateFrameType.cs" />
     <Compile Include="Model\Selectors\DateSelector.cs" />
-    <Compile Include="Model\Selectors\ICommand.cs" />
+    <Compile Include="Logic\Commands\IFilter.cs" />
     <Compile Include="Model\Selectors\MultiPicker.cs" />
     <Compile Include="Model\Selectors\RangeSelector.cs" />
     <Compile Include="Model\Selectors\TextSelector.cs" />
