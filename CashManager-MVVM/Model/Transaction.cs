@@ -7,7 +7,7 @@ using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
 {
-    public class Transaction : BaseObservableObject
+    public class Transaction : BaseObservableObject, IBookable
     {
         private string _title;
         private string _note;

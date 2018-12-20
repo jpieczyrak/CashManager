@@ -1,16 +1,18 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
 {
-    public class Position : BaseObservableObject
+    public class Position : BaseObservableObject, IBookable
     {
         private PaymentValue _value;
         private Category _category;
         private string _title;
         private Tag[] _tags;
+        private Transaction _parent;
 
         public string Title
         {
@@ -43,7 +45,7 @@ namespace CashManager_MVVM.Model
             get => _tags;
             set
             {
-                Set(nameof(Tags), ref _tags, value); 
+                Set(nameof(Tags), ref _tags, value);
                 RaisePropertyChanged(nameof(TagsGuiString));
             }
         }
@@ -52,12 +54,23 @@ namespace CashManager_MVVM.Model
 
         public MultiComboBoxViewModel TagViewModel { get; set; }
 
+        public DateTime BookDate => Parent?.BookDate ?? DateTime.MinValue;
+
         /// <summary>
         /// Mass replacer purpose only
         /// </summary>
-        public Transaction Parent { get; set; }
+        public Transaction Parent
+        {
+            get => _parent;
+            set
+            {
+                Set(nameof(Parent), ref _parent, value);
+                _parent.PropertyChanged += (sender, args) => RaisePropertyChanged(nameof(BookDate));
+            }
+        }
 
         public bool Income => Parent.Type.Income && !Parent.Type.Outcome;
+
         public bool Outcome => !Parent.Type.Income && Parent.Type.Outcome;
 
         public string GrossValueGuiString => $"{(Outcome ? "-" : string.Empty)}{Value.GrossValue:F} zł";

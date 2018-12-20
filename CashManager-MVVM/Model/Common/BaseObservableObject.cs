@@ -5,7 +5,7 @@ using GalaSoft.MvvmLight;
 
 namespace CashManager_MVVM.Model.Common
 {
-    public abstract class BaseObservableObject : ObservableObject
+    public abstract class BaseObservableObject : ObservableObject, IEditable
     {
         public Guid Id { get; protected set; } = Guid.NewGuid();
 
