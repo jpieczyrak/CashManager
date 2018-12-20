@@ -6,7 +6,7 @@ using CashManager_MVVM.Configuration.DI;
 using CashManager_MVVM.Configuration.Mapping;
 using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Skins;
-using CashManager_MVVM.Temps;
+using CashManager_MVVM.Utils;
 
 using GalaSoft.MvvmLight.Threading;
 

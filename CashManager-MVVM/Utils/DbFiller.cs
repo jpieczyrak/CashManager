@@ -14,7 +14,7 @@ using CashManager.Logic.DefaultData;
 
 using DtoTransaction = CashManager.Data.DTO.Transaction;
 
-namespace CashManager_MVVM.Temps
+namespace CashManager_MVVM.Utils
 {
     public class DbFiller
     {
