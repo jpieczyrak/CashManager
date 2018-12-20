@@ -8,12 +8,12 @@ using CashManager_MVVM.Model.Selectors;
 
 namespace CashManager_MVVM.Logic.Commands
 {
-    public class DateFrameFilterFilter : IFilter<Transaction>, IFilter<Position>
+    public class DateFrameFilter : IFilter<Transaction>, IFilter<Position>
     {
         private readonly DateFrame _dateFrame;
         private readonly Func<IBookable, DateTime> _selector;
 
-        private DateFrameFilterFilter(DateFrame dateFrame, Func<IBookable, DateTime> selector)
+        private DateFrameFilter(DateFrame dateFrame, Func<IBookable, DateTime> selector)
         {
             _dateFrame = dateFrame;
             _selector = selector;
@@ -30,16 +30,16 @@ namespace CashManager_MVVM.Logic.Commands
             return elements.Where(x => _selector(x) >= _dateFrame.From && _selector(x) <= _dateFrame.To);
         }
 
-        public static DateFrameFilterFilter Create(DateFrame dateFrame)
+        public static DateFrameFilter Create(DateFrame dateFrame)
         {
             switch (dateFrame.Type)
             {
                 case DateFrameType.BookDate:
-                    return new DateFrameFilterFilter(dateFrame, x => x.BookDate);
+                    return new DateFrameFilter(dateFrame, x => x.BookDate);
                 case DateFrameType.CreationDate:
-                    return new DateFrameFilterFilter(dateFrame, x => x.InstanceCreationDate);
+                    return new DateFrameFilter(dateFrame, x => x.InstanceCreationDate);
                 case DateFrameType.EditDate:
-                    return new DateFrameFilterFilter(dateFrame, x => x.LastEditDate);
+                    return new DateFrameFilter(dateFrame, x => x.LastEditDate);
             }
 
             return null;
