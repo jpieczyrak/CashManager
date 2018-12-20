@@ -35,9 +35,9 @@ namespace CashManager_MVVM.Features.Search
         private TextSelector _titleFilter = new TextSelector("Title");
         private TextSelector _noteFilter = new TextSelector("Note");
         private TextSelector _positionTitleFilter = new TextSelector("Position title");
-        private DateFrame _bookDateFilter = new DateFrame("Book date");
-        private DateFrame _createDateFilter = new DateFrame("Create date");
-        private DateFrame _lastEditDateFilter = new DateFrame("Last edit date");
+        private DateFrame _bookDateFilter = DateFrame.Create(DateFrameType.BookDate);
+        private DateFrame _createDateFilter = DateFrame.Create(DateFrameType.CreationDate);
+        private DateFrame _lastEditDateFilter = DateFrame.Create(DateFrameType.EditDate);
         private MultiPicker _userStocksFilter;
         private MultiPicker _externalStocksFilter;
         private MultiPicker _categoriesFilter;

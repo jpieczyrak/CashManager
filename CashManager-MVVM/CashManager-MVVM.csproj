@@ -195,7 +195,9 @@
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Common\ITimestamp.cs" />
     <Compile Include="Model\Selectors\BaseSelector.cs" />
+    <Compile Include="Model\Selectors\DateFrameType.cs" />
     <Compile Include="Model\Selectors\DateSelector.cs" />
+    <Compile Include="Model\Selectors\ICommand.cs" />
     <Compile Include="Model\Selectors\MultiPicker.cs" />
     <Compile Include="Model\Selectors\RangeSelector.cs" />
     <Compile Include="Model\Selectors\TextSelector.cs" />
