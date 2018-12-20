@@ -8,12 +8,12 @@ using AutoMapper;
 using CashManager.Infrastructure.DbConnection;
 using CashManager.Logic.DefaultData;
 
-using CashManager_MVVM.DI;
+using CashManager_MVVM.Configuration.DI;
 using CashManager_MVVM.Model;
 
 using LiteDB;
 
-using MapperConfiguration = CashManager_MVVM.Mapping.MapperConfiguration;
+using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
 
 using DtoCategory = CashManager.Data.DTO.Category;
 using DtoPosition = CashManager.Data.DTO.Position;

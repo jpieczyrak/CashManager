@@ -2,7 +2,8 @@
 
 using Autofac;
 
-using CashManager_MVVM.DI;
+using CashManager_MVVM.Configuration.DI;
+using CashManager_MVVM.Configuration.Mapping;
 using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Skins;
 using CashManager_MVVM.Temps;
@@ -23,7 +24,7 @@ namespace CashManager_MVVM
 	    static App()
 		{
 			DispatcherHelper.Initialize();
-			Mapping.MapperConfiguration.Configure();
+			MapperConfiguration.Configure();
 		    SkinColors = SkinColors.Dark;
 		    SkinShape = SkinShapes.Round;
 		}

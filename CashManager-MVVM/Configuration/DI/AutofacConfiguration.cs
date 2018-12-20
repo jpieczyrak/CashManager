@@ -9,7 +9,7 @@ using CashManager_MVVM.Features.Main;
 
 using GalaSoft.MvvmLight;
 
-namespace CashManager_MVVM.DI
+namespace CashManager_MVVM.Configuration.DI
 {
     public static class AutofacConfiguration
     {

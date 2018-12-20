@@ -6,7 +6,7 @@ using Category = CashManager_MVVM.Model.Category;
 using Stock = CashManager_MVVM.Model.Stock;
 using Tag = CashManager_MVVM.Model.Tag;
 
-namespace CashManager_MVVM.Mapping
+namespace CashManager_MVVM.Configuration.Mapping
 {
     public class MapperConfiguration
     {
