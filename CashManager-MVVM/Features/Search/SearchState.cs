@@ -68,19 +68,19 @@ namespace CashManager_MVVM.Features.Search
         public void UpdateSources(IQueryDispatcher queryDispatcher)
         {
             var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery())).OrderBy(x => x.Name);
-            UserStocksFilter.ComboBox.SetInput(availableStocks.Where(x => x.IsUserStock).ToArray());
+            UserStocksFilter.ComboBox.SetInput(availableStocks.Where(x => x.IsUserStock).ToArray(), UserStocksFilter.Results);
             var externalStocks = Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks)); //we don't want to have same reference in 2 pickers
-            ExternalStocksFilter.ComboBox.SetInput(externalStocks);
+            ExternalStocksFilter.ComboBox.SetInput(externalStocks, ExternalStocksFilter.Results);
 
             var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
             categories = CategoryDesignHelper.BuildGraphicalOrder(categories).ToArray();
-            CategoriesFilter.ComboBox.SetInput(categories);
+            CategoriesFilter.ComboBox.SetInput(categories, CategoriesFilter.Results);
 
             var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
-            TypesFilter.ComboBox.SetInput(types);
+            TypesFilter.ComboBox.SetInput(types, TypesFilter.Results);
 
             var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
-            TagsFilter.ComboBox.SetInput(tags);
+            TagsFilter.ComboBox.SetInput(tags, TagsFilter.Results);
         }
     }
 }
