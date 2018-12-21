@@ -404,7 +404,7 @@ namespace CashManager_MVVM.Features.Search
 
         #endregion
 
-        private void TransactionFiltersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        private void TransactionFiltersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsTransactionsSearch)
             {
@@ -423,7 +423,7 @@ namespace CashManager_MVVM.Features.Search
             }
         }
 
-        private void PositionFiltersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        private void PositionFiltersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsPositionsSearch)
             {
