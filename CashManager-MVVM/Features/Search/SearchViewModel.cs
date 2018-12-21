@@ -101,39 +101,11 @@ namespace CashManager_MVVM.Features.Search
 
         public SearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
-            SearchState = new SearchState();
+            SearchState = new SearchState(queryDispatcher);
             _queryDispatcher = queryDispatcher;
             TransactionsListViewModel = factory.Create<TransactionListViewModel>();
             PositionsListViewModel = factory.Create<PositionListViewModel>();
             IsTransactionsSearch = true;
-            Update();
-        }
-
-        public void Update()
-        {
-            _allTransactions = Mapper.Map<Transaction[]>(_queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()));
-            Transactions = _allTransactions.ToArray();
-            Positions = new Position[0];
-            
-            var availableStocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery())).OrderBy(x => x.Name);
-            SearchState.UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, availableStocks.Where(x => x.IsUserStock).ToArray());
-            SearchState.ExternalStocksFilter =
-                new MultiPicker(MultiPickerType.ExternalStock,
-                    Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
-
-            var categories = Mapper.Map<Category[]>(_queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
-            categories = CategoryDesignHelper.BuildGraphicalOrder(categories).ToArray();
-            SearchState.CategoriesFilter = new MultiPicker(MultiPickerType.Category, categories);
-
-            var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery())
-                                                                     .OrderBy(x => x.Name));
-            SearchState.TypesFilter = new MultiPicker(MultiPickerType.TransactionType, types);
-
-            var tags = Mapper.Map<Tag[]>(_queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
-            SearchState.TagsFilter = new MultiPicker(MultiPickerType.Tag, tags);
-
-            SearchState.ValueFilter = new RangeSelector(RangeSelectorType.GrossValue);
-
             var filters = new IFilter<Transaction>[]
             {
                 DateFrameFilter.Create(SearchState.BookDateFilter),
@@ -149,12 +121,20 @@ namespace CashManager_MVVM.Features.Search
                 MultiPickerFilter.Create(SearchState.ExternalStocksFilter),
                 RangeFilter.Create(SearchState.ValueFilter)
             };
-            //todo: do not create new list each time!
             _transactionFilters = new TrulyObservableCollection<IFilter<Transaction>>(filters);
             _positionFilters = new TrulyObservableCollection<IFilter<Position>>(filters.OfType<IFilter<Position>>());
             _transactionFilters.CollectionChanged += FiltersOnCollectionChanged;
             _positionFilters.CollectionChanged += FiltersOnCollectionChanged;
+            Update();
+        }
 
+        public void Update()
+        {
+            _allTransactions = Mapper.Map<Transaction[]>(_queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()));
+            Transactions = _allTransactions.ToArray();
+            Positions = new Position[0];
+            
+            SearchState.UpdateSources(_queryDispatcher);
             FiltersOnCollectionChanged(this, null);
         }
 

@@ -1,4 +1,17 @@
-﻿using CashManager_MVVM.Model.Selectors;
+﻿using System.Linq;
+
+using AutoMapper;
+
+using CashManager.Infrastructure.Query;
+using CashManager.Infrastructure.Query.Categories;
+using CashManager.Infrastructure.Query.Stocks;
+using CashManager.Infrastructure.Query.Tags;
+using CashManager.Infrastructure.Query.TransactionTypes;
+
+using CashManager_MVVM.Features.Categories;
+using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Common;
+using CashManager_MVVM.Model.Selectors;
 
 namespace CashManager_MVVM.Features.Search
 {
@@ -28,7 +41,7 @@ namespace CashManager_MVVM.Features.Search
 
         public RangeSelector ValueFilter { get; set; }
 
-        public SearchState()
+        public SearchState(IQueryDispatcher queryDispatcher)
         {
             TitleFilter = new TextSelector(TextSelectorType.Title);
             NoteFilter = new TextSelector(TextSelectorType.Note);
@@ -36,6 +49,34 @@ namespace CashManager_MVVM.Features.Search
             BookDateFilter = new DateFrame(DateFrameType.BookDate);
             CreateDateFilter = new DateFrame(DateFrameType.CreationDate);
             LastEditDateFilter = new DateFrame(DateFrameType.EditDate);
+            ValueFilter = new RangeSelector(RangeSelectorType.GrossValue);
+
+            var defaultSource = new BaseSelectable[0];
+            UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, defaultSource);
+            ExternalStocksFilter = new MultiPicker(MultiPickerType.ExternalStock, defaultSource);
+            CategoriesFilter = new MultiPicker(MultiPickerType.Category, defaultSource);
+            TypesFilter = new MultiPicker(MultiPickerType.TransactionType, defaultSource);
+            TagsFilter = new MultiPicker(MultiPickerType.Tag, defaultSource);
+            UpdateSources(queryDispatcher);
+        }
+
+        public void UpdateSources(IQueryDispatcher queryDispatcher)
+        {
+            var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery())).OrderBy(x => x.Name);
+            UserStocksFilter.ComboBox.SetInput(availableStocks.Where(x => x.IsUserStock).ToArray());
+            var externalStocks = Mapper.Map<Stock[]>(Mapper.Map<CashManager.Data.DTO.Stock[]>(availableStocks)); //we don't want to have same reference in 2 pickers
+            ExternalStocksFilter.ComboBox.SetInput(externalStocks);
+
+            var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery()));
+            categories = CategoryDesignHelper.BuildGraphicalOrder(categories).ToArray();
+            CategoriesFilter.ComboBox.SetInput(categories);
+
+            var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery())
+                                                                      .OrderBy(x => x.Name));
+            TypesFilter.ComboBox.SetInput(types);
+
+            var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, CashManager.Data.DTO.Tag[]>(new TagQuery()).OrderBy(x => x.Name));
+            TagsFilter.ComboBox.SetInput(tags);
         }
     }
 }
