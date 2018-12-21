@@ -117,6 +117,8 @@
     <Compile Include="Query\NoQueries\NoQuery.cs" />
     <Compile Include="Query\NoQueries\NoQueryHandler.cs" />
     <Compile Include="Query\QueryDispatcher.cs" />
+    <Compile Include="Query\States\SearchStateQuery.cs" />
+    <Compile Include="Query\States\SearchStateQueryHandler.cs" />
     <Compile Include="Query\Stocks\StockQueryHandler.cs" />
     <Compile Include="Query\Stocks\StockQuery.cs" />
     <Compile Include="Query\Tags\TagQuery.cs" />
