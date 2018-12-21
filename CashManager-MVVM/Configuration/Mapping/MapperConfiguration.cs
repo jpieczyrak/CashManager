@@ -1,6 +1,11 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq;
 
+using AutoMapper;
+
+using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Selectors;
 
 using Category = CashManager_MVVM.Model.Category;
 using Stock = CashManager_MVVM.Model.Stock;
@@ -56,7 +61,23 @@ namespace CashManager_MVVM.Configuration.Mapping
                                   foreach (var position in model.Positions) position.Parent = model;
                                   model.IsPropertyChangedEnabled = true;
                               });
+
+                        config.CreateMap<SearchState, CashManager.Data.ViewModelState.SearchState>();
+                        config.CreateMap<CashManager.Data.ViewModelState.SearchState, SearchState>();
+
+                        config.CreateMap<DateFrame, CashManager.Data.ViewModelState.Selectors.DateFrame>();
+                        config.CreateMap<CashManager.Data.ViewModelState.Selectors.DateFrame, DateFrame>();
+
+                        config.CreateMap<RangeSelector, CashManager.Data.ViewModelState.Selectors.RangeSelector>();
+                        config.CreateMap<CashManager.Data.ViewModelState.Selectors.RangeSelector, RangeSelector>();
+
+                        config.CreateMap<TextSelector, CashManager.Data.ViewModelState.Selectors.TextSelector>();
+                        config.CreateMap<CashManager.Data.ViewModelState.Selectors.TextSelector, TextSelector>();
+
+                        config.CreateMap<MultiPicker, CashManager.Data.ViewModelState.Selectors.MultiPicker>();
+                        config.CreateMap<CashManager.Data.ViewModelState.Selectors.MultiPicker, MultiPicker>();
                     });
+
                     _isInitialized = true;
                 }
             }

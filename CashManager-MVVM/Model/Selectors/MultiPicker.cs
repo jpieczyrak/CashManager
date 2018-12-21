@@ -1,4 +1,7 @@
-﻿using CashManager_MVVM.Features.Common;
+﻿using System;
+using System.Linq;
+
+using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model.Selectors
@@ -14,8 +17,14 @@ namespace CashManager_MVVM.Model.Selectors
         public BaseSelectable[] Results
         {
             get => _results;
-            private set => Set(nameof(Results), ref _results, value);
+            private set
+            {
+                Set(nameof(Results), ref _results, value);
+                Selected = _results.Select(x => x.Id).ToArray();
+            }
         }
+
+        public Guid[] Selected { get; set; }
 
         public MultiPicker(MultiPickerType type, BaseSelectable[] source, BaseSelectable[] selected = null)
         {
@@ -44,6 +53,11 @@ namespace CashManager_MVVM.Model.Selectors
             ComboBox = new MultiComboBoxViewModel();
             ComboBox.SetInput(source, selected);
             ComboBox.PropertyChanged += (sender, args) => Results = ComboBox.Results;
+        }
+
+        public void SetInput(BaseSelectable[] source)
+        {
+            ComboBox.SetInput(source, Selected.Select(x => new BaseSelectable(x)).ToArray());
         }
     }
 }

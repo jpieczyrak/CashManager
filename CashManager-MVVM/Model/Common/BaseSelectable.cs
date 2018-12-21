@@ -1,4 +1,6 @@
-﻿namespace CashManager_MVVM.Model.Common
+﻿using System;
+
+namespace CashManager_MVVM.Model.Common
 {
     public class BaseSelectable : BaseObservableObject, ISelectable
     {
@@ -17,5 +19,11 @@
             set => Set(nameof(IsSelected), ref _isSelected, value);
         }
 
+        protected BaseSelectable() { }
+
+        public BaseSelectable(Guid id)
+        {
+            Id = id;
+        }
     }
 }

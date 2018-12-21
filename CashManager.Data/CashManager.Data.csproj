@@ -83,6 +83,11 @@
     <Compile Include="DTO\Transaction.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModelState\SearchState.cs" />
+    <Compile Include="ViewModelState\Selectors\DateFrame.cs" />
+    <Compile Include="ViewModelState\Selectors\MultiPicker.cs" />
+    <Compile Include="ViewModelState\Selectors\RangeSelector.cs" />
+    <Compile Include="ViewModelState\Selectors\TextSelector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
