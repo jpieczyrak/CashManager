@@ -44,7 +44,9 @@ namespace CashManager_MVVM.Configuration.Mapping
 
                         config.CreateMap<Position, CashManager.Data.DTO.Position>()
                               .ConstructUsing(x => new CashManager.Data.DTO.Position());
-                        config.CreateMap<CashManager.Data.DTO.Position, Position>();
+                        config.CreateMap<CashManager.Data.DTO.Position, Position>()
+                              .BeforeMap((dto, model) => model.IsPropertyChangedEnabled = false)
+                              .AfterMap((dto, model) => model.IsPropertyChangedEnabled = true);
 
                         config.CreateMap<Transaction, CashManager.Data.DTO.Transaction>();
                         config.CreateMap<CashManager.Data.DTO.Transaction, Transaction>()

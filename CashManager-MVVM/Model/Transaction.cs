@@ -123,9 +123,7 @@ namespace CashManager_MVVM.Model
                                            : Type.Income
                                                ? Value
                                                : 0m;
-
-        public bool IsPropertyChangedEnabled { get; set; }
-
+        
         public Transaction()
         {
             _bookDate = LastEditDate = InstanceCreationDate = DateTime.Now;

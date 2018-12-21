@@ -61,7 +61,7 @@ namespace CashManager.Tests.ViewModels
             repo.Database.UpsertBulk(DtoTags);
             repo.Database.UpsertBulk(DtoTypes);
             repo.Database.UpsertBulk(DtoStocks);
-            repo.Database.UpsertBulk(DtoTransactions.SelectMany(x => x.Positions).ToArray());
+            repo.Database.UpsertBulk(DtoPositions);
             repo.Database.UpsertBulk(DtoTransactions);
         }
 

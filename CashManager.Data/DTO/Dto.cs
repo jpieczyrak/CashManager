@@ -8,7 +8,7 @@ namespace CashManager.Data.DTO
         
 	    public DateTime InstanceCreationDate { get; protected set; } = DateTime.Now;
 
-	    public DateTime LastEditDate { get; protected set; } = DateTime.Now;
+	    public DateTime LastEditDate { get; set; } = DateTime.Now;
 
         public override bool Equals(object obj) => obj?.GetHashCode() == GetHashCode();
 

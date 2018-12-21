@@ -18,6 +18,8 @@ namespace CashManager_MVVM.Model.Common
         /// Last time when transaction was edited by user (within app)
         /// </summary>
         public DateTime LastEditDate { get; protected set; }
+        
+        public bool IsPropertyChangedEnabled { get; set; }
 
         protected BaseObservableObject()
         {
@@ -26,7 +28,7 @@ namespace CashManager_MVVM.Model.Common
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            LastEditDate = DateTime.Now;
+            if (IsPropertyChangedEnabled) LastEditDate = DateTime.Now;
         }
 
         #region Override

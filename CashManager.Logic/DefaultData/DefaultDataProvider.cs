@@ -64,7 +64,8 @@ namespace CashManager.Logic.DefaultData
                         {
                             Category = _root,
                             Value = new PaymentValue { TaxPercentValue = 23, GrossValue = 25000 },
-                            Title = "income"
+                            Title = "income",
+                            LastEditDate = RandomDate()
                         }
                     }, stocks[0], stocks[3], "inputsource2"),
 
@@ -75,7 +76,8 @@ namespace CashManager.Logic.DefaultData
                             Category = _fun_books,
                             Value = new PaymentValue { TaxPercentValue = 23, GrossValue = 2499 },
                             Title = "sth expensive",
-                            Tags = new List<Tag> { tags[0] }
+                            Tags = new List<Tag> { tags[0] },
+                            LastEditDate = RandomDate()
                         },
                     },
                     stocks[1], stocks[3], "inputsource3"),
@@ -86,7 +88,8 @@ namespace CashManager.Logic.DefaultData
                             Category = _fun_pc,
                             Value = new PaymentValue { TaxPercentValue = 23, NetValue = 7129 },
                             Title = "new PC",
-                            Tags = new List<Tag> { tags[1], tags[2] }
+                            Tags = new List<Tag> { tags[1], tags[2] },
+                            LastEditDate = RandomDate()
                         },
                     },
                     stocks[1], stocks[2], "inputsource4"),
@@ -113,6 +116,7 @@ namespace CashManager.Logic.DefaultData
                                               .Take(_random.Next(0, _tags.Length))
                                               .ToArray());
                 position.Category = category;
+                position.LastEditDate = RandomDate();
             }
 
             return new Transaction(type, 
