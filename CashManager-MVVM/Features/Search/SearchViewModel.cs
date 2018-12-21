@@ -41,7 +41,7 @@ namespace CashManager_MVVM.Features.Search
 
         public PositionListViewModel PositionsListViewModel { get; }
 
-        public SearchState SearchState { get; }
+        public SearchState State { get; }
 
         public Transaction[] Transactions
         {
@@ -91,25 +91,25 @@ namespace CashManager_MVVM.Features.Search
 
         public SearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
-            SearchState = new SearchState(queryDispatcher);
+            State = new SearchState(queryDispatcher);
             _queryDispatcher = queryDispatcher;
             TransactionsListViewModel = factory.Create<TransactionListViewModel>();
             PositionsListViewModel = factory.Create<PositionListViewModel>();
             IsTransactionsSearch = true;
             var filters = new IFilter<Transaction>[]
             {
-                DateFrameFilter.Create(SearchState.BookDateFilter),
-                DateFrameFilter.Create(SearchState.CreateDateFilter),
-                DateFrameFilter.Create(SearchState.LastEditDateFilter),
-                TextFilter.Create(SearchState.TitleFilter),
-                TextFilter.Create(SearchState.NoteFilter),
-                TextFilter.Create(SearchState.PositionTitleFilter),
-                MultiPickerFilter.Create(SearchState.CategoriesFilter),
-                MultiPickerFilter.Create(SearchState.TagsFilter),
-                MultiPickerFilter.Create(SearchState.TypesFilter),
-                MultiPickerFilter.Create(SearchState.UserStocksFilter),
-                MultiPickerFilter.Create(SearchState.ExternalStocksFilter),
-                RangeFilter.Create(SearchState.ValueFilter)
+                DateFrameFilter.Create(State.BookDateFilter),
+                DateFrameFilter.Create(State.CreateDateFilter),
+                DateFrameFilter.Create(State.LastEditDateFilter),
+                TextFilter.Create(State.TitleFilter),
+                TextFilter.Create(State.NoteFilter),
+                TextFilter.Create(State.PositionTitleFilter),
+                MultiPickerFilter.Create(State.CategoriesFilter),
+                MultiPickerFilter.Create(State.TagsFilter),
+                MultiPickerFilter.Create(State.TypesFilter),
+                MultiPickerFilter.Create(State.UserStocksFilter),
+                MultiPickerFilter.Create(State.ExternalStocksFilter),
+                RangeFilter.Create(State.ValueFilter)
             };
             _transactionFilters = new TrulyObservableCollection<IFilter<Transaction>>(filters);
             _positionFilters = new TrulyObservableCollection<IFilter<Position>>(filters.OfType<IFilter<Position>>());
@@ -124,7 +124,7 @@ namespace CashManager_MVVM.Features.Search
             Transactions = _allTransactions.ToArray();
             Positions = new Position[0];
             
-            SearchState.UpdateSources(_queryDispatcher);
+            State.UpdateSources(_queryDispatcher);
             FiltersOnCollectionChanged(this, null);
         }
 

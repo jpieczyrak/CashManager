@@ -25,8 +25,8 @@ namespace CashManager.Tests.ViewModels.Search.Positions
                              .ToArray();
 
             //when
-            vm.SearchState.CategoriesFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
-            vm.SearchState.CategoriesFilter.IsChecked = true;
+            vm.State.CategoriesFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
+            vm.State.CategoriesFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -49,11 +49,11 @@ namespace CashManager.Tests.ViewModels.Search.Positions
                              .ToArray();
 
             //when
-            var matchingSelectable = vm.SearchState.TagsFilter.ComboBox.InternalDisplayableSearchResults
+            var matchingSelectable = vm.State.TagsFilter.ComboBox.InternalDisplayableSearchResults
                                    .Where(x => filterValue.Any(y => y.Id == x.Id));
             foreach (var selectable in matchingSelectable)
                 selectable.IsSelected = true;
-            vm.SearchState.TagsFilter.IsChecked = true;
+            vm.State.TagsFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -76,8 +76,8 @@ namespace CashManager.Tests.ViewModels.Search.Positions
                              .ToArray();
 
             //when
-            vm.SearchState.TypesFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
-            vm.SearchState.TypesFilter.IsChecked = true;
+            vm.State.TypesFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
+            vm.State.TypesFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -100,8 +100,8 @@ namespace CashManager.Tests.ViewModels.Search.Positions
                              .ToArray();
 
             //when
-            vm.SearchState.UserStocksFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
-            vm.SearchState.UserStocksFilter.IsChecked = true;
+            vm.State.UserStocksFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
+            vm.State.UserStocksFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -124,8 +124,8 @@ namespace CashManager.Tests.ViewModels.Search.Positions
                              .ToArray();
 
             //when
-            vm.SearchState.ExternalStocksFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
-            vm.SearchState.ExternalStocksFilter.IsChecked = true;
+            vm.State.ExternalStocksFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
+            vm.State.ExternalStocksFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);

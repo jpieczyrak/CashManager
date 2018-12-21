@@ -24,7 +24,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
                              .ToArray();
 
             //when
-            vm.SearchState.BookDateFilter.From = DateTime.Today;
+            vm.State.BookDateFilter.From = DateTime.Today;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -48,9 +48,9 @@ namespace CashManager.Tests.ViewModels.Search.Positions
                              .ToArray();
 
             //when
-            vm.SearchState.BookDateFilter.From = minDateTime;
-            vm.SearchState.BookDateFilter.To = maxDateTime;
-            vm.SearchState.BookDateFilter.IsChecked = true;
+            vm.State.BookDateFilter.From = minDateTime;
+            vm.State.BookDateFilter.To = maxDateTime;
+            vm.State.BookDateFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -74,9 +74,9 @@ namespace CashManager.Tests.ViewModels.Search.Positions
                              .ToArray();
 
             //when
-            vm.SearchState.LastEditDateFilter.From = minDateTime;
-            vm.SearchState.LastEditDateFilter.To = maxDateTime;
-            vm.SearchState.LastEditDateFilter.IsChecked = true;
+            vm.State.LastEditDateFilter.From = minDateTime;
+            vm.State.LastEditDateFilter.To = maxDateTime;
+            vm.State.LastEditDateFilter.IsChecked = true;
 
             //then
             Assert.Equal(expected.Length, vm.Positions.Length);
@@ -99,9 +99,9 @@ namespace CashManager.Tests.ViewModels.Search.Positions
                              .ToArray();
 
             //when
-            vm.SearchState.CreateDateFilter.From = minDateTime;
-            vm.SearchState.CreateDateFilter.To = maxDateTime;
-            vm.SearchState.CreateDateFilter.IsChecked = true;
+            vm.State.CreateDateFilter.From = minDateTime;
+            vm.State.CreateDateFilter.To = maxDateTime;
+            vm.State.CreateDateFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -119,7 +119,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.IsPositionsSearch = false;
 
             //when
-            vm.SearchState.BookDateFilter.From = DateTime.Today;
+            vm.State.BookDateFilter.From = DateTime.Today;
 
             //then
             Assert.Empty(vm.Positions);
@@ -137,9 +137,9 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.IsTransactionsSearch = false;
 
             //when
-            vm.SearchState.BookDateFilter.From = minDateTime;
-            vm.SearchState.BookDateFilter.To = maxDateTime;
-            vm.SearchState.BookDateFilter.IsChecked = true;
+            vm.State.BookDateFilter.From = minDateTime;
+            vm.State.BookDateFilter.To = maxDateTime;
+            vm.State.BookDateFilter.IsChecked = true;
 
             //then
             Assert.Empty(vm.Positions);
@@ -157,9 +157,9 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.IsTransactionsSearch = false;
 
             //when
-            vm.SearchState.LastEditDateFilter.From = minDateTime;
-            vm.SearchState.LastEditDateFilter.To = maxDateTime;
-            vm.SearchState.LastEditDateFilter.IsChecked = true;
+            vm.State.LastEditDateFilter.From = minDateTime;
+            vm.State.LastEditDateFilter.To = maxDateTime;
+            vm.State.LastEditDateFilter.IsChecked = true;
 
             //then
             Assert.Empty(vm.Positions);
@@ -177,9 +177,9 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.IsTransactionsSearch = false;
 
             //when
-            vm.SearchState.CreateDateFilter.From = minDateTime;
-            vm.SearchState.CreateDateFilter.To = maxDateTime;
-            vm.SearchState.CreateDateFilter.IsChecked = true;
+            vm.State.CreateDateFilter.From = minDateTime;
+            vm.State.CreateDateFilter.To = maxDateTime;
+            vm.State.CreateDateFilter.IsChecked = true;
 
             //then
             Assert.Empty(vm.Positions);
