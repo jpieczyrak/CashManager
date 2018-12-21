@@ -45,7 +45,7 @@ namespace CashManager_MVVM.Features.Search
         private MultiPicker _categoriesFilter;
         private MultiPicker _typesFilter;
         private MultiPicker _tagsFilter;
-        private RangeSelector _transactionValueFilter;
+        private RangeSelector _valueFilter;
         private Transaction[] _transactions;
         private Position[] _positions;
         private string _title;
@@ -107,10 +107,10 @@ namespace CashManager_MVVM.Features.Search
             set => Set(nameof(TagsFilter), ref _tagsFilter, value);
         }
 
-        public RangeSelector TransactionValueFilter
+        public RangeSelector ValueFilter
         {
-            get => _transactionValueFilter;
-            set => Set(nameof(TransactionValueFilter), ref _transactionValueFilter, value);
+            get => _valueFilter;
+            set => Set(nameof(ValueFilter), ref _valueFilter, value);
         }
 
         public TextSelector TitleFilter
@@ -231,8 +231,8 @@ namespace CashManager_MVVM.Features.Search
             TagsFilter = new MultiPicker(MultiPickerType.Tag, tags);
             TagsFilter.PropertyChanged += OnPropertyChanged;
 
-            TransactionValueFilter = new RangeSelector("Transaction value");
-            TransactionValueFilter.PropertyChanged += OnPropertyChanged;
+            ValueFilter = new RangeSelector(RangeSelectorType.GrossValue);
+            ValueFilter.PropertyChanged += OnPropertyChanged;
 
             var filters = new IFilter<Transaction>[]
             {
@@ -247,6 +247,7 @@ namespace CashManager_MVVM.Features.Search
                 MultiPickerFilter.Create(_typesFilter),
                 MultiPickerFilter.Create(_userStocksFilter),
                 MultiPickerFilter.Create(_externalStocksFilter),
+                RangeFilter.Create(_valueFilter)
             };
             //todo: do not create new list each time!
             _transactionFilters = new TrulyObservableCollection<IFilter<Transaction>>(filters);
@@ -355,10 +356,10 @@ namespace CashManager_MVVM.Features.Search
                 transactions = transactions.Where(x => x.LastEditDate >= LastEditDateFilter.From && x.LastEditDate <= LastEditDateFilter.To);
             }
 
-            if (TransactionValueFilter.IsChecked)
+            if (ValueFilter.IsChecked)
             {
                 transactions = transactions.Where(x =>
-                    x.ValueAsProfit >= TransactionValueFilter.Min && x.ValueAsProfit <= TransactionValueFilter.Max);
+                    x.ValueAsProfit >= ValueFilter.Min && x.ValueAsProfit <= ValueFilter.Max);
             }
 
             Transactions = transactions
@@ -391,9 +392,9 @@ namespace CashManager_MVVM.Features.Search
                 positions = positions.Where(x => x.Tags.Any(y => tags.Contains(y)));
             }
 
-            if (TransactionValueFilter.IsChecked)
+            if (ValueFilter.IsChecked)
             {
-                positions = positions.Where(x => x.Value.GrossValue >= TransactionValueFilter.Min && x.Value.GrossValue <= TransactionValueFilter.Max);
+                positions = positions.Where(x => x.Value.GrossValue >= ValueFilter.Min && x.Value.GrossValue <= ValueFilter.Max);
             }
 
             Positions = positions.OrderByDescending(x => x.Parent.BookDate).ToArray();

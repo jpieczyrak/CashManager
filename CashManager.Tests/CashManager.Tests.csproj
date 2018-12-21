@@ -147,9 +147,11 @@
     <Compile Include="Utils\LiteDbHelper.cs" />
     <Compile Include="ViewModels\Search\Positions\DateFrameTests.cs" />
     <Compile Include="ViewModels\Search\Positions\MultiPickerTests.cs" />
+    <Compile Include="ViewModels\Search\Positions\RangeTests.cs" />
     <Compile Include="ViewModels\Search\Positions\TextSelectorTests.cs" />
     <Compile Include="ViewModels\Search\Transactions\DateFrameTests.cs" />
     <Compile Include="ViewModels\Search\Transactions\MultiPickerTests.cs" />
+    <Compile Include="ViewModels\Search\Transactions\RangeTests.cs" />
     <Compile Include="ViewModels\Search\Transactions\TextSelectorTests.cs" />
     <Compile Include="ViewModels\StocksViewModelTests.cs" />
     <Compile Include="ViewModels\Search\Transactions\BaseTests.cs" />

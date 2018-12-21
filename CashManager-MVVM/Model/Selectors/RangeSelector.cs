@@ -1,4 +1,6 @@
-﻿namespace CashManager_MVVM.Model.Selectors
+﻿using System;
+
+namespace CashManager_MVVM.Model.Selectors
 {
     public class RangeSelector : BaseSelector
     {
@@ -17,9 +19,17 @@
             set => Set(nameof(Max), ref _max, value);
         }
 
-        public RangeSelector(string description)
+        public RangeSelectorType Type { get; private set; }
+
+        public RangeSelector(RangeSelectorType type)
         {
-            Description = description;
+            Type = type;
+            switch (type)
+            {
+                case RangeSelectorType.GrossValue:
+                    Description = "Value";
+                    break;
+            }
         }
     }
 }
