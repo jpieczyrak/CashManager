@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 
 using AutoMapper;
 
+using CashManager.Infrastructure.Command;
+using CashManager.Infrastructure.Command.States;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Transactions;
 
@@ -13,6 +17,7 @@ using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 
 using DtoTransaction = CashManager.Data.DTO.Transaction;
 
@@ -23,6 +28,7 @@ namespace CashManager_MVVM.Features.Search
         #region fields
 
         private readonly IQueryDispatcher _queryDispatcher;
+        private readonly ICommandDispatcher _commandDispatcher;
         private Transaction[] _allTransactions;
 
         private Transaction[] _transactions;
@@ -89,15 +95,21 @@ namespace CashManager_MVVM.Features.Search
 
         private bool CanExecuteAnyTransactionFilter => _transactionFilters.Any(x => x.CanExecute());
 
+        public RelayCommand SaveSearch { get; set; }
+
         #endregion
 
-        public SearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
+        public SearchViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory)
         {
             State = new SearchState(queryDispatcher);
             _queryDispatcher = queryDispatcher;
+            _commandDispatcher = commandDispatcher;
+
+            SaveSearch = new RelayCommand(ExecuteSaveSearchStateCommand);
             TransactionsListViewModel = factory.Create<TransactionListViewModel>();
             PositionsListViewModel = factory.Create<PositionListViewModel>();
             IsTransactionsSearch = true;
+
             var filters = new IFilter<Transaction>[]
             {
                 DateFrameFilter.Create(State.BookDateFilter),
@@ -117,7 +129,13 @@ namespace CashManager_MVVM.Features.Search
             _positionFilters = new TrulyObservableCollection<IFilter<Position>>(filters.OfType<IFilter<Position>>());
             _transactionFilters.CollectionChanged += FiltersOnCollectionChanged;
             _positionFilters.CollectionChanged += FiltersOnCollectionChanged;
+
             Update();
+        }
+
+        private void ExecuteSaveSearchStateCommand()
+        {
+            _commandDispatcher.Execute(new UpsertSearchState(Mapper.Map<CashManager.Data.ViewModelState.SearchState>(State)));
         }
 
         public void Update()

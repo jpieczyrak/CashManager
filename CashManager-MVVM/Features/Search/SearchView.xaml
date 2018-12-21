@@ -17,6 +17,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         
         <Grid Grid.Row="0" Margin="20">
@@ -65,5 +66,6 @@
 
         <transactions:TransactionListView Grid.Row="2" Content="{Binding TransactionsListViewModel}" Transactions="{Binding Transactions, Mode=TwoWay}" Visibility="{Binding IsTransactionsSearch, Converter={StaticResource bool2VisibilityConverter}}" />
         <UserControl Grid.Row="2" Content="{Binding PositionsListViewModel}" Visibility="{Binding IsPositionsSearch, Converter={StaticResource bool2VisibilityConverter}}" />
+        <Button Grid.Row="3" Content="Save search criteria" Command="{Binding SaveSearch}"/>
     </Grid>
 </UserControl>
