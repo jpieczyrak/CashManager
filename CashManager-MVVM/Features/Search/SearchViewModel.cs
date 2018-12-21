@@ -392,18 +392,21 @@ namespace CashManager_MVVM.Features.Search
 
         private void TransactionFiltersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
-            var input = _allTransactions.AsEnumerable();
-            foreach (var filter in _transactionFilters)
-                if (filter.CanExecute())
-                    input = filter.Execute(input);
+            if (IsTransactionsSearch)
+            {
+                var input = _allTransactions.AsEnumerable();
+                foreach (var filter in _transactionFilters)
+                    if (filter.CanExecute())
+                        input = filter.Execute(input);
 
-            Transactions = input
-                           .OrderByDescending(x => x.BookDate)
-                           .ThenByDescending(x => x.InstanceCreationDate)
-                           .ToArray();
+                Transactions = input
+                               .OrderByDescending(x => x.BookDate)
+                               .ThenByDescending(x => x.InstanceCreationDate)
+                               .ToArray();
 
-            TransactionsListViewModel.Transactions.Clear();
-            TransactionsListViewModel.Transactions.AddRange(Transactions);
+                TransactionsListViewModel.Transactions.Clear();
+                TransactionsListViewModel.Transactions.AddRange(Transactions);
+            }
         }
     }
 }
