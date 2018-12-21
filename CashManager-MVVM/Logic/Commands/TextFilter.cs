@@ -61,7 +61,7 @@ namespace CashManager_MVVM.Logic.Commands
 
         public bool CanExecute()
         {
-            return _textSelector.IsChecked;
+            return _textSelector.IsChecked && !string.IsNullOrEmpty(_textSelector.Value);
         }
 
         public static TextFilter Create(TextSelector textSelector)
