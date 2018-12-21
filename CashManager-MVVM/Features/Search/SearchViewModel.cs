@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 
 using AutoMapper;
 
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.States;
 using CashManager.Infrastructure.Query;
+using CashManager.Infrastructure.Query.States;
 using CashManager.Infrastructure.Query.Transactions;
 
 using CashManager_MVVM.Features.Transactions;
@@ -20,6 +20,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
 using DtoTransaction = CashManager.Data.DTO.Transaction;
+using DtoSearchState = CashManager.Data.ViewModelState.SearchState;
 
 namespace CashManager_MVVM.Features.Search
 {
@@ -40,6 +41,8 @@ namespace CashManager_MVVM.Features.Search
         
         private readonly TrulyObservableCollection<IFilter<Transaction>> _transactionFilters;
         private readonly TrulyObservableCollection<IFilter<Position>> _positionFilters;
+        private string _searchName;
+        private BaseSelectable _selectedSearch;
 
         #endregion
 
@@ -96,6 +99,25 @@ namespace CashManager_MVVM.Features.Search
         private bool CanExecuteAnyTransactionFilter => _transactionFilters.Any(x => x.CanExecute());
 
         public RelayCommand SaveSearch { get; set; }
+        public RelayCommand LoadSearch { get; set; }
+
+        public string SearchName
+        {
+            get => _searchName;
+            set => Set(nameof(SearchName), ref _searchName, value);
+        }
+
+        public BaseSelectable SelectedSearch
+        {
+            get => _selectedSearch;
+            set
+            {
+                Set(nameof(SelectedSearch), ref _selectedSearch, value);
+                SearchName = SelectedSearch.Name;
+            }
+        }
+
+        public BaseSelectable[] SaveSearches { get; set; }
 
         #endregion
 
@@ -106,9 +128,11 @@ namespace CashManager_MVVM.Features.Search
             _commandDispatcher = commandDispatcher;
 
             SaveSearch = new RelayCommand(ExecuteSaveSearchStateCommand);
+            LoadSearch = new RelayCommand(ExecuteLoadSearchStateCommand);
             TransactionsListViewModel = factory.Create<TransactionListViewModel>();
             PositionsListViewModel = factory.Create<PositionListViewModel>();
             IsTransactionsSearch = true;
+            SearchName = SearchState.DEFAULT_NAME;
 
             var filters = new IFilter<Transaction>[]
             {
@@ -133,9 +157,28 @@ namespace CashManager_MVVM.Features.Search
             Update();
         }
 
+        private void ExecuteLoadSearchStateCommand()
+        {
+            if (SelectedSearch == null) return;
+
+            var query = new SearchStateQuery(x => x.Id == SelectedSearch.Id);
+            var result = _queryDispatcher.Execute<SearchStateQuery, DtoSearchState[]>(query).FirstOrDefault();
+            if (result != null)
+            {
+                State.ApplySearchCriteria(Mapper.Map<SearchState>(result));
+                RaisePropertyChanged(nameof(State));
+                FiltersOnCollectionChanged(null, null);
+            }
+        }
+
         private void ExecuteSaveSearchStateCommand()
         {
-            _commandDispatcher.Execute(new UpsertSearchStateCommand(Mapper.Map<CashManager.Data.ViewModelState.SearchState>(State)));
+            State.Name = SearchName;
+            _commandDispatcher.Execute(new UpsertSearchStateCommand(Mapper.Map<DtoSearchState>(State)));
+            SaveSearches = SaveSearches.Concat(new[] { new BaseSelectable(State.Id) { Name = State.Name } })
+                                       .Distinct()
+                                       .ToArray();
+            RaisePropertyChanged(nameof(SaveSearches));
         }
 
         public void Update()
@@ -143,7 +186,13 @@ namespace CashManager_MVVM.Features.Search
             _allTransactions = Mapper.Map<Transaction[]>(_queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()));
             Transactions = _allTransactions.ToArray();
             Positions = new Position[0];
-            
+            var states = _queryDispatcher.Execute<SearchStateQuery, DtoSearchState[]>(new SearchStateQuery());
+            SaveSearches = states
+                           .Select(x => new BaseSelectable(x.Id) { Name = x.Name })
+                           .ToArray();
+            var defaultSearch = states.FirstOrDefault(x => x.Name == SearchState.DEFAULT_NAME);
+            if (defaultSearch != null) State.ApplySearchCriteria(Mapper.Map<SearchState>(defaultSearch));
+
             State.UpdateSources(_queryDispatcher);
             FiltersOnCollectionChanged(this, null);
         }

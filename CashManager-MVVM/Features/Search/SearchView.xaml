@@ -66,6 +66,24 @@
 
         <transactions:TransactionListView Grid.Row="2" Content="{Binding TransactionsListViewModel}" Transactions="{Binding Transactions, Mode=TwoWay}" Visibility="{Binding IsTransactionsSearch, Converter={StaticResource bool2VisibilityConverter}}" />
         <UserControl Grid.Row="2" Content="{Binding PositionsListViewModel}" Visibility="{Binding IsPositionsSearch, Converter={StaticResource bool2VisibilityConverter}}" />
-        <Button Grid.Row="3" Content="Save search criteria" Command="{Binding SaveSearch}"/>
+
+        <Grid Grid.Row="3" Margin="0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBox Grid.Column="0" Text="{Binding SearchName}" MinWidth="120" Margin="5,0"/>
+            <ComboBox Grid.Column="1" 
+                      ItemsSource="{Binding SaveSearches}" 
+                      DisplayMemberPath="Name"
+                      SelectedItem="{Binding SelectedSearch}" 
+                      Text="{Binding Path=SelectedSearch.Name}"
+                      MinWidth="100" Margin="5,0"/>
+            <Button Grid.Column="2" Content="Save search criteria" Command="{Binding SaveSearch}" Margin="5,0"/>
+            <Button Grid.Column="3" Content="Load" Command="{Binding LoadSearch}" Margin="5,0"/>
+        </Grid>
     </Grid>
 </UserControl>
