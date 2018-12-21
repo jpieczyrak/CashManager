@@ -39,11 +39,14 @@ namespace CashManager_MVVM.Features.Search
         private string _title;
         private bool _isTransactionsSearch;
         private bool _isPositionsSearch;
+        
+        private TrulyObservableCollection<IFilter<Transaction>> _transactionFilters;
+        private TrulyObservableCollection<IFilter<Position>> _positionFilters;
 
         #endregion
 
         #region properties
-        
+
         public TransactionListViewModel TransactionsListViewModel { get; }
 
         public PositionListViewModel PositionsListViewModel { get; }
@@ -90,20 +93,11 @@ namespace CashManager_MVVM.Features.Search
             }
         }
 
-        public bool IsAnySelected => SearchState.BookDateFilter.IsChecked
-                                     || SearchState.UserStocksFilter.IsChecked && SearchState.UserStocksFilter.Results.Any()
-                                     || SearchState.ExternalStocksFilter.IsChecked && SearchState.ExternalStocksFilter.Results.Any()
-                                     || SearchState.TitleFilter.IsChecked && !string.IsNullOrWhiteSpace(SearchState.TitleFilter.Value)
-                                     || SearchState.NoteFilter.IsChecked
-                                     || SearchState.PositionTitleFilter.IsChecked && !string.IsNullOrWhiteSpace(SearchState.PositionTitleFilter.Value)
-                                     || SearchState.CategoriesFilter.IsChecked && SearchState.CategoriesFilter.Results.Any()
-                                     || SearchState.TypesFilter.IsChecked && SearchState.TypesFilter.Results.Any()
-                                     || SearchState.TagsFilter.IsChecked;
+        private bool CanExecuteAnyPositionFilter => _positionFilters.Any(x => x.CanExecute());
+
+        private bool CanExecuteAnyTransactionFilter => _transactionFilters.Any(x => x.CanExecute());
 
         #endregion
-
-        private TrulyObservableCollection<IFilter<Transaction>> _transactionFilters;
-        private TrulyObservableCollection<IFilter<Position>> _positionFilters;
 
         public SearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
@@ -167,19 +161,20 @@ namespace CashManager_MVVM.Features.Search
         private void FiltersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
             if (_allTransactions == null || !_allTransactions.Any()) return;
-            //todo: optimize
-            //if (!IsAnySelected)
-            //{
-            //    if (IsTransactionsSearch)
-            //    {
-            //        if (TransactionsListViewModel.Transactions.Count == _allTransactions.Length) return;
-            //    }
-            //    else if (IsPositionsSearch)
-            //        if (PositionsListViewModel.Positions.Count == _allTransactions.Sum(x => x.Positions.Count)) return;
-            //}
 
-            if (IsTransactionsSearch) FilterTransactions();
-            else if (IsPositionsSearch) FilterPositions();
+            if (IsTransactionsSearch)
+            {
+                if (!CanExecuteAnyTransactionFilter)
+                    if (TransactionsListViewModel.Transactions.Count == _allTransactions.Length) return;
+
+                FilterTransactions();
+            }
+            else if (IsPositionsSearch)
+            {
+                if (!CanExecuteAnyPositionFilter)
+                    if (PositionsListViewModel.Positions.Count == _allTransactions.Sum(x => x.Positions.Count)) return;
+                FilterPositions();
+            }
         }
 
         private void SetTitle(SearchType searchType)
