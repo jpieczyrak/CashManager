@@ -66,11 +66,7 @@ namespace CashManager_MVVM.Model
         public Transaction Parent
         {
             get => _parent;
-            set
-            {
-                Set(nameof(Parent), ref _parent, value);
-                _parent.PropertyChanged += (sender, args) => RaisePropertyChanged(nameof(BookDate));
-            }
+            set => Set(nameof(Parent), ref _parent, value);
         }
 
         public bool Income => Parent.Type.Income && !Parent.Type.Outcome;
