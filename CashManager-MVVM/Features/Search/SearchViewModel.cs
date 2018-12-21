@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 
@@ -13,6 +14,7 @@ using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Transactions;
+using CashManager_MVVM.Logic.Commands;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
 
@@ -181,6 +183,8 @@ namespace CashManager_MVVM.Features.Search
 
         #endregion
 
+        private TrulyObservableCollection<IFilter<Transaction>> _transactionFilters;
+
         public SearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
             _queryDispatcher = queryDispatcher;
@@ -228,6 +232,14 @@ namespace CashManager_MVVM.Features.Search
             TransactionValueFilter = new RangeSelector("Transaction value");
             TransactionValueFilter.PropertyChanged += OnPropertyChanged;
             
+            _transactionFilters = new TrulyObservableCollection<IFilter<Transaction>>(new []
+            {
+                DateFrameFilter.Create(_bookDateFilter),
+                DateFrameFilter.Create(_createDateFilter),
+                DateFrameFilter.Create(_lastEditDateFilter),
+            });
+            _transactionFilters.CollectionChanged += TransactionFiltersOnCollectionChanged;
+
             OnPropertyChanged(this, null);
         }
 
@@ -377,5 +389,21 @@ namespace CashManager_MVVM.Features.Search
         }
 
         #endregion
+
+        private void TransactionFiltersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            var input = _allTransactions.AsEnumerable();
+            foreach (var filter in _transactionFilters)
+                if (filter.CanExecute())
+                    input = filter.Execute(input);
+
+            Transactions = input
+                           .OrderByDescending(x => x.BookDate)
+                           .ThenByDescending(x => x.InstanceCreationDate)
+                           .ToArray();
+
+            TransactionsListViewModel.Transactions.Clear();
+            TransactionsListViewModel.Transactions.AddRange(Transactions);
+        }
     }
 }

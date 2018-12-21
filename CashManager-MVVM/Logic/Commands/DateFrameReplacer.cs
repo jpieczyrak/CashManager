@@ -38,7 +38,7 @@ namespace CashManager_MVVM.Logic.Commands
                 case DateFrameType.CreationDate:
                     return new DateFrameReplacer(dateFrame, (bookable, time) => { } );
                 case DateFrameType.EditDate:
-                    return new DateFrameReplacer(dateFrame, (bookable, time) => bookable.LastEditDate = time);
+                    return new DateFrameReplacer(dateFrame, (bookable, time) => { } );
             }
 
             return null;

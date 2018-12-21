@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
 
+using GalaSoft.MvvmLight;
+
 namespace CashManager_MVVM.Logic.Commands
 {
-    public class DateFrameFilter : IFilter<Transaction>, IFilter<Position>
+    public class DateFrameFilter : ObservableObject, IFilter<Transaction>, IFilter<Position>
     {
         private readonly DateFrame _dateFrame;
         private readonly Func<IBookable, DateTime> _selector;
@@ -17,7 +20,10 @@ namespace CashManager_MVVM.Logic.Commands
         {
             _dateFrame = dateFrame;
             _selector = selector;
+            _dateFrame.PropertyChanged += DateFrameOnPropertyChanged;
         }
+
+        ~DateFrameFilter() { _dateFrame.PropertyChanged -= DateFrameOnPropertyChanged; }
 
         public IEnumerable<Position> Execute(IEnumerable<Position> elements) => Filter(elements).OfType<Position>();
 
@@ -43,6 +49,11 @@ namespace CashManager_MVVM.Logic.Commands
             }
 
             return null;
+        }
+
+        private void DateFrameOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            RaisePropertyChanged();
         }
     }
 }

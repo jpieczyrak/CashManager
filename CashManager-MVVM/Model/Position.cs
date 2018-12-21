@@ -54,7 +54,11 @@ namespace CashManager_MVVM.Model
 
         public MultiComboBoxViewModel TagViewModel { get; set; }
 
-        public DateTime BookDate => Parent?.BookDate ?? DateTime.MinValue;
+        public DateTime BookDate
+        {
+            get => Parent?.BookDate ?? DateTime.MinValue;
+            set { }
+        }
 
         /// <summary>
         /// Mass replacer purpose only
