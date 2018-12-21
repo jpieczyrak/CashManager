@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
@@ -184,6 +185,7 @@ namespace CashManager_MVVM.Features.Search
         #endregion
 
         private TrulyObservableCollection<IFilter<Transaction>> _transactionFilters;
+        private TrulyObservableCollection<IFilter<Position>> _positionFilters;
 
         public SearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
@@ -198,6 +200,7 @@ namespace CashManager_MVVM.Features.Search
         {
             _allTransactions = Mapper.Map<Transaction[]>(_queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()));
             Transactions = _allTransactions.ToArray();
+            Positions = new Position[0];
 
             TitleFilter.PropertyChanged += OnPropertyChanged;
             NoteFilter.PropertyChanged += OnPropertyChanged;
@@ -231,14 +234,17 @@ namespace CashManager_MVVM.Features.Search
 
             TransactionValueFilter = new RangeSelector("Transaction value");
             TransactionValueFilter.PropertyChanged += OnPropertyChanged;
-            
-            _transactionFilters = new TrulyObservableCollection<IFilter<Transaction>>(new []
+
+            var filters = new []
             {
                 DateFrameFilter.Create(_bookDateFilter),
                 DateFrameFilter.Create(_createDateFilter),
                 DateFrameFilter.Create(_lastEditDateFilter),
-            });
+            };
+            _transactionFilters = new TrulyObservableCollection<IFilter<Transaction>>(filters);
+            _positionFilters = new TrulyObservableCollection<IFilter<Position>>(filters);
             _transactionFilters.CollectionChanged += TransactionFiltersOnCollectionChanged;
+            _positionFilters.CollectionChanged += PositionFiltersOnCollectionChanged;
 
             OnPropertyChanged(this, null);
         }
@@ -406,6 +412,25 @@ namespace CashManager_MVVM.Features.Search
 
                 TransactionsListViewModel.Transactions.Clear();
                 TransactionsListViewModel.Transactions.AddRange(Transactions);
+            }
+        }
+
+        private void PositionFiltersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            if (IsPositionsSearch)
+            {
+                var input = _allTransactions.SelectMany(x => x.Positions);
+                foreach (var filter in _positionFilters)
+                    if (filter.CanExecute())
+                        input = filter.Execute(input);
+
+                Positions = input
+                               .OrderByDescending(x => x.BookDate)
+                               .ThenByDescending(x => x.InstanceCreationDate)
+                               .ToArray();
+
+                PositionsListViewModel.Positions.Clear();
+                PositionsListViewModel.Positions.AddRange(Positions);
             }
         }
     }
