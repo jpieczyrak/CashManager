@@ -210,25 +210,25 @@ namespace CashManager_MVVM.Features.Search
             CreateDateFilter.PropertyChanged += OnPropertyChanged;
 
             var availableStocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery())).OrderBy(x => x.Name);
-            UserStocksFilter = new MultiPicker("User stock", availableStocks.Where(x => x.IsUserStock).ToArray());
+            UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, availableStocks.Where(x => x.IsUserStock).ToArray());
             ExternalStocksFilter =
-                new MultiPicker("External stock",
+                new MultiPicker(MultiPickerType.ExternalStock,
                     Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
             UserStocksFilter.PropertyChanged += OnPropertyChanged;
             ExternalStocksFilter.PropertyChanged += OnPropertyChanged;
 
             var categories = Mapper.Map<Category[]>(_queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
             categories = CategoryDesignHelper.BuildGraphicalOrder(categories).ToArray();
-            CategoriesFilter = new MultiPicker("Categories", categories);
+            CategoriesFilter = new MultiPicker(MultiPickerType.Category, categories);
             CategoriesFilter.PropertyChanged += OnPropertyChanged;
 
             var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery())
                                                                      .OrderBy(x => x.Name));
-            TypesFilter = new MultiPicker("Types", types);
+            TypesFilter = new MultiPicker(MultiPickerType.TransactionType, types);
             TypesFilter.PropertyChanged += OnPropertyChanged;
 
             var tags = Mapper.Map<Tag[]>(_queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
-            TagsFilter = new MultiPicker("Tags", tags);
+            TagsFilter = new MultiPicker(MultiPickerType.Tag, tags);
             TagsFilter.PropertyChanged += OnPropertyChanged;
 
             TransactionValueFilter = new RangeSelector("Transaction value");
@@ -242,7 +242,13 @@ namespace CashManager_MVVM.Features.Search
                 TextFilter.Create(_titleFilter),
                 TextFilter.Create(_noteFilter),
                 TextFilter.Create(_positionTitleFilter),
+                MultiPickerFilter.Create(_categoriesFilter),
+                MultiPickerFilter.Create(_tagsFilter),
+                MultiPickerFilter.Create(_typesFilter),
+                MultiPickerFilter.Create(_userStocksFilter),
+                MultiPickerFilter.Create(_externalStocksFilter),
             };
+            //todo: do not create new list each time!
             _transactionFilters = new TrulyObservableCollection<IFilter<Transaction>>(filters);
             _positionFilters = new TrulyObservableCollection<IFilter<Position>>(filters.OfType<IFilter<Position>>());
             _transactionFilters.CollectionChanged += TransactionFiltersOnCollectionChanged;

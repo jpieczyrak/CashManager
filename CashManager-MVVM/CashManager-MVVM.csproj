@@ -154,6 +154,7 @@
     <Compile Include="Logic\Commands\DateFrameFilter.cs" />
     <Compile Include="Logic\Commands\DateFrameReplacer.cs" />
     <Compile Include="Logic\Commands\IReplacer.cs" />
+    <Compile Include="Logic\Commands\MultiPickerFilter.cs" />
     <Compile Include="Logic\Commands\TextFilter.cs" />
     <Compile Include="Model\BillImage.cs" />
     <Compile Include="Model\Common\BaseSelectable.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Model\Selectors\DateSelector.cs" />
     <Compile Include="Logic\Commands\IFilter.cs" />
     <Compile Include="Model\Selectors\MultiPicker.cs" />
+    <Compile Include="Model\Selectors\MultiPickerType.cs" />
     <Compile Include="Model\Selectors\RangeSelector.cs" />
     <Compile Include="Model\Selectors\TextSelector.cs" />
     <Compile Include="Model\PaymentValue.cs" />

@@ -78,7 +78,7 @@ namespace CashManager_MVVM.Features.Plots
                                .Where(x => x.IsUserStock)
                                .OrderBy(x => x.Name)
                                .ToArray();
-            UserStocksFilter = new MultiPicker("User stock", stocks);
+            UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, stocks);
             foreach (var result in UserStocksFilter.ComboBox.InternalDisplayableSearchResults) result.IsSelected = true;
             UserStocksFilter.IsChecked = true;
             UserStocksFilter.PropertyChanged += OnPropertyChanged;
@@ -89,7 +89,7 @@ namespace CashManager_MVVM.Features.Plots
             BookDateFilter.PropertyChanged += OnPropertyChanged;
 
             var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
-            TypesFilter = new MultiPicker("Types", types);
+            TypesFilter = new MultiPicker(MultiPickerType.TransactionType, types);
             foreach (var x in TypesFilter.ComboBox.InternalDisplayableSearchResults.OfType<TransactionType>())
                 x.IsSelected = x.Outcome;
             TypesFilter.IsChecked = true;
