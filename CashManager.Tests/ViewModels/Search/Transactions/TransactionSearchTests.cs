@@ -6,9 +6,9 @@ using CashManager_MVVM.Features.Search;
 
 using Xunit;
 
-namespace CashManager.Tests.ViewModels
+namespace CashManager.Tests.ViewModels.Search.Transactions
 {
-    public class TransactionSearchViewModelTests : ViewModelTests
+    public class TransactionSearchTests : ViewModelTests
     {
         [Fact]
         public void OnPropertyChanged_Clean_AllTransactions()
