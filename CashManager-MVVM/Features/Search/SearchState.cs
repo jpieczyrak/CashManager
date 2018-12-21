@@ -13,6 +13,11 @@ using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
 
+using DtoTag = CashManager.Data.DTO.Tag;
+using DtoStock = CashManager.Data.DTO.Stock;
+using DtoCategory = CashManager.Data.DTO.Category;
+using DtoType = CashManager.Data.DTO.TransactionType;
+
 namespace CashManager_MVVM.Features.Search
 {
     public class SearchState
@@ -62,20 +67,19 @@ namespace CashManager_MVVM.Features.Search
 
         public void UpdateSources(IQueryDispatcher queryDispatcher)
         {
-            var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery())).OrderBy(x => x.Name);
+            var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery())).OrderBy(x => x.Name);
             UserStocksFilter.ComboBox.SetInput(availableStocks.Where(x => x.IsUserStock).ToArray());
-            var externalStocks = Mapper.Map<Stock[]>(Mapper.Map<CashManager.Data.DTO.Stock[]>(availableStocks)); //we don't want to have same reference in 2 pickers
+            var externalStocks = Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks)); //we don't want to have same reference in 2 pickers
             ExternalStocksFilter.ComboBox.SetInput(externalStocks);
 
-            var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery()));
+            var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
             categories = CategoryDesignHelper.BuildGraphicalOrder(categories).ToArray();
             CategoriesFilter.ComboBox.SetInput(categories);
 
-            var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery())
-                                                                      .OrderBy(x => x.Name));
+            var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
             TypesFilter.ComboBox.SetInput(types);
 
-            var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, CashManager.Data.DTO.Tag[]>(new TagQuery()).OrderBy(x => x.Name));
+            var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
             TagsFilter.ComboBox.SetInput(tags);
         }
     }

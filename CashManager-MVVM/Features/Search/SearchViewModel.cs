@@ -4,24 +4,14 @@ using System.Linq;
 using AutoMapper;
 
 using CashManager.Infrastructure.Query;
-using CashManager.Infrastructure.Query.Categories;
-using CashManager.Infrastructure.Query.Stocks;
-using CashManager.Infrastructure.Query.Tags;
 using CashManager.Infrastructure.Query.Transactions;
-using CashManager.Infrastructure.Query.TransactionTypes;
 
-using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Logic.Commands;
 using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 
-using DtoTag = CashManager.Data.DTO.Tag;
-using DtoStock = CashManager.Data.DTO.Stock;
-using DtoCategory = CashManager.Data.DTO.Category;
-using DtoType = CashManager.Data.DTO.TransactionType;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
 
 namespace CashManager_MVVM.Features.Search
@@ -40,8 +30,8 @@ namespace CashManager_MVVM.Features.Search
         private bool _isTransactionsSearch;
         private bool _isPositionsSearch;
         
-        private TrulyObservableCollection<IFilter<Transaction>> _transactionFilters;
-        private TrulyObservableCollection<IFilter<Position>> _positionFilters;
+        private readonly TrulyObservableCollection<IFilter<Transaction>> _transactionFilters;
+        private readonly TrulyObservableCollection<IFilter<Position>> _positionFilters;
 
         #endregion
 
@@ -164,40 +154,34 @@ namespace CashManager_MVVM.Features.Search
 
         private void FilterTransactions()
         {
-            if (IsTransactionsSearch)
-            {
-                var input = _allTransactions.AsEnumerable();
-                foreach (var filter in _transactionFilters)
-                    if (filter.CanExecute())
-                        input = filter.Execute(input);
+            var input = _allTransactions.AsEnumerable();
+            foreach (var filter in _transactionFilters)
+                if (filter.CanExecute())
+                    input = filter.Execute(input);
 
-                Transactions = input
-                               .OrderByDescending(x => x.BookDate)
-                               .ThenByDescending(x => x.InstanceCreationDate)
-                               .ToArray();
+            Transactions = input
+                           .OrderByDescending(x => x.BookDate)
+                           .ThenByDescending(x => x.InstanceCreationDate)
+                           .ToArray();
 
-                TransactionsListViewModel.Transactions.Clear();
-                TransactionsListViewModel.Transactions.AddRange(Transactions);
-            }
+            TransactionsListViewModel.Transactions.Clear();
+            TransactionsListViewModel.Transactions.AddRange(Transactions);
         }
 
         private void FilterPositions()
         {
-            if (IsPositionsSearch)
-            {
-                var input = _allTransactions.SelectMany(x => x.Positions);
-                foreach (var filter in _positionFilters)
-                    if (filter.CanExecute())
-                        input = filter.Execute(input);
+            var input = _allTransactions.SelectMany(x => x.Positions);
+            foreach (var filter in _positionFilters)
+                if (filter.CanExecute())
+                    input = filter.Execute(input);
 
-                Positions = input
-                               .OrderByDescending(x => x.BookDate)
-                               .ThenByDescending(x => x.InstanceCreationDate)
-                               .ToArray();
+            Positions = input
+                        .OrderByDescending(x => x.BookDate)
+                        .ThenByDescending(x => x.InstanceCreationDate)
+                        .ToArray();
 
-                PositionsListViewModel.Positions.Clear();
-                PositionsListViewModel.Positions.AddRange(Positions);
-            }
+            PositionsListViewModel.Positions.Clear();
+            PositionsListViewModel.Positions.AddRange(Positions);
         }
     }
 }
