@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-using AutoMapper;
+﻿using AutoMapper;
 
 using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Model;

@@ -85,7 +85,7 @@
     <Compile Include="Command\ICommandHandler.cs" />
     <Compile Include="Command\Categories\UpsertCategoriesCommand.cs" />
     <Compile Include="Command\Categories\UpsertCategoriesCommandHandler.cs" />
-    <Compile Include="Command\States\UpsertSearchState.cs" />
+    <Compile Include="Command\States\UpsertSearchStateCommand.cs" />
     <Compile Include="Command\States\UpsertSearchStateCommandHandler.cs" />
     <Compile Include="Command\Stocks\UpsertStocksCommand.cs" />
     <Compile Include="Command\Stocks\UpsertStocksCommandHandler.cs" />

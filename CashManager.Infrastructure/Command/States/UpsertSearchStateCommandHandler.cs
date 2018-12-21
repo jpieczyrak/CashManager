@@ -4,7 +4,7 @@ using LiteDB;
 
 namespace CashManager.Infrastructure.Command.States
 {
-    public class UpsertSearchStateCommandHandler : ICommandHandler<UpsertSearchState>
+    public class UpsertSearchStateCommandHandler : ICommandHandler<UpsertSearchStateCommand>
     {
         private readonly LiteDatabase _db;
 
@@ -13,9 +13,9 @@ namespace CashManager.Infrastructure.Command.States
             _db = repository.Database;
         }
 
-        public void Execute(UpsertSearchState command)
+        public void Execute(UpsertSearchStateCommand command)
         {
-            _db.Upsert(command.SearchState);
+            _db.UpsertBulk(command.SearchStates);
         }
     }
 }

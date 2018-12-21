@@ -23,7 +23,8 @@ namespace CashManager_MVVM.Features.Search
 {
     public class SearchState : BaseObservableObject
     {
-        private string _name = "";
+        private string _name;
+        private const string DEFAULT_NAME = "default";
 
         public string Name
         {
@@ -60,8 +61,10 @@ namespace CashManager_MVVM.Features.Search
 
         public RangeSelector ValueFilter { get; set; }
 
-        public SearchState(IQueryDispatcher queryDispatcher)
+        public SearchState(IQueryDispatcher queryDispatcher = null)
         {
+            Name = DEFAULT_NAME;
+
             TitleFilter = new TextSelector(TextSelectorType.Title);
             NoteFilter = new TextSelector(TextSelectorType.Note);
             PositionTitleFilter = new TextSelector(TextSelectorType.PositionTitle);
@@ -76,7 +79,8 @@ namespace CashManager_MVVM.Features.Search
             CategoriesFilter = new MultiPicker(MultiPickerType.Category, defaultSource);
             TypesFilter = new MultiPicker(MultiPickerType.TransactionType, defaultSource);
             TagsFilter = new MultiPicker(MultiPickerType.Tag, defaultSource);
-            UpdateSources(queryDispatcher);
+
+            if (queryDispatcher != null) UpdateSources(queryDispatcher);
         }
 
         public void UpdateSources(IQueryDispatcher queryDispatcher)

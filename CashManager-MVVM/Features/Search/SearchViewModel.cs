@@ -135,7 +135,7 @@ namespace CashManager_MVVM.Features.Search
 
         private void ExecuteSaveSearchStateCommand()
         {
-            _commandDispatcher.Execute(new UpsertSearchState(Mapper.Map<CashManager.Data.ViewModelState.SearchState>(State)));
+            _commandDispatcher.Execute(new UpsertSearchStateCommand(Mapper.Map<CashManager.Data.ViewModelState.SearchState>(State)));
         }
 
         public void Update()
