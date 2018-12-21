@@ -18,12 +18,13 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
+            vm.IsTransactionsSearch = false;
             var expected = Positions
                              .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
-            vm.BookDateFilter.From = DateTime.Today;
+            vm.SearchState.BookDateFilter.From = DateTime.Today;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -40,15 +41,16 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
+            vm.IsTransactionsSearch = false;
             var expected = Positions
                              .Where(x => x.BookDate >= minDateTime && x.BookDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
-            vm.BookDateFilter.From = minDateTime;
-            vm.BookDateFilter.To = maxDateTime;
-            vm.BookDateFilter.IsChecked = true;
+            vm.SearchState.BookDateFilter.From = minDateTime;
+            vm.SearchState.BookDateFilter.To = maxDateTime;
+            vm.SearchState.BookDateFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -65,15 +67,16 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
+            vm.IsTransactionsSearch = false;
             var expected = Positions
                              .Where(x => x.LastEditDate >= minDateTime && x.LastEditDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
-            vm.LastEditDateFilter.From = minDateTime;
-            vm.LastEditDateFilter.To = maxDateTime;
-            vm.LastEditDateFilter.IsChecked = true;
+            vm.SearchState.LastEditDateFilter.From = minDateTime;
+            vm.SearchState.LastEditDateFilter.To = maxDateTime;
+            vm.SearchState.LastEditDateFilter.IsChecked = true;
 
             //then
             Assert.Equal(expected.Length, vm.Positions.Length);
@@ -89,15 +92,16 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
+            vm.IsTransactionsSearch = false;
             var expected = Positions
                              .Where(x => x.InstanceCreationDate >= minDateTime && x.InstanceCreationDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
-            vm.CreateDateFilter.From = minDateTime;
-            vm.CreateDateFilter.To = maxDateTime;
-            vm.CreateDateFilter.IsChecked = true;
+            vm.SearchState.CreateDateFilter.From = minDateTime;
+            vm.SearchState.CreateDateFilter.To = maxDateTime;
+            vm.SearchState.CreateDateFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -115,7 +119,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.IsPositionsSearch = false;
 
             //when
-            vm.BookDateFilter.From = DateTime.Today;
+            vm.SearchState.BookDateFilter.From = DateTime.Today;
 
             //then
             Assert.Empty(vm.Positions);
@@ -130,11 +134,12 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = false;
+            vm.IsTransactionsSearch = false;
 
             //when
-            vm.BookDateFilter.From = minDateTime;
-            vm.BookDateFilter.To = maxDateTime;
-            vm.BookDateFilter.IsChecked = true;
+            vm.SearchState.BookDateFilter.From = minDateTime;
+            vm.SearchState.BookDateFilter.To = maxDateTime;
+            vm.SearchState.BookDateFilter.IsChecked = true;
 
             //then
             Assert.Empty(vm.Positions);
@@ -149,11 +154,12 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = false;
+            vm.IsTransactionsSearch = false;
 
             //when
-            vm.LastEditDateFilter.From = minDateTime;
-            vm.LastEditDateFilter.To = maxDateTime;
-            vm.LastEditDateFilter.IsChecked = true;
+            vm.SearchState.LastEditDateFilter.From = minDateTime;
+            vm.SearchState.LastEditDateFilter.To = maxDateTime;
+            vm.SearchState.LastEditDateFilter.IsChecked = true;
 
             //then
             Assert.Empty(vm.Positions);
@@ -168,11 +174,12 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = false;
+            vm.IsTransactionsSearch = false;
 
             //when
-            vm.CreateDateFilter.From = minDateTime;
-            vm.CreateDateFilter.To = maxDateTime;
-            vm.CreateDateFilter.IsChecked = true;
+            vm.SearchState.CreateDateFilter.From = minDateTime;
+            vm.SearchState.CreateDateFilter.To = maxDateTime;
+            vm.SearchState.CreateDateFilter.IsChecked = true;
 
             //then
             Assert.Empty(vm.Positions);

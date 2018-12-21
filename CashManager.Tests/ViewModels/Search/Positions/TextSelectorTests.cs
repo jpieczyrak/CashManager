@@ -18,14 +18,15 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _container.Resolve<SearchViewModel>();
             string searchString = vm.Transactions.First().Title;
             vm.IsPositionsSearch = true;
+            vm.IsTransactionsSearch = false;
             var expected = Positions
                              .Where(x => x.Parent.Title.ToLower().Contains(searchString.ToLower()))
                              .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
-            vm.TitleFilter.Value = searchString;
-            vm.TitleFilter.IsChecked = true;
+            vm.SearchState.TitleFilter.Value = searchString;
+            vm.SearchState.TitleFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -41,14 +42,15 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _container.Resolve<SearchViewModel>();
             string searchString = vm.Transactions.First().Note;
             vm.IsPositionsSearch = true;
+            vm.IsTransactionsSearch = false;
             var expected = Positions
                              .Where(x => x.Parent.Note.ToLower().Contains(searchString.ToLower()))
                              .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
-            vm.NoteFilter.Value = searchString;
-            vm.NoteFilter.IsChecked = true;
+            vm.SearchState.NoteFilter.Value = searchString;
+            vm.SearchState.NoteFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -64,14 +66,15 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _container.Resolve<SearchViewModel>();
             string searchString = vm.Transactions.First().Positions.First().Title.ToUpper();
             vm.IsPositionsSearch = true;
+            vm.IsTransactionsSearch = false;
             var expected = Positions
                              .Where(x => x.Title.ToLower().Contains(searchString.ToLower()))
                              .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
-            vm.PositionTitleFilter.Value = searchString;
-            vm.PositionTitleFilter.IsChecked = true;
+            vm.SearchState.PositionTitleFilter.Value = searchString;
+            vm.SearchState.PositionTitleFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);

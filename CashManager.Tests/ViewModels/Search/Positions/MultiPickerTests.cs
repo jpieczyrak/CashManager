@@ -18,14 +18,15 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _container.Resolve<SearchViewModel>();
             var filterValue = vm.Transactions.First().Positions.First().Category;
             vm.IsPositionsSearch = true;
+            vm.IsTransactionsSearch = false;
             var expected = Positions
                              .Where(x => filterValue.MatchCategoryFilter(x.Category))
                              .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
-            vm.CategoriesFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
-            vm.CategoriesFilter.IsChecked = true;
+            vm.SearchState.CategoriesFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
+            vm.SearchState.CategoriesFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -41,17 +42,18 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _container.Resolve<SearchViewModel>();
             var filterValue = new [] { Tags[0], Tags[2] };
             vm.IsPositionsSearch = true;
+            vm.IsTransactionsSearch = false;
             var expected = Positions
                              .Where(x => x.Tags.Any(y => filterValue.Contains(y)))
                              .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
-            var matchingSelectable = vm.TagsFilter.ComboBox.InternalDisplayableSearchResults
+            var matchingSelectable = vm.SearchState.TagsFilter.ComboBox.InternalDisplayableSearchResults
                                    .Where(x => filterValue.Any(y => y.Id == x.Id));
             foreach (var selectable in matchingSelectable)
                 selectable.IsSelected = true;
-            vm.TagsFilter.IsChecked = true;
+            vm.SearchState.TagsFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -67,14 +69,15 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _container.Resolve<SearchViewModel>();
             var filterValue = vm.Transactions.First().Positions.First().Parent.Type;
             vm.IsPositionsSearch = true;
+            vm.IsTransactionsSearch = false;
             var expected = Positions
                              .Where(x => Equals(x.Parent.Type, filterValue))
                              .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
-            vm.TypesFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
-            vm.TypesFilter.IsChecked = true;
+            vm.SearchState.TypesFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
+            vm.SearchState.TypesFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -90,14 +93,15 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _container.Resolve<SearchViewModel>();
             var filterValue = vm.Transactions.First().Positions.First().Parent.UserStock;
             vm.IsPositionsSearch = true;
+            vm.IsTransactionsSearch = false;
             var expected = Positions
                              .Where(x => Equals(x.Parent.UserStock, filterValue))
                              .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
-            vm.UserStocksFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
-            vm.UserStocksFilter.IsChecked = true;
+            vm.SearchState.UserStocksFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
+            vm.SearchState.UserStocksFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);
@@ -113,14 +117,15 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _container.Resolve<SearchViewModel>();
             var filterValue = vm.Transactions.First().Positions.First().Parent.ExternalStock;
             vm.IsPositionsSearch = true;
+            vm.IsTransactionsSearch = false;
             var expected = vm.Transactions.SelectMany(x => x.Positions)
                              .Where(x => Equals(x.Parent.ExternalStock, filterValue))
                              .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
-            vm.ExternalStocksFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
-            vm.ExternalStocksFilter.IsChecked = true;
+            vm.SearchState.ExternalStocksFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
+            vm.SearchState.ExternalStocksFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);

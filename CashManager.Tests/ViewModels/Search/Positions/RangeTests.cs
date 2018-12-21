@@ -19,15 +19,16 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
+            vm.IsTransactionsSearch = false;
             var expected = Positions
                              .Where(x => x.Value.GrossValue <= maxValue && x.Value.GrossValue >= minValue)
                              .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
-            vm.ValueFilter.Min = minValue;
-            vm.ValueFilter.Max = maxValue;
-            vm.ValueFilter.IsChecked = true;
+            vm.SearchState.ValueFilter.Min = minValue;
+            vm.SearchState.ValueFilter.Max = maxValue;
+            vm.SearchState.ValueFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Positions);

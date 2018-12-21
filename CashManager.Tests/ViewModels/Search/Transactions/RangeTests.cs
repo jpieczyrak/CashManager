@@ -25,9 +25,9 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
                              .ToArray();
 
             //when
-            vm.ValueFilter.Min = minValue;
-            vm.ValueFilter.Max = maxValue;
-            vm.ValueFilter.IsChecked = true;
+            vm.SearchState.ValueFilter.Min = minValue;
+            vm.SearchState.ValueFilter.Max = maxValue;
+            vm.SearchState.ValueFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Transactions);

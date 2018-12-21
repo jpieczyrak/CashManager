@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
+﻿using System.Collections.Specialized;
 using System.Linq;
 
 using AutoMapper;
@@ -34,20 +32,10 @@ namespace CashManager_MVVM.Features.Search
 
         private readonly IQueryDispatcher _queryDispatcher;
         private Transaction[] _allTransactions;
-        private TextSelector _titleFilter = new TextSelector(TextSelectorType.Title);
-        private TextSelector _noteFilter = new TextSelector(TextSelectorType.Note);
-        private TextSelector _positionTitleFilter = new TextSelector(TextSelectorType.PositionTitle);
-        private DateFrame _bookDateFilter = new DateFrame(DateFrameType.BookDate);
-        private DateFrame _createDateFilter = new DateFrame(DateFrameType.CreationDate);
-        private DateFrame _lastEditDateFilter = new DateFrame(DateFrameType.EditDate);
-        private MultiPicker _userStocksFilter;
-        private MultiPicker _externalStocksFilter;
-        private MultiPicker _categoriesFilter;
-        private MultiPicker _typesFilter;
-        private MultiPicker _tagsFilter;
-        private RangeSelector _valueFilter;
+
         private Transaction[] _transactions;
         private Position[] _positions;
+
         private string _title;
         private bool _isTransactionsSearch;
         private bool _isPositionsSearch;
@@ -57,79 +45,10 @@ namespace CashManager_MVVM.Features.Search
         #region properties
         
         public TransactionListViewModel TransactionsListViewModel { get; }
+
         public PositionListViewModel PositionsListViewModel { get; }
 
-        public DateFrame BookDateFilter
-        {
-            get => _bookDateFilter;
-            set => Set(nameof(BookDateFilter), ref _bookDateFilter, value);
-        }
-
-        public DateFrame CreateDateFilter
-        {
-            get => _createDateFilter;
-            set => Set(nameof(CreateDateFilter), ref _createDateFilter, value);
-        }
-
-        public DateFrame LastEditDateFilter
-        {
-            get => _lastEditDateFilter;
-            set => Set(nameof(LastEditDateFilter), ref _lastEditDateFilter, value);
-        }
-
-        public MultiPicker UserStocksFilter
-        {
-            get => _userStocksFilter;
-            set => Set(nameof(UserStocksFilter), ref _userStocksFilter, value);
-        }
-
-        public MultiPicker ExternalStocksFilter
-        {
-            get => _externalStocksFilter;
-            set => Set(nameof(ExternalStocksFilter), ref _externalStocksFilter, value);
-        }
-
-        public MultiPicker CategoriesFilter
-        {
-            get => _categoriesFilter;
-            set => Set(nameof(CategoriesFilter), ref _categoriesFilter, value);
-        }
-
-        public MultiPicker TypesFilter
-        {
-            get => _typesFilter;
-            set => Set(nameof(TypesFilter), ref _typesFilter, value);
-        }
-
-        public MultiPicker TagsFilter
-        {
-            get => _tagsFilter;
-            set => Set(nameof(TagsFilter), ref _tagsFilter, value);
-        }
-
-        public RangeSelector ValueFilter
-        {
-            get => _valueFilter;
-            set => Set(nameof(ValueFilter), ref _valueFilter, value);
-        }
-
-        public TextSelector TitleFilter
-        {
-            get => _titleFilter;
-            set => Set(nameof(TitleFilter), ref _titleFilter, value);
-        }
-
-        public TextSelector NoteFilter
-        {
-            get => _noteFilter;
-            set => Set(nameof(NoteFilter), ref _noteFilter, value);
-        }
-
-        public TextSelector PositionTitleFilter
-        {
-            get => _positionTitleFilter;
-            set => Set(nameof(PositionTitleFilter), ref _positionTitleFilter, value);
-        }
+        public SearchState SearchState { get; }
 
         public Transaction[] Transactions
         {
@@ -156,7 +75,7 @@ namespace CashManager_MVVM.Features.Search
             {
                 Set(nameof(IsTransactionsSearch), ref _isTransactionsSearch, value);
                 if (value) SetTitle(SearchType.Transactions);
-                OnPropertyChanged(null, null);
+                FiltersOnCollectionChanged(null, null);
             }
         }
 
@@ -167,19 +86,19 @@ namespace CashManager_MVVM.Features.Search
             {
                 Set(nameof(IsPositionsSearch), ref _isPositionsSearch, value);
                 if (value) SetTitle(SearchType.Positions);
-                OnPropertyChanged(null, null);
+                FiltersOnCollectionChanged(null, null);
             }
         }
 
-        public bool IsAnySelected => _bookDateFilter.IsChecked
-                                     || _userStocksFilter.IsChecked && _userStocksFilter.Results.Any()
-                                     || _externalStocksFilter.IsChecked && _externalStocksFilter.Results.Any()
-                                     || _titleFilter.IsChecked && !string.IsNullOrWhiteSpace(_titleFilter.Value)
-                                     || _noteFilter.IsChecked
-                                     || _positionTitleFilter.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleFilter.Value)
-                                     || _categoriesFilter.IsChecked && _categoriesFilter.Results.Any()
-                                     || _typesFilter.IsChecked && _typesFilter.Results.Any()
-                                     || _tagsFilter.IsChecked;
+        public bool IsAnySelected => SearchState.BookDateFilter.IsChecked
+                                     || SearchState.UserStocksFilter.IsChecked && SearchState.UserStocksFilter.Results.Any()
+                                     || SearchState.ExternalStocksFilter.IsChecked && SearchState.ExternalStocksFilter.Results.Any()
+                                     || SearchState.TitleFilter.IsChecked && !string.IsNullOrWhiteSpace(SearchState.TitleFilter.Value)
+                                     || SearchState.NoteFilter.IsChecked
+                                     || SearchState.PositionTitleFilter.IsChecked && !string.IsNullOrWhiteSpace(SearchState.PositionTitleFilter.Value)
+                                     || SearchState.CategoriesFilter.IsChecked && SearchState.CategoriesFilter.Results.Any()
+                                     || SearchState.TypesFilter.IsChecked && SearchState.TypesFilter.Results.Any()
+                                     || SearchState.TagsFilter.IsChecked;
 
         #endregion
 
@@ -188,6 +107,7 @@ namespace CashManager_MVVM.Features.Search
 
         public SearchViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
+            SearchState = new SearchState();
             _queryDispatcher = queryDispatcher;
             TransactionsListViewModel = factory.Create<TransactionListViewModel>();
             PositionsListViewModel = factory.Create<PositionListViewModel>();
@@ -200,62 +120,66 @@ namespace CashManager_MVVM.Features.Search
             _allTransactions = Mapper.Map<Transaction[]>(_queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()));
             Transactions = _allTransactions.ToArray();
             Positions = new Position[0];
-
-            TitleFilter.PropertyChanged += OnPropertyChanged;
-            NoteFilter.PropertyChanged += OnPropertyChanged;
-            PositionTitleFilter.PropertyChanged += OnPropertyChanged;
-
-            BookDateFilter.PropertyChanged += OnPropertyChanged;
-            LastEditDateFilter.PropertyChanged += OnPropertyChanged;
-            CreateDateFilter.PropertyChanged += OnPropertyChanged;
-
+            
             var availableStocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery())).OrderBy(x => x.Name);
-            UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, availableStocks.Where(x => x.IsUserStock).ToArray());
-            ExternalStocksFilter =
+            SearchState.UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, availableStocks.Where(x => x.IsUserStock).ToArray());
+            SearchState.ExternalStocksFilter =
                 new MultiPicker(MultiPickerType.ExternalStock,
                     Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
-            UserStocksFilter.PropertyChanged += OnPropertyChanged;
-            ExternalStocksFilter.PropertyChanged += OnPropertyChanged;
 
             var categories = Mapper.Map<Category[]>(_queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
             categories = CategoryDesignHelper.BuildGraphicalOrder(categories).ToArray();
-            CategoriesFilter = new MultiPicker(MultiPickerType.Category, categories);
-            CategoriesFilter.PropertyChanged += OnPropertyChanged;
+            SearchState.CategoriesFilter = new MultiPicker(MultiPickerType.Category, categories);
 
             var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery())
                                                                      .OrderBy(x => x.Name));
-            TypesFilter = new MultiPicker(MultiPickerType.TransactionType, types);
-            TypesFilter.PropertyChanged += OnPropertyChanged;
+            SearchState.TypesFilter = new MultiPicker(MultiPickerType.TransactionType, types);
 
             var tags = Mapper.Map<Tag[]>(_queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
-            TagsFilter = new MultiPicker(MultiPickerType.Tag, tags);
-            TagsFilter.PropertyChanged += OnPropertyChanged;
+            SearchState.TagsFilter = new MultiPicker(MultiPickerType.Tag, tags);
 
-            ValueFilter = new RangeSelector(RangeSelectorType.GrossValue);
-            ValueFilter.PropertyChanged += OnPropertyChanged;
+            SearchState.ValueFilter = new RangeSelector(RangeSelectorType.GrossValue);
 
             var filters = new IFilter<Transaction>[]
             {
-                DateFrameFilter.Create(_bookDateFilter),
-                DateFrameFilter.Create(_createDateFilter),
-                DateFrameFilter.Create(_lastEditDateFilter),
-                TextFilter.Create(_titleFilter),
-                TextFilter.Create(_noteFilter),
-                TextFilter.Create(_positionTitleFilter),
-                MultiPickerFilter.Create(_categoriesFilter),
-                MultiPickerFilter.Create(_tagsFilter),
-                MultiPickerFilter.Create(_typesFilter),
-                MultiPickerFilter.Create(_userStocksFilter),
-                MultiPickerFilter.Create(_externalStocksFilter),
-                RangeFilter.Create(_valueFilter)
+                DateFrameFilter.Create(SearchState.BookDateFilter),
+                DateFrameFilter.Create(SearchState.CreateDateFilter),
+                DateFrameFilter.Create(SearchState.LastEditDateFilter),
+                TextFilter.Create(SearchState.TitleFilter),
+                TextFilter.Create(SearchState.NoteFilter),
+                TextFilter.Create(SearchState.PositionTitleFilter),
+                MultiPickerFilter.Create(SearchState.CategoriesFilter),
+                MultiPickerFilter.Create(SearchState.TagsFilter),
+                MultiPickerFilter.Create(SearchState.TypesFilter),
+                MultiPickerFilter.Create(SearchState.UserStocksFilter),
+                MultiPickerFilter.Create(SearchState.ExternalStocksFilter),
+                RangeFilter.Create(SearchState.ValueFilter)
             };
             //todo: do not create new list each time!
             _transactionFilters = new TrulyObservableCollection<IFilter<Transaction>>(filters);
             _positionFilters = new TrulyObservableCollection<IFilter<Position>>(filters.OfType<IFilter<Position>>());
-            _transactionFilters.CollectionChanged += TransactionFiltersOnCollectionChanged;
-            _positionFilters.CollectionChanged += PositionFiltersOnCollectionChanged;
+            _transactionFilters.CollectionChanged += FiltersOnCollectionChanged;
+            _positionFilters.CollectionChanged += FiltersOnCollectionChanged;
 
-            OnPropertyChanged(this, null);
+            FiltersOnCollectionChanged(this, null);
+        }
+
+        private void FiltersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            if (_allTransactions == null || !_allTransactions.Any()) return;
+            //todo: optimize
+            //if (!IsAnySelected)
+            //{
+            //    if (IsTransactionsSearch)
+            //    {
+            //        if (TransactionsListViewModel.Transactions.Count == _allTransactions.Length) return;
+            //    }
+            //    else if (IsPositionsSearch)
+            //        if (PositionsListViewModel.Positions.Count == _allTransactions.Sum(x => x.Positions.Count)) return;
+            //}
+
+            if (IsTransactionsSearch) FilterTransactions();
+            else if (IsPositionsSearch) FilterPositions();
         }
 
         private void SetTitle(SearchType searchType)
@@ -263,149 +187,7 @@ namespace CashManager_MVVM.Features.Search
             Title = $"{searchType} search";
         }
 
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            if (_allTransactions == null || !_allTransactions.Any()) return;
-            if (!IsAnySelected)
-            {
-                if (IsTransactionsSearch)
-                {
-                    if (TransactionsListViewModel.Transactions.Count == _allTransactions.Length) return;
-                }
-                else if (IsPositionsSearch)
-                    if (PositionsListViewModel.Positions.Count == _allTransactions.Sum(x => x.Positions.Count)) return;
-            }
-
-            if (IsTransactionsSearch) FilterTransactions();
-            else if (IsPositionsSearch) FilterPositions();
-        }
-
-        #region filtering
-
         private void FilterTransactions()
-        {
-            GetFilteredTransactions();
-
-            //Todo: change to dependency property binding. remove this:
-            TransactionsListViewModel.Transactions.Clear();
-            TransactionsListViewModel.Transactions.AddRange(Transactions);
-        }
-
-        private Transaction[] GetFilteredTransactions()
-        {
-            var transactions = _allTransactions.AsEnumerable();
-            if (TitleFilter.IsChecked)
-            {
-                transactions = transactions.Where(x => x.Title.ToLower().Contains(TitleFilter.Value.ToLower()));
-            }
-
-            if (NoteFilter.IsChecked)
-            {
-                transactions = transactions.Where(x => !string.IsNullOrEmpty(x.Note) && x.Note.ToLower().Contains(NoteFilter.Value.ToLower()));
-            }
-
-            if (PositionTitleFilter.IsChecked)
-            {
-                transactions = transactions.Where(x => x.Positions.Any(y => y.Title.ToLower().Contains(PositionTitleFilter.Value.ToLower())));
-            }
-
-            if (CategoriesFilter.IsChecked)
-            {
-                var categories = CategoriesFilter.Results.OfType<Category>().ToArray();
-                transactions = transactions.Where(x => x.Positions.Select(y => y.Category).Any(y => categories.Any(z =>
-                    z.MatchCategoryFilter(y))));
-            }
-
-            if (TagsFilter.IsChecked)
-            {
-                var tags = new HashSet<Tag>(TagsFilter.Results.OfType<Tag>());
-                transactions = transactions.Where(x => x.Positions.SelectMany(y => y.Tags).Any(y => tags.Contains(y)));
-            }
-
-            if (TypesFilter.IsChecked)
-            {
-                var types = new HashSet<TransactionType>(TypesFilter.Results.OfType<TransactionType>());
-                transactions = transactions.Where(x => types.Contains(x.Type));
-            }
-
-            if (UserStocksFilter.IsChecked)
-            {
-                var stocks = new HashSet<Stock>(UserStocksFilter.Results.OfType<Stock>());
-                transactions = transactions.Where(x => stocks.Contains(x.UserStock));
-            }
-
-            if (ExternalStocksFilter.IsChecked)
-            {
-                var stocks = new HashSet<Stock>(ExternalStocksFilter.Results.OfType<Stock>());
-                transactions = transactions.Where(x => stocks.Contains(x.ExternalStock));
-            }
-
-            if (CreateDateFilter.IsChecked)
-            {
-                transactions = transactions.Where(x =>
-                    x.InstanceCreationDate >= CreateDateFilter.From && x.InstanceCreationDate <= CreateDateFilter.To);
-            }
-
-            if (BookDateFilter.IsChecked)
-            {
-                transactions = transactions.Where(x => x.BookDate >= BookDateFilter.From && x.BookDate <= BookDateFilter.To);
-            }
-
-            if (LastEditDateFilter.IsChecked)
-            {
-                transactions = transactions.Where(x => x.LastEditDate >= LastEditDateFilter.From && x.LastEditDate <= LastEditDateFilter.To);
-            }
-
-            if (ValueFilter.IsChecked)
-            {
-                transactions = transactions.Where(x =>
-                    x.ValueAsProfit >= ValueFilter.Min && x.ValueAsProfit <= ValueFilter.Max);
-            }
-
-            Transactions = transactions
-                           .OrderByDescending(x => x.BookDate)
-                           .ThenByDescending(x => x.InstanceCreationDate)
-                           .ToArray();
-
-            return Transactions;
-        }
-
-        private void FilterPositions()
-        {
-            var transactions = GetFilteredTransactions();
-            IEnumerable<Position> positions = transactions.SelectMany(x => x.Positions).ToArray();
-            
-            if (PositionTitleFilter.IsChecked)
-            {
-                positions = positions.Where(x => x.Title.ToLower().Contains(PositionTitleFilter.Value.ToLower()));
-            }
-
-            if (CategoriesFilter.IsChecked && CategoriesFilter.Results.Any())
-            {
-                var categories = CategoriesFilter.Results.OfType<Category>().ToArray();
-                positions = positions.Where(x => categories.Any(y => y.MatchCategoryFilter(x.Category)));
-            }
-
-            if (TagsFilter.IsChecked)
-            {
-                var tags = new HashSet<Tag>(TagsFilter.Results.OfType<Tag>());
-                positions = positions.Where(x => x.Tags.Any(y => tags.Contains(y)));
-            }
-
-            if (ValueFilter.IsChecked)
-            {
-                positions = positions.Where(x => x.Value.GrossValue >= ValueFilter.Min && x.Value.GrossValue <= ValueFilter.Max);
-            }
-
-            Positions = positions.OrderByDescending(x => x.Parent.BookDate).ToArray();
-
-            PositionsListViewModel.Positions.Clear();
-            PositionsListViewModel.Positions.AddRange(Positions);
-        }
-
-        #endregion
-
-        private void TransactionFiltersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsTransactionsSearch)
             {
@@ -424,7 +206,7 @@ namespace CashManager_MVVM.Features.Search
             }
         }
 
-        private void PositionFiltersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void FilterPositions()
         {
             if (IsPositionsSearch)
             {

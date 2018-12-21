@@ -24,8 +24,8 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
                              .ToArray();
 
             //when
-            vm.TitleFilter.Value = searchString;
-            vm.TitleFilter.IsChecked = true;
+            vm.SearchState.TitleFilter.Value = searchString;
+            vm.SearchState.TitleFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Transactions);
@@ -47,8 +47,8 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
                              .ToArray();
 
             //when
-            vm.NoteFilter.Value = searchString;
-            vm.NoteFilter.IsChecked = true;
+            vm.SearchState.NoteFilter.Value = searchString;
+            vm.SearchState.NoteFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Transactions);
@@ -70,8 +70,8 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
                              .ToArray();
 
             //when
-            vm.PositionTitleFilter.Value = searchString;
-            vm.PositionTitleFilter.IsChecked = true;
+            vm.SearchState.PositionTitleFilter.Value = searchString;
+            vm.SearchState.PositionTitleFilter.IsChecked = true;
 
             //then
             Assert.NotEmpty(vm.Transactions);

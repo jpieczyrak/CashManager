@@ -142,6 +142,7 @@
     </Compile>
     <Compile Include="Features\Plots\CategoriesPlotViewModel.cs" />
     <Compile Include="Features\Plots\WealthViewModel.cs" />
+    <Compile Include="Features\Search\SearchState.cs" />
     <Compile Include="Features\Transactions\MassReplacerView.xaml.cs">
       <DependentUpon>MassReplacerView.xaml</DependentUpon>
     </Compile>
