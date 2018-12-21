@@ -8,7 +8,7 @@ using Xunit;
 
 namespace CashManager.Tests.ViewModels.Search.Transactions
 {
-    public class TransactionSearchTests : ViewModelTests
+    public class BaseTests : ViewModelTests
     {
         [Fact]
         public void OnPropertyChanged_Clean_AllTransactions()
