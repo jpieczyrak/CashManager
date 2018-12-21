@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 
 using AutoMapper;
@@ -9,6 +10,7 @@ using CashManager.Infrastructure.Query.Transactions;
 using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Logic.Commands;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Common;
 
 using GalaSoft.MvvmLight;
 
@@ -159,11 +161,7 @@ namespace CashManager_MVVM.Features.Search
                 if (filter.CanExecute())
                     input = filter.Execute(input);
 
-            Transactions = input
-                           .OrderByDescending(x => x.BookDate)
-                           .ThenByDescending(x => x.InstanceCreationDate)
-                           .ToArray();
-
+            Transactions = OrderResults(input);
             TransactionsListViewModel.Transactions.Clear();
             TransactionsListViewModel.Transactions.AddRange(Transactions);
         }
@@ -175,13 +173,17 @@ namespace CashManager_MVVM.Features.Search
                 if (filter.CanExecute())
                     input = filter.Execute(input);
 
-            Positions = input
-                        .OrderByDescending(x => x.BookDate)
-                        .ThenByDescending(x => x.InstanceCreationDate)
-                        .ToArray();
-
+            Positions = OrderResults(input);
             PositionsListViewModel.Positions.Clear();
             PositionsListViewModel.Positions.AddRange(Positions);
+        }
+
+        private static T[] OrderResults<T>(IEnumerable<T> input) where T : IBookable
+        {
+            return input
+                   .OrderByDescending(x => x.BookDate)
+                   .ThenByDescending(x => x.InstanceCreationDate)
+                   .ToArray();
         }
     }
 }
