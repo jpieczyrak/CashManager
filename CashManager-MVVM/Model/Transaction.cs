@@ -124,23 +124,29 @@ namespace CashManager_MVVM.Model
                                                ? Value
                                                : 0m;
 
+        public bool IsPropertyChangedEnabled { get; set; }
+
         public Transaction()
         {
             _bookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
 
             Positions = new TrulyObservableCollection<Position>();
             StoredFiles = new ObservableCollection<StoredFileInfo>();
+            IsPropertyChangedEnabled = true;
         }
         
         private void PositionsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            RaisePropertyChanged(nameof(Value));
-            RaisePropertyChanged(nameof(ValueAsProfit));
+            if (IsPropertyChangedEnabled)
+            {
+                RaisePropertyChanged(nameof(Value));
+                RaisePropertyChanged(nameof(ValueAsProfit));
+            }
         }
 
         private void StoredFilesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            RaisePropertyChanged(nameof(StoredFiles));
+            if (IsPropertyChangedEnabled) RaisePropertyChanged(nameof(StoredFiles));
         }
     }
 }
