@@ -9,5 +9,7 @@ namespace CashManager.Data.ViewModelState.Selectors
         public DateTime From { get; set; }
 
         public DateTime To { get; set; }
+
+        public bool IsChecked { get; set; }
     }
 }

@@ -7,5 +7,7 @@
         public decimal Max { get; set; }
 
         public int Type { get; set; }
+
+        public bool IsChecked { get; set; }
     }
 }

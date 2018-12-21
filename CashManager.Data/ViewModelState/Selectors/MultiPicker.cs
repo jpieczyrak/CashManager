@@ -7,5 +7,7 @@ namespace CashManager.Data.ViewModelState.Selectors
         public int Type { get; set; }
 
         public Guid[] Selected { get; set; }
+
+        public bool IsChecked { get; set; }
     }
 }
