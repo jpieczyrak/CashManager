@@ -134,6 +134,7 @@
     <Compile Include="Infrastructure\Extensions\LiteDbExtensions\UpsertTests.cs" />
     <Compile Include="Infrastructure\Queries\Categories\CategoryTests.cs" />
     <Compile Include="Infrastructure\Queries\NoQuery\NoQueryTests.cs" />
+    <Compile Include="Infrastructure\Queries\States\SearchStateTests.cs" />
     <Compile Include="Infrastructure\Queries\Stock\StockTests.cs" />
     <Compile Include="Infrastructure\Queries\Tags\TagsTests.cs" />
     <Compile Include="Infrastructure\Queries\TransactionTypes\TransactionTypesTests.cs" />
