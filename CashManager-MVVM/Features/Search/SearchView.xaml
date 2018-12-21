@@ -46,21 +46,21 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <UserControl Grid.Row="0" Grid.Column="0" Content="{Binding TitleFilter}" />
-            <UserControl Grid.Row="0" Grid.Column="1" Content="{Binding NoteFilter}" />
-            <UserControl Grid.Row="0" Grid.Column="2" Content="{Binding PositionTitleFilter}" />
+            <UserControl Grid.Row="0" Grid.Column="0" Content="{Binding SearchState.TitleFilter}" />
+            <UserControl Grid.Row="0" Grid.Column="1" Content="{Binding SearchState.NoteFilter}" />
+            <UserControl Grid.Row="0" Grid.Column="2" Content="{Binding SearchState.PositionTitleFilter}" />
 
-            <UserControl Grid.Row="1" Grid.Column="0" Content="{Binding TagsFilter}" />
-            <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding CategoriesFilter}" />
-            <UserControl Grid.Row="1" Grid.Column="2" Content="{Binding TypesFilter}" />
+            <UserControl Grid.Row="1" Grid.Column="0" Content="{Binding SearchState.TagsFilter}" />
+            <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding SearchState.CategoriesFilter}" />
+            <UserControl Grid.Row="1" Grid.Column="2" Content="{Binding SearchState.TypesFilter}" />
 
-            <UserControl Grid.Row="2" Grid.Column="0" Content="{Binding CreateDateFilter}" />
-            <UserControl Grid.Row="2" Grid.Column="1" Content="{Binding BookDateFilter}" />
-            <UserControl Grid.Row="2" Grid.Column="2" Content="{Binding LastEditDateFilter}" />
+            <UserControl Grid.Row="2" Grid.Column="0" Content="{Binding SearchState.CreateDateFilter}" />
+            <UserControl Grid.Row="2" Grid.Column="1" Content="{Binding SearchState.BookDateFilter}" />
+            <UserControl Grid.Row="2" Grid.Column="2" Content="{Binding SearchState.LastEditDateFilter}" />
 
-            <UserControl Grid.Row="3" Grid.Column="0" Content="{Binding UserStocksFilter}" />
-            <UserControl Grid.Row="3" Grid.Column="1" Content="{Binding ExternalStocksFilter}" />
-            <UserControl Grid.Row="3" Grid.Column="2" Content="{Binding ValueFilter}" />
+            <UserControl Grid.Row="3" Grid.Column="0" Content="{Binding SearchState.UserStocksFilter}" />
+            <UserControl Grid.Row="3" Grid.Column="1" Content="{Binding SearchState.ExternalStocksFilter}" />
+            <UserControl Grid.Row="3" Grid.Column="2" Content="{Binding SearchState.ValueFilter}" />
         </Grid>
 
         <transactions:TransactionListView Grid.Row="2" Content="{Binding TransactionsListViewModel}" Transactions="{Binding Transactions, Mode=TwoWay}" Visibility="{Binding IsTransactionsSearch, Converter={StaticResource bool2VisibilityConverter}}" />
