@@ -3,7 +3,6 @@
 using Autofac;
 
 using CashManager_MVVM.Features.Search;
-using CashManager_MVVM.Model;
 
 using Xunit;
 
@@ -19,7 +18,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _container.Resolve<SearchViewModel>();
             var filterValue = vm.Transactions.First().Positions.First().Category;
             vm.IsPositionsSearch = true;
-            var expected = vm.Transactions.SelectMany(x => x.Positions)
+            var expected = Positions
                              .Where(x => filterValue.MatchCategoryFilter(x.Category))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -40,9 +39,9 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
-            var filterValue = new [] { Tags[0] };
+            var filterValue = new [] { Tags[0], Tags[2] };
             vm.IsPositionsSearch = true;
-            var expected = vm.Transactions.SelectMany(x => x.Positions)
+            var expected = Positions
                              .Where(x => x.Tags.Any(y => filterValue.Contains(y)))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -68,7 +67,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _container.Resolve<SearchViewModel>();
             var filterValue = vm.Transactions.First().Positions.First().Parent.Type;
             vm.IsPositionsSearch = true;
-            var expected = vm.Transactions.SelectMany(x => x.Positions)
+            var expected = Positions
                              .Where(x => Equals(x.Parent.Type, filterValue))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -91,7 +90,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _container.Resolve<SearchViewModel>();
             var filterValue = vm.Transactions.First().Positions.First().Parent.UserStock;
             vm.IsPositionsSearch = true;
-            var expected = vm.Transactions.SelectMany(x => x.Positions)
+            var expected = Positions
                              .Where(x => Equals(x.Parent.UserStock, filterValue))
                              .OrderBy(x => x.Id)
                              .ToArray();

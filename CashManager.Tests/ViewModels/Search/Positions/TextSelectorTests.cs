@@ -18,8 +18,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _container.Resolve<SearchViewModel>();
             string searchString = vm.Transactions.First().Title;
             vm.IsPositionsSearch = true;
-            var expected = vm.Transactions
-                             .SelectMany(x => x.Positions)
+            var expected = Positions
                              .Where(x => x.Parent.Title.ToLower().Contains(searchString.ToLower()))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -42,8 +41,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _container.Resolve<SearchViewModel>();
             string searchString = vm.Transactions.First().Note;
             vm.IsPositionsSearch = true;
-            var expected = vm.Transactions
-                             .SelectMany(x => x.Positions)
+            var expected = Positions
                              .Where(x => x.Parent.Note.ToLower().Contains(searchString.ToLower()))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -66,8 +64,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _container.Resolve<SearchViewModel>();
             string searchString = vm.Transactions.First().Positions.First().Title.ToUpper();
             vm.IsPositionsSearch = true;
-            var expected = vm.Transactions
-                             .SelectMany(x => x.Positions)
+            var expected = Positions
                              .Where(x => x.Title.ToLower().Contains(searchString.ToLower()))
                              .OrderBy(x => x.Id)
                              .ToArray();

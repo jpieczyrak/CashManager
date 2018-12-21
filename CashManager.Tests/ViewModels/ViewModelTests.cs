@@ -36,7 +36,7 @@ namespace CashManager.Tests.ViewModels
         protected DtoStock[] DtoStocks { get; set; }
 
         protected Transaction[] Transactions => Mapper.Map<Transaction[]>(DtoTransactions);
-        protected Position[] Positions => Mapper.Map<Position[]>(DtoPositions);
+        protected Position[] Positions => Mapper.Map<Transaction[]>(DtoTransactions).SelectMany(x => x.Positions).ToArray();
         protected Category[] Categories => Mapper.Map<Category[]>(DtoCategories);
         protected Tag[] Tags => Mapper.Map<Tag[]>(DtoTags);
         protected TransactionType[] Types => Mapper.Map<TransactionType[]>(DtoTypes);

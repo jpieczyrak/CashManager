@@ -18,8 +18,8 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
-            var expected = vm.Transactions.SelectMany(x => x.Positions)
-                             .OrderBy(x => x.BookDate)
+            var expected = Positions
+                             .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
@@ -28,7 +28,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //then
             Assert.NotEmpty(vm.Positions);
             Assert.Equal(expected.Length, vm.Positions.Length);
-            Assert.Equal(expected, vm.Positions.OrderBy(x => x.BookDate).ToArray());
+            Assert.Equal(expected, vm.Positions.OrderBy(x => x.Id).ToArray());
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
-            var expected = vm.Transactions.SelectMany(x => x.Positions)
+            var expected = Positions
                              .Where(x => x.BookDate >= minDateTime && x.BookDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -65,7 +65,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
-            var expected = vm.Transactions.SelectMany(x => x.Positions)
+            var expected = Positions
                              .Where(x => x.LastEditDate >= minDateTime && x.LastEditDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -89,7 +89,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
-            var expected = vm.Transactions.SelectMany(x => x.Positions)
+            var expected = Positions
                              .Where(x => x.InstanceCreationDate >= minDateTime && x.InstanceCreationDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
