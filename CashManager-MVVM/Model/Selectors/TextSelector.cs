@@ -4,7 +4,7 @@
     {
         private string _value = string.Empty;
 
-        public TextSelectorType Type { get; }
+        public TextSelectorType Type { get; private set; }
 
         public string Value
         {
@@ -27,6 +27,13 @@
                     Description = "Position title";
                     break;
             }
+        }
+
+        public void Apply(TextSelector source)
+        {
+            Value = source.Value;
+            Type = source.Type;
+            IsChecked = source.IsChecked;
         }
     }
 }

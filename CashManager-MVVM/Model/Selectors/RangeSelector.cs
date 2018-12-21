@@ -29,5 +29,13 @@
                     break;
             }
         }
+
+        public void Apply(RangeSelector source)
+        {
+            Min = source.Min;
+            Max = source.Max;
+            Type = source.Type;
+            IsChecked = source.IsChecked;
+        }
     }
 }

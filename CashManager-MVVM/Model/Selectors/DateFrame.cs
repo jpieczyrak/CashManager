@@ -7,7 +7,7 @@ namespace CashManager_MVVM.Model.Selectors
         private DateTime _from;
         private DateTime _to;
 
-        public DateFrameType Type { get; }
+        public DateFrameType Type { get; private set; }
 
         public DateTime From
         {
@@ -40,6 +40,14 @@ namespace CashManager_MVVM.Model.Selectors
             var today = DateTime.Today;
             _from = new DateTime(today.Year, today.Month, 1);
             _to = _from.AddMonths(1).AddDays(-1);
+        }
+
+        public void Apply(DateFrame source)
+        {
+            From = source.From;
+            To = source.To;
+            Type = source.Type;
+            IsChecked = source.IsChecked;
         }
     }
 }

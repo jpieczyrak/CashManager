@@ -24,7 +24,7 @@ namespace CashManager_MVVM.Features.Search
     public class SearchState : BaseObservableObject
     {
         private string _name;
-        private const string DEFAULT_NAME = "default";
+        public const string DEFAULT_NAME = "default";
 
         public string Name
         {
@@ -103,24 +103,21 @@ namespace CashManager_MVVM.Features.Search
 
         public void ApplySearchCriteria(SearchState state)
         {
-            TitleFilter = state.TitleFilter;
-            NoteFilter = state.NoteFilter;
-            PositionTitleFilter = state.PositionTitleFilter;
-            BookDateFilter = state.BookDateFilter;
-            CreateDateFilter = state.CreateDateFilter;
-            LastEditDateFilter = state.LastEditDateFilter;
-            ValueFilter = state.ValueFilter;
+            Name = state.Name;
 
-            foreach (var x in TagsFilter.ComboBox.InternalDisplayableSearchResults)
-                x.IsSelected = state.TypesFilter.Selected.Contains(x.Id);
-            foreach (var x in CategoriesFilter.ComboBox.InternalDisplayableSearchResults)
-                x.IsSelected = state.CategoriesFilter.Selected.Contains(x.Id);
-            foreach (var x in TypesFilter.ComboBox.InternalDisplayableSearchResults)
-                x.IsSelected = state.TypesFilter.Selected.Contains(x.Id);
-            foreach (var x in UserStocksFilter.ComboBox.InternalDisplayableSearchResults)
-                x.IsSelected = state.UserStocksFilter.Selected.Contains(x.Id);
-            foreach (var x in ExternalStocksFilter.ComboBox.InternalDisplayableSearchResults)
-                x.IsSelected = state.ExternalStocksFilter.Selected.Contains(x.Id);
+            TitleFilter.Apply(state.TitleFilter);
+            NoteFilter.Apply(state.NoteFilter);
+            PositionTitleFilter.Apply(state.PositionTitleFilter);
+            BookDateFilter.Apply(state.BookDateFilter);
+            CreateDateFilter.Apply(state.CreateDateFilter);
+            LastEditDateFilter.Apply(state.LastEditDateFilter);
+            ValueFilter.Apply(state.ValueFilter);
+
+            TagsFilter.Apply(state.TagsFilter);
+            TypesFilter.Apply(state.TypesFilter);
+            CategoriesFilter.Apply(state.CategoriesFilter);
+            UserStocksFilter.Apply(state.UserStocksFilter);
+            ExternalStocksFilter.Apply(state.ExternalStocksFilter);
         }
     }
 }

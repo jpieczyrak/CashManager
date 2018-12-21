@@ -26,6 +26,8 @@ namespace CashManager_MVVM.Model.Selectors
 
         public Guid[] Selected { get; set; }
 
+        private MultiPicker() { }
+
         public MultiPicker(MultiPickerType type, BaseSelectable[] source, BaseSelectable[] selected = null)
         {
             Type = type;
@@ -58,6 +60,13 @@ namespace CashManager_MVVM.Model.Selectors
         public void SetInput(BaseSelectable[] source)
         {
             ComboBox.SetInput(source, Selected.Select(x => new BaseSelectable(x)).ToArray());
+        }
+
+        public void Apply(MultiPicker source)
+        {
+            foreach (var x in ComboBox.InternalDisplayableSearchResults)
+                x.IsSelected = source.Selected.Contains(x.Id);
+            IsChecked = source.IsChecked;
         }
     }
 }
