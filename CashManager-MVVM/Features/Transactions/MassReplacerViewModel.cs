@@ -27,9 +27,9 @@ namespace CashManager_MVVM.Features.Transactions
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ViewModelFactory _factory;
-        private TextSelector _titleSelector = new TextSelector("Title");
-        private TextSelector _noteSelector = new TextSelector("Note");
-        private TextSelector _positionTitleSelector = new TextSelector("Position title");
+        private TextSelector _titleSelector = new TextSelector(TextSelectorType.Title);
+        private TextSelector _noteSelector = new TextSelector(TextSelectorType.Note);
+        private TextSelector _positionTitleSelector = new TextSelector(TextSelectorType.PositionTitle);
         private DateSelector _bookDateSelector = new DateSelector("Book date");
         private MultiPicker _userStocksSelector;
         private MultiPicker _externalStocksSelector;

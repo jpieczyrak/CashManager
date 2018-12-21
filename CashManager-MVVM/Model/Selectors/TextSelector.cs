@@ -1,8 +1,12 @@
-﻿namespace CashManager_MVVM.Model.Selectors
+﻿using System;
+
+namespace CashManager_MVVM.Model.Selectors
 {
     public class TextSelector : BaseSelector
     {
         private string _value = string.Empty;
+
+        public TextSelectorType Type { get; }
 
         public string Value
         {
@@ -10,9 +14,21 @@
             set => Set(nameof(Value), ref _value, value);
         }
 
-        public TextSelector(string description)
+        public TextSelector(TextSelectorType type)
         {
-            Description = description;
+            Type = type;
+            switch (type)
+            {
+                case TextSelectorType.Title:
+                    Description = "Title";
+                    break;
+                case TextSelectorType.Note:
+                    Description = "Note";
+                    break;
+                case TextSelectorType.PositionTitle:
+                    Description = "Position title";
+                    break;
+            }
         }
     }
 }

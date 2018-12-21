@@ -154,6 +154,7 @@
     <Compile Include="Logic\Commands\DateFrameFilter.cs" />
     <Compile Include="Logic\Commands\DateFrameReplacer.cs" />
     <Compile Include="Logic\Commands\IReplacer.cs" />
+    <Compile Include="Logic\Commands\TextFilter.cs" />
     <Compile Include="Model\BillImage.cs" />
     <Compile Include="Model\Common\BaseSelectable.cs" />
     <Compile Include="Model\Common\IEditable.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Model\Selectors\RangeSelector.cs" />
     <Compile Include="Model\Selectors\TextSelector.cs" />
     <Compile Include="Model\PaymentValue.cs" />
+    <Compile Include="Model\Selectors\TextSelectorType.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\Position.cs" />
     <Compile Include="Model\StoredFileInfo.cs" />

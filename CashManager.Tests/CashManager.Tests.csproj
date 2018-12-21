@@ -146,7 +146,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\LiteDbHelper.cs" />
     <Compile Include="ViewModels\Search\Positions\DateFrameTests.cs" />
+    <Compile Include="ViewModels\Search\Positions\TextSelectorTests.cs" />
     <Compile Include="ViewModels\Search\Transactions\DateFrameTests.cs" />
+    <Compile Include="ViewModels\Search\Transactions\TextSelectorTests.cs" />
     <Compile Include="ViewModels\StocksViewModelTests.cs" />
     <Compile Include="ViewModels\Search\Transactions\BaseTests.cs" />
     <Compile Include="ViewModels\ViewModelTests.cs" />

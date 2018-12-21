@@ -38,7 +38,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.IsTransactionsSearch = true;
             var expected = vm.Transactions
                              .Where(x => x.BookDate >= minDateTime && x.BookDate <= maxDateTime)
-                             .OrderBy(x => x.BookDate)
+                             .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
@@ -49,7 +49,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //then
             Assert.NotEmpty(vm.Transactions);
             Assert.Equal(expected.Length, vm.Transactions.Length);
-            Assert.Equal(expected, vm.Transactions.OrderBy(x => x.BookDate).ToArray());
+            Assert.Equal(expected, vm.Transactions.OrderBy(x => x.Id).ToArray());
         }
 
         [Fact]
@@ -63,7 +63,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.IsTransactionsSearch = true;
             var expected = vm.Transactions
                              .Where(x => x.LastEditDate >= minDateTime && x.LastEditDate <= maxDateTime)
-                             .OrderBy(x => x.LastEditDate)
+                             .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
@@ -73,7 +73,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
 
             //then
             Assert.Equal(expected.Length, vm.Transactions.Length);
-            Assert.Equal(expected, vm.Transactions.OrderBy(x => x.LastEditDate).ToArray());
+            Assert.Equal(expected, vm.Transactions.OrderBy(x => x.Id).ToArray());
         }
 
         [Fact]
@@ -87,7 +87,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.IsTransactionsSearch = true;
             var expected = vm.Transactions
                              .Where(x => x.InstanceCreationDate >= minDateTime && x.InstanceCreationDate <= maxDateTime)
-                             .OrderBy(x => x.InstanceCreationDate)
+                             .OrderBy(x => x.Id)
                              .ToArray();
 
             //when
@@ -98,7 +98,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //then
             Assert.NotEmpty(vm.Transactions);
             Assert.Equal(expected.Length, vm.Transactions.Length);
-            Assert.Equal(expected, vm.Transactions.OrderBy(x => x.InstanceCreationDate).ToArray());
+            Assert.Equal(expected, vm.Transactions.OrderBy(x => x.Id).ToArray());
         }
 
 

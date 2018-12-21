@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
@@ -35,9 +34,9 @@ namespace CashManager_MVVM.Features.Search
 
         private readonly IQueryDispatcher _queryDispatcher;
         private Transaction[] _allTransactions;
-        private TextSelector _titleFilter = new TextSelector("Title");
-        private TextSelector _noteFilter = new TextSelector("Note");
-        private TextSelector _positionTitleFilter = new TextSelector("Position title");
+        private TextSelector _titleFilter = new TextSelector(TextSelectorType.Title);
+        private TextSelector _noteFilter = new TextSelector(TextSelectorType.Note);
+        private TextSelector _positionTitleFilter = new TextSelector(TextSelectorType.PositionTitle);
         private DateFrame _bookDateFilter = new DateFrame(DateFrameType.BookDate);
         private DateFrame _createDateFilter = new DateFrame(DateFrameType.CreationDate);
         private DateFrame _lastEditDateFilter = new DateFrame(DateFrameType.EditDate);
@@ -235,14 +234,17 @@ namespace CashManager_MVVM.Features.Search
             TransactionValueFilter = new RangeSelector("Transaction value");
             TransactionValueFilter.PropertyChanged += OnPropertyChanged;
 
-            var filters = new []
+            var filters = new IFilter<Transaction>[]
             {
                 DateFrameFilter.Create(_bookDateFilter),
                 DateFrameFilter.Create(_createDateFilter),
                 DateFrameFilter.Create(_lastEditDateFilter),
+                TextFilter.Create(_titleFilter),
+                TextFilter.Create(_noteFilter),
+                TextFilter.Create(_positionTitleFilter),
             };
             _transactionFilters = new TrulyObservableCollection<IFilter<Transaction>>(filters);
-            _positionFilters = new TrulyObservableCollection<IFilter<Position>>(filters);
+            _positionFilters = new TrulyObservableCollection<IFilter<Position>>(filters.OfType<IFilter<Position>>());
             _transactionFilters.CollectionChanged += TransactionFiltersOnCollectionChanged;
             _positionFilters.CollectionChanged += PositionFiltersOnCollectionChanged;
 
