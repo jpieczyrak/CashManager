@@ -11,6 +11,6 @@ namespace CashManager.Infrastructure.Query.States
 
 		public SearchStateQueryHandler(LiteRepository repository) => _db = repository.Database;
 
-		public SearchState[] Execute(SearchStateQuery query) => _db.Query<SearchState>();
+		public SearchState[] Execute(SearchStateQuery query) => _db.Query(query.Query);
 	}
 }

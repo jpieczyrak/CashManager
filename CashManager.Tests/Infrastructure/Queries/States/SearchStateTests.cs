@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 using CashManager.Data.ViewModelState;
 using CashManager.Infrastructure.Query.States;
