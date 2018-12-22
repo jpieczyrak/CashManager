@@ -71,8 +71,8 @@ namespace CashManager_MVVM.Features.Plots
             UserStocksFilter.IsChecked = true;
             UserStocksFilter.PropertyChanged += OnPropertyChanged;
 
-            BookDateFilter.From = _allTransactions.Min(x => x.BookDate);
-            BookDateFilter.To = _allTransactions.Max(x => x.BookDate);
+            BookDateFilter.From = _allTransactions.Any() ? _allTransactions.Min(x => x.BookDate) : DateTime.MinValue;
+            BookDateFilter.To = _allTransactions.Any() ? _allTransactions.Max(x => x.BookDate) : DateTime.MaxValue;
             BookDateFilter.IsChecked = true;
             BookDateFilter.PropertyChanged += OnPropertyChanged;
 
