@@ -30,7 +30,8 @@ namespace CashManager_MVVM.Configuration.Mapping
                         config.CreateMap<CashManager.Data.DTO.Balance, Balance>();
 
                         config.CreateMap<Stock, CashManager.Data.DTO.Stock>();
-                        config.CreateMap<CashManager.Data.DTO.Stock, Stock>();
+                        config.CreateMap<CashManager.Data.DTO.Stock, Stock>()
+                              .AfterMap((dto, model) => model.IsPropertyChangedEnabled = true);
 
                         config.CreateMap<Tag, CashManager.Data.DTO.Tag>();
                         config.CreateMap<CashManager.Data.DTO.Tag, Tag>();
