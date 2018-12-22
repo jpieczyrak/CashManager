@@ -34,7 +34,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Tax" Binding="{Binding Value.TaxGuiString}" Width="Auto" MinWidth="50" MaxWidth="100">
+                <DataGridTextColumn Header="Tax" Binding="{Binding Value.TaxGuiString, Mode=OneWay}" Width="Auto" MinWidth="50" MaxWidth="100">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Right"/>
