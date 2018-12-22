@@ -8,10 +8,10 @@ namespace CashManager.Logic.DefaultData
 {
     public class TestDataProvider : DefaultDataProvider
     {
-        private int _titleCounter = 0;
-        private int _positionCounter = 0;
+        private int _titleCounter;
+        private int _positionCounter;
         private readonly Random _random;
-        private readonly decimal[] _vats = new[] { 5m, 8m, 23m };
+        private readonly decimal[] _vats = { 5m, 8m, 23m };
 
         public TestDataProvider()
         {
@@ -59,7 +59,7 @@ namespace CashManager.Logic.DefaultData
                             Title = "sth expensive",
                             Tags = new List<Tag> { tags[0] },
                             LastEditDate = RandomDate()
-                        },
+                        }
                     },
                     stocks[1], stocks[3], "inputsource3"),
                 new Transaction(_buyType, DateTime.Now.AddDays(-8), "it is time for PC", "best pc ever", new List<Position>
@@ -71,9 +71,9 @@ namespace CashManager.Logic.DefaultData
                             Title = "new PC",
                             Tags = new List<Tag> { tags[1], tags[2] },
                             LastEditDate = RandomDate()
-                        },
+                        }
                     },
-                    stocks[1], stocks[2], "inputsource4"),
+                    stocks[1], stocks[2], "inputsource4")
             };
 
             return dtoTransactions;
