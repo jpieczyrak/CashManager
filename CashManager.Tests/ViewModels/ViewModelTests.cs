@@ -46,7 +46,7 @@ namespace CashManager.Tests.ViewModels
         {
             _container = GetContainer();
 
-            var defaultDataProvider = new DefaultDataProvider();
+            var defaultDataProvider = new TestDataProvider();
             DtoTags = defaultDataProvider.GetTags();
             DtoStocks = defaultDataProvider.GetStocks();
             DtoCategories = defaultDataProvider.GetCategories();

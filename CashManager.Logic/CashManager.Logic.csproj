@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefaultData\DefaultDataProvider.cs" />
+    <Compile Include="DefaultData\TestDataProvider.cs" />
     <Compile Include="DefaultData\IDataProvider.cs" />
     <Compile Include="DefaultData\MassDataProvider.cs" />
     <Compile Include="Parsers\eParserInputType.cs" />

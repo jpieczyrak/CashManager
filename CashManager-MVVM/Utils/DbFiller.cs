@@ -25,7 +25,11 @@ namespace CashManager_MVVM.Utils
 
             if (!queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()).Any())
             {
+#if DEBUG
+                var defaultDataProvider = new TestDataProvider();
+#else
                 var defaultDataProvider = new DefaultDataProvider();
+#endif
 
                 var stocks = defaultDataProvider.GetStocks();
                 var categories = defaultDataProvider.GetCategories();
