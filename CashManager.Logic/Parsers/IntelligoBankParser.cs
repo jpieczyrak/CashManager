@@ -12,6 +12,8 @@ namespace CashManager.Logic.Parsers
         private const string REGEX_PATTERN =
             @"(?<Id>\d+)\s+((?<Year>\d{4})-(?<Month>\d{2})-(?<Day>\d{2})\s+){2}(?<OperationType>.*)\s+(?<Sign>([\-+]))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*)\s+(?<Currency>\S*)\s+(?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*)\s+(?<Note>(.*\n){1,8}(Data waluty: \d{4}-\d{2}-\d{2}))";
 
+        private const string TITLE_PREFIX = "Tytu³:";
+
         private readonly List<Balance> _balances = new List<Balance>();
 
         public Balance Balance { get; private set; }
@@ -43,8 +45,12 @@ namespace CashManager.Logic.Parsers
             int month = int.Parse(match.Groups["Month"].Value);
             int year = int.Parse(match.Groups["Year"].Value);
 
-            string title = string.Join(" ",
-                match.Groups["Note"].Value.Split('\n').Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x.Trim()));
+            int id = int.Parse(match.Groups["Id"].Value);
+            
+            string operationType = match.Groups["OperationType"].Value.Trim();
+            var noteLines = match.Groups["Note"].Value.Split('\n');
+            string title = noteLines.FirstOrDefault(x => x.Contains(TITLE_PREFIX))?.Trim();
+            title = string.IsNullOrEmpty(title) ? $"{id} {operationType}" : title.Replace(TITLE_PREFIX, string.Empty).Trim();
             string currency = match.Groups["Currency"].Value.Trim();
 
             bool negativeSign = match.Groups["Sign"].Value.Equals("-");
@@ -53,7 +59,8 @@ namespace CashManager.Logic.Parsers
 
             decimal value = bigValue + smallValue / 100m;
             var date = new DateTime(year, month, day);
-            string note = match.Groups["OperationType"].Value.Trim();
+            string note =
+                $"{id} - {string.Join(" ", noteLines.Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x.Trim()))} {operationType}";
 
             bool isBalanceNote = match.Groups["BalanceValueWithSpaces"].Success;
             if (isBalanceNote)
