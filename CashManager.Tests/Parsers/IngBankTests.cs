@@ -97,10 +97,10 @@ Saldo po transakcji
             var parser = new IngBankParser();
 
             //when
-            var result = parser.Parse(input, userStock, externalStock, outcomeType, null).FirstOrDefault();
+            var results = parser.Parse(input, userStock, externalStock, outcomeType, null);
 
             //then
-            ValidateTransaction(result, expected);
+            foreach (var result in results) ValidateTransaction(result, expected);
             Assert.Equal(balance, parser.Balance.Value);
         }
 
