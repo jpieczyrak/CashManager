@@ -73,14 +73,13 @@ namespace CashManager.Logic.DefaultData
             return dtoCategories;
         }
 
-        public Stock[] GetStocks()
+        public virtual Stock[] GetStocks()
         {
             return new[]
             {
-                new Stock { Name = "User1", IsUserStock = true, Balance = new Balance(DateTime.MinValue, 60000) },
-                new Stock { Name = "Wallet", IsUserStock = true, Balance = new Balance(DateTime.MinValue, 10476) },
+                new Stock { Name = "User1", IsUserStock = true, Balance = new Balance(DateTime.MinValue, 0) },
+                new Stock { Name = "Wallet", IsUserStock = true, Balance = new Balance(DateTime.MinValue, 0) },
                 new Stock { Name = "Ex1" },
-                new Stock { Name = "Ex2" }
             };
         }
 

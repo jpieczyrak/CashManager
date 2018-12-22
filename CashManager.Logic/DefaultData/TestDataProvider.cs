@@ -21,6 +21,17 @@ namespace CashManager.Logic.DefaultData
             GetTags();
         }
 
+        public override Stock[] GetStocks()
+        {
+            return new[]
+            {
+                new Stock { Name = "User1", IsUserStock = true, Balance = new Balance(DateTime.MinValue, 60000) },
+                new Stock { Name = "Wallet", IsUserStock = true, Balance = new Balance(DateTime.MinValue, 10476) },
+                new Stock { Name = "Ex1" },
+                new Stock { Name = "Ex2" }
+            };
+        }
+
         public override Transaction[] GetTransactions(Stock[] stocks, Category[] categories, TransactionType[] types, Tag[] tags)
         {
             var userStock = stocks.FirstOrDefault(x => x.IsUserStock);
