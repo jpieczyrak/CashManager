@@ -143,6 +143,7 @@
     <Compile Include="Parsers\BaseParserTests.cs" />
     <Compile Include="Parsers\GetinBankParserTests.cs" />
     <Compile Include="Parsers\IngBankTests.cs" />
+    <Compile Include="Parsers\IntelligoBankTests.cs" />
     <Compile Include="Parsers\MillenniumBankTests.cs" />
     <Compile Include="Parsers\IdeaBankTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
