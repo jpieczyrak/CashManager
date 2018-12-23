@@ -44,17 +44,17 @@ namespace CashManager_MVVM.Features.Main
             SetViewModelCommand = new RelayCommand<ViewModelBase>(view => SelectedViewModel = view);
             ViewModels = new Dictionary<string, ViewModelBase>
             {
-                { "Custom balance view", factory.Create<CustomBalanceViewModel>() },
                 { "Transactions search", factory.Create<SearchViewModel>() },
                 { "Mass replacer", factory.Create<MassReplacerViewModel>() },
                 { "Add transaction", factory.Create<TransactionViewModel>() },
                 { "Wealth plot", factory.Create<WealthViewModel>() },
                 { "Categories plot", factory.Create<CategoriesPlotViewModel>() },
+                { "Custom balances", factory.Create<CustomBalanceViewModel>() },
                 { "Stocks manager", factory.Create<StocksViewModel>() },
                 { "Category manager", factory.Create<CategoryManagerViewModel>() },
                 { "Types manager", factory.Create<TransactionTypesViewModel>() },
                 { "Tags manager", factory.Create<TagManagerViewModel>() },
-                { "Parser", factory.Create<ParseViewModel>() }
+                { "Import", factory.Create<ParseViewModel>() }
             };
             PreviousSelectedViewModel = SelectedViewModel = ViewModels.FirstOrDefault().Value;
             SummaryViewModel = factory.Create<StockSummaryViewModel>();
