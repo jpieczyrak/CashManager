@@ -7,7 +7,7 @@ namespace CashManager_MVVM.Model.Common
         private string _name;
         private bool _isSelected;
 
-        public string Name
+        public virtual string Name
         {
             get => _name;
             set => Set(nameof(Name), ref _name, value);

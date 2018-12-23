@@ -21,12 +21,12 @@ using DtoType = CashManager.Data.DTO.TransactionType;
 
 namespace CashManager_MVVM.Features.Search
 {
-    public class SearchState : BaseSelectable
+    public sealed class SearchState : BaseSelectable
     {
         private string _name;
         public const string DEFAULT_NAME = "default";
 
-        public string Name
+        public override string Name
         {
             get => _name;
             set
@@ -34,7 +34,6 @@ namespace CashManager_MVVM.Features.Search
                 _name = value;
                 Id = _name.GenerateGuid();
             }
-
         }
 
         public TextSelector TitleFilter { get; private set; }
