@@ -5,6 +5,7 @@ using System.Linq;
 using AutoMapper;
 
 using CashManager.Infrastructure.Command;
+using CashManager.Infrastructure.Command.CustomBalances;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.States;
 
@@ -17,6 +18,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
 using DtoSearch = CashManager.Data.ViewModelState.SearchState;
+using DtoCustomBalance = CashManager.Data.ViewModelState.Balances.CustomBalance;
 
 namespace CashManager_MVVM.Features.Balance
 {
@@ -79,7 +81,7 @@ namespace CashManager_MVVM.Features.Balance
 
         private void ExecuteSaveCommand()
         {
-            //todo: save SelectedCustomBalance
+            _commandDispatcher.Execute(new UpsertCustomBalanceCommand(Mapper.Map<DtoCustomBalance>(SelectedCustomBalance)));
         }
 
         public void Update()
