@@ -43,7 +43,16 @@ namespace CashManager_MVVM.Features.Balance
             {
                 Set(nameof(SelectedCustomBalance), ref _selectedCustomBalance, value);
                 UpdateSummary();
+                UpdateSelectedSearches();
             }
+        }
+
+        private void UpdateSelectedSearches()
+        {
+            if (SavedSearches != null)
+                foreach (var result in SavedSearches.InternalDisplayableSearchResults)
+                    result.IsSelected = SelectedCustomBalance.Searches.Contains(result);
+            SavedSearches?.RaisePropertyChanged();
         }
 
         public Summary[] SelectedSearchSummary
