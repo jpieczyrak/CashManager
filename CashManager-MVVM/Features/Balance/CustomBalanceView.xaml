@@ -9,11 +9,14 @@
              d:DataContext="{d:DesignInstance Type=local:CustomBalanceViewModel, IsDesignTimeCreatable=True}">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="0" ItemsSource="{Binding SelectedSearchSummary, Mode=OneWay}" 
+        <UserControl Grid.Row="0" Content="{Binding DateFilter}"/>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding SelectedSearchSummary, Mode=OneWay}" 
                   Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name, Mode=OneWay}" Width="*" />
@@ -23,7 +26,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />

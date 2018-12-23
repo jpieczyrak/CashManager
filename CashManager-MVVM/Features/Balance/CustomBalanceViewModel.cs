@@ -15,6 +15,7 @@ using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Logic.Balances;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -33,6 +34,7 @@ namespace CashManager_MVVM.Features.Balance
         private readonly SearchViewModel _searchViewModel;
         private string _name;
         private ObservableCollection<CustomBalance> _customBalances;
+        private DateFrame _dateFilter;
 
         public CustomBalance SelectedCustomBalance
         {
@@ -66,6 +68,12 @@ namespace CashManager_MVVM.Features.Balance
             set => Set(nameof(Name), ref _name, value);
         }
 
+        public DateFrame DateFilter
+        {
+            get => _dateFilter;
+            set => Set(nameof(DateFilter), ref _dateFilter, value);
+        }
+
         public CustomBalanceViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory)
         {
             _searchViewModel = factory.Create<SearchViewModel>();
@@ -73,6 +81,8 @@ namespace CashManager_MVVM.Features.Balance
             _commandDispatcher = commandDispatcher;
             SaveCommand = new RelayCommand(ExecuteSaveCommand);
             SelectedSearchSummary = new Summary[0];
+            DateFilter = new DateFrame(DateFrameType.BookDate);
+            DateFilter.PropertyChanged += (sender, args) => UpdateSummary();
 
             Name = "new custom balance";
             SelectedCustomBalance = new CustomBalance(Name);
@@ -117,6 +127,7 @@ namespace CashManager_MVVM.Features.Balance
             _searchViewModel.Update();
             foreach (var state in SelectedCustomBalance.Searches)
             {
+                if (DateFilter.IsChecked) state.BookDateFilter.Apply(DateFilter);
                 //todo: make it cleaner - do not use search vm?
                 _searchViewModel.State.ApplySearchCriteria(state);
                 //todo: handle positions if needed
