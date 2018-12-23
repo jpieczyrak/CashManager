@@ -152,6 +152,7 @@
     <Compile Include="Features\Transactions\PositionListView.xaml.cs">
       <DependentUpon>PositionListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Balances\CustomBalance.cs" />
     <Compile Include="Logic\Commands\DateFrameFilter.cs" />
     <Compile Include="Logic\Commands\DateFrameReplacer.cs" />
     <Compile Include="Logic\Commands\IReplacer.cs" />

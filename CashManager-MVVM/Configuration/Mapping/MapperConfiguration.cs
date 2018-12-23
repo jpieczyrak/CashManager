@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 
 using CashManager_MVVM.Features.Search;
+using CashManager_MVVM.Logic.Balances;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
 
@@ -74,6 +75,9 @@ namespace CashManager_MVVM.Configuration.Mapping
 
                         config.CreateMap<MultiPicker, CashManager.Data.ViewModelState.Selectors.MultiPicker>();
                         config.CreateMap<CashManager.Data.ViewModelState.Selectors.MultiPicker, MultiPicker>();
+
+                        config.CreateMap<CustomBalance, CashManager.Data.ViewModelState.Balances.CustomBalance>();
+                        config.CreateMap<CashManager.Data.ViewModelState.Balances.CustomBalance, CustomBalance>();
                     });
 
                     _isInitialized = true;
