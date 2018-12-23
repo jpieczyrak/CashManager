@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using CashManager_MVVM.Features.Balance;
 using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Parsers;
 using CashManager_MVVM.Features.Plots;
@@ -43,6 +44,7 @@ namespace CashManager_MVVM.Features.Main
             SetViewModelCommand = new RelayCommand<ViewModelBase>(view => SelectedViewModel = view);
             ViewModels = new Dictionary<string, ViewModelBase>
             {
+                { "Custom balance view", factory.Create<CustomBalanceViewModel>() },
                 { "Transactions search", factory.Create<SearchViewModel>() },
                 { "Mass replacer", factory.Create<MassReplacerViewModel>() },
                 { "Add transaction", factory.Create<TransactionViewModel>() },

@@ -128,6 +128,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Configuration\DI\AutofacConfiguration.cs" />
+    <Compile Include="Features\Balance\CustomBalanceView.xaml.cs">
+      <DependentUpon>CustomBalanceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Balance\CustomBalanceViewModel.cs" />
     <Compile Include="Features\Categories\CategoryDesignHelper.cs" />
     <Compile Include="Features\Categories\CategoryManagerView.xaml.cs">
       <DependentUpon>CategoryManagerView.xaml</DependentUpon>
@@ -238,6 +242,10 @@
     <Compile Include="Utils\DbFiller.cs" />
     <Compile Include="TrulyObservableCollection.cs" />
     <Compile Include="Utils\TreeViewHelper.cs" />
+    <Page Include="Features\Balance\CustomBalanceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Features\Categories\CategoryManagerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -21,7 +21,7 @@ using DtoType = CashManager.Data.DTO.TransactionType;
 
 namespace CashManager_MVVM.Features.Search
 {
-    public class SearchState : BaseObservableObject
+    public class SearchState : BaseSelectable
     {
         private string _name;
         public const string DEFAULT_NAME = "default";
