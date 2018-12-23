@@ -113,6 +113,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\Categories\CategoryQuery.cs" />
     <Compile Include="Query\Categories\CategoryQueryHandler.cs" />
+    <Compile Include="Query\CustomBalances\CustomBalanceQuery.cs" />
+    <Compile Include="Query\CustomBalances\CustomBalanceQueryHandler.cs" />
     <Compile Include="Query\IQuery.cs" />
     <Compile Include="Query\IQueryDispatcher.cs" />
     <Compile Include="Query\IQueryHandler.cs" />

@@ -9,11 +9,15 @@ namespace CashManager.Data.ViewModelState.Balances
 
         public SearchState[] Searches { get; set; }
 
-        public CustomBalance(string name)
+        private CustomBalance()
+        {
+            Searches = new SearchState[0];
+        }
+
+        public CustomBalance(string name) : this()
         {
             Name = name;
             Id = Name.GenerateGuid();
-            Searches = new SearchState[0];
         }
     }
 }

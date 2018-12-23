@@ -7,15 +7,28 @@ namespace CashManager_MVVM.Logic.Balances
 {
     public class CustomBalance : BaseObservableObject
     {
-        public string Name { get; private set; }
+        private string _name;
 
         public SearchState[] Searches { get; set; }
 
-        public CustomBalance(string name)
+        public string Name
+        {
+            get => _name;
+            private set
+            {
+                _name = value;
+                Id = Name.GenerateGuid();
+            }
+        }
+
+        private CustomBalance()
+        {
+            Searches = new SearchState[0];
+        }
+
+        public CustomBalance(string name) : this()
         {
             Name = name;
-            Id = Name.GenerateGuid();
-            Searches = new SearchState[0];
         }
     }
 }

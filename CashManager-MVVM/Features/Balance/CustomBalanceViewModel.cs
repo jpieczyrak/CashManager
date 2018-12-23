@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 
@@ -7,6 +8,7 @@ using AutoMapper;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.CustomBalances;
 using CashManager.Infrastructure.Query;
+using CashManager.Infrastructure.Query.CustomBalances;
 using CashManager.Infrastructure.Query.States;
 
 using CashManager_MVVM.Features.Common;
@@ -29,6 +31,8 @@ namespace CashManager_MVVM.Features.Balance
         private CustomBalance _selectedCustomBalance;
         private Summary[] _selectedSearchSummary;
         private readonly SearchViewModel _searchViewModel;
+        private string _name;
+        private ObservableCollection<CustomBalance> _customBalances;
 
         public CustomBalance SelectedCustomBalance
         {
@@ -46,13 +50,21 @@ namespace CashManager_MVVM.Features.Balance
             set => Set(nameof(SelectedSearchSummary), ref _selectedSearchSummary, value);
         }
 
-        public CustomBalance[] CustomBalances { get; set; }
-        
+        public ObservableCollection<CustomBalance> CustomBalances
+        {
+            get => _customBalances;
+            set => Set(nameof(CustomBalances), ref _customBalances, value);
+        }
+
         public RelayCommand SaveCommand { get; private set; }
 
         public MultiComboBoxViewModel SavedSearches { get; private set; }
 
-        public string Name { get; set; }
+        public string Name
+        {
+            get => _name;
+            set => Set(nameof(Name), ref _name, value);
+        }
 
         public CustomBalanceViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory)
         {
@@ -81,7 +93,10 @@ namespace CashManager_MVVM.Features.Balance
 
         private void ExecuteSaveCommand()
         {
-            _commandDispatcher.Execute(new UpsertCustomBalanceCommand(Mapper.Map<DtoCustomBalance>(SelectedCustomBalance)));
+            var balance = new CustomBalance(Name) { Searches = SelectedCustomBalance.Searches };
+            _commandDispatcher.Execute(new UpsertCustomBalanceCommand(Mapper.Map<DtoCustomBalance>(balance)));
+            CustomBalances.Add(balance);
+            SelectedCustomBalance = balance;
         }
 
         public void Update()
@@ -90,7 +105,10 @@ namespace CashManager_MVVM.Features.Balance
             var source = Mapper.Map<SearchState[]>(_queryDispatcher.Execute<SearchStateQuery, DtoSearch[]>(query));
 
             SavedSearches.SetInput(source);
-            //todo: custom balances load
+
+            var customBalanceQuery = new CustomBalanceQuery();
+            var customBalances = _queryDispatcher.Execute<CustomBalanceQuery, DtoCustomBalance[]>(customBalanceQuery);
+            CustomBalances = Mapper.Map<ObservableCollection<CustomBalance>>(customBalances);
         }
 
         private void UpdateSummary()
