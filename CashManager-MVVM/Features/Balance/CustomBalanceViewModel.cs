@@ -60,6 +60,8 @@ namespace CashManager_MVVM.Features.Balance
 
         public RelayCommand SaveCommand { get; private set; }
 
+        public RelayCommand DeleteCommand { get; private set; }
+
         public MultiComboBoxViewModel SavedSearches { get; private set; }
 
         public string Name
@@ -79,15 +81,14 @@ namespace CashManager_MVVM.Features.Balance
             _searchViewModel = factory.Create<SearchViewModel>();
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
+            DeleteCommand = new RelayCommand(ExecuteDeleteCommand, () => SelectedCustomBalance != null);
             SaveCommand = new RelayCommand(ExecuteSaveCommand);
             SelectedSearchSummary = new Summary[0];
             DateFilter = new DateFrame(DateFrameType.BookDate);
             DateFilter.PropertyChanged += (sender, args) => UpdateSummary();
 
-            Name = "new custom balance";
+            Name = "custom balance";
             SelectedCustomBalance = new CustomBalance(Name);
-
-            //todo: add range picker (use saved searches with selected date picker)
 
             SavedSearches = new MultiComboBoxViewModel();
             SavedSearches.PropertyChanged += SavedSearchesOnPropertyChanged;
@@ -108,6 +109,13 @@ namespace CashManager_MVVM.Features.Balance
             CustomBalances.Add(balance);
             SelectedCustomBalance = balance;
         }
+        
+        private void ExecuteDeleteCommand()
+        {
+            _commandDispatcher.Execute(new DeleteCustomBalanceCommand(Mapper.Map<DtoCustomBalance>(SelectedCustomBalance)));
+            CustomBalances.Remove(SelectedCustomBalance);
+            if (CustomBalances.Any()) SelectedCustomBalance = CustomBalances.First();
+        }
 
         public void Update()
         {
@@ -124,17 +132,21 @@ namespace CashManager_MVVM.Features.Balance
         private void UpdateSummary()
         {
             var summaries = new List<Summary>();
-            _searchViewModel.Update();
-            foreach (var state in SelectedCustomBalance.Searches)
+            if (SelectedCustomBalance != null)
             {
-                if (DateFilter.IsChecked) state.BookDateFilter.Apply(DateFilter);
-                //todo: make it cleaner - do not use search vm?
-                _searchViewModel.State.ApplySearchCriteria(state);
-                //todo: handle positions if needed
-                var summary = _searchViewModel.TransactionsListViewModel.Summary.Copy();
-                summary.Name = state.Name;
-                summaries.Add(summary);
+                _searchViewModel.Update();
+                foreach (var state in SelectedCustomBalance.Searches)
+                {
+                    if (DateFilter.IsChecked) state.BookDateFilter.Apply(DateFilter);
+                    //todo: make it cleaner - do not use search vm?
+                    _searchViewModel.State.ApplySearchCriteria(state);
+                    //todo: handle positions if needed
+                    var summary = _searchViewModel.TransactionsListViewModel.Summary.Copy();
+                    summary.Name = state.Name;
+                    summaries.Add(summary);
+                }
             }
+
             if (summaries.Any())
             {
                 summaries.Add(new Summary
