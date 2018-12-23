@@ -6,7 +6,7 @@ using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
 {
-    public class Position : BaseObservableObject, IBookable
+    public sealed class Position : BaseObservableObject, IBookable
     {
         private PaymentValue _value;
         private Category _category;

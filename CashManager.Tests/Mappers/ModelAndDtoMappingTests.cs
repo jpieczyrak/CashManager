@@ -100,8 +100,7 @@ namespace CashManager.Tests.Mappers
         public void SimpleTransactionLastEditDateChangeMappingTest()
         {
             //given 
-            var model = new Transaction();
-            model.Note = "now last edit date should be updated";
+            var model = new Transaction { Note = "now last edit date should be updated" };
 
             //when
             var dto = Mapper.Map<Data.DTO.Transaction>(model);

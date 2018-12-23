@@ -2,7 +2,7 @@
 
 namespace CashManager_MVVM.Model
 {
-    public class PaymentValue : BaseObservableObject
+    public sealed class PaymentValue : BaseObservableObject
     {
         private decimal _grossValue;
         private decimal _netValue;
