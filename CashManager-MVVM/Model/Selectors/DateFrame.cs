@@ -7,6 +7,8 @@ namespace CashManager_MVVM.Model.Selectors
         private DateTime _from;
         private DateTime _to;
 
+        public DateFrameType Type { get; private set; }
+
         public DateTime From
         {
             get => _from;
@@ -19,13 +21,33 @@ namespace CashManager_MVVM.Model.Selectors
             set => Set(nameof(To), ref _to, value);
         }
 
-        public DateFrame(string description)
+        public DateFrame(DateFrameType type)
         {
-            Description = description;
+            Type = type;
+            switch (type)
+            {
+                case DateFrameType.BookDate:
+                    Description = "Book date";
+                    break;
+                case DateFrameType.CreationDate:
+                    Description = "Creation date";
+                    break;
+                case DateFrameType.EditDate:
+                    Description = "Edit date";
+                    break;
+            }
 
             var today = DateTime.Today;
             _from = new DateTime(today.Year, today.Month, 1);
             _to = _from.AddMonths(1).AddDays(-1);
+        }
+
+        public void Apply(DateFrame source)
+        {
+            From = source.From;
+            To = source.To;
+            Type = source.Type;
+            IsChecked = source.IsChecked;
         }
     }
 }

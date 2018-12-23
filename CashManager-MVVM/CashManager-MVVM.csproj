@@ -97,6 +97,9 @@
     <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\gong-wpf-dragdrop.1.1.0\lib\net45\GongSolutions.Wpf.DragDrop.dll</HintPath>
+    </Reference>
     <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
       <HintPath>..\packages\OxyPlot.Core.1.0.0\lib\net45\OxyPlot.dll</HintPath>
     </Reference>
@@ -124,7 +127,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DI\AutofacConfiguration.cs" />
+    <Compile Include="Configuration\DI\AutofacConfiguration.cs" />
+    <Compile Include="Features\Balance\CustomBalanceView.xaml.cs">
+      <DependentUpon>CustomBalanceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Balance\CustomBalanceViewModel.cs" />
     <Compile Include="Features\Categories\CategoryDesignHelper.cs" />
     <Compile Include="Features\Categories\CategoryManagerView.xaml.cs">
       <DependentUpon>CategoryManagerView.xaml</DependentUpon>
@@ -139,6 +146,7 @@
     </Compile>
     <Compile Include="Features\Plots\CategoriesPlotViewModel.cs" />
     <Compile Include="Features\Plots\WealthViewModel.cs" />
+    <Compile Include="Features\Search\SearchState.cs" />
     <Compile Include="Features\Transactions\MassReplacerView.xaml.cs">
       <DependentUpon>MassReplacerView.xaml</DependentUpon>
     </Compile>
@@ -148,7 +156,16 @@
     <Compile Include="Features\Transactions\PositionListView.xaml.cs">
       <DependentUpon>PositionListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Balances\CustomBalance.cs" />
+    <Compile Include="Logic\Commands\DateFrameFilter.cs" />
+    <Compile Include="Logic\Commands\DateFrameReplacer.cs" />
+    <Compile Include="Logic\Commands\IReplacer.cs" />
+    <Compile Include="Logic\Commands\MultiPickerFilter.cs" />
+    <Compile Include="Logic\Commands\RangeFilter.cs" />
+    <Compile Include="Logic\Commands\TextFilter.cs" />
+    <Compile Include="Model\BillImage.cs" />
     <Compile Include="Model\Common\BaseSelectable.cs" />
+    <Compile Include="Model\Common\IEditable.cs" />
     <Compile Include="Model\Common\ISelectable.cs" />
     <Compile Include="Features\Common\MultiCombobox.xaml.cs">
       <DependentUpon>MultiCombobox.xaml</DependentUpon>
@@ -183,19 +200,26 @@
       <DependentUpon>TransactionListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Transactions\TransactionListViewModel.cs" />
-    <Compile Include="Mapping\MapperConfiguration.cs" />
+    <Compile Include="Configuration\Mapping\MapperConfiguration.cs" />
     <Compile Include="Messages\StockUpdateMessage.cs" />
     <Compile Include="Model\Balance.cs" />
     <Compile Include="Model\Common\BaseObservableObject.cs" />
     <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\Common\ITimestamp.cs" />
     <Compile Include="Model\Selectors\BaseSelector.cs" />
+    <Compile Include="Model\Selectors\DateFrameType.cs" />
     <Compile Include="Model\Selectors\DateSelector.cs" />
+    <Compile Include="Logic\Commands\IFilter.cs" />
     <Compile Include="Model\Selectors\MultiPicker.cs" />
+    <Compile Include="Model\Selectors\MultiPickerType.cs" />
     <Compile Include="Model\Selectors\RangeSelector.cs" />
+    <Compile Include="Model\Selectors\RangeSelectorType.cs" />
     <Compile Include="Model\Selectors\TextSelector.cs" />
     <Compile Include="Model\PaymentValue.cs" />
+    <Compile Include="Model\Selectors\TextSelectorType.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\Position.cs" />
+    <Compile Include="Model\StoredFileInfo.cs" />
     <Compile Include="Model\Summary.cs" />
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Model\Selectors\DateFrame.cs" />
@@ -215,9 +239,13 @@
     <Compile Include="Skins\ShapesResourceDictionary.cs" />
     <Compile Include="Skins\SkinColors.cs" />
     <Compile Include="Skins\SkinShapes.cs" />
-    <Compile Include="Temps\DbFiller.cs" />
+    <Compile Include="Utils\DbFiller.cs" />
     <Compile Include="TrulyObservableCollection.cs" />
     <Compile Include="Utils\TreeViewHelper.cs" />
+    <Page Include="Features\Balance\CustomBalanceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Features\Categories\CategoryManagerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

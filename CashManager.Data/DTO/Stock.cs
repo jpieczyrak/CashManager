@@ -2,16 +2,25 @@
 
 namespace CashManager.Data.DTO
 {
-	public class Stock : Dto
-	{
-	    public Stock() { Balance = new Balance(); }
+    public class Stock : Dto
+    {
+        public string Name { get; set; }
 
-	    public Stock(Guid id) { Id = id; }
+        public bool IsUserStock { get; set; }
 
-	    public string Name { get; set; }
+        public Balance Balance { get; set; }
 
-	    public bool IsUserStock { get; set; }
+        public decimal UserOwnershipPercent { get; set; }
 
-		public Balance Balance { get; set; }
-	}
+        public Stock()
+        {
+            Balance = new Balance();
+            UserOwnershipPercent = 100;
+        }
+
+        public Stock(Guid id) : this()
+        {
+            Id = id;
+        }
+    }
 }

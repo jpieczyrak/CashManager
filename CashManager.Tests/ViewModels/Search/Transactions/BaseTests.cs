@@ -6,9 +6,9 @@ using CashManager_MVVM.Features.Search;
 
 using Xunit;
 
-namespace CashManager.Tests.ViewModels
+namespace CashManager.Tests.ViewModels.Search.Transactions
 {
-    public class TransactionSearchViewModelTests : ViewModelTests
+    public class BaseTests : ViewModelTests
     {
         [Fact]
         public void OnPropertyChanged_Clean_AllTransactions()
@@ -44,15 +44,15 @@ namespace CashManager.Tests.ViewModels
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
-            vm.TitleFilter.Value = Transactions[0].Title;
-            vm.TitleFilter.IsChecked = true;
+            vm.State.TitleFilter.Value = Transactions[0].Title;
+            vm.State.TitleFilter.IsChecked = true;
 
             //when
             vm.RaisePropertyChanged(nameof(vm.Transactions));
 
             //then
             Assert.NotEmpty(vm.Transactions);
-            var matching = Transactions.Where(x => x.Title.ToLower().Contains(vm.TitleFilter.Value.ToLower())).ToArray();
+            var matching = Transactions.Where(x => x.Title.ToLower().Contains(vm.State.TitleFilter.Value.ToLower())).ToArray();
             Assert.Equal(matching.Length, vm.Transactions.Length);
             Assert.Equal(matching.Select(x => x.Id), vm.Transactions.Select(x => x.Id));
         }

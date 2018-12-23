@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
+
+using CashManager.Data.Extensions;
 
 namespace CashManager.Data.DTO
 {
@@ -15,7 +15,9 @@ namespace CashManager.Data.DTO
 
 		public List<Position> Positions { get; set; }
 
-		public DateTime TransactionSourceCreationDate { get; set; }
+		public List<StoredFileInfo> StoredFiles { get; set; }
+
+        public DateTime TransactionSourceCreationDate { get; set; }
         
 		public DateTime BookDate { get; set; }
 
@@ -29,7 +31,11 @@ namespace CashManager.Data.DTO
             BookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
         }
 
-        public Transaction(Guid id) : this() { Id = id; }
+        public Transaction(Guid id) : this()
+        {
+            Id = id;
+            StoredFiles = new List<StoredFileInfo>();
+        }
 
         /// <summary>
         /// Should be used only after parsing data or for test purpose.
@@ -46,7 +52,7 @@ namespace CashManager.Data.DTO
         public Transaction(TransactionType transactionType, DateTime sourceTransactionCreationDate, string title, string note,
             IEnumerable<Position> positions, Stock userStock, Stock externalStock, string sourceInput) : this()
         {
-            Id = GenerateGUID(sourceInput);
+            Id = sourceInput.GenerateGuid();
             Type = transactionType;
             Title = title;
             Note = note;
@@ -54,25 +60,6 @@ namespace CashManager.Data.DTO
             Positions = new List<Position>(positions);
             UserStock = userStock;
             ExternalStock = externalStock;
-        }
-
-        /// <summary>
-        /// Generates GUID based on input (original transaction text - from excel / bank import etc)
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        private Guid GenerateGUID(string input)
-        {
-            if (!string.IsNullOrWhiteSpace(input))
-            {
-                using (MD5 md5 = MD5.Create())
-                {
-                    byte[] hash = md5.ComputeHash(Encoding.Default.GetBytes(input));
-                    return new Guid(hash);
-                }
-            }
-
-            return Guid.NewGuid();
         }
     }
 }

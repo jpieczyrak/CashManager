@@ -120,6 +120,7 @@
     <Compile Include="Feature\Category\CountParents.cs" />
     <Compile Include="Infrastructure\Commands\Categories\DeleteCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Categories\UpsertCommandTests.cs" />
+    <Compile Include="Infrastructure\Commands\States\UpsertCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Stocks\DeleteCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Tags\DeleteCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Tags\UpsertCommandTests.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Infrastructure\Extensions\LiteDbExtensions\UpsertTests.cs" />
     <Compile Include="Infrastructure\Queries\Categories\CategoryTests.cs" />
     <Compile Include="Infrastructure\Queries\NoQuery\NoQueryTests.cs" />
+    <Compile Include="Infrastructure\Queries\States\SearchStateTests.cs" />
     <Compile Include="Infrastructure\Queries\Stock\StockTests.cs" />
     <Compile Include="Infrastructure\Queries\Tags\TagsTests.cs" />
     <Compile Include="Infrastructure\Queries\TransactionTypes\TransactionTypesTests.cs" />
@@ -141,12 +143,21 @@
     <Compile Include="Parsers\BaseParserTests.cs" />
     <Compile Include="Parsers\GetinBankParserTests.cs" />
     <Compile Include="Parsers\IngBankTests.cs" />
+    <Compile Include="Parsers\IntelligoBankTests.cs" />
     <Compile Include="Parsers\MillenniumBankTests.cs" />
     <Compile Include="Parsers\IdeaBankTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\LiteDbHelper.cs" />
+    <Compile Include="ViewModels\Search\Positions\DateFrameTests.cs" />
+    <Compile Include="ViewModels\Search\Positions\MultiPickerTests.cs" />
+    <Compile Include="ViewModels\Search\Positions\RangeTests.cs" />
+    <Compile Include="ViewModels\Search\Positions\TextSelectorTests.cs" />
+    <Compile Include="ViewModels\Search\Transactions\DateFrameTests.cs" />
+    <Compile Include="ViewModels\Search\Transactions\MultiPickerTests.cs" />
+    <Compile Include="ViewModels\Search\Transactions\RangeTests.cs" />
+    <Compile Include="ViewModels\Search\Transactions\TextSelectorTests.cs" />
     <Compile Include="ViewModels\StocksViewModelTests.cs" />
-    <Compile Include="ViewModels\TransactionSearchViewModelTests.cs" />
+    <Compile Include="ViewModels\Search\Transactions\BaseTests.cs" />
     <Compile Include="ViewModels\ViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +185,7 @@
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -27,9 +27,9 @@ namespace CashManager_MVVM.Features.Transactions
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ViewModelFactory _factory;
-        private TextSelector _titleSelector = new TextSelector("Title");
-        private TextSelector _noteSelector = new TextSelector("Note");
-        private TextSelector _positionTitleSelector = new TextSelector("Position title");
+        private TextSelector _titleSelector = new TextSelector(TextSelectorType.Title);
+        private TextSelector _noteSelector = new TextSelector(TextSelectorType.Note);
+        private TextSelector _positionTitleSelector = new TextSelector(TextSelectorType.PositionTitle);
         private DateSelector _bookDateSelector = new DateSelector("Book date");
         private MultiPicker _userStocksSelector;
         private MultiPicker _externalStocksSelector;
@@ -165,20 +165,20 @@ namespace CashManager_MVVM.Features.Transactions
         public void Update()
         {
             var availableStocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery())).OrderBy(x => x.Name);
-            UserStocksSelector = new MultiPicker("User stock", availableStocks.Where(x => x.IsUserStock).ToArray());
+            UserStocksSelector = new MultiPicker(MultiPickerType.UserStock, availableStocks.Where(x => x.IsUserStock).ToArray());
             ExternalStocksSelector =
-                new MultiPicker("External stock",
+                new MultiPicker(MultiPickerType.ExternalStock,
                     Mapper.Map<Stock[]>(Mapper.Map<CashManager.Data.DTO.Stock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
 
             var categories = Mapper.Map<Category[]>(_queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery()));
             categories = CategoryDesignHelper.BuildGraphicalOrder(categories).ToArray();
-            CategoriesSelector = new MultiPicker("Categories", categories);
+            CategoriesSelector = new MultiPicker(MultiPickerType.Category, categories);
 
             var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
-            TypesSelector = new MultiPicker("Types", types);
+            TypesSelector = new MultiPicker(MultiPickerType.TransactionType, types);
 
             var tags = Mapper.Map<Tag[]>(_queryDispatcher.Execute<TagQuery, CashManager.Data.DTO.Tag[]>(new TagQuery()).OrderBy(x => x.Name));
-            TagsSelector = new MultiPicker("Tags", tags);
+            TagsSelector = new MultiPicker(MultiPickerType.Tag, tags);
         }
     }
 }

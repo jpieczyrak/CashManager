@@ -17,6 +17,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         
         <Grid Grid.Row="0" Margin="20">
@@ -46,24 +47,43 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <UserControl Grid.Row="0" Grid.Column="0" Content="{Binding TitleFilter}" />
-            <UserControl Grid.Row="0" Grid.Column="1" Content="{Binding NoteFilter}" />
-            <UserControl Grid.Row="0" Grid.Column="2" Content="{Binding PositionTitleFilter}" />
+            <UserControl Grid.Row="0" Grid.Column="0" Content="{Binding State.TitleFilter}" />
+            <UserControl Grid.Row="0" Grid.Column="1" Content="{Binding State.NoteFilter}" />
+            <UserControl Grid.Row="0" Grid.Column="2" Content="{Binding State.PositionTitleFilter}" />
 
-            <UserControl Grid.Row="1" Grid.Column="0" Content="{Binding TagsFilter}" />
-            <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding CategoriesFilter}" />
-            <UserControl Grid.Row="1" Grid.Column="2" Content="{Binding TypesFilter}" />
+            <UserControl Grid.Row="1" Grid.Column="0" Content="{Binding State.TagsFilter}" />
+            <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding State.CategoriesFilter}" />
+            <UserControl Grid.Row="1" Grid.Column="2" Content="{Binding State.TypesFilter}" />
 
-            <UserControl Grid.Row="2" Grid.Column="0" Content="{Binding CreateDateFilter}" />
-            <UserControl Grid.Row="2" Grid.Column="1" Content="{Binding BookDateFilter}" />
-            <UserControl Grid.Row="2" Grid.Column="2" Content="{Binding LastEditDateFilter}" />
+            <UserControl Grid.Row="2" Grid.Column="0" Content="{Binding State.CreateDateFilter}" />
+            <UserControl Grid.Row="2" Grid.Column="1" Content="{Binding State.BookDateFilter}" />
+            <UserControl Grid.Row="2" Grid.Column="2" Content="{Binding State.LastEditDateFilter}" />
 
-            <UserControl Grid.Row="3" Grid.Column="0" Content="{Binding UserStocksFilter}" />
-            <UserControl Grid.Row="3" Grid.Column="1" Content="{Binding ExternalStocksFilter}" />
-            <UserControl Grid.Row="3" Grid.Column="2" Content="{Binding TransactionValueFilter}" />
+            <UserControl Grid.Row="3" Grid.Column="0" Content="{Binding State.UserStocksFilter}" />
+            <UserControl Grid.Row="3" Grid.Column="1" Content="{Binding State.ExternalStocksFilter}" />
+            <UserControl Grid.Row="3" Grid.Column="2" Content="{Binding State.ValueFilter}" />
         </Grid>
 
         <transactions:TransactionListView Grid.Row="2" Content="{Binding TransactionsListViewModel}" Transactions="{Binding Transactions, Mode=TwoWay}" Visibility="{Binding IsTransactionsSearch, Converter={StaticResource bool2VisibilityConverter}}" />
         <UserControl Grid.Row="2" Content="{Binding PositionsListViewModel}" Visibility="{Binding IsPositionsSearch, Converter={StaticResource bool2VisibilityConverter}}" />
+
+        <Grid Grid.Row="3" Margin="0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBox Grid.Column="0" Text="{Binding SearchName}" MinWidth="120" Margin="5,0"/>
+            <ComboBox Grid.Column="1" 
+                      ItemsSource="{Binding SaveSearches}" 
+                      DisplayMemberPath="Name"
+                      SelectedItem="{Binding SelectedSearch}" 
+                      Text="{Binding Path=SelectedSearch.Name}"
+                      MinWidth="100" Margin="5,0"/>
+            <Button Grid.Column="2" Content="Save search criteria" Command="{Binding SaveSearch}" Margin="5,0"/>
+            <Button Grid.Column="3" Content="Load" Command="{Binding LoadSearch}" Margin="5,0"/>
+        </Grid>
     </Grid>
 </UserControl>

@@ -74,13 +74,21 @@
     <Compile Include="DTO\Balance.cs" />
     <Compile Include="DTO\Category.cs" />
     <Compile Include="DTO\Dto.cs" />
+    <Compile Include="DTO\StoredFileInfo.cs" />
     <Compile Include="DTO\TransactionType.cs" />
     <Compile Include="DTO\PaymentValue.cs" />
     <Compile Include="DTO\Stock.cs" />
     <Compile Include="DTO\Position.cs" />
     <Compile Include="DTO\Tag.cs" />
     <Compile Include="DTO\Transaction.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModelState\Balances\CustomBalance.cs" />
+    <Compile Include="ViewModelState\SearchState.cs" />
+    <Compile Include="ViewModelState\Selectors\DateFrame.cs" />
+    <Compile Include="ViewModelState\Selectors\MultiPicker.cs" />
+    <Compile Include="ViewModelState\Selectors\RangeSelector.cs" />
+    <Compile Include="ViewModelState\Selectors\TextSelector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

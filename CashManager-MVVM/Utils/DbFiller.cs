@@ -14,7 +14,7 @@ using CashManager.Logic.DefaultData;
 
 using DtoTransaction = CashManager.Data.DTO.Transaction;
 
-namespace CashManager_MVVM.Temps
+namespace CashManager_MVVM.Utils
 {
     public class DbFiller
     {
@@ -25,7 +25,11 @@ namespace CashManager_MVVM.Temps
 
             if (!queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()).Any())
             {
+#if DEBUG
+                var defaultDataProvider = new TestDataProvider();
+#else
                 var defaultDataProvider = new DefaultDataProvider();
+#endif
 
                 var stocks = defaultDataProvider.GetStocks();
                 var categories = defaultDataProvider.GetCategories();

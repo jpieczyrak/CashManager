@@ -33,5 +33,17 @@ namespace CashManager_MVVM.Model
             get => _grossBalance;
             set => Set(nameof(GrossBalance), ref _grossBalance, value);
         }
+
+        public string Name { get; set; }
+
+        public Summary Copy()
+        {
+            return new Summary
+            {
+                GrossIncome = GrossIncome,
+                GrossOutcome = GrossOutcome,
+                GrossBalance = GrossBalance
+            };
+        }
     }
 }

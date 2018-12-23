@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using CashManager_MVVM.Features.Balance;
 using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Parsers;
 using CashManager_MVVM.Features.Plots;
@@ -48,11 +49,12 @@ namespace CashManager_MVVM.Features.Main
                 { "Add transaction", factory.Create<TransactionViewModel>() },
                 { "Wealth plot", factory.Create<WealthViewModel>() },
                 { "Categories plot", factory.Create<CategoriesPlotViewModel>() },
+                { "Custom balances", factory.Create<CustomBalanceViewModel>() },
                 { "Stocks manager", factory.Create<StocksViewModel>() },
                 { "Category manager", factory.Create<CategoryManagerViewModel>() },
                 { "Types manager", factory.Create<TransactionTypesViewModel>() },
                 { "Tags manager", factory.Create<TagManagerViewModel>() },
-                { "Parser", factory.Create<ParseViewModel>() }
+                { "Import", factory.Create<ParseViewModel>() }
             };
             PreviousSelectedViewModel = SelectedViewModel = ViewModels.FirstOrDefault().Value;
             SummaryViewModel = factory.Create<StockSummaryViewModel>();

@@ -17,5 +17,11 @@ namespace CashManager_MVVM.Model.Selectors
             Description = description;
             _value = DateTime.Today;
         }
+
+        public void Apply(DateSelector source)
+        {
+            Value = source.Value;
+            IsChecked = source.IsChecked;
+        }
     }
 }

@@ -2,10 +2,11 @@
 
 using Autofac;
 
-using CashManager_MVVM.DI;
+using CashManager_MVVM.Configuration.DI;
+using CashManager_MVVM.Configuration.Mapping;
 using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Skins;
-using CashManager_MVVM.Temps;
+using CashManager_MVVM.Utils;
 
 using GalaSoft.MvvmLight.Threading;
 
@@ -23,7 +24,7 @@ namespace CashManager_MVVM
 	    static App()
 		{
 			DispatcherHelper.Initialize();
-			Mapping.MapperConfiguration.Configure();
+			MapperConfiguration.Configure();
 		    SkinColors = SkinColors.Dark;
 		    SkinShape = SkinShapes.Round;
 		}
@@ -35,9 +36,7 @@ namespace CashManager_MVVM
 			var builder = AutofacConfiguration.ContainerBuilder();
 			var container = builder.Build(); //it could be using, but then there is problem with resolving func factory... anyway it will die with app.
 
-#if DEBUG
 		    DbFiller.Fill(container); //fill with default data
-#endif
 
             container.Resolve<MainWindow>().Show();
 		}

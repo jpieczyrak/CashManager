@@ -28,7 +28,7 @@ namespace CashManager_MVVM.Features.Plots
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private Transaction[] _allTransactions;
-        private DateFrame _bookDateFilter = new DateFrame("Book date");
+        private DateFrame _bookDateFilter = new DateFrame(DateFrameType.BookDate);
         private MultiPicker _userStocksFilter;
         private PlotModel _wealth;
 
@@ -66,13 +66,13 @@ namespace CashManager_MVVM.Features.Plots
                                .Where(x => x.IsUserStock)
                                .OrderBy(x => x.Name)
                                .ToArray();
-            UserStocksFilter = new MultiPicker("User stock", stocks);
+            UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, stocks);
             foreach (var result in UserStocksFilter.ComboBox.InternalDisplayableSearchResults) result.IsSelected = true;
             UserStocksFilter.IsChecked = true;
             UserStocksFilter.PropertyChanged += OnPropertyChanged;
 
-            BookDateFilter.From = _allTransactions.Min(x => x.BookDate);
-            BookDateFilter.To = _allTransactions.Max(x => x.BookDate);
+            BookDateFilter.From = _allTransactions.Any() ? _allTransactions.Min(x => x.BookDate) : DateTime.MinValue;
+            BookDateFilter.To = _allTransactions.Any() ? _allTransactions.Max(x => x.BookDate) : DateTime.MaxValue;
             BookDateFilter.IsChecked = true;
             BookDateFilter.PropertyChanged += OnPropertyChanged;
 

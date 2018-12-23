@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:transactions="clr-namespace:CashManager_MVVM.Features.Transactions"
+        xmlns:dd="urn:gong-wpf-dragdrop"
         mc:Ignorable="d"
         d:DesignHeight="650" d:DesignWidth="600"
         d:DataContext="{d:DesignInstance transactions:TransactionViewModel}">
@@ -15,6 +16,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" MinHeight="40" MaxHeight="150"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
@@ -44,10 +46,10 @@
 
             <Label Grid.Row="2" Grid.Column="0" Content="Type"/>
             <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding TransactionTypes}" SelectedItem="{Binding Transaction.Type}" DisplayMemberPath="Name" />
-            
+
             <Label Grid.Row="3" Grid.Column="0" Content="Book date"/>
             <DatePicker Grid.Row="3" Grid.Column="1" FirstDayOfWeek="Monday" SelectedDate="{Binding Transaction.BookDate}" />
-            
+
             <Label Grid.Row="4" Grid.Column="0" Content="User stock"/>
             <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding UserStocks}" SelectedValue="{Binding Transaction.UserStock}" />
 
@@ -90,7 +92,33 @@
             </Border>
         </Grid>
 
-        <Button Grid.Row="1" Grid.Column="0" Content="Save" Command="{Binding SaveTransactionCommand}" Height="25" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button Grid.Row="1" Grid.Column="1" Content="Cancel" Command="{Binding CancelTransactionCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="120" Margin="5"/>
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="1"
+                CornerRadius="{DynamicResource BigCornerRadius}"
+                BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="0,5"
+                dd:DragDrop.IsDropTarget="True" 
+                dd:DragDrop.DropHandler="{Binding}"
+                ToolTip="Drop bills here">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <ItemsControl ItemsSource="{Binding LoadedBills}" HorizontalAlignment="Center">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Image}" 
+                                   ToolTip="{Binding DisplayName}" 
+                                   Stretch="Uniform"
+                                   MaxHeight="120" 
+                                   Margin="5,0" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+        <Button Grid.Row="2" Grid.Column="0" Content="Save" Command="{Binding SaveTransactionCommand}" Height="25" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Grid.Row="2" Grid.Column="1" Content="Cancel" Command="{Binding CancelTransactionCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Margin="5"/>
     </Grid>
 </UserControl>
+

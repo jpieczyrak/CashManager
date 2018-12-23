@@ -9,12 +9,12 @@ namespace CashManager.Logic.DefaultData
 {
     public class MassDataProvider : IDataProvider
     {
-        private readonly DefaultDataProvider _default;
+        private readonly TestDataProvider _test;
 
         public MassDataProvider()
         {
             Randomizer.Seed = new Random(123321);
-            _default = new DefaultDataProvider();
+            _test = new TestDataProvider();
         }
 
         #region IDataProvider
@@ -71,8 +71,8 @@ namespace CashManager.Logic.DefaultData
             return factory.Generate(25).ToArray();
         }
         
-        public TransactionType[] GetTransactionTypes() => _default.GetTransactionTypes();
-        public Category[] GetCategories() => _default.GetCategories();
+        public TransactionType[] GetTransactionTypes() => _test.GetTransactionTypes();
+        public Category[] GetCategories() => _test.GetCategories();
 
 
         #endregion

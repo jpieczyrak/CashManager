@@ -8,12 +8,12 @@ using AutoMapper;
 using CashManager.Infrastructure.DbConnection;
 using CashManager.Logic.DefaultData;
 
-using CashManager_MVVM.DI;
+using CashManager_MVVM.Configuration.DI;
 using CashManager_MVVM.Model;
 
 using LiteDB;
 
-using MapperConfiguration = CashManager_MVVM.Mapping.MapperConfiguration;
+using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
 
 using DtoCategory = CashManager.Data.DTO.Category;
 using DtoPosition = CashManager.Data.DTO.Position;
@@ -36,7 +36,7 @@ namespace CashManager.Tests.ViewModels
         protected DtoStock[] DtoStocks { get; set; }
 
         protected Transaction[] Transactions => Mapper.Map<Transaction[]>(DtoTransactions);
-        protected Position[] Positions => Mapper.Map<Position[]>(DtoPositions);
+        protected Position[] Positions => Mapper.Map<Transaction[]>(DtoTransactions).SelectMany(x => x.Positions).ToArray();
         protected Category[] Categories => Mapper.Map<Category[]>(DtoCategories);
         protected Tag[] Tags => Mapper.Map<Tag[]>(DtoTags);
         protected TransactionType[] Types => Mapper.Map<TransactionType[]>(DtoTypes);
@@ -46,7 +46,7 @@ namespace CashManager.Tests.ViewModels
         {
             _container = GetContainer();
 
-            var defaultDataProvider = new DefaultDataProvider();
+            var defaultDataProvider = new TestDataProvider();
             DtoTags = defaultDataProvider.GetTags();
             DtoStocks = defaultDataProvider.GetStocks();
             DtoCategories = defaultDataProvider.GetCategories();
@@ -61,6 +61,7 @@ namespace CashManager.Tests.ViewModels
             repo.Database.UpsertBulk(DtoTags);
             repo.Database.UpsertBulk(DtoTypes);
             repo.Database.UpsertBulk(DtoStocks);
+            repo.Database.UpsertBulk(DtoPositions);
             repo.Database.UpsertBulk(DtoTransactions);
         }
 

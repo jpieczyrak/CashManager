@@ -1,14 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Windows;
 
 using AutoMapper;
 
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Transactions;
+using CashManager.Infrastructure.Command.Transactions.Bills;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Tags;
 using CashManager.Infrastructure.Query.Transactions;
+using CashManager.Infrastructure.Query.Transactions.Bills;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.Features.Categories;
@@ -20,15 +25,20 @@ using CashManager_MVVM.Model.Common;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
+using GongSolutions.Wpf.DragDrop;
+
 using DtoTag = CashManager.Data.DTO.Tag;
 using DtoStock = CashManager.Data.DTO.Stock;
 using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
+using DtoStoredFileInfo = CashManager.Data.DTO.StoredFileInfo;
 
 namespace CashManager_MVVM.Features.Transactions
 {
-    public class TransactionViewModel : ViewModelBase, IUpdateable
+    public class TransactionViewModel : ViewModelBase, IUpdateable, IDropTarget
     {
+        //todo: on unload / hide etc - cancel changes to transaction
+
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ViewModelFactory _factory;
@@ -39,6 +49,10 @@ namespace CashManager_MVVM.Features.Transactions
         private Tag[] _tags;
 
         public IEnumerable<TransactionType> TransactionTypes { get; set; }
+
+        public ObservableCollection<string> NewBillsFilepaths { get; private set; }
+
+        public ObservableCollection<BillImage> LoadedBills { get; private set; }
 
         public Transaction Transaction
         {
@@ -73,6 +87,8 @@ namespace CashManager_MVVM.Features.Transactions
             _categoryPickerViewModel = _factory.Create<CategoryPickerViewModel>();
 
             Update();
+
+            NewBillsFilepaths = new ObservableCollection<string>();
 
             ChooseCategoryCommand = new RelayCommand<Position>(position =>
             {
@@ -113,6 +129,9 @@ namespace CashManager_MVVM.Features.Transactions
                 position.TagViewModel = _factory.Create<MultiComboBoxViewModel>();
                 position.TagViewModel.SetInput(CopyOfTags(_tags), position.Tags);
             }
+
+            NewBillsFilepaths?.Clear();
+            LoadedBills = new ObservableCollection<BillImage>(Transaction.StoredFiles.Select(CreateBillImage));
         }
 
         #endregion
@@ -164,7 +183,14 @@ namespace CashManager_MVVM.Features.Transactions
 
         private void ExecuteSaveTransactionCommand()
         {
-            foreach (var position in _transaction.Positions) position.Tags = position.TagViewModel.Results.OfType<Tag>().ToArray();
+            foreach (var position in _transaction.Positions)
+                position.Tags = position.TagViewModel.Results.OfType<Tag>().ToArray();
+
+            var bills = NewBillsFilepaths.Select(x => new StoredFileInfo(x, Transaction.Id)).ToArray();
+            _commandDispatcher.Execute(new UpsertBillsCommand(Mapper.Map<DtoStoredFileInfo[]>(bills)));
+            NewBillsFilepaths.Clear();
+
+            foreach (var bill in bills) if (!Transaction.StoredFiles.Contains(bill)) Transaction.StoredFiles.Add(bill);
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction>(_transaction)));
             NavigateBackToTransactionSearchView();
         }
@@ -172,6 +198,41 @@ namespace CashManager_MVVM.Features.Transactions
         private void NavigateBackToTransactionSearchView()
         {
             _factory.Create<ApplicationViewModel>().GoBack();
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            dropInfo.Effects = GetProperFilepaths(dropInfo).Any()
+                                   ? DragDropEffects.Copy
+                                   : DragDropEffects.None;
+        }
+
+        private string[] GetProperFilepaths(IDropInfo dropInfo)
+        {
+            string[] allowedExtensions = { ".jpg", ".png", ".bmp" };
+            return ((DataObject) dropInfo.Data).GetFileDropList()
+                                               .OfType<string>()
+                                               .Where(x => !string.IsNullOrWhiteSpace(x))
+                                               .Where(x => allowedExtensions.Contains(Path.GetExtension(x).ToLower()))
+                                               .ToArray();
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            var files = GetProperFilepaths(dropInfo);
+            foreach (string file in files)
+            {
+                if (!NewBillsFilepaths.Contains(file)) NewBillsFilepaths.Add(file);
+                var billImage = new BillImage(file, Path.GetFileNameWithoutExtension(file), File.ReadAllBytes(file));
+                if (LoadedBills.Contains(billImage)) LoadedBills.Remove(billImage);
+                LoadedBills.Add(billImage);
+            }
+        }
+        
+        private BillImage CreateBillImage(StoredFileInfo fileInfo)
+        {
+            var image = _queryDispatcher.Execute<BillQuery, byte[]>(new BillQuery(fileInfo.DbAlias));
+            return new BillImage(fileInfo.SourceName, fileInfo.DisplayName, image);
         }
     }
 }

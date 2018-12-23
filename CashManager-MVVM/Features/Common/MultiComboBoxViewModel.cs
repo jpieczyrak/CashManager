@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using CashManager_MVVM.Model.Common;
 
@@ -79,7 +80,7 @@ namespace CashManager_MVVM.Features.Common
 
         private void ExecuteAddCommand()
         {
-            var item = new BaseSelectable { Name = Text, IsSelected = true };
+            var item = new BaseSelectable(Guid.NewGuid()) { Name = Text, IsSelected = true };
             InternalDisplayableSearchResults.Add(item);
             _filtrableInput.Add(item);
             //todo: message new element (save it. update other lists)

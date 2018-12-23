@@ -8,7 +8,7 @@ using CashManager_MVVM.Model;
 
 using Xunit;
 
-using MapperConfiguration = CashManager_MVVM.Mapping.MapperConfiguration;
+using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
 
 namespace CashManager.Tests.Mappers
 {
