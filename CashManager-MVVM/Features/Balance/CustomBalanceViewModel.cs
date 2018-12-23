@@ -63,6 +63,8 @@ namespace CashManager_MVVM.Features.Balance
             Name = "new custom balance";
             SelectedCustomBalance = new CustomBalance(Name);
 
+            //todo: add range picker (use saved searches with selected date picker)
+
             SavedSearches = new MultiComboBoxViewModel();
             SavedSearches.PropertyChanged += SavedSearchesOnPropertyChanged;
 
