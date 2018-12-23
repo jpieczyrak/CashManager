@@ -6,9 +6,9 @@ using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.States;
 
+using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Logic.Balances;
-using CashManager_MVVM.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -28,7 +28,7 @@ namespace CashManager_MVVM.Features.Balance
         
         public RelayCommand SaveCommand { get; private set; }
 
-        public MultiPicker SavedSearches { get; private set; }
+        public MultiComboBoxViewModel SavedSearches { get; private set; }
 
         public string Name { get; set; }
 
@@ -38,9 +38,7 @@ namespace CashManager_MVVM.Features.Balance
             _commandDispatcher = commandDispatcher;
             SaveCommand = new RelayCommand(ExecuteSaveCommand);
 
-            var query = new SearchStateQuery();
-            var source = Mapper.Map<SearchState[]>(_queryDispatcher.Execute<SearchStateQuery, DtoSearch[]>(query));
-            SavedSearches = new MultiPicker(MultiPickerType.SavedSearches, source);
+            SavedSearches = new MultiComboBoxViewModel();
 
             Update();
         }
@@ -48,11 +46,16 @@ namespace CashManager_MVVM.Features.Balance
         private void ExecuteSaveCommand()
         {
             var balance = new CustomBalance(Name) { Searches = SavedSearches.Results.OfType<SearchState>().ToArray() };
+            //todo: save
         }
 
         public void Update()
         {
-            //CustomBalances = _queryDispatcher.Execute<>()
+            var query = new SearchStateQuery();
+            var source = Mapper.Map<SearchState[]>(_queryDispatcher.Execute<SearchStateQuery, DtoSearch[]>(query));
+
+            SavedSearches.SetInput(source);
+            //todo: custom balances load
         }
     }
 }
