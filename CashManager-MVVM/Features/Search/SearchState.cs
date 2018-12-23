@@ -117,6 +117,8 @@ namespace CashManager_MVVM.Features.Search
             CategoriesFilter.Apply(state.CategoriesFilter);
             UserStocksFilter.Apply(state.UserStocksFilter);
             ExternalStocksFilter.Apply(state.ExternalStocksFilter);
+
+            RaisePropertyChanged();
         }
     }
 }

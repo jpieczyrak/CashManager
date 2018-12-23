@@ -123,6 +123,7 @@ namespace CashManager_MVVM.Features.Search
         public SearchViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory)
         {
             State = new SearchState(queryDispatcher);
+            State.PropertyChanged += (sender, args) => FiltersOnCollectionChanged(null, null);
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
 
@@ -163,11 +164,7 @@ namespace CashManager_MVVM.Features.Search
             var query = new SearchStateQuery(x => x.Id == SelectedSearch.Id);
             var result = _queryDispatcher.Execute<SearchStateQuery, DtoSearchState[]>(query).FirstOrDefault();
             if (result != null)
-            {
                 State.ApplySearchCriteria(Mapper.Map<SearchState>(result));
-                RaisePropertyChanged(nameof(State));
-                FiltersOnCollectionChanged(null, null);
-            }
         }
 
         private void ExecuteSaveSearchStateCommand()
@@ -189,10 +186,10 @@ namespace CashManager_MVVM.Features.Search
             SaveSearches = states
                            .Select(x => new BaseSelectable(x.Id) { Name = x.Name })
                            .ToArray();
+            State.UpdateSources(_queryDispatcher);
             var defaultSearch = states.FirstOrDefault(x => x.Name == SearchState.DEFAULT_NAME);
             if (defaultSearch != null) State.ApplySearchCriteria(Mapper.Map<SearchState>(defaultSearch));
-
-            State.UpdateSources(_queryDispatcher);
+            
             FiltersOnCollectionChanged(this, null);
         }
 

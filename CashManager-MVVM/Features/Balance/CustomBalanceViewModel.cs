@@ -94,11 +94,11 @@ namespace CashManager_MVVM.Features.Balance
         private void UpdateSummary()
         {
             var summaries = new List<Summary>();
+            _searchViewModel.Update();
             foreach (var state in SelectedCustomBalance.Searches)
             {
                 //todo: make it cleaner - do not use search vm?
                 _searchViewModel.State.ApplySearchCriteria(state);
-                _searchViewModel.Update();
                 //todo: handle positions if needed
                 var summary = _searchViewModel.TransactionsListViewModel.Summary.Copy();
                 summary.Name = state.Name;
