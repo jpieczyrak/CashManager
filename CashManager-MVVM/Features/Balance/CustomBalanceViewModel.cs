@@ -101,6 +101,10 @@ namespace CashManager_MVVM.Features.Balance
 
             SavedSearches = new MultiComboBoxViewModel();
             SavedSearches.PropertyChanged += SavedSearchesOnPropertyChanged;
+            
+            var customBalanceQuery = new CustomBalanceQuery();
+            var customBalances = _queryDispatcher.Execute<CustomBalanceQuery, DtoCustomBalance[]>(customBalanceQuery);
+            CustomBalances = Mapper.Map<ObservableCollection<CustomBalance>>(customBalances);
 
             Update();
         }
@@ -130,12 +134,7 @@ namespace CashManager_MVVM.Features.Balance
         {
             var query = new SearchStateQuery();
             var source = Mapper.Map<SearchState[]>(_queryDispatcher.Execute<SearchStateQuery, DtoSearch[]>(query));
-
             SavedSearches.SetInput(source);
-
-            var customBalanceQuery = new CustomBalanceQuery();
-            var customBalances = _queryDispatcher.Execute<CustomBalanceQuery, DtoCustomBalance[]>(customBalanceQuery);
-            CustomBalances = Mapper.Map<ObservableCollection<CustomBalance>>(customBalances);
         }
 
         private void UpdateSummary()
