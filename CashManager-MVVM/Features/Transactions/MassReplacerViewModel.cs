@@ -171,7 +171,7 @@ namespace CashManager_MVVM.Features.Transactions
                     Mapper.Map<Stock[]>(Mapper.Map<CashManager.Data.DTO.Stock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
 
             var categories = Mapper.Map<Category[]>(_queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery()));
-            categories = CategoryDesignHelper.BuildGraphicalOrder(categories).ToArray();
+            categories = CategoryDesignHelper.BuildGraphicalOrder(categories);
             CategoriesSelector = new MultiPicker(MultiPickerType.Category, categories);
 
             var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));

@@ -90,7 +90,7 @@ namespace CashManager_MVVM.Features.Search
             ExternalStocksFilter.SetInput(externalStocks);
 
             var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
-            categories = CategoryDesignHelper.BuildGraphicalOrder(categories).ToArray();
+            categories = CategoryDesignHelper.BuildGraphicalOrder(categories);
             CategoriesFilter.SetInput(categories);
 
             var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
