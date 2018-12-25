@@ -49,7 +49,7 @@ namespace CashManager_MVVM.Features.Common
         public bool AnySelected => Results?.Any() ?? false;
 
         public string SelectedString => _filtrableInput != null
-                                            ? string.Join(", ", _filtrableInput.Where(x => x.IsSelected).OrderBy(x => x.Name).Select(x => x.Name.Trim()))
+                                            ? string.Join(", ", _filtrableInput.Where(x => x.IsSelected).OrderBy(x => x.Name).Select(x => x.Name?.Trim()))
                                             : string.Empty;
 
         public RelayCommand AddCommand { get; private set; }
