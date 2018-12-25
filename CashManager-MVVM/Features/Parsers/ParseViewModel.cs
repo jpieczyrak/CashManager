@@ -108,7 +108,7 @@ namespace CashManager_MVVM.Features.Parsers
                 {
                     SelectedUserStock.Balance = Mapper.Map<Model.Balance>(balance);
                     _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock[]>(new [] { SelectedUserStock } )));
-                    MessengerInstance.Send(new StockUpdateMessage(SelectedUserStock));
+                    MessengerInstance.Send(new UpdateStockMessage(SelectedUserStock));
                 }
             }
         }

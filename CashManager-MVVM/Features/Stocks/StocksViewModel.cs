@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections;
+using System.Collections.Specialized;
 using System.Linq;
 
 using AutoMapper;
@@ -10,6 +11,7 @@ using CashManager.Infrastructure.Query.Stocks;
 
 using CashManager_MVVM.Messages;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Common;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -36,22 +38,35 @@ namespace CashManager_MVVM.Features.Stocks
             Stocks = new TrulyObservableCollection<Stock>(stocks);
             Stocks.CollectionChanged += StocksOnCollectionChanged;
 
-            AddStockCommand = new RelayCommand(() => { Stocks.Add(new Stock()); });
+            AddStockCommand = new RelayCommand(() =>
+            {
+                var stock = new Stock();
+                Stocks.Add(stock);
+            });
             RemoveCommand = new RelayCommand<Stock>(x =>
             {
-                x.IsUserStock = false; //hack to make update message remove the stock for summary todo: fix
+                MessengerInstance.Send(new DeleteStockMessage(x));
                 Stocks.Remove(x);
 
                 _commandDispatcher.Execute(new DeleteStockCommand(Mapper.Map<CashManager.Data.DTO.Stock>(x)));
             });
         }
 
-        private void StocksOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        private void StocksOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             var stocks = Stocks.Select(Mapper.Map<CashManager.Data.DTO.Stock>).ToArray();
             _commandDispatcher.Execute(new UpsertStocksCommand(stocks));
 
-            MessengerInstance.Send(new StockUpdateMessage(Stocks.ToArray()));
+            if (e.NewItems != null)
+            {
+                var updatedStocks = e.NewItems.OfType<Stock>().ToArray();
+                MessengerInstance.Send(new UpdateStockMessage(updatedStocks));
+            }
+            else if (e.OldItems != null)
+            {
+                var deleted = e.OldItems.OfType<Stock>().ToArray();
+                MessengerInstance.Send(new DeleteStockMessage(deleted));
+            }
         }
     }
 }

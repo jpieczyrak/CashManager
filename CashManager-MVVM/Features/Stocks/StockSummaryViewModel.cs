@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using AutoMapper;
 
@@ -32,18 +33,29 @@ namespace CashManager_MVVM.Features.Stocks
                            .Where(x => x.IsUserStock)
                            .OrderBy(x => x.InstanceCreationDate)
                            .ToArray();
-            MessengerInstance.Register<StockUpdateMessage>(this, Update);
+            MessengerInstance.Register<UpdateStockMessage>(this, Update);
+            MessengerInstance.Register<DeleteStockMessage>(this, Delete);
         }
 
-        private void Update(StockUpdateMessage message)
+        private void Update(UpdateStockMessage message)
         {
-            var updated = message.UpdatedStocks.ToArray();
-            Stocks = Stocks.Except(updated)
-                           .Concat(updated)
-                           .Where(x => x.IsUserStock)
-                           .OrderBy(x => x.InstanceCreationDate)
-                           .ToArray();
+            var updated = message.UpdatedStocks;
+            Stocks = FilterAndOrderStocks(Stocks.Except(updated).Concat(updated));
             RaisePropertyChanged(nameof(Total));
+        }
+
+        private void Delete(DeleteStockMessage message)
+        {
+            Stocks = FilterAndOrderStocks(Stocks.Except(message.DeletedStocks));
+            RaisePropertyChanged(nameof(Total));
+        }
+
+        private Stock[] FilterAndOrderStocks(IEnumerable<Stock> stocks)
+        {
+            return stocks
+                   .Where(x => x.IsUserStock)
+                   .OrderBy(x => x.InstanceCreationDate)
+                   .ToArray();
         }
     }
 }
