@@ -15,7 +15,6 @@ namespace CashManager_MVVM.Features.Stocks
 {
     public class StockSummaryViewModel : ViewModelBase
     {
-        private readonly IQueryDispatcher _queryDispatcher;
         private Stock[] _stocks;
 
         public Stock[] Stocks
@@ -28,11 +27,10 @@ namespace CashManager_MVVM.Features.Stocks
 
         public StockSummaryViewModel(IQueryDispatcher queryDispatcher)
         {
-            _queryDispatcher = queryDispatcher;
-            Stocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery()))
-                           .Where(x => x.IsUserStock)
-                           .OrderBy(x => x.InstanceCreationDate)
-                           .ToArray();
+            var query = new StockQuery();
+            var stocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(query));
+            Stocks = FilterAndOrderStocks(stocks);
+
             MessengerInstance.Register<UpdateStockMessage>(this, Update);
             MessengerInstance.Register<DeleteStockMessage>(this, Delete);
         }
