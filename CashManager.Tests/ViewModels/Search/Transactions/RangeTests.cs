@@ -18,6 +18,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             decimal maxValue = 2450;
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             vm.IsTransactionsSearch = true;
             var expected = vm.Transactions
                              .Where(x => x.ValueAsProfit <= maxValue && x.ValueAsProfit >= minValue)

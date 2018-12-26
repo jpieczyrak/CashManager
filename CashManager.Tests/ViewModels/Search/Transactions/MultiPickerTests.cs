@@ -17,6 +17,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             Category filterValue = vm.Transactions.First().Positions.FirstOrDefault().Category;
             vm.IsTransactionsSearch = true;
             var expected = vm.Transactions
@@ -40,6 +41,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             var filterValue = new[] { Tags[0], Tags[1] };
             vm.IsTransactionsSearch = true;
             var expected = vm.Transactions
@@ -66,6 +68,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             var filterValue = vm.Transactions.First().Type;
             vm.IsTransactionsSearch = true;
             var expected = vm.Transactions
@@ -89,6 +92,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             var filterValue = vm.Transactions.First().UserStock;
             vm.IsTransactionsSearch = true;
             var expected = vm.Transactions
@@ -112,6 +116,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             var filterValue = vm.Transactions.First().ExternalStock;
             vm.IsTransactionsSearch = true;
             var expected = vm.Transactions

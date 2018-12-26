@@ -17,6 +17,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             vm.IsTransactionsSearch = true;
 
             //when
@@ -35,6 +36,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             var maxDateTime = DateTime.Today.AddDays(10);
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             vm.IsTransactionsSearch = true;
             var expected = vm.Transactions
                              .Where(x => x.BookDate >= minDateTime && x.BookDate <= maxDateTime)
@@ -60,6 +62,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             var maxDateTime = DateTime.Today.AddDays(-1);
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             vm.IsTransactionsSearch = true;
             var expected = vm.Transactions
                              .Where(x => x.LastEditDate >= minDateTime && x.LastEditDate <= maxDateTime)
@@ -84,6 +87,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             var maxDateTime = DateTime.Today.AddDays(10);
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             vm.IsTransactionsSearch = true;
             var expected = vm.Transactions
                              .Where(x => x.InstanceCreationDate >= minDateTime && x.InstanceCreationDate <= maxDateTime)
@@ -108,6 +112,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             vm.IsTransactionsSearch = false;
 
             //when
@@ -126,6 +131,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             var maxDateTime = DateTime.Today.AddDays(10);
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             vm.IsTransactionsSearch = false;
             var expected = vm.Transactions.ToArray();
 
@@ -148,6 +154,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             var maxDateTime = DateTime.Today.AddDays(-1);
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             vm.IsTransactionsSearch = false;
             var expected = vm.Transactions.ToArray();
 
@@ -169,6 +176,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             var maxDateTime = DateTime.Today.AddDays(10);
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             vm.IsTransactionsSearch = false;
             var expected = vm.Transactions.ToArray();
 

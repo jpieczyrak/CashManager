@@ -11,7 +11,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
     public class BaseTests : ViewModelTests
     {
         [Fact]
-        public void OnPropertyChanged_Clean_AllTransactions()
+        public void OnPropertyChanged_Clean_Null()
         {
             //given
             var vm = _container.Resolve<SearchViewModel>();
@@ -20,7 +20,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.RaisePropertyChanged(nameof(vm.Transactions));
 
             //then
-            Assert.Empty(vm.Transactions);
+            Assert.Null(vm.Transactions);
         }
 
         [Fact]
@@ -29,6 +29,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
 
             //when
             vm.RaisePropertyChanged(nameof(vm.Transactions));
@@ -44,6 +45,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             vm.State.TitleFilter.Value = Transactions[0].Title;
             vm.State.TitleFilter.IsChecked = true;
 

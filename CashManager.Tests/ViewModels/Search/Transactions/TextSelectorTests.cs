@@ -16,6 +16,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             string searchString = vm.Transactions.First().Title;
             vm.IsTransactionsSearch = true;
             var expected = vm.Transactions
@@ -39,6 +40,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             string searchString = vm.Transactions.First().Note;
             vm.IsTransactionsSearch = true;
             var expected = vm.Transactions
@@ -62,6 +64,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             string searchString = vm.Transactions.First().Positions.First().Title.ToUpper();
             vm.IsTransactionsSearch = true;
             var expected = vm.Transactions
