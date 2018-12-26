@@ -73,7 +73,7 @@ namespace CashManager_MVVM.Features.Transactions
                 var transactions = items.Select(Mapper.Map<Transaction>)
                                         .OrderByDescending(x => x.BookDate)
                                         .ThenByDescending(x => x.InstanceCreationDate)
-                                        .ToArray();
+                                        .ToList();
                 Transactions = new TrulyObservableCollection<Transaction>(transactions);
             }
         }

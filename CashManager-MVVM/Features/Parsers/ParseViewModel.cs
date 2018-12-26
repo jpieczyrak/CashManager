@@ -120,7 +120,7 @@ namespace CashManager_MVVM.Features.Parsers
 
         private void ExecuteParseCommand()
         {
-            var transactions = Mapper.Map<Transaction[]>(SelectedParser.Value.Parse(InputText, Mapper.Map<DtoStock>(SelectedUserStock),
+            var transactions = Mapper.Map<List<Transaction>>(SelectedParser.Value.Parse(InputText, Mapper.Map<DtoStock>(SelectedUserStock),
                 Mapper.Map<DtoStock>(SelectedExternalStock),
                 Mapper.Map<DtoTransactionType>(DefaultOutcomeTransactionType),
                 Mapper.Map<DtoTransactionType>(DefaultIncomeTransactionType)));

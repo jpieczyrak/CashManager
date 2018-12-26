@@ -30,7 +30,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
 
             //then
             Assert.NotEmpty(vm.Positions);
-            Assert.Equal(expected.Length, vm.Positions.Length);
+            Assert.Equal(expected.Length, vm.Positions.Count);
             Assert.Equal(expected, vm.Positions.OrderBy(x => x.Id).ToArray());
         }
 
@@ -57,7 +57,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
 
             //then
             Assert.NotEmpty(vm.Positions);
-            Assert.Equal(expected.Length, vm.Positions.Length);
+            Assert.Equal(expected.Length, vm.Positions.Count);
             Assert.Equal(expected, vm.Positions.OrderBy(x => x.Id).ToArray());
         }
 
@@ -81,7 +81,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
 
             //then
             Assert.NotEmpty(vm.Positions);
-            Assert.Equal(expected.Length, vm.Positions.Length);
+            Assert.Equal(expected.Length, vm.Positions.Count);
             Assert.Equal(expected, vm.Positions.OrderBy(x => x.Id).ToArray());
         }
 
@@ -105,7 +105,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
 
             //then
             Assert.NotEmpty(vm.Positions);
-            Assert.Equal(expected.Length, vm.Positions.Length);
+            Assert.Equal(expected.Length, vm.Positions.Count);
             Assert.Equal(expected, vm.Positions.OrderBy(x => x.Id).ToArray());
         }
 
@@ -129,7 +129,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
 
             //then
             Assert.NotEmpty(vm.Positions);
-            Assert.Equal(expected.Length, vm.Positions.Length);
+            Assert.Equal(expected.Length, vm.Positions.Count);
             Assert.Equal(expected, vm.Positions.OrderBy(x => x.Id).ToArray());
         }
     }

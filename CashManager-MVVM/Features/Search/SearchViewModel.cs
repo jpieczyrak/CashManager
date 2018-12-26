@@ -31,8 +31,8 @@ namespace CashManager_MVVM.Features.Search
         private readonly ICommandDispatcher _commandDispatcher;
         private Transaction[] _allTransactions;
 
-        private Transaction[] _transactions;
-        private Position[] _positions;
+        private List<Transaction> _transactions;
+        private List<Position> _positions;
 
         private string _title;
         private bool _isTransactionsSearch;
@@ -53,13 +53,13 @@ namespace CashManager_MVVM.Features.Search
 
         public SearchState State { get; }
 
-        public Transaction[] Transactions
+        public List<Transaction> Transactions
         {
             get => _transactions;
             set => Set(nameof(Transactions), ref _transactions, value);
         }
 
-        public Position[] Positions
+        public List<Position> Positions
         {
             get => _positions;
             set => Set(nameof(Positions), ref _positions, value);
@@ -178,8 +178,8 @@ namespace CashManager_MVVM.Features.Search
         public void Update()
         {
             _allTransactions = Mapper.Map<Transaction[]>(_queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()));
-            Transactions = _allTransactions.ToArray();
-            Positions = new Position[0];
+            Transactions = _allTransactions.ToList();
+            Positions = new List<Position>();
             var states = _queryDispatcher.Execute<SearchStateQuery, DtoSearchState[]>(new SearchStateQuery());
             SaveSearches = states
                            .Select(x => new BaseSelectable(x.Id) { Name = x.Name })
@@ -239,12 +239,12 @@ namespace CashManager_MVVM.Features.Search
             PositionsListViewModel.Positions.AddRange(Positions);
         }
 
-        private static T[] OrderResults<T>(IEnumerable<T> input) where T : IBookable
+        private static List<T> OrderResults<T>(IEnumerable<T> input) where T : IBookable
         {
             return input
                    .OrderByDescending(x => x.BookDate)
                    .ThenByDescending(x => x.InstanceCreationDate)
-                   .ToArray();
+                   .ToList();
         }
     }
 }

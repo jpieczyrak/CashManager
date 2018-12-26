@@ -29,7 +29,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
 
             //then
             Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(expected.Length, vm.Transactions.Length);
+            Assert.Equal(expected.Length, vm.Transactions.Count);
             Assert.Equal(expected, vm.Transactions.OrderBy(x => x.Id).ToArray());
         }
 
@@ -52,7 +52,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
 
             //then
             Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(expected.Length, vm.Transactions.Length);
+            Assert.Equal(expected.Length, vm.Transactions.Count);
             Assert.Equal(expected, vm.Transactions.OrderBy(x => x.Id).ToArray());
         }
 
@@ -75,7 +75,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
 
             //then
             Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(expected.Length, vm.Transactions.Length);
+            Assert.Equal(expected.Length, vm.Transactions.Count);
             Assert.Equal(expected, vm.Transactions.OrderBy(x => x.Id).ToArray());
         }
     }

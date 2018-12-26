@@ -35,7 +35,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
 
             //then
             Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(Transactions.Length, vm.Transactions.Length);
+            Assert.Equal(Transactions.Length, vm.Transactions.Count);
         }
 
         [Fact]
@@ -53,7 +53,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //then
             Assert.NotEmpty(vm.Transactions);
             var matching = Transactions.Where(x => x.Title.ToLower().Contains(vm.State.TitleFilter.Value.ToLower())).ToArray();
-            Assert.Equal(matching.Length, vm.Transactions.Length);
+            Assert.Equal(matching.Length, vm.Transactions.Count);
             Assert.Equal(matching.Select(x => x.Id), vm.Transactions.Select(x => x.Id));
         }
     }

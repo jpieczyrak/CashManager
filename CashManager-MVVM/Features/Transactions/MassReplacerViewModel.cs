@@ -145,7 +145,7 @@ namespace CashManager_MVVM.Features.Transactions
                     transaction.ExternalStock = _externalStocksSelector.Results.OfType<Stock>().FirstOrDefault();
 
             var positions = SearchViewModel.IsTransactionsSearch 
-                                ? transactions.SelectMany(x => x.Positions).ToArray()
+                                ? transactions.SelectMany(x => x.Positions).ToList()
                                 : SearchViewModel.Positions;
             if (_positionTitleSelector.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleSelector.Value))
                 foreach (var position in positions)
