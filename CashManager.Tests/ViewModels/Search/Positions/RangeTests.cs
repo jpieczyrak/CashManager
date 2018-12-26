@@ -18,6 +18,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             decimal maxValue = 2450;
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
             var expected = Positions

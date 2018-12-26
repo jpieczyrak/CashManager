@@ -16,6 +16,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             var filterValue = vm.Transactions.First().Positions.First().Category;
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
@@ -40,6 +41,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             var filterValue = new [] { Tags[0], Tags[2] };
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
@@ -67,6 +69,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             var filterValue = vm.Transactions.First().Positions.First().Parent.Type;
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
@@ -91,6 +94,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             var filterValue = vm.Transactions.First().Positions.First().Parent.UserStock;
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
@@ -115,6 +119,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             var filterValue = vm.Transactions.First().Positions.First().Parent.ExternalStock;
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;

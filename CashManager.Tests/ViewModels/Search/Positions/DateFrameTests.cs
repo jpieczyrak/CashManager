@@ -22,6 +22,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var expected = Positions
                              .OrderBy(x => x.Id)
                              .ToArray();
+            vm.Update();
 
             //when
             vm.State.BookDateFilter.From = DateTime.Today;
@@ -46,6 +47,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
                              .Where(x => x.BookDate >= minDateTime && x.BookDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
+            vm.Update();
 
             //when
             vm.State.BookDateFilter.From = minDateTime;
@@ -72,6 +74,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
                              .Where(x => x.LastEditDate >= minDateTime && x.LastEditDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
+            vm.Update();
 
             //when
             vm.State.LastEditDateFilter.From = minDateTime;
@@ -97,6 +100,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
                              .Where(x => x.InstanceCreationDate >= minDateTime && x.InstanceCreationDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
+            vm.Update();
 
             //when
             vm.State.CreateDateFilter.From = minDateTime;
@@ -111,7 +115,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
 
 
         [Fact]
-        public void OnBookDateFilterChanged_NotPositionSearchSomePositionsFilterNotEnabled_AllPositions()
+        public void OnBookDateFilterChanged_NotPositionSearchSomePositionsFilterNotEnabled_Null()
         {
             //given
             SetupDatabase();
@@ -122,11 +126,11 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.State.BookDateFilter.From = DateTime.Today;
 
             //then
-            Assert.Empty(vm.Positions);
+            Assert.Null(vm.Positions);
         }
 
         [Fact]
-        public void OnBookDateFilterChanged_NotPositionSearchSomePositionsFilterEnabled_AllPositions()
+        public void OnBookDateFilterChanged_NotPositionSearchSomePositionsFilterEnabled_Null()
         {
             //given
             var minDateTime = DateTime.Today.AddDays(-10);
@@ -142,11 +146,11 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.State.BookDateFilter.IsChecked = true;
 
             //then
-            Assert.Empty(vm.Positions);
+            Assert.Null(vm.Positions);
         }
 
         [Fact]
-        public void OnLastEditDateFilterChanged_NotPositionSearchSomePositionsFilterEnabled_AllPositions()
+        public void OnLastEditDateFilterChanged_NotPositionSearchSomePositionsFilterEnabled_Null()
         {
             //given
             var minDateTime = DateTime.Today.AddDays(-10);
@@ -162,11 +166,11 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.State.LastEditDateFilter.IsChecked = true;
 
             //then
-            Assert.Empty(vm.Positions);
+            Assert.Null(vm.Positions);
         }
 
         [Fact]
-        public void OnCreateDateFilterChanged_NotPositionSearchSomePositionsFilterEnabled_AllPositions()
+        public void OnCreateDateFilterChanged_NotPositionSearchSomePositionsFilterEnabled_Null()
         {
             //given
             var minDateTime = DateTime.Today.AddDays(-10);
@@ -182,7 +186,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.State.CreateDateFilter.IsChecked = true;
 
             //then
-            Assert.Empty(vm.Positions);
+            Assert.Null(vm.Positions);
         }
     }
 }
