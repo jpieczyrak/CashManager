@@ -29,10 +29,9 @@ namespace CashManager_MVVM.Features.Search
 
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
-        private Transaction[] _allTransactions;
 
-        private List<Transaction> _transactions;
-        private List<Position> _positions;
+        private List<Transaction> _matchingTransactions;
+        private List<Position> _matchingPositions;
 
         private string _title;
         private bool _isTransactionsSearch;
@@ -42,6 +41,7 @@ namespace CashManager_MVVM.Features.Search
         private readonly TrulyObservableCollection<IFilter<Position>> _positionFilters;
         private string _searchName;
         private BaseSelectable _selectedSearch;
+        private List<Transaction> _allTransactions;
 
         #endregion
 
@@ -53,16 +53,16 @@ namespace CashManager_MVVM.Features.Search
 
         public SearchState State { get; }
 
-        public List<Transaction> Transactions
+        public List<Transaction> MatchingTransactions
         {
-            get => _transactions;
-            set => Set(nameof(Transactions), ref _transactions, value);
+            get => _matchingTransactions;
+            set => Set(nameof(MatchingTransactions), ref _matchingTransactions, value);
         }
 
-        public List<Position> Positions
+        public List<Position> MatchingPositions
         {
-            get => _positions;
-            set => Set(nameof(Positions), ref _positions, value);
+            get => _matchingPositions;
+            set => Set(nameof(MatchingPositions), ref _matchingPositions, value);
         }
 
         public string Title
@@ -177,9 +177,9 @@ namespace CashManager_MVVM.Features.Search
 
         public void Update()
         {
-            _allTransactions = Mapper.Map<Transaction[]>(_queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()));
-            Transactions = _allTransactions.ToList();
-            Positions = new List<Position>();
+            _allTransactions = Mapper.Map<List<Transaction>>(_queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()));
+            MatchingTransactions = _allTransactions.ToList();
+            MatchingPositions = new List<Position>();
             var states = _queryDispatcher.Execute<SearchStateQuery, DtoSearchState[]>(new SearchStateQuery());
             SaveSearches = states
                            .Select(x => new BaseSelectable(x.Id) { Name = x.Name })
@@ -198,7 +198,7 @@ namespace CashManager_MVVM.Features.Search
             if (IsTransactionsSearch)
             {
                 if (!CanExecuteAnyTransactionFilter)
-                    if (TransactionsListViewModel.Transactions.Count == _allTransactions.Length) return;
+                    if (TransactionsListViewModel.Transactions.Count == _allTransactions.Count) return;
 
                 FilterTransactions();
             }
@@ -222,9 +222,9 @@ namespace CashManager_MVVM.Features.Search
                 if (filter.CanExecute())
                     input = filter.Execute(input);
 
-            Transactions = OrderResults(input);
+            MatchingTransactions = OrderResults(input);
             TransactionsListViewModel.Transactions.Clear();
-            TransactionsListViewModel.Transactions.AddRange(Transactions);
+            TransactionsListViewModel.Transactions.AddRange(MatchingTransactions);
         }
 
         private void FilterPositions()
@@ -234,9 +234,9 @@ namespace CashManager_MVVM.Features.Search
                 if (filter.CanExecute())
                     input = filter.Execute(input);
 
-            Positions = OrderResults(input);
+            MatchingPositions = OrderResults(input);
             PositionsListViewModel.Positions.Clear();
-            PositionsListViewModel.Positions.AddRange(Positions);
+            PositionsListViewModel.Positions.AddRange(MatchingPositions);
         }
 
         private static List<T> OrderResults<T>(IEnumerable<T> input) where T : IBookable

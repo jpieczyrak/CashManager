@@ -28,9 +28,9 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.State.BookDateFilter.From = DateTime.Today;
 
             //then
-            Assert.NotEmpty(vm.Positions);
-            Assert.Equal(expected.Length, vm.Positions.Count);
-            Assert.Equal(expected, vm.Positions.OrderBy(x => x.Id).ToArray());
+            Assert.NotEmpty(vm.MatchingPositions);
+            Assert.Equal(expected.Length, vm.MatchingPositions.Count);
+            Assert.Equal(expected, vm.MatchingPositions.OrderBy(x => x.Id).ToArray());
         }
 
         [Fact]
@@ -55,9 +55,9 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.State.BookDateFilter.IsChecked = true;
 
             //then
-            Assert.NotEmpty(vm.Positions);
-            Assert.Equal(expected.Length, vm.Positions.Count);
-            Assert.Equal(expected, vm.Positions.OrderBy(x => x.Id).ToArray());
+            Assert.NotEmpty(vm.MatchingPositions);
+            Assert.Equal(expected.Length, vm.MatchingPositions.Count);
+            Assert.Equal(expected, vm.MatchingPositions.OrderBy(x => x.Id).ToArray());
         }
 
         [Fact]
@@ -82,8 +82,8 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.State.LastEditDateFilter.IsChecked = true;
 
             //then
-            Assert.Equal(expected.Length, vm.Positions.Count);
-            Assert.Equal(expected, vm.Positions.OrderBy(x => x.Id).ToArray());
+            Assert.Equal(expected.Length, vm.MatchingPositions.Count);
+            Assert.Equal(expected, vm.MatchingPositions.OrderBy(x => x.Id).ToArray());
         }
 
         [Fact]
@@ -108,9 +108,9 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.State.CreateDateFilter.IsChecked = true;
 
             //then
-            Assert.NotEmpty(vm.Positions);
-            Assert.Equal(expected.Length, vm.Positions.Count);
-            Assert.Equal(expected, vm.Positions.OrderBy(x => x.Id).ToArray());
+            Assert.NotEmpty(vm.MatchingPositions);
+            Assert.Equal(expected.Length, vm.MatchingPositions.Count);
+            Assert.Equal(expected, vm.MatchingPositions.OrderBy(x => x.Id).ToArray());
         }
 
 
@@ -126,7 +126,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.State.BookDateFilter.From = DateTime.Today;
 
             //then
-            Assert.Null(vm.Positions);
+            Assert.Null(vm.MatchingPositions);
         }
 
         [Fact]
@@ -146,7 +146,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.State.BookDateFilter.IsChecked = true;
 
             //then
-            Assert.Null(vm.Positions);
+            Assert.Null(vm.MatchingPositions);
         }
 
         [Fact]
@@ -166,7 +166,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.State.LastEditDateFilter.IsChecked = true;
 
             //then
-            Assert.Null(vm.Positions);
+            Assert.Null(vm.MatchingPositions);
         }
 
         [Fact]
@@ -186,7 +186,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.State.CreateDateFilter.IsChecked = true;
 
             //then
-            Assert.Null(vm.Positions);
+            Assert.Null(vm.MatchingPositions);
         }
     }
 }

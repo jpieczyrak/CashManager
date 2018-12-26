@@ -17,10 +17,10 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             var vm = _container.Resolve<SearchViewModel>();
 
             //when
-            vm.RaisePropertyChanged(nameof(vm.Transactions));
+            vm.RaisePropertyChanged(nameof(vm.MatchingTransactions));
 
             //then
-            Assert.Null(vm.Transactions);
+            Assert.Null(vm.MatchingTransactions);
         }
 
         [Fact]
@@ -32,11 +32,11 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.Update();
 
             //when
-            vm.RaisePropertyChanged(nameof(vm.Transactions));
+            vm.RaisePropertyChanged(nameof(vm.MatchingTransactions));
 
             //then
-            Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(Transactions.Length, vm.Transactions.Count);
+            Assert.NotEmpty(vm.MatchingTransactions);
+            Assert.Equal(Transactions.Length, vm.MatchingTransactions.Count);
         }
 
         [Fact]
@@ -50,13 +50,13 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.State.TitleFilter.IsChecked = true;
 
             //when
-            vm.RaisePropertyChanged(nameof(vm.Transactions));
+            vm.RaisePropertyChanged(nameof(vm.MatchingTransactions));
 
             //then
-            Assert.NotEmpty(vm.Transactions);
+            Assert.NotEmpty(vm.MatchingTransactions);
             var matching = Transactions.Where(x => x.Title.ToLower().Contains(vm.State.TitleFilter.Value.ToLower())).ToArray();
-            Assert.Equal(matching.Length, vm.Transactions.Count);
-            Assert.Equal(matching.Select(x => x.Id), vm.Transactions.Select(x => x.Id));
+            Assert.Equal(matching.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(matching.Select(x => x.Id), vm.MatchingTransactions.Select(x => x.Id));
         }
     }
 }

@@ -24,8 +24,8 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.State.BookDateFilter.From = DateTime.Today;
 
             //then
-            Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(Transactions.Length, vm.Transactions.Count);
+            Assert.NotEmpty(vm.MatchingTransactions);
+            Assert.Equal(Transactions.Length, vm.MatchingTransactions.Count);
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             var vm = _container.Resolve<SearchViewModel>();
             vm.Update();
             vm.IsTransactionsSearch = true;
-            var expected = vm.Transactions
+            var expected = vm.MatchingTransactions
                              .Where(x => x.BookDate >= minDateTime && x.BookDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -49,9 +49,9 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.State.BookDateFilter.IsChecked = true;
 
             //then
-            Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(expected.Length, vm.Transactions.Count);
-            Assert.Equal(expected, vm.Transactions.OrderBy(x => x.Id).ToArray());
+            Assert.NotEmpty(vm.MatchingTransactions);
+            Assert.Equal(expected.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(expected, vm.MatchingTransactions.OrderBy(x => x.Id).ToArray());
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             var vm = _container.Resolve<SearchViewModel>();
             vm.Update();
             vm.IsTransactionsSearch = true;
-            var expected = vm.Transactions
+            var expected = vm.MatchingTransactions
                              .Where(x => x.LastEditDate >= minDateTime && x.LastEditDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -75,8 +75,8 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.State.LastEditDateFilter.IsChecked = true;
 
             //then
-            Assert.Equal(expected.Length, vm.Transactions.Count);
-            Assert.Equal(expected, vm.Transactions.OrderBy(x => x.Id).ToArray());
+            Assert.Equal(expected.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(expected, vm.MatchingTransactions.OrderBy(x => x.Id).ToArray());
         }
 
         [Fact]
@@ -89,7 +89,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             var vm = _container.Resolve<SearchViewModel>();
             vm.Update();
             vm.IsTransactionsSearch = true;
-            var expected = vm.Transactions
+            var expected = vm.MatchingTransactions
                              .Where(x => x.InstanceCreationDate >= minDateTime && x.InstanceCreationDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -100,9 +100,9 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.State.CreateDateFilter.IsChecked = true;
 
             //then
-            Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(expected.Length, vm.Transactions.Count);
-            Assert.Equal(expected, vm.Transactions.OrderBy(x => x.Id).ToArray());
+            Assert.NotEmpty(vm.MatchingTransactions);
+            Assert.Equal(expected.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(expected, vm.MatchingTransactions.OrderBy(x => x.Id).ToArray());
         }
 
 
@@ -119,8 +119,8 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.State.BookDateFilter.From = DateTime.Today;
 
             //then
-            Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(Transactions.Length, vm.Transactions.Count);
+            Assert.NotEmpty(vm.MatchingTransactions);
+            Assert.Equal(Transactions.Length, vm.MatchingTransactions.Count);
         }
 
         [Fact]
@@ -133,7 +133,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             var vm = _container.Resolve<SearchViewModel>();
             vm.Update();
             vm.IsTransactionsSearch = false;
-            var expected = vm.Transactions.ToArray();
+            var expected = vm.MatchingTransactions.ToArray();
 
             //when
             vm.State.BookDateFilter.From = minDateTime;
@@ -141,9 +141,9 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.State.BookDateFilter.IsChecked = true;
 
             //then
-            Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(expected.Length, vm.Transactions.Count);
-            Assert.Equal(expected, vm.Transactions.ToArray());
+            Assert.NotEmpty(vm.MatchingTransactions);
+            Assert.Equal(expected.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(expected, vm.MatchingTransactions.ToArray());
         }
 
         [Fact]
@@ -156,7 +156,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             var vm = _container.Resolve<SearchViewModel>();
             vm.Update();
             vm.IsTransactionsSearch = false;
-            var expected = vm.Transactions.ToArray();
+            var expected = vm.MatchingTransactions.ToArray();
 
             //when
             vm.State.LastEditDateFilter.From = minDateTime;
@@ -164,8 +164,8 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.State.LastEditDateFilter.IsChecked = true;
 
             //then
-            Assert.Equal(expected.Length, vm.Transactions.Count);
-            Assert.Equal(expected, vm.Transactions.ToArray());
+            Assert.Equal(expected.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(expected, vm.MatchingTransactions.ToArray());
         }
 
         [Fact]
@@ -178,7 +178,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             var vm = _container.Resolve<SearchViewModel>();
             vm.Update();
             vm.IsTransactionsSearch = false;
-            var expected = vm.Transactions.ToArray();
+            var expected = vm.MatchingTransactions.ToArray();
 
             //when
             vm.State.CreateDateFilter.From = minDateTime;
@@ -186,9 +186,9 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.State.CreateDateFilter.IsChecked = true;
 
             //then
-            Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(expected.Length, vm.Transactions.Count);
-            Assert.Equal(expected, vm.Transactions.ToArray());
+            Assert.NotEmpty(vm.MatchingTransactions);
+            Assert.Equal(expected.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(expected, vm.MatchingTransactions.ToArray());
         }
     }
 }

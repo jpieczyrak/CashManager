@@ -115,12 +115,12 @@ namespace CashManager_MVVM.Features.Transactions
                      || (_categoriesSelector.IsChecked && _categoriesSelector.Results.Any())
                      || (_typesSelector.IsChecked && _typesSelector.Results.Any())
                      || _tagsSelector.IsChecked) 
-                   && SearchViewModel.Transactions.Any();
+                   && SearchViewModel.MatchingTransactions.Any();
         }
 
         private void ExecutePerformCommand()
         {
-            var transactions = SearchViewModel.Transactions;
+            var transactions = SearchViewModel.MatchingTransactions;
 
             if (_titleSelector.IsChecked && !string.IsNullOrWhiteSpace(_titleSelector.Value))
                 foreach (var transaction in transactions)
@@ -146,7 +146,7 @@ namespace CashManager_MVVM.Features.Transactions
 
             var positions = SearchViewModel.IsTransactionsSearch 
                                 ? transactions.SelectMany(x => x.Positions).ToList()
-                                : SearchViewModel.Positions;
+                                : SearchViewModel.MatchingPositions;
             if (_positionTitleSelector.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleSelector.Value))
                 foreach (var position in positions)
                     position.Title = _positionTitleSelector.Value;
