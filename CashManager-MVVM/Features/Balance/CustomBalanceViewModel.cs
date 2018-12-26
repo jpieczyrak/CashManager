@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -144,6 +145,11 @@ namespace CashManager_MVVM.Features.Balance
                 foreach (var state in SelectedCustomBalance.Searches)
                 {
                     if (DateFilter.IsChecked) state.BookDateFilter.Apply(DateFilter);
+                    else
+                    {
+                        state.BookDateFilter.From = DateTime.MinValue;
+                        state.BookDateFilter.To = DateTime.MaxValue;
+                    }
                     //todo: make it cleaner - do not use search vm?
                     _searchViewModel.State.ApplySearchCriteria(state);
                     //todo: handle positions if needed
