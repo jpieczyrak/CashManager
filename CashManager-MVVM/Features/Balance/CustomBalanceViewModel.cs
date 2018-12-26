@@ -97,7 +97,7 @@ namespace CashManager_MVVM.Features.Balance
             DateFilter.PropertyChanged += (sender, args) => UpdateSummary();
 
             Name = "custom balance";
-            SelectedCustomBalance = new CustomBalance(Name);
+            _selectedCustomBalance = new CustomBalance(Name);
 
             SavedSearches = new MultiComboBoxViewModel();
             SavedSearches.PropertyChanged += SavedSearchesOnPropertyChanged;
@@ -105,8 +105,6 @@ namespace CashManager_MVVM.Features.Balance
             var customBalanceQuery = new CustomBalanceQuery();
             var customBalances = _queryDispatcher.Execute<CustomBalanceQuery, DtoCustomBalance[]>(customBalanceQuery);
             CustomBalances = Mapper.Map<ObservableCollection<CustomBalance>>(customBalances);
-
-            Update();
         }
 
         private void SavedSearchesOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

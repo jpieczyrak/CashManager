@@ -86,8 +86,6 @@ namespace CashManager_MVVM.Features.Transactions
             _factory = factory;
             _categoryPickerViewModel = _factory.Create<CategoryPickerViewModel>();
 
-            Update();
-
             NewBillsFilepaths = new ObservableCollection<string>();
 
             ChooseCategoryCommand = new RelayCommand<Position>(position =>

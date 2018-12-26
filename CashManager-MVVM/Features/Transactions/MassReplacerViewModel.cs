@@ -102,8 +102,6 @@ namespace CashManager_MVVM.Features.Transactions
             _factory = factory;
             SearchViewModel = _factory.Create<SearchViewModel>();
             PerformCommand = new RelayCommand(ExecutePerformCommand, CanExecutePerformCommand);
-
-            Update();
         }
 
         private bool CanExecutePerformCommand()

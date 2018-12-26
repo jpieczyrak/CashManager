@@ -67,7 +67,6 @@ namespace CashManager_MVVM.Features.Plots
             _queryDispatcher = queryDispatcher;
             ColumnCategories = PlotHelper.CreatePlotModel();
             PieCategories = PlotHelper.CreatePlotModel();
-            Update();
         }
 
         public void Update()

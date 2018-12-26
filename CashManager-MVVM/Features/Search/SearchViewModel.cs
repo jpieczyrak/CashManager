@@ -153,8 +153,6 @@ namespace CashManager_MVVM.Features.Search
             _positionFilters = new TrulyObservableCollection<IFilter<Position>>(filters.OfType<IFilter<Position>>());
             _transactionFilters.CollectionChanged += FiltersOnCollectionChanged;
             _positionFilters.CollectionChanged += FiltersOnCollectionChanged;
-
-            Update();
         }
 
         private void ExecuteLoadSearchStateCommand()

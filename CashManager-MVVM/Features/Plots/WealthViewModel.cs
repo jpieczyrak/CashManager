@@ -55,7 +55,6 @@ namespace CashManager_MVVM.Features.Plots
             _queryDispatcher = queryDispatcher;
             Wealth = PlotHelper.CreatePlotModel();
             Wealth.Axes.Add(new DateTimeAxis());
-            Update();
         }
 
         public void Update()
