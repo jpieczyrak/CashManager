@@ -132,7 +132,7 @@ namespace CashManager_MVVM.Features.Search
             TransactionsListViewModel = factory.Create<TransactionListViewModel>();
             PositionsListViewModel = factory.Create<PositionListViewModel>();
             IsTransactionsSearch = true;
-            SearchName = SearchState.DEFAULT_NAME;
+            _searchName = SearchState.DEFAULT_NAME;
 
             var filters = new IFilter<Transaction>[]
             {

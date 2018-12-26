@@ -62,7 +62,7 @@ namespace CashManager_MVVM.Features.Search
 
         public SearchState(IQueryDispatcher queryDispatcher = null)
         {
-            Name = DEFAULT_NAME;
+            _name = DEFAULT_NAME;
 
             TitleFilter = new TextSelector(TextSelectorType.Title);
             NoteFilter = new TextSelector(TextSelectorType.Note);
