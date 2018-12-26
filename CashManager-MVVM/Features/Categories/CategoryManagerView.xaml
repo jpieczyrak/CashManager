@@ -6,7 +6,7 @@
         xmlns:model="clr-namespace:CashManager_MVVM.Model"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Height="300" Width="400" d:DataContext="{d:DesignData CategoryManagerViewModel}">
+        MinHeight="200" MinWidth="400" d:DataContext="{d:DesignData CategoryManagerViewModel}">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -18,7 +18,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TreeView x:Name="treeView" ItemsSource="{Binding Categories}" Margin="5" Grid.ColumnSpan="3"
+        <TreeView x:Name="treeView" ItemsSource="{Binding Categories}" Margin="5,10" Grid.ColumnSpan="3"
                   DragOver="treeView_DragOver" Drop="treeView_Drop" MouseMove="treeView_MouseMove" IsHitTestVisible="True" Background="{StaticResource ControlBackgroundBrush}">
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">

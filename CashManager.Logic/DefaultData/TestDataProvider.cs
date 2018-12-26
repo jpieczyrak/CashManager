@@ -44,17 +44,17 @@ namespace CashManager.Logic.DefaultData
                 CreateTransaction(1, _fun_games_strategy, _buyType, userStock, externalStock, "games!!!"),
                 CreateTransaction(10, _fun_games, _buyType, userStock, externalStock, "new collection", "mike told me to buy"),
                 CreateTransaction(2, _home_food_tea, _buyType, userStock, externalStock, "some tea for home"),
-                CreateTransaction(1, _root, _giftsType, userStock, externalStock, "gift from mother"),
-                CreateTransaction(1, _root, _workType, userStock, externalStock, "working"),
-                CreateTransaction(1, _root, _workType, userStock, externalStock, "working", "it was profitable", 10),
-                CreateTransaction(1, _root, _workType, userStock, externalStock, "working"),
-                CreateTransaction(1, _root, _workType, userStock, externalStock, "working"),
-                CreateTransaction(5, _root, _workType, userStock, externalStock, "working hard", "many tasks", 3),
+                CreateTransaction(1, _unknown, _giftsType, userStock, externalStock, "gift from mother"),
+                CreateTransaction(1, _unknown, _workType, userStock, externalStock, "working"),
+                CreateTransaction(1, _unknown, _workType, userStock, externalStock, "working", "it was profitable", 10),
+                CreateTransaction(1, _unknown, _workType, userStock, externalStock, "working"),
+                CreateTransaction(1, _unknown, _workType, userStock, externalStock, "working"),
+                CreateTransaction(5, _unknown, _workType, userStock, externalStock, "working hard", "many tasks", 3),
                 new Transaction(_workType, DateTime.Now.AddDays(-90), "work", "notes", new List<Position>
                     {
                         new Position
                         {
-                            Category = _root,
+                            Category = _unknown,
                             Value = new PaymentValue { TaxPercentValue = 23, GrossValue = 25000 },
                             Title = "income",
                             LastEditDate = RandomDate()
