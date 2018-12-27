@@ -17,12 +17,11 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
-            vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
+            vm.IsPositionsSearch = true;
             var expected = Positions
                              .OrderBy(x => x.Id)
                              .ToArray();
-            vm.Update();
 
             //when
             vm.State.BookDateFilter.From = DateTime.Today;

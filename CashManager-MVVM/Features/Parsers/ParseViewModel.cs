@@ -11,6 +11,7 @@ using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.TransactionTypes;
 using CashManager.Logic.Parsers;
 
+using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Messages;
 using CashManager_MVVM.Model;
@@ -73,8 +74,11 @@ namespace CashManager_MVVM.Features.Parsers
             private set => Set(ref _resultsListViewModel, value, nameof(ResultsListViewModel));
         }
 
-        public ParseViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
+        public TransactionsProvider TransactionsProvider { get; }
+
+        public ParseViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider)
         {
+            TransactionsProvider = transactionsProvider;
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
 
@@ -100,7 +104,12 @@ namespace CashManager_MVVM.Features.Parsers
 
         private void ExecuteSaveCommand()
         {
-            _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction[]>(ResultsListViewModel.Transactions)));
+            var transactions = ResultsListViewModel.Transactions;
+            _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction[]>(transactions)));
+
+            TransactionsProvider.AllTransactions.RemoveRange(transactions);
+            TransactionsProvider.AllTransactions.AddRange(transactions);
+
             var balance = SelectedParser.Value.Balance;
             if (balance != null)
             {

@@ -127,6 +127,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CommonData\TransactionsProvider.cs" />
     <Compile Include="Configuration\DI\AutofacConfiguration.cs" />
     <Compile Include="Features\Balance\CustomBalanceView.xaml.cs">
       <DependentUpon>CustomBalanceView.xaml</DependentUpon>

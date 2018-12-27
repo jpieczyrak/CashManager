@@ -16,6 +16,7 @@ using CashManager.Infrastructure.Query.Transactions;
 using CashManager.Infrastructure.Query.Transactions.Bills;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
+using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Main;
@@ -37,6 +38,7 @@ namespace CashManager_MVVM.Features.Transactions
 {
     public class TransactionViewModel : ViewModelBase, IUpdateable, IDropTarget
     {
+        public TransactionsProvider TransactionsProvider { get; }
         //todo: on unload / hide etc - cancel changes to transaction
 
         private readonly IQueryDispatcher _queryDispatcher;
@@ -78,9 +80,12 @@ namespace CashManager_MVVM.Features.Transactions
 
         public RelayCommand AddNewPosition { get; }
 
+        public bool ShouldGoBack { get; set; } = true;
+
         public TransactionViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
-            ViewModelFactory factory)
+            ViewModelFactory factory, TransactionsProvider transactionsProvider)
         {
+            TransactionsProvider = transactionsProvider;
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
             _factory = factory;
@@ -171,7 +176,7 @@ namespace CashManager_MVVM.Features.Transactions
                               .Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery(x => x.Id == Transaction.Id))
                               .FirstOrDefault();
             if (transaction != null) _transaction = Mapper.Map<Transaction>(transaction);
-            NavigateBackToTransactionSearchView();
+            NavigateBack();
         }
 
         private bool CanExecuteSaveTransactionCommand()
@@ -190,10 +195,15 @@ namespace CashManager_MVVM.Features.Transactions
 
             foreach (var bill in bills) if (!Transaction.StoredFiles.Contains(bill)) Transaction.StoredFiles.Add(bill);
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction>(_transaction)));
-            NavigateBackToTransactionSearchView();
+
+            //todo: make only 1 refresh
+            TransactionsProvider.AllTransactions.Remove(Transaction);
+            TransactionsProvider.AllTransactions.Add(Transaction);
+
+            if (ShouldGoBack) NavigateBack();
         }
 
-        private void NavigateBackToTransactionSearchView()
+        private void NavigateBack()
         {
             _factory.Create<ApplicationViewModel>().GoBack();
         }

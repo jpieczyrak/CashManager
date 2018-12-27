@@ -8,6 +8,7 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Transactions;
 
+using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
 
@@ -25,7 +26,7 @@ namespace CashManager_MVVM.Features.Plots
     public class WealthViewModel : ViewModelBase, IUpdateable
     {
         private readonly IQueryDispatcher _queryDispatcher;
-        private Transaction[] _allTransactions;
+        private readonly TransactionsProvider _transactionsProvider;
         private DateFrame _bookDateFilter = new DateFrame(DateFrameType.BookDate);
         private MultiPicker _userStocksFilter;
         private PlotModel _wealth;
@@ -48,17 +49,16 @@ namespace CashManager_MVVM.Features.Plots
             set => Set(nameof(Wealth), ref _wealth, value);
         }
 
-        public WealthViewModel(IQueryDispatcher queryDispatcher)
+        public WealthViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider transactionsProvider)
         {
             _queryDispatcher = queryDispatcher;
+            _transactionsProvider = transactionsProvider;
             Wealth = PlotHelper.CreatePlotModel();
             Wealth.Axes.Add(new DateTimeAxis());
         }
 
         public void Update()
         {
-            _allTransactions = Mapper.Map<Transaction[]>(_queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()));
-            
             var stocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()))
                                .Where(x => x.IsUserStock)
                                .OrderBy(x => x.Name)
@@ -68,8 +68,8 @@ namespace CashManager_MVVM.Features.Plots
             UserStocksFilter.IsChecked = true;
             UserStocksFilter.PropertyChanged += OnPropertyChanged;
 
-            BookDateFilter.From = _allTransactions.Any() ? _allTransactions.Min(x => x.BookDate) : DateTime.MinValue;
-            BookDateFilter.To = _allTransactions.Any() ? _allTransactions.Max(x => x.BookDate) : DateTime.MaxValue;
+            BookDateFilter.From = _transactionsProvider.AllTransactions.Any() ? _transactionsProvider.AllTransactions.Min(x => x.BookDate) : DateTime.MinValue;
+            BookDateFilter.To = _transactionsProvider.AllTransactions.Any() ? _transactionsProvider.AllTransactions.Max(x => x.BookDate) : DateTime.MaxValue;
             BookDateFilter.IsChecked = true;
             BookDateFilter.PropertyChanged += OnPropertyChanged;
 
@@ -79,7 +79,8 @@ namespace CashManager_MVVM.Features.Plots
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             Wealth.Series.Clear();
-            if (_allTransactions == null || !_allTransactions.Any()) return;
+            var transactions = _transactionsProvider.AllTransactions;
+            if (transactions == null || !transactions.Any()) return;
 
             var selectedStocks = UserStocksFilter.IsChecked
                                      ? UserStocksFilter.Results.OfType<Stock>().ToArray()
@@ -90,7 +91,7 @@ namespace CashManager_MVVM.Features.Plots
                 DateTime stockDate = selectedStocks.Max(x => x.LastEditDate);
                 decimal actualValue = selectedStocks.Sum(x => x.Balance.Value);
 
-                var values = _allTransactions
+                var values = transactions
                              .Where(x => selectedStocks.Contains(x.UserStock)) //or external?
                              .OrderByDescending(x => x.BookDate)
                              .GroupBy(x => x.BookDate)

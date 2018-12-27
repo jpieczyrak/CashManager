@@ -41,6 +41,20 @@ namespace CashManager_MVVM
             return Count;
         }
 
+        public int RemoveRange(IEnumerable<T> items)
+        {
+            var changedItems = items is List<T> list ? list : new List<T>(items);
+            _stopNotifications = true;
+            foreach (var item in changedItems) Remove(item);
+            _stopNotifications = false;
+
+            OnPropertyChanged(new PropertyChangedEventArgs("Count"));
+            OnPropertyChanged(new PropertyChangedEventArgs("Item[]"));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+
+            return Count;
+        }
+
         private void FullObservableCollectionCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null)

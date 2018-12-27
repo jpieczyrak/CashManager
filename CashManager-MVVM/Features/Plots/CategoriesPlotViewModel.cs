@@ -10,6 +10,7 @@ using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Transactions;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
+using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
 
@@ -26,7 +27,7 @@ namespace CashManager_MVVM.Features.Plots
     public class CategoriesPlotViewModel : ViewModelBase, IUpdateable
     {
         private readonly IQueryDispatcher _queryDispatcher;
-        private Transaction[] _allTransactions;
+        private readonly TransactionsProvider _transactionsProvider;
         private DateFrame _bookDateFilter = new DateFrame(DateFrameType.BookDate);
         private MultiPicker _userStocksFilter;
         private PlotModel _columnCategories;
@@ -62,17 +63,16 @@ namespace CashManager_MVVM.Features.Plots
             set => Set(nameof(PieCategories), ref _pieCategories, value);
         }
 
-        public CategoriesPlotViewModel(IQueryDispatcher queryDispatcher)
+        public CategoriesPlotViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider transactionsProvider)
         {
             _queryDispatcher = queryDispatcher;
+            _transactionsProvider = transactionsProvider;
             ColumnCategories = PlotHelper.CreatePlotModel();
             PieCategories = PlotHelper.CreatePlotModel();
         }
 
         public void Update()
         {
-            _allTransactions = Mapper.Map<Transaction[]>(_queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery()));
-            
             var stocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()))
                                .Where(x => x.IsUserStock)
                                .OrderBy(x => x.Name)
@@ -101,7 +101,8 @@ namespace CashManager_MVVM.Features.Plots
         {
             ColumnCategories.Series.Clear();
             PieCategories.Series.Clear();
-            if (_allTransactions == null || !_allTransactions.Any()) return;
+            var transactions = _transactionsProvider.AllTransactions;
+            if (transactions == null || !transactions.Any()) return;
 
             var selectedStocks = UserStocksFilter.IsChecked
                                      ? UserStocksFilter.Results.OfType<Stock>().ToArray()
@@ -110,7 +111,7 @@ namespace CashManager_MVVM.Features.Plots
 
             if (selectedStocks != null && selectedStocks.Any())
             {
-                var values = _allTransactions
+                var values = transactions
                              .Where(x => selectedStocks.Contains(x.UserStock))
                              .Where(x => !BookDateFilter.IsChecked || x.BookDate >= BookDateFilter.From && x.BookDate <= BookDateFilter.To)
                              .Where(x => !TypesFilter.IsChecked || selectedTypes.Contains(x.Type))
