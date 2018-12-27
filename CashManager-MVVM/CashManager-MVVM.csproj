@@ -174,10 +174,10 @@
     </Compile>
     <Compile Include="Features\Common\MultiComboBoxViewModel.cs" />
     <Compile Include="Features\IUpdateable.cs" />
-    <Compile Include="Features\Parsers\ParseView.xaml.cs">
-      <DependentUpon>ParseView.xaml</DependentUpon>
+    <Compile Include="Features\Parsers\ParserView.xaml.cs">
+      <DependentUpon>ParserView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Features\Parsers\ParseViewModel.cs" />
+    <Compile Include="Features\Parsers\ParserViewModel.cs" />
     <Compile Include="Features\Stocks\StockSummaryView.xaml.cs">
       <DependentUpon>StockSummaryView.xaml</DependentUpon>
     </Compile>
@@ -268,7 +268,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Features\Parsers\ParseView.xaml">
+    <Page Include="Features\Parsers\ParserView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

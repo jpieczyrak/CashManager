@@ -29,8 +29,8 @@
     <DataTemplate DataType="{x:Type transactionTypes:TransactionTypesViewModel}">
         <transactionTypes:TransactionTypesView />
     </DataTemplate>
-    <DataTemplate DataType="{x:Type parsers:ParseViewModel}">
-        <parsers:ParseView />
+    <DataTemplate DataType="{x:Type parsers:ParserViewModel}">
+        <parsers:ParserView />
     </DataTemplate>
     <DataTemplate DataType="{x:Type stocks:StocksViewModel}">
         <stocks:StocksView />

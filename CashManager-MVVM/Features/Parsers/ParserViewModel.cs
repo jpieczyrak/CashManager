@@ -25,7 +25,7 @@ using DtoTransaction = CashManager.Data.DTO.Transaction;
 
 namespace CashManager_MVVM.Features.Parsers
 {
-    public class ParseViewModel : ViewModelBase, IUpdateable
+    public class ParserViewModel : ViewModelBase, IUpdateable
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
@@ -76,7 +76,7 @@ namespace CashManager_MVVM.Features.Parsers
 
         public TransactionsProvider TransactionsProvider { get; }
 
-        public ParseViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider)
+        public ParserViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider)
         {
             TransactionsProvider = transactionsProvider;
             _queryDispatcher = queryDispatcher;

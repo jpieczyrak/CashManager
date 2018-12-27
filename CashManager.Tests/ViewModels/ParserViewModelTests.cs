@@ -17,7 +17,7 @@ namespace CashManager.Tests.ViewModels
         public void SaveCommandExecute_ValidTransactions_TransactionsAreBeingAddedToCommonState()
         {
             //given
-            var vm = _container.Resolve<ParseViewModel>();
+            var vm = _container.Resolve<ParserViewModel>();
             var transaction = new Transaction
             {
                 Title = "title 1",
@@ -46,7 +46,7 @@ namespace CashManager.Tests.ViewModels
         public void SaveCommandExecute_ValidTransactions_TransactionsAreBeingUpdatedToCommonState()
         {
             //given
-            var vm = _container.Resolve<ParseViewModel>();
+            var vm = _container.Resolve<ParserViewModel>();
             string title = "title 1";
             var transaction = new Transaction
             {

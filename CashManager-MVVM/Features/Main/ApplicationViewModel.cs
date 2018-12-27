@@ -54,7 +54,7 @@ namespace CashManager_MVVM.Features.Main
                 { "Category manager", factory.Create<CategoryManagerViewModel>() },
                 { "Types manager", factory.Create<TransactionTypesViewModel>() },
                 { "Tags manager", factory.Create<TagManagerViewModel>() },
-                { "Import", factory.Create<ParseViewModel>() }
+                { "Import", factory.Create<ParserViewModel>() }
             };
             PreviousSelectedViewModel = SelectedViewModel = ViewModels.FirstOrDefault().Value;
             SummaryViewModel = factory.Create<StockSummaryViewModel>();
