@@ -63,14 +63,22 @@ namespace CashManager_MVVM.Features.Transactions
             {
                 Set(nameof(Transaction), ref _transaction, value);
                 _shouldCreateTransaction = false;
+                if (_transaction != null)
+                {
+                    foreach (var position in _transaction.Positions)
+                    {
+                        position.CategoryPickerViewModel = new CategoryPickerViewModel(_queryDispatcher, position.Category);
+                        //todo: check sender - only on selected category change
+                        position.CategoryPickerViewModel.PropertyChanged +=
+                            (sender, args) => position.Category = position.CategoryPickerViewModel.SelectedCategory;
+                    }
+                }
             }
         }
 
         public IEnumerable<Stock> ExternalStocks => _stocks.Where(x => !x.IsUserStock);
 
         public IEnumerable<Stock> UserStocks => _stocks.Where(x => x.IsUserStock);
-
-        public RelayCommand<Position> ChooseCategoryCommand { get; set; }
 
         public RelayCommand<Position> RemovePositionCommand { get; set; }
 
@@ -92,14 +100,7 @@ namespace CashManager_MVVM.Features.Transactions
             _categoryPickerViewModel = _factory.Create<CategoryPickerViewModel>();
 
             NewBillsFilepaths = new ObservableCollection<string>();
-
-            ChooseCategoryCommand = new RelayCommand<Position>(position =>
-            {
-                var window = new CategoryPickerView(_categoryPickerViewModel, position.Category);
-                window.Show();
-                window.Closing += (sender, args) => { position.Category = _categoryPickerViewModel?.SelectedCategory; };
-            });
-
+            
             AddNewPosition = new RelayCommand(ExecuteAddPositionCommand);
             RemovePositionCommand = new RelayCommand<Position>(position => Transaction.Positions.Remove(position));
 
@@ -159,13 +160,21 @@ namespace CashManager_MVVM.Features.Transactions
 
         private Position CreatePosition()
         {
+            var category = _categoryPickerViewModel.Categories.FirstOrDefault(x => x.Parent == null);
             var position = new Position
             {
                 Title = "new position",
-                Category = _categoryPickerViewModel.Categories.FirstOrDefault(x => x.Parent == null),
-                TagViewModel = _factory.Create<MultiComboBoxViewModel>()
+                Category = category,
+                TagViewModel = _factory.Create<MultiComboBoxViewModel>(),
+                CategoryPickerViewModel = new CategoryPickerViewModel(_queryDispatcher, category)
             };
+            //todo: check sender - only on selected category change
+            position.CategoryPickerViewModel.PropertyChanged += 
+                (sender, args) => position.Category = position.CategoryPickerViewModel.SelectedCategory;
             position.TagViewModel.SetInput(CopyOfTags(_tags), position.Tags);
+
+            //todo: check if really needed
+            position.Parent = Transaction;
 
             return position;
         }
