@@ -20,7 +20,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 using Transaction = CashManager.Data.DTO.Transaction;
 
-namespace CashManager_MVVM.Features.Transactions
+namespace CashManager_MVVM.Features.MassReplacer
 {
     public class MassReplacerViewModel : ViewModelBase, IUpdateable
     {

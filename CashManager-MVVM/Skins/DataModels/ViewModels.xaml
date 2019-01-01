@@ -9,19 +9,21 @@
                     xmlns:parsers="clr-namespace:CashManager_MVVM.Features.Parsers"
                     xmlns:search="clr-namespace:CashManager_MVVM.Features.Search"
                     xmlns:plots="clr-namespace:CashManager_MVVM.Features.Plots"
-                    xmlns:balance="clr-namespace:CashManager_MVVM.Features.Balance">
+                    xmlns:balance="clr-namespace:CashManager_MVVM.Features.Balance"
+                    xmlns:massReplacer="clr-namespace:CashManager_MVVM.Features.MassReplacer"
+                    xmlns:positions="clr-namespace:CashManager_MVVM.Features.Transactions.Positions">
 
     <DataTemplate DataType="{x:Type search:SearchViewModel}">
         <search:SearchView />
     </DataTemplate>
-    <DataTemplate DataType="{x:Type transactions:MassReplacerViewModel}">
-        <transactions:MassReplacerView />
+    <DataTemplate DataType="{x:Type massReplacer:MassReplacerViewModel}">
+        <massReplacer:MassReplacerView />
     </DataTemplate>
     <DataTemplate DataType="{x:Type transactions:TransactionListViewModel}">
         <transactions:TransactionListView />
     </DataTemplate>
-    <DataTemplate DataType="{x:Type transactions:PositionListViewModel}">
-        <transactions:PositionListView />
+    <DataTemplate DataType="{x:Type positions:PositionListViewModel}">
+        <positions:PositionListView />
     </DataTemplate>
     <DataTemplate DataType="{x:Type transactions:TransactionViewModel}">
         <transactions:TransactionView />
