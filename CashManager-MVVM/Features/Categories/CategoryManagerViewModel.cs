@@ -59,24 +59,24 @@ namespace CashManager_MVVM.Features.Categories
         {
             if (sourceCategory == null || targetCategory == null) return;
             if (sourceCategory.Id == targetCategory.Id) return;
-            if (sourceCategory.Parent == null) return;
 
             //target can not be a (grand)children
             if (Find(sourceCategory.Children.ToArray(), targetCategory.Id) != null) return;
 
-            var sourceParentId = sourceCategory.Parent.Id;
+            var sourceParentId = sourceCategory.Parent?.Id;
 
             //swap
             sourceCategory.Parent = targetCategory;
             targetCategory.Children.Add(sourceCategory);
 
             //remove from old position
-            var previousParent = Find(Categories.ToArray(), sourceParentId);
-            if (previousParent != null)
-            {
-                previousParent.Children.Remove(sourceCategory);
-                UpsertCategory(sourceCategory);
-            }
+            if (sourceParentId == null)
+                Categories.Remove(sourceCategory);
+            else
+                Find(Categories.ToArray(), sourceParentId.Value)?.Children.Remove(sourceCategory);
+
+            //update parent in db
+            UpsertCategory(sourceCategory);
         }
 
         private Category Find(Category[] categories, Guid id)
