@@ -4,5 +4,14 @@
     <Style TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
     </Style>
+    <Style TargetType="{x:Type TextBlock}" x:Key="GrayTextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Height" Value="11" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontStyle" Value="Italic" />
+    </Style>
 
 </ResourceDictionary>

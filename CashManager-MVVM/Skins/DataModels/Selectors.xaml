@@ -21,7 +21,7 @@
                         <CheckBox IsChecked="{Binding IsChecked}" Style="{StaticResource OnlyCheckBox}" />
                         <Separator Background="{DynamicResource DisabledForegroundBrush}" Margin="0,0,5,0" Width="Auto"/>
                     </DockPanel>
-                    <TextBlock Grid.Column="1" Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{DynamicResource DisabledForegroundBrush}" FontWeight="Bold" />
+                    <TextBlock Grid.Column="1" Text="{Binding Description}" Style="{DynamicResource GrayTextBlock}" />
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
                 </Grid>
 
@@ -53,7 +53,7 @@
                         <CheckBox IsChecked="{Binding IsChecked}" Style="{StaticResource OnlyCheckBox}" />
                         <Separator Background="{DynamicResource DisabledForegroundBrush}" Margin="0,0,5,0" Width="Auto"/>
                     </DockPanel>
-                    <TextBlock Grid.Column="1" Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{DynamicResource DisabledForegroundBrush}" FontWeight="Bold" />
+                    <TextBlock Grid.Column="1" Text="{Binding Description}" Style="{DynamicResource GrayTextBlock}" />
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="0" >
@@ -63,7 +63,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
-                    <TextBlock Grid.Column="1" Text="From" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{DynamicResource DisabledForegroundBrush}" />
+                    <TextBlock Grid.Column="1" Text="From" Style="{DynamicResource GrayTextBlock}" />
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1" >
@@ -73,7 +73,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
-                    <TextBlock Grid.Column="1" Text="To" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{DynamicResource DisabledForegroundBrush}" />
+                    <TextBlock Grid.Column="1" Text="To" Style="{DynamicResource GrayTextBlock}" />
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
                 </Grid>
 
@@ -106,7 +106,7 @@
                         <CheckBox IsChecked="{Binding IsChecked}" Style="{StaticResource OnlyCheckBox}" />
                         <Separator Background="{DynamicResource DisabledForegroundBrush}" Margin="0,0,5,0" Width="Auto"/>
                     </DockPanel>
-                    <TextBlock Grid.Column="1" Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{DynamicResource DisabledForegroundBrush}" FontWeight="Bold" />
+                    <TextBlock Grid.Column="1" Text="{Binding Description}" Style="{DynamicResource GrayTextBlock}" />
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="0" >
@@ -116,7 +116,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
-                    <TextBlock Grid.Column="1" Text="Min" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{DynamicResource DisabledForegroundBrush}" />
+                    <TextBlock Grid.Column="1" Text="Min" Style="{DynamicResource GrayTextBlock}" />
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1" >
@@ -126,7 +126,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
-                    <TextBlock Grid.Column="1" Text="Max" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{DynamicResource DisabledForegroundBrush}" />
+                    <TextBlock Grid.Column="1" Text="Max" Style="{DynamicResource GrayTextBlock}" />
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
                 </Grid>
 
@@ -152,7 +152,7 @@
                     <CheckBox IsChecked="{Binding IsChecked}" Style="{StaticResource OnlyCheckBox}" />
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Margin="0,0,5,0" Width="Auto"/>
                 </DockPanel>
-                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{DynamicResource DisabledForegroundBrush}" FontWeight="Bold" />
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Description}" Style="{DynamicResource GrayTextBlock}" />
                 <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Grid.Row="0" Margin="5,0"/>
                 <UserControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="5" Content="{Binding ComboBox}" VerticalAlignment="Bottom"/>
             </Grid>
@@ -175,7 +175,7 @@
                     <CheckBox IsChecked="{Binding IsChecked}" Style="{StaticResource OnlyCheckBox}" />
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Margin="0,0,5,0" Width="Auto"/>
                 </DockPanel>
-                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Description}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontStyle="Italic" Foreground="{DynamicResource DisabledForegroundBrush}" FontWeight="Bold" />
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Description}" Style="{DynamicResource GrayTextBlock}" />
                 <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Grid.Row="0" Margin="5,0"/>
                 <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="5" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
