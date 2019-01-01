@@ -177,6 +177,8 @@ namespace CashManager_MVVM.Features.MassReplacer
 
             var tags = Mapper.Map<Tag[]>(_queryDispatcher.Execute<TagQuery, CashManager.Data.DTO.Tag[]>(new TagQuery()).OrderBy(x => x.Name));
             TagsSelector = new MultiPicker(MultiPickerType.Tag, tags);
+
+            SearchViewModel.Update();
         }
     }
 }
