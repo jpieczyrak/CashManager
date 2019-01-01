@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:model="clr-namespace:CashManager_MVVM.Model"
         xmlns:dd="urn:gong-wpf-dragdrop"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:local="clr-namespace:CashManager_MVVM.Features.Categories" x:Class="CashManager_MVVM.Features.Categories.CategoryManagerView"
+        x:Class="CashManager_MVVM.Features.Categories.CategoryManagerView"
         mc:Ignorable="d"
         MinHeight="200" MinWidth="400" d:DataContext="{d:DesignData CategoryManagerViewModel}">
 

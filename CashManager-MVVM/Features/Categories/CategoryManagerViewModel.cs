@@ -25,14 +25,23 @@ namespace CashManager_MVVM.Features.Categories
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private string _categoryName;
+        private Category _selectedCategory;
 
         public TrulyObservableCollection<Category> Categories { get; private set; }
 
         public RelayCommand AddCategoryCommand => new RelayCommand(ExecuteAddCategoryCommand);
 
-        public RelayCommand RemoveCategoryCommand => new RelayCommand(ExecuteRemoveCategoryCommand);
+        public RelayCommand RemoveCategoryCommand => new RelayCommand(ExecuteRemoveCategoryCommand, CanExecuteRemoveCategoryCommand);
 
-        public Category SelectedCategory { get; private set; }
+        public Category SelectedCategory
+        {
+            get => _selectedCategory;
+            private set
+            {
+                Set(ref _selectedCategory, value);
+                RaisePropertyChanged(nameof(RemoveCategoryCommand));
+            }
+        }
 
         public string CategoryName
         {
@@ -50,9 +59,17 @@ namespace CashManager_MVVM.Features.Categories
                                              .ToArray();
 
             foreach (var category in categories)
+            {
                 category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category.Id));
+                category.PropertyChanged += (sender, args) =>
+                {
+                    if (category.IsSelected) SelectedCategory = category;
+                };
+            }
 
             Categories = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent == null)); //find the root(s)
+            
+            SelectedCategory = categories.FirstOrDefault(x => x.IsSelected);
         }
 
         private void Move(Category sourceCategory, Category targetCategory)
@@ -126,6 +143,8 @@ namespace CashManager_MVVM.Features.Categories
                 //todo: find all tran.positions which used selected category and change it for parent. then save.
             }
         }
+
+        private bool CanExecuteRemoveCategoryCommand() => SelectedCategory?.Parent != null;
 
         private void UpsertCategory(Category category)
         {
