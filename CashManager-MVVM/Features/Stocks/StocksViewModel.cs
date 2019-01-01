@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.Linq;
 
 using AutoMapper;
@@ -11,7 +10,6 @@ using CashManager.Infrastructure.Query.Stocks;
 
 using CashManager_MVVM.Messages;
 using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Common;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -49,7 +47,9 @@ namespace CashManager_MVVM.Features.Stocks
                 Stocks.Remove(x);
 
                 _commandDispatcher.Execute(new DeleteStockCommand(Mapper.Map<CashManager.Data.DTO.Stock>(x)));
-            });
+            },
+            stock => Stocks.Count(x => x.IsUserStock) > 1);
+            //todo: think what should happen on stock delete...
         }
 
         private void StocksOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
