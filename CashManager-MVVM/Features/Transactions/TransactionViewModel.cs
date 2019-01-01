@@ -142,23 +142,25 @@ namespace CashManager_MVVM.Features.Transactions
 
         private void ExecuteAddPositionCommand()
         {
-            Transaction.Positions.Add(CreatePosition());
+            Transaction.Positions.Add(CreatePosition(Transaction));
         }
 
         private BaseSelectable[] CopyOfTags(Tag[] tags) => Mapper.Map<Tag[]>(Mapper.Map<DtoTag[]>(tags));
 
         private Transaction CreateNewTransaction()
         {
-            return new Transaction
+            var transaction = new Transaction
             {
                 Type = TransactionTypes.FirstOrDefault(x => x.IsDefault && x.Outcome),
                 UserStock = UserStocks.FirstOrDefault(x => x.IsUserStock),
-                ExternalStock = ExternalStocks.FirstOrDefault(),
-                Positions = new TrulyObservableCollection<Position>(new[] { CreatePosition() })
+                ExternalStock = ExternalStocks.FirstOrDefault()
             };
+
+            transaction.Positions = new TrulyObservableCollection<Position>(new[] { CreatePosition(transaction) });
+            return transaction;
         }
 
-        private Position CreatePosition()
+        private Position CreatePosition(Transaction parent)
         {
             var category = _categoryPickerViewModel.Categories.FirstOrDefault(x => x.Parent == null);
             var position = new Position
@@ -173,8 +175,7 @@ namespace CashManager_MVVM.Features.Transactions
                 (sender, args) => position.Category = position.CategoryPickerViewModel.SelectedCategory;
             position.TagViewModel.SetInput(CopyOfTags(_tags), position.Tags);
 
-            //todo: check if really needed
-            position.Parent = Transaction;
+            position.Parent = parent;
 
             return position;
         }
