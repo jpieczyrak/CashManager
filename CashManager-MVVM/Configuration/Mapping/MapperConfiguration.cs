@@ -57,7 +57,12 @@ namespace CashManager_MVVM.Configuration.Mapping
                               .BeforeMap((dto, model) => model.IsPropertyChangedEnabled = false)
                               .AfterMap((dto, model) =>
                               {
-                                  foreach (var position in model.Positions) position.Parent = model;
+                                  foreach (var position in model.Positions)
+                                  {
+                                      position.IsPropertyChangedEnabled = false;
+                                      position.Parent = model;
+                                      position.IsPropertyChangedEnabled = true;
+                                  }
                                   model.IsPropertyChangedEnabled = true;
                               });
 
