@@ -54,13 +54,11 @@ namespace CashManager_MVVM.Features.Stocks
 
         private void StocksOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            var stocks = Stocks.Select(Mapper.Map<CashManager.Data.DTO.Stock>).ToArray();
-            _commandDispatcher.Execute(new UpsertStocksCommand(stocks));
-
             if (e.NewItems != null)
             {
                 var updatedStocks = e.NewItems.OfType<Stock>().ToArray();
                 MessengerInstance.Send(new UpdateStockMessage(updatedStocks));
+                _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<CashManager.Data.DTO.Stock[]>(updatedStocks)));
             }
             else if (e.OldItems != null)
             {
