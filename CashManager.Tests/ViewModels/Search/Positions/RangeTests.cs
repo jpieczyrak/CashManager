@@ -18,6 +18,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             decimal maxValue = 2450;
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
             var expected = Positions
@@ -31,9 +32,9 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.State.ValueFilter.IsChecked = true;
 
             //then
-            Assert.NotEmpty(vm.Positions);
-            Assert.Equal(expected.Length, vm.Positions.Length);
-            Assert.Equal(expected, vm.Positions.OrderBy(x => x.Id).ToArray());
+            Assert.NotEmpty(vm.MatchingPositions);
+            Assert.Equal(expected.Length, vm.MatchingPositions.Count);
+            Assert.Equal(expected, vm.MatchingPositions.OrderBy(x => x.Id).ToArray());
         }
     }
 }

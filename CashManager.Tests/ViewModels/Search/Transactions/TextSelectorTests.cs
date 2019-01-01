@@ -16,9 +16,10 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
-            string searchString = vm.Transactions.First().Title;
+            vm.Update();
+            string searchString = vm.MatchingTransactions.First().Title;
             vm.IsTransactionsSearch = true;
-            var expected = vm.Transactions
+            var expected = vm.MatchingTransactions
                              .Where(x => x.Title.ToLower().Contains(searchString.ToLower()))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -28,9 +29,9 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.State.TitleFilter.IsChecked = true;
 
             //then
-            Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(expected.Length, vm.Transactions.Length);
-            Assert.Equal(expected, vm.Transactions.OrderBy(x => x.Id).ToArray());
+            Assert.NotEmpty(vm.MatchingTransactions);
+            Assert.Equal(expected.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(expected, vm.MatchingTransactions.OrderBy(x => x.Id).ToArray());
         }
 
         [Fact]
@@ -39,9 +40,10 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
-            string searchString = vm.Transactions.First().Note;
+            vm.Update();
+            string searchString = vm.MatchingTransactions.First().Note;
             vm.IsTransactionsSearch = true;
-            var expected = vm.Transactions
+            var expected = vm.MatchingTransactions
                              .Where(x => x.Note.ToLower().Contains(searchString.ToLower()))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -51,9 +53,9 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.State.NoteFilter.IsChecked = true;
 
             //then
-            Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(expected.Length, vm.Transactions.Length);
-            Assert.Equal(expected, vm.Transactions.OrderBy(x => x.Id).ToArray());
+            Assert.NotEmpty(vm.MatchingTransactions);
+            Assert.Equal(expected.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(expected, vm.MatchingTransactions.OrderBy(x => x.Id).ToArray());
         }
 
         [Fact]
@@ -62,9 +64,10 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
-            string searchString = vm.Transactions.First().Positions.First().Title.ToUpper();
+            vm.Update();
+            string searchString = vm.MatchingTransactions.First().Positions.First().Title.ToUpper();
             vm.IsTransactionsSearch = true;
-            var expected = vm.Transactions
+            var expected = vm.MatchingTransactions
                              .Where(x => x.Positions.Any(y => y.Title.ToLower().Contains(searchString.ToLower())))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -74,9 +77,9 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.State.PositionTitleFilter.IsChecked = true;
 
             //then
-            Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(expected.Length, vm.Transactions.Length);
-            Assert.Equal(expected, vm.Transactions.OrderBy(x => x.Id).ToArray());
+            Assert.NotEmpty(vm.MatchingTransactions);
+            Assert.Equal(expected.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(expected, vm.MatchingTransactions.OrderBy(x => x.Id).ToArray());
         }
     }
 }

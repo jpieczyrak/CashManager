@@ -7,7 +7,7 @@ using CashManager_MVVM.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
-namespace CashManager_MVVM.Features.Transactions
+namespace CashManager_MVVM.Features.Transactions.Positions
 {
     public class PositionListViewModel : ViewModelBase
     {

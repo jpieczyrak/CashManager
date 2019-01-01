@@ -2,16 +2,16 @@
 
 namespace CashManager_MVVM.Messages
 {
-    public class StockUpdateMessage
+    public class UpdateStockMessage
     {
         public Stock[] UpdatedStocks { get; private set; }
 
-        public StockUpdateMessage(Stock[] updatedStocks)
+        public UpdateStockMessage(Stock[] updatedStocks)
         {
             UpdatedStocks = updatedStocks;
         }
 
-        public StockUpdateMessage(Stock stock)
+        public UpdateStockMessage(Stock stock)
         {
             UpdatedStocks = new[] { stock };
         }

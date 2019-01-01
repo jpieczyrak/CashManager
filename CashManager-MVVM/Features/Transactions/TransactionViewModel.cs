@@ -16,6 +16,7 @@ using CashManager.Infrastructure.Query.Transactions;
 using CashManager.Infrastructure.Query.Transactions.Bills;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
+using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Main;
@@ -37,6 +38,7 @@ namespace CashManager_MVVM.Features.Transactions
 {
     public class TransactionViewModel : ViewModelBase, IUpdateable, IDropTarget
     {
+        public TransactionsProvider TransactionsProvider { get; }
         //todo: on unload / hide etc - cancel changes to transaction
 
         private readonly IQueryDispatcher _queryDispatcher;
@@ -61,14 +63,22 @@ namespace CashManager_MVVM.Features.Transactions
             {
                 Set(nameof(Transaction), ref _transaction, value);
                 _shouldCreateTransaction = false;
+                if (_transaction != null)
+                {
+                    foreach (var position in _transaction.Positions)
+                    {
+                        position.CategoryPickerViewModel = new CategoryPickerViewModel(_queryDispatcher, position.Category);
+                        //todo: check sender - only on selected category change
+                        position.CategoryPickerViewModel.PropertyChanged +=
+                            (sender, args) => position.Category = position.CategoryPickerViewModel.SelectedCategory;
+                    }
+                }
             }
         }
 
         public IEnumerable<Stock> ExternalStocks => _stocks.Where(x => !x.IsUserStock);
 
         public IEnumerable<Stock> UserStocks => _stocks.Where(x => x.IsUserStock);
-
-        public RelayCommand<Position> ChooseCategoryCommand { get; set; }
 
         public RelayCommand<Position> RemovePositionCommand { get; set; }
 
@@ -78,25 +88,19 @@ namespace CashManager_MVVM.Features.Transactions
 
         public RelayCommand AddNewPosition { get; }
 
+        public bool ShouldGoBack { get; set; } = true;
+
         public TransactionViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
-            ViewModelFactory factory)
+            ViewModelFactory factory, TransactionsProvider transactionsProvider)
         {
+            TransactionsProvider = transactionsProvider;
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
             _factory = factory;
             _categoryPickerViewModel = _factory.Create<CategoryPickerViewModel>();
 
-            Update();
-
             NewBillsFilepaths = new ObservableCollection<string>();
-
-            ChooseCategoryCommand = new RelayCommand<Position>(position =>
-            {
-                var window = new CategoryPickerView(_categoryPickerViewModel, position.Category);
-                window.Show();
-                window.Closing += (sender, args) => { position.Category = _categoryPickerViewModel?.SelectedCategory; };
-            });
-
+            
             AddNewPosition = new RelayCommand(ExecuteAddPositionCommand);
             RemovePositionCommand = new RelayCommand<Position>(position => Transaction.Positions.Remove(position));
 
@@ -138,31 +142,40 @@ namespace CashManager_MVVM.Features.Transactions
 
         private void ExecuteAddPositionCommand()
         {
-            Transaction.Positions.Add(CreatePosition());
+            Transaction.Positions.Add(CreatePosition(Transaction));
         }
 
         private BaseSelectable[] CopyOfTags(Tag[] tags) => Mapper.Map<Tag[]>(Mapper.Map<DtoTag[]>(tags));
 
         private Transaction CreateNewTransaction()
         {
-            return new Transaction
+            var transaction = new Transaction
             {
                 Type = TransactionTypes.FirstOrDefault(x => x.IsDefault && x.Outcome),
                 UserStock = UserStocks.FirstOrDefault(x => x.IsUserStock),
-                ExternalStock = ExternalStocks.FirstOrDefault(),
-                Positions = new TrulyObservableCollection<Position>(new[] { CreatePosition() })
+                ExternalStock = ExternalStocks.FirstOrDefault()
             };
+
+            transaction.Positions = new TrulyObservableCollection<Position>(new[] { CreatePosition(transaction) });
+            return transaction;
         }
 
-        private Position CreatePosition()
+        private Position CreatePosition(Transaction parent)
         {
+            var category = _categoryPickerViewModel.Categories.FirstOrDefault(x => x.Parent == null);
             var position = new Position
             {
                 Title = "new position",
-                Category = _categoryPickerViewModel.Categories.FirstOrDefault(x => x.Parent == null),
-                TagViewModel = _factory.Create<MultiComboBoxViewModel>()
+                Category = category,
+                TagViewModel = _factory.Create<MultiComboBoxViewModel>(),
+                CategoryPickerViewModel = new CategoryPickerViewModel(_queryDispatcher, category)
             };
+            //todo: check sender - only on selected category change
+            position.CategoryPickerViewModel.PropertyChanged += 
+                (sender, args) => position.Category = position.CategoryPickerViewModel.SelectedCategory;
             position.TagViewModel.SetInput(CopyOfTags(_tags), position.Tags);
+
+            position.Parent = parent;
 
             return position;
         }
@@ -173,7 +186,7 @@ namespace CashManager_MVVM.Features.Transactions
                               .Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery(x => x.Id == Transaction.Id))
                               .FirstOrDefault();
             if (transaction != null) _transaction = Mapper.Map<Transaction>(transaction);
-            NavigateBackToTransactionSearchView();
+            NavigateBack();
         }
 
         private bool CanExecuteSaveTransactionCommand()
@@ -192,10 +205,15 @@ namespace CashManager_MVVM.Features.Transactions
 
             foreach (var bill in bills) if (!Transaction.StoredFiles.Contains(bill)) Transaction.StoredFiles.Add(bill);
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction>(_transaction)));
-            NavigateBackToTransactionSearchView();
+
+            //todo: make only 1 refresh
+            TransactionsProvider.AllTransactions.Remove(Transaction);
+            TransactionsProvider.AllTransactions.Add(Transaction);
+
+            if (ShouldGoBack) NavigateBack();
         }
 
-        private void NavigateBackToTransactionSearchView()
+        private void NavigateBack()
         {
             _factory.Create<ApplicationViewModel>().GoBack();
         }

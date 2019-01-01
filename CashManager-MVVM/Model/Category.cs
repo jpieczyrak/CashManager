@@ -10,6 +10,9 @@ namespace CashManager_MVVM.Model
     {
         private Category _parent;
 
+        /// <summary>
+        /// Used for tree view purpose
+        /// </summary>
         public bool IsExpanded { get; set; } = true;
 
         public Category Parent

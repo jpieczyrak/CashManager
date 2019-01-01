@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -97,12 +98,14 @@ namespace CashManager_MVVM.Features.Balance
             DateFilter.PropertyChanged += (sender, args) => UpdateSummary();
 
             Name = "custom balance";
-            SelectedCustomBalance = new CustomBalance(Name);
+            _selectedCustomBalance = new CustomBalance(Name);
 
             SavedSearches = new MultiComboBoxViewModel();
             SavedSearches.PropertyChanged += SavedSearchesOnPropertyChanged;
-
-            Update();
+            
+            var customBalanceQuery = new CustomBalanceQuery();
+            var customBalances = _queryDispatcher.Execute<CustomBalanceQuery, DtoCustomBalance[]>(customBalanceQuery);
+            CustomBalances = Mapper.Map<ObservableCollection<CustomBalance>>(customBalances);
         }
 
         private void SavedSearchesOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -130,12 +133,7 @@ namespace CashManager_MVVM.Features.Balance
         {
             var query = new SearchStateQuery();
             var source = Mapper.Map<SearchState[]>(_queryDispatcher.Execute<SearchStateQuery, DtoSearch[]>(query));
-
             SavedSearches.SetInput(source);
-
-            var customBalanceQuery = new CustomBalanceQuery();
-            var customBalances = _queryDispatcher.Execute<CustomBalanceQuery, DtoCustomBalance[]>(customBalanceQuery);
-            CustomBalances = Mapper.Map<ObservableCollection<CustomBalance>>(customBalances);
         }
 
         private void UpdateSummary()
@@ -147,6 +145,11 @@ namespace CashManager_MVVM.Features.Balance
                 foreach (var state in SelectedCustomBalance.Searches)
                 {
                     if (DateFilter.IsChecked) state.BookDateFilter.Apply(DateFilter);
+                    else
+                    {
+                        state.BookDateFilter.From = DateTime.MinValue;
+                        state.BookDateFilter.To = DateTime.MaxValue;
+                    }
                     //todo: make it cleaner - do not use search vm?
                     _searchViewModel.State.ApplySearchCriteria(state);
                     //todo: handle positions if needed

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using AutoMapper;
 
@@ -10,11 +11,12 @@ using CashManager_MVVM.Model;
 
 using GalaSoft.MvvmLight;
 
+using DtoStock = CashManager.Data.DTO.Stock;
+
 namespace CashManager_MVVM.Features.Stocks
 {
     public class StockSummaryViewModel : ViewModelBase
     {
-        private readonly IQueryDispatcher _queryDispatcher;
         private Stock[] _stocks;
 
         public Stock[] Stocks
@@ -27,23 +29,33 @@ namespace CashManager_MVVM.Features.Stocks
 
         public StockSummaryViewModel(IQueryDispatcher queryDispatcher)
         {
-            _queryDispatcher = queryDispatcher;
-            Stocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery()))
-                           .Where(x => x.IsUserStock)
-                           .OrderBy(x => x.InstanceCreationDate)
-                           .ToArray();
-            MessengerInstance.Register<StockUpdateMessage>(this, Update);
+            var query = new StockQuery();
+            var stocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(query));
+            Stocks = FilterAndOrderStocks(stocks);
+
+            MessengerInstance.Register<UpdateStockMessage>(this, Update);
+            MessengerInstance.Register<DeleteStockMessage>(this, Delete);
         }
 
-        private void Update(StockUpdateMessage message)
+        private void Update(UpdateStockMessage message)
         {
-            var updated = message.UpdatedStocks.ToArray();
-            Stocks = Stocks.Except(updated)
-                           .Concat(updated)
-                           .Where(x => x.IsUserStock)
-                           .OrderBy(x => x.InstanceCreationDate)
-                           .ToArray();
+            var updated = message.UpdatedStocks;
+            Stocks = FilterAndOrderStocks(Stocks.Except(updated).Concat(updated));
             RaisePropertyChanged(nameof(Total));
+        }
+
+        private void Delete(DeleteStockMessage message)
+        {
+            Stocks = FilterAndOrderStocks(Stocks.Except(message.DeletedStocks));
+            RaisePropertyChanged(nameof(Total));
+        }
+
+        private Stock[] FilterAndOrderStocks(IEnumerable<Stock> stocks)
+        {
+            return stocks
+                   .Where(x => x.IsUserStock)
+                   .OrderBy(x => x.InstanceCreationDate)
+                   .ToArray();
         }
     }
 }

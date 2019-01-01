@@ -127,6 +127,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CommonData\TransactionsProvider.cs" />
     <Compile Include="Configuration\DI\AutofacConfiguration.cs" />
     <Compile Include="Features\Balance\CustomBalanceView.xaml.cs">
       <DependentUpon>CustomBalanceView.xaml</DependentUpon>
@@ -147,13 +148,13 @@
     <Compile Include="Features\Plots\CategoriesPlotViewModel.cs" />
     <Compile Include="Features\Plots\WealthViewModel.cs" />
     <Compile Include="Features\Search\SearchState.cs" />
-    <Compile Include="Features\Transactions\MassReplacerView.xaml.cs">
+    <Compile Include="Features\MassReplacer\MassReplacerView.xaml.cs">
       <DependentUpon>MassReplacerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Features\Transactions\MassReplacerViewModel.cs" />
-    <Compile Include="Features\Transactions\PositionListViewModel.cs" />
+    <Compile Include="Features\MassReplacer\MassReplacerViewModel.cs" />
+    <Compile Include="Features\Transactions\Positions\PositionListViewModel.cs" />
     <Compile Include="Features\Search\SearchType.cs" />
-    <Compile Include="Features\Transactions\PositionListView.xaml.cs">
+    <Compile Include="Features\Transactions\Positions\PositionListView.xaml.cs">
       <DependentUpon>PositionListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\Balances\CustomBalance.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Logic\Commands\MultiPickerFilter.cs" />
     <Compile Include="Logic\Commands\RangeFilter.cs" />
     <Compile Include="Logic\Commands\TextFilter.cs" />
+    <Compile Include="Messages\DeleteStockMessage.cs" />
     <Compile Include="Model\BillImage.cs" />
     <Compile Include="Model\Common\BaseSelectable.cs" />
     <Compile Include="Model\Common\IEditable.cs" />
@@ -172,10 +174,10 @@
     </Compile>
     <Compile Include="Features\Common\MultiComboBoxViewModel.cs" />
     <Compile Include="Features\IUpdateable.cs" />
-    <Compile Include="Features\Parsers\ParseView.xaml.cs">
-      <DependentUpon>ParseView.xaml</DependentUpon>
+    <Compile Include="Features\Parsers\ParserView.xaml.cs">
+      <DependentUpon>ParserView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Features\Parsers\ParseViewModel.cs" />
+    <Compile Include="Features\Parsers\ParserViewModel.cs" />
     <Compile Include="Features\Stocks\StockSummaryView.xaml.cs">
       <DependentUpon>StockSummaryView.xaml</DependentUpon>
     </Compile>
@@ -201,11 +203,11 @@
     </Compile>
     <Compile Include="Features\Transactions\TransactionListViewModel.cs" />
     <Compile Include="Configuration\Mapping\MapperConfiguration.cs" />
-    <Compile Include="Messages\StockUpdateMessage.cs" />
+    <Compile Include="Messages\UpdateStockMessage.cs" />
     <Compile Include="Model\Balance.cs" />
     <Compile Include="Model\Common\BaseObservableObject.cs" />
     <Compile Include="Model\Category.cs" />
-    <Compile Include="Model\Common\ITimestamp.cs" />
+    <Compile Include="Model\Common\IBookable.cs" />
     <Compile Include="Model\Selectors\BaseSelector.cs" />
     <Compile Include="Model\Selectors\DateFrameType.cs" />
     <Compile Include="Model\Selectors\DateSelector.cs" />
@@ -266,7 +268,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Features\Parsers\ParseView.xaml">
+    <Page Include="Features\Parsers\ParserView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -286,11 +288,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Features\Transactions\MassReplacerView.xaml">
+    <Page Include="Features\MassReplacer\MassReplacerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Features\Transactions\PositionListView.xaml">
+    <Page Include="Features\Transactions\Positions\PositionListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

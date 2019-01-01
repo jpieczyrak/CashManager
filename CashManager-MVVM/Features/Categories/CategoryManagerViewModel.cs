@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows;
 
 using AutoMapper;
 
@@ -13,25 +14,34 @@ using CashManager_MVVM.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
+using GongSolutions.Wpf.DragDrop;
+
 using DtoCategory = CashManager.Data.DTO.Category;
 
 namespace CashManager_MVVM.Features.Categories
 {
-    public class CategoryManagerViewModel : ViewModelBase
+    public class CategoryManagerViewModel : ViewModelBase, IDropTarget
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private string _categoryName;
+        private Category _selectedCategory;
 
         public TrulyObservableCollection<Category> Categories { get; private set; }
 
-        public RelayCommand<Category> UpdateSelectedCategory => new RelayCommand<Category>(category => SelectedCategory = category);
-
         public RelayCommand AddCategoryCommand => new RelayCommand(ExecuteAddCategoryCommand);
 
-        public RelayCommand RemoveCategoryCommand => new RelayCommand(ExecuteRemoveCategoryCommand);
+        public RelayCommand RemoveCategoryCommand => new RelayCommand(ExecuteRemoveCategoryCommand, CanExecuteRemoveCategoryCommand);
 
-        public Category SelectedCategory { get; private set; }
+        public Category SelectedCategory
+        {
+            get => _selectedCategory;
+            private set
+            {
+                Set(ref _selectedCategory, value);
+                RaisePropertyChanged(nameof(RemoveCategoryCommand));
+            }
+        }
 
         public string CategoryName
         {
@@ -49,32 +59,44 @@ namespace CashManager_MVVM.Features.Categories
                                              .ToArray();
 
             foreach (var category in categories)
+            {
                 category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category.Id));
+                category.PropertyChanged += (sender, args) =>
+                {
+                    if (category.IsSelected) SelectedCategory = category;
+                };
+            }
 
             Categories = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent == null)); //find the root(s)
+            
+            SelectedCategory = categories.FirstOrDefault(x => x.IsSelected);
         }
 
-        public void Move(Category sourceCategory, Category targetCategory)
+        private void Move(Category sourceCategory, Category targetCategory)
         {
-            if (sourceCategory != null && targetCategory != null && sourceCategory.Parent != null && sourceCategory.Id != targetCategory.Id)
-            {
-                var sourceParentId = sourceCategory.Parent.Id;
+            if (sourceCategory == null || targetCategory == null) return;
+            if (sourceCategory.Id == targetCategory.Id) return;
 
-                //swap
-                sourceCategory.Parent = targetCategory;
-                targetCategory.Children.Add(sourceCategory);
+            //target can not be a (grand)children
+            if (Find(sourceCategory.Children.ToArray(), targetCategory.Id) != null) return;
 
-                //remove from old position
-                var previousParent = Find(Categories.ToArray(), sourceParentId);
-                if (previousParent != null)
-                {
-                    previousParent.Children.Remove(sourceCategory);
-                    UpsertCategory(sourceCategory);
-                }
-            }
+            var sourceParentId = sourceCategory.Parent?.Id;
+
+            //swap
+            sourceCategory.Parent = targetCategory;
+            targetCategory.Children.Add(sourceCategory);
+
+            //remove from old position
+            if (sourceParentId == null)
+                Categories.Remove(sourceCategory);
+            else
+                Find(Categories.ToArray(), sourceParentId.Value)?.Children.Remove(sourceCategory);
+
+            //update parent in db
+            UpsertCategory(sourceCategory);
         }
 
-        public Category Find(Category[] categories, Guid id)
+        private Category Find(Category[] categories, Guid id)
         {
             foreach (var category in categories)
             {
@@ -91,8 +113,8 @@ namespace CashManager_MVVM.Features.Categories
 
         private void ExecuteAddCategoryCommand()
         {
-            var parent = SelectedCategory ?? Categories.FirstOrDefault();
-            var category = parent != null ? new Category { Name = CategoryName } : new Category { Name = "Root" };
+            var parent = SelectedCategory;
+            var category = new Category { Name = CategoryName };
             if (parent != null)
             {
                 parent.Children.Add(category);
@@ -122,6 +144,8 @@ namespace CashManager_MVVM.Features.Categories
             }
         }
 
+        private bool CanExecuteRemoveCategoryCommand() => SelectedCategory?.Parent != null;
+
         private void UpsertCategory(Category category)
         {
             var categories = new [] { category };
@@ -131,6 +155,18 @@ namespace CashManager_MVVM.Features.Categories
         private void UpsertCategories(Category[] categories)
         {
             _commandDispatcher.Execute(new UpsertCategoriesCommand(Mapper.Map<DtoCategory[]>(categories)));
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            dropInfo.Effects = dropInfo.Data is Category
+                                   ? DragDropEffects.Copy
+                                   : DragDropEffects.None;
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            if (dropInfo.Data is Category source && dropInfo.TargetItem is Category target) Move(source, target);
         }
     }
 }

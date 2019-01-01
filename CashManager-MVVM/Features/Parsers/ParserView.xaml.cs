@@ -2,9 +2,9 @@
 
 namespace CashManager_MVVM.Features.Parsers
 {
-    public partial class ParseView : UserControl
+    public partial class ParserView : UserControl
     {
-        public ParseView()
+        public ParserView()
         {
             InitializeComponent();
         }

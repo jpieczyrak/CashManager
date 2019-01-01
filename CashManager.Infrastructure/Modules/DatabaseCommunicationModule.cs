@@ -78,10 +78,10 @@ namespace CashManager.Infrastructure.Modules
         private static void RegisterDatabasesBasedOnKey(ContainerBuilder builder, string dbPath)
         {
             builder.Register(x => new LiteRepository(new MemoryStream(File.ReadAllBytes(dbPath))))
-                   .Keyed<LiteRepository>(eDatabaseConnection.InMemory);
+                   .Keyed<LiteRepository>(DatabaseConnectionType.InMemory);
             builder.Register(x => new LiteRepository($"Filename={dbPath};Journal=true"))
-                   .Keyed<LiteRepository>(eDatabaseConnection.Local);
-            builder.Register<Func<eDatabaseConnection, LiteRepository>>(ctx =>
+                   .Keyed<LiteRepository>(DatabaseConnectionType.Local);
+            builder.Register<Func<DatabaseConnectionType, LiteRepository>>(ctx =>
             {
                 var cc = ctx.Resolve<IComponentContext>();
                 return dbType => cc.ResolveKeyed<LiteRepository>(dbType);

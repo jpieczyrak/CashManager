@@ -1,11 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.Linq;
 
-using AutoMapper;
-
-using CashManager.Infrastructure.Query;
-using CashManager.Infrastructure.Query.Transactions;
-
 using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Model;
 
@@ -14,9 +9,8 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 namespace CashManager_MVVM.Features.Transactions
 {
-    public class TransactionListViewModel : ViewModelBase, IUpdateable
+    public class TransactionListViewModel : ViewModelBase
     {
-        private readonly IQueryDispatcher _queryDispatcher;
         private readonly ViewModelFactory _factory;
         private TrulyObservableCollection<Transaction> _transactions;
 
@@ -44,38 +38,15 @@ namespace CashManager_MVVM.Features.Transactions
             Transactions = new TrulyObservableCollection<Transaction>();
         }
 
-        public TransactionListViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory) : this()
+        public TransactionListViewModel(ViewModelFactory factory) : this()
         {
-            _queryDispatcher = queryDispatcher;
             _factory = factory;
         }
-
-        #region IUpdateable
-
-        public void Update()
-        {
-            LoadTransactionsFromDatabase();
-        }
-
-        #endregion
         
         private void TransactionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
             Summary.GrossIncome = Transactions.Where(x => x.Type.Income && !x.Type.Outcome).Sum(x => x.Value);
             Summary.GrossOutcome = Transactions.Where(x => !x.Type.Income && x.Type.Outcome).Sum(x => x.Value);
-        }
-
-        private void LoadTransactionsFromDatabase()
-        {
-            if (_queryDispatcher != null)
-            {
-                var items = _queryDispatcher.Execute<TransactionQuery, CashManager.Data.DTO.Transaction[]>(new TransactionQuery());
-                var transactions = items.Select(Mapper.Map<Transaction>)
-                                        .OrderByDescending(x => x.BookDate)
-                                        .ThenByDescending(x => x.InstanceCreationDate)
-                                        .ToArray();
-                Transactions = new TrulyObservableCollection<Transaction>(transactions);
-            }
         }
 
         private void TransactionEdit()

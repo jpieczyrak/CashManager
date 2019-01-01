@@ -11,6 +11,7 @@ using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.TransactionTypes;
 using CashManager.Logic.Parsers;
 
+using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Messages;
 using CashManager_MVVM.Model;
@@ -24,7 +25,7 @@ using DtoTransaction = CashManager.Data.DTO.Transaction;
 
 namespace CashManager_MVVM.Features.Parsers
 {
-    public class ParseViewModel : ViewModelBase, IUpdateable
+    public class ParserViewModel : ViewModelBase, IUpdateable
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
@@ -73,8 +74,11 @@ namespace CashManager_MVVM.Features.Parsers
             private set => Set(ref _resultsListViewModel, value, nameof(ResultsListViewModel));
         }
 
-        public ParseViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
+        public TransactionsProvider TransactionsProvider { get; }
+
+        public ParserViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider)
         {
+            TransactionsProvider = transactionsProvider;
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
 
@@ -100,7 +104,12 @@ namespace CashManager_MVVM.Features.Parsers
 
         private void ExecuteSaveCommand()
         {
-            _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction[]>(ResultsListViewModel.Transactions)));
+            var transactions = ResultsListViewModel.Transactions;
+            _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction[]>(transactions)));
+
+            TransactionsProvider.AllTransactions.RemoveRange(transactions);
+            TransactionsProvider.AllTransactions.AddRange(transactions);
+
             var balance = SelectedParser.Value.Balance;
             if (balance != null)
             {
@@ -108,7 +117,7 @@ namespace CashManager_MVVM.Features.Parsers
                 {
                     SelectedUserStock.Balance = Mapper.Map<Model.Balance>(balance);
                     _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock[]>(new [] { SelectedUserStock } )));
-                    MessengerInstance.Send(new StockUpdateMessage(SelectedUserStock));
+                    MessengerInstance.Send(new UpdateStockMessage(SelectedUserStock));
                 }
             }
         }
@@ -120,7 +129,7 @@ namespace CashManager_MVVM.Features.Parsers
 
         private void ExecuteParseCommand()
         {
-            var transactions = Mapper.Map<Transaction[]>(SelectedParser.Value.Parse(InputText, Mapper.Map<DtoStock>(SelectedUserStock),
+            var transactions = Mapper.Map<List<Transaction>>(SelectedParser.Value.Parse(InputText, Mapper.Map<DtoStock>(SelectedUserStock),
                 Mapper.Map<DtoStock>(SelectedExternalStock),
                 Mapper.Map<DtoTransactionType>(DefaultOutcomeTransactionType),
                 Mapper.Map<DtoTransactionType>(DefaultIncomeTransactionType)));

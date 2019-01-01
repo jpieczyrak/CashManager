@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CashManager_MVVM.Features.Transactions.PositionListView"
+﻿<UserControl x:Class="CashManager_MVVM.Features.Transactions.Positions.PositionListView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

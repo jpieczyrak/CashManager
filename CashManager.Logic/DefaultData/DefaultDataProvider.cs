@@ -6,7 +6,7 @@ namespace CashManager.Logic.DefaultData
 {
     public class DefaultDataProvider : IDataProvider
     {
-        protected Category _root;
+        protected Category _unknown;
         protected Category _home;
         protected Category _fun;
         protected Category _fun_pc;
@@ -40,9 +40,9 @@ namespace CashManager.Logic.DefaultData
 
         public Category[] GetCategories()
         {
-            _root = new Category { Name = "Root" };
-            _home = new Category { Name = "Home", Parent = _root };
-            _fun = new Category { Name = "Fun", Parent = _root };
+            _unknown = new Category { Name = "Unknown", Parent = null };
+            _home = new Category { Name = "Home", Parent = null };
+            _fun = new Category { Name = "Fun", Parent = null };
             _fun_pc = new Category { Name = "PC", Parent = _fun };
             _fun_books = new Category { Name = "Books", Parent = _fun };
             _fun_games = new Category { Name = "Games", Parent = _fun };
@@ -55,9 +55,9 @@ namespace CashManager.Logic.DefaultData
             _home_food_tea = new Category { Name = "Tea", Parent = _home_food };
             var dtoCategories = new[]
             {
-                _root,
                 _home,
                 _fun,
+                _unknown,
                 _fun_pc,
                 _fun_books,
                 _fun_games,

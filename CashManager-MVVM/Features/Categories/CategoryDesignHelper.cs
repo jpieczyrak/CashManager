@@ -7,7 +7,7 @@ namespace CashManager_MVVM.Features.Categories
 {
     public static class CategoryDesignHelper
     {
-        public static List<Category> BuildGraphicalOrder(Category[] categories, Category root = null, int index = 0)
+        public static Category[] BuildGraphicalOrder(Category[] categories, Category root = null, int index = 0)
         {
             var results = new List<Category>();
             if (root != null) results.Add(root);
@@ -18,7 +18,7 @@ namespace CashManager_MVVM.Features.Categories
                 results.AddRange(BuildGraphicalOrder(categories, category, index + 1));
             }
 
-            return results;
+            return results.ToArray();
         }
     }
 }

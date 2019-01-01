@@ -1,6 +1,6 @@
 ﻿namespace CashManager.DatabaseConnection
 {
-    public enum eDatabaseConnection
+    public enum DatabaseConnectionType
     {
         InMemory,
         Local

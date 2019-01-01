@@ -20,7 +20,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 using Transaction = CashManager.Data.DTO.Transaction;
 
-namespace CashManager_MVVM.Features.Transactions
+namespace CashManager_MVVM.Features.MassReplacer
 {
     public class MassReplacerViewModel : ViewModelBase, IUpdateable
     {
@@ -102,8 +102,6 @@ namespace CashManager_MVVM.Features.Transactions
             _factory = factory;
             SearchViewModel = _factory.Create<SearchViewModel>();
             PerformCommand = new RelayCommand(ExecutePerformCommand, CanExecutePerformCommand);
-
-            Update();
         }
 
         private bool CanExecutePerformCommand()
@@ -117,12 +115,12 @@ namespace CashManager_MVVM.Features.Transactions
                      || (_categoriesSelector.IsChecked && _categoriesSelector.Results.Any())
                      || (_typesSelector.IsChecked && _typesSelector.Results.Any())
                      || _tagsSelector.IsChecked) 
-                   && SearchViewModel.Transactions.Any();
+                   && SearchViewModel.MatchingTransactions.Any();
         }
 
         private void ExecutePerformCommand()
         {
-            var transactions = SearchViewModel.Transactions;
+            var transactions = SearchViewModel.MatchingTransactions;
 
             if (_titleSelector.IsChecked && !string.IsNullOrWhiteSpace(_titleSelector.Value))
                 foreach (var transaction in transactions)
@@ -147,8 +145,8 @@ namespace CashManager_MVVM.Features.Transactions
                     transaction.ExternalStock = _externalStocksSelector.Results.OfType<Stock>().FirstOrDefault();
 
             var positions = SearchViewModel.IsTransactionsSearch 
-                                ? transactions.SelectMany(x => x.Positions).ToArray()
-                                : SearchViewModel.Positions;
+                                ? transactions.SelectMany(x => x.Positions).ToList()
+                                : SearchViewModel.MatchingPositions;
             if (_positionTitleSelector.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleSelector.Value))
                 foreach (var position in positions)
                     position.Title = _positionTitleSelector.Value;
@@ -171,7 +169,7 @@ namespace CashManager_MVVM.Features.Transactions
                     Mapper.Map<Stock[]>(Mapper.Map<CashManager.Data.DTO.Stock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
 
             var categories = Mapper.Map<Category[]>(_queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery()));
-            categories = CategoryDesignHelper.BuildGraphicalOrder(categories).ToArray();
+            categories = CategoryDesignHelper.BuildGraphicalOrder(categories);
             CategoriesSelector = new MultiPicker(MultiPickerType.Category, categories);
 
             var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
@@ -179,6 +177,8 @@ namespace CashManager_MVVM.Features.Transactions
 
             var tags = Mapper.Map<Tag[]>(_queryDispatcher.Execute<TagQuery, CashManager.Data.DTO.Tag[]>(new TagQuery()).OrderBy(x => x.Name));
             TagsSelector = new MultiPicker(MultiPickerType.Tag, tags);
+
+            SearchViewModel.Update();
         }
     }
 }

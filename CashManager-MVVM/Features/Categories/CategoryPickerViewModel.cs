@@ -12,27 +12,48 @@ using CashManager_MVVM.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
+using DtoCategory = CashManager.Data.DTO.Category;
+
 namespace CashManager_MVVM.Features.Categories
 {
     public class CategoryPickerViewModel : ViewModelBase
     {
-        public IEnumerable<Category> Categories { get; set; }
+        private Category _selectedCategory;
 
-        public Category SelectedCategory { get; set; }
+        public IEnumerable<Category> Categories { get; }
+
+        public Category SelectedCategory
+        {
+            get => _selectedCategory;
+            set => Set(ref _selectedCategory, value);
+        }
 
         public RelayCommand<Window> CloseCommand => new RelayCommand<Window>(window => window?.Close());
 
-        public RelayCommand<Category> UpdateSelectedCategory => new RelayCommand<Category>(category => SelectedCategory = category);
+        public RelayCommand<Category> UpdateSelectedCategory => new RelayCommand<Category>(ExecuteUpdateSelectedCategory);
 
-        public CategoryPickerViewModel(IQueryDispatcher queryDispatcher)
+        public CategoryPickerViewModel(IQueryDispatcher queryDispatcher, Category selectedCategory = null)
         {
-            var categories = queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery())
+            var categories = queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery())
                                             .Select(Mapper.Map<Category>)
                                             .ToArray();
 
-            foreach (var category in categories) category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category?.Id));
+            foreach (var category in categories)
+                category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category.Id));
 
             Categories = categories.Where(x => x.Parent == null).ToArray(); //find the root(s)
+            SelectedCategory = selectedCategory;
+
+            if (selectedCategory != null)
+            {
+                var selected = categories.FirstOrDefault(x => x.Id == selectedCategory.Id);
+                if (selected != null) selected.IsSelected = true;
+            }
+        }
+
+        private void ExecuteUpdateSelectedCategory(Category category)
+        {
+            if (category != null) SelectedCategory = category;
         }
     }
 }

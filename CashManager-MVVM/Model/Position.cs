@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 
+using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
 {
-    public class Position : BaseObservableObject, IBookable
+    public sealed class Position : BaseObservableObject, IBookable
     {
         private PaymentValue _value;
         private Category _category;
@@ -60,9 +61,6 @@ namespace CashManager_MVVM.Model
             set { }
         }
 
-        /// <summary>
-        /// Mass replacer purpose only
-        /// </summary>
         public Transaction Parent
         {
             get => _parent;
@@ -74,6 +72,8 @@ namespace CashManager_MVVM.Model
         public bool Outcome => !Parent.Type.Income && Parent.Type.Outcome;
 
         public string GrossValueGuiString => $"{(Outcome ? "-" : string.Empty)}{Value.GrossValue:F} zł";
+
+        public CategoryPickerViewModel CategoryPickerViewModel { get; set; }
 
         public Position()
         {

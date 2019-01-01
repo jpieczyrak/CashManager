@@ -14,6 +14,8 @@ using CashManager_MVVM.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
+using DtoStock = CashManager.Data.DTO.Stock;
+
 namespace CashManager_MVVM.Features.Stocks
 {
     public class StocksViewModel : ViewModelBase
@@ -30,28 +32,41 @@ namespace CashManager_MVVM.Features.Stocks
         {
             _commandDispatcher = commandDispatcher;
 
-            var stocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery()))
+            var stocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()))
                                .OrderBy(x => x.InstanceCreationDate)
                                .ToArray();
             Stocks = new TrulyObservableCollection<Stock>(stocks);
             Stocks.CollectionChanged += StocksOnCollectionChanged;
 
-            AddStockCommand = new RelayCommand(() => { Stocks.Add(new Stock()); });
+            AddStockCommand = new RelayCommand(() =>
+            {
+                var stock = new Stock();
+                Stocks.Add(stock);
+            });
             RemoveCommand = new RelayCommand<Stock>(x =>
             {
-                x.IsUserStock = false; //hack to make update message remove the stock for summary todo: fix
+                MessengerInstance.Send(new DeleteStockMessage(x));
                 Stocks.Remove(x);
 
-                _commandDispatcher.Execute(new DeleteStockCommand(Mapper.Map<CashManager.Data.DTO.Stock>(x)));
-            });
+                _commandDispatcher.Execute(new DeleteStockCommand(Mapper.Map<DtoStock>(x)));
+            },
+            stock => Stocks.Count(x => x.IsUserStock) > 1);
+            //todo: think what should happen on stock delete...
         }
 
-        private void StocksOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        private void StocksOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            var stocks = Stocks.Select(Mapper.Map<CashManager.Data.DTO.Stock>).ToArray();
-            _commandDispatcher.Execute(new UpsertStocksCommand(stocks));
-
-            MessengerInstance.Send(new StockUpdateMessage(Stocks.ToArray()));
+            if (e.NewItems != null)
+            {
+                var updatedStocks = e.NewItems.OfType<Stock>().ToArray();
+                MessengerInstance.Send(new UpdateStockMessage(updatedStocks));
+                _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock[]>(updatedStocks)));
+            }
+            else if (e.OldItems != null)
+            {
+                var deleted = e.OldItems.OfType<Stock>().ToArray();
+                MessengerInstance.Send(new DeleteStockMessage(deleted));
+            }
         }
     }
 }

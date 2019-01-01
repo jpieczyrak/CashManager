@@ -18,8 +18,9 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             decimal maxValue = 2450;
             SetupDatabase();
             var vm = _container.Resolve<SearchViewModel>();
+            vm.Update();
             vm.IsTransactionsSearch = true;
-            var expected = vm.Transactions
+            var expected = vm.MatchingTransactions
                              .Where(x => x.ValueAsProfit <= maxValue && x.ValueAsProfit >= minValue)
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -30,9 +31,9 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             vm.State.ValueFilter.IsChecked = true;
 
             //then
-            Assert.NotEmpty(vm.Transactions);
-            Assert.Equal(expected.Length, vm.Transactions.Length);
-            Assert.Equal(expected, vm.Transactions.OrderBy(x => x.Id).ToArray());
+            Assert.NotEmpty(vm.MatchingTransactions);
+            Assert.Equal(expected.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(expected, vm.MatchingTransactions.OrderBy(x => x.Id).ToArray());
         }
     }
 }
