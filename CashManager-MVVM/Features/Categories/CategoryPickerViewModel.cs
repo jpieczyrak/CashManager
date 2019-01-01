@@ -28,7 +28,7 @@ namespace CashManager_MVVM.Features.Categories
 
         public RelayCommand<Window> CloseCommand => new RelayCommand<Window>(window => window?.Close());
 
-        public RelayCommand<Category> UpdateSelectedCategory => new RelayCommand<Category>(category => SelectedCategory = category);
+        public RelayCommand<Category> UpdateSelectedCategory => new RelayCommand<Category>(ExecuteUpdateSelectedCategory);
 
         public CategoryPickerViewModel(IQueryDispatcher queryDispatcher, Category selectedCategory = null)
         {
@@ -46,6 +46,11 @@ namespace CashManager_MVVM.Features.Categories
                 var selected = categories.FirstOrDefault(x => x.Id == selectedCategory.Id);
                 if (selected != null) selected.IsSelected = true;
             }
+        }
+
+        private void ExecuteUpdateSelectedCategory(Category category)
+        {
+            if (category != null) SelectedCategory = category;
         }
     }
 }

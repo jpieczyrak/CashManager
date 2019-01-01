@@ -26,7 +26,7 @@ namespace CashManager_MVVM.Features.Main
             private set
             {
                 PreviousSelectedViewModel = _selectedViewModel;
-                Set(ref _selectedViewModel, value, nameof(SelectedViewModel));
+                Set(ref _selectedViewModel, value);
                 if (_selectedViewModel is IUpdateable model) model.Update();
             }
         }
