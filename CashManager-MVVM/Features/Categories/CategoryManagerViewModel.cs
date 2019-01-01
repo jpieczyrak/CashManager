@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows;
 
 using AutoMapper;
 
@@ -13,19 +14,19 @@ using CashManager_MVVM.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
+using GongSolutions.Wpf.DragDrop;
+
 using DtoCategory = CashManager.Data.DTO.Category;
 
 namespace CashManager_MVVM.Features.Categories
 {
-    public class CategoryManagerViewModel : ViewModelBase
+    public class CategoryManagerViewModel : ViewModelBase, IDropTarget
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private string _categoryName;
 
         public TrulyObservableCollection<Category> Categories { get; private set; }
-
-        public RelayCommand<Category> UpdateSelectedCategory => new RelayCommand<Category>(category => SelectedCategory = category);
 
         public RelayCommand AddCategoryCommand => new RelayCommand(ExecuteAddCategoryCommand);
 
@@ -131,6 +132,18 @@ namespace CashManager_MVVM.Features.Categories
         private void UpsertCategories(Category[] categories)
         {
             _commandDispatcher.Execute(new UpsertCategoriesCommand(Mapper.Map<DtoCategory[]>(categories)));
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            dropInfo.Effects = dropInfo.Data is Category
+                                   ? DragDropEffects.Copy
+                                   : DragDropEffects.None;
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            if (dropInfo.Data is Category source && dropInfo.TargetItem is Category target) Move(source, target);
         }
     }
 }
