@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
@@ -6,7 +7,6 @@ using AutoMapper;
 
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
-using CashManager.Infrastructure.Query.Transactions;
 
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Model;
@@ -19,7 +19,6 @@ using OxyPlot.Axes;
 using OxyPlot.Series;
 
 using DtoStock = CashManager.Data.DTO.Stock;
-using DtoTransaction = CashManager.Data.DTO.Transaction;
 
 namespace CashManager_MVVM.Features.Plots
 {
@@ -27,7 +26,7 @@ namespace CashManager_MVVM.Features.Plots
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly TransactionsProvider _transactionsProvider;
-        private DateFrame _bookDateFilter = new DateFrame(DateFrameType.BookDate);
+        private DateFrame _bookDateFilter;
         private MultiPicker _userStocksFilter;
         private PlotModel _wealth;
 
@@ -53,6 +52,7 @@ namespace CashManager_MVVM.Features.Plots
         {
             _queryDispatcher = queryDispatcher;
             _transactionsProvider = transactionsProvider;
+            _bookDateFilter = new DateFrame(DateFrameType.BookDate);
             Wealth = PlotHelper.CreatePlotModel();
             Wealth.Axes.Add(new DateTimeAxis());
         }
@@ -63,13 +63,21 @@ namespace CashManager_MVVM.Features.Plots
                                .Where(x => x.IsUserStock)
                                .OrderBy(x => x.Name)
                                .ToArray();
+
+            if (UserStocksFilter != null) UserStocksFilter.PropertyChanged -= OnPropertyChanged;
             UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, stocks);
             foreach (var result in UserStocksFilter.ComboBox.InternalDisplayableSearchResults) result.IsSelected = true;
             UserStocksFilter.IsChecked = true;
             UserStocksFilter.PropertyChanged += OnPropertyChanged;
+            
+            BookDateFilter.PropertyChanged -= OnPropertyChanged;
+            BookDateFilter.From = _transactionsProvider.AllTransactions.Any()
+                                      ? _transactionsProvider.AllTransactions.Min(x => x.BookDate)
+                                      : DateTime.MinValue;
+            BookDateFilter.To = _transactionsProvider.AllTransactions.Any()
+                                    ? _transactionsProvider.AllTransactions.Max(x => x.BookDate)
+                                    : DateTime.MaxValue;
 
-            BookDateFilter.From = _transactionsProvider.AllTransactions.Any() ? _transactionsProvider.AllTransactions.Min(x => x.BookDate) : DateTime.MinValue;
-            BookDateFilter.To = _transactionsProvider.AllTransactions.Any() ? _transactionsProvider.AllTransactions.Max(x => x.BookDate) : DateTime.MaxValue;
             BookDateFilter.IsChecked = true;
             BookDateFilter.PropertyChanged += OnPropertyChanged;
 
@@ -88,26 +96,7 @@ namespace CashManager_MVVM.Features.Plots
 
             if (selectedStocks != null && selectedStocks.Any())
             {
-                DateTime stockDate = selectedStocks.Max(x => x.LastEditDate);
-                decimal actualValue = selectedStocks.Sum(x => x.Balance.Value);
-
-                var values = transactions
-                             .Where(x => selectedStocks.Contains(x.UserStock)) //or external?
-                             .OrderByDescending(x => x.BookDate)
-                             .GroupBy(x => x.BookDate)
-                             .Select(x =>
-                             {
-                                 actualValue -= x.Sum(y => y.ValueAsProfit);
-                                 double value = (double) actualValue;
-                                 return new { BookDate = x.Key, Value = value} ;
-                             })
-                             .Where(x => !BookDateFilter.IsChecked || x.BookDate >= BookDateFilter.From && x.BookDate <= BookDateFilter.To)
-                             .OrderBy(x => x.BookDate)
-                             .Select(x => new DataPoint(DateTimeAxis.ToDouble(x.BookDate), x.Value))
-                             .Concat(!BookDateFilter.IsChecked || stockDate.Date <= BookDateFilter.To
-                                         ? new[] { new DataPoint(DateTimeAxis.ToDouble(stockDate), (double)actualValue) }
-                                         : new DataPoint[0])
-                             .ToArray();
+                var values = GetWealthValues(transactions, selectedStocks);
 
                 if (values.Any())
                 {
@@ -123,6 +112,32 @@ namespace CashManager_MVVM.Features.Plots
 
             Wealth.InvalidatePlot(true);
             Wealth.ResetAllAxes();
+        }
+
+        public DataPoint[] GetWealthValues(IEnumerable<Transaction> transactions, Stock[] selectedStocks)
+        {
+            var stockDate = selectedStocks.Max(x => x.LastEditDate);
+            decimal actualValue = selectedStocks.Sum(x => x.Balance.Value);
+
+            var values = transactions
+                         .Where(x => selectedStocks.Contains(x.UserStock))
+                         .OrderByDescending(x => x.BookDate)
+                         .GroupBy(x => x.BookDate)
+                         .Select(x =>
+                         {
+                             actualValue -= x.Sum(y => y.ValueAsProfit);
+                             double value = (double) actualValue;
+                             return new { BookDate = x.Key, Value = value };
+                         })
+                         .Where(x => !BookDateFilter.IsChecked || x.BookDate >= BookDateFilter.From && x.BookDate <= BookDateFilter.To)
+                         .OrderBy(x => x.BookDate)
+                         .Select(x => new DataPoint(DateTimeAxis.ToDouble(x.BookDate), x.Value))
+                         .Concat(!BookDateFilter.IsChecked || stockDate.Date <= BookDateFilter.To
+                                     ? new[] { new DataPoint(DateTimeAxis.ToDouble(stockDate), (double) actualValue) }
+                                     : new DataPoint[0])
+                         .ToArray();
+
+            return values;
         }
     }
 }
