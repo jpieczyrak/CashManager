@@ -21,7 +21,13 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Last edit" Binding="{Binding LastEditDate, Mode=OneWay, StringFormat=dd.MM.yy HH:mm:ss}" Width="100" MaxWidth="100" MinWidth="100"/>
                 <DataGridTextColumn Header="Book date" Binding="{Binding Parent.BookDate, Mode=OneWay, StringFormat=dd.MM.yy}" Width="Auto"/>
-                <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay}" Width="*" MinWidth="60" />
+                <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay}" Width="*" MinWidth="60">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Type" Binding="{Binding Parent.Type.Name, Mode=OneWay}" Width="Auto" />
                 <DataGridTextColumn Header="Category" Binding="{Binding Category.Name, Mode=OneWay}" Width="Auto" />
                 <DataGridTextColumn Header="User stock" Binding="{Binding Parent.UserStock.Name, Mode=OneWay}" Width="Auto" />
