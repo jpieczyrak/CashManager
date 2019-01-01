@@ -55,27 +55,28 @@ namespace CashManager_MVVM.Features.Categories
             Categories = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent == null)); //find the root(s)
         }
 
-        public void Move(Category sourceCategory, Category targetCategory)
+        private void Move(Category sourceCategory, Category targetCategory)
         {
-            if (sourceCategory != null && targetCategory != null && sourceCategory.Parent != null && sourceCategory.Id != targetCategory.Id)
+            if (sourceCategory == null || targetCategory == null) return;
+            if (sourceCategory.Id == targetCategory.Id) return;
+            if (sourceCategory.Parent == null) return;
+
+            var sourceParentId = sourceCategory.Parent.Id;
+
+            //swap
+            sourceCategory.Parent = targetCategory;
+            targetCategory.Children.Add(sourceCategory);
+
+            //remove from old position
+            var previousParent = Find(Categories.ToArray(), sourceParentId);
+            if (previousParent != null)
             {
-                var sourceParentId = sourceCategory.Parent.Id;
-
-                //swap
-                sourceCategory.Parent = targetCategory;
-                targetCategory.Children.Add(sourceCategory);
-
-                //remove from old position
-                var previousParent = Find(Categories.ToArray(), sourceParentId);
-                if (previousParent != null)
-                {
-                    previousParent.Children.Remove(sourceCategory);
-                    UpsertCategory(sourceCategory);
-                }
+                previousParent.Children.Remove(sourceCategory);
+                UpsertCategory(sourceCategory);
             }
         }
 
-        public Category Find(Category[] categories, Guid id)
+        private Category Find(Category[] categories, Guid id)
         {
             foreach (var category in categories)
             {
