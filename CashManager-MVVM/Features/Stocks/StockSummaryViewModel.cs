@@ -11,6 +11,8 @@ using CashManager_MVVM.Model;
 
 using GalaSoft.MvvmLight;
 
+using DtoStock = CashManager.Data.DTO.Stock;
+
 namespace CashManager_MVVM.Features.Stocks
 {
     public class StockSummaryViewModel : ViewModelBase
@@ -28,7 +30,7 @@ namespace CashManager_MVVM.Features.Stocks
         public StockSummaryViewModel(IQueryDispatcher queryDispatcher)
         {
             var query = new StockQuery();
-            var stocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(query));
+            var stocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(query));
             Stocks = FilterAndOrderStocks(stocks);
 
             MessengerInstance.Register<UpdateStockMessage>(this, Update);

@@ -14,6 +14,8 @@ using CashManager_MVVM.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
+using DtoStock = CashManager.Data.DTO.Stock;
+
 namespace CashManager_MVVM.Features.Stocks
 {
     public class StocksViewModel : ViewModelBase
@@ -30,7 +32,7 @@ namespace CashManager_MVVM.Features.Stocks
         {
             _commandDispatcher = commandDispatcher;
 
-            var stocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery()))
+            var stocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()))
                                .OrderBy(x => x.InstanceCreationDate)
                                .ToArray();
             Stocks = new TrulyObservableCollection<Stock>(stocks);
@@ -46,7 +48,7 @@ namespace CashManager_MVVM.Features.Stocks
                 MessengerInstance.Send(new DeleteStockMessage(x));
                 Stocks.Remove(x);
 
-                _commandDispatcher.Execute(new DeleteStockCommand(Mapper.Map<CashManager.Data.DTO.Stock>(x)));
+                _commandDispatcher.Execute(new DeleteStockCommand(Mapper.Map<DtoStock>(x)));
             },
             stock => Stocks.Count(x => x.IsUserStock) > 1);
             //todo: think what should happen on stock delete...
@@ -58,7 +60,7 @@ namespace CashManager_MVVM.Features.Stocks
             {
                 var updatedStocks = e.NewItems.OfType<Stock>().ToArray();
                 MessengerInstance.Send(new UpdateStockMessage(updatedStocks));
-                _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<CashManager.Data.DTO.Stock[]>(updatedStocks)));
+                _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock[]>(updatedStocks)));
             }
             else if (e.OldItems != null)
             {

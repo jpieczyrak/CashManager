@@ -13,6 +13,8 @@ using CashManager_MVVM.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
+using DtoType = CashManager.Data.DTO.TransactionType;
+
 namespace CashManager_MVVM.Features.TransactionTypes
 {
     public class TransactionTypesViewModel : ViewModelBase
@@ -29,21 +31,23 @@ namespace CashManager_MVVM.Features.TransactionTypes
         {
             _commandDispatcher = commandDispatcher;
 
-            var transactionTypes = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()));
+            var query = new TransactionTypesQuery();
+            var types = queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(query);
+            var transactionTypes = Mapper.Map<TransactionType[]>(types);
             TransactionTypes = new TrulyObservableCollection<TransactionType>(transactionTypes);
             TransactionTypes.CollectionChanged += TransactionTypesOnCollectionChanged;
 
             AddTransactionTypeCommand = new RelayCommand(() => { TransactionTypes.Add(new TransactionType()); });
             RemoveCommand = new RelayCommand<TransactionType>(x =>
             {
-                _commandDispatcher.Execute(new DeleteTransactionTypeCommand(Mapper.Map<CashManager.Data.DTO.TransactionType>(x)));
+                _commandDispatcher.Execute(new DeleteTransactionTypeCommand(Mapper.Map<DtoType>(x)));
                 TransactionTypes.Remove(x);
             });
         }
 
         private void TransactionTypesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
-            var transactionTypes = TransactionTypes.Select(Mapper.Map<CashManager.Data.DTO.TransactionType>).ToArray();
+            var transactionTypes = TransactionTypes.Select(Mapper.Map<DtoType>).ToArray();
             _commandDispatcher.Execute(new UpsertTransactionTypesCommand(transactionTypes));
         }
     }

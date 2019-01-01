@@ -12,13 +12,15 @@ using CashManager_MVVM.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
+using DtoCategory = CashManager.Data.DTO.Category;
+
 namespace CashManager_MVVM.Features.Categories
 {
     public class CategoryPickerViewModel : ViewModelBase
     {
         private Category _selectedCategory;
 
-        public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Category> Categories { get; }
 
         public Category SelectedCategory
         {
@@ -32,11 +34,12 @@ namespace CashManager_MVVM.Features.Categories
 
         public CategoryPickerViewModel(IQueryDispatcher queryDispatcher, Category selectedCategory = null)
         {
-            var categories = queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery())
+            var categories = queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery())
                                             .Select(Mapper.Map<Category>)
                                             .ToArray();
 
-            foreach (var category in categories) category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category?.Id));
+            foreach (var category in categories)
+                category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category.Id));
 
             Categories = categories.Where(x => x.Parent == null).ToArray(); //find the root(s)
             SelectedCategory = selectedCategory;
