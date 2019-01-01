@@ -86,28 +86,21 @@ namespace CashManager_MVVM.Features.Plots
         
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            Wealth.Series.Clear();
-            var transactions = _transactionsProvider.AllTransactions;
-            if (transactions == null || !transactions.Any()) return;
-
             var selectedStocks = UserStocksFilter.IsChecked
                                      ? UserStocksFilter.Results.OfType<Stock>().ToArray()
                                      : null;
+            Wealth.Series.Clear();
 
-            if (selectedStocks != null && selectedStocks.Any())
+            var values = GetWealthValues(_transactionsProvider.AllTransactions, selectedStocks);
+            if (values.Any())
             {
-                var values = GetWealthValues(transactions, selectedStocks);
-
-                if (values.Any())
+                var series = new AreaSeries
                 {
-                    var series = new AreaSeries
-                    {
-                        Title = "Wealth",
-                        MarkerType = MarkerType.Cross
-                    };
-                    series.Points.AddRange(values);
-                    Wealth.Series.Add(series);
-                }
+                    Title = "Wealth",
+                    MarkerType = MarkerType.Cross
+                };
+                series.Points.AddRange(values);
+                Wealth.Series.Add(series);
             }
 
             Wealth.InvalidatePlot(true);
@@ -116,6 +109,9 @@ namespace CashManager_MVVM.Features.Plots
 
         public DataPoint[] GetWealthValues(IEnumerable<Transaction> transactions, Stock[] selectedStocks)
         {
+            if (selectedStocks == null || !selectedStocks.Any()) return new DataPoint[0];
+            if (transactions == null || !transactions.Any()) return new DataPoint[0];
+
             var stockDate = selectedStocks.Max(x => x.LastEditDate);
             decimal actualValue = selectedStocks.Sum(x => x.Balance.Value);
 
