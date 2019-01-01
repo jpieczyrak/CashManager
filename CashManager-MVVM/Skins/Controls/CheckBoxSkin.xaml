@@ -1,5 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 
     <ControlTemplate x:Key="CheckBoxControlTemplate" TargetType="{x:Type CheckBox}">
         <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
@@ -13,7 +15,15 @@
                     <Rectangle x:Name="indeterminateMark" Fill="#FF212121" Margin="2" Opacity="0"/>
                 </Grid>
             </Border>
-            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            <TextBlock x:Name="textBlock"
+                       Foreground="{TemplateBinding Foreground}"
+                       Background="{TemplateBinding Background}"
+                       Margin="{TemplateBinding Padding}"
+                       Grid.Column="1"
+                       Text="{TemplateBinding Content}" 
+                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+            <!--<ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>-->
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasContent" Value="True">
@@ -36,10 +46,12 @@
                 <Setter Property="Fill" TargetName="optionMark" Value="Transparent"/>
                 <Setter Property="Fill" TargetName="indeterminateMark" Value="Transparent"/>
                 <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{DynamicResource HoverControlBackgroundBrush}"/>
+                <Setter Property="Foreground" TargetName="textBlock" Value="{DynamicResource HoverBorderAccentBrush}"/>
                 <Setter Property="Background" TargetName="checkBoxBorder" Value="Transparent"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{DynamicResource DisabledBorderBrush}"/>
+                <Setter Property="Foreground" TargetName="textBlock" Value="{DynamicResource DisabledForegroundBrush}"/>
                 <Setter Property="Fill" TargetName="optionMark" Value="#FF707070"/>
                 <Setter Property="Fill" TargetName="indeterminateMark" Value="#FF707070"/>
                 <Setter Property="Background" TargetName="checkBoxBorder" Value="Transparent"/>
@@ -47,6 +59,7 @@
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" TargetName="checkBoxBorder" Value="Transparent"/>
                 <Setter Property="Fill" TargetName="optionMark" Value="{DynamicResource HoverBorderAccentBrush}"/>
+                <Setter Property="Foreground" TargetName="textBlock" Value="{DynamicResource HoverBorderAccentBrush}"/>
                 <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
                 <Setter Property="Opacity" TargetName="indeterminateMark" Value="0"/>
                 <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{DynamicResource HoverBorderAccentBrush}"/>
@@ -55,6 +68,7 @@
                 <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
                 <Setter Property="Opacity" TargetName="indeterminateMark" Value="0"/>
                 <Setter Property="Fill" TargetName="optionMark" Value="{DynamicResource ForegroundBrush}"/>
+                <Setter Property="Foreground" TargetName="textBlock" Value="{DynamicResource ForegroundBrush}"/>
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -64,16 +78,34 @@
                 <Setter Property="Fill" TargetName="optionMark" Value="{DynamicResource HoverBorderAccentBrush}"/>
                 <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{DynamicResource HoverBorderAccentBrush}"/>
                 <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
+                <Setter Property="Foreground" TargetName="textBlock" Value="{DynamicResource HoverBorderAccentBrush}"/>
             </MultiTrigger>
             <Trigger Property="IsChecked" Value="{x:Null}">
                 <Setter Property="Opacity" TargetName="optionMark" Value="0"/>
                 <Setter Property="Opacity" TargetName="indeterminateMark" Value="1"/>
+                <Setter Property="Foreground" TargetName="textBlock" Value="{DynamicResource ForegroundBrush}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style TargetType="{x:Type CheckBox}">
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        <Setter Property="Template" Value="{DynamicResource CheckBoxControlTemplate}"/>
+    </Style>
+    <Style TargetType="{x:Type CheckBox}" x:Key="GrayCheckBox">
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,2,0,0"/>
+        <Setter Property="Padding" Value="5,1,5,0"/>
+        <Setter Property="MinWidth" Value="90"/>
+
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}" />
         <Setter Property="Template" Value="{DynamicResource CheckBoxControlTemplate}"/>
     </Style>
 </ResourceDictionary>
