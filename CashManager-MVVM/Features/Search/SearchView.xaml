@@ -19,7 +19,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         
-        <Grid Grid.Row="0" Margin="20">
+        <Grid Grid.Row="0" Margin="20,5,20,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -29,7 +29,7 @@
             </Grid.ColumnDefinitions>
             <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
             <RadioButton Grid.Column="1" IsChecked="{Binding IsTransactionsSearch}" ToolTip="Transactions search" />
-            <TextBlock Grid.Column="2" Text="{Binding Title}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="11" FontStyle="Italic" Foreground="{DynamicResource DisabledForegroundBrush}" FontWeight="Bold" Margin="10,0"/>
+            <TextBlock Grid.Column="2" Text="{Binding Title}" Style="{DynamicResource GrayTextBlock}" Margin="10,0"/>
             <RadioButton Grid.Column="3" IsChecked="{Binding IsPositionsSearch}" ToolTip="Positions search" />
             <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="4" Margin="5,0"/>
         </Grid>
@@ -66,7 +66,7 @@
         <UserControl Grid.Row="2" Content="{Binding TransactionsListViewModel}" Visibility="{Binding IsTransactionsSearch, Converter={StaticResource bool2VisibilityConverter}}" />
         <UserControl Grid.Row="2" Content="{Binding PositionsListViewModel}" Visibility="{Binding IsPositionsSearch, Converter={StaticResource bool2VisibilityConverter}}" />
 
-        <Grid Grid.Row="3" Margin="0,5">
+        <Grid Grid.Row="3" Margin="0,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
