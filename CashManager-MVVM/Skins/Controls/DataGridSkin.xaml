@@ -121,8 +121,10 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
                     <Grid>
-                        <Themes:DataGridHeaderBorder BorderBrush="{DynamicResource BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{DynamicResource ControlBackgroundBrush}" IsClickable="{TemplateBinding CanUserSort}" IsPressed="{TemplateBinding IsPressed}" IsHovered="{TemplateBinding IsMouseOver}" Padding="{TemplateBinding Padding}" SortDirection="{TemplateBinding SortDirection}" SeparatorBrush="{TemplateBinding SeparatorBrush}" SeparatorVisibility="{TemplateBinding SeparatorVisibility}" CornerRadius="{DynamicResource BigCornerRadius}">
-                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <Themes:DataGridHeaderBorder BorderBrush="{DynamicResource BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{DynamicResource ControlBackgroundBrush}" IsClickable="{TemplateBinding CanUserSort}" IsPressed="{TemplateBinding IsPressed}" IsHovered="{TemplateBinding IsMouseOver}" 
+                                                     Padding="5,0"
+                                                     SortDirection="{TemplateBinding SortDirection}" SeparatorBrush="{TemplateBinding SeparatorBrush}" SeparatorVisibility="{TemplateBinding SeparatorVisibility}" CornerRadius="{DynamicResource BigCornerRadius}">
+                            <ContentPresenter HorizontalAlignment="Center" TextBlock.FontWeight="Bold" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Themes:DataGridHeaderBorder>
                         <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource ColumnHeaderGripperStyle}"/>
                         <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Style="{StaticResource ColumnHeaderGripperStyle}"/>
