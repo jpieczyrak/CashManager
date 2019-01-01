@@ -61,6 +61,9 @@ namespace CashManager_MVVM.Features.Categories
             if (sourceCategory.Id == targetCategory.Id) return;
             if (sourceCategory.Parent == null) return;
 
+            //target can not be a (grand)children
+            if (Find(sourceCategory.Children.ToArray(), targetCategory.Id) != null) return;
+
             var sourceParentId = sourceCategory.Parent.Id;
 
             //swap
