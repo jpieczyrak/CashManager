@@ -214,7 +214,7 @@
                     </Button.Template>
                 </Button>
                 <DatePickerTextBox x:Name="PART_TextBox" Grid.Column="0" Focusable="{TemplateBinding Focusable}" HorizontalContentAlignment="Stretch" Grid.Row="0" VerticalContentAlignment="Stretch" Background="{DynamicResource ControlBackgroundBrush}" BorderBrush="{DynamicResource BorderBrush}" SelectionBrush="{DynamicResource HoverControlBackgroundBrush}" Foreground="{DynamicResource ForegroundBrush}" Template="{DynamicResource DatePickerTextBoxControlTemplate}"
-                                   Text="{Binding Path=SelectedDate, StringFormat='yyyy.MM.dd', RelativeSource={RelativeSource AncestorType={x:Type DatePicker}},FallbackValue='-- --'}"/>
+                                   Text="{Binding Path=SelectedDate, StringFormat='yyyy.MM.dd', RelativeSource={RelativeSource AncestorType={x:Type DatePicker}},FallbackValue='-- --'}" TextAlignment="Center"/>
                 <Grid x:Name="PART_DisabledVisual" Grid.ColumnSpan="2" Grid.Column="0" IsHitTestVisible="False" Opacity="0" Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
