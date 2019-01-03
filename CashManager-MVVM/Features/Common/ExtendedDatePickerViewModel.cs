@@ -7,21 +7,21 @@ namespace CashManager_MVVM.Features.Common
 {
     public class ExtendedDatePickerViewModel : ViewModelBase
     {
-        private DateTime _value = DateTime.Today;
-
-        public DateTime Value
-        {
-            get => _value;
-            set => Set(ref _value, value);
-        }
+        public ExtendedDatePicker Owner { get; set; }
 
         public RelayCommand SubtractDayCommand { get; }
+        public RelayCommand SubtractMonthCommand { get; }
+        public RelayCommand SubtractYearCommand { get; }
         public RelayCommand AddDayCommand { get; }
 
-        public ExtendedDatePickerViewModel()
+        public ExtendedDatePickerViewModel(ExtendedDatePicker extendedDatePicker)
         {
-            SubtractDayCommand = new RelayCommand(() => Value = Value.AddDays(-1));
-            AddDayCommand = new RelayCommand(() => Value = Value.AddDays(1));
+            Owner = extendedDatePicker;
+            SubtractDayCommand = new RelayCommand(() => Owner.SelectedValue = Owner.SelectedValue.AddDays(-1));
+            //SubtractDayCommand = new RelayCommand(() => Owner.SetValue(Owner.SelectedValue.AddDays(-1)));
+            SubtractMonthCommand = new RelayCommand(() => Owner.SelectedValue = Owner.SelectedValue.AddMonths(-1));
+            SubtractYearCommand = new RelayCommand(() => Owner.SelectedValue = Owner.SelectedValue.AddYears(-1));
+            AddDayCommand = new RelayCommand(() => Owner.SelectedValue = Owner.SelectedValue.AddDays(1));
         }
     }
 }

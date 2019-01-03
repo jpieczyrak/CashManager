@@ -138,8 +138,8 @@
       <DependentUpon>CategoryManagerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Categories\CategoryManagerViewModel.cs" />
-    <Compile Include="Features\Common\ExtendedDatePickerView.xaml.cs">
-      <DependentUpon>ExtendedDatePickerView.xaml</DependentUpon>
+    <Compile Include="Features\Common\ExtendedDatePicker.xaml.cs">
+      <DependentUpon>ExtendedDatePicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Common\ExtendedDatePickerViewModel.cs" />
     <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
@@ -256,7 +256,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Features\Common\ExtendedDatePickerView.xaml">
+    <Page Include="Features\Common\ExtendedDatePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

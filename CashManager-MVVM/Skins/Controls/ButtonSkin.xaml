@@ -42,5 +42,16 @@
         <Setter Property="Width" Value="120"/>
         <Setter Property="Padding" Value="1"/>
     </Style>
+    <ControlTemplate x:Key="LeftArrowButton" TargetType="{x:Type Button}">
+        <Grid>
+            <Path x:Name="path" Data="M17.470562,0.5 L17.470562,5.7881355 5.7881355,17.470563 17.470562,29.15299 17.470562,34.441125 0.5,17.470563 z" Fill="{DynamicResource ControlBackgroundBrush}" HorizontalAlignment="Center" Height="35" Margin="0" Stretch="Fill" Stroke="{DynamicResource BorderBrush}" VerticalAlignment="Center" Width="18"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Fill" TargetName="path" Value="{DynamicResource HoverControlBackgroundBrush}"/>
+                <Setter Property="Stroke" TargetName="path" Value="{DynamicResource HoverBorderAccentBrush}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 
 </ResourceDictionary>
