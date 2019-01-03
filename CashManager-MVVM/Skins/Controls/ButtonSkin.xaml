@@ -48,10 +48,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
-                        <Path x:Name="path" Data="M18.847268,0.5 C19.098996,0.5000007 19.350726,0.57191916 19.542788,0.7157568 19.542788,0.7157568 19.542788,2.6110778 19.542788,5.335602 L19.542788,5.6901243 10.123873,12.175176 C9.7397479,12.462851 9.7397479,12.929265 10.123873,13.21694 L19.542788,19.701991 19.542788,20.056514 C19.542788,22.781038 19.542788,24.67636 19.542788,24.67636 19.158663,24.964035 18.535873,24.964035 18.151748,24.67636 L0.78809313,13.21694 C0.40396834,12.929265 0.40396834,12.462851 0.78809313,12.175175 L18.151748,0.7157568 C18.34381,0.57191916 18.595539,0.5000007 18.847268,0.5 z" 
+                        <Path x:Name="path" 
+                              Data="M18.847268,0.5 C19.098996,0.5000007 19.350726,0.57191916 19.542788,0.7157568 19.542788,0.7157568 19.542788,2.6110778 19.542788,5.335602 L19.542788,5.6901243 10.123873,12.175176 C9.7397479,12.462851 9.7397479,12.929265 10.123873,13.21694 L19.542788,19.701991 19.542788,20.056514 C19.542788,22.781038 19.542788,24.67636 19.542788,24.67636 19.158663,24.964035 18.535873,24.964035 18.151748,24.67636 L0.78809313,13.21694 C0.40396834,12.929265 0.40396834,12.462851 0.78809313,12.175175 L18.151748,0.7157568 C18.34381,0.57191916 18.595539,0.5000007 18.847268,0.5 z" 
                               Fill="{DynamicResource ControlBackgroundBrush}" 
                               HorizontalAlignment="Stretch" Margin="0" Stretch="Uniform" 
-                              Stroke="{DynamicResource BorderBrush}" VerticalAlignment="Stretch" Width="20" Height="25"/>
+                              Stroke="{DynamicResource BorderBrush}" VerticalAlignment="Stretch" 
+                              Width="20" Height="25"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -70,16 +72,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
-                        <Path x:Name="path" Data="M17.470562,0.5 L17.470562,5.7881355 5.7881355,17.470563 17.470562,29.15299 17.470562,34.441125 0.5,17.470563 z" Fill="{DynamicResource ControlBackgroundBrush}" HorizontalAlignment="Center" Height="35" Margin="0" Stretch="Fill" Stroke="{DynamicResource BorderBrush}" VerticalAlignment="Center" Width="18" RenderTransformOrigin="0.5,0.5">
-                            <Path.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform Angle="180"/>
-                                    <TranslateTransform/>
-                                </TransformGroup>
-                            </Path.RenderTransform>
-                        </Path>
+                        <Path x:Name="path" 
+                              Data="M1.1843393,0.5 C1.4320213,0.5 1.6797033,0.57076263 1.8686785,0.7122879 L18.953202,11.987492 C19.331153,12.270542 19.331153,12.729458 18.953202,13.01251 L1.8686785,24.287711 C1.6797038,24.429237 1.4320215,24.499999 1.1843393,24.5 0.93665785,24.499999 0.68897456,24.429237 0.50000012,24.287711 0.5,24.287711 0.5,22.422859 0.50000012,19.742133 L0.50000012,19.39331 9.7675011,13.012509 C10.145451,12.729458 10.145451,12.270542 9.7675011,11.987492 L0.50000012,5.6066914 0.50000012,5.2578678 C0.5,2.5771418 0.5,0.7122879 0.50000012,0.7122879 0.68897498,0.57076263 0.93665707,0.5 1.1843393,0.5 z" 
+                              Fill="{DynamicResource ControlBackgroundBrush}" 
+                              HorizontalAlignment="Stretch" Margin="0" Stretch="Uniform" 
+                              Stroke="{DynamicResource BorderBrush}" VerticalAlignment="Stretch" 
+                              Width="20" Height="25"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
