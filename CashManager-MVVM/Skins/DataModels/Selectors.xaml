@@ -79,8 +79,8 @@
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
                 </Grid>
 
-                <DatePicker Grid.Row="2" Grid.Column="0" Margin="5" FirstDayOfWeek="Monday" SelectedDate="{Binding From}" />
-                <DatePicker Grid.Row="2" Grid.Column="1" Margin="5" FirstDayOfWeek="Monday" SelectedDate="{Binding To}" />
+                <common:ExtendedDatePicker Grid.Row="2" Grid.Column="0" Margin="5" SelectedValue="{Binding From}" />
+                <common:ExtendedDatePicker Grid.Row="2" Grid.Column="1" Margin="5" SelectedValue="{Binding To}" />
             </Grid>
         </Border>
     </DataTemplate>

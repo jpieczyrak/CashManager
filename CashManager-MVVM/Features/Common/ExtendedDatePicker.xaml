@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:filters="clr-namespace:CashManager_MVVM.Model.Selectors"
-             xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="200">
 
@@ -16,13 +14,13 @@
         </Grid.ColumnDefinitions>
 
         <Button Grid.Column="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractYearCommand, ElementName=exDatePicker}" HorizontalAlignment="Left"/>
-        <Button Grid.Column="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractMonthCommand, ElementName=exDatePicker}" Margin="15,0,0,0" HorizontalAlignment="Left"/>
-        <Button Grid.Column="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractDayCommand, ElementName=exDatePicker}" Margin="30,0,0,0" HorizontalAlignment="Left"/>
+        <Button Grid.Column="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractMonthCommand, ElementName=exDatePicker}" Margin="13,0,0,0" HorizontalAlignment="Left"/>
+        <Button Grid.Column="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractDayCommand, ElementName=exDatePicker}" Margin="26,0,0,0" HorizontalAlignment="Left"/>
 
-        <DatePicker Grid.Column="1" SelectedDate="{Binding SelectedValue, ElementName=exDatePicker}" FirstDayOfWeek="Monday" MinWidth="85" Margin="5,0"/>
+        <DatePicker Grid.Column="1" SelectedDate="{Binding SelectedValue, ElementName=exDatePicker}" FirstDayOfWeek="Monday" MinWidth="85" Margin="2,0"/>
 
         <Button Grid.Column="2" Style="{DynamicResource RightArrowButtonStyle}" Command="{Binding ViewModel.AddDayCommand, ElementName=exDatePicker}" HorizontalAlignment="Left"/>
-        <Button Grid.Column="2" Style="{DynamicResource RightArrowButtonStyle}" Command="{Binding ViewModel.AddMonthCommand, ElementName=exDatePicker}" Margin="15,0,0,0" HorizontalAlignment="Left"/>
-        <Button Grid.Column="2" Style="{DynamicResource RightArrowButtonStyle}" Command="{Binding ViewModel.AddYearCommand, ElementName=exDatePicker}" Margin="30,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button Grid.Column="2" Style="{DynamicResource RightArrowButtonStyle}" Command="{Binding ViewModel.AddMonthCommand, ElementName=exDatePicker}" Margin="13,0,0,0" HorizontalAlignment="Left"/>
+        <Button Grid.Column="2" Style="{DynamicResource RightArrowButtonStyle}" Command="{Binding ViewModel.AddYearCommand, ElementName=exDatePicker}" Margin="26,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>
