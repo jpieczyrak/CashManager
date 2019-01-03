@@ -2,8 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 
     <Style TargetType="{x:Type Button}">
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
-
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -35,43 +33,63 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="IsCancel" Value="False"/>
         <Setter Property="IsEnabled" Value="True"/>
         <Setter Property="ForceCursor" Value="False"/>
         <Setter Property="Width" Value="120"/>
         <Setter Property="Padding" Value="1"/>
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
     </Style>
-    <ControlTemplate x:Key="LeftArrowButton" TargetType="{x:Type Button}">
-        <Grid>
-            <Path x:Name="path" Data="M17.470562,0.5 L17.470562,5.7881355 5.7881355,17.470563 17.470562,29.15299 17.470562,34.441125 0.5,17.470563 z" Fill="{DynamicResource ControlBackgroundBrush}" HorizontalAlignment="Center" Height="35" Margin="0" Stretch="Fill" Stroke="{DynamicResource BorderBrush}" VerticalAlignment="Center" Width="18"/>
-        </Grid>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Fill" TargetName="path" Value="{DynamicResource HoverControlBackgroundBrush}"/>
-                <Setter Property="Stroke" TargetName="path" Value="{DynamicResource HoverBorderAccentBrush}"/>
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-    <ControlTemplate x:Key="RightArrowButton" TargetType="{x:Type Button}">
-        <Grid>
-            <Path x:Name="path" Data="M17.470562,0.5 L17.470562,5.7881355 5.7881355,17.470563 17.470562,29.15299 17.470562,34.441125 0.5,17.470563 z" Fill="{DynamicResource ControlBackgroundBrush}" HorizontalAlignment="Center" Height="35" Margin="0" Stretch="Fill" Stroke="{DynamicResource BorderBrush}" VerticalAlignment="Center" Width="18" RenderTransformOrigin="0.5,0.5">
-                <Path.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="180"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Path.RenderTransform>
-            </Path>
-        </Grid>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Fill" TargetName="path" Value="{DynamicResource HoverControlBackgroundBrush}"/>
-                <Setter Property="Stroke" TargetName="path" Value="{DynamicResource HoverBorderAccentBrush}"/>
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}" x:Key="LeftArrowButtonStyle">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Path x:Name="path" Data="M18.847268,0.5 C19.098996,0.5000007 19.350726,0.57191916 19.542788,0.7157568 19.542788,0.7157568 19.542788,2.6110778 19.542788,5.335602 L19.542788,5.6901243 10.123873,12.175176 C9.7397479,12.462851 9.7397479,12.929265 10.123873,13.21694 L19.542788,19.701991 19.542788,20.056514 C19.542788,22.781038 19.542788,24.67636 19.542788,24.67636 19.158663,24.964035 18.535873,24.964035 18.151748,24.67636 L0.78809313,13.21694 C0.40396834,12.929265 0.40396834,12.462851 0.78809313,12.175175 L18.151748,0.7157568 C18.34381,0.57191916 18.595539,0.5000007 18.847268,0.5 z" 
+                              Fill="{DynamicResource ControlBackgroundBrush}" 
+                              HorizontalAlignment="Stretch" Margin="0" Stretch="Uniform" 
+                              Stroke="{DynamicResource BorderBrush}" VerticalAlignment="Stretch" Width="20" Height="25"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Fill" TargetName="path" Value="{DynamicResource HoverControlBackgroundBrush}"/>
+                            <Setter Property="Stroke" TargetName="path" Value="{DynamicResource HoverBorderAccentBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Height" Value="25"/>
+    </Style>
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource LeftArrowButtonStyle}" x:Key="RightArrowButtonStyle">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Path x:Name="path" Data="M17.470562,0.5 L17.470562,5.7881355 5.7881355,17.470563 17.470562,29.15299 17.470562,34.441125 0.5,17.470563 z" Fill="{DynamicResource ControlBackgroundBrush}" HorizontalAlignment="Center" Height="35" Margin="0" Stretch="Fill" Stroke="{DynamicResource BorderBrush}" VerticalAlignment="Center" Width="18" RenderTransformOrigin="0.5,0.5">
+                            <Path.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="180"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Fill" TargetName="path" Value="{DynamicResource HoverControlBackgroundBrush}"/>
+                            <Setter Property="Stroke" TargetName="path" Value="{DynamicResource HoverBorderAccentBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>
