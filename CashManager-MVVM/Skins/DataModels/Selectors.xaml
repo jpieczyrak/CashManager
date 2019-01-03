@@ -26,7 +26,8 @@
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
                 </Grid>
 
-                <common:ExtendedDatePicker Grid.Row="1" Margin="5" SelectedValue="{Binding Value, Mode=TwoWay}" />
+                <!-- when overriding extended date picker context - you dont have access to DateSelector.Value anymore! -->
+                <common:ExtendedDatePicker Grid.Row="1" Margin="5" SelectedValue="{Binding Value}" />
             </Grid>
         </Border>
     </DataTemplate>
