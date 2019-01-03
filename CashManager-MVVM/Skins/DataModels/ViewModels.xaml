@@ -61,5 +61,8 @@
     <DataTemplate DataType="{x:Type categories:CategoryPickerViewModel}">
         <categories:CategoryPickerView />
     </DataTemplate>
+    <DataTemplate DataType="{x:Type common:ExtendedDatePickerViewModel}">
+        <common:ExtendedDatePickerView />
+    </DataTemplate>
 
 </ResourceDictionary>
