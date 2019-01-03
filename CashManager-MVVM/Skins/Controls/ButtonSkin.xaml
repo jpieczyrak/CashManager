@@ -43,6 +43,45 @@
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
     </Style>
 
+    <Style TargetType="{x:Type Button}" x:Key="SimpleButtonStyle">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                            BorderBrush="{DynamicResource DisabledBorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{DynamicResource ControlBackgroundBrush}" 
+                            SnapsToDevicePixels="true"
+                            ClipToBounds="True">
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource HoverControlBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BorderBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource HoverControlBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BorderBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource DisabledControlBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource DisabledBorderBrush}"/>
+                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource DisabledForegroundBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="MinWidth" Value="10"/>
+        <Setter Property="Height" Value="5"/>
+        <Setter Property="Margin" Value="2,0"/>
+    </Style>
+
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}" x:Key="LeftArrowButtonStyle">
         <Setter Property="Template">
             <Setter.Value>
