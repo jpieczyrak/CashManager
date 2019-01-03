@@ -11,7 +11,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DatePicker Grid.Row="0" SelectedDate="{Binding SelectedValue, StringFormat='yyyy.MM.dd', ElementName=exDatePicker}" FirstDayOfWeek="Monday"/>
+        <DatePicker Grid.Row="0" SelectedDate="{Binding SelectedValue, ElementName=exDatePicker}" FirstDayOfWeek="Monday"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
