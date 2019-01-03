@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              MinWidth="100"
              d:DataContext="{d:DesignInstance Type=local:StockSummaryViewModel, IsDesignTimeCreatable=True}">
-    <Grid>
+    <Grid HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
@@ -16,7 +16,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ItemsControl Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Stocks}" >
             <ItemsControl.ItemTemplate>
