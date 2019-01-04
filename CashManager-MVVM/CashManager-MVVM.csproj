@@ -247,7 +247,6 @@
     <Compile Include="Skins\SkinShapes.cs" />
     <Compile Include="Utils\DbFiller.cs" />
     <Compile Include="TrulyObservableCollection.cs" />
-    <Compile Include="Utils\TreeViewHelper.cs" />
     <Page Include="Features\Balance\CustomBalanceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
