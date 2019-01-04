@@ -1,0 +1,29 @@
+﻿<Window x:Class="CashManager_MVVM.Features.Main.Init.InitWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:CashManager_MVVM.Features.Main.Init"
+        mc:Ignorable="d"
+        d:DesignHeight="450" d:DesignWidth="800"
+        Title="Initialization"
+        d:DataContext="{d:DesignInstance Type=local:InitViewModel, IsDesignTimeCreatable=True}">
+    <Grid Background="{DynamicResource BackgroundColorBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Row="0">
+            <TextBlock Margin="5" Text="Password" />
+            <TextBox Margin="5" Height="25" Text="{Binding Password}" ToolTip="Optional" />
+
+            <CheckBox Margin="5" Content="Generate default categories" IsChecked="{Binding GenerateCategories}" />
+            <CheckBox Margin="5" Content="Generate default types" IsChecked="{Binding GenerateTypes}" />
+            <CheckBox Margin="5" Content="Generate default stocks" IsChecked="{Binding GenerateStocks}" />
+            <CheckBox Margin="5" Content="Generate default tags" IsChecked="{Binding GenerateTags}" />
+            <CheckBox Margin="5" Content="Generate sample transactions" IsChecked="{Binding GenerateTransactions}" />
+
+        </StackPanel>
+        <Button Grid.Row="1" Margin="5" Content="Start" Command="{Binding StartCommand}" />
+    </Grid>
+</Window>

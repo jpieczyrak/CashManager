@@ -145,6 +145,10 @@
     <Compile Include="Features\Main\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Features\Main\Init\InitWindow.xaml.cs">
+      <DependentUpon>InitWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Main\Init\InitViewModel.cs" />
     <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
       <DependentUpon>CategoriesPlotView.xaml</DependentUpon>
     </Compile>
@@ -248,7 +252,6 @@
     <Compile Include="Skins\ShapesResourceDictionary.cs" />
     <Compile Include="Skins\SkinColors.cs" />
     <Compile Include="Skins\SkinShapes.cs" />
-    <Compile Include="Utils\DbFiller.cs" />
     <Compile Include="TrulyObservableCollection.cs" />
     <Page Include="Features\Balance\CustomBalanceView.xaml">
       <SubType>Designer</SubType>
@@ -267,6 +270,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Features\Main\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Main\Init\InitWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -8,7 +8,7 @@
     x:Class="CashManager_MVVM.Features.Main.MainWindow"
     mc:Ignorable="d ignore"
     Width="1350" Height="768"
-    Title="Cash Manager">
+    Title="Cash Manager" Closed="OnClosed">
 
     <Grid Background="{DynamicResource BackgroundColorBrush}">
         <Grid.ColumnDefinitions>

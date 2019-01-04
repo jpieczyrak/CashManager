@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ignore="http://www.galasoft.ch/ignore"
              xmlns:skins="clr-namespace:CashManager_MVVM.Skins"
-             mc:Ignorable="d ignore">
+             mc:Ignorable="d ignore"
+             ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

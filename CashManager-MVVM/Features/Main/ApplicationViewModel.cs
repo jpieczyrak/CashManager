@@ -3,7 +3,6 @@ using System.Linq;
 
 using CashManager_MVVM.Features.Balance;
 using CashManager_MVVM.Features.Categories;
-using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.MassReplacer;
 using CashManager_MVVM.Features.Parsers;
 using CashManager_MVVM.Features.Plots;

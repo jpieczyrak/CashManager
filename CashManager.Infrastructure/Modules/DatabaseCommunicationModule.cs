@@ -21,13 +21,13 @@ namespace CashManager.Infrastructure.Modules
 {
     public class DatabaseCommunicationModule : Module
     {
+        public const string DB_KEY = "connectionString";
+
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-
-            string dbPath = "results.litedb"; //todo: from settings
-            EnsureDirectoryExists(dbPath);
-            builder.Register(x => new LiteRepository($"Filename={dbPath};Journal=true"));
+            
+            builder.Register(x => new LiteRepository(x.ResolveKeyed<string>(DB_KEY)));
             LiteDbMappingManager.SetMappings();
 
             RegisterCommandHandlers(builder);
@@ -86,19 +86,6 @@ namespace CashManager.Infrastructure.Modules
                 var cc = ctx.Resolve<IComponentContext>();
                 return dbType => cc.ResolveKeyed<LiteRepository>(dbType);
             });
-        }
-
-        /// <summary>
-        /// Checks if filepath directory exists - if not - creates one.
-        /// </summary>
-        /// <param name="value">Filepath to check if parent dir exists</param>
-        private static void EnsureDirectoryExists(string value)
-        {
-            var dir = Path.GetDirectoryName(value);
-            if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
-            {
-                Directory.CreateDirectory(dir);
-            }
         }
     }
 }
