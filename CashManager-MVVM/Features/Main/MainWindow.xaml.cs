@@ -2,6 +2,8 @@
 using System.Reflection;
 using System.Windows;
 
+using CashManager_MVVM.Properties;
+
 namespace CashManager_MVVM.Features.Main
 {
     public partial class MainWindow : Window
@@ -15,6 +17,7 @@ namespace CashManager_MVVM.Features.Main
 
         private void OnClosed(object sender, EventArgs e)
         {
+            Settings.Default.Save();
             Application.Current.Shutdown();
         }
     }
