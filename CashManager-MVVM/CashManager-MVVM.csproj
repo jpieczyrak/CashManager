@@ -142,6 +142,9 @@
       <DependentUpon>ExtendedDatePicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Common\ExtendedDatePickerViewModel.cs" />
+    <Compile Include="Features\Main\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
       <DependentUpon>CategoriesPlotView.xaml</DependentUpon>
     </Compile>
@@ -262,6 +265,10 @@
     <Page Include="Features\Common\MultiCombobox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Main\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\Main\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
