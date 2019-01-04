@@ -7,7 +7,27 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="600"
              d:DataContext="{d:DesignInstance Type=parsers:ParserViewModel, IsDesignTimeCreatable=True}">
-    <Grid>
+    <UserControl.Resources>
+        <Storyboard x:Key="Expand">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.MaxHeight)" Storyboard.TargetName="textBox">
+                <EasingDoubleKeyFrame KeyTime="0" Value="150"/>
+                <EasingDoubleKeyFrame x:Name="easingDoubleKeyFrame" KeyTime="0:0:0.2" Value="500">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="textBox">
+            <BeginStoryboard x:Name="Expand_BeginStoryboard" Storyboard="{StaticResource Expand}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="textBox">
+            <StopStoryboard BeginStoryboardName="Expand_BeginStoryboard"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <Grid x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -24,7 +44,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Margin="5" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" 
+        <TextBox x:Name="textBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Margin="5" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" 
                  MaxHeight="150" MinHeight="60" TextWrapping="WrapWithOverflow" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
 
         <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Text="Parser"/>
