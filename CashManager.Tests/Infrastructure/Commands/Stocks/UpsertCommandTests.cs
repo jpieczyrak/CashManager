@@ -17,7 +17,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Stocks
             //given
             var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new UpsertStocksCommandHandler(repository);
-            var command = new UpsertStocksCommand(null);
+            var command = new UpsertStocksCommand((Stock) null);
 
             //when
             handler.Execute(command);
