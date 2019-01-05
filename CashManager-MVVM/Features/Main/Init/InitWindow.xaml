@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical" Grid.Row="0">
             <TextBlock Margin="5" Text="Password" />
-            <TextBox Margin="5" Height="25" Text="{Binding Password}" ToolTip="Optional" />
+            <PasswordBox Margin="5" Height="25"  ToolTip="Optional" PasswordChanged="PasswordBox_PasswordChanged" />
 
             <CheckBox Margin="5" Content="Generate default categories" IsChecked="{Binding GenerateCategories}" />
             <CheckBox Margin="5" Content="Generate default types" IsChecked="{Binding GenerateTypes}" />

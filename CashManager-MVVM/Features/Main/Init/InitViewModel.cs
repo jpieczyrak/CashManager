@@ -60,6 +60,7 @@ namespace CashManager_MVVM.Features.Main.Init
                     GenerateTags = true;
                     GenerateTypes = true;
                 }
+
                 Set(ref _generateTransactions, value);
             }
         }
@@ -94,19 +95,6 @@ namespace CashManager_MVVM.Features.Main.Init
             _closeWindowAction = closeWindowAction;
         }
 
-        private void ExecuteStartCommand()
-        {
-            bool passwordExists = !string.IsNullOrWhiteSpace(Password);
-            Settings.Default.IsPasswordNeeded = passwordExists;
-
-            string connectionString = $"Filename={_databaseFilepath};Journal=true";
-            if (passwordExists) connectionString += $";password={Password.Encrypt()}";
-
-            _builder.Register(x => connectionString).Keyed<string>(DatabaseCommunicationModule.DB_KEY);
-
-            _closeWindowAction.Invoke();
-        }
-
         public void GenerateData(ICommandDispatcher commandDispatcher)
         {
 #if DEBUG
@@ -129,6 +117,19 @@ namespace CashManager_MVVM.Features.Main.Init
 
             var transactions = defaultDataProvider.GetTransactions(stocks, categories, types, tags);
             if (GenerateTransactions) commandDispatcher.Execute(new UpsertTransactionsCommand(transactions));
+        }
+
+        private void ExecuteStartCommand()
+        {
+            bool passwordExists = !string.IsNullOrWhiteSpace(Password);
+            Settings.Default.IsPasswordNeeded = passwordExists;
+
+            string connectionString = $"Filename={_databaseFilepath};Journal=true";
+            if (passwordExists) connectionString += $";password={Password.Encrypt()}";
+
+            _builder.Register(x => connectionString).Keyed<string>(DatabaseCommunicationModule.DB_KEY);
+
+            _closeWindowAction.Invoke();
         }
     }
 }
