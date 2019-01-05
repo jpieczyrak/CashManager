@@ -9,7 +9,8 @@
         PositionTitle,
         Value,
         UserStock,
-        Balance,
-        Currency
+        Currency,
+
+        Balance = int.MaxValue
     }
 }

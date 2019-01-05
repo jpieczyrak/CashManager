@@ -16,9 +16,9 @@ namespace CashManager.Logic.Parsers.Custom
 
         public CustomCsvParser(Rule[] rules, Stock[] stocks = null)
         {
-            _rules = rules;
+            _rules = rules.OrderBy(x => x.Property).ToArray();
             _stocks = stocks;
-            Balance = new Balance();
+            Balance = new Balance { LastEditDate = DateTime.MinValue };
         }
 
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome,
@@ -76,10 +76,14 @@ namespace CashManager.Logic.Parsers.Custom
                     case TransactionField.BookDate:
                         if (rule.IsOptional && string.IsNullOrWhiteSpace(stringValue)) transaction.BookDate = DateTime.Today;
                         else transaction.BookDate = DateTime.Parse(stringValue);
+                        if (transaction.TransactionSourceCreationDate == DateTime.MinValue)
+                            transaction.TransactionSourceCreationDate = transaction.BookDate;
                         break;
                     case TransactionField.CreationDate:
                         if (rule.IsOptional && string.IsNullOrWhiteSpace(stringValue)) transaction.TransactionSourceCreationDate = DateTime.Today;
                         else transaction.TransactionSourceCreationDate = DateTime.Parse(stringValue);
+                        if (transaction.BookDate == DateTime.MinValue)
+                            transaction.BookDate = transaction.TransactionSourceCreationDate;
                         break;
                     case TransactionField.PositionTitle:
                         transaction.Positions[0].Title = stringValue;
@@ -105,8 +109,11 @@ namespace CashManager.Logic.Parsers.Custom
                         }
                         break;
                     case TransactionField.Balance:
-                        Balance.Value = decimal.Parse(stringValue);
-                        //todo: get date etc
+                        if (Balance.LastEditDate < transaction.TransactionSourceCreationDate)
+                        {
+                            Balance.Value = decimal.Parse(stringValue);
+                            Balance.LastEditDate = transaction.TransactionSourceCreationDate;
+                        }
                         break;
                     case TransactionField.Currency:
                         //todo:
