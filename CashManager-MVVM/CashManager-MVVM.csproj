@@ -149,6 +149,9 @@
       <DependentUpon>InitWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Main\Init\InitViewModel.cs" />
+    <Compile Include="Features\Main\PasswordPromptWindow.xaml.cs">
+      <DependentUpon>PasswordPromptWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
       <DependentUpon>CategoriesPlotView.xaml</DependentUpon>
     </Compile>
@@ -289,6 +292,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Features\Main\PasswordPromptWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Features\Parsers\ParserView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

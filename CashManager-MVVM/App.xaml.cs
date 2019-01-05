@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +13,7 @@ using CashManager_MVVM.Configuration.DI;
 using CashManager_MVVM.Configuration.Mapping;
 using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Features.Main.Init;
+using CashManager_MVVM.Properties;
 using CashManager_MVVM.Skins;
 
 using GalaSoft.MvvmLight.Threading;
@@ -59,8 +61,14 @@ namespace CashManager_MVVM
             InitWindow init = null;
             if (File.Exists(DatabaseFilepath))
             {
-                //todo: load connection string from settings & ask for password if needed
                 string connectionString = $"Filename={DatabaseFilepath};Journal=true";
+                if (Settings.Default.IsPasswordNeeded)
+                {
+                    var passwordWindow = new PasswordPromptWindow();
+                    await ShowWindow(passwordWindow);
+                    string password = passwordWindow.PasswordText;
+                    connectionString += $";password={password}";
+                }
                 builder.Register(x => connectionString).Keyed<string>(DatabaseCommunicationModule.DB_KEY);
             }
             else
@@ -69,12 +77,19 @@ namespace CashManager_MVVM
                 await ShowWindow(init);
             }
 
-            //it could be using, but then there is problem with resolving func factory... anyway it will die with app.
-            var container = builder.Build();
+            try
+            {
+                //it could be using, but then there is problem with resolving func factory... anyway it will die with app.
+                var container = builder.Build();
 
-            if (init?.DataContext is InitViewModel vm) vm.GenerateData(container.Resolve<ICommandDispatcher>());
+                if (init?.DataContext is InitViewModel vm) vm.GenerateData(container.Resolve<ICommandDispatcher>());
 
-            container.Resolve<MainWindow>().Show();
+                container.Resolve<MainWindow>().Show();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
 
         #endregion
