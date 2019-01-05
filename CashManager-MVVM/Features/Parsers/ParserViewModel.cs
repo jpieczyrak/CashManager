@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Windows;
 
 using AutoMapper;
 
@@ -20,13 +23,15 @@ using CashManager_MVVM.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
+using GongSolutions.Wpf.DragDrop;
+
 using DtoStock = CashManager.Data.DTO.Stock;
 using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
 
 namespace CashManager_MVVM.Features.Parsers
 {
-    public class ParserViewModel : ViewModelBase, IUpdateable
+    public class ParserViewModel : ViewModelBase, IUpdateable, IDropTarget
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
@@ -183,6 +188,35 @@ namespace CashManager_MVVM.Features.Parsers
                                       .ToArray();
             DefaultIncomeTransactionType = IncomeTransactionTypes.FirstOrDefault();
             DefaultOutcomeTransactionType = OutcomeTransactionTypes.FirstOrDefault();
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            dropInfo.Effects = GetProperFilepaths(dropInfo).Any()
+                                   ? DragDropEffects.Copy
+                                   : DragDropEffects.None;
+        }
+
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            string input = string.Empty;
+            var files = GetProperFilepaths(dropInfo);
+            foreach (string file in files)
+                if (File.Exists(file))
+                    input += File.ReadAllText(file, Encoding.Default);
+
+            InputText = input;
+        }
+
+        private string[] GetProperFilepaths(IDropInfo dropInfo)
+        {
+            string[] allowedExtensions = { ".csv", ".txt" };
+            return ((DataObject)dropInfo.Data).GetFileDropList()
+                                              .OfType<string>()
+                                              .Where(x => !string.IsNullOrWhiteSpace(x))
+                                              .Where(x => allowedExtensions.Contains(Path.GetExtension(x).ToLower()))
+                                              .ToArray();
         }
     }
 }

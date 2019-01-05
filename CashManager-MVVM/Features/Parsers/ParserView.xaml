@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:parsers="clr-namespace:CashManager_MVVM.Features.Parsers"
+             xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="600"
              d:DataContext="{d:DesignInstance Type=parsers:ParserViewModel, IsDesignTimeCreatable=True}">
@@ -46,7 +47,9 @@
         </Grid.ColumnDefinitions>
 
         <TextBox x:Name="textBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Margin="5" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" 
-                 MaxHeight="150" MinHeight="60" TextWrapping="WrapWithOverflow" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+                 MaxHeight="150" MinHeight="60" TextWrapping="WrapWithOverflow" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" 
+                 dd:DragDrop.IsDropTarget="True" 
+                 dd:DragDrop.DropHandler="{Binding}"/>
 
         <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Text="Parser"/>
         <ComboBox Grid.Row="2" Grid.Column="0" Margin="5" ItemsSource="{Binding Parsers}" 
