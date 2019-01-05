@@ -40,6 +40,21 @@ namespace CashManager.Tests.Parsers
         }
 
         [Fact]
+        public void Parse_NoRulesNoneEmptyInput_Empty()
+        {
+            //given
+            var rules = new Rule[0];
+            var parser = new CustomCsvParser(rules);
+            var input = NONE_EMPTY_ING_INPUT;
+
+            //when
+            var result = parser.Parse(input, null, null, null, null);
+
+            //then
+            Assert.Empty(result);
+        }
+
+        [Fact]
         public void Parse_SomeRulesNoneEmptyInput_Empty()
         {
             //given
