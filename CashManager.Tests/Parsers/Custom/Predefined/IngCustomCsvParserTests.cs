@@ -1,4 +1,9 @@
-﻿using CashManager.Logic.Parsers.Custom.Predefined;
+﻿using System;
+using System.Collections.Generic;
+
+using CashManager.Data.DTO;
+using CashManager.Data.Extensions;
+using CashManager.Logic.Parsers.Custom.Predefined;
 
 using Xunit;
 
@@ -28,7 +33,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
         }
 
         [Fact]
-        public void Parse_NoneEmptyInput_Empty()
+        public void Parse_NoneEmptyInput_NonEmpty()
         {
             //given
             var parser = new CustomCsvParserFactory().Create(PredefinedCsvParsers.Ing);
@@ -40,6 +45,115 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.NotEmpty(result);
             Assert.Equal(7, result.Length);
+        }
+
+        [Fact]
+        public void Parse_SingleIncomeTransaction_Matching()
+        {
+            //given
+            var defaultIncome = new TransactionType { Name = "in", Income = true };
+            var defaultOutcome = new TransactionType { Name = "out", Outcome = true };
+            Stock[] stocks = 
+            {
+                new Stock { Name = "fake one", IsUserStock = true }, 
+                new Stock { Name = "K@rta wirtualna ING VISA", IsUserStock = true }, 
+                new Stock { Name = "external" }, 
+            };
+            var parser = new CustomCsvParserFactory(stocks).Create(PredefinedCsvParsers.Ing);
+            var input = "\"2018-12-20\";\"2018-12-20\";\" imie nazw, ulica 1/2, 11-222 miasto \";\" Na legimi\";\'123123123123 \';\"ING Bank Śląski S.A.\";\"zlecenie stałe\";\'201835497208742225\';39,99;PLN;;;;;\"K@rta wirtualna ING VISA\";145,21;PLN;;;;";
+
+            var guid = input.Replace(";", string.Empty).GenerateGuid();
+            var transaction = new Transaction(guid)
+            {
+                Title = "Na legimi",
+                Note = "imie nazw, ulica 1/2, 11-222 miasto",
+                Positions = new List<Position> { new Position("zlecenie stałe", 39.99m) },
+                BookDate = new DateTime(2018, 12, 20),
+                TransactionSourceCreationDate = new DateTime(2018, 12, 20),
+                UserStock = stocks[1],
+                ExternalStock = stocks[2],
+                Type = defaultIncome
+            };
+
+            //when
+            var result = parser.Parse(input, stocks[0], stocks[2], defaultOutcome, defaultIncome);
+
+            //then
+            Assert.Single(result);
+            ValidateTransaction(result[0], transaction);
+        }
+
+        [Fact]
+        public void Parse_SingleOutcomeTransaction_Matching()
+        {
+            //given
+            var defaultIncome = new TransactionType { Name = "in", Income = true };
+            var defaultOutcome = new TransactionType { Name = "out", Outcome = true };
+            Stock[] stocks = 
+            {
+                new Stock { Name = "fake one", IsUserStock = true }, 
+                new Stock { Name = "K@rta wirtualna ING VISA", IsUserStock = true }, 
+                new Stock { Name = "external" }, 
+            };
+            var parser = new CustomCsvParserFactory(stocks).Create(PredefinedCsvParsers.Ing);
+            var input = "\"2018-12-20\";\"2018-12-22\";\" imie nazw, ulica 1/2, 11-222 miasto \";\" Na legimi\";\'123123123123 \';\"ING Bank Śląski S.A.\";\"zlecenie stałe\";\'201835497208742225\';-39,99;PLN;;;;;\"K@rta wirtualna ING VISA\";145,21;PLN;;;;";
+
+            var guid = input.Replace(";", string.Empty).GenerateGuid();
+            var transaction = new Transaction(guid)
+            {
+                Title = "Na legimi",
+                Note = "imie nazw, ulica 1/2, 11-222 miasto",
+                Positions = new List<Position> { new Position("zlecenie stałe", 39.99m) },
+                BookDate = new DateTime(2018, 12, 22),
+                TransactionSourceCreationDate = new DateTime(2018, 12, 20),
+                UserStock = stocks[1],
+                ExternalStock = stocks[2],
+                Type = defaultOutcome
+            };
+
+            //when
+            var result = parser.Parse(input, stocks[0], stocks[2], defaultOutcome, defaultIncome);
+
+            //then
+            Assert.Single(result);
+            ValidateTransaction(result[0], transaction);
+        }
+
+        [Fact]
+        public void Parse_SingleOutcomeTransactionWithoutMatchingStock_Matching()
+        {
+            //given
+            var defaultIncome = new TransactionType { Name = "in", Income = true };
+            var defaultOutcome = new TransactionType { Name = "out", Outcome = true };
+            Stock[] stocks = 
+            {
+                new Stock { Name = "fake one", IsUserStock = true }, 
+                new Stock { Name = "none matching", IsUserStock = true }, 
+                new Stock { Name = "external" }, 
+            };
+            var parser = new CustomCsvParserFactory(stocks).Create(PredefinedCsvParsers.Ing);
+            var input = "\"2018-12-20\";\"2018-12-22\";\" imie nazw, ulica 1/2, 11-222 miasto \";\" Na legimi\";\'123123123123 \';\"ING Bank Śląski S.A.\";\"zlecenie stałe\";\'201835497208742225\';-39,99;PLN;;;;;\"K@rta wirtualna ING VISA\";145,21;PLN;;;;";
+
+            var defaultUserStock = stocks[0];
+            var guid = input.Replace(";", string.Empty).GenerateGuid();
+            var transaction = new Transaction(guid)
+            {
+                Title = "Na legimi",
+                Note = "imie nazw, ulica 1/2, 11-222 miasto",
+                Positions = new List<Position> { new Position("zlecenie stałe", 39.99m) },
+                BookDate = new DateTime(2018, 12, 22),
+                TransactionSourceCreationDate = new DateTime(2018, 12, 20),
+                UserStock = defaultUserStock,
+                ExternalStock = stocks[2],
+                Type = defaultOutcome
+            };
+
+            //when
+            var result = parser.Parse(input, defaultUserStock, stocks[2], defaultOutcome, defaultIncome);
+
+            //then
+            Assert.Single(result);
+            ValidateTransaction(result[0], transaction);
         }
     }
 }

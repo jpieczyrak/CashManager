@@ -12,7 +12,7 @@ namespace CashManager.Logic.Parsers.Custom
         private readonly Rule[] _rules;
         private readonly Stock[] _stocks;
 
-        public Balance Balance { get; private set; }
+        public Balance Balance { get; }
 
         public CustomCsvParser(Rule[] rules, Stock[] stocks = null)
         {
@@ -41,7 +41,7 @@ namespace CashManager.Logic.Parsers.Custom
                 bool match = _rules.Any();
                 foreach (var rule in _rules)
                 {
-                    if (!MatchRule(rule, line, transaction, defaultIncome, defaultOutcome))
+                    if (!MatchRule(rule, line, transaction, defaultIncome, defaultOutcome, userStock))
                     {
                         match = false;
                         break;
@@ -55,14 +55,14 @@ namespace CashManager.Logic.Parsers.Custom
         }
 
         private bool MatchRule(Rule rule, string line, Transaction transaction, TransactionType defaultIncome,
-            TransactionType defaultOutcome)
+            TransactionType defaultOutcome, Stock defaultUserStock)
         {
             var elements = line.Split(';');
             if (elements.Length < rule.Column) return false;
 
             try
             {
-                string stringValue = elements[rule.Index];
+                string stringValue = elements[rule.Index].Trim();
                 switch (rule.Property)
                 {
                     case TransactionField.Title:
@@ -83,8 +83,14 @@ namespace CashManager.Logic.Parsers.Custom
                         break;
                     case TransactionField.PositionTitle:
                         transaction.Positions[0].Title = stringValue;
-                        if (string.IsNullOrWhiteSpace(transaction.Positions[0].Title) && !rule.IsOptional) return false;
-                        else transaction.Positions[0].Title = "position 1";
+                        if (string.IsNullOrWhiteSpace(transaction.Positions[0].Title))
+                        {
+                            if (rule.IsOptional)
+                                transaction.Positions[0].Title = "position 1";
+                            else
+                                return false;
+                        }
+
                         break;
                     case TransactionField.Value:
                         decimal value = decimal.Parse(stringValue);
@@ -95,10 +101,7 @@ namespace CashManager.Logic.Parsers.Custom
                         if (_stocks != null)
                         {
                             var matching = _stocks.FirstOrDefault(x => x.Name.ToLower().Equals(stringValue.ToLower()));
-                            if (matching != null)
-                                transaction.UserStock = matching;
-                            else
-                                return false;
+                            transaction.UserStock = matching ?? defaultUserStock;
                         }
                         break;
                     case TransactionField.Balance:

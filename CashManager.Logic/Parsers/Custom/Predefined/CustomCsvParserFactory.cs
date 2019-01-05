@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
 
+using CashManager.Data.DTO;
+
 namespace CashManager.Logic.Parsers.Custom.Predefined
 {
     public class CustomCsvParserFactory
     {
+        private readonly Stock[] _stocks;
         private readonly Dictionary<PredefinedCsvParsers, Rule[]> _predefined;
 
-        public CustomCsvParserFactory()
+        public CustomCsvParserFactory(Stock[] stocks = null)
         {
+            _stocks = stocks;
             _predefined = new Dictionary<PredefinedCsvParsers, Rule[]>
             {
                 [PredefinedCsvParsers.Ing] = new[]
@@ -27,7 +31,7 @@ namespace CashManager.Logic.Parsers.Custom.Predefined
 
         public CustomCsvParser Create(PredefinedCsvParsers type)
         {
-            return _predefined.ContainsKey(type) ? new CustomCsvParser(_predefined[type]) : null;
+            return _predefined.ContainsKey(type) ? new CustomCsvParser(_predefined[type], _stocks) : null;
         }
     }
 }

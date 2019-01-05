@@ -52,7 +52,7 @@ namespace CashManager.Tests.Parsers.Custom
         }
 
         [Fact]
-        public void Parse_SomeRulesNoneEmptyInput_Empty()
+        public void Parse_SomeRulesNoneEmptyInput_NonEmpty()
         {
             //given
             var rules = new[]
