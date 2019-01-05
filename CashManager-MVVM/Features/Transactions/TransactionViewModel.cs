@@ -53,6 +53,7 @@ namespace CashManager_MVVM.Features.Transactions
 
         private bool _updateStock;
         private decimal _startTransactionValue;
+        private Stock _startUserStock;
 
         public TransactionsProvider TransactionsProvider { get; }
 
@@ -77,7 +78,9 @@ namespace CashManager_MVVM.Features.Transactions
                         //todo: check sender - only on selected category change
                         position.CategoryPickerViewModel.PropertyChanged +=
                             (sender, args) => position.Category = position.CategoryPickerViewModel.SelectedCategory;
+
                         _startTransactionValue = _transaction.ValueAsProfit;
+                        _startUserStock = _transaction.UserStock;
                     }
                 }
             }
@@ -95,7 +98,7 @@ namespace CashManager_MVVM.Features.Transactions
 
         public RelayCommand AddNewPosition { get; }
 
-        public bool ShouldGoBack { get; set; } = true;
+        public bool ShouldGoBack { private get; set; } = true;
 
         public bool UpdateStock
         {
@@ -246,14 +249,30 @@ namespace CashManager_MVVM.Features.Transactions
             TransactionsProvider.AllTransactions.Remove(Transaction);
             TransactionsProvider.AllTransactions.Add(Transaction);
 
-            if (UpdateStock)
-            {
-                Transaction.UserStock.Balance.Value += (Transaction.ValueAsProfit - _startTransactionValue);
-                _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock>(Transaction.UserStock)));
-                MessengerInstance.Send(new UpdateStockMessage(Transaction.UserStock));
-            }
+            HandleStocksValueUpdate();
 
             if (ShouldGoBack) NavigateBack();
+        }
+
+        private void HandleStocksValueUpdate()
+        {
+            if (UpdateStock)
+            {
+                var updatedStocks = new[] { Transaction.UserStock }.ToList();
+                if (_startUserStock.Equals(Transaction.UserStock))
+                {
+                    Transaction.UserStock.Balance.Value += (Transaction.ValueAsProfit - _startTransactionValue);
+                }
+                else
+                {
+                    _startUserStock.Balance.Value -= _startTransactionValue;
+                    Transaction.UserStock.Balance.Value += Transaction.ValueAsProfit;
+                    updatedStocks.Add(_startUserStock);
+                }
+
+                _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock[]>(updatedStocks)));
+                MessengerInstance.Send(new UpdateStockMessage(updatedStocks.ToArray()));
+            }
         }
 
         private void NavigateBack()

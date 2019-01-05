@@ -72,7 +72,7 @@ namespace CashManager_MVVM.Features.Plots
             
             BookDateFilter.PropertyChanged -= OnPropertyChanged;
             BookDateFilter.From = _transactionsProvider.AllTransactions.Any()
-                                      ? _transactionsProvider.AllTransactions.Min(x => x.BookDate)
+                                      ? _transactionsProvider.AllTransactions.Min(x => x.BookDate).AddDays(-1)
                                       : DateTime.MinValue;
             BookDateFilter.To = _transactionsProvider.AllTransactions.Any()
                                     ? _transactionsProvider.AllTransactions.Max(x => x.BookDate)
