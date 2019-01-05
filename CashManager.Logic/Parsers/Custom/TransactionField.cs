@@ -5,6 +5,11 @@
         Title,
         Note,
         BookDate,
-        CreationDate
+        CreationDate,
+        PositionTitle,
+        Value,
+        UserStock,
+        Balance,
+        Currency
     }
 }

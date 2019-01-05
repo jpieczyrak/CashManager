@@ -29,6 +29,7 @@ namespace CashManager.Data.DTO
         {
             TransactionSourceCreationDate = DateTime.MinValue;
             BookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
+            Positions = new List<Position>();
         }
 
         public Transaction(Guid id) : this()

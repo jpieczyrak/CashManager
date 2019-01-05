@@ -79,7 +79,9 @@
     <Compile Include="DefaultData\IDataProvider.cs" />
     <Compile Include="DefaultData\MassDataProvider.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Parsers\Custom\Predefined\PredefinedCsvParsers.cs" />
     <Compile Include="Parsers\Custom\CustomCsvParser.cs" />
+    <Compile Include="Parsers\Custom\Predefined\CustomCsvParserFactory.cs" />
     <Compile Include="Parsers\Custom\Rule.cs" />
     <Compile Include="Parsers\Custom\TransactionField.cs" />
     <Compile Include="Parsers\eParserInputType.cs" />
