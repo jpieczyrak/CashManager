@@ -5,10 +5,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ignore="http://www.galasoft.ch/ignore"
     xmlns:stocks="clr-namespace:CashManager_MVVM.Features.Stocks"
+    xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
     x:Class="CashManager_MVVM.Features.Main.MainWindow"
     mc:Ignorable="d ignore"
     WindowStartupLocation="CenterScreen"
-    Width="1350" Height="768"
+    Width="{Binding Source={x:Static properties:Settings.Default}, Path=Width, Mode=TwoWay}"
+    Height="{Binding Source={x:Static properties:Settings.Default}, Path=Height, Mode=TwoWay}"
     Title="Cash Manager" Closed="OnClosed">
 
     <Grid Background="{DynamicResource BackgroundColorBrush}">
