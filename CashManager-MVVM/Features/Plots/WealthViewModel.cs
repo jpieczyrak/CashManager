@@ -112,39 +112,32 @@ namespace CashManager_MVVM.Features.Plots
             if (selectedStocks == null || !selectedStocks.Any()) return new DataPoint[0];
             if (transactions == null || !transactions.Any()) return new DataPoint[0];
 
+            bool firstTransaction = true;
             var stockDate = selectedStocks.Max(x => x.LastEditDate); //todo: fix stock last edit date!
             decimal stockValue = selectedStocks.Sum(x => x.Balance.Value);
-            decimal actualValue = stockValue;
-
+            
             var firstMatch = transactions
                              .Where(x => selectedStocks.Contains(x.UserStock))
                              .GroupBy(x => x.BookDate);
-            var beforeStockBalance = firstMatch
-                                   .Where(x => x.Key <= stockDate)
-                                    .OrderByDescending(x => x.Key)
-                                   .Select(x =>
-                                   {
-                                       actualValue -= x.Sum(y => y.ValueAsProfit);
-                                       double value = (double) actualValue;
-                                       return new { BookDate = x.Key, Value = value };
-                                   })
-                                   .ToArray();
-            actualValue = stockValue;
-            var afterStockBalance = firstMatch
-                                  .Where(x => x.Key > stockDate)
-                                  .OrderBy(x => x.Key)
-                                  .Select(x =>
-                                  {
-                                      actualValue += x.Sum(y => y.ValueAsProfit);
-                                      double value = (double) actualValue;
-                                      return new { BookDate = x.Key, Value = value };
-                                  })
-                                  .ToArray();
-            var values = beforeStockBalance
-                         .Concat(afterStockBalance)
-                         .Where(x => !BookDateFilter.IsChecked 
-                                     || x.BookDate >= BookDateFilter.From && x.BookDate <= BookDateFilter.To)
+            decimal transactionsValueBeforeLastStockUpdate =
+                firstMatch.Sum(x => x.Where(z => z.BookDate <= stockDate).Sum(y => y.ValueAsProfit));
+            decimal startValue = stockValue - transactionsValueBeforeLastStockUpdate;
+            var firstTransactionBookDate = transactions.Min(x => x.BookDate).Date;
+            var values = firstMatch
+                         .Where(x => x.Key <= stockDate)
+                         .OrderBy(x => x.Key)
+                         .Select(x =>
+                         {
+                             startValue += x.Sum(y => y.ValueAsProfit);
+                             double value = (double) startValue;
+                             return new { BookDate = x.Key, Value = value };
+                         })
+                         .Where(x => !BookDateFilter.IsChecked
+                                               || x.BookDate >= BookDateFilter.From && x.BookDate <= BookDateFilter.To)
                          .Select(x => new DataPoint(DateTimeAxis.ToDouble(x.BookDate), x.Value))
+                         .Concat(!BookDateFilter.IsChecked || firstTransactionBookDate > BookDateFilter.From
+                                     ? new[] { new DataPoint(DateTimeAxis.ToDouble(firstTransactionBookDate.AddDays(-1)), (double) startValue) }
+                                     : new DataPoint[0])
                          .Concat(!BookDateFilter.IsChecked || stockDate.Date <= BookDateFilter.To
                                      ? new[] { new DataPoint(DateTimeAxis.ToDouble(stockDate), (double) stockValue) }
                                      : new DataPoint[0])
