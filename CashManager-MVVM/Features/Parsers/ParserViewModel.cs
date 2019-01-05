@@ -10,6 +10,7 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.TransactionTypes;
 using CashManager.Logic.Parsers;
+using CashManager.Logic.Parsers.Custom.Predefined;
 
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Transactions;
@@ -31,7 +32,7 @@ namespace CashManager_MVVM.Features.Parsers
         private readonly ICommandDispatcher _commandDispatcher;
         private string _inputText;
 
-        private TransactionListViewModel _resultsListViewModel;
+        private TransactionListViewModel _resultsListViewModel = new TransactionListViewModel();
         private KeyValuePair<string, IParser> _selectedParser;
 
         public string InputText
@@ -82,12 +83,17 @@ namespace CashManager_MVVM.Features.Parsers
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
 
+            Update();
+
+            //todo: refresh stocks
+            var factory = new CustomCsvParserFactory(Mapper.Map<DtoStock[]>(UserStocks.Concat(ExternalStocks)));
             Parsers = new Dictionary<string, IParser>
             {
                 { "Getin bank", new GetinBankParser() },
                 { "Idea bank", new IdeaBankParser() },
                 { "Millennium bank", new MillenniumBankParser() },
-                { "Ing bank", new IngBankParser() },
+                { "Ing bank (web)", new IngBankParser() },
+                { "Ing bank (csv)", factory.Create(PredefinedCsvParsers.Ing) },
                 { "Intelligo bank", new IntelligoBankParser() },
                 { "Excel", new ExcelParser() }
             };
@@ -110,15 +116,16 @@ namespace CashManager_MVVM.Features.Parsers
             TransactionsProvider.AllTransactions.RemoveRange(transactions);
             TransactionsProvider.AllTransactions.AddRange(transactions);
 
-            var balance = SelectedParser.Value.Balance;
-            if (balance != null)
+            var balances = SelectedParser.Value.Balances.Where(x => x.Value.LastEditDate > x.Key.Balance.LastEditDate).ToArray();
+            if (balances.Any())
             {
-                if (SelectedUserStock.Balance == null || balance.LastEditDate > SelectedUserStock.Balance.LastEditDate)
-                {
-                    SelectedUserStock.Balance = Mapper.Map<Model.Balance>(balance);
-                    _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock[]>(new [] { SelectedUserStock } )));
-                    MessengerInstance.Send(new UpdateStockMessage(SelectedUserStock));
-                }
+                foreach (var balance in balances) balance.Key.Balance = balance.Value;
+
+                var updatedStocks = balances.Select(x => x.Key).ToArray();
+                var stocks = Mapper.Map<Stock[]>(updatedStocks);
+
+                _commandDispatcher.Execute(new UpsertStocksCommand(updatedStocks));
+                MessengerInstance.Send(new UpdateStockMessage(stocks));
             }
         }
 
@@ -129,10 +136,12 @@ namespace CashManager_MVVM.Features.Parsers
 
         private void ExecuteParseCommand()
         {
-            var transactions = Mapper.Map<List<Transaction>>(SelectedParser.Value.Parse(InputText, Mapper.Map<DtoStock>(SelectedUserStock),
+            var parser = SelectedParser.Value;
+            var results = parser.Parse(InputText, Mapper.Map<DtoStock>(SelectedUserStock),
                 Mapper.Map<DtoStock>(SelectedExternalStock),
                 Mapper.Map<DtoTransactionType>(DefaultOutcomeTransactionType),
-                Mapper.Map<DtoTransactionType>(DefaultIncomeTransactionType)));
+                Mapper.Map<DtoTransactionType>(DefaultIncomeTransactionType));
+            var transactions = Mapper.Map<List<Transaction>>(results);
 
             ResultsListViewModel = new TransactionListViewModel { Transactions = new TrulyObservableCollection<Transaction>(transactions) };
             RaisePropertyChanged(nameof(ResultsListViewModel));

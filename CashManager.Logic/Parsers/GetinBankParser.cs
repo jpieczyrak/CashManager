@@ -16,7 +16,7 @@ namespace CashManager.Logic.Parsers
         private const string CARD_OPERATION_REGEX =
             @"(?<Day>\d{2})\.(?<Month>\d{2})\.(?<Year>\d{4}) (\–|\-) (?<OperationType>(\S| )*)(\r\n|\n)(?<Title>(\S| )*)(\r\n|\n)*(?<Sign>(-|\+))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*) (?<Currency>\S*)( saldo po operacji: (?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*) (?<BalanceCurrency>\S*))?";
 
-        public Balance Balance { get; private set; }
+        public Dictionary<Stock, Balance> Balances { get; private set; } = new Dictionary<Stock, Balance>();
 
         #region IParser
 
@@ -44,7 +44,7 @@ namespace CashManager.Logic.Parsers
                 }
             }
 
-            Balance = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
+            Balances[userStock] = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
             _balances.Clear();
 
             return output.ToArray();

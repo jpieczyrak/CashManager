@@ -8,7 +8,7 @@ namespace CashManager.Logic.Parsers
 {
     public class ExcelParser : IParser
     {
-        public Balance Balance { get; private set; } = new Balance();
+        public Dictionary<Stock, Balance> Balances { get; private set; } = new Dictionary<Stock, Balance>();
 
         #region IParser
 

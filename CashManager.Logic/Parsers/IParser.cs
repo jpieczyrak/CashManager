@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using CashManager.Data.DTO;
 
 namespace CashManager.Logic.Parsers
@@ -6,6 +8,6 @@ namespace CashManager.Logic.Parsers
     {
         Transaction[] Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome, TransactionType defaultIncome);
 
-        Balance Balance { get; }
+        Dictionary<Stock, Balance> Balances { get; }
     }
 }

@@ -12,13 +12,12 @@ namespace CashManager.Logic.Parsers.Custom
         private readonly Rule[] _rules;
         private readonly Stock[] _stocks;
 
-        public Balance Balance { get; }
+        public Dictionary<Stock, Balance> Balances { get; } = new Dictionary<Stock, Balance>();
 
         public CustomCsvParser(Rule[] rules, Stock[] stocks = null)
         {
             _rules = rules.OrderBy(x => x.Property).ToArray();
             _stocks = stocks;
-            Balance = new Balance { LastEditDate = DateTime.MinValue };
         }
 
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome,
@@ -107,12 +106,16 @@ namespace CashManager.Logic.Parsers.Custom
                             var matching = _stocks.FirstOrDefault(x => x.Name.ToLower().Equals(stringValue.ToLower()));
                             transaction.UserStock = matching ?? defaultUserStock;
                         }
+                        else
+                            transaction.UserStock = defaultUserStock;
                         break;
                     case TransactionField.Balance:
-                        if (Balance.LastEditDate < transaction.TransactionSourceCreationDate)
+                        if (!Balances.ContainsKey(transaction.UserStock)) Balances[transaction.UserStock] = new Balance();
+                        var balance = Balances[transaction.UserStock];
+                        if (balance.LastEditDate < transaction.TransactionSourceCreationDate)
                         {
-                            Balance.Value = decimal.Parse(stringValue);
-                            Balance.LastEditDate = transaction.TransactionSourceCreationDate;
+                            balance.Value = decimal.Parse(stringValue);
+                            balance.LastEditDate = transaction.TransactionSourceCreationDate;
                         }
                         break;
                     case TransactionField.Currency:

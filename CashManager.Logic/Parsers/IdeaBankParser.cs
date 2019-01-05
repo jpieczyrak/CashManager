@@ -12,7 +12,7 @@ namespace CashManager.Logic.Parsers
         private const string NOT_PERFORMED_TRANSACTION = "-";
         private const int LINES_PER_ENTRY = 4;
 
-        public Balance Balance { get; private set; }
+        public Dictionary<Stock, Balance> Balances { get; private set; } = new Dictionary<Stock, Balance>();
 
         #region IParser
 
@@ -58,7 +58,7 @@ namespace CashManager.Logic.Parsers
                 }
             }
 
-            Balance = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
+            Balances[userStock] = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
             _balances.Clear();
 
             return results.ToArray();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using CashManager.Data.DTO;
 using CashManager.Data.Extensions;
@@ -40,7 +41,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var input = NONE_EMPTY_ING_INPUT;
 
             //when
-            var result = parser.Parse(input, null, null, null, null);
+            var result = parser.Parse(input, new Stock(), null, null, null);
 
             //then
             Assert.NotEmpty(result);
@@ -157,7 +158,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
         }
 
         [Fact]
-        public void Parse_FewTransactions_BalanceIsMatching()
+        public void Parse_FewTransactions_SingleBalanceIsMatching()
         {
             //given
             var parser = new CustomCsvParserFactory().Create(PredefinedCsvParsers.Ing);
@@ -167,12 +168,13 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var expectedLastEdit = new DateTime(2018, 12, 20);
 
             //when
-            var result = parser.Parse(input, null, null, null, null);
+            var result = parser.Parse(input, new Stock(), null, null, null);
 
             //then
             Assert.NotEmpty(result);
-            Assert.Equal(expectedBalance, parser.Balance.Value);
-            Assert.Equal(expectedLastEdit, parser.Balance.LastEditDate);
+            var balance = parser.Balances.First().Value;
+            Assert.Equal(expectedBalance, balance.Value);
+            Assert.Equal(expectedLastEdit, balance.LastEditDate);
         }
     }
 }

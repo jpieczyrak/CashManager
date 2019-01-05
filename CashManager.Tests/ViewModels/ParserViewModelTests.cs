@@ -18,6 +18,7 @@ namespace CashManager.Tests.ViewModels
         {
             //given
             var vm = _container.Resolve<ParserViewModel>();
+            vm.SelectedUserStock = vm.SelectedExternalStock = Stocks[0];
             var transaction = new Transaction
             {
                 Title = "title 1",
@@ -27,8 +28,7 @@ namespace CashManager.Tests.ViewModels
             transaction.Positions[0].TagViewModel = _container.Resolve<MultiComboBoxViewModel>();
             transaction.Positions[0].TagViewModel.SetInput(Tags);
             var transactions = new List<Transaction> { transaction, transaction };
-            vm.InputText = "sth";
-            vm.ParseCommand.Execute(null);
+            vm.InputText = "06.09.2016 – PRZELEW WYCHODZĄCY\r\nJĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media\r\n\r\n-684,62 PLN";
             vm.ResultsListViewModel.Transactions.AddRange(transactions);
             
             var command = vm.SaveCommand;
@@ -57,8 +57,7 @@ namespace CashManager.Tests.ViewModels
             transaction.Positions[0].TagViewModel = _container.Resolve<MultiComboBoxViewModel>();
             transaction.Positions[0].TagViewModel.SetInput(Tags);
             var transactions = new List<Transaction> { transaction, transaction };
-            vm.InputText = "sth";
-            vm.ParseCommand.Execute(null);
+            vm.InputText = "     06.09.2016 – PRZELEW WYCHODZĄCY\r\nJĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media\r\n\r\n-684,62 PLN";
             vm.ResultsListViewModel.Transactions.AddRange(transactions);
             
             var command = vm.SaveCommand;

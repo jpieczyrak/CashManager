@@ -16,7 +16,7 @@ namespace CashManager.Logic.Parsers
 
         private readonly List<Balance> _balances = new List<Balance>();
 
-        public Balance Balance { get; private set; }
+        public Dictionary<Stock, Balance> Balances { get; private set; } = new Dictionary<Stock, Balance>();
 
         #region IParser
 
@@ -30,7 +30,7 @@ namespace CashManager.Logic.Parsers
             foreach (Match match in regex.Matches(input))
                 output.Add(CreateTransaction(match, userStock, externalStock, defaultOutcome, defaultIncome));
 
-            Balance = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
+            Balances[userStock] = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
             _balances.Clear();
 
             return output.ToArray();

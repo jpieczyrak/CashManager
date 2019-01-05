@@ -81,7 +81,7 @@ CENTRUM NISKICH CEN SP, GLIWICE , PL
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balance.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.Value);
         }
 
         [Fact]
@@ -112,7 +112,7 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balance.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.Value);
         }
     }
 }
