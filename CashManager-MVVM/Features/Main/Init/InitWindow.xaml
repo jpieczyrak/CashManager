@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CashManager_MVVM.Features.Main.Init"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        d:DesignHeight="450" d:DesignWidth="800"
+        Height="310" Width="500"
         Title="Initialization"
         d:DataContext="{d:DesignInstance Type=local:InitViewModel, IsDesignTimeCreatable=True}">
 
@@ -15,9 +15,9 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical" Grid.Row="0">
-            <TextBlock Margin="5" Text="Password" />
-            <PasswordBox Margin="5" Height="25"  ToolTip="Optional" PasswordChanged="PasswordBox_PasswordChanged" />
+        <StackPanel Orientation="Vertical" Grid.Row="0" Margin="30,10,30,20">
+            <TextBlock Margin="5" Text="Password" HorizontalAlignment="Center" />
+            <PasswordBox Margin="0,5,0,20" Height="25" ToolTip="Optional" PasswordChanged="PasswordBox_PasswordChanged" />
 
             <CheckBox Margin="5" Content="Generate default categories" IsChecked="{Binding GenerateCategories}" />
             <CheckBox Margin="5" Content="Generate default types" IsChecked="{Binding GenerateTypes}" />
