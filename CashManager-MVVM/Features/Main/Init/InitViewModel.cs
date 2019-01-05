@@ -116,7 +116,7 @@ namespace CashManager_MVVM.Features.Main.Init
             if (GenerateCategories) commandDispatcher.Execute(new UpsertCategoriesCommand(categories));
 
             var types = defaultDataProvider.GetTransactionTypes();
-            if (GenerateTags) commandDispatcher.Execute(new UpsertTransactionTypesCommand(types));
+            if (GenerateTypes) commandDispatcher.Execute(new UpsertTransactionTypesCommand(types));
 
             var tags = defaultDataProvider.GetTags();
             if (GenerateTags) commandDispatcher.Execute(new UpsertTagsCommand(tags));
