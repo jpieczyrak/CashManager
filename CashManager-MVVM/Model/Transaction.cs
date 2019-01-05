@@ -107,7 +107,11 @@ namespace CashManager_MVVM.Model
         public DateTime BookDate
         {
             get => _bookDate;
-            set => Set(nameof(BookDate), ref _bookDate, value);
+            set
+            {
+                if (value > DateTime.Today) value = DateTime.Today;
+                Set(nameof(BookDate), ref _bookDate, value);
+            }
         }
 
         /// <summary>

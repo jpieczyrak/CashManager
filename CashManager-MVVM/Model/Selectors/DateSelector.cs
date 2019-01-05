@@ -9,7 +9,11 @@ namespace CashManager_MVVM.Model.Selectors
         public DateTime Value
         {
             get => _value;
-            set => Set(nameof(Value), ref _value, value);
+            set
+            {
+                if (value > DateTime.Today) value = DateTime.Today;
+                Set(nameof(Value), ref _value, value);
+            }
         }
 
         public DateSelector(string description)
