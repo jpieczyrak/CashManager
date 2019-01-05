@@ -20,7 +20,8 @@ namespace CashManager.Tests.ViewModels.Transactions
             {
                 Title = "title 1",
                 Positions = new TrulyObservableCollection<Position>(new [] { Positions[0] }),
-                Type = Types[0]
+                Type = Types[0],
+                UserStock = Stocks[0]
             };
             vm.Transaction.Positions[0].TagViewModel = _container.Resolve<MultiComboBoxViewModel>();
             vm.Transaction.Positions[0].TagViewModel.SetInput(Tags);
@@ -47,7 +48,8 @@ namespace CashManager.Tests.ViewModels.Transactions
             {
                 Title = title,
                 Positions = new TrulyObservableCollection<Position>(new [] { Positions[0] }),
-                Type = Types[0]
+                Type = Types[0],
+                UserStock = Stocks[0]
             };
             vm.Transaction.Positions[0].TagViewModel = _container.Resolve<MultiComboBoxViewModel>();
             vm.Transaction.Positions[0].TagViewModel.SetInput(Tags);
