@@ -10,6 +10,7 @@ using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Command.TransactionTypes;
 using CashManager.Infrastructure.Modules;
 using CashManager.Logic.DefaultData;
+using CashManager.Logic.Extensions;
 
 using CashManager_MVVM.Properties;
 
@@ -99,7 +100,7 @@ namespace CashManager_MVVM.Features.Main.Init
             Settings.Default.IsPasswordNeeded = passwordExists;
 
             string connectionString = $"Filename={_databaseFilepath};Journal=true";
-            if (passwordExists) connectionString += $";password={Password}";
+            if (passwordExists) connectionString += $";password={Password.Encrypt()}";
 
             _builder.Register(x => connectionString).Keyed<string>(DatabaseCommunicationModule.DB_KEY);
 

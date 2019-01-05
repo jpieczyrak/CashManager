@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Autofac;
 
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Modules;
+using CashManager.Logic.Extensions;
 
 using CashManager_MVVM.Configuration.DI;
 using CashManager_MVVM.Configuration.Mapping;
@@ -66,7 +68,9 @@ namespace CashManager_MVVM
                 {
                     var passwordWindow = new PasswordPromptWindow();
                     await ShowWindow(passwordWindow);
-                    string password = passwordWindow.PasswordText;
+                var s = Stopwatch.StartNew(); //todo: remove
+                    string password = passwordWindow.PasswordText.Encrypt();
+                Console.WriteLine(s.Elapsed);
                     connectionString += $";password={password}";
                 }
                 builder.Register(x => connectionString).Keyed<string>(DatabaseCommunicationModule.DB_KEY);
@@ -89,6 +93,7 @@ namespace CashManager_MVVM
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
+                Current.Shutdown();
             }
         }
 
