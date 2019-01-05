@@ -7,6 +7,7 @@ using System.Windows;
 using AutoMapper;
 
 using CashManager.Infrastructure.Command;
+using CashManager.Infrastructure.Command.Stocks;
 using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Command.Transactions.Bills;
 using CashManager.Infrastructure.Query;
@@ -20,6 +21,7 @@ using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Main;
+using CashManager_MVVM.Messages;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 
@@ -38,7 +40,6 @@ namespace CashManager_MVVM.Features.Transactions
 {
     public class TransactionViewModel : ViewModelBase, IUpdateable, IDropTarget
     {
-        public TransactionsProvider TransactionsProvider { get; }
         //todo: on unload / hide etc - cancel changes to transaction
 
         private readonly IQueryDispatcher _queryDispatcher;
@@ -49,6 +50,11 @@ namespace CashManager_MVVM.Features.Transactions
         private Transaction _transaction;
         private bool _shouldCreateTransaction;
         private Tag[] _tags;
+
+        private bool _updateStock;
+        private decimal _startTransactionValue;
+
+        public TransactionsProvider TransactionsProvider { get; }
 
         public IEnumerable<TransactionType> TransactionTypes { get; set; }
 
@@ -71,6 +77,7 @@ namespace CashManager_MVVM.Features.Transactions
                         //todo: check sender - only on selected category change
                         position.CategoryPickerViewModel.PropertyChanged +=
                             (sender, args) => position.Category = position.CategoryPickerViewModel.SelectedCategory;
+                        _startTransactionValue = _transaction.ValueAsProfit;
                     }
                 }
             }
@@ -90,9 +97,16 @@ namespace CashManager_MVVM.Features.Transactions
 
         public bool ShouldGoBack { get; set; } = true;
 
+        public bool UpdateStock
+        {
+            get => _updateStock;
+            set => Set(ref _updateStock, value);
+        }
+
         public TransactionViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
             ViewModelFactory factory, TransactionsProvider transactionsProvider)
         {
+            UpdateStock = true;
             TransactionsProvider = transactionsProvider;
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
@@ -100,13 +114,36 @@ namespace CashManager_MVVM.Features.Transactions
             _categoryPickerViewModel = _factory.Create<CategoryPickerViewModel>();
 
             NewBillsFilepaths = new ObservableCollection<string>();
-            
+
             AddNewPosition = new RelayCommand(ExecuteAddPositionCommand);
             RemovePositionCommand = new RelayCommand<Position>(position => Transaction.Positions.Remove(position));
 
             SaveTransactionCommand = new RelayCommand(ExecuteSaveTransactionCommand, CanExecuteSaveTransactionCommand);
             CancelTransactionCommand = new RelayCommand(ExecuteCancelTransactionCommand);
         }
+
+        #region IDropTarget
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            dropInfo.Effects = GetProperFilepaths(dropInfo).Any()
+                                   ? DragDropEffects.Copy
+                                   : DragDropEffects.None;
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            var files = GetProperFilepaths(dropInfo);
+            foreach (string file in files)
+            {
+                if (!NewBillsFilepaths.Contains(file)) NewBillsFilepaths.Add(file);
+                var billImage = new BillImage(file, Path.GetFileNameWithoutExtension(file), File.ReadAllBytes(file));
+                if (LoadedBills.Contains(billImage)) LoadedBills.Remove(billImage);
+                LoadedBills.Add(billImage);
+            }
+        }
+
+        #endregion
 
         #region IUpdateable
 
@@ -140,10 +177,7 @@ namespace CashManager_MVVM.Features.Transactions
 
         #endregion
 
-        private void ExecuteAddPositionCommand()
-        {
-            Transaction.Positions.Add(CreatePosition(Transaction));
-        }
+        private void ExecuteAddPositionCommand() => Transaction.Positions.Add(CreatePosition(Transaction));
 
         private BaseSelectable[] CopyOfTags(Tag[] tags) => Mapper.Map<Tag[]>(Mapper.Map<DtoTag[]>(tags));
 
@@ -171,7 +205,7 @@ namespace CashManager_MVVM.Features.Transactions
                 CategoryPickerViewModel = new CategoryPickerViewModel(_queryDispatcher, category)
             };
             //todo: check sender - only on selected category change
-            position.CategoryPickerViewModel.PropertyChanged += 
+            position.CategoryPickerViewModel.PropertyChanged +=
                 (sender, args) => position.Category = position.CategoryPickerViewModel.SelectedCategory;
             position.TagViewModel.SetInput(CopyOfTags(_tags), position.Tags);
 
@@ -203,12 +237,21 @@ namespace CashManager_MVVM.Features.Transactions
             _commandDispatcher.Execute(new UpsertBillsCommand(Mapper.Map<DtoStoredFileInfo[]>(bills)));
             NewBillsFilepaths.Clear();
 
-            foreach (var bill in bills) if (!Transaction.StoredFiles.Contains(bill)) Transaction.StoredFiles.Add(bill);
+            foreach (var bill in bills)
+                if (!Transaction.StoredFiles.Contains(bill))
+                    Transaction.StoredFiles.Add(bill);
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction>(_transaction)));
 
             //todo: make only 1 refresh
             TransactionsProvider.AllTransactions.Remove(Transaction);
             TransactionsProvider.AllTransactions.Add(Transaction);
+
+            if (UpdateStock)
+            {
+                Transaction.UserStock.Balance.Value += (Transaction.ValueAsProfit - _startTransactionValue);
+                _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock>(Transaction.UserStock)));
+                MessengerInstance.Send(new UpdateStockMessage(Transaction.UserStock));
+            }
 
             if (ShouldGoBack) NavigateBack();
         }
@@ -216,13 +259,6 @@ namespace CashManager_MVVM.Features.Transactions
         private void NavigateBack()
         {
             _factory.Create<ApplicationViewModel>().GoBack();
-        }
-
-        public void DragOver(IDropInfo dropInfo)
-        {
-            dropInfo.Effects = GetProperFilepaths(dropInfo).Any()
-                                   ? DragDropEffects.Copy
-                                   : DragDropEffects.None;
         }
 
         private string[] GetProperFilepaths(IDropInfo dropInfo)
@@ -235,18 +271,6 @@ namespace CashManager_MVVM.Features.Transactions
                                                .ToArray();
         }
 
-        public void Drop(IDropInfo dropInfo)
-        {
-            var files = GetProperFilepaths(dropInfo);
-            foreach (string file in files)
-            {
-                if (!NewBillsFilepaths.Contains(file)) NewBillsFilepaths.Add(file);
-                var billImage = new BillImage(file, Path.GetFileNameWithoutExtension(file), File.ReadAllBytes(file));
-                if (LoadedBills.Contains(billImage)) LoadedBills.Remove(billImage);
-                LoadedBills.Add(billImage);
-            }
-        }
-        
         private BillImage CreateBillImage(StoredFileInfo fileInfo)
         {
             var image = _queryDispatcher.Execute<BillQuery, byte[]>(new BillQuery(fileInfo.DbAlias));

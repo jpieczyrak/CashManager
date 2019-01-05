@@ -37,6 +37,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -64,8 +65,11 @@
             <Label Grid.Row="7" Grid.Column="0" Content="Last edit date"/>
             <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding Transaction.LastEditDate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss:fff\}}" VerticalAlignment="Center"/>
 
-            <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Width="120" Margin="5" Command="{Binding AddNewPosition}" Content="Add position" />
-            <Border BorderThickness="1" CornerRadius="{DynamicResource BigCornerRadius}" BorderBrush="{StaticResource DisabledForegroundBrush}" Margin="0,5" Grid.Row="9" Grid.ColumnSpan="2" Grid.Column="0">
+            <TextBlock Grid.Row="8" Grid.Column="0" Text="Update stock"/>
+            <CheckBox Grid.Row="8" Grid.Column="1" IsChecked="{Binding UpdateStock}"/>
+
+            <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Width="120" Margin="5" Command="{Binding AddNewPosition}" Content="Add position" />
+            <Border BorderThickness="1" CornerRadius="{DynamicResource BigCornerRadius}" BorderBrush="{StaticResource DisabledForegroundBrush}" Margin="0,5" Grid.Row="10" Grid.ColumnSpan="2" Grid.Column="0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding Transaction.Positions}" >
                         <ItemsControl.ItemTemplate>

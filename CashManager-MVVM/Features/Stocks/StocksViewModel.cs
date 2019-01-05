@@ -18,11 +18,12 @@ using DtoStock = CashManager.Data.DTO.Stock;
 
 namespace CashManager_MVVM.Features.Stocks
 {
-    public class StocksViewModel : ViewModelBase
+    public class StocksViewModel : ViewModelBase, IUpdateable
     {
+        private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
 
-        public TrulyObservableCollection<Stock> Stocks { get; }
+        public TrulyObservableCollection<Stock> Stocks { get; set; }
 
         public RelayCommand AddStockCommand { get; set; }
 
@@ -30,13 +31,10 @@ namespace CashManager_MVVM.Features.Stocks
 
         public StocksViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
         {
+            _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
 
-            var stocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()))
-                               .OrderBy(x => x.InstanceCreationDate)
-                               .ToArray();
-            Stocks = new TrulyObservableCollection<Stock>(stocks);
-            Stocks.CollectionChanged += StocksOnCollectionChanged;
+            Update();
 
             AddStockCommand = new RelayCommand(() =>
             {
@@ -52,6 +50,15 @@ namespace CashManager_MVVM.Features.Stocks
             },
             stock => Stocks.Count(x => x.IsUserStock) > 1);
             //todo: think what should happen on stock delete...
+        }
+
+        public void Update()
+        {
+            var stocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()))
+                               .OrderBy(x => x.InstanceCreationDate)
+                               .ToArray();
+            Stocks = new TrulyObservableCollection<Stock>(stocks);
+            Stocks.CollectionChanged += StocksOnCollectionChanged;
         }
 
         private void StocksOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
