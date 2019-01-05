@@ -144,6 +144,7 @@
     <Compile Include="Infrastructure\Queries\Transactions\TransactionsTests.cs" />
     <Compile Include="Mappers\ModelAndDtoMappingTests.cs" />
     <Compile Include="Parsers\BaseParserTests.cs" />
+    <Compile Include="Parsers\CustomCsvParserTests.cs" />
     <Compile Include="Parsers\GetinBankParserTests.cs" />
     <Compile Include="Parsers\IngBankTests.cs" />
     <Compile Include="Parsers\IntelligoBankTests.cs" />
