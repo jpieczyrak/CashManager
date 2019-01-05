@@ -31,6 +31,7 @@ namespace CashManager.Logic.Parsers.Custom
 
             foreach (string line in lines)
             {
+                var elements = line.Split(';');
                 var transaction = new Transaction(line.GenerateGuid())
                 {
                     ExternalStock = externalStock,
@@ -41,7 +42,7 @@ namespace CashManager.Logic.Parsers.Custom
                 bool match = _rules.Any();
                 foreach (var rule in _rules)
                 {
-                    if (!MatchRule(rule, line, transaction, defaultIncome, defaultOutcome, userStock))
+                    if (!MatchRule(rule, elements, transaction, defaultIncome, defaultOutcome, userStock))
                     {
                         match = false;
                         break;
@@ -54,10 +55,9 @@ namespace CashManager.Logic.Parsers.Custom
             return output.ToArray();
         }
 
-        private bool MatchRule(Rule rule, string line, Transaction transaction, TransactionType defaultIncome,
+        private bool MatchRule(Rule rule, string[] elements, Transaction transaction, TransactionType defaultIncome,
             TransactionType defaultOutcome, Stock defaultUserStock)
         {
-            var elements = line.Split(';');
             if (elements.Length < rule.Column) return false;
 
             try
