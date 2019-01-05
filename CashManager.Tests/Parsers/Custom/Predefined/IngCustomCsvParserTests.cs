@@ -176,5 +176,35 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             Assert.Equal(expectedBalance, balance.Value);
             Assert.Equal(expectedLastEdit, balance.LastEditDate);
         }
+
+        [Fact]
+        public void Parse_FewTransactions_MultipleBalanceIsMatching()
+        {
+            //given
+            var stocks = new[]
+            {
+                new Stock { Name = "Smart Saver", IsUserStock = true }, 
+                new Stock { Name = "K@rta wirtualna ING VISA", IsUserStock = true }, 
+                new Stock { Name = "KONTO Direct", IsUserStock = true }, 
+                new Stock { Name = "temp", IsUserStock = true }, 
+            };
+            var parser = new CustomCsvParserFactory(stocks).Create(PredefinedCsvParsers.Ing);
+            string input = "\"2018-12-21\";\"2018-12-21\";\" aaa \";\" przelew Smart Saver Płatność kartą 19.12.2018 Nr karty 4246xx9261 Kwota: 165,97 PLN\";\'69105013311000009144064921 \';\"ING Bank Śląski S.A.\";\" \";\'201835564008056902\';4,03;PLN;;;;;\"Smart Saver\";1677,46;PLN;;;;\n\"2018-12-20\";\"2018-12-22\";\" PaylaneLegimiabonament Gdansk PL \";\" Płatność kartą 20.12.2018 Nr karty 4779xx7113\";\'1915031/19730 \';\"\";\"TR.KART -39.99  \";\'201835697304522092\';-39,99;PLN;;;;;\"K@rta wirtualna ING VISA\";105,22;PLN;;;;\n\"2018-12-20\";\"2018-12-20\";\" aaa \";\" przelew Smart Saver Płatność kartą 18.12.2018 Nr karty 4246xx9261 Kwota: 39,98 PLN\";\'69105013311000009144064921 \';\"ING Bank Śląski S.A.\";\" \";\'201835464008229006\';0,02;PLN;;;;;\"Smart Saver\";1673,43;PLN;;;;\n\"2018-12-20\";\"2018-12-20\";\" aaa \";\" przelew Smart Saver Płatność kartą 18.12.2018 Nr karty 4246xx9261 Kwota: 24,28 PLN\";\'69105013311000009144064921 \';\"ING Bank Śląski S.A.\";\" \";\'201835464008179591\';5,72;PLN;;;;;\"Smart Saver\";1673,41;PLN;;;;\n\"2018-12-20\";\"2018-12-20\";\" aaa \";\" przelew Smart Saver Płatność kartą 18.12.2018 Nr karty 4246xx9261 Kwota: 21,98 PLN\";\'69105013311000009144064921 \';\"ING Bank Śląski S.A.\";\" \";\'201835464008068067\';8,02;PLN;;;;;\"Smart Saver\";1667,69;PLN;;;;\n\"2018-12-20\";\"2018-12-20\";\" aaa \";\" Na legimi\";\'69105013311000009144064921 \';\"ING Bank Śląski S.A.\";\"ST.ZLEC  \";\'201835497208742045\';39,99;PLN;;;;;\"K@rta wirtualna ING VISA\";145,21;PLN;;;;\n\"2018-12-20\";\"2018-12-20\";\" aaa \";\" Na legimi\";\'59105013311000009707881869 \';\"ING Bank Śląski S.A.\";\"ST.ZLEC  \";\'201835497208742045\';-39,99;PLN;;;;;\"KONTO Direct\";2159,80;PLN;;;;";
+
+            //when
+            var result = parser.Parse(input, stocks[3], null, null, null);
+
+            //then
+            Assert.NotEmpty(result);
+
+            Assert.Equal(1677.46m, parser.Balances[stocks[0]].Value);
+            Assert.Equal(new DateTime(2018, 12, 21), parser.Balances[stocks[0]].LastEditDate);
+
+            Assert.Equal(105.22m, parser.Balances[stocks[1]].Value);
+            Assert.Equal(new DateTime(2018, 12, 20), parser.Balances[stocks[1]].LastEditDate);
+
+            Assert.Equal(2159.8m, parser.Balances[stocks[2]].Value);
+            Assert.Equal(new DateTime(2018, 12, 20), parser.Balances[stocks[2]].LastEditDate);
+        }
     }
 }
