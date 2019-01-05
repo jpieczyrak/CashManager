@@ -92,6 +92,7 @@ namespace CashManager_MVVM
             }
             catch (Exception exception)
             {
+                //todo: maybe password was needed (outdated settings) -> handle password?
                 Console.WriteLine(exception);
                 Current.Shutdown();
             }
