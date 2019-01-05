@@ -35,7 +35,13 @@ namespace CashManager_MVVM.Features.Main.Init
         private bool _generateStocks;
 
         private bool _generateTags;
-        
+
+#if DEBUG
+        public bool CanGenerateTransactions { get; } = true;
+#else
+        public bool CanGenerateTransactions { get; } = false;
+#endif
+
         public bool GenerateCategories
         {
             get => _generateCategories;

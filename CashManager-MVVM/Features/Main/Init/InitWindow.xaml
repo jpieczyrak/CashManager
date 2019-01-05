@@ -23,7 +23,8 @@
             <CheckBox Margin="5" Content="Generate default types" IsChecked="{Binding GenerateTypes}" />
             <CheckBox Margin="5" Content="Generate default stocks" IsChecked="{Binding GenerateStocks}" />
             <CheckBox Margin="5" Content="Generate default tags" IsChecked="{Binding GenerateTags}" />
-            <CheckBox Margin="5" Content="Generate sample transactions" IsChecked="{Binding GenerateTransactions}" />
+            <CheckBox Margin="5" Content="Generate sample transactions" IsChecked="{Binding GenerateTransactions}" 
+                      Visibility="{Binding CanGenerateTransactions, Converter={StaticResource bool2VisibilityConverter}}" />
 
         </StackPanel>
         <Button Grid.Row="1" Margin="5" Content="Start" Command="{Binding StartCommand}" />
