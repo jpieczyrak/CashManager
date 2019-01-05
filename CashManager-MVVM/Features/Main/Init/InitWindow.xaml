@@ -9,6 +9,7 @@
         d:DesignHeight="450" d:DesignWidth="800"
         Title="Initialization"
         d:DataContext="{d:DesignInstance Type=local:InitViewModel, IsDesignTimeCreatable=True}">
+
     <Grid Background="{DynamicResource BackgroundColorBrush}">
         <Grid.RowDefinitions>
             <RowDefinition/>

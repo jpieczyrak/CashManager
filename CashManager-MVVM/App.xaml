@@ -23,6 +23,7 @@
                 <ResourceDictionary Source="Skins/Controls/ScrollBarSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/ButtonSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/TextBoxSkin.xaml" />
+                <ResourceDictionary Source="Skins/Controls/PasswordBoxSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/TextBlockSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/TooltipSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/PlotViewSkin.xaml" />
