@@ -21,7 +21,7 @@ namespace CashManager.Logic.Parsers.Custom
         }
 
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome,
-            TransactionType defaultIncome)
+            TransactionType defaultIncome, bool generateMissingStocks = false)
         {
             var output = new List<Transaction>();
             input = input.Replace("\"", string.Empty);
@@ -41,7 +41,7 @@ namespace CashManager.Logic.Parsers.Custom
                 bool match = _rules.Any();
                 foreach (var rule in _rules)
                 {
-                    if (!MatchRule(rule, elements, transaction, defaultIncome, defaultOutcome, userStock))
+                    if (!MatchRule(rule, elements, transaction, defaultIncome, defaultOutcome, userStock, generateMissingStocks))
                     {
                         match = false;
                         break;
@@ -55,7 +55,7 @@ namespace CashManager.Logic.Parsers.Custom
         }
 
         private bool MatchRule(Rule rule, string[] elements, Transaction transaction, TransactionType defaultIncome,
-            TransactionType defaultOutcome, Stock defaultUserStock)
+            TransactionType defaultOutcome, Stock defaultUserStock, bool generateMissingStocks)
         {
             if (elements.Length < rule.Column) return false;
 
@@ -101,13 +101,21 @@ namespace CashManager.Logic.Parsers.Custom
                         transaction.Positions[0].Value.GrossValue = Math.Abs(value);
                         break;
                     case TransactionField.UserStock:
-                        if (_stocks != null)
+                        if (_stocks != null && _stocks.Any())
                         {
                             var matching = _stocks.FirstOrDefault(x => x.Name.ToLower().Equals(stringValue.ToLower()));
-                            transaction.UserStock = matching ?? defaultUserStock;
+                            transaction.UserStock = matching;
                         }
-                        else
-                            transaction.UserStock = defaultUserStock;
+                        if (transaction.UserStock == null)
+                        {
+                            transaction.UserStock = generateMissingStocks 
+                                                        ? new Stock(stringValue.GenerateGuid())
+                                                        {
+                                                            Name = stringValue,
+                                                            IsUserStock = true
+                                                        } 
+                                                        : defaultUserStock;
+                        }
                         break;
                     case TransactionField.Balance:
                         if (!Balances.ContainsKey(transaction.UserStock)) Balances[transaction.UserStock] = new Balance();

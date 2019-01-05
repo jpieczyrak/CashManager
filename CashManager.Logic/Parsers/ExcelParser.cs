@@ -13,7 +13,7 @@ namespace CashManager.Logic.Parsers
         #region IParser
 
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock,
-            TransactionType defaultOutcome, TransactionType defaultIncome)
+            TransactionType defaultOutcome, TransactionType defaultIncome, bool generateMissingStocks = false)
         {
             var transactions = new List<Transaction>();
 

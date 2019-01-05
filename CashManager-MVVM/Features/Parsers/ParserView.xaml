@@ -27,7 +27,7 @@
             <StopStoryboard BeginStoryboardName="Expand_BeginStoryboard"/>
         </EventTrigger>
     </UserControl.Triggers>
-    <Grid x:Name="grid">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -42,9 +42,10 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="textBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Margin="5" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" 
+        <TextBox x:Name="textBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Margin="5" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" 
                  MaxHeight="150" MinHeight="60" TextWrapping="WrapWithOverflow" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
 
         <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Text="Parser"/>
@@ -63,10 +64,12 @@
         <TextBlock Grid.Row="1" Grid.Column="4" Margin="5" Text="Default external stock"/>
         <ComboBox Grid.Row="2" Grid.Column="4" Margin="5" ItemsSource="{Binding ExternalStocks}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedExternalStock}"/>
 
-        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Margin="5" Content="Parse" Command="{Binding ParseCommand}"/>
+        <CheckBox Grid.Row="2" Grid.Column="5" Margin="5" Content="Generate missing stocks" IsChecked="{Binding GenerateMissingStocks}"/>
 
-        <UserControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" Margin="5,10" Content="{Binding ResultsListViewModel}"/>
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" Margin="5" Content="Parse" Command="{Binding ParseCommand}"/>
 
-        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5"  Margin="5" Content="Save" Command="{Binding SaveCommand}" Width="120" Height="25"/>
+        <UserControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" Margin="5,10" Content="{Binding ResultsListViewModel}"/>
+
+        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6"  Margin="5" Content="Save" Command="{Binding SaveCommand}" Width="120" Height="25"/>
     </Grid>
 </UserControl>

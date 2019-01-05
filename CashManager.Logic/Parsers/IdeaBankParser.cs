@@ -17,7 +17,7 @@ namespace CashManager.Logic.Parsers
         #region IParser
 
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome,
-            TransactionType defaultIncome)
+            TransactionType defaultIncome, bool generateMissingStocks = false)
         {
             if (string.IsNullOrEmpty(input)) return null;
 

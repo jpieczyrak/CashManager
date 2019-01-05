@@ -32,6 +32,8 @@ namespace CashManager_MVVM.Features.Parsers
         private readonly ICommandDispatcher _commandDispatcher;
         private string _inputText;
 
+        private bool _generateMissingStocks;
+
         private TransactionListViewModel _resultsListViewModel = new TransactionListViewModel();
         private KeyValuePair<string, IParser> _selectedParser;
 
@@ -68,6 +70,12 @@ namespace CashManager_MVVM.Features.Parsers
         public RelayCommand ParseCommand { get; set; }
 
         public RelayCommand SaveCommand { get; set; }
+
+        public bool GenerateMissingStocks
+        {
+            get => _generateMissingStocks;
+            set => Set(ref _generateMissingStocks, value);
+        }
 
         public TransactionListViewModel ResultsListViewModel
         {
@@ -140,7 +148,7 @@ namespace CashManager_MVVM.Features.Parsers
             var results = parser.Parse(InputText, Mapper.Map<DtoStock>(SelectedUserStock),
                 Mapper.Map<DtoStock>(SelectedExternalStock),
                 Mapper.Map<DtoTransactionType>(DefaultOutcomeTransactionType),
-                Mapper.Map<DtoTransactionType>(DefaultIncomeTransactionType));
+                Mapper.Map<DtoTransactionType>(DefaultIncomeTransactionType), GenerateMissingStocks);
             var transactions = Mapper.Map<List<Transaction>>(results);
 
             ResultsListViewModel = new TransactionListViewModel { Transactions = new TrulyObservableCollection<Transaction>(transactions) };
