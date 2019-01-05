@@ -1,0 +1,56 @@
+Lista transakcji;;;;;ING Bank Œl¹ski S.A. ul. Sokolska 34, 40-086 Katowice www.ingbank.pl;;;;;;;;;;;
+Dokument nr 0039356697_221218;;;;;;;;;;;;;;;;
+Wygenerowany dnia: 2018-12-22, 13:58;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;
+Dane U¿ytkownika:;;;;;;;;;;;;;;;;
+imie nazwisko adress;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;
+Wybrane rachunki:;;;;;;;;;;;;;;;;
+KONTO Direct (PLN);;1;;;;;;;;;;;;;;
+Dream Saver (PLN);;2;;;;;;;;;;;;;;
+Otwarte Konto Oszczêdnoœciowe (PLN);;3;;;;;;;;;;;;;;
+Smart Saver (PLN);;4;;;;;;;;;;;;;;
+K@rta wirtualna ING VISA (PLN);;5;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;
+Zastosowane kryteria wyboru;;;;;Podsumowanie;;;;;;;;;;;
+;;;;;;;;;;;;;;;;
+Zakres dat:;2018-06-22 - 2018-12-22;Typy transakcji:;wszystkie;;Liczba transakcji:;123;;;;;;;;;;
+;;;;;;;;;;;;;;;;
+Ukryto transakcje Smart Saver;;;;;Suma uznañ (123):;12345;PLN;;;;;;;;;
+;;;;;;;;;;;;;;;;
+;;;;;Suma obci¹¿eñ (123):;12398;PLN;;;;;;;;;
+;;;;;;;;;;;;;;;;
+Data transakcji;Data ksiêgowania;Dane kontrahenta;Tytu³;Nr rachunku;Nazwa banku;Szczegó³y;Nr transakcji;Kwota transakcji (waluta rachunku);Waluta;Kwota blokady/zwolnienie blokady;Waluta;Kwota p³atnoœci w walucie;Waluta;Konto;Saldo po transakcji;Waluta
+21.12.2018;; ZABKA Z2135 K1 GLIWICE PL ; P³atnoœæ kart¹ 21.12.2018 Nr karty 4246xx9261;'';;;;;;-3,99;PLN;;;KONTO Direct;2138,02;PLN
+21.12.2018;21.12.2018;imie nazwisko adres; przelew Smart Saver P³atnoœæ kart¹ 19.12.2018 Nr karty 4246xx9261 Kwota: 165,97 PLN;123123123123 ';ING Bank Œl¹ski S.A.; ;'201835564008056902';4,03;PLN;;;;;Smart Saver;1677,46;PLN
+20.12.2018;22.12.2018; PaylaneLegimiabonament Gdansk PL ; P³atnoœæ kart¹ 20.12.2018 Nr karty 4779xx7113;112331/1912330 ';;TR.KART -39.99  ;'201835697304522092';-39,99;PLN;;;;;K@rta wirtualna ING VISA;105,22;PLN
+20.12.2018;20.12.2018;imie nazwisko adres; przelew Smart Saver P³atnoœæ kart¹ 18.12.2018 Nr karty 4246xx9261 Kwota: 39,98 PLN;123123123123 ';ING Bank Œl¹ski S.A.; ;'201835464008229006';0,02;PLN;;;;;Smart Saver;1673,43;PLN
+20.12.2018;20.12.2018;imie nazwisko adres; przelew Smart Saver P³atnoœæ kart¹ 18.12.2018 Nr karty 4246xx9261 Kwota: 24,28 PLN;123123123123 ';ING Bank Œl¹ski S.A.; ;'201835464008179591';5,72;PLN;;;;;Smart Saver;1673,41;PLN
+20.12.2018;20.12.2018;imie nazwisko adres; przelew Smart Saver P³atnoœæ kart¹ 18.12.2018 Nr karty 4246xx9261 Kwota: 21,98 PLN;123123123123 ';ING Bank Œl¹ski S.A.; ;'201835464008068067';8,02;PLN;;;;;Smart Saver;1667,69;PLN
+20.12.2018;20.12.2018;imie nazwisko adres; Na legimi;123123123123 ';ING Bank Œl¹ski S.A.;ST.ZLEC  ;'201835497208742045';39,99;PLN;;;;;K@rta wirtualna ING VISA;145,21;PLN
+20.12.2018;20.12.2018;imie nazwisko adres; Na legimi;123123123123 ';ING Bank Œl¹ski S.A.;ST.ZLEC  ;'201835497208742045';-39,99;PLN;;;;;KONTO Direct;2159,8;PLN
+19.12.2018;21.12.2018; CENTRUM NISKICH CEN SP Z GLIWICE PL ; P³atnoœæ kart¹ 19.12.2018 Nr karty 4246xx9261;123123123123 ';;TR.KART -165.97  ;'201835597301381962';-165,97;PLN;;;;;KONTO Direct;2199,79;PLN
+18.12.2018;20.12.2018; APTEKA SLONECZNA Gliwice PL ; P³atnoœæ kart¹ 18.12.2018 Nr karty 4246xx9261;123123123123 ';;TR.KART -21.98  ;'201835497301424515';-21,98;PLN;;;;;KONTO Direct;2365,76;PLN
+18.12.2018;20.12.2018; ROSSMANN 07 Gliwice PL ; P³atnoœæ kart¹ 18.12.2018 Nr karty 4246xx9261;123123123123 ';;TR.KART -24.28  ;'201835497303371895';-24,28;PLN;;;;;KONTO Direct;2387,74;PLN
+18.12.2018;20.12.2018; Megasklep Sportowy Gliwice PL ; P³atnoœæ kart¹ 18.12.2018 Nr karty 4246xx9261;123123123123 ';;TR.KART -39.98  ;'201835497304260062';-39,98;PLN;;;;;KONTO Direct;2412,02;PLN
+18.12.2018;20.12.2018; SKYCASH POLAND SA Polska WARSZA PL ; P³atnoœæ kart¹ 18.12.2018 Nr karty 4779xx7113;123123123123 ';;TR.KART -1.50  ;'201835497301314898';-1,5;PLN;;;;;K@rta wirtualna ING VISA;105,22;PLN
+17.12.2018;19.12.2018; SKYCASH POLAND SA Polska WARSZA PL ; P³atnoœæ kart¹ 17.12.2018 Nr karty 4779xx7113;123123123123 ';;TR.KART -1.80  ;'201835397301218471';-1,8;PLN;;;;;K@rta wirtualna ING VISA;106,72;PLN
+17.12.2018;17.12.2018;imie nazwisko adres; przelew Smart Saver Za pizze :) Kwota: 16,50 PLN;123123123123 ';ING Bank Œl¹ski S.A.; ;'201835164008654714';3,5;PLN;;;;;Smart Saver;1659,67;PLN
+17.12.2018;17.12.2018; Imiê XYYX ; Za pizze :);123123123123 ';mBank Oddzia³ Bankowoœci;PRZELEW  ;'201835197202869826';-16,5;PLN;;;;;KONTO Direct;2105,5;PLN
+17.12.2018;19.12.2018; SKYCASH POLAND SA Polska WARSZA PL ; P³atnoœæ kart¹ 17.12.2018 Nr karty 4779xx7113;123123123123 ';;TR.KART -1.80  ;'201835397301318223';-1,8;PLN;;;;;K@rta wirtualna ING VISA;108,52;PLN
+17.12.2018;17.12.2018; Blue Media S.A. ; Do³adowanie telefonu nr 48787125446 Nr ref.741217201;123123123123 ';ING Bank Œl¹ski S.A.;PRZELEW  ;'201835197201530402';-30;PLN;;;;;KONTO Direct;2122;PLN
+17.12.2018;17.12.2018;imie nazwisko adres; przelew Smart Saver P³atnoœæ kart¹ 15.12.2018 Nr karty 4246xx9261 Kwota: 12,00 PLN;123123123123 ';ING Bank Œl¹ski S.A.; ;'201835164008499908';8;PLN;;;;;Smart Saver;1656,17;PLN
+17.12.2018;17.12.2018;imie nazwisko adres; przelew Smart Saver P³atnoœæ kart¹ 15.12.2018 Nr karty 4246xx9261 Kwota: 25,00 PLN;123123123123 ';ING Bank Œl¹ski S.A.; ;'201835164008386597';5;PLN;;;;;Smart Saver;1648,17;PLN
+17.12.2018;17.12.2018;imie nazwisko adres; przelew Smart Saver P³atnoœæ kart¹ 15.12.2018 Nr karty 4246xx9261 Kwota: 19,75 PLN;123123123123 ';ING Bank Œl¹ski S.A.; ;'201835164008363439';0,25;PLN;;;;;Smart Saver;1643,17;PLN
+15.12.2018;; PaylaneLegimiabonament Gdansk PL, 2207001337 5942 ; P³atnoœæ kart¹ 04.12.2018 Nr karty 4779xx7113;123123123123 ';;;;;;1;PLN;;;K@rta wirtualna ING VISA;110,32;PLN
+15.12.2018;17.12.2018;imie nazwisko adres; Przelew w³asny;123123123123 ';ING Bank Œl¹ski S.A.;PRZELEW  ;'201835197201137086';8;PLN;;;;;K@rta wirtualna ING VISA;109,32;PLN
+15.12.2018;17.12.2018;imie nazwisko adres; Przelew w³asny;123123123123 ';ING Bank Œl¹ski S.A.;PRZELEW  ;'201835197201137086';-8;PLN;;;;;KONTO Direct;2165,25;PLN
+15.12.2018;; ICON FITNESS GLIWICE GLIWICE PL, 2207001337 7997 ; P³atnoœæ kart¹ 15.12.2018 Nr karty 4779xx7113;'';;;;;;1;PLN;;;K@rta wirtualna ING VISA;101,32;PLN
+15.12.2018;; ICON FITNESS GLIWICE GLIWICE PL, 2207001337 7997 ; P³atnoœæ kart¹ 15.12.2018 Nr karty 4779xx7113;'';;;;;;1;PLN;;;K@rta wirtualna ING VISA;100,32;PLN
+15.12.2018;; ICON FITNESS GLIWICE GLIWICE PL ; P³atnoœæ kart¹ 15.12.2018 Nr karty 4779xx7113;'';;;;;;-1;PLN;;;K@rta wirtualna ING VISA;99,32;PLN
+15.12.2018;; ICON FITNESS GLIWICE GLIWICE PL ; P³atnoœæ kart¹ 15.12.2018 Nr karty 4779xx7113;'';;;;;;-1;PLN;;;K@rta wirtualna ING VISA;100,32;PLN
+15.12.2018;17.12.2018; JMP SA BIEDRONKA 3577 GLIWICE PL ; P³atnoœæ kart¹ 15.12.2018 Nr karty 4246xx9261;123123123123 ';;TR.KART -19.75  ;'201835197304994186';-19,75;PLN;;;;;KONTO Direct;2173,25;PLN
+15.12.2018;17.12.2018; GELATO STUDIO lody Gliwice PL ; P³atnoœæ kart¹ 15.12.2018 Nr karty 4246xx9261;123123123123 ';;TR.KART -12.00  ;'201835197306328253';-12;PLN;;;;;KONTO Direct;2193;PLN
+;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;
+Dokument ma charakter informacyjny, nie stanowi dowodu ksiêgowego;;;;;;;;;;;;;;;;
