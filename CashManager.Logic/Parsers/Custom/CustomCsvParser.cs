@@ -5,10 +5,14 @@ using System.Linq;
 using CashManager.Data.DTO;
 using CashManager.Data.Extensions;
 
+using log4net;
+
 namespace CashManager.Logic.Parsers.Custom
 {
     public class CustomCsvParser : IParser
     {
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(CustomCsvParser)));
+
         private readonly Rule[] _rules;
         private readonly Stock[] _stocks;
 
@@ -133,7 +137,7 @@ namespace CashManager.Logic.Parsers.Custom
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _logger.Value.Info("Parsing failed", e);
                 return false;
             }
 

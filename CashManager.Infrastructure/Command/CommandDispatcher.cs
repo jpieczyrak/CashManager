@@ -1,9 +1,12 @@
 ﻿using System;
 
+using log4net;
+
 namespace CashManager.Infrastructure.Command
 {
     public class CommandDispatcher : ICommandDispatcher
     {
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(CommandDispatcher)));
         private readonly Func<Type, ICommandHandler> _handlersFactory;
 
         public CommandDispatcher(Func<Type, ICommandHandler> handlersFactory)
@@ -21,6 +24,7 @@ namespace CashManager.Infrastructure.Command
             }
             catch (Exception e)
             {
+                _logger.Value.Error("Execute", e);
                 throw e;
             }
 

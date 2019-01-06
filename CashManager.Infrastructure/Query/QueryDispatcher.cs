@@ -1,9 +1,12 @@
 ﻿using System;
 
+using log4net;
+
 namespace CashManager.Infrastructure.Query
 {
     public class QueryDispatcher : IQueryDispatcher
     {
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(QueryDispatcher)));
         private readonly Func<Type, IQueryHandler> _handlersFactory;
 
         public QueryDispatcher(Func<Type, IQueryHandler> handlersFactory)
@@ -21,6 +24,7 @@ namespace CashManager.Infrastructure.Query
             }
             catch (Exception e)
             {
+                _logger.Value.Error("Execute", e);
                 throw e;
             }
 

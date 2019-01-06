@@ -47,7 +47,7 @@ namespace CashManager.Logic.Parsers
                         results.Add(transaction);
                         _balances.Add(new Balance(date, balance));
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         bool hasTitle = !string.IsNullOrEmpty(elements[i]);
                         bool isSkippedTransaction = NOT_PERFORMED_TRANSACTION.Equals(elements[i + 1].Trim());

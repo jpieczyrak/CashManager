@@ -4,11 +4,14 @@ using System.Globalization;
 
 using CashManager.Data.DTO;
 
+using log4net;
+
 namespace CashManager.Logic.Parsers
 {
     public class ExcelParser : IParser
     {
-        public Dictionary<Stock, Balance> Balances { get; private set; } = new Dictionary<Stock, Balance>();
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(ExcelParser)));
+        public Dictionary<Stock, Balance> Balances { get; } = new Dictionary<Stock, Balance>();
 
         #region IParser
 
@@ -17,26 +20,27 @@ namespace CashManager.Logic.Parsers
         {
             var transactions = new List<Transaction>();
 
-            try
-            {
-                string[] lines = input.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] lines = input.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-                foreach (string line in lines)
+
+            foreach (string line in lines)
+            {
+                try
                 {
                     string[] values = line.Split(';');
 
                     bool buying = !string.IsNullOrEmpty(values[11]);
                     bool working = !string.IsNullOrEmpty(values[10]);
 
-                    if (buying) transactions.Add(MakeTransaction(userStock, externalStock, true, values, line, defaultOutcome, defaultIncome));
+                    if (buying)
+                        transactions.Add(MakeTransaction(userStock, externalStock, true, values, line, defaultOutcome, defaultIncome));
                     if (working)
                         transactions.Add(MakeTransaction(userStock, externalStock, false, values, line, defaultOutcome, defaultIncome));
                 }
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
+                catch (Exception e)
+                {
+                    _logger.Value.Debug($"Invalid line entry: {line}", e);
+                }
             }
 
             return transactions.ToArray();

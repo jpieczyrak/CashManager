@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 using Autofac;
 
@@ -60,6 +61,7 @@ namespace CashManager_MVVM
 
         protected override async void OnStartup(StartupEventArgs e)
         {
+            Dispatcher.UnhandledException += OnDispatcherUnhandledException;
             base.OnStartup(e);
 
             var builder = AutofacConfiguration.ContainerBuilder();
@@ -105,5 +107,15 @@ namespace CashManager_MVVM
         }
 
         #endregion
+
+        private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+#if DEBUG
+            string errorMessage = $"An unhandled exception: {e.Exception.Message}";
+            MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+#endif
+            _logger.Value.Fatal("An unhandled exception", e.Exception);
+            e.Handled = false;
+        }
     }
 }
