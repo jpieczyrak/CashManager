@@ -75,7 +75,8 @@ namespace CashManager_MVVM.Features.Transactions
                     foreach (var position in _transaction.Positions)
                     {
                         position.CategoryPickerViewModel = new CategoryPickerViewModel(_queryDispatcher, position.Category);
-                        //todo: check sender - only on selected category change
+                        
+                        //todo: check sender - only on selected category change (no on all changes)
                         position.CategoryPickerViewModel.PropertyChanged +=
                             (sender, args) => position.Category = position.CategoryPickerViewModel.SelectedCategory;
 
