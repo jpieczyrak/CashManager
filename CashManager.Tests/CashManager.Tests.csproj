@@ -118,6 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataBuilderTests\CategoryBuilderTests.cs" />
     <Compile Include="Dtos\TransactionCreationTests.cs" />
     <Compile Include="Feature\Category\FilteringTests.cs" />
     <Compile Include="Feature\Category\CountParents.cs" />
