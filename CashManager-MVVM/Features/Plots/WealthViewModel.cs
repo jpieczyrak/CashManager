@@ -59,7 +59,8 @@ namespace CashManager_MVVM.Features.Plots
 
         public void Update()
         {
-            var stocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()))
+            var dtos = _queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery());
+            var stocks = Mapper.Map<Stock[]>(dtos)
                                .Where(x => x.IsUserStock)
                                .OrderBy(x => x.Name)
                                .ToArray();
@@ -112,7 +113,7 @@ namespace CashManager_MVVM.Features.Plots
             if (selectedStocks == null || !selectedStocks.Any()) return new DataPoint[0];
             if (transactions == null || !transactions.Any()) return new DataPoint[0];
 
-            var stockDate = selectedStocks.Max(x => x.LastEditDate).Date; //todo: fix stock last edit date!
+            var stockDate = selectedStocks.Max(x => x.LastEditDate).Date;
             decimal stockValue = selectedStocks.Sum(x => x.Balance.Value);
             
             var firstMatch = transactions

@@ -16,7 +16,13 @@ namespace CashManager_MVVM.Model.Common
         public bool IsSelected
         {
             get => _isSelected;
-            set => Set(nameof(IsSelected), ref _isSelected, value);
+            set
+            {
+                bool actual = IsPropertyChangedEnabled;
+                IsPropertyChangedEnabled = false;
+                Set(nameof(IsSelected), ref _isSelected, value);
+                IsPropertyChangedEnabled = actual;
+            }
         }
 
         protected BaseSelectable() { }
