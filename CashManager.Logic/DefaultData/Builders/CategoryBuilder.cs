@@ -15,10 +15,21 @@ namespace CashManager.Logic.DefaultData.Builders
             Categories = new List<Category>();
         }
 
-        public CategoryBuilder AddCategory(Category category)
+        public CategoryBuilder AddTopCategory(Category category)
         {
             LastCategory = category;
             if (category != null) Categories.Add(category);
+            return this;
+        }
+
+        public CategoryBuilder AddChildrenCategory(Category category)
+        {
+            if (LastCategory != null)
+            {
+                category.Parent = LastCategory;
+                LastCategory = category;
+            }
+
             return this;
         }
     }
