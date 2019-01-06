@@ -112,7 +112,7 @@ namespace CashManager_MVVM.Features.Plots
             if (selectedStocks == null || !selectedStocks.Any()) return new DataPoint[0];
             if (transactions == null || !transactions.Any()) return new DataPoint[0];
 
-            var stockDate = selectedStocks.Max(x => x.LastEditDate); //todo: fix stock last edit date!
+            var stockDate = selectedStocks.Max(x => x.LastEditDate).Date; //todo: fix stock last edit date!
             decimal stockValue = selectedStocks.Sum(x => x.Balance.Value);
             
             var firstMatch = transactions

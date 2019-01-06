@@ -54,6 +54,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
             var vm = _container.Resolve<WealthViewModel>();
             var selectedStocks = Stocks.Take(1).ToArray();
             var selectedUserStock = Stocks[0];
+            var firstBookDate = DateTime.Today.AddDays(-30);
             var transactions = new []
             {
                 new Transaction
@@ -88,7 +89,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
                 },
                 new Transaction
                 {
-                    BookDate = DateTime.Today.AddDays(-30),
+                    BookDate = firstBookDate,
                     UserStock = selectedUserStock,
                     Type = Types[0],
                     Positions = new TrulyObservableCollection<Position>
@@ -97,20 +98,14 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
                     }
                 },
             };
-            decimal startValue = selectedUserStock.UserBalance;
-            var expected = transactions
-                           .Where(x => selectedStocks.Contains(x.UserStock))
-                           .OrderByDescending(x => x.BookDate)
-                           .GroupBy(x => x.BookDate.Date)
-                           .Select(x => new { BookDate = x.Key, Value = (startValue -= x.Sum(y => y.ValueAsProfit)) } )
-                           .Select(x => new DataPoint(DateTimeAxis.ToDouble(x.BookDate), (double)x.Value))
-                           .Concat(new[] 
-                           {
-                               new DataPoint(DateTimeAxis.ToDouble(selectedUserStock.LastEditDate), 
-                               (double) selectedUserStock.UserBalance)
-                           })
-                           .OrderBy(x => x.X)
-                           .ToArray();
+            var expected = new[]
+            {
+                new DataPoint(DateTimeAxis.ToDouble(firstBookDate.AddDays(-1)), 51010.0d), 
+                new DataPoint(DateTimeAxis.ToDouble(firstBookDate), 61010.0d), 
+                new DataPoint(DateTimeAxis.ToDouble(DateTime.Today.AddDays(-22)), 61000.0d), 
+                new DataPoint(DateTimeAxis.ToDouble(DateTime.Today.AddDays(-10)), 60000.0d), 
+                new DataPoint(DateTimeAxis.ToDouble(DateTime.Today), 60000.0d), 
+            };
 
             //when
             var result = vm.GetWealthValues(transactions, selectedStocks);
