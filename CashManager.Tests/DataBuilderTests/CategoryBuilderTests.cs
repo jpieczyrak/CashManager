@@ -68,5 +68,26 @@ namespace CashManager.Tests.DataBuilderTests
             Assert.DoesNotContain(child, result.Categories);
             Assert.Equal(parent, result.LastCategory.Parent);
         }
+
+        [Fact]
+        public void Build_ValidChain_ArrayOfTopParents()
+        {
+            //given
+            var builder = new CategoryBuilder();
+            var parent = new Category();
+            var child1 = new Category();
+            var child2 = new Category();
+            
+            //when
+            var result = builder.AddTopCategory(parent).AddChildrenCategory(child1).AddChildrenCategory(child2).Build();
+
+            //then
+            Assert.Null(parent.Parent);
+            Assert.Equal(parent, child1.Parent);
+            Assert.Equal(child1, child2.Parent);
+            Assert.Contains(parent, result);
+            Assert.DoesNotContain(child1, result);
+            Assert.DoesNotContain(child2, result);
+        }
     }
 }

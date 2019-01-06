@@ -32,5 +32,7 @@ namespace CashManager.Logic.DefaultData.Builders
 
             return this;
         }
+
+        public Category[] Build() => Categories.ToArray();
     }
 }
