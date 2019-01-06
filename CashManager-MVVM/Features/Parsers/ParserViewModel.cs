@@ -154,9 +154,12 @@ namespace CashManager_MVVM.Features.Parsers
                 Mapper.Map<DtoStock>(SelectedExternalStock),
                 Mapper.Map<DtoTransactionType>(DefaultOutcomeTransactionType),
                 Mapper.Map<DtoTransactionType>(DefaultIncomeTransactionType), GenerateMissingStocks);
-            var transactions = Mapper.Map<List<Transaction>>(results);
+            var transactions = Mapper.Map<Transaction[]>(results).Where(x => x.IsValid);
 
-            ResultsListViewModel = new TransactionListViewModel { Transactions = new TrulyObservableCollection<Transaction>(transactions) };
+            ResultsListViewModel = new TransactionListViewModel
+            {
+                Transactions = new TrulyObservableCollection<Transaction>(transactions)
+            };
             RaisePropertyChanged(nameof(ResultsListViewModel));
         }
 
