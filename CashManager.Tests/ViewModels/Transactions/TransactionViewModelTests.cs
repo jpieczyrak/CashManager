@@ -68,5 +68,86 @@ namespace CashManager.Tests.ViewModels.Transactions
             Assert.Single(vm.TransactionsProvider.AllTransactions);
             Assert.Equal(vm.Transaction.Title, vm.TransactionsProvider.AllTransactions[0].Title);
         }
+
+
+        [Theory]
+        [InlineData(true, 0, 200, 200)]
+        [InlineData(true, 100, 200, 300)]
+        [InlineData(false, 200, 100, 100)]
+        [InlineData(false, 0, 200, -200)]
+        public void StockBalanceUpdate_AddValidTransaction_StockBalanceUpdated(bool income, decimal startBalance, decimal transValue, decimal expectedBalance)
+        {
+            //given
+            var vm = _container.Resolve<TransactionViewModel>();
+            vm.Update();
+            var userStock = new Stock { Name = "test", Balance = new Balance { Value = startBalance }, IsUserStock = true };
+            
+            vm.Transaction.Positions = new TrulyObservableCollection<Position>(new[] {
+                new Position
+                {
+                    Title = "test1", Value = new PaymentValue(transValue, transValue, 0m)
+                }
+            });
+            vm.Transaction.Title = "non empty";
+            vm.Transaction.Type = new TransactionType { Income = income, Outcome = !income };
+            vm.Transaction.UserStock = userStock;
+            vm.Transaction.Positions[0].TagViewModel = _container.Resolve<MultiComboBoxViewModel>();
+            vm.Transaction.Positions[0].TagViewModel.SetInput(Tags);
+            vm.ShouldGoBack = false;
+
+            var command = vm.SaveTransactionCommand;
+
+            //when
+            bool canExecute = command.CanExecute(null);
+            command.Execute(null);
+
+            //then
+            Assert.True(canExecute);
+            Assert.Single(vm.TransactionsProvider.AllTransactions);
+            Assert.Equal(expectedBalance, userStock.Balance.Value);
+        }
+
+        [Theory]
+        [InlineData(true, 1000, 1000, 1500, 1500)]
+        [InlineData(true, 1000, 1000, 500, 500)]
+        [InlineData(true, 1000, 500, 100, -400)]
+        [InlineData(false, 1000, 1000, 100, 1900)]
+        [InlineData(false, 1500, 500, 1500, 500)]
+        [InlineData(false, 500, 500, 1500, -500)]
+        public void StockBalanceUpdate_EditValidTransaction_StockBalanceUpdated(bool income, decimal transactionStartValue, decimal startBalance, decimal transValue, decimal expectedBalance)
+        {
+            //given
+            var vm = _container.Resolve<TransactionViewModel>();
+            var userStock = new Stock { Name = "test", Balance = new Balance { Value = startBalance }, IsUserStock = true };
+            //assigning transaction = transaction edit
+            vm.Transaction = new Transaction
+            {
+                Title = "non empty",
+                Positions = new TrulyObservableCollection<Position>(new[] {
+                new Position
+                {
+                    Title = "test1", Value = new PaymentValue(transactionStartValue, transactionStartValue, 0m)
+                }
+                }),
+                Type = new TransactionType { Income = income, Outcome = !income},
+                UserStock = userStock
+            };
+            vm.Transaction.Positions[0].TagViewModel = _container.Resolve<MultiComboBoxViewModel>();
+            vm.Transaction.Positions[0].TagViewModel.SetInput(Tags);
+            vm.Transaction.Positions[0].Value.GrossValue = transValue;
+            vm.Transaction.Positions[0].Value.NetValue = transValue;
+            vm.ShouldGoBack = false;
+
+            var command = vm.SaveTransactionCommand;
+
+            //when
+            bool canExecute = command.CanExecute(null);
+            command.Execute(null);
+
+            //then
+            Assert.True(canExecute);
+            Assert.Single(vm.TransactionsProvider.AllTransactions);
+            Assert.Equal(expectedBalance, userStock.Balance.Value);
+        }
     }
 }
