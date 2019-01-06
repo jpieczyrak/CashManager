@@ -1,24 +1,12 @@
 ﻿using System;
 
 using CashManager.Data.DTO;
+using CashManager.Logic.DefaultData.Builders;
 
 namespace CashManager.Logic.DefaultData
 {
     public class DefaultDataProvider : IDataProvider
     {
-        protected Category _unknown;
-        protected Category _home;
-        protected Category _fun;
-        protected Category _fun_pc;
-        protected Category _fun_books;
-        protected Category _fun_games;
-        protected Category _fun_games_strategy;
-        protected Category _fun_games_fps;
-        protected Category _home_cleaning;
-        protected Category _home_food;
-        protected Category _home_food_base;
-        protected Category _home_food_chocolates;
-        protected Category _home_food_tea;
         protected TransactionType _workType;
         protected TransactionType _buyType;
         protected TransactionType _transferInType;
@@ -40,37 +28,122 @@ namespace CashManager.Logic.DefaultData
 
         public Category[] GetCategories()
         {
-            _unknown = new Category { Name = "Unknown", Parent = null };
-            _home = new Category { Name = "Home", Parent = null };
-            _fun = new Category { Name = "Fun", Parent = null };
-            _fun_pc = new Category { Name = "PC", Parent = _fun };
-            _fun_books = new Category { Name = "Books", Parent = _fun };
-            _fun_games = new Category { Name = "Games", Parent = _fun };
-            _fun_games_strategy = new Category { Name = "Strategy", Parent = _fun_games };
-            _fun_games_fps = new Category { Name = "FPS", Parent = _fun_games };
-            _home_cleaning = new Category { Name = "Cleaning", Parent = _home };
-            _home_food = new Category { Name = "Food", Parent = _home };
-            _home_food_base = new Category { Name = "Base food", Parent = _home_food };
-            _home_food_chocolates = new Category { Name = "Chocolates", Parent = _home_food };
-            _home_food_tea = new Category { Name = "Tea", Parent = _home_food };
-            var dtoCategories = new[]
-            {
-                _home,
-                _fun,
-                _unknown,
-                _fun_pc,
-                _fun_books,
-                _fun_games,
-                _fun_games_strategy,
-                _fun_games_fps,
-                _home_cleaning,
-                _home_food,
-                _home_food_base,
-                _home_food_chocolates,
-                _home_food_tea
-            };
-
-            return dtoCategories;
+            return new CategoryBuilder()
+                   .AddTopCategory("Dom")
+                   .AddChildrenCategoryAndGoUp("Meble")
+                   .AddChildrenCategoryAndGoUp("Oświetlenie")
+                   .AddChildrenCategoryAndGoUp("Ogród")
+                   .AddChildrenCategoryAndGoUp("Remont")
+                   .AddChildrenCategoryAndGoUp("Kredyt")
+                   .AddChildrenCategoryAndGoUp("Sprzątanie")
+                   .AddChildrenCategoryAndGoUp("Zakup nieruchomości")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .AddTopCategory("Dzieci")
+                   .AddChildrenCategoryAndGoUp("Opieka")
+                   .AddChildrenCategoryAndGoUp("Ubrania")
+                   .AddChildrenCategoryAndGoUp("Szkoła")
+                   .AddChildrenCategoryAndGoUp("Zabawki")
+                   .AddChildrenCategoryAndGoUp("Zajęcia dodatkowe")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .AddTopCategory("Edukacja")
+                   .AddChildrenCategoryAndGoUp("Podręczniki")
+                   .AddChildrenCategoryAndGoUp("Opłaty")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .AddTopCategory("Inne")
+                   .AddTopCategory("Jedzenie")
+                   .AddChildrenCategoryAndGoUp("Fast food")
+                   .AddChildrenCategoryAndGoUp("Restauracje")
+                   .AddChildrenCategoryAndGoUp("Sklepy")
+                   .AddChildrenCategoryAndGoUp("Herbata")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .AddTopCategory("Osobiste")
+                   .AddChildrenCategoryAndGoUp("Fryzjer")
+                   .AddChildrenCategoryAndGoUp("Ośrodki sportowe")
+                   .AddChildrenCategoryAndGoUp("Środki trwałe")
+                   .AddChildrenCategoryAndGoUp("Drobnostki")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .AddTopCategory("Ubezpieczenia")
+                   .AddChildrenCategoryAndGoUp("Inwestycje")
+                   .AddChildrenCategoryAndGoUp("Lokaty")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .AddTopCategory("Opłaty")
+                   .AddChildrenCategoryAndGoUp("Mandaty")
+                   .AddChildrenCategoryAndGoUp("Usługi prawne")
+                   .AddChildrenCategoryAndGoUp("Raty pożyczek")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .AddChildrenCategory("Podatki")
+                   .AddChildrenCategoryAndGoUp("ZUS")
+                   .AddChildrenCategoryAndGoUp("PIT")
+                   .AddChildrenCategoryAndGoUp("VAT")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .AddTopCategory("Prezenty")
+                   .AddChildrenCategoryAndGoUp("Rodzina")
+                   .AddChildrenCategoryAndGoUp("Znajomi")
+                   .AddChildrenCategoryAndGoUp("Uroczystości")
+                   .AddChildrenCategoryAndGoUp("Dobroczynność")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .AddTopCategory("Rachunki")
+                   .AddChildrenCategoryAndGoUp("Czynsz")
+                   .AddChildrenCategoryAndGoUp("Gaz")
+                   .AddChildrenCategoryAndGoUp("Prąd")
+                   .AddChildrenCategoryAndGoUp("Telefon")
+                   .AddChildrenCategoryAndGoUp("Tv")
+                   .AddChildrenCategoryAndGoUp("Woda")
+                   .AddChildrenCategoryAndGoUp("Wywóz śmieci")
+                   .AddChildrenCategoryAndGoUp("Ochrona")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .AddTopCategory("Rozrywka")
+                   .AddChildrenCategoryAndGoUp("Bilety")
+                   .AddChildrenCategoryAndGoUp("Gry")
+                   .AddChildrenCategoryAndGoUp("Kino")
+                   .AddChildrenCategoryAndGoUp("Teatr")
+                   .AddChildrenCategoryAndGoUp("Książki")
+                   .AddChildrenCategoryAndGoUp("Loterie")
+                   .AddChildrenCategoryAndGoUp("Muzyka")
+                   .AddChildrenCategoryAndGoUp("Życie nocne")
+                   .AddChildrenCategoryAndGoUp("Papierosy")
+                   .AddChildrenCategoryAndGoUp("Subskrypcje")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .AddTopCategory("Auto")
+                   .AddChildrenCategoryAndGoUp("Parking")
+                   .AddChildrenCategoryAndGoUp("Opłaty drogowe")
+                   .AddChildrenCategoryAndGoUp("Leasing")
+                   .AddChildrenCategoryAndGoUp("Kredyt")
+                   .AddChildrenCategoryAndGoUp("Serwis")
+                   .AddChildrenCategoryAndGoUp("Myjnia")
+                   .AddChildrenCategoryAndGoUp("Części")
+                   .AddChildrenCategoryAndGoUp("Ubezpieczenie")
+                   .AddChildrenCategoryAndGoUp("Zakup")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .AddChildrenCategory("Paliwo")
+                   .AddChildrenCategoryAndGoUp("Benzyna")
+                   .AddChildrenCategoryAndGoUp("Ropa")
+                   .AddChildrenCategoryAndGoUp("Gaz")
+                   .AddChildrenCategoryAndGoUp("Prąd")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .AddTopCategory("Wakacje")
+                   .AddChildrenCategoryAndGoUp("Jedzenie")
+                   .AddChildrenCategoryAndGoUp("Noclegi")
+                   .AddChildrenCategoryAndGoUp("Przelot")
+                   .AddChildrenCategoryAndGoUp("Wycieczki zorganizowane")
+                   .AddChildrenCategoryAndGoUp("Wynajem pojazdów")
+                   .AddChildrenCategoryAndGoUp("Transport")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .AddTopCategory("Usługi")
+                   .AddTopCategory("Zdrowie")
+                   .AddChildrenCategoryAndGoUp("Leki")
+                   .AddChildrenCategoryAndGoUp("Optyk")
+                   .AddChildrenCategoryAndGoUp("Wizyty lekarskie")
+                   .AddChildrenCategoryAndGoUp("Dentyści")
+                   .AddChildrenCategoryAndGoUp("Ubezpieczenie zdrowotne")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .AddTopCategory("Zwierzęta")
+                   .AddChildrenCategoryAndGoUp("Karma")
+                   .AddChildrenCategoryAndGoUp("Zabawki")
+                   .AddChildrenCategoryAndGoUp("Weterynarz")
+                   .AddChildrenCategoryAndGoUp("Leki")
+                   .AddChildrenCategoryAndGoUp("Inne")
+                   .Build();
         }
 
         public virtual Stock[] GetStocks()

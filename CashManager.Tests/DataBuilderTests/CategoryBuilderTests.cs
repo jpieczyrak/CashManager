@@ -1,4 +1,6 @@
-﻿using CashManager.Data.DTO;
+﻿using System.Linq;
+
+using CashManager.Data.DTO;
 using CashManager.Logic.DefaultData.Builders;
 
 using Xunit;
@@ -14,7 +16,7 @@ namespace CashManager.Tests.DataBuilderTests
             var builder = new CategoryBuilder();
 
             //when
-            var result = builder.AddTopCategory(null);
+            var result = builder.AddTopCategory((Category) null);
 
             //then
             Assert.Null(result.LastCategory);
@@ -64,8 +66,9 @@ namespace CashManager.Tests.DataBuilderTests
             var result = builder.AddChildrenCategory(child);
 
             //then
+            var roots = result.Categories.Where(x => x.Parent == null).ToArray();
             Assert.Equal(child, result.LastCategory);
-            Assert.DoesNotContain(child, result.Categories);
+            Assert.DoesNotContain(child, roots);
             Assert.Equal(parent, result.LastCategory.Parent);
         }
 
@@ -86,8 +89,9 @@ namespace CashManager.Tests.DataBuilderTests
 
             //then
             Assert.Equal(parent, result.LastCategory);
-            Assert.DoesNotContain(child1, result.Categories);
-            Assert.DoesNotContain(child2, result.Categories);
+            var roots = result.Categories.Where(x => x.Parent == null).ToArray();
+            Assert.DoesNotContain(child1, roots);
+            Assert.DoesNotContain(child2, roots);
         }
 
         [Fact]
@@ -110,8 +114,10 @@ namespace CashManager.Tests.DataBuilderTests
             Assert.Equal(parent, child1.Parent);
             Assert.Equal(child1, child2.Parent);
             Assert.Contains(parent, result);
-            Assert.DoesNotContain(child1, result);
-            Assert.DoesNotContain(child2, result);
+
+            var roots = builder.Categories.Where(x => x.Parent == null).ToArray();
+            Assert.DoesNotContain(child1, roots);
+            Assert.DoesNotContain(child2, roots);
         }
 
         [Fact]
@@ -152,8 +158,9 @@ namespace CashManager.Tests.DataBuilderTests
             Assert.Contains(root2, result);
             Assert.Contains(root3, result);
 
-            Assert.DoesNotContain(root1Child1, result);
-            Assert.DoesNotContain(root1Child2, result);
+            var roots = builder.Categories.Where(x => x.Parent == null).ToArray();
+            Assert.DoesNotContain(root1Child1, roots);
+            Assert.DoesNotContain(root1Child2, roots);
         }
     }
 }
