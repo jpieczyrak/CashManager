@@ -60,14 +60,14 @@ namespace CashManager_MVVM.Features.Categories
 
             foreach (var category in categories)
             {
-                category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category.Id));
+                category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category.Id).OrderBy(x => x.Name));
                 category.PropertyChanged += (sender, args) =>
                 {
                     if (category.IsSelected) SelectedCategory = category;
                 };
             }
 
-            Categories = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent == null)); //find the root(s)
+            Categories = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent == null).OrderBy(x => x.Name)); //find the root(s)
             
             SelectedCategory = categories.FirstOrDefault(x => x.IsSelected);
         }

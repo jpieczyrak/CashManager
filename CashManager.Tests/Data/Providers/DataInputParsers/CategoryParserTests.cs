@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using CashManager.Logic.DefaultData.Builders;
+﻿using CashManager.Logic.DefaultData.Builders;
 using CashManager.Logic.DefaultData.InputParsers;
 
 using Xunit;
@@ -37,8 +35,6 @@ namespace CashManager.Tests.Data.Providers.DataInputParsers
             //then
             Assert.Equal(expected.Length, result.Length);
 
-            result = result.OrderBy(x => x.Name).ToArray();
-            expected = expected.OrderBy(x => x.Name).ToArray();
             for (int i = 0; i < expected.Length; i++)
             {
                 Assert.Equal(expected[i].Name, result[i].Name);
@@ -74,8 +70,6 @@ namespace CashManager.Tests.Data.Providers.DataInputParsers
             //then
             Assert.Equal(expected.Length, result.Length);
 
-            result = result.OrderBy(x => x.Name).ToArray();
-            expected = expected.OrderBy(x => x.Name).ToArray();
             for (int i = 0; i < expected.Length; i++)
             {
                 Assert.Equal(expected[i].Name, result[i].Name);

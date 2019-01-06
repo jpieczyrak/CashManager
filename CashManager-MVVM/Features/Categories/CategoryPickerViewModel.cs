@@ -39,9 +39,9 @@ namespace CashManager_MVVM.Features.Categories
                                             .ToArray();
 
             foreach (var category in categories)
-                category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category.Id));
+                category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category.Id).OrderBy(x => x.Name));
 
-            Categories = categories.Where(x => x.Parent == null).ToArray(); //find the root(s)
+            Categories = categories.Where(x => x.Parent == null).OrderBy(x => x.Name).ToArray(); //find the root(s)
             SelectedCategory = selectedCategory;
 
             if (selectedCategory != null)
