@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using CashManager.Data.DTO;
 using CashManager.Data.Extensions;
@@ -10,7 +11,7 @@ namespace CashManager.Logic.DefaultData.InputParsers
     {
         public Category[] Parse(string input)
         {
-            var output = new List<Category>();
+            var output = new HashSet<Category>();
             string[] lines = input.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
             var map = new Dictionary<int, Category>();
 
@@ -18,7 +19,8 @@ namespace CashManager.Logic.DefaultData.InputParsers
             {
                 int depth = SpacesCount(line);
                 string name = line.TrimStart(' ', '.');
-                var category = new Category(name.GenerateGuid()) { Name = name };
+                string guidSource = string.Join(".", map.Where(x => x.Key < depth).OrderBy(x => x.Key).Select(x => x.Value.Name))  + name;
+                var category = new Category(guidSource.GenerateGuid()) { Name = name };
 
                 if (depth == 0) map = new Dictionary<int, Category>();
                 if (depth != 0)
