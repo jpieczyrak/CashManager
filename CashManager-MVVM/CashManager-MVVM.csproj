@@ -100,6 +100,9 @@
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\gong-wpf-dragdrop.1.1.0\lib\net45\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
       <HintPath>..\packages\OxyPlot.Core.1.0.0\lib\net45\OxyPlot.dll</HintPath>
@@ -444,6 +447,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -20,6 +20,8 @@ using CashManager_MVVM.Skins;
 
 using GalaSoft.MvvmLight.Threading;
 
+using log4net;
+
 namespace CashManager_MVVM
 {
     /// <summary>
@@ -27,6 +29,8 @@ namespace CashManager_MVVM
     /// </summary>
     public partial class App : Application
     {
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(App)));
+
         private const string DB_PATH = "results.litedb";
 
         internal static SkinColors SkinColors { get; private set; }
@@ -93,6 +97,8 @@ namespace CashManager_MVVM
             catch (Exception exception)
             {
                 //todo: maybe password was needed (outdated settings) -> handle password?
+
+                _logger.Value.Error("Loading app failed", exception);
                 Console.WriteLine(exception);
                 Current.Shutdown();
             }
