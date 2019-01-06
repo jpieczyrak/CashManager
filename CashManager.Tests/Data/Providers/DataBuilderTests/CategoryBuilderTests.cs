@@ -5,7 +5,7 @@ using CashManager.Logic.DefaultData.Builders;
 
 using Xunit;
 
-namespace CashManager.Tests.DataBuilderTests
+namespace CashManager.Tests.Data.Providers.DataBuilderTests
 {
     public class CategoryBuilderTests
     {

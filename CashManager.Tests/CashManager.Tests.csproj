@@ -118,10 +118,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBuilderTests\CategoryBuilderTests.cs" />
-    <Compile Include="Dtos\TransactionCreationTests.cs" />
-    <Compile Include="Feature\Category\FilteringTests.cs" />
-    <Compile Include="Feature\Category\CountParents.cs" />
+    <Compile Include="Data\Providers\DataBuilderTests\CategoryBuilderTests.cs" />
+    <Compile Include="Data\Dtos\TransactionCreationTests.cs" />
+    <Compile Include="Data\Data\Category\FilteringTests.cs" />
+    <Compile Include="Data\Data\Category\CountParents.cs" />
     <Compile Include="Infrastructure\Commands\Categories\DeleteCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Categories\UpsertCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\States\UpsertCommandTests.cs" />
@@ -194,7 +194,9 @@
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Data\Providers\DataInputParsers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace CashManager.Tests.Feature.Category
+namespace CashManager.Tests.Data.Data.Category
 {
     public class CountParents
     {

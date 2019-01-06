@@ -4,7 +4,7 @@ using CashManager.Data.DTO;
 
 using Xunit;
 
-namespace CashManager.Tests.Dtos
+namespace CashManager.Tests.Data.Dtos
 {
     public class TransactionCreationTests
     {
