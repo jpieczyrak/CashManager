@@ -70,6 +70,27 @@ namespace CashManager.Tests.DataBuilderTests
         }
 
         [Fact]
+        public void AddChildrenCategoryAndGoUp_ValidCategoryValidParent_ProperlySet()
+        {
+            //given
+            var builder = new CategoryBuilder();
+            var parent = new Category();
+            var child1 = new Category();
+            var child2 = new Category();
+            builder = builder.AddTopCategory(parent);
+
+            //when
+            var result = builder.AddTopCategory(parent)
+                                .AddChildrenCategoryAndGoUp(child1)
+                                .AddChildrenCategoryAndGoUp(child2);
+
+            //then
+            Assert.Equal(parent, result.LastCategory);
+            Assert.DoesNotContain(child1, result.Categories);
+            Assert.DoesNotContain(child2, result.Categories);
+        }
+
+        [Fact]
         public void Build_ValidChain_ArrayOfTopParents()
         {
             //given
@@ -79,7 +100,10 @@ namespace CashManager.Tests.DataBuilderTests
             var child2 = new Category();
             
             //when
-            var result = builder.AddTopCategory(parent).AddChildrenCategory(child1).AddChildrenCategory(child2).Build();
+            var result = builder.AddTopCategory(parent)
+                                .AddChildrenCategory(child1)
+                                .AddChildrenCategory(child2)
+                                .Build();
 
             //then
             Assert.Null(parent.Parent);

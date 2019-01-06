@@ -34,5 +34,12 @@ namespace CashManager.Logic.DefaultData.Builders
         }
 
         public Category[] Build() => Categories.ToArray();
+
+        public CategoryBuilder AddChildrenCategoryAndGoUp(Category category)
+        {
+            if (LastCategory != null) category.Parent = LastCategory;
+
+            return this;
+        }
     }
 }
