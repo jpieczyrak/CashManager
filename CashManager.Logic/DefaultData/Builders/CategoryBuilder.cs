@@ -55,6 +55,12 @@ namespace CashManager.Logic.DefaultData.Builders
             return this;
         }
 
+        public CategoryBuilder GoUp()
+        {
+            LastCategory = LastCategory?.Parent;
+            return this;
+        }
+
         public Category[] Build() => Categories.ToArray();
     }
 }

@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="DefaultData\Builders\CategoryBuilder.cs" />
     <Compile Include="DefaultData\DefaultDataProvider.cs" />
+    <Compile Include="DefaultData\InputParsers\CategoryParser.cs" />
     <Compile Include="DefaultData\TestDataProvider.cs" />
     <Compile Include="DefaultData\IDataProvider.cs" />
     <Compile Include="DefaultData\MassDataProvider.cs" />
