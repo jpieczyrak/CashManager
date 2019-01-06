@@ -113,5 +113,47 @@ namespace CashManager.Tests.DataBuilderTests
             Assert.DoesNotContain(child1, result);
             Assert.DoesNotContain(child2, result);
         }
+
+        [Fact]
+        public void Build_ValidChainMultipleRoots_ArrayOfTopParents()
+        {
+            //given
+            var builder = new CategoryBuilder();
+            var root1 = new Category();
+            var root2 = new Category();
+            var root3 = new Category();
+            var root1Child1 = new Category();
+            var root1Child2 = new Category();
+            var root2Child1 = new Category();
+            var root2Child1Child1 = new Category();
+            
+            //when
+            var result = builder.AddTopCategory(root1)
+                                .AddChildrenCategoryAndGoUp(root1Child1)
+                                .AddChildrenCategoryAndGoUp(root1Child2)
+                                .AddTopCategory(root2)
+                                .AddChildrenCategory(root2Child1)
+                                .AddChildrenCategory(root2Child1Child1)
+                                .AddTopCategory(root3)
+                                .Build();
+
+            //then
+            Assert.Null(root1.Parent);
+            Assert.Null(root2.Parent);
+            Assert.Null(root3.Parent);
+
+            Assert.Equal(root1, root1Child1.Parent);
+            Assert.Equal(root1, root1Child2.Parent);
+
+            Assert.Equal(root2, root2Child1.Parent);
+            Assert.Equal(root2Child1, root2Child1Child1.Parent);
+
+            Assert.Contains(root1, result);
+            Assert.Contains(root2, result);
+            Assert.Contains(root3, result);
+
+            Assert.DoesNotContain(root1Child1, result);
+            Assert.DoesNotContain(root1Child2, result);
+        }
     }
 }
