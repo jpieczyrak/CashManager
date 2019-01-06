@@ -48,12 +48,23 @@ namespace CashManager_MVVM.Features.Categories
             {
                 var selected = categories.FirstOrDefault(x => x.Id == selectedCategory.Id);
                 if (selected != null) selected.IsSelected = true;
+                ExpandParents(selected);
             }
         }
 
         private void ExecuteUpdateSelectedCategory(Category category)
         {
             if (category != null) SelectedCategory = category;
+        }
+
+        private void ExpandParents(Category selected)
+        {
+            var parent = Categories.FirstOrDefault(x => x.Children.Contains(selected));
+            if (parent != null)
+            {
+                parent.IsExpanded = true;
+                ExpandParents(parent);
+            }
         }
     }
 }
