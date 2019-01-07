@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 using System.Windows.Threading;
 
 using Autofac;
@@ -63,6 +64,7 @@ namespace CashManager_MVVM
         {
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
             base.OnStartup(e);
+            _logger.Value.Debug("Startup");
 
             var builder = AutofacConfiguration.ContainerBuilder();
 
@@ -104,6 +106,12 @@ namespace CashManager_MVVM
                 Console.WriteLine(exception);
                 Current.Shutdown();
             }
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            _logger.Value.Debug("Exit");
+            base.OnExit(e);
         }
 
         #endregion
