@@ -6,6 +6,7 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 
 using CashManager_MVVM.CommonData;
+using CashManager_MVVM.Features.Plots;
 using CashManager_MVVM.Logic.Calculators;
 using CashManager_MVVM.Model;
 
@@ -46,8 +47,10 @@ namespace CashManager_MVVM.Features.Summary
         {
             _queryDispatcher = queryDispatcher;
             _provider = provider;
-            BalanceModel = new PlotModel { IsLegendVisible = false };
-            FlowsModel = new PlotModel { IsLegendVisible = false };
+            BalanceModel = PlotHelper.CreatePlotModel();
+            BalanceModel.IsLegendVisible = false;
+            FlowsModel = PlotHelper.CreatePlotModel();
+            FlowsModel.IsLegendVisible = false;
 
             BalanceModel.Axes.Add(new DateTimeAxis
             {
