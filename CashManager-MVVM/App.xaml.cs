@@ -64,6 +64,7 @@ namespace CashManager_MVVM
         {
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
             base.OnStartup(e);
+            HandleSettingsUpgrade();
             _logger.Value.Debug("Startup");
 
             var builder = AutofacConfiguration.ContainerBuilder();
@@ -124,6 +125,19 @@ namespace CashManager_MVVM
 #endif
             _logger.Value.Fatal("An unhandled exception", e.Exception);
             e.Handled = false;
+        }
+
+        private static void HandleSettingsUpgrade()
+        {
+            if (Settings.Default.UpgradeNeeded)
+            {
+                Settings.Default.Upgrade();
+                Settings.Default.Save();
+                Settings.Default.Reload();
+                Settings.Default.UpgradeNeeded = false;
+                Settings.Default.Save();
+                _logger.Value.Debug("Settings upgraded");
+            }
         }
     }
 }
