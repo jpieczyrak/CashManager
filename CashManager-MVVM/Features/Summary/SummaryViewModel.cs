@@ -54,20 +54,49 @@ namespace CashManager_MVVM.Features.Summary
 
             if (values.Any())
             {
-                BalanceModel.Series.Add(new ColumnSeries
-                {
-                    ItemsSource = values,
-                    ValueField = nameof(TransactionBalance.Value)
-                });
-                BalanceModel.Axes.Add(new CategoryAxis
-                {
-                    Position = AxisPosition.Bottom,
-                    ItemsSource = values.Select(x => x.BookDate.ToString("MM.yyyy")).ToArray(),
-                });
+                //SetColumns(values); //todo: make switchable
+                SetTwoColorArea(values);
             }
 
             BalanceModel.InvalidatePlot(true);
             BalanceModel.ResetAllAxes();
+        }
+
+        private void SetTwoColorArea(TransactionBalance[] values)
+        {
+            //lets make it rectangle area by adding same value and the end of the month
+            var rectValues = values.Concat(values.Select(x => new TransactionBalance(x.BookDate.AddMonths(1).AddSeconds(-1), x.Value)))
+                           .OrderBy(x => x.BookDate)
+                           .ToArray();
+
+            BalanceModel.Series.Add(new TwoColorAreaSeries
+            {
+                ItemsSource = rectValues,
+                Limit = 0,
+                Color2 = OxyColors.Red,
+                Mapping = x => new DataPoint(DateTimeAxis.ToDouble(((TransactionBalance) x).BookDate),
+                    (double) ((TransactionBalance) x).Value),
+                TrackerFormatString = "{2:MM.yyyy}\n{4:#,##0.00 zł}"
+            });
+            BalanceModel.Axes.Add(new DateTimeAxis
+            {
+                Position = AxisPosition.Bottom,
+                IntervalType = DateTimeIntervalType.Months
+            });
+        }
+
+        private void SetColumns(TransactionBalance[] values)
+        {
+            BalanceModel.Series.Add(new ColumnSeries
+            {
+                ItemsSource = values,
+                ValueField = nameof(TransactionBalance.Value)
+            });
+            BalanceModel.Axes.Add(new CategoryAxis
+            {
+                Position = AxisPosition.Bottom,
+                ItemsSource = values.Select(x => x.BookDate.ToString("MM.yyyy")).ToArray(),
+            });
         }
     }
 }
