@@ -11,6 +11,8 @@ using CashManager_MVVM.Model;
 
 using GalaSoft.MvvmLight;
 
+using log4net;
+
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
@@ -21,6 +23,8 @@ namespace CashManager_MVVM.Features.Summary
 {
     public class SummaryViewModel : ViewModelBase, IUpdateable
     {
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(SummaryViewModel)));
+
         private const string AREA_TRACKER_FORMAT_STRING = "{2:MM.yyyy}\n{4:#,##0.00 zł}";
         private const string MONTH_DATE_FORMAT = "MM.yyyy";
 
@@ -49,6 +53,7 @@ namespace CashManager_MVVM.Features.Summary
 
         public void Update()
         {
+            _logger.Value.Debug("Update");
             var stocks = _queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()).Where(x => x.IsUserStock);
             if (!stocks.Any()) return;
 
@@ -103,6 +108,7 @@ namespace CashManager_MVVM.Features.Summary
 
             FlowsModel.InvalidatePlot(true);
             FlowsModel.ResetAllAxes();
+            _logger.Value.Debug("Updated");
         }
 
         private TransactionBalance[] GetBalances(Func<Transaction, DateTime> groupingSelector)
