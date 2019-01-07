@@ -19,7 +19,7 @@
             <ColumnDefinition Width="0"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" ItemsSource="{Binding Balances}" AutoGenerateColumns="False" HorizontalAlignment="Center" Margin="5,0">
+        <DataGrid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" ItemsSource="{Binding Balances}" AutoGenerateColumns="False" HorizontalAlignment="Center" Margin="5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date" Binding="{Binding Name}" Width="Auto" />
                 <DataGridTextColumn Header="Income" Binding="{Binding GrossIncome}" Width="Auto" />
