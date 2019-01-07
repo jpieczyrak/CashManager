@@ -49,11 +49,8 @@ namespace CashManager_MVVM.Features.Summary
             BalanceModel.Series.Clear();
             BalanceModel.Axes.Clear();
 
-            DateTime GroupingSelector(Transaction x) => new DateTime(x.BookDate.Year, x.BookDate.Month, 1);
-            var values = _provider.AllTransactions.GroupBy(GroupingSelector)
-                                  .Select(x => new TransactionBalance(x.Key, x.Sum(y => y.ValueAsProfit)))
-                                  .OrderBy(x => x.BookDate)
-                                  .ToArray();
+            var values = GetBalances(x => new DateTime(x.BookDate.Year, x.BookDate.Month, 1));
+            values = FillMissingMonthsWithZeroValue(values);
 
             if (values.Any())
             { 
@@ -66,12 +63,36 @@ namespace CashManager_MVVM.Features.Summary
             BalanceModel.ResetAllAxes();
         }
 
+        private TransactionBalance[] GetBalances(Func<Transaction, DateTime> groupingSelector)
+        {
+            return _provider.AllTransactions.GroupBy(groupingSelector)
+                            .Select(x => new TransactionBalance(x.Key, x.Sum(y => y.ValueAsProfit)))
+                            .OrderBy(x => x.BookDate)
+                            .ToArray();
+        }
+
+        private static TransactionBalance[] FillMissingMonthsWithZeroValue(TransactionBalance[] values)
+        {
+            var dict = values.ToDictionary(x => x.BookDate, x => x.Value);
+            var actualDate = values.Min(x => x.BookDate);
+            var maxDate = values.Max(x => x.BookDate);
+
+            while (actualDate < maxDate)
+            {
+                if (!dict.ContainsKey(actualDate)) dict[actualDate] = 0;
+                actualDate = actualDate.AddMonths(1);
+            }
+
+            values = dict.OrderBy(x => x.Key).Select(x => new TransactionBalance(x.Key, x.Value)).ToArray();
+            return values;
+        }
+
         private void SetTwoColorArea(TransactionBalance[] values, PlotModel model)
         {
             //lets make it rectangle area by adding same value and the end of the month
             var rectValues = values.Concat(values.Select(x => new TransactionBalance(x.BookDate.AddMonths(1).AddSeconds(-1), x.Value)))
-                           .OrderBy(x => x.BookDate)
-                           .ToArray();
+                                   .OrderBy(x => x.BookDate)
+                                   .ToArray();
 
             model.Series.Add(new TwoColorAreaSeries
             {
