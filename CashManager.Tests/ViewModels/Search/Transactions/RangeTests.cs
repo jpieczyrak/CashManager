@@ -8,16 +8,23 @@ using Xunit;
 
 namespace CashManager.Tests.ViewModels.Search.Transactions
 {
-    public class RangeTests : ViewModelTests
+    [Collection("Database collection")]
+    public class RangeTests
     {
+        private readonly DatabaseFixture _fixture;
+
+        public RangeTests(DatabaseFixture fixture)
+        {
+            _fixture = fixture;
+        }
+
         [Fact]
         public void OnRangeFilterChanged_SomeTransactions_MatchingTransactions()
         {
             //given
             decimal minValue = -250;
             decimal maxValue = 2450;
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             vm.IsTransactionsSearch = true;
             var expected = vm.MatchingTransactions

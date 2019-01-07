@@ -155,6 +155,8 @@
     <Compile Include="Parsers\IdeaBankTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\LiteDbHelper.cs" />
+    <Compile Include="ViewModels\DatabaseCollection.cs" />
+    <Compile Include="ViewModels\DatabaseFixture.cs" />
     <Compile Include="ViewModels\ParserViewModelTests.cs" />
     <Compile Include="ViewModels\Plots\Wealth\WealthViewModelTests.cs" />
     <Compile Include="ViewModels\Search\Positions\DateFrameTests.cs" />

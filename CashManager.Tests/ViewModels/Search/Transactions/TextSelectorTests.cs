@@ -8,14 +8,21 @@ using Xunit;
 
 namespace CashManager.Tests.ViewModels.Search.Transactions
 {
-    public class TextSelectorTests : ViewModelTests
+    [Collection("Database collection")]
+    public class TextSelectorTests
     {
+        private readonly DatabaseFixture _fixture;
+
+        public TextSelectorTests(DatabaseFixture fixture)
+        {
+            _fixture = fixture;
+        }
+
         [Fact]
         public void OnTitleFilterChanged_SomeTransactions_MatchingTransactions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             string searchString = vm.MatchingTransactions.First().Title;
             vm.IsTransactionsSearch = true;
@@ -38,8 +45,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
         public void OnNoteFilterChanged_SomeTransactions_MatchingTransactions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             string searchString = vm.MatchingTransactions.First().Note;
             vm.IsTransactionsSearch = true;
@@ -62,8 +68,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
         public void OnPositionTitleFilterChanged_SomeTransactions_MatchingTransactions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             string searchString = vm.MatchingTransactions.First().Positions.First().Title.ToUpper();
             vm.IsTransactionsSearch = true;

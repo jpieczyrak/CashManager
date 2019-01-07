@@ -9,17 +9,24 @@ using Xunit;
 
 namespace CashManager.Tests.ViewModels.Search.Positions
 {
-    public class DateFrameTests : ViewModelTests
+    [Collection("Database collection")]
+    public class DateFrameTests
     {
+        private readonly DatabaseFixture _fixture;
+
+        public DateFrameTests(DatabaseFixture fixture)
+        {
+            _fixture = fixture;
+        }
+
         [Fact]
         public void OnBookDateFilterChanged_SomePositionsFilterNotEnabled_AllPositions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsTransactionsSearch = false;
             vm.IsPositionsSearch = true;
-            var expected = Positions
+            var expected = _fixture.ViewModelTests.Positions
                              .OrderBy(x => x.Id)
                              .ToArray();
 
@@ -38,11 +45,10 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //given
             var minDateTime = DateTime.Today.AddDays(-10);
             var maxDateTime = DateTime.Today.AddDays(10);
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = Positions
+            var expected = _fixture.ViewModelTests.Positions
                              .Where(x => x.BookDate >= minDateTime && x.BookDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -65,11 +71,10 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //given
             var minDateTime = DateTime.Today.AddDays(-10);
             var maxDateTime = DateTime.Today.AddDays(-1);
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = Positions
+            var expected = _fixture.ViewModelTests.Positions
                              .Where(x => x.LastEditDate >= minDateTime && x.LastEditDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -91,11 +96,10 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //given
             var minDateTime = DateTime.Today.AddDays(-90);
             var maxDateTime = DateTime.Today.AddDays(10);
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = Positions
+            var expected = _fixture.ViewModelTests.Positions
                              .Where(x => x.InstanceCreationDate >= minDateTime && x.InstanceCreationDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -117,8 +121,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
         public void OnBookDateFilterChanged_NotPositionSearchSomePositionsFilterNotEnabled_Null()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = false;
 
             //when
@@ -134,8 +137,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //given
             var minDateTime = DateTime.Today.AddDays(-10);
             var maxDateTime = DateTime.Today.AddDays(10);
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = false;
             vm.IsTransactionsSearch = false;
 
@@ -154,8 +156,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //given
             var minDateTime = DateTime.Today.AddDays(-10);
             var maxDateTime = DateTime.Today.AddDays(-1);
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = false;
             vm.IsTransactionsSearch = false;
 
@@ -174,8 +175,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //given
             var minDateTime = DateTime.Today.AddDays(-10);
             var maxDateTime = DateTime.Today.AddDays(10);
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = false;
             vm.IsTransactionsSearch = false;
 

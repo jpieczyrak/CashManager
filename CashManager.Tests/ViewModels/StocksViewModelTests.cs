@@ -15,7 +15,7 @@ namespace CashManager.Tests.ViewModels
         {
             //given
             SetupDatabase();
-            var vm = _container.Resolve<StocksViewModel>();
+            var vm = Container.Resolve<StocksViewModel>();
             var expectedStocks = vm.Stocks.Skip(1).OrderBy(x => x.Name).ToArray();
 
             //when

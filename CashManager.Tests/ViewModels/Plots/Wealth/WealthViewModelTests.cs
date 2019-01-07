@@ -20,8 +20,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
         public void GetWealthValues_NullNull_Empty()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<WealthViewModel>();
+            var vm = Container.Resolve<WealthViewModel>();
             var expected = new DataPoint[0];
 
             //when
@@ -35,8 +34,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
         public void GetWealthValues_EmptyEmpty_Empty()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<WealthViewModel>();
+            var vm = Container.Resolve<WealthViewModel>();
             var expected = new DataPoint[0];
 
             //when
@@ -50,8 +48,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
         public void GetWealthValues_NonEmpty_Matching()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<WealthViewModel>();
+            var vm = Container.Resolve<WealthViewModel>();
             var selectedStocks = Stocks.Take(1).ToArray();
             var selectedUserStock = Stocks[0];
             var firstBookDate = DateTime.Today.AddDays(-30);

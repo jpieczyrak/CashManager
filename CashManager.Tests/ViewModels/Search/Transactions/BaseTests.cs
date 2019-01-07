@@ -8,13 +8,21 @@ using Xunit;
 
 namespace CashManager.Tests.ViewModels.Search.Transactions
 {
-    public class BaseTests : ViewModelTests
+    [Collection("Database collection")]
+    public class BaseTests
     {
+        private readonly DatabaseFixture _fixture;
+
+        public BaseTests(DatabaseFixture fixture)
+        {
+            _fixture = fixture;
+        }
+
         [Fact]
         public void OnPropertyChanged_Clean_Null()
         {
             //given
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
 
             //when
             vm.RaisePropertyChanged(nameof(vm.MatchingTransactions));
@@ -27,8 +35,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
         public void OnPropertyChanged_SomeTransactions_AllTransactions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
 
             //when
@@ -36,17 +43,16 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
 
             //then
             Assert.NotEmpty(vm.MatchingTransactions);
-            Assert.Equal(Transactions.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(_fixture.ViewModelTests.Transactions.Length, vm.MatchingTransactions.Count);
         }
 
         [Fact]
         public void OnPropertyChanged_SomeTransactionsTitleFilter_Filtered()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
-            vm.State.TitleFilter.Value = Transactions[0].Title;
+            vm.State.TitleFilter.Value = _fixture.ViewModelTests.Transactions[0].Title;
             vm.State.TitleFilter.IsChecked = true;
 
             //when
@@ -54,7 +60,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
 
             //then
             Assert.NotEmpty(vm.MatchingTransactions);
-            var matching = Transactions.Where(x => x.Title.ToLower().Contains(vm.State.TitleFilter.Value.ToLower())).ToArray();
+            var matching = _fixture.ViewModelTests.Transactions.Where(x => x.Title.ToLower().Contains(vm.State.TitleFilter.Value.ToLower())).ToArray();
             Assert.Equal(matching.Length, vm.MatchingTransactions.Count);
             Assert.Equal(matching.Select(x => x.Id), vm.MatchingTransactions.Select(x => x.Id));
         }

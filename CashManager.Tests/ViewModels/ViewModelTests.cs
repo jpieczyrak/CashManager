@@ -9,7 +9,10 @@ using CashManager.Infrastructure.DbConnection;
 using CashManager.Logic.DefaultData;
 
 using CashManager_MVVM.Configuration.DI;
+using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Model;
+
+using GalaSoft.MvvmLight;
 
 using LiteDB;
 
@@ -26,7 +29,7 @@ namespace CashManager.Tests.ViewModels
 {
     public class ViewModelTests
     {
-        protected readonly IContainer _container;
+        public readonly IContainer Container;
 
         protected DtoTransaction[] DtoTransactions { get; set; }
         protected DtoPosition[] DtoPositions => DtoTransactions.SelectMany(x => x.Positions).ToArray();
@@ -35,16 +38,16 @@ namespace CashManager.Tests.ViewModels
         protected DtoTransactionType[] DtoTypes { get; set; }
         protected DtoStock[] DtoStocks { get; set; }
 
-        protected Transaction[] Transactions => Mapper.Map<Transaction[]>(DtoTransactions);
-        protected Position[] Positions => Mapper.Map<Transaction[]>(DtoTransactions).SelectMany(x => x.Positions).ToArray();
+        protected internal Transaction[] Transactions => Mapper.Map<Transaction[]>(DtoTransactions);
+        protected internal Position[] Positions => Mapper.Map<Transaction[]>(DtoTransactions).SelectMany(x => x.Positions).ToArray();
         protected Category[] Categories => Mapper.Map<Category[]>(DtoCategories);
-        protected Tag[] Tags => Mapper.Map<Tag[]>(DtoTags);
-        protected TransactionType[] Types => Mapper.Map<TransactionType[]>(DtoTypes);
-        protected Stock[] Stocks => Mapper.Map<Stock[]>(DtoStocks);
+        protected internal Tag[] Tags => Mapper.Map<Tag[]>(DtoTags);
+        protected internal TransactionType[] Types => Mapper.Map<TransactionType[]>(DtoTypes);
+        protected internal Stock[] Stocks => Mapper.Map<Stock[]>(DtoStocks);
 
         public ViewModelTests()
         {
-            _container = GetContainer();
+            Container = GetContainer();
 
             var defaultDataProvider = new TestDataProvider();
             DtoTags = defaultDataProvider.GetTags();
@@ -54,9 +57,9 @@ namespace CashManager.Tests.ViewModels
             DtoTransactions = defaultDataProvider.GetTransactions(DtoStocks, DtoCategories, DtoTypes, DtoTags);
         }
 
-        protected void SetupDatabase()
+        public void SetupDatabase()
         {
-            var repo = _container.Resolve<LiteRepository>();
+            var repo = Container.Resolve<LiteRepository>();
             repo.Database.UpsertBulk(DtoCategories);
             repo.Database.UpsertBulk(DtoTags);
             repo.Database.UpsertBulk(DtoTypes);
@@ -72,6 +75,12 @@ namespace CashManager.Tests.ViewModels
 
             //override db register
             builder.Register(x => new LiteRepository(new LiteDatabase(new MemoryStream()))).SingleInstance().ExternallyOwned();
+
+            //override - we dont want to have singletons in tests
+            builder.RegisterAssemblyTypes(typeof(ApplicationViewModel).Assembly)
+                   .Where(t => t.IsSubclassOf(typeof(ViewModelBase)))
+                   .Named<ViewModelBase>(x => x.Name)
+                   .As(t => t);
 
             return builder.Build();
         }

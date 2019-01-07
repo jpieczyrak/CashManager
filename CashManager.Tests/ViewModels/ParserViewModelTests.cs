@@ -17,7 +17,7 @@ namespace CashManager.Tests.ViewModels
         public void SaveCommandExecute_ValidTransactions_TransactionsAreBeingAddedToCommonState()
         {
             //given
-            var vm = _container.Resolve<ParserViewModel>();
+            var vm = Container.Resolve<ParserViewModel>();
             vm.SelectedUserStock = vm.SelectedExternalStock = Stocks[0];
             var transaction = new Transaction
             {
@@ -25,7 +25,7 @@ namespace CashManager.Tests.ViewModels
                 Positions = new TrulyObservableCollection<Position>(new[] { Positions[0] }),
                 Type = Types[0]
             };
-            transaction.Positions[0].TagViewModel = _container.Resolve<MultiComboBoxViewModel>();
+            transaction.Positions[0].TagViewModel = Container.Resolve<MultiComboBoxViewModel>();
             transaction.Positions[0].TagViewModel.SetInput(Tags);
             var transactions = new List<Transaction> { transaction, transaction };
             vm.InputText = "06.09.2016 – PRZELEW WYCHODZĄCY\r\nJĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media\r\n\r\n-684,62 PLN";
@@ -46,7 +46,7 @@ namespace CashManager.Tests.ViewModels
         public void SaveCommandExecute_ValidTransactions_TransactionsAreBeingUpdatedToCommonState()
         {
             //given
-            var vm = _container.Resolve<ParserViewModel>();
+            var vm = Container.Resolve<ParserViewModel>();
             string title = "title 1";
             var transaction = new Transaction
             {
@@ -54,7 +54,7 @@ namespace CashManager.Tests.ViewModels
                 Positions = new TrulyObservableCollection<Position>(new[] { Positions[0] }),
                 Type = Types[0]
             };
-            transaction.Positions[0].TagViewModel = _container.Resolve<MultiComboBoxViewModel>();
+            transaction.Positions[0].TagViewModel = Container.Resolve<MultiComboBoxViewModel>();
             transaction.Positions[0].TagViewModel.SetInput(Tags);
             var transactions = new List<Transaction> { transaction, transaction };
             vm.InputText = "     06.09.2016 – PRZELEW WYCHODZĄCY\r\nJĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media\r\n\r\n-684,62 PLN";
