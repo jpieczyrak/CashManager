@@ -53,7 +53,7 @@ namespace CashManager_MVVM.Features.Summary
             if (!stocks.Any()) return;
 
             BalanceModel.Series.Clear();
-            BalanceModel.Axes.Clear();
+            FlowsModel.Series.Clear();
 
             Func<Transaction, DateTime> groupingSelector = x => new DateTime(x.BookDate.Year, x.BookDate.Month, 1);
             var values = GetBalances(groupingSelector);
@@ -92,7 +92,7 @@ namespace CashManager_MVVM.Features.Summary
                                {
                                    GrossIncome = income.Value,
                                    GrossOutcome = -outcome.Value,
-                                   Name = income.BookDate.ToString(MONTH_DATE_FORMAT)
+                                   Name = income.BookDate.ToString("yyyy.MM")
                                })
                            .ToArray();
                 RaisePropertyChanged(nameof(Balances));
