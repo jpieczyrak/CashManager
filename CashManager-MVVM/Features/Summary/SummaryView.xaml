@@ -10,17 +10,22 @@
              d:DataContext="{d:DesignInstance Type=summary:SummaryViewModel, IsDesignTimeCreatable=True}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="0"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid Grid.Row="0" Grid.Column="0">
-
+        <DataGrid Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Balances}" AutoGenerateColumns="False" HorizontalAlignment="Center">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date" Binding="{Binding Name}" Width="Auto" />
+                <DataGridTextColumn Header="Income" Binding="{Binding GrossIncome}" Width="Auto" />
+                <DataGridTextColumn Header="Outcome" Binding="{Binding GrossOutcome}" Width="Auto" />
+                <DataGridTextColumn Header="Balance" Binding="{Binding GrossBalance}" Width="Auto" />
+            </DataGrid.Columns>
         </DataGrid>
 
         <oxy:PlotView Grid.Row="1" Grid.Column="0" Model="{Binding BalanceModel}">

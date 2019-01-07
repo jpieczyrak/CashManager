@@ -36,6 +36,8 @@ namespace CashManager_MVVM.Features.Summary
 
         public PlotModel FlowsModel { get; }
 
+        public TransactionsSummary[] Balances { get; private set; }
+
         public SummaryViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider provider)
         {
             _queryDispatcher = queryDispatcher;
@@ -55,7 +57,7 @@ namespace CashManager_MVVM.Features.Summary
 
             Func<Transaction, DateTime> groupingSelector = x => new DateTime(x.BookDate.Year, x.BookDate.Month, 1);
             var values = GetBalances(groupingSelector);
-            values = FillMissingMonthsWithZeroValue(values);
+            values = FillMissingMonthsWithZeroValue(values, values.Min(x => x.BookDate), values.Max(x => x.BookDate));
 
             if (values.Any())
             { 
@@ -64,17 +66,36 @@ namespace CashManager_MVVM.Features.Summary
                 SetTwoColorArea(values, BalanceModel, OxyColors.Green);
                 SetTwoColorAreaDateAxis(BalanceModel);
 
-                SetTwoColorArea(FillMissingMonthsWithZeroValue(_provider.AllTransactions
-                                         .Where(x => x.ValueAsProfit > 0)
-                                         .GroupBy(groupingSelector)
-                                         .Select(x => new TransactionBalance(x.Key, x.Sum(y => y.ValueAsProfit)))
-                                         .OrderBy(x => x.BookDate)), FlowsModel, OxyColors.Green);
-                SetTwoColorArea(FillMissingMonthsWithZeroValue(_provider.AllTransactions
-                                         .Where(x => x.ValueAsProfit < 0)
-                                         .GroupBy(groupingSelector)
-                                         .Select(x => new TransactionBalance(x.Key, x.Sum(y => y.ValueAsProfit)))
-                                         .OrderBy(x => x.BookDate)), FlowsModel, OxyColors.Red);
+                var minDate = _provider.AllTransactions.Min(x => x.BookDate);
+                var maxDate = _provider.AllTransactions.Max(x => x.BookDate);
+                var incomes = FillMissingMonthsWithZeroValue(
+                    _provider.AllTransactions
+                             .Where(x => x.ValueAsProfit > 0)
+                             .GroupBy(groupingSelector)
+                             .Select(x => new TransactionBalance(x.Key, x.Sum(y => y.ValueAsProfit)))
+                             .OrderBy(x => x.BookDate), minDate, maxDate);
+                var outcomes = FillMissingMonthsWithZeroValue(
+                    _provider.AllTransactions
+                             .Where(x => x.ValueAsProfit < 0)
+                             .GroupBy(groupingSelector)
+                             .Select(x => new TransactionBalance(x.Key, x.Sum(y => y.ValueAsProfit)))
+                             .OrderBy(x => x.BookDate), minDate, maxDate);
+
+                SetTwoColorArea(incomes, FlowsModel, OxyColors.Green);
+                SetTwoColorArea(outcomes, FlowsModel, OxyColors.Red);
                 SetTwoColorAreaDateAxis(FlowsModel);
+
+                Balances = incomes
+                           .OrderByDescending(x => x.BookDate)
+                           .Zip(outcomes.OrderByDescending(x => x.BookDate), (income, outcome) =>
+                               new TransactionsSummary
+                               {
+                                   GrossIncome = income.Value,
+                                   GrossOutcome = outcome.Value,
+                                   Name = income.BookDate.ToString(MONTH_DATE_FORMAT)
+                               })
+                           .ToArray();
+                RaisePropertyChanged(nameof(Balances));
             }
 
             BalanceModel.InvalidatePlot(true);
@@ -92,11 +113,10 @@ namespace CashManager_MVVM.Features.Summary
                             .ToArray();
         }
 
-        private static TransactionBalance[] FillMissingMonthsWithZeroValue(IEnumerable<TransactionBalance> values)
+        private static TransactionBalance[] FillMissingMonthsWithZeroValue(IEnumerable<TransactionBalance> values, DateTime minDate, DateTime maxDate)
         {
-            var dict = values.ToDictionary(x => x.BookDate, x => x.Value);
-            var actualDate = values.Min(x => x.BookDate);
-            var maxDate = values.Max(x => x.BookDate);
+            var dict = values.ToDictionary(x => new DateTime(x.BookDate.Year, x.BookDate.Month, 1), x => x.Value);
+            var actualDate = new DateTime(minDate.Year, minDate.Month, 1);
 
             while (actualDate < maxDate)
             {
