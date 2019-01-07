@@ -11,7 +11,8 @@
                     xmlns:plots="clr-namespace:CashManager_MVVM.Features.Plots"
                     xmlns:balance="clr-namespace:CashManager_MVVM.Features.Balance"
                     xmlns:massReplacer="clr-namespace:CashManager_MVVM.Features.MassReplacer"
-                    xmlns:positions="clr-namespace:CashManager_MVVM.Features.Transactions.Positions">
+                    xmlns:positions="clr-namespace:CashManager_MVVM.Features.Transactions.Positions"
+                    xmlns:summary="clr-namespace:CashManager_MVVM.Features.Summary">
 
     <DataTemplate DataType="{x:Type search:SearchViewModel}">
         <search:SearchView />
@@ -63,6 +64,9 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type common:ExtendedDatePickerViewModel}">
         <common:ExtendedDatePicker />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type summary:SummaryViewModel}">
+        <summary:SummaryView />
     </DataTemplate>
 
 </ResourceDictionary>

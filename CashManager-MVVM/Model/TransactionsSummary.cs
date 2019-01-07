@@ -2,7 +2,7 @@
 
 namespace CashManager_MVVM.Model
 {
-    public class Summary : ObservableObject
+    public class TransactionsSummary : ObservableObject
     {
         private decimal _grossIncome;
         private decimal _grossOutcome;
@@ -36,9 +36,9 @@ namespace CashManager_MVVM.Model
 
         public string Name { get; set; }
 
-        public Summary Copy()
+        public TransactionsSummary Copy()
         {
-            return new Summary
+            return new TransactionsSummary
             {
                 GrossIncome = GrossIncome,
                 GrossOutcome = GrossOutcome,

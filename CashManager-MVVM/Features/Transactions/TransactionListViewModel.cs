@@ -30,11 +30,11 @@ namespace CashManager_MVVM.Features.Transactions
 
         public Transaction SelectedTransaction { get; set; }
 
-        public Summary Summary { get; set; }
+        public TransactionsSummary Summary { get; set; }
 
         public TransactionListViewModel()
         {
-            Summary = new Summary();
+            Summary = new TransactionsSummary();
             Transactions = new TrulyObservableCollection<Transaction>();
         }
 

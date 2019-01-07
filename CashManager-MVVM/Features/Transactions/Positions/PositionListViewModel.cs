@@ -30,12 +30,12 @@ namespace CashManager_MVVM.Features.Transactions.Positions
 
         public Position SelectedPosition { get; set; }
 
-        public Summary Summary { get; set; }
+        public TransactionsSummary Summary { get; set; }
 
         public PositionListViewModel(ViewModelFactory factory)
         {
             _factory = factory;
-            Summary = new Summary();
+            Summary = new TransactionsSummary();
             Positions = new TrulyObservableCollection<Position>();
         }
 

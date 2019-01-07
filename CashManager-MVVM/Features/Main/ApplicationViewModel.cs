@@ -8,6 +8,7 @@ using CashManager_MVVM.Features.Parsers;
 using CashManager_MVVM.Features.Plots;
 using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Features.Stocks;
+using CashManager_MVVM.Features.Summary;
 using CashManager_MVVM.Features.Tags;
 using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Features.TransactionTypes;
@@ -45,6 +46,7 @@ namespace CashManager_MVVM.Features.Main
             SetViewModelCommand = new RelayCommand<ViewModelBase>(view => SelectedViewModel = view);
             ViewModels = new Dictionary<string, ViewModelBase>
             {
+                { "Summary", factory.Create<SummaryViewModel>() },
                 { "Transactions search", factory.Create<SearchViewModel>() },
                 { "Mass replacer", factory.Create<MassReplacerViewModel>() },
                 { "Add transaction", factory.Create<TransactionViewModel>() },
