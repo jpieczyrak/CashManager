@@ -32,7 +32,7 @@ namespace CashManager.Tests.MVVM.Logic
             var income = new TransactionType { Income = true };
             var outcome = new TransactionType { Outcome = true };
             _firstBookDate = DateTime.Today.AddDays(-30);
-            _dateFilter = new DateFrame(DateFrameType.BookDate) { From = DateTime.MinValue, To = DateTime.MaxValue };
+            _dateFilter = new DateFrame(DateFrameType.BookDate);
             _transactions = new[]
             {
                 new Transaction

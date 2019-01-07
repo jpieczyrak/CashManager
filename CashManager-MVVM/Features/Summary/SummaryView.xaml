@@ -10,20 +10,20 @@
              d:DataContext="{d:DesignInstance Type=summary:SummaryViewModel, IsDesignTimeCreatable=True}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <DataGrid Grid.Row="0" Grid.Column="0">
 
         </DataGrid>
 
-        <oxy:PlotView Grid.Row="1" Grid.Column="0" Model="{Binding BalanceSource}">
+        <oxy:PlotView Grid.Row="1" Grid.Column="0" Model="{Binding BalanceModel}">
             <oxy:PlotView.DefaultTrackerTemplate>
                 <ControlTemplate>
                     <oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}">
@@ -41,22 +41,5 @@
             </oxy:PlotView.DefaultTrackerTemplate>
         </oxy:PlotView>
 
-        <oxy:PlotView Grid.Row="2" Grid.Column="0" Model="{Binding All}">
-            <oxy:PlotView.DefaultTrackerTemplate>
-                <ControlTemplate>
-                    <oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}">
-                        <oxy:TrackerControl.Background>
-                            <LinearGradientBrush EndPoint="0,1">
-                                <GradientStop Color="{DynamicResource DisabledBorderColor}" />
-                                <GradientStop Offset="1" Color="{DynamicResource BackgroundAccentColor}" />
-                            </LinearGradientBrush>
-                        </oxy:TrackerControl.Background>
-                        <oxy:TrackerControl.Content>
-                            <TextBlock Text="{Binding}" Margin="8" />
-                        </oxy:TrackerControl.Content>
-                    </oxy:TrackerControl>
-                </ControlTemplate>
-            </oxy:PlotView.DefaultTrackerTemplate>
-        </oxy:PlotView>
     </Grid>
 </UserControl>

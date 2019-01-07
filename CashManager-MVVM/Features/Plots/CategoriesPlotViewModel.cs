@@ -7,7 +7,6 @@ using AutoMapper;
 
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
-using CashManager.Infrastructure.Query.Transactions;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.CommonData;
@@ -20,7 +19,6 @@ using OxyPlot;
 using OxyPlot.Series;
 
 using DtoStock = CashManager.Data.DTO.Stock;
-using DtoTransaction = CashManager.Data.DTO.Transaction;
 
 namespace CashManager_MVVM.Features.Plots
 {
