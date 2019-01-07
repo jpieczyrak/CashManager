@@ -12,6 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="10" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -23,6 +24,23 @@
         </DataGrid>
 
         <oxy:PlotView Grid.Row="1" Grid.Column="0" Model="{Binding BalanceModel}">
+            <oxy:PlotView.DefaultTrackerTemplate>
+                <ControlTemplate>
+                    <oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}">
+                        <oxy:TrackerControl.Background>
+                            <LinearGradientBrush EndPoint="0,1">
+                                <GradientStop Color="{DynamicResource DisabledBorderColor}" />
+                                <GradientStop Offset="1" Color="{DynamicResource BackgroundAccentColor}" />
+                            </LinearGradientBrush>
+                        </oxy:TrackerControl.Background>
+                        <oxy:TrackerControl.Content>
+                            <TextBlock Text="{Binding}" Margin="8" />
+                        </oxy:TrackerControl.Content>
+                    </oxy:TrackerControl>
+                </ControlTemplate>
+            </oxy:PlotView.DefaultTrackerTemplate>
+        </oxy:PlotView>
+        <oxy:PlotView Grid.Row="2" Grid.Column="0" Model="{Binding FlowsModel}">
             <oxy:PlotView.DefaultTrackerTemplate>
                 <ControlTemplate>
                     <oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}">

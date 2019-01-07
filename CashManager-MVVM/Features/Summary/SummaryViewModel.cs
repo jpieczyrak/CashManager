@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using CashManager.Infrastructure.Query;
@@ -33,11 +34,14 @@ namespace CashManager_MVVM.Features.Summary
             set => Set(ref _balanceModel, value);
         }
 
+        public PlotModel FlowsModel { get; }
+
         public SummaryViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider provider)
         {
             _queryDispatcher = queryDispatcher;
             _provider = provider;
             BalanceModel = new PlotModel { IsLegendVisible = false };
+            FlowsModel = new PlotModel { IsLegendVisible = false };
             Update();
         }
 
@@ -49,18 +53,35 @@ namespace CashManager_MVVM.Features.Summary
             BalanceModel.Series.Clear();
             BalanceModel.Axes.Clear();
 
-            var values = GetBalances(x => new DateTime(x.BookDate.Year, x.BookDate.Month, 1));
+            Func<Transaction, DateTime> groupingSelector = x => new DateTime(x.BookDate.Year, x.BookDate.Month, 1);
+            var values = GetBalances(groupingSelector);
             values = FillMissingMonthsWithZeroValue(values);
 
             if (values.Any())
             { 
                 //todo: make switchable
                 //SetColumns(values, BalanceModel);
-                SetTwoColorArea(values, BalanceModel);
+                SetTwoColorArea(values, BalanceModel, OxyColors.Green);
+                SetTwoColorAreaDateAxis(BalanceModel);
+
+                SetTwoColorArea(FillMissingMonthsWithZeroValue(_provider.AllTransactions
+                                         .Where(x => x.ValueAsProfit > 0)
+                                         .GroupBy(groupingSelector)
+                                         .Select(x => new TransactionBalance(x.Key, x.Sum(y => y.ValueAsProfit)))
+                                         .OrderBy(x => x.BookDate)), FlowsModel, OxyColors.Green);
+                SetTwoColorArea(FillMissingMonthsWithZeroValue(_provider.AllTransactions
+                                         .Where(x => x.ValueAsProfit < 0)
+                                         .GroupBy(groupingSelector)
+                                         .Select(x => new TransactionBalance(x.Key, x.Sum(y => y.ValueAsProfit)))
+                                         .OrderBy(x => x.BookDate)), FlowsModel, OxyColors.Red);
+                SetTwoColorAreaDateAxis(FlowsModel);
             }
 
             BalanceModel.InvalidatePlot(true);
             BalanceModel.ResetAllAxes();
+
+            FlowsModel.InvalidatePlot(true);
+            FlowsModel.ResetAllAxes();
         }
 
         private TransactionBalance[] GetBalances(Func<Transaction, DateTime> groupingSelector)
@@ -71,7 +92,7 @@ namespace CashManager_MVVM.Features.Summary
                             .ToArray();
         }
 
-        private static TransactionBalance[] FillMissingMonthsWithZeroValue(TransactionBalance[] values)
+        private static TransactionBalance[] FillMissingMonthsWithZeroValue(IEnumerable<TransactionBalance> values)
         {
             var dict = values.ToDictionary(x => x.BookDate, x => x.Value);
             var actualDate = values.Min(x => x.BookDate);
@@ -84,10 +105,10 @@ namespace CashManager_MVVM.Features.Summary
             }
 
             values = dict.OrderBy(x => x.Key).Select(x => new TransactionBalance(x.Key, x.Value)).ToArray();
-            return values;
+            return values.ToArray();
         }
 
-        private void SetTwoColorArea(TransactionBalance[] values, PlotModel model)
+        private void SetTwoColorArea(TransactionBalance[] values, PlotModel model, OxyColor color)
         {
             //lets make it rectangle area by adding same value and the end of the month
             var rectValues = values.Concat(values.Select(x => new TransactionBalance(x.BookDate.AddMonths(1).AddSeconds(-1), x.Value)))
@@ -98,11 +119,16 @@ namespace CashManager_MVVM.Features.Summary
             {
                 ItemsSource = rectValues,
                 Limit = 0,
+                Color = color,
                 Color2 = OxyColors.Red,
                 Mapping = x => new DataPoint(DateTimeAxis.ToDouble(((TransactionBalance) x).BookDate),
                     (double) ((TransactionBalance) x).Value),
                 TrackerFormatString = AREA_TRACKER_FORMAT_STRING
             });
+        }
+
+        private static void SetTwoColorAreaDateAxis(PlotModel model)
+        {
             model.Axes.Add(new DateTimeAxis
             {
                 Position = AxisPosition.Bottom,
