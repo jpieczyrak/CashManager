@@ -1,10 +1,7 @@
 ﻿using Xunit;
 
-namespace CashManager.Tests.ViewModels
+namespace CashManager.Tests.ViewModels.Fixtures
 {
-    [CollectionDefinition("Database collection")]
-    public class DatabaseCollection : ICollectionFixture<DatabaseFixture> { }
-
     [CollectionDefinition("Cleanable database collection")]
     public class EmptyDatabaseCollection : ICollectionFixture<CleanableDatabaseFixture> { }
 }

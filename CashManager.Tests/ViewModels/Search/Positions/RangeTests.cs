@@ -2,6 +2,8 @@
 
 using Autofac;
 
+using CashManager.Tests.ViewModels.Fixtures;
+
 using CashManager_MVVM.Features.Search;
 
 using Xunit;
@@ -28,7 +30,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.Update();
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = _fixture.ViewModelTests.Positions.Value
+            var expected = _fixture.ViewModelContext.Positions.Value
                              .Where(x => x.Value.GrossValue <= maxValue && x.Value.GrossValue >= minValue)
                              .OrderBy(x => x.Id)
                              .ToArray();

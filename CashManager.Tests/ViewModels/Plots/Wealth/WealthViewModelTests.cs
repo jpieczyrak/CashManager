@@ -3,6 +3,9 @@ using System.Linq;
 
 using Autofac;
 
+using CashManager.Data.Extensions;
+using CashManager.Tests.ViewModels.Fixtures;
+
 using CashManager_MVVM;
 using CashManager_MVVM.Features.Plots;
 using CashManager_MVVM.Model;
@@ -14,13 +17,23 @@ using Xunit;
 
 namespace CashManager.Tests.ViewModels.Plots.Wealth
 {
-    public class WealthViewModelTests : ViewModelTests
+    [Collection("Cleanable database collection")]
+    public class WealthViewModelTests
     {
+        private readonly Tag[] _tags = { new Tag(), new Tag() };
+        private readonly CleanableDatabaseFixture _fixture;
+
+        public WealthViewModelTests(CleanableDatabaseFixture fixture)
+        {
+            _fixture = fixture;
+            _fixture.CleanDatabase();
+        }
+
         [Fact]
         public void GetWealthValues_NullNull_Empty()
         {
             //given
-            var vm = Container.Resolve<WealthViewModel>();
+            var vm = _fixture.Container.Resolve<WealthViewModel>();
             var expected = new DataPoint[0];
 
             //when
@@ -34,7 +47,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
         public void GetWealthValues_EmptyEmpty_Empty()
         {
             //given
-            var vm = Container.Resolve<WealthViewModel>();
+            var vm = _fixture.Container.Resolve<WealthViewModel>();
             var expected = new DataPoint[0];
 
             //when
@@ -48,17 +61,22 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
         public void GetWealthValues_NonEmpty_Matching()
         {
             //given
-            var vm = Container.Resolve<WealthViewModel>();
-            var selectedStocks = Stocks.Value.Take(1).ToArray();
-            var selectedUserStock = Stocks.Value[0];
+            var vm = _fixture.Container.Resolve<WealthViewModel>();
+            var notSelectedStock = new Stock("ns".GenerateGuid());
+            var selectedStocks = new[] { new Stock("selected".GenerateGuid()) { IsUserStock = true } };
+            var selectedUserStock = selectedStocks[0];
+            selectedUserStock.IsPropertyChangedEnabled = true;
+            selectedUserStock.Balance = new Balance { Value = 60000m };
             var firstBookDate = DateTime.Today.AddDays(-30);
+            var income = new TransactionType { Income = true };
+            var outcome = new TransactionType { Outcome = true };
             var transactions = new []
             {
                 new Transaction
                 {
                     BookDate = DateTime.Today.AddDays(-10),
                     UserStock = selectedUserStock,
-                    Type = Types.Value[1],
+                    Type = outcome,
                     Positions = new TrulyObservableCollection<Position>
                     {
                         new Position { Value = new PaymentValue(1000, 1000, 0) }
@@ -67,8 +85,8 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
                 new Transaction
                 {
                     BookDate = DateTime.Today.AddDays(-12),
-                    UserStock = Stocks.Value[1],
-                    Type = Types.Value[1],
+                    UserStock = notSelectedStock,
+                    Type = outcome,
                     Positions = new TrulyObservableCollection<Position>
                     {
                         new Position { Value = new PaymentValue(100, 100, 0) }
@@ -78,7 +96,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
                 {
                     BookDate = DateTime.Today.AddDays(-22),
                     UserStock = selectedUserStock,
-                    Type = Types.Value[1],
+                    Type = outcome,
                     Positions = new TrulyObservableCollection<Position>
                     {
                         new Position { Value = new PaymentValue(10, 10, 0) }
@@ -88,7 +106,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
                 {
                     BookDate = firstBookDate,
                     UserStock = selectedUserStock,
-                    Type = Types.Value[0],
+                    Type = income,
                     Positions = new TrulyObservableCollection<Position>
                     {
                         new Position { Value = new PaymentValue(10000, 10000, 0) }
@@ -108,7 +126,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
             var result = vm.GetWealthValues(transactions, selectedStocks);
 
             //then
-            Assert.Equal(expected.Length, result.Length);
+            //Assert.Equal(expected.Length, result.Length);
             Assert.Equal(expected, result);
         }
     }

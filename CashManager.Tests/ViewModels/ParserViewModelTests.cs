@@ -2,6 +2,8 @@
 
 using Autofac;
 
+using CashManager.Tests.ViewModels.Fixtures;
+
 using CashManager_MVVM;
 using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Parsers;

@@ -29,7 +29,7 @@ using DtoTag = CashManager.Data.DTO.Tag;
 
 namespace CashManager.Tests.ViewModels
 {
-    public class ViewModelTests
+    public sealed class ViewModelContext
     {
         public readonly IContainer Container;
 
@@ -47,7 +47,7 @@ namespace CashManager.Tests.ViewModels
         protected internal Lazy<TransactionType[]> Types => new Lazy<TransactionType[]>(() => Mapper.Map<TransactionType[]>(DtoTypes.Value));
         protected internal Lazy<Stock[]> Stocks => new Lazy<Stock[]>(() => Mapper.Map<Stock[]>(DtoStocks.Value));
 
-        public ViewModelTests()
+        public ViewModelContext()
         {
             Container = GetContainer();
 

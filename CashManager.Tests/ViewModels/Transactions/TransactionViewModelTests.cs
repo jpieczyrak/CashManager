@@ -1,5 +1,7 @@
 ﻿using Autofac;
 
+using CashManager.Tests.ViewModels.Fixtures;
+
 using CashManager_MVVM;
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Common;
@@ -77,7 +79,6 @@ namespace CashManager.Tests.ViewModels.Transactions
 
             //then
             Assert.True(canExecute);
-            Assert.Equal(1, vm.TransactionsProvider.AllTransactions.Count);
             Assert.Single(vm.TransactionsProvider.AllTransactions);
             Assert.Equal(vm.Transaction.Title, vm.TransactionsProvider.AllTransactions[0].Title);
         }

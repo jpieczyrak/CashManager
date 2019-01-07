@@ -3,6 +3,8 @@ using System.Linq;
 
 using Autofac;
 
+using CashManager.Tests.ViewModels.Fixtures;
+
 using CashManager_MVVM.Features.Search;
 
 using Xunit;
@@ -26,7 +28,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsTransactionsSearch = false;
             vm.IsPositionsSearch = true;
-            var expected = _fixture.ViewModelTests.Positions.Value
+            var expected = _fixture.ViewModelContext.Positions.Value
                              .OrderBy(x => x.Id)
                              .ToArray();
 
@@ -48,7 +50,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = _fixture.ViewModelTests.Positions.Value
+            var expected = _fixture.ViewModelContext.Positions.Value
                              .Where(x => x.BookDate >= minDateTime && x.BookDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -74,7 +76,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = _fixture.ViewModelTests.Positions.Value
+            var expected = _fixture.ViewModelContext.Positions.Value
                              .Where(x => x.LastEditDate >= minDateTime && x.LastEditDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -99,7 +101,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = _fixture.ViewModelTests.Positions.Value
+            var expected = _fixture.ViewModelContext.Positions.Value
                              .Where(x => x.InstanceCreationDate >= minDateTime && x.InstanceCreationDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
