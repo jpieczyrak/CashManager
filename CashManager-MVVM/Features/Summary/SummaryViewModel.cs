@@ -48,6 +48,18 @@ namespace CashManager_MVVM.Features.Summary
             _provider = provider;
             BalanceModel = new PlotModel { IsLegendVisible = false };
             FlowsModel = new PlotModel { IsLegendVisible = false };
+
+            BalanceModel.Axes.Add(new DateTimeAxis
+            {
+                Position = AxisPosition.Bottom,
+                IntervalType = DateTimeIntervalType.Months
+            });
+            FlowsModel.Axes.Add(new DateTimeAxis
+            {
+                Position = AxisPosition.Bottom,
+                IntervalType = DateTimeIntervalType.Months
+            });
+
             Update();
         }
 
@@ -69,7 +81,6 @@ namespace CashManager_MVVM.Features.Summary
                 //todo: make switchable
                 //SetColumns(values, BalanceModel);
                 SetTwoColorArea(values, BalanceModel, OxyColors.Green);
-                SetTwoColorAreaDateAxis(BalanceModel);
 
                 var minDate = _provider.AllTransactions.Min(x => x.BookDate);
                 var maxDate = _provider.AllTransactions.Max(x => x.BookDate);
@@ -88,7 +99,6 @@ namespace CashManager_MVVM.Features.Summary
 
                 SetTwoColorArea(incomes, FlowsModel, OxyColors.Green);
                 SetTwoColorArea(outcomes, FlowsModel, OxyColors.Red);
-                SetTwoColorAreaDateAxis(FlowsModel);
 
                 Balances = incomes
                            .OrderByDescending(x => x.BookDate)
@@ -150,15 +160,6 @@ namespace CashManager_MVVM.Features.Summary
                 Mapping = x => new DataPoint(DateTimeAxis.ToDouble(((TransactionBalance) x).BookDate),
                     (double) ((TransactionBalance) x).Value),
                 TrackerFormatString = AREA_TRACKER_FORMAT_STRING
-            });
-        }
-
-        private static void SetTwoColorAreaDateAxis(PlotModel model)
-        {
-            model.Axes.Add(new DateTimeAxis
-            {
-                Position = AxisPosition.Bottom,
-                IntervalType = DateTimeIntervalType.Months
             });
         }
 
