@@ -23,7 +23,7 @@
 
         </DataGrid>
 
-        <oxy:PlotView Grid.Row="1" Grid.Column="0" Model="{Binding Balance}">
+        <oxy:PlotView Grid.Row="1" Grid.Column="0" Model="{Binding BalanceSource}">
             <oxy:PlotView.DefaultTrackerTemplate>
                 <ControlTemplate>
                     <oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}">

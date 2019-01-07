@@ -9,6 +9,7 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 
 using CashManager_MVVM.CommonData;
+using CashManager_MVVM.Logic.Calculators;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
 
@@ -26,6 +27,7 @@ namespace CashManager_MVVM.Features.Plots
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly TransactionsProvider _transactionsProvider;
+        private readonly TransactionBalanceCalculator _calculator;
         private DateFrame _bookDateFilter;
         private MultiPicker _userStocksFilter;
         private PlotModel _wealth;
@@ -48,10 +50,11 @@ namespace CashManager_MVVM.Features.Plots
             set => Set(nameof(Wealth), ref _wealth, value);
         }
 
-        public WealthViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider transactionsProvider)
+        public WealthViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider transactionsProvider, TransactionBalanceCalculator calculator)
         {
             _queryDispatcher = queryDispatcher;
             _transactionsProvider = transactionsProvider;
+            _calculator = calculator;
             _bookDateFilter = new DateFrame(DateFrameType.BookDate);
             Wealth = PlotHelper.CreatePlotModel();
             Wealth.Axes.Add(new DateTimeAxis());
@@ -110,41 +113,7 @@ namespace CashManager_MVVM.Features.Plots
 
         public DataPoint[] GetWealthValues(IEnumerable<Transaction> transactions, Stock[] selectedStocks)
         {
-            if (selectedStocks == null || !selectedStocks.Any()) return new DataPoint[0];
-            if (transactions == null || !transactions.Any()) return new DataPoint[0];
-
-            var stockDate = selectedStocks.Max(x => x.LastEditDate).Date;
-            decimal stockValue = selectedStocks.Sum(x => x.Balance.Value);
-            
-            var firstMatch = transactions
-                             .Where(x => selectedStocks.Contains(x.UserStock))
-                             .GroupBy(x => x.BookDate);
-            decimal transactionsValueBeforeLastStockUpdate =
-                firstMatch.Sum(x => x.Where(z => z.BookDate <= stockDate).Sum(y => y.ValueAsProfit));
-            decimal startValue = stockValue - transactionsValueBeforeLastStockUpdate;
-            var firstTransactionBookDate = transactions.Min(x => x.BookDate).Date;
-            var values = firstMatch
-                         .Where(x => x.Key <= stockDate)
-                         .OrderBy(x => x.Key)
-                         .Select(x =>
-                         {
-                             startValue += x.Sum(y => y.ValueAsProfit);
-                             double value = (double) startValue;
-                             return new { BookDate = x.Key, Value = value };
-                         })
-                         .Where(x => !BookDateFilter.IsChecked
-                                               || x.BookDate >= BookDateFilter.From && x.BookDate <= BookDateFilter.To)
-                         .Select(x => new DataPoint(DateTimeAxis.ToDouble(x.BookDate), x.Value))
-                         .Concat(!BookDateFilter.IsChecked || firstTransactionBookDate > BookDateFilter.From
-                                     ? new[] { new DataPoint(DateTimeAxis.ToDouble(firstTransactionBookDate.AddDays(-1)), (double) startValue) }
-                                     : new DataPoint[0])
-                         .Concat(!BookDateFilter.IsChecked || stockDate.Date <= BookDateFilter.To
-                                     ? new[] { new DataPoint(DateTimeAxis.ToDouble(stockDate), (double) stockValue) }
-                                     : new DataPoint[0])
-                         .OrderBy(x => x.X)
-                         .ToArray();
-
-            return values;
+            return _calculator.GetWealthValues(transactions, selectedStocks, BookDateFilter, x => x.BookDate);
         }
     }
 }

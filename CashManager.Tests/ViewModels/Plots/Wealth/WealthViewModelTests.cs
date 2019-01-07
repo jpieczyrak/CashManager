@@ -20,7 +20,6 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
     [Collection("Cleanable database collection")]
     public class WealthViewModelTests
     {
-        private readonly Tag[] _tags = { new Tag(), new Tag() };
         private readonly CleanableDatabaseFixture _fixture;
 
         public WealthViewModelTests(CleanableDatabaseFixture fixture)
@@ -126,7 +125,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
             var result = vm.GetWealthValues(transactions, selectedStocks);
 
             //then
-            //Assert.Equal(expected.Length, result.Length);
+            Assert.Equal(expected.Length, result.Length);
             Assert.Equal(expected, result);
         }
     }

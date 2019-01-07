@@ -145,6 +145,7 @@
     <Compile Include="Infrastructure\Queries\TransactionTypes\TransactionTypesTests.cs" />
     <Compile Include="Infrastructure\Queries\Transactions\TransactionsTests.cs" />
     <Compile Include="Mappers\ModelAndDtoMappingTests.cs" />
+    <Compile Include="MVVM.Logic\TransactionBalanceCalculatorTests.cs" />
     <Compile Include="Parsers\BaseParserTests.cs" />
     <Compile Include="Parsers\Custom\CustomCsvParserTests.cs" />
     <Compile Include="Parsers\Custom\Predefined\IngCustomCsvParserTests.cs" />
