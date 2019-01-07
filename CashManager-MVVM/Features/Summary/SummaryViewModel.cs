@@ -20,6 +20,9 @@ namespace CashManager_MVVM.Features.Summary
 {
     public class SummaryViewModel : ViewModelBase, IUpdateable
     {
+        private const string AREA_TRACKER_FORMAT_STRING = "{2:MM.yyyy}\n{4:#,##0.00 zł}";
+        private const string MONTH_DATE_FORMAT = "MM.yyyy";
+
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly TransactionsProvider _provider;
         private PlotModel _balanceModel;
@@ -53,8 +56,9 @@ namespace CashManager_MVVM.Features.Summary
                                   .ToArray();
 
             if (values.Any())
-            {
-                //SetColumns(values, BalanceModel); //todo: make switchable
+            { 
+                //todo: make switchable
+                //SetColumns(values, BalanceModel);
                 SetTwoColorArea(values, BalanceModel);
             }
 
@@ -76,7 +80,7 @@ namespace CashManager_MVVM.Features.Summary
                 Color2 = OxyColors.Red,
                 Mapping = x => new DataPoint(DateTimeAxis.ToDouble(((TransactionBalance) x).BookDate),
                     (double) ((TransactionBalance) x).Value),
-                TrackerFormatString = "{2:MM.yyyy}\n{4:#,##0.00 zł}"
+                TrackerFormatString = AREA_TRACKER_FORMAT_STRING
             });
             model.Axes.Add(new DateTimeAxis
             {
@@ -95,7 +99,7 @@ namespace CashManager_MVVM.Features.Summary
             model.Axes.Add(new CategoryAxis
             {
                 Position = AxisPosition.Bottom,
-                ItemsSource = values.Select(x => x.BookDate.ToString("MM.yyyy")).ToArray(),
+                ItemsSource = values.Select(x => x.BookDate.ToString(MONTH_DATE_FORMAT)).ToArray(),
             });
         }
     }
