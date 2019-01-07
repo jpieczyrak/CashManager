@@ -49,8 +49,8 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
         {
             //given
             var vm = Container.Resolve<WealthViewModel>();
-            var selectedStocks = Stocks.Take(1).ToArray();
-            var selectedUserStock = Stocks[0];
+            var selectedStocks = Stocks.Value.Take(1).ToArray();
+            var selectedUserStock = Stocks.Value[0];
             var firstBookDate = DateTime.Today.AddDays(-30);
             var transactions = new []
             {
@@ -58,7 +58,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
                 {
                     BookDate = DateTime.Today.AddDays(-10),
                     UserStock = selectedUserStock,
-                    Type = Types[1],
+                    Type = Types.Value[1],
                     Positions = new TrulyObservableCollection<Position>
                     {
                         new Position { Value = new PaymentValue(1000, 1000, 0) }
@@ -67,8 +67,8 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
                 new Transaction
                 {
                     BookDate = DateTime.Today.AddDays(-12),
-                    UserStock = Stocks[1],
-                    Type = Types[1],
+                    UserStock = Stocks.Value[1],
+                    Type = Types.Value[1],
                     Positions = new TrulyObservableCollection<Position>
                     {
                         new Position { Value = new PaymentValue(100, 100, 0) }
@@ -78,7 +78,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
                 {
                     BookDate = DateTime.Today.AddDays(-22),
                     UserStock = selectedUserStock,
-                    Type = Types[1],
+                    Type = Types.Value[1],
                     Positions = new TrulyObservableCollection<Position>
                     {
                         new Position { Value = new PaymentValue(10, 10, 0) }
@@ -88,7 +88,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
                 {
                     BookDate = firstBookDate,
                     UserStock = selectedUserStock,
-                    Type = Types[0],
+                    Type = Types.Value[0],
                     Positions = new TrulyObservableCollection<Position>
                     {
                         new Position { Value = new PaymentValue(10000, 10000, 0) }

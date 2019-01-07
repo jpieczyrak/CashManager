@@ -28,7 +28,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.Update();
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = _fixture.ViewModelTests.Positions
+            var expected = _fixture.ViewModelTests.Positions.Value
                              .Where(x => x.Value.GrossValue <= maxValue && x.Value.GrossValue >= minValue)
                              .OrderBy(x => x.Id)
                              .ToArray();

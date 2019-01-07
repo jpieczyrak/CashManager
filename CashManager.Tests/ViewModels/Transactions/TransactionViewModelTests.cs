@@ -1,6 +1,7 @@
 ﻿using Autofac;
 
 using CashManager_MVVM;
+using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Model;
@@ -9,22 +10,33 @@ using Xunit;
 
 namespace CashManager.Tests.ViewModels.Transactions
 {
-    public class TransactionViewModelTests : ViewModelTests
+    [Collection("Empty database collection")]
+    public class TransactionViewModelTests
     {
+        private readonly Tag[] _tags = new[] { new Tag(), new Tag() };
+        private readonly EmptyDatabaseFixture _fixture;
+
+        public TransactionViewModelTests(EmptyDatabaseFixture fixture)
+        {
+            _fixture = fixture;
+            _fixture.Container.Resolve<TransactionsProvider>().AllTransactions.Clear();
+            _fixture.CleanDb();
+        }
+
         [Fact]
         public void SaveTransactionCommandExecute_ValidTransaction_TransactionIsBeingAddedToCommonState()
         {
             //given
-            var vm = _container.Resolve<TransactionViewModel>();
+            var vm = _fixture.Container.Resolve<TransactionViewModel>();
             vm.Transaction = new Transaction
             {
                 Title = "title 1",
-                Positions = new TrulyObservableCollection<Position>(new [] { Positions[0] }),
-                Type = Types[0],
-                UserStock = Stocks[0]
+                Positions = new TrulyObservableCollection<Position>(new [] { new Position() }),
+                Type = new TransactionType(),
+                UserStock = new Stock()
             };
-            vm.Transaction.Positions[0].TagViewModel = _container.Resolve<MultiComboBoxViewModel>();
-            vm.Transaction.Positions[0].TagViewModel.SetInput(Tags);
+            vm.Transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
+            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags);
             vm.ShouldGoBack = false;
 
             var command = vm.SaveTransactionCommand;
@@ -42,17 +54,17 @@ namespace CashManager.Tests.ViewModels.Transactions
         public void SaveTransactionCommandExecute_ValidTransactionWhichAlreadyExists_TransactionIsBeingUpdated()
         {
             //given
-            var vm = _container.Resolve<TransactionViewModel>();
+            var vm = _fixture.Container.Resolve<TransactionViewModel>();
             string title = "title 1";
             vm.Transaction = new Transaction
             {
                 Title = title,
-                Positions = new TrulyObservableCollection<Position>(new [] { Positions[0] }),
-                Type = Types[0],
-                UserStock = Stocks[0]
+                Positions = new TrulyObservableCollection<Position>(new [] { new Position() }),
+                Type = new TransactionType(),
+                UserStock = new Stock()
             };
-            vm.Transaction.Positions[0].TagViewModel = _container.Resolve<MultiComboBoxViewModel>();
-            vm.Transaction.Positions[0].TagViewModel.SetInput(Tags);
+            vm.Transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
+            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags);
             vm.ShouldGoBack = false;
 
             var command = vm.SaveTransactionCommand;
@@ -65,6 +77,7 @@ namespace CashManager.Tests.ViewModels.Transactions
 
             //then
             Assert.True(canExecute);
+            Assert.Equal(1, vm.TransactionsProvider.AllTransactions.Count);
             Assert.Single(vm.TransactionsProvider.AllTransactions);
             Assert.Equal(vm.Transaction.Title, vm.TransactionsProvider.AllTransactions[0].Title);
         }
@@ -78,7 +91,7 @@ namespace CashManager.Tests.ViewModels.Transactions
         public void StockBalanceUpdate_AddValidTransaction_StockBalanceUpdated(bool income, decimal startBalance, decimal transValue, decimal expectedBalance)
         {
             //given
-            var vm = _container.Resolve<TransactionViewModel>();
+            var vm = _fixture.Container.Resolve<TransactionViewModel>();
             vm.Update();
             var userStock = new Stock { Name = "test", Balance = new Balance { Value = startBalance }, IsUserStock = true };
             
@@ -91,8 +104,8 @@ namespace CashManager.Tests.ViewModels.Transactions
             vm.Transaction.Title = "non empty";
             vm.Transaction.Type = new TransactionType { Income = income, Outcome = !income };
             vm.Transaction.UserStock = userStock;
-            vm.Transaction.Positions[0].TagViewModel = _container.Resolve<MultiComboBoxViewModel>();
-            vm.Transaction.Positions[0].TagViewModel.SetInput(Tags);
+            vm.Transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
+            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags);
             vm.ShouldGoBack = false;
 
             var command = vm.SaveTransactionCommand;
@@ -117,7 +130,7 @@ namespace CashManager.Tests.ViewModels.Transactions
         public void StockBalanceUpdate_EditValidTransaction_StockBalanceUpdated(bool income, decimal transactionStartValue, decimal startBalance, decimal transValue, decimal expectedBalance)
         {
             //given
-            var vm = _container.Resolve<TransactionViewModel>();
+            var vm = _fixture.Container.Resolve<TransactionViewModel>();
             var userStock = new Stock { Name = "test", Balance = new Balance { Value = startBalance }, IsUserStock = true };
             //assigning transaction = transaction edit
             vm.Transaction = new Transaction
@@ -132,8 +145,8 @@ namespace CashManager.Tests.ViewModels.Transactions
                 Type = new TransactionType { Income = income, Outcome = !income},
                 UserStock = userStock
             };
-            vm.Transaction.Positions[0].TagViewModel = _container.Resolve<MultiComboBoxViewModel>();
-            vm.Transaction.Positions[0].TagViewModel.SetInput(Tags);
+            vm.Transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
+            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags);
             vm.Transaction.Positions[0].Value.GrossValue = transValue;
             vm.Transaction.Positions[0].Value.NetValue = transValue;
             vm.ShouldGoBack = false;

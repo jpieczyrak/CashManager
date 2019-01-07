@@ -32,7 +32,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
 
             //then
             Assert.NotEmpty(vm.MatchingTransactions);
-            Assert.Equal(_fixture.ViewModelTests.Transactions.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(_fixture.ViewModelTests.Transactions.Value.Length, vm.MatchingTransactions.Count);
         }
 
         [Fact]
@@ -123,7 +123,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
 
             //then
             Assert.NotEmpty(vm.MatchingTransactions);
-            Assert.Equal(_fixture.ViewModelTests.Transactions.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(_fixture.ViewModelTests.Transactions.Value.Length, vm.MatchingTransactions.Count);
         }
 
         [Fact]

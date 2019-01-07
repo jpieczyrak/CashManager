@@ -26,7 +26,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsTransactionsSearch = false;
             vm.IsPositionsSearch = true;
-            var expected = _fixture.ViewModelTests.Positions
+            var expected = _fixture.ViewModelTests.Positions.Value
                              .OrderBy(x => x.Id)
                              .ToArray();
 
@@ -48,7 +48,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = _fixture.ViewModelTests.Positions
+            var expected = _fixture.ViewModelTests.Positions.Value
                              .Where(x => x.BookDate >= minDateTime && x.BookDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -74,7 +74,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = _fixture.ViewModelTests.Positions
+            var expected = _fixture.ViewModelTests.Positions.Value
                              .Where(x => x.LastEditDate >= minDateTime && x.LastEditDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -99,7 +99,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = _fixture.ViewModelTests.Positions
+            var expected = _fixture.ViewModelTests.Positions.Value
                              .Where(x => x.InstanceCreationDate >= minDateTime && x.InstanceCreationDate <= maxDateTime)
                              .OrderBy(x => x.Id)
                              .ToArray();

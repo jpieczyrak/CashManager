@@ -27,7 +27,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var filterValue = vm.MatchingTransactions.First().Positions.First().Category;
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = _fixture.ViewModelTests.Positions
+            var expected = _fixture.ViewModelTests.Positions.Value
                              .Where(x => filterValue.MatchCategoryFilter(x.Category))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -48,10 +48,10 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //given
             var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
-            var filterValue = new [] { _fixture.ViewModelTests.Tags[0], _fixture.ViewModelTests.Tags[2] };
+            var filterValue = new [] { _fixture.ViewModelTests.Tags.Value[0], _fixture.ViewModelTests.Tags.Value[2] };
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = _fixture.ViewModelTests.Positions
+            var expected = _fixture.ViewModelTests.Positions.Value
                              .Where(x => x.Tags.Any(y => filterValue.Contains(y)))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -78,7 +78,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var filterValue = vm.MatchingTransactions.First().Positions.First().Parent.Type;
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = _fixture.ViewModelTests.Positions
+            var expected = _fixture.ViewModelTests.Positions.Value
                              .Where(x => Equals(x.Parent.Type, filterValue))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -102,7 +102,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             var filterValue = vm.MatchingTransactions.First().Positions.First().Parent.UserStock;
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = _fixture.ViewModelTests.Positions
+            var expected = _fixture.ViewModelTests.Positions.Value
                              .Where(x => Equals(x.Parent.UserStock, filterValue))
                              .OrderBy(x => x.Id)
                              .ToArray();

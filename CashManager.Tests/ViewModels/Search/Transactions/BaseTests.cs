@@ -43,7 +43,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
 
             //then
             Assert.NotEmpty(vm.MatchingTransactions);
-            Assert.Equal(_fixture.ViewModelTests.Transactions.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(_fixture.ViewModelTests.Transactions.Value.Length, vm.MatchingTransactions.Count);
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
-            vm.State.TitleFilter.Value = _fixture.ViewModelTests.Transactions[0].Title;
+            vm.State.TitleFilter.Value = _fixture.ViewModelTests.Transactions.Value[0].Title;
             vm.State.TitleFilter.IsChecked = true;
 
             //when
@@ -60,7 +60,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
 
             //then
             Assert.NotEmpty(vm.MatchingTransactions);
-            var matching = _fixture.ViewModelTests.Transactions.Where(x => x.Title.ToLower().Contains(vm.State.TitleFilter.Value.ToLower())).ToArray();
+            var matching = _fixture.ViewModelTests.Transactions.Value.Where(x => x.Title.ToLower().Contains(vm.State.TitleFilter.Value.ToLower())).ToArray();
             Assert.Equal(matching.Length, vm.MatchingTransactions.Count);
             Assert.Equal(matching.Select(x => x.Id), vm.MatchingTransactions.Select(x => x.Id));
         }

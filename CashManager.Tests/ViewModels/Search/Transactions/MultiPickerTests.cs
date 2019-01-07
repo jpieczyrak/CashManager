@@ -48,7 +48,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
-            var filterValue = new[] { _fixture.ViewModelTests.Tags[0], _fixture.ViewModelTests.Tags[1] };
+            var filterValue = new[] { _fixture.ViewModelTests.Tags.Value[0], _fixture.ViewModelTests.Tags.Value[1] };
             vm.IsTransactionsSearch = true;
             var expected = vm.MatchingTransactions
                              .Where(x => x.Positions.Any(y => y.Tags.Any(z => filterValue.Contains(z))))

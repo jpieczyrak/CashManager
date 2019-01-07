@@ -27,7 +27,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             string searchString = vm.MatchingTransactions.First().Title;
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = _fixture.ViewModelTests.Positions
+            var expected = _fixture.ViewModelTests.Positions.Value
                              .Where(x => x.Parent.Title.ToLower().Contains(searchString.ToLower()))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -51,7 +51,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             string searchString = vm.MatchingTransactions.First().Note;
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = _fixture.ViewModelTests.Positions
+            var expected = _fixture.ViewModelTests.Positions.Value
                              .Where(x => x.Parent.Note.ToLower().Contains(searchString.ToLower()))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -75,7 +75,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             string searchString = vm.MatchingTransactions.First().Positions.First().Title.ToUpper();
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = _fixture.ViewModelTests.Positions
+            var expected = _fixture.ViewModelTests.Positions.Value
                              .Where(x => x.Title.ToLower().Contains(searchString.ToLower()))
                              .OrderBy(x => x.Id)
                              .ToArray();
