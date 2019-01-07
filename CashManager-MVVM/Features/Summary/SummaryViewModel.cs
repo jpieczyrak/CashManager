@@ -91,7 +91,7 @@ namespace CashManager_MVVM.Features.Summary
                                new TransactionsSummary
                                {
                                    GrossIncome = income.Value,
-                                   GrossOutcome = outcome.Value,
+                                   GrossOutcome = -outcome.Value,
                                    Name = income.BookDate.ToString(MONTH_DATE_FORMAT)
                                })
                            .ToArray();
