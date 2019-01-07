@@ -24,13 +24,13 @@ namespace CashManager.Tests.ViewModels
 
         #endregion
     }
-    public class EmptyDatabaseFixture : IDisposable
+    public class CleanableDatabaseFixture : IDisposable
     {
         public ViewModelTests ViewModelTests { get; private set; }
 
         public IContainer Container => ViewModelTests.Container;
 
-        public EmptyDatabaseFixture()
+        public CleanableDatabaseFixture()
         {
             ViewModelTests = new ViewModelTests();
         }
@@ -41,7 +41,7 @@ namespace CashManager.Tests.ViewModels
 
         #endregion
 
-        public void CleanDb()
+        public void CleanDatabase()
         {
             var repository = Container.Resolve<LiteRepository>();
             foreach (var name in repository.Database.GetCollectionNames())

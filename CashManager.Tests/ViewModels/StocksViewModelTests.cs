@@ -9,12 +9,12 @@ using Xunit;
 
 namespace CashManager.Tests.ViewModels
 {
-    [Collection("Empty database collection")]
+    [Collection("Cleanable database collection")]
     public class StocksViewModelTests
     {
-        private readonly EmptyDatabaseFixture _fixture;
+        private readonly CleanableDatabaseFixture _fixture;
 
-        public StocksViewModelTests(EmptyDatabaseFixture fixture)
+        public StocksViewModelTests(CleanableDatabaseFixture fixture)
         {
             _fixture = fixture;
         }

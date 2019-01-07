@@ -11,23 +11,32 @@ using Xunit;
 
 namespace CashManager.Tests.ViewModels
 {
-    public class ParserViewModelTests : ViewModelTests
+    [Collection("Cleanable database collection")]
+    public class ParserViewModelTests
     {
+        private readonly Tag[] _tags = { new Tag(), new Tag() };
+        private readonly CleanableDatabaseFixture _fixture;
+
+        public ParserViewModelTests(CleanableDatabaseFixture fixture)
+        {
+            _fixture = fixture;
+            _fixture.CleanDatabase();
+        }
+
         [Fact]
         public void SaveCommandExecute_ValidTransactions_TransactionsAreBeingAddedToCommonState()
         {
             //given
-            SetupDatabase(SetupDb.Types, SetupDb.Positions);
-            var vm = Container.Resolve<ParserViewModel>();
-            vm.SelectedUserStock = vm.SelectedExternalStock = Stocks.Value[0];
+            var vm = _fixture.Container.Resolve<ParserViewModel>();
+            vm.SelectedUserStock = vm.SelectedExternalStock = new Stock();
             var transaction = new Transaction
             {
                 Title = "title 1",
-                Positions = new TrulyObservableCollection<Position>(new[] { Positions.Value[0] }),
-                Type = Types.Value[0]
+                Positions = new TrulyObservableCollection<Position>(new[] { new Position() }),
+                Type = new TransactionType()
             };
-            transaction.Positions[0].TagViewModel = Container.Resolve<MultiComboBoxViewModel>();
-            transaction.Positions[0].TagViewModel.SetInput(Tags.Value);
+            transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
+            transaction.Positions[0].TagViewModel.SetInput(_tags);
             var transactions = new List<Transaction> { transaction, transaction };
             vm.InputText = "06.09.2016 – PRZELEW WYCHODZĄCY\r\nJĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media\r\n\r\n-684,62 PLN";
             vm.ResultsListViewModel.Transactions.AddRange(transactions);
@@ -47,17 +56,16 @@ namespace CashManager.Tests.ViewModels
         public void SaveCommandExecute_ValidTransactions_TransactionsAreBeingUpdatedToCommonState()
         {
             //given
-            SetupDatabase(SetupDb.Types, SetupDb.Positions);
-            var vm = Container.Resolve<ParserViewModel>();
+            var vm = _fixture.Container.Resolve<ParserViewModel>();
             string title = "title 1";
             var transaction = new Transaction
             {
                 Title = title,
-                Positions = new TrulyObservableCollection<Position>(new[] { Positions.Value[0] }),
-                Type = Types.Value[0]
+                Positions = new TrulyObservableCollection<Position>(new[] { new Position() }),
+                Type = new TransactionType()
             };
-            transaction.Positions[0].TagViewModel = Container.Resolve<MultiComboBoxViewModel>();
-            transaction.Positions[0].TagViewModel.SetInput(Tags.Value);
+            transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
+            transaction.Positions[0].TagViewModel.SetInput(_tags);
             var transactions = new List<Transaction> { transaction, transaction };
             vm.InputText = "     06.09.2016 – PRZELEW WYCHODZĄCY\r\nJĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media\r\n\r\n-684,62 PLN";
             vm.ResultsListViewModel.Transactions.AddRange(transactions);

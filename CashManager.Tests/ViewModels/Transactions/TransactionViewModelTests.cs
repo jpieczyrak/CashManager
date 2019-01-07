@@ -10,17 +10,17 @@ using Xunit;
 
 namespace CashManager.Tests.ViewModels.Transactions
 {
-    [Collection("Empty database collection")]
+    [Collection("Cleanable database collection")]
     public class TransactionViewModelTests
     {
-        private readonly Tag[] _tags = new[] { new Tag(), new Tag() };
-        private readonly EmptyDatabaseFixture _fixture;
+        private readonly Tag[] _tags = { new Tag(), new Tag() };
+        private readonly CleanableDatabaseFixture _fixture;
 
-        public TransactionViewModelTests(EmptyDatabaseFixture fixture)
+        public TransactionViewModelTests(CleanableDatabaseFixture fixture)
         {
             _fixture = fixture;
             _fixture.Container.Resolve<TransactionsProvider>().AllTransactions.Clear();
-            _fixture.CleanDb();
+            _fixture.CleanDatabase();
         }
 
         [Fact]
