@@ -13,12 +13,14 @@ using CashManager.Infrastructure.Query.States;
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Features.Transactions.Positions;
+using CashManager_MVVM.Logic;
 using CashManager_MVVM.Logic.Commands;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Threading;
 
 using log4net;
 
@@ -47,6 +49,7 @@ namespace CashManager_MVVM.Features.Search
         private readonly TrulyObservableCollection<IFilter<Position>> _positionFilters;
         private string _searchName;
         private BaseSelectable _selectedSearch;
+        private readonly Debouncer _debouncer;
 
         #endregion
 
@@ -83,7 +86,7 @@ namespace CashManager_MVVM.Features.Search
             {
                 Set(nameof(IsTransactionsSearch), ref _isTransactionsSearch, value);
                 if (value) SetTitle(SearchType.Transactions);
-                FiltersOnCollectionChanged(null, null);
+                ScheduleFiltering(null, null);
             }
         }
 
@@ -94,7 +97,7 @@ namespace CashManager_MVVM.Features.Search
             {
                 Set(nameof(IsPositionsSearch), ref _isPositionsSearch, value);
                 if (value) SetTitle(SearchType.Positions);
-                FiltersOnCollectionChanged(null, null);
+                ScheduleFiltering(null, null);
             }
         }
 
@@ -123,12 +126,15 @@ namespace CashManager_MVVM.Features.Search
 
         public BaseSelectable[] SaveSearches { get; set; }
 
+        public bool IsDebounceable { private get; set; } = true;
+        
         #endregion
 
         public SearchViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory, TransactionsProvider transactionsProvider)
         {
+            _debouncer = new Debouncer(250);
             State = new SearchState(queryDispatcher);
-            State.PropertyChanged += (sender, args) => FiltersOnCollectionChanged(null, null);
+            State.PropertyChanged += (sender, args) => ScheduleFiltering(null, null);
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
             _transactionsProvider = transactionsProvider;
@@ -158,8 +164,24 @@ namespace CashManager_MVVM.Features.Search
             };
             _transactionFilters = new TrulyObservableCollection<IFilter<Transaction>>(filters);
             _positionFilters = new TrulyObservableCollection<IFilter<Position>>(filters.OfType<IFilter<Position>>());
-            _transactionFilters.CollectionChanged += FiltersOnCollectionChanged;
-            _positionFilters.CollectionChanged += FiltersOnCollectionChanged;
+            _transactionFilters.CollectionChanged += ScheduleFiltering;
+            _positionFilters.CollectionChanged += ScheduleFiltering;
+        }
+
+        private void ScheduleFiltering(object o, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            if (IsDebounceable)
+            {
+                _logger.Value.Debug("Calling filter");
+                _debouncer.Debouce(() => DispatcherHelper.RunAsync(() =>
+                {
+                    _logger.Value.Debug("Running filter");
+                    PerformFilter();
+                    _logger.Value.Debug("End running filter");
+                }));
+            }
+            else
+                PerformFilter(); //mainly for tests purpose
         }
 
         private void ExecuteLoadSearchStateCommand()
@@ -193,15 +215,14 @@ namespace CashManager_MVVM.Features.Search
             State.UpdateSources(_queryDispatcher, _transactionsProvider);
             var defaultSearch = states.FirstOrDefault(x => x.Name == SearchState.DEFAULT_NAME);
             if (defaultSearch != null) State.ApplySearchCriteria(Mapper.Map<SearchState>(defaultSearch));
-            
-            FiltersOnCollectionChanged(this, null);
+
+            PerformFilter();
         }
 
-        private void FiltersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        private void PerformFilter()
         {
             var transactions = _transactionsProvider.AllTransactions;
             if (transactions == null || !transactions.Any()) return;
-            _logger.Value.Debug($"Filter start for value: {State.ValueFilter.Min,8} - {State.ValueFilter.Max,8}");
             if (IsTransactionsSearch)
             {
                 if (!CanExecuteAnyTransactionFilter)
@@ -215,7 +236,6 @@ namespace CashManager_MVVM.Features.Search
                     if (PositionsListViewModel.Positions.Count == transactions.Sum(x => x.Positions.Count)) return;
                 FilterPositions();
             }
-            _logger.Value.Debug($"Filter ended for value: {State.ValueFilter.Min,8} - {State.ValueFilter.Max,8}");
         }
 
         private void SetTitle(SearchType searchType)

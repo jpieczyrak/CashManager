@@ -6,12 +6,17 @@ using Autofac;
 
 using AutoMapper;
 
+using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.DbConnection;
+using CashManager.Infrastructure.Query;
 using CashManager.Logic.DefaultData;
 
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Configuration.DI;
+using CashManager_MVVM.Features;
 using CashManager_MVVM.Features.Main;
+using CashManager_MVVM.Features.Search;
+using CashManager_MVVM.Features.Stocks;
 using CashManager_MVVM.Model;
 
 using GalaSoft.MvvmLight;
@@ -114,6 +119,22 @@ namespace CashManager.Tests.ViewModels
                    .Named<ViewModelBase>(x => x.Name)
                    .As(t => t);
             builder.RegisterType<TransactionsProvider>().As<TransactionsProvider>();
+
+            //search should be perform instantly in tests
+            builder.Register(x =>
+                   {
+                       var vm = new SearchViewModel(
+                           x.Resolve<IQueryDispatcher>(),
+                           x.Resolve<ICommandDispatcher>(),
+                           x.Resolve<ViewModelFactory>(),
+                           x.Resolve<TransactionsProvider>())
+                       {
+                           IsDebounceable = false
+                       };
+                       return vm;
+                   })
+                   .As<SearchViewModel>()
+                   .Named<ViewModelBase>(nameof(SearchViewModel));
 
             return builder.Build();
         }
