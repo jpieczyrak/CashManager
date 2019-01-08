@@ -112,6 +112,8 @@ namespace CashManager_MVVM.Features.Summary
             YearBalanceModel.InvalidatePlot(true); YearBalanceModel.ResetAllAxes();
         }
 
+        #region Filtering transactions
+
         private TransactionBalance[] GetTransactions(TimeGroupingType grouping, DateTime minDate, DateTime maxDate,
             TransactionTypeSelection selection)
         {
@@ -179,25 +181,6 @@ namespace CashManager_MVVM.Features.Summary
             return values.ToArray();
         }
 
-        private void SetTwoColorArea(TransactionBalance[] values, PlotModel model, OxyColor color, TimeGroupingType groupingType)
-        {
-            //lets make it rectangle area by adding same value and the end of the month
-            var rectValues = CreateDuplicateTransactionBalancesAtEndOfGroupingPeriod(values, groupingType);
-
-            model.Series.Add(new TwoColorAreaSeries
-            {
-                ItemsSource = rectValues,
-                Limit = 0,
-                Color = color,
-                Color2 = OxyColors.Red,
-                Mapping = x => new DataPoint(DateTimeAxis.ToDouble(((TransactionBalance) x).BookDate),
-                    (double) ((TransactionBalance) x).Value),
-                TrackerFormatString = groupingType == TimeGroupingType.Month
-                                          ? AREA_TRACKER_MONTH_FORMAT_STRING
-                                          : AREA_TRACKER_YEAR_FORMAT_STRING
-            });
-        }
-
         private static TransactionBalance[] CreateDuplicateTransactionBalancesAtEndOfGroupingPeriod(TransactionBalance[] values,
             TimeGroupingType grouping)
         {
@@ -219,6 +202,29 @@ namespace CashManager_MVVM.Features.Summary
             return rectValues;
         }
 
+        #endregion
+
+        #region Displaying plots
+
+        private void SetTwoColorArea(TransactionBalance[] values, PlotModel model, OxyColor color, TimeGroupingType groupingType)
+        {
+            //lets make it rectangle area by adding same value and the end of the month
+            var rectValues = CreateDuplicateTransactionBalancesAtEndOfGroupingPeriod(values, groupingType);
+
+            model.Series.Add(new TwoColorAreaSeries
+            {
+                ItemsSource = rectValues,
+                Limit = 0,
+                Color = color,
+                Color2 = OxyColors.Red,
+                Mapping = x => new DataPoint(DateTimeAxis.ToDouble(((TransactionBalance)x).BookDate),
+                    (double)((TransactionBalance)x).Value),
+                TrackerFormatString = groupingType == TimeGroupingType.Month
+                                          ? AREA_TRACKER_MONTH_FORMAT_STRING
+                                          : AREA_TRACKER_YEAR_FORMAT_STRING
+            });
+        }
+
         private void SetColumns(TransactionBalance[] values, PlotModel model)
         {
             model.Series.Add(new ColumnSeries
@@ -232,5 +238,7 @@ namespace CashManager_MVVM.Features.Summary
                 ItemsSource = values.Select(x => x.BookDate.ToString(MONTH_DATE_FORMAT)).ToArray(),
             });
         }
+
+        #endregion
     }
 }
