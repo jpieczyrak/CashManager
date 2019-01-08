@@ -29,7 +29,7 @@
                 <ResourceDictionary Source="Skins/Controls/PlotViewSkin.xaml" />
                 <ResourceDictionary Source="Skins/DataModels/Selectors.xaml" />
                 <ResourceDictionary Source="Skins/DataModels/PaymentValue.xaml"/>
-                <ResourceDictionary Source="Skins/DataModels/Summary.xaml"/>
+                <ResourceDictionary Source="Skins/DataModels/TransactionsSummary.xaml"/>
                 <ResourceDictionary Source="Skins/DataModels/ViewModels.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
