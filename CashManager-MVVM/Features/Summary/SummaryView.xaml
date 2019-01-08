@@ -60,12 +60,30 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*" />
+                <RowDefinition Height="4*" />
             </Grid.RowDefinitions>
 
             <UserControl Grid.Row="0" Content="{Binding BookDateFilter}" Margin="0,10,0,0" MaxWidth="250" />
             <UserControl Grid.Row="1" Content="{Binding UserStocksFilter}" />
+            <oxy:PlotView Grid.Row="2" Model="{Binding YearBalanceModel}">
+                <oxy:PlotView.DefaultTrackerTemplate>
+                    <ControlTemplate>
+                        <oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}">
+                            <oxy:TrackerControl.Background>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="{DynamicResource DisabledBorderColor}" />
+                                    <GradientStop Offset="1" Color="{DynamicResource BackgroundAccentColor}" />
+                                </LinearGradientBrush>
+                            </oxy:TrackerControl.Background>
+                            <oxy:TrackerControl.Content>
+                                <TextBlock Text="{Binding}" Margin="8" />
+                            </oxy:TrackerControl.Content>
+                        </oxy:TrackerControl>
+                    </ControlTemplate>
+                </oxy:PlotView.DefaultTrackerTemplate>
+            </oxy:PlotView>
 
-            <DataGrid Grid.Row="2" ItemsSource="{Binding Balances}" AutoGenerateColumns="False" HorizontalAlignment="Center" Margin="5">
+            <DataGrid Grid.Row="3" ItemsSource="{Binding Balances}" AutoGenerateColumns="False" HorizontalAlignment="Center" Margin="5">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Date" Binding="{Binding Name}" Width="Auto" />
                     <DataGridTextColumn Header="Income" Binding="{Binding GrossIncome}" Width="Auto" />
@@ -74,9 +92,5 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-
-
-
-
     </Grid>
 </UserControl>

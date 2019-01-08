@@ -175,6 +175,8 @@
       <DependentUpon>SummaryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Summary\SummaryViewModel.cs" />
+    <Compile Include="Features\Summary\TimeGroupingType.cs" />
+    <Compile Include="Features\Summary\TransactionTypeSelection.cs" />
     <Compile Include="Features\Transactions\Positions\PositionListViewModel.cs" />
     <Compile Include="Features\Search\SearchType.cs" />
     <Compile Include="Features\Transactions\Positions\PositionListView.xaml.cs">
