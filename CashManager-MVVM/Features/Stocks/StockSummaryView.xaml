@@ -9,7 +9,7 @@
              d:DataContext="{d:DesignInstance Type=local:StockSummaryViewModel, IsDesignTimeCreatable=True}">
     <Grid HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
