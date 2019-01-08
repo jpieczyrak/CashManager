@@ -185,7 +185,7 @@ namespace CashManager_MVVM.Features.Search
             SaveSearches = states
                            .Select(x => new BaseSelectable(x.Id) { Name = x.Name })
                            .ToArray();
-            State.UpdateSources(_queryDispatcher);
+            State.UpdateSources(_queryDispatcher, _transactionsProvider);
             var defaultSearch = states.FirstOrDefault(x => x.Name == SearchState.DEFAULT_NAME);
             if (defaultSearch != null) State.ApplySearchCriteria(Mapper.Map<SearchState>(defaultSearch));
             

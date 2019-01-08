@@ -96,6 +96,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -138,6 +139,8 @@
 
                 <TextBox Grid.Row="3" Grid.Column="0" Margin="5" Text="{Binding Min, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding Max, UpdateSourceTrigger=PropertyChanged}" />
+                <Slider Grid.Row="4" Grid.Column="0" Margin="5" Value="{Binding Min}" Minimum="{Binding MinimumValue}" Maximum="{Binding MaximumValue}" SmallChange="5" LargeChange="10" TickFrequency="10" IsSnapToTickEnabled="True" />
+                <Slider Grid.Row="4" Grid.Column="1" Margin="5" Value="{Binding Max}" Minimum="{Binding MinimumValue}" Maximum="{Binding MaximumValue}" SmallChange="5" LargeChange="10" TickFrequency="10" IsSnapToTickEnabled="True"  />
             </Grid>
         </Border>
     </DataTemplate>
