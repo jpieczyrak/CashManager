@@ -142,7 +142,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBox Grid.Column="0" Text="{Binding Min, UpdateSourceTrigger=PropertyChanged}" MinWidth="60" />
-                    <Slider Grid.Column="1" Margin="5,0" Value="{Binding Min}" Minimum="{Binding MinimumValue}" Maximum="{Binding MaximumValue}" SmallChange="5" LargeChange="10" TickFrequency="10" IsSnapToTickEnabled="True" />
+                    <Slider Grid.Column="1" Margin="5,0" Value="{Binding Min, Delay=25}" Minimum="{Binding MinimumValue}" Maximum="{Binding MaximumValue}" SmallChange="5" LargeChange="10" TickFrequency="10" IsSnapToTickEnabled="True" />
                 </Grid>
 
                 <Grid Grid.Row="3" Grid.Column="1" Margin="5">
@@ -151,7 +151,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBox Grid.Column="0" Text="{Binding Max, UpdateSourceTrigger=PropertyChanged}" MinWidth="60" />
-                    <Slider Grid.Column="1" Margin="5,0" Value="{Binding Max}" Minimum="{Binding MinimumValue}" Maximum="{Binding MaximumValue}" SmallChange="5" LargeChange="10" TickFrequency="10" IsSnapToTickEnabled="True"  />
+                    <Slider Grid.Column="1" Margin="5,0" Value="{Binding Max, Delay=25}" Minimum="{Binding MinimumValue}" Maximum="{Binding MaximumValue}" SmallChange="5" LargeChange="10" TickFrequency="10" IsSnapToTickEnabled="True"  />
                 </Grid>
             </Grid>
         </Border>
