@@ -32,6 +32,7 @@
                 <ResourceDictionary Source="Skins/DataModels/TransactionsSummary.xaml"/>
                 <ResourceDictionary Source="Skins/DataModels/ViewModels.xaml"/>
                 <ResourceDictionary Source="Skins/Controls/SliderSkin.xaml"/>
+                <ResourceDictionary Source="Skins/Controls/RadioButtonSkin.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
