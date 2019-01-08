@@ -51,7 +51,7 @@
             <UserControl Grid.Row="2" Grid.Column="2" Content="{Binding ExternalStocksSelector}" />
             
             <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
-                    Margin="0,5,0,0" Height="35" Width="150"
+                    Margin="0,5" Height="35" Width="150"
                     Content="Perform" Command="{Binding PerformCommand}" />
         </Grid>
     </Grid>
