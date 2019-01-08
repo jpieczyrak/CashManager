@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 
@@ -19,6 +20,8 @@ using CashManager_MVVM.Model.Common;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
+using log4net;
+
 using DtoSearchState = CashManager.Data.ViewModelState.SearchState;
 
 namespace CashManager_MVVM.Features.Search
@@ -26,6 +29,8 @@ namespace CashManager_MVVM.Features.Search
     public class SearchViewModel : ViewModelBase, IUpdateable
     {
         #region fields
+
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(SearchViewModel)));
 
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
@@ -196,7 +201,7 @@ namespace CashManager_MVVM.Features.Search
         {
             var transactions = _transactionsProvider.AllTransactions;
             if (transactions == null || !transactions.Any()) return;
-
+            _logger.Value.Debug($"Filter start for value: {State.ValueFilter.Min,8} - {State.ValueFilter.Max,8}");
             if (IsTransactionsSearch)
             {
                 if (!CanExecuteAnyTransactionFilter)
@@ -210,6 +215,7 @@ namespace CashManager_MVVM.Features.Search
                     if (PositionsListViewModel.Positions.Count == transactions.Sum(x => x.Positions.Count)) return;
                 FilterPositions();
             }
+            _logger.Value.Debug($"Filter ended for value: {State.ValueFilter.Min,8} - {State.ValueFilter.Max,8}");
         }
 
         private void SetTitle(SearchType searchType)
