@@ -100,8 +100,13 @@ namespace CashManager_MVVM.Features.Search
             var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
             TagsFilter.SetInput(tags);
 
-            ValueFilter.MinimumValue = transactionsProvider?.AllTransactions.Min(x => x.ValueAsProfit) ?? decimal.MinValue;
-            ValueFilter.MaximumValue = transactionsProvider?.AllTransactions.Max(x => x.ValueAsProfit) ?? decimal.MaxValue;
+            bool availableTransactions = transactionsProvider?.AllTransactions?.Any() ?? false;
+            ValueFilter.MinimumValue = availableTransactions 
+                                           ? transactionsProvider.AllTransactions.Min(x => x.ValueAsProfit) 
+                                           : decimal.MinValue;
+            ValueFilter.MaximumValue = availableTransactions 
+                                           ? transactionsProvider.AllTransactions.Max(x => x.ValueAsProfit)
+                                           : decimal.MaxValue;
         }
 
         public void ApplySearchCriteria(SearchState state)
