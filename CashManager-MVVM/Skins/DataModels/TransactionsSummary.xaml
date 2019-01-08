@@ -5,7 +5,8 @@
     <DataTemplate DataType="{x:Type model:TransactionsSummary}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -14,16 +15,31 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Income:"/>
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding GrossIncome, StringFormat={}{0:#,##0.00 zł}}" HorizontalAlignment="Right"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,5,0" >
+                <TextBlock Text="["/>
+                <TextBlock Text="{Binding IncomesCount, StringFormat={}{0:#,##0}}"/>
+                <TextBlock Text="]"/>
+            </StackPanel>
+            <TextBlock Text="Income:" Grid.Row="0" Grid.Column="1" />
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding GrossIncome, StringFormat={}{0:#,##0.00 zł}}" HorizontalAlignment="Right"/>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Outcome:"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding GrossOutcome, StringFormat={}{0:#,##0.00 zł}}" HorizontalAlignment="Right"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,5,0" >
+                <TextBlock Text="["/>
+                <TextBlock Text="{Binding OutcomesCount, StringFormat={}{0:#,##0}}"/>
+                <TextBlock Text="]"/>
+            </StackPanel>
+            <TextBlock Text="Outcome:" Grid.Row="1" Grid.Column="1" />
+            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding GrossOutcome, StringFormat={}{0:#,##0.00 zł}}" HorizontalAlignment="Right"/>
 
-            <Separator Background="{StaticResource DisabledForegroundBrush}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,2"/>
+            <Separator Background="{StaticResource DisabledForegroundBrush}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,2"/>
 
-            <TextBlock Grid.Row="3" Grid.Column="0" Text="Balance:"/>
-            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding GrossBalance, StringFormat={}{0:#,##0.00 zł}}" HorizontalAlignment="Right"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,5,0" >
+                <TextBlock Text="["/>
+                <TextBlock Text="{Binding TotalCount, StringFormat={}{0:#,##0}}"/>
+                <TextBlock Text="]"/>
+            </StackPanel>
+            <TextBlock Text="Balance:" Grid.Row="3" Grid.Column="1" />
+            <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding GrossBalance, StringFormat={}{0:#,##0.00 zł}}" HorizontalAlignment="Right"/>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

@@ -166,7 +166,9 @@ namespace CashManager_MVVM.Features.Balance
                     Name = "Balance",
                     GrossIncome = summaries.Sum(x => x.GrossIncome),
                     GrossOutcome = summaries.Sum(x => x.GrossOutcome),
-                    GrossBalance = summaries.Sum(x => x.GrossBalance)
+                    GrossBalance = summaries.Sum(x => x.GrossBalance),
+                    IncomesCount = summaries.Sum(x => x.IncomesCount),
+                    OutcomesCount = summaries.Sum(x => x.OutcomesCount),
                 });
             }
 

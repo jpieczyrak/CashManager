@@ -45,8 +45,12 @@ namespace CashManager_MVVM.Features.Transactions
         
         private void TransactionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
-            Summary.GrossIncome = Transactions.Where(x => x.Type.Income && !x.Type.Outcome).Sum(x => x.Value);
-            Summary.GrossOutcome = Transactions.Where(x => !x.Type.Income && x.Type.Outcome).Sum(x => x.Value);
+            var incomes = Transactions.Where(x => x.Type.Income && !x.Type.Outcome).ToArray();
+            var outcomes = Transactions.Where(x => !x.Type.Income && x.Type.Outcome).ToArray();
+            Summary.GrossIncome = incomes.Sum(x => x.Value);
+            Summary.GrossOutcome = outcomes.Sum(x => x.Value);
+            Summary.IncomesCount = incomes.Length;
+            Summary.OutcomesCount = outcomes.Length;
         }
 
         private void TransactionEdit()
