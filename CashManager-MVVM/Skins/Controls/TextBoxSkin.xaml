@@ -25,6 +25,7 @@
     <Style TargetType="{x:Type TextBox}">
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource HoverControlBackgroundBrush}"/>
     </Style>
 
 </ResourceDictionary>
