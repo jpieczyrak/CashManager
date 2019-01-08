@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 using CashManager.Infrastructure.Query;
@@ -9,6 +10,7 @@ using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Plots;
 using CashManager_MVVM.Logic.Calculators;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 
@@ -22,31 +24,21 @@ using DtoStock = CashManager.Data.DTO.Stock;
 
 namespace CashManager_MVVM.Features.Summary
 {
-    public class SummaryViewModel : ViewModelBase, IUpdateable
+    public class SummaryViewModel : FilterableViewModel
     {
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(SummaryViewModel)));
 
         private const string AREA_TRACKER_FORMAT_STRING = "{2:MM.yyyy}\n{4:#,##0.00 zł}";
         private const string MONTH_DATE_FORMAT = "MM.yyyy";
 
-        private readonly IQueryDispatcher _queryDispatcher;
-        private readonly TransactionsProvider _provider;
-        private PlotModel _balanceModel;
-
-        public PlotModel BalanceModel
-        {
-            get => _balanceModel;
-            set => Set(ref _balanceModel, value);
-        }
-
+        public PlotModel BalanceModel { get; }
         public PlotModel FlowsModel { get; }
 
         public TransactionsSummary[] Balances { get; private set; }
 
-        public SummaryViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider provider)
+        public SummaryViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider provider) 
+            : base(queryDispatcher, provider)
         {
-            _queryDispatcher = queryDispatcher;
-            _provider = provider;
             BalanceModel = PlotHelper.CreatePlotModel();
             BalanceModel.IsLegendVisible = false;
             FlowsModel = PlotHelper.CreatePlotModel();
@@ -66,12 +58,15 @@ namespace CashManager_MVVM.Features.Summary
             Update();
         }
 
-        public void Update()
+        public override void Update()
         {
             _logger.Value.Debug("Update");
-            var stocks = _queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()).Where(x => x.IsUserStock);
-            if (!stocks.Any()) return;
+            base.Update();
+            _logger.Value.Debug("Updated");
+        }
 
+        protected override void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
             BalanceModel.Series.Clear();
             FlowsModel.Series.Clear();
 
@@ -80,21 +75,21 @@ namespace CashManager_MVVM.Features.Summary
             values = FillMissingMonthsWithZeroValue(values, values.Min(x => x.BookDate), values.Max(x => x.BookDate));
 
             if (values.Any())
-            { 
+            {
                 //todo: make switchable
                 //SetColumns(values, BalanceModel);
                 SetTwoColorArea(values, BalanceModel, OxyColors.Green);
 
-                var minDate = _provider.AllTransactions.Min(x => x.BookDate);
-                var maxDate = _provider.AllTransactions.Max(x => x.BookDate);
+                var minDate = MatchingTransactions.Min(x => x.BookDate);
+                var maxDate = MatchingTransactions.Max(x => x.BookDate);
                 var incomes = FillMissingMonthsWithZeroValue(
-                    _provider.AllTransactions
+                    MatchingTransactions
                              .Where(x => x.ValueAsProfit > 0)
                              .GroupBy(groupingSelector)
                              .Select(x => new TransactionBalance(x.Key, x.Sum(y => y.ValueAsProfit)))
                              .OrderBy(x => x.BookDate), minDate, maxDate);
                 var outcomes = FillMissingMonthsWithZeroValue(
-                    _provider.AllTransactions
+                    MatchingTransactions
                              .Where(x => x.ValueAsProfit < 0)
                              .GroupBy(groupingSelector)
                              .Select(x => new TransactionBalance(x.Key, x.Sum(y => y.ValueAsProfit)))
@@ -121,15 +116,28 @@ namespace CashManager_MVVM.Features.Summary
 
             FlowsModel.InvalidatePlot(true);
             FlowsModel.ResetAllAxes();
-            _logger.Value.Debug("Updated");
         }
 
         private TransactionBalance[] GetBalances(Func<Transaction, DateTime> groupingSelector)
         {
-            return _provider.AllTransactions.GroupBy(groupingSelector)
-                            .Select(x => new TransactionBalance(x.Key, x.Sum(y => y.ValueAsProfit)))
-                            .OrderBy(x => x.BookDate)
-                            .ToArray();
+            return MatchingTransactions
+                   .GroupBy(groupingSelector)
+                   .Select(x => new TransactionBalance(x.Key, x.Sum(y => y.ValueAsProfit)))
+                   .OrderBy(x => x.BookDate)
+                   .ToArray();
+        }
+
+        private IEnumerable<Transaction> MatchingTransactions
+        {
+            get
+            {
+                var stockHashSet = new HashSet<Stock>(UserStocksFilter.Results.OfType<Stock>());
+                return _transactionsProvider.AllTransactions
+                                            .Where(x => !UserStocksFilter.IsChecked || stockHashSet.Contains(x.UserStock))
+                                            .Where(x => !BookDateFilter.IsChecked
+                                                        || x.BookDate >= BookDateFilter.From 
+                                                        && x.BookDate <= BookDateFilter.To);
+            }
         }
 
         private static TransactionBalance[] FillMissingMonthsWithZeroValue(IEnumerable<TransactionBalance> values, DateTime minDate, DateTime maxDate)
