@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 using CashManager_MVVM.Features.Balance;
 using CashManager_MVVM.Features.Categories;
@@ -33,6 +34,14 @@ namespace CashManager_MVVM.Features.Main
             }
         }
 
+        private string _title;
+
+        public string Title
+        {
+            get => _title;
+            set => Set(ref _title, value);
+        }
+
         public ViewModelBase PreviousSelectedViewModel { get; private set; }
 
         public StockSummaryViewModel SummaryViewModel { get; }
@@ -43,6 +52,7 @@ namespace CashManager_MVVM.Features.Main
 
         public ApplicationViewModel(ViewModelFactory factory)
         {
+            Title += $"Cash Manager {Assembly.GetExecutingAssembly().GetName().Version}";
             SetViewModelCommand = new RelayCommand<ViewModelBase>(view => SelectedViewModel = view);
             ViewModels = new Dictionary<string, ViewModelBase>
             {

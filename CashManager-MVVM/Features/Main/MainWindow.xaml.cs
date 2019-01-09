@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using System.Windows;
 
 using CashManager_MVVM.Properties;
@@ -17,7 +16,6 @@ namespace CashManager_MVVM.Features.Main
             _logger.Value.Debug("Loading");
             DataContext = viewModel;
             InitializeComponent();
-            Title += " " + Assembly.GetExecutingAssembly().GetName().Version;
             _logger.Value.Debug("Loaded");
         }
 
@@ -25,6 +23,31 @@ namespace CashManager_MVVM.Features.Main
         {
             Settings.Default.Save();
             Application.Current.Shutdown();
+        }
+
+        private void MinimizeOnClick(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void CloseOnClick(object sender, RoutedEventArgs e)
+        {
+            OnClosed(sender, e);
+        }
+
+        private void RestoreOnClick(object sender, RoutedEventArgs e)
+        {
+            switch (WindowState)
+            {
+                case WindowState.Normal:
+                    WindowState = WindowState.Maximized;
+                    break;
+                case WindowState.Minimized:
+                    break;
+                case WindowState.Maximized:
+                    WindowState = WindowState.Normal;
+                    break;
+            }
         }
     }
 }
