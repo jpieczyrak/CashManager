@@ -46,7 +46,7 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
-                <ContextMenu>
+                <ContextMenu Background="{DynamicResource ControlBackgroundBrush}" BorderBrush="{DynamicResource ControlBackgroundBrush}">
                     <MenuItem Header="Duplicate" Command="{Binding DuplicateTransactionCommand}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
