@@ -41,6 +41,7 @@ namespace CashManager.Logic.Parsers.Custom
                     UserStock = userStock
                 };
                 transaction.Positions.Add(new Position());
+                if (userStock != null) Balances[userStock] = userStock.Balance;
 
                 bool match = _rules.Any();
                 foreach (var rule in _rules)
@@ -110,7 +111,7 @@ namespace CashManager.Logic.Parsers.Custom
                             var matching = _stocks.FirstOrDefault(x => x.Name.ToLower().Equals(stringValue.ToLower()));
                             transaction.UserStock = matching;
                         }
-                        if (transaction.UserStock == null)
+                        if (transaction.UserStock == null || (!transaction.UserStock.Name?.Equals(stringValue) ?? true))
                         {
                             transaction.UserStock = generateMissingStocks 
                                                         ? new Stock(stringValue.GenerateGuid())

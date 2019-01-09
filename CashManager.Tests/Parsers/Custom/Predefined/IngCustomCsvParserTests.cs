@@ -69,6 +69,27 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
         }
 
         [Fact]
+        public void ParseAndCreateMissingStocks_NoneEmptyInputNotNullUserStock_MatchingStockBalances()
+        {
+            //given
+            var parser = new CustomCsvParserFactory().Create(PredefinedCsvParsers.Ing);
+            var input = NONE_EMPTY_ING_INPUT;
+            var stock = new Stock();
+
+            //when
+            var result = parser.Parse(input, stock, null, null, null, true);
+
+            //then
+            Assert.NotEmpty(result);
+            Assert.Equal(7, result.Length);
+            Assert.Equal(4, parser.Balances.Count);
+            var balancesWithNames = parser.Balances.Where(x => x.Key.Name != null).ToArray();
+            Assert.Equal(1677.46m, balancesWithNames.FirstOrDefault(x => x.Key.Name.Contains("Saver")).Value.Value);
+            Assert.Equal(2159.80m, balancesWithNames.FirstOrDefault(x => x.Key.Name.Contains("Direct")).Value.Value);
+            Assert.Equal(105.22m, balancesWithNames.FirstOrDefault(x => x.Key.Name.Contains("wirtualna")).Value.Value);
+        }
+
+        [Fact]
         public void Parse_SingleIncomeTransaction_Matching()
         {
             //given
@@ -118,7 +139,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             };
             var parser = new CustomCsvParserFactory(stocks).Create(PredefinedCsvParsers.Ing);
             var input = "\"2018-12-20\";\"2018-12-22\";\" imie nazw, ulica 1/2, 11-222 miasto \";\" Na legimi\";\'123123123123 \';\"ING Bank Śląski S.A.\";\"zlecenie stałe\";\'201835497208742225\';-39,99;PLN;;;;;\"K@rta wirtualna ING VISA\";145,21;PLN;;;;";
-
+            var defaultUserStock = stocks[0];
             var guid = input.Replace(";", string.Empty).GenerateGuid();
             var transaction = new Transaction(guid)
             {
@@ -133,11 +154,13 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             };
 
             //when
-            var result = parser.Parse(input, stocks[0], stocks[2], defaultOutcome, defaultIncome);
+            var result = parser.Parse(input, defaultUserStock, stocks[2], defaultOutcome, defaultIncome);
 
             //then
             Assert.Single(result);
             ValidateTransaction(result[0], transaction);
+            Assert.Equal(0m, parser.Balances[defaultUserStock].Value); //default does not changed (no matching transactions)
+            Assert.Equal(145.21m, parser.Balances[stocks[1]].Value); //the matching one has been updated
         }
 
         [Fact]
@@ -175,6 +198,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.Single(result);
             ValidateTransaction(result[0], transaction);
+            Assert.Equal(145.21m, parser.Balances[defaultUserStock].Value);
         }
 
         [Fact]
