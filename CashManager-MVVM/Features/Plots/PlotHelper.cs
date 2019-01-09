@@ -11,12 +11,10 @@ namespace CashManager_MVVM.Features.Plots
             var application = Application.Current;
 
             var defaultColor = OxyColor.FromRgb(100, 100, 100);
-            var textColor = application != null
-                                ? OxyColor.Parse(application.Resources["ForegroundColor"].ToString())
-                                : defaultColor;
             var borderColor = application != null
                                   ? OxyColor.Parse(application.Resources["BorderColor"].ToString())
                                   : defaultColor;
+            var textColor = borderColor;
             var selectColor = application != null
                                   ? OxyColor.Parse(application.Resources["HoverBorderAccentColor"].ToString())
                                   : defaultColor;
@@ -30,7 +28,7 @@ namespace CashManager_MVVM.Features.Plots
                 LegendTextColor = textColor,
                 LegendTitleColor = textColor,
                 TitleColor = textColor,
-                PlotAreaBorderColor = borderColor,
+                PlotAreaBorderColor = OxyColors.Gray,
                 SubtitleColor = textColor,
                 SelectionColor = selectColor
             };
