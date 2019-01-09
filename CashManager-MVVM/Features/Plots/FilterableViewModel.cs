@@ -18,10 +18,10 @@ namespace CashManager_MVVM.Features.Plots
     public class FilterableViewModel : ViewModelBase, IUpdateable
     {
         protected readonly TransactionsProvider _transactionsProvider;
-        protected readonly IQueryDispatcher _queryDispatcher;
+        private readonly IQueryDispatcher _queryDispatcher;
 
-        protected DateFrame _bookDateFilter;
-        protected MultiPicker _userStocksFilter;
+        private DateFrame _bookDateFilter;
+        private MultiPicker _userStocksFilter;
 
         public DateFrame BookDateFilter
         {
@@ -39,7 +39,25 @@ namespace CashManager_MVVM.Features.Plots
         {
             _queryDispatcher = queryDispatcher;
             _transactionsProvider = transactionsProvider;
-            _bookDateFilter = new DateFrame(DateFrameType.BookDate);
+
+            var dtos = _queryDispatcher.Execute<StockQuery, Stock[]>(new StockQuery());
+            var stocks = Mapper.Map<Model.Stock[]>(dtos)
+                               .Where(x => x.IsUserStock)
+                               .OrderBy(x => x.Name)
+                               .ToArray();
+            UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, stocks) { IsChecked = true };
+            foreach (var result in UserStocksFilter.ComboBox.InternalDisplayableSearchResults) result.IsSelected = true;
+
+            _bookDateFilter = new DateFrame(DateFrameType.BookDate) { IsChecked = true };
+            BookDateFilter.From = _transactionsProvider.AllTransactions.Any()
+                                      ? _transactionsProvider.AllTransactions.Min(x => x.BookDate).AddDays(-1)
+                                      : DateTime.MinValue;
+            BookDateFilter.To = _transactionsProvider.AllTransactions.Any()
+                                    ? _transactionsProvider.AllTransactions.Max(x => x.BookDate)
+                                    : DateTime.MaxValue;
+
+            BookDateFilter.PropertyChanged += OnPropertyChanged;
+            UserStocksFilter.PropertyChanged += OnPropertyChanged;
         }
 
         #region IUpdateable
@@ -52,22 +70,7 @@ namespace CashManager_MVVM.Features.Plots
                                .OrderBy(x => x.Name)
                                .ToArray();
 
-            if (UserStocksFilter != null) UserStocksFilter.PropertyChanged -= OnPropertyChanged;
-            UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, stocks);
-            foreach (var result in UserStocksFilter.ComboBox.InternalDisplayableSearchResults) result.IsSelected = true;
-            UserStocksFilter.IsChecked = true;
-            UserStocksFilter.PropertyChanged += OnPropertyChanged;
-
-            BookDateFilter.PropertyChanged -= OnPropertyChanged;
-            BookDateFilter.From = _transactionsProvider.AllTransactions.Any()
-                                      ? _transactionsProvider.AllTransactions.Min(x => x.BookDate).AddDays(-1)
-                                      : DateTime.MinValue;
-            BookDateFilter.To = _transactionsProvider.AllTransactions.Any()
-                                    ? _transactionsProvider.AllTransactions.Max(x => x.BookDate)
-                                    : DateTime.MaxValue;
-
-            BookDateFilter.IsChecked = true;
-            BookDateFilter.PropertyChanged += OnPropertyChanged;
+            UserStocksFilter.SetInput(stocks);
 
             OnPropertyChanged(this, null);
         }
