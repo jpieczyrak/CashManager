@@ -13,7 +13,7 @@
     Width="{Binding Source={x:Static properties:Settings.Default}, Path=Width, Mode=TwoWay}"
     Height="{Binding Source={x:Static properties:Settings.Default}, Path=Height, Mode=TwoWay}"
     Title="Cash Manager" Closed="OnClosed" WindowStyle="None" AllowsTransparency="True"
-    d:DataContext="{d:DesignInstance Type=main:ApplicationViewModel, IsDesignTimeCreatable=True}">
+    d:DataContext="{d:DesignInstance Type=main:ApplicationViewModel, IsDesignTimeCreatable=True}" Icon="../../Resources/cash.png">
     <Window.Resources>
         <ControlTemplate x:Key="Minimize" TargetType="{x:Type Button}">
             <Grid Width="40" Height="20" WindowChrome.IsHitTestVisibleInChrome="True">
