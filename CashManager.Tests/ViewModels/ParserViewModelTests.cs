@@ -42,7 +42,6 @@ namespace CashManager.Tests.ViewModels
             var transactions = new List<Transaction> { transaction, transaction };
             vm.InputText = "06.09.2016 – PRZELEW WYCHODZĄCY\r\nJĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media\r\n\r\n-684,62 PLN";
             vm.ResultsListViewModel.Transactions.AddRange(transactions);
-            
             var command = vm.SaveCommand;
 
             //when
@@ -71,10 +70,9 @@ namespace CashManager.Tests.ViewModels
             var transactions = new List<Transaction> { transaction, transaction };
             vm.InputText = "     06.09.2016 – PRZELEW WYCHODZĄCY\r\nJĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media\r\n\r\n-684,62 PLN";
             vm.ResultsListViewModel.Transactions.AddRange(transactions);
-            
             var command = vm.SaveCommand;
             command.Execute(null);
-            
+
             transactions[0].Title += 1;
             vm.ResultsListViewModel.Transactions.Clear();
             vm.ResultsListViewModel.Transactions.AddRange(transactions);

@@ -102,7 +102,7 @@ namespace CashManager_MVVM.Features.Balance
 
             SavedSearches = new MultiComboBoxViewModel();
             SavedSearches.PropertyChanged += SavedSearchesOnPropertyChanged;
-            
+
             var customBalanceQuery = new CustomBalanceQuery();
             var customBalances = _queryDispatcher.Execute<CustomBalanceQuery, DtoCustomBalance[]>(customBalanceQuery);
             CustomBalances = Mapper.Map<ObservableCollection<CustomBalance>>(customBalances);
@@ -121,7 +121,7 @@ namespace CashManager_MVVM.Features.Balance
             CustomBalances.Add(balance);
             SelectedCustomBalance = balance;
         }
-        
+
         private void ExecuteDeleteCommand()
         {
             _commandDispatcher.Execute(new DeleteCustomBalanceCommand(Mapper.Map<DtoCustomBalance>(SelectedCustomBalance)));

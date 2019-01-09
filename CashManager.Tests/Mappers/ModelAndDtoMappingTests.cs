@@ -23,7 +23,7 @@ namespace CashManager.Tests.Mappers
         [Fact]
         public void ModelToDtoTest()
         {
-            //given 
+            //given
             var model1 = new Category { Name = "parent" };
             var model2 = new Category { Name = "child", Parent = model1 };
 
@@ -44,7 +44,7 @@ namespace CashManager.Tests.Mappers
         [Fact]
         public void DtoToModelTest()
         {
-            //given 
+            //given
             var dto1 = new DtoCategory { Name = "parent" };
             var dto2 = new DtoCategory { Name = "child", Parent = dto1 };
 
@@ -65,7 +65,7 @@ namespace CashManager.Tests.Mappers
         [Fact]
         public void ModelToDtoToModelTest()
         {
-            //given 
+            //given
             var model1 = new Category { Name = "parent" };
             var model2 = new Category { Name = "child", Parent = model1 };
 
@@ -86,7 +86,7 @@ namespace CashManager.Tests.Mappers
         [Fact]
         public void PaymentValueModelToDtoToModelTest()
         {
-            //given 
+            //given
             var model = new PaymentValue { GrossValue = 12 };
 
             //when
@@ -100,7 +100,7 @@ namespace CashManager.Tests.Mappers
         [Fact]
         public void SimpleTransactionLastEditDateChangeMappingTest()
         {
-            //given 
+            //given
             var model = new Transaction { Note = "now last edit date should be updated" };
 
             //when
@@ -119,7 +119,7 @@ namespace CashManager.Tests.Mappers
         [Fact]
         public void TransactionModelToDtoToModelTest()
         {
-            //given 
+            //given
             var categoryParent = new Category { Name = "cat1", Parent = null };
             decimal balance = 123.45m;
             var model = new Transaction

@@ -4,7 +4,6 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Navigation;
 using System.Windows.Threading;
 
 using Autofac;
@@ -26,9 +25,6 @@ using log4net;
 
 namespace CashManager_MVVM
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(App)));
@@ -39,7 +35,7 @@ namespace CashManager_MVVM
 
         internal static SkinShapes SkinShape { get; private set; }
 
-        private string DatabaseFilepath => Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), DB_PATH);
+        private string DatabaseFilepath => Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) ?? string.Empty, DB_PATH);
 
         static App()
         {

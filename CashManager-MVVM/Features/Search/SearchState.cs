@@ -101,10 +101,10 @@ namespace CashManager_MVVM.Features.Search
             TagsFilter.SetInput(tags);
 
             bool availableTransactions = transactionsProvider?.AllTransactions?.Any() ?? false;
-            ValueFilter.MinimumValue = availableTransactions 
-                                           ? transactionsProvider.AllTransactions.Min(x => x.ValueAsProfit) 
+            ValueFilter.MinimumValue = availableTransactions
+                                           ? transactionsProvider.AllTransactions.Min(x => x.ValueAsProfit)
                                            : decimal.MinValue;
-            ValueFilter.MaximumValue = availableTransactions 
+            ValueFilter.MaximumValue = availableTransactions
                                            ? transactionsProvider.AllTransactions.Max(x => x.ValueAsProfit)
                                            : decimal.MaxValue;
         }

@@ -5,7 +5,6 @@ using Autofac;
 using CashManager.Tests.ViewModels.Fixtures;
 
 using CashManager_MVVM.Features.Search;
-using CashManager_MVVM.Model;
 
 using Xunit;
 
@@ -27,7 +26,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
-            Category filterValue = vm.MatchingTransactions.First().Positions.FirstOrDefault().Category;
+            var filterValue = vm.MatchingTransactions[0].Positions.First().Category;
             vm.IsTransactionsSearch = true;
             var expected = vm.MatchingTransactions
                              .Where(x => x.Positions.Any(y => filterValue.MatchCategoryFilter(y.Category)))

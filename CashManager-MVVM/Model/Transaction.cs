@@ -25,7 +25,7 @@ namespace CashManager_MVVM.Model
         /// Date when transaction was performed (in real life, like going to shop or receiving payment)
         /// </summary>
         public DateTime TransactionSourceCreationDate { get; private set; }
-        
+
         /// <summary>
         /// Title of transaction
         /// </summary>
@@ -130,11 +130,11 @@ namespace CashManager_MVVM.Model
                                                     ? Value
                                                     : 0m;
 
-        public bool IsValid => Type != null 
-                               && (Positions?.Any() ?? false) 
-                               && !string.IsNullOrWhiteSpace(Title) 
+        public bool IsValid => Type != null
+                               && (Positions?.Any() ?? false)
+                               && !string.IsNullOrWhiteSpace(Title)
                                && UserStock != null;
-        
+
         public Transaction()
         {
             _bookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
@@ -143,7 +143,7 @@ namespace CashManager_MVVM.Model
             StoredFiles = new ObservableCollection<StoredFileInfo>();
             IsPropertyChangedEnabled = true;
         }
-        
+
         private void PositionsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsPropertyChangedEnabled)

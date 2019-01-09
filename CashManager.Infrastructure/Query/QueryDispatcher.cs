@@ -25,7 +25,7 @@ namespace CashManager.Infrastructure.Query
             catch (Exception e)
             {
                 _logger.Value.Error("Execute", e);
-                throw e;
+                throw;
             }
 
             return handler.Execute(query);

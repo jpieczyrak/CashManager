@@ -53,13 +53,13 @@ namespace CashManager.Logic.DefaultData
                     $"input source {counter++}"));
             return factory.Generate(250).ToArray();
         }
-        
+
         public Stock[] GetStocks()
         {
             var factory = new Faker<Stock>()
                 .RuleFor(stock => stock.Name, (faker, stock) => faker.Company.CompanySuffix())
                 .RuleFor(stock => stock.IsUserStock, faker => faker.Random.Bool())
-                .RuleFor(stock => stock.LastEditDate, faker => faker.Date.Recent(1))
+                .RuleFor(stock => stock.LastEditDate, faker => faker.Date.Recent())
                 .RuleFor(stock => stock.Balance, (faker, stock) => new Balance(faker.Date.Recent(30), faker.Random.Decimal(10m, 1000000m)));
             return factory.Generate(5).ToArray();
         }
@@ -70,7 +70,7 @@ namespace CashManager.Logic.DefaultData
                 .RuleFor(tag => tag.Name, (faker, tag) => faker.Company.Random.Word());
             return factory.Generate(25).ToArray();
         }
-        
+
         public TransactionType[] GetTransactionTypes() => _test.GetTransactionTypes();
         public Category[] GetCategories() => _test.GetCategories();
 

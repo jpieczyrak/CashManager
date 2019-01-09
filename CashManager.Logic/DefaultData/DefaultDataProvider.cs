@@ -1,7 +1,6 @@
 ﻿using System;
 
 using CashManager.Data.DTO;
-using CashManager.Logic.DefaultData.Builders;
 using CashManager.Logic.DefaultData.InputParsers;
 
 namespace CashManager.Logic.DefaultData
@@ -62,7 +61,7 @@ namespace CashManager.Logic.DefaultData
 
         public Tag[] GetTags()
         {
-            _tags = new Tag[]
+            _tags = new[]
             {
                 new Tag { Name = "tag 1" },
                 new Tag { Name = "tag 2" },

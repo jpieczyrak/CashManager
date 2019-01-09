@@ -83,7 +83,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Tags
             var handler = new UpsertTagsCommandHandler(repository);
             var command = new UpsertTagsCommand(tags);
             repository.Database.UpsertBulk(tags);
-            foreach (var Tag in tags) Tag.Name += " - updated";
+            foreach (var tag in tags) tag.Name += " - updated";
 
             //when
             handler.Execute(command);

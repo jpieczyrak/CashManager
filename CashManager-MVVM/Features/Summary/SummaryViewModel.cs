@@ -46,7 +46,7 @@ namespace CashManager_MVVM.Features.Summary
             }
         }
 
-        public SummaryViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider provider) 
+        public SummaryViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider provider)
             : base(queryDispatcher, provider)
         {
             BalanceModel = PlotHelper.CreatePlotModel();
@@ -76,7 +76,7 @@ namespace CashManager_MVVM.Features.Summary
             BalanceModel.Series.Clear();
             FlowsModel.Series.Clear();
             YearBalanceModel.Series.Clear();
-            
+
             if (MatchingTransactions.Any())
             {
                 var minDate = MatchingTransactions.Min(x => x.BookDate);
@@ -133,6 +133,8 @@ namespace CashManager_MVVM.Features.Summary
                     valuesPicker = x => true;
                     break;
             }
+
+            if (valuesPicker == null) return new TransactionBalance[0];
 
             return FillMissingEntriesWithZeroValue(
                 MatchingTransactions

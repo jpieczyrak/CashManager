@@ -25,7 +25,7 @@ namespace CashManager.Infrastructure.Command
             catch (Exception e)
             {
                 _logger.Value.Error("Execute", e);
-                throw e;
+                throw;
             }
 
             handler.Execute(command);

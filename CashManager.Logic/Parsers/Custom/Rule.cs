@@ -1,8 +1,4 @@
-﻿using System;
-
-using CashManager.Data.DTO;
-
-namespace CashManager.Logic.Parsers.Custom
+﻿namespace CashManager.Logic.Parsers.Custom
 {
     public class Rule
     {

@@ -16,7 +16,6 @@ using CashManager_MVVM.Configuration.DI;
 using CashManager_MVVM.Features;
 using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Features.Search;
-using CashManager_MVVM.Features.Stocks;
 using CashManager_MVVM.Model;
 
 using GalaSoft.MvvmLight;

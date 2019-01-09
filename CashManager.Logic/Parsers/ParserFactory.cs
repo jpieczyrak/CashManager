@@ -4,13 +4,13 @@ namespace CashManager.Logic.Parsers
 {
     public class ParserFactory
     {
-        public static IParser Create(eParserInputType eParserInputType)
+        public static IParser Create(ParserInputType parserInputType)
         {
-            switch (eParserInputType)
+            switch (parserInputType)
             {
-                case eParserInputType.Excel:
+                case ParserInputType.Excel:
                     return new ExcelParser();
-                case eParserInputType.GetinBank:
+                case ParserInputType.GetinBank:
                     return new GetinBankParser();
             }
             throw new NotImplementedException();

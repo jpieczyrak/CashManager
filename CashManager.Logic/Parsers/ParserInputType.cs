@@ -1,6 +1,6 @@
 namespace CashManager.Logic.Parsers
 {
-    public enum eParserInputType
+    public enum ParserInputType
     {
         Excel,
         GetinBank

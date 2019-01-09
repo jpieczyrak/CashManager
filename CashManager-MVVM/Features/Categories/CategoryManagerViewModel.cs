@@ -22,7 +22,6 @@ namespace CashManager_MVVM.Features.Categories
 {
     public class CategoryManagerViewModel : ViewModelBase, IDropTarget
     {
-        private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private string _categoryName;
         private Category _selectedCategory;
@@ -52,9 +51,8 @@ namespace CashManager_MVVM.Features.Categories
         public CategoryManagerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
         {
             _categoryName = "New category";
-            _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
-            var categories = _queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery())
+            var categories = queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery())
                                              .Select(Mapper.Map<Category>)
                                              .ToArray();
 
@@ -68,7 +66,7 @@ namespace CashManager_MVVM.Features.Categories
             }
 
             Categories = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent == null).OrderBy(x => x.Name)); //find the root(s)
-            
+
             SelectedCategory = categories.FirstOrDefault(x => x.IsSelected);
         }
 

@@ -26,7 +26,6 @@ namespace CashManager_MVVM.Features.MassReplacer
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
-        private readonly ViewModelFactory _factory;
         private TextSelector _titleSelector = new TextSelector(TextSelectorType.Title);
         private TextSelector _noteSelector = new TextSelector(TextSelectorType.Note);
         private TextSelector _positionTitleSelector = new TextSelector(TextSelectorType.PositionTitle);
@@ -44,7 +43,7 @@ namespace CashManager_MVVM.Features.MassReplacer
             get => _bookDateSelector;
             set => Set(nameof(BookDateSelector), ref _bookDateSelector, value);
         }
-        
+
         public MultiPicker UserStocksSelector
         {
             get => _userStocksSelector;
@@ -74,7 +73,7 @@ namespace CashManager_MVVM.Features.MassReplacer
             get => _tagsSelector;
             set => Set(nameof(TagsSelector), ref _tagsSelector, value);
         }
-        
+
         public TextSelector TitleSelector
         {
             get => _titleSelector;
@@ -99,8 +98,7 @@ namespace CashManager_MVVM.Features.MassReplacer
         {
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
-            _factory = factory;
-            SearchViewModel = _factory.Create<SearchViewModel>();
+            SearchViewModel = factory.Create<SearchViewModel>();
             PerformCommand = new RelayCommand(ExecutePerformCommand, CanExecutePerformCommand);
         }
 
@@ -114,7 +112,7 @@ namespace CashManager_MVVM.Features.MassReplacer
                      || (_positionTitleSelector.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleSelector.Value))
                      || (_categoriesSelector.IsChecked && _categoriesSelector.Results.Any())
                      || (_typesSelector.IsChecked && _typesSelector.Results.Any())
-                     || _tagsSelector.IsChecked) 
+                     || _tagsSelector.IsChecked)
                    && SearchViewModel.MatchingTransactions.Any();
         }
 
@@ -144,7 +142,7 @@ namespace CashManager_MVVM.Features.MassReplacer
                 foreach (var transaction in transactions)
                     transaction.ExternalStock = _externalStocksSelector.Results.OfType<Stock>().FirstOrDefault();
 
-            var positions = SearchViewModel.IsTransactionsSearch 
+            var positions = SearchViewModel.IsTransactionsSearch
                                 ? transactions.SelectMany(x => x.Positions).ToList()
                                 : SearchViewModel.MatchingPositions;
             if (_positionTitleSelector.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleSelector.Value))

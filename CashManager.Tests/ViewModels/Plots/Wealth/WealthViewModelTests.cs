@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 using Autofac;
 
@@ -114,11 +113,11 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
             };
             var expected = new[]
             {
-                new DataPoint(DateTimeAxis.ToDouble(firstBookDate.AddDays(-1)), 51010.0d), 
-                new DataPoint(DateTimeAxis.ToDouble(firstBookDate), 61010.0d), 
-                new DataPoint(DateTimeAxis.ToDouble(DateTime.Today.AddDays(-22)), 61000.0d), 
-                new DataPoint(DateTimeAxis.ToDouble(DateTime.Today.AddDays(-10)), 60000.0d), 
-                new DataPoint(DateTimeAxis.ToDouble(DateTime.Today), 60000.0d), 
+                new DataPoint(DateTimeAxis.ToDouble(firstBookDate.AddDays(-1)), 51010.0d),
+                new DataPoint(DateTimeAxis.ToDouble(firstBookDate), 61010.0d),
+                new DataPoint(DateTimeAxis.ToDouble(DateTime.Today.AddDays(-22)), 61000.0d),
+                new DataPoint(DateTimeAxis.ToDouble(DateTime.Today.AddDays(-10)), 60000.0d),
+                new DataPoint(DateTimeAxis.ToDouble(DateTime.Today), 60000.0d)
             };
 
             //when

@@ -89,7 +89,7 @@
     <Compile Include="Parsers\Custom\Predefined\CustomCsvParserFactory.cs" />
     <Compile Include="Parsers\Custom\Rule.cs" />
     <Compile Include="Parsers\Custom\TransactionField.cs" />
-    <Compile Include="Parsers\eParserInputType.cs" />
+    <Compile Include="Parsers\ParserInputType.cs" />
     <Compile Include="Parsers\ExcelParser.cs" />
     <Compile Include="Parsers\GetinBankParser.cs" />
     <Compile Include="Parsers\IdeaBankParser.cs" />
