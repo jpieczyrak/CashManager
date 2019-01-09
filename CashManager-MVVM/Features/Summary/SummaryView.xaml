@@ -22,7 +22,9 @@
             <oxy:PlotView Grid.Row="0" Model="{Binding BalanceModel}">
                 <oxy:PlotView.DefaultTrackerTemplate>
                     <ControlTemplate>
+                        <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
                         <oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}">
+                            <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
                             <oxy:TrackerControl.Background>
                                 <LinearGradientBrush EndPoint="0,1">
                                     <GradientStop Color="{DynamicResource DisabledBorderColor}" />
@@ -39,7 +41,9 @@
             <oxy:PlotView Grid.Row="1" Model="{Binding FlowsModel}">
                 <oxy:PlotView.DefaultTrackerTemplate>
                     <ControlTemplate>
+                        <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
                         <oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}">
+                            <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
                             <oxy:TrackerControl.Background>
                                 <LinearGradientBrush EndPoint="0,1">
                                     <GradientStop Color="{DynamicResource DisabledBorderColor}" />
@@ -68,7 +72,9 @@
             <oxy:PlotView Grid.Row="2" Model="{Binding YearBalanceModel}">
                 <oxy:PlotView.DefaultTrackerTemplate>
                     <ControlTemplate>
+                        <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
                         <oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}">
+                            <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
                             <oxy:TrackerControl.Background>
                                 <LinearGradientBrush EndPoint="0,1">
                                     <GradientStop Color="{DynamicResource DisabledBorderColor}" />

@@ -2956,6 +2956,7 @@
         </EventTrigger>
     </Window.Triggers>
     <Grid Background="Gray">
+        <!-- ReSharper disable InconsistentNaming -->
         <Path x:Name="path" Fill="#FFD3C901" HorizontalAlignment="Center" Height="208.91" RenderTransformOrigin="6.01167596734886,0.997354500723461" VerticalAlignment="Top" Width="167.373" Margin="-100.836,-113.146,733.463,0" Stroke="#FFDA8B00" StrokeThickness="2">
             <Path.Data>
                 <PathGeometry>
@@ -3365,6 +3366,6 @@
                 </TransformGroup>
             </Path.RenderTransform>
         </Path>
-
+        <!-- ReSharper restore InconsistentNaming -->
     </Grid>
 </Window>

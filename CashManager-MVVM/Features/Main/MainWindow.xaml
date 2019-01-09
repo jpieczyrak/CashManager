@@ -26,9 +26,11 @@
         <ItemsControl Grid.Column="0" Grid.Row="0" ItemsSource="{Binding ViewModels}" Margin="5,0" VerticalAlignment="Top" HorizontalAlignment="Center">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
+                    <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
                     <Button Content="{Binding Key}"
                             Command="{Binding DataContext.SetViewModelCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                             CommandParameter="{Binding Value}" Margin="5,5,5,2"/>
+                    <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

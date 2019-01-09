@@ -8,7 +8,7 @@
              d:DataContext="{d:DesignInstance Type=local:SearchViewModel, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="bool2VisibilityConverter"/>
+        <BooleanToVisibilityConverter x:Key="Bool2VisibilityConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -63,8 +63,8 @@
             <UserControl Grid.Row="3" Grid.Column="2" Content="{Binding State.ValueFilter}" />
         </Grid>
 
-        <UserControl Grid.Row="2" Content="{Binding TransactionsListViewModel}" Visibility="{Binding IsTransactionsSearch, Converter={StaticResource bool2VisibilityConverter}}" />
-        <UserControl Grid.Row="2" Content="{Binding PositionsListViewModel}" Visibility="{Binding IsPositionsSearch, Converter={StaticResource bool2VisibilityConverter}}" />
+        <UserControl Grid.Row="2" Content="{Binding TransactionsListViewModel}" Visibility="{Binding IsTransactionsSearch, Converter={StaticResource Bool2VisibilityConverter}}" />
+        <UserControl Grid.Row="2" Content="{Binding PositionsListViewModel}" Visibility="{Binding IsPositionsSearch, Converter={StaticResource Bool2VisibilityConverter}}" />
 
         <Grid Grid.Row="3" Margin="0,8">
             <Grid.ColumnDefinitions>

@@ -10,7 +10,7 @@
              d:DataContext="{d:DesignInstance Type=parsers:ParserViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <Storyboard x:Key="Expand">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.MaxHeight)" Storyboard.TargetName="textBox">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.MaxHeight)" Storyboard.TargetName="TextBox">
                 <EasingDoubleKeyFrame KeyTime="0" Value="150"/>
                 <EasingDoubleKeyFrame x:Name="easingDoubleKeyFrame" KeyTime="0:0:0.2" Value="500">
                     <EasingDoubleKeyFrame.EasingFunction>
@@ -21,10 +21,10 @@
         </Storyboard>
     </UserControl.Resources>
     <UserControl.Triggers>
-        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="textBox">
-            <BeginStoryboard x:Name="Expand_BeginStoryboard" Storyboard="{StaticResource Expand}"/>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="TextBox">
+            <BeginStoryboard x:Name="ExpandBeginStoryboard" Storyboard="{StaticResource Expand}"/>
         </EventTrigger>
-        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="textBox">
+        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="TextBox">
             <StopStoryboard BeginStoryboardName="Expand_BeginStoryboard"/>
         </EventTrigger>
     </UserControl.Triggers>
@@ -46,7 +46,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="textBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Margin="5" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" 
+        <TextBox x:Name="TextBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Margin="5" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" 
                  MaxHeight="150" MinHeight="60" TextWrapping="WrapWithOverflow" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" 
                  dd:DragDrop.IsDropTarget="True" 
                  dd:DragDrop.DropHandler="{Binding}"/>
