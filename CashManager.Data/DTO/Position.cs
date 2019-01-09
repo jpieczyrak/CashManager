@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CashManager.Data.DTO
 {
@@ -9,6 +10,8 @@ namespace CashManager.Data.DTO
             Value = new PaymentValue();
 	        Tags = new List<Tag>();
         }
+
+	    public Position(Guid id) : this() { Id = id; }
 
 	    public Position(string title, decimal value) : this()
         {

@@ -45,6 +45,11 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Duplicate" Command="{Binding DuplicateTransactionCommand}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <command:EventToCommand Command="{Binding TransactionEditCommand}"/>

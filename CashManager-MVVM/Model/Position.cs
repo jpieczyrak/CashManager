@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Linq;
 
+using AutoMapper;
+
+using CashManager.Data.Extensions;
+
 using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Model.Common;
@@ -79,6 +83,28 @@ namespace CashManager_MVVM.Model
         {
             Tags = new Tag[0];
             _value = new PaymentValue();
+        }
+
+        public static Position Copy(Position source)
+        {
+            if (source == null) return null;
+
+            var dto = new CashManager.Data.DTO.Position($"{source.Id}{DateTime.Now}".GenerateGuid());
+
+            var position = Mapper.Map<Position>(dto);
+            position.IsPropertyChangedEnabled = false;
+            position.BookDate = source.BookDate;
+            position.Title = source.Title;
+
+            position.Tags = source.Tags.ToArray();
+            position.Category = source.Category;
+            position.Parent = source.Parent;
+
+            position.Value = source.Value;
+
+            position.IsPropertyChangedEnabled = source.IsPropertyChangedEnabled;
+
+            return position;
         }
     }
 }

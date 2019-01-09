@@ -11,7 +11,7 @@ using Tag = CashManager_MVVM.Model.Tag;
 
 namespace CashManager_MVVM.Configuration.Mapping
 {
-    public class MapperConfiguration
+    public static class MapperConfiguration
     {
         private static readonly object _lock = new object();
         private static bool _isInitialized;

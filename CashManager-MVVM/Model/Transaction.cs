@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+
+using AutoMapper;
+
+using CashManager.Data.Extensions;
 
 using CashManager_MVVM.Model.Common;
 
@@ -135,6 +140,8 @@ namespace CashManager_MVVM.Model
                                && !string.IsNullOrWhiteSpace(Title)
                                && UserStock != null;
 
+        public Transaction(Guid id) : this() { Id = id; }
+
         public Transaction()
         {
             _bookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
@@ -156,6 +163,32 @@ namespace CashManager_MVVM.Model
         private void StoredFilesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsPropertyChangedEnabled) RaisePropertyChanged(nameof(StoredFiles));
+        }
+
+        public static Transaction Copy(Transaction source)
+        {
+            if (source == null) return null;
+            var dto = new CashManager.Data.DTO.Transaction($"{source.Id}{DateTime.Now}".GenerateGuid())
+            {
+                TransactionSourceCreationDate = source.TransactionSourceCreationDate
+            };
+
+            var transaction = Mapper.Map<Transaction>(dto);
+            transaction.IsPropertyChangedEnabled = false;
+            transaction.BookDate = source.BookDate;
+            transaction.Title = source.Title;
+            transaction.Note = source.Note;
+            transaction.UserStock = source.UserStock;
+            transaction.ExternalStock = source.ExternalStock;
+            transaction.Type = source.Type;
+
+            transaction.Positions = new TrulyObservableCollection<Position>(source.Positions
+                                                                                  .Where(x => x != null)
+                                                                                  .Select(Position.Copy));
+
+            transaction.IsPropertyChangedEnabled = source.IsPropertyChangedEnabled;
+
+            return transaction;
         }
     }
 }
