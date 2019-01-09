@@ -8,26 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="600"
              d:DataContext="{d:DesignInstance Type=parsers:ParserViewModel, IsDesignTimeCreatable=True}">
-    <UserControl.Resources>
-        <Storyboard x:Key="Expand">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.MaxHeight)" Storyboard.TargetName="TextBox">
-                <EasingDoubleKeyFrame KeyTime="0" Value="150"/>
-                <EasingDoubleKeyFrame x:Name="easingDoubleKeyFrame" KeyTime="0:0:0.2" Value="500">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <CircleEase EasingMode="EaseIn"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-    </UserControl.Resources>
-    <UserControl.Triggers>
-        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="TextBox">
-            <BeginStoryboard x:Name="ExpandBeginStoryboard" Storyboard="{StaticResource Expand}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="TextBox">
-            <StopStoryboard BeginStoryboardName="Expand_BeginStoryboard"/>
-        </EventTrigger>
-    </UserControl.Triggers>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
