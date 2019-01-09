@@ -12,7 +12,7 @@
     WindowStartupLocation="CenterScreen"
     Width="{Binding Source={x:Static properties:Settings.Default}, Path=Width, Mode=TwoWay}"
     Height="{Binding Source={x:Static properties:Settings.Default}, Path=Height, Mode=TwoWay}"
-    Title="Cash Manager" Closed="OnClosed" WindowStyle="None" AllowsTransparency="True"
+    Title="Cash Manager" Closed="OnClosed" WindowStyle="None" AllowsTransparency="True" Background="Transparent"
     d:DataContext="{d:DesignInstance Type=main:ApplicationViewModel, IsDesignTimeCreatable=True}" Icon="../../Resources/cash.png">
     <Window.Resources>
         <ControlTemplate x:Key="Minimize" TargetType="{x:Type Button}">
@@ -114,10 +114,12 @@
     </Window.Resources>
 
     <WindowChrome.WindowChrome>
-        <WindowChrome ResizeBorderThickness="6" CaptionHeight="43" CornerRadius="{DynamicResource BigCornerRadius}" UseAeroCaptionButtons="True"  />
+        <WindowChrome ResizeBorderThickness="6" 
+                      CaptionHeight="43"
+                      UseAeroCaptionButtons="False" />
     </WindowChrome.WindowChrome>
 
-    <Border Background="{DynamicResource BackgroundColorBrush}" BorderThickness="1" BorderBrush="{DynamicResource ControlBackgroundBrush}">
+    <Border CornerRadius="{DynamicResource BigCornerRadius}" Background="{DynamicResource BackgroundColorBrush}" BorderThickness="1" BorderBrush="{DynamicResource ControlBackgroundBrush}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
