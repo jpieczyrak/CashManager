@@ -202,6 +202,47 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
         }
 
         [Fact]
+        public void Parse_SingleOutcomeTransactionWithoutMatchingStockAndCreateMissing_MatchingAndMissingCreated()
+        {
+            //given
+            var defaultIncome = new TransactionType { Name = "in", Income = true };
+            var defaultOutcome = new TransactionType { Name = "out", Outcome = true };
+            Stock[] stocks = 
+            {
+                new Stock { Name = "fake one", IsUserStock = true }, 
+                new Stock { Name = "none matching", IsUserStock = true }, 
+                new Stock { Name = "external" }, 
+            };
+            var parser = new CustomCsvParserFactory(stocks).Create(PredefinedCsvParsers.Ing);
+            var input = "\"2018-12-20\";\"2018-12-22\";\" imie nazw, ulica 1/2, 11-222 miasto \";\" Na legimi\";\'123123123123 \';\"ING Bank Śląski S.A.\";\"zlecenie stałe\";\'201835497208742225\';-39,99;PLN;;;;;\"K@rta wirtualna ING VISA\";145,21;PLN;;;;";
+
+            var defaultUserStock = stocks[0];
+            var generatedUserStock = new Stock("K@rta wirtualna ING VISA".GenerateGuid()) { Name = "K@rta wirtualna ING VISA" };
+            var guid = input.Replace(";", string.Empty).GenerateGuid();
+            var transaction = new Transaction(guid)
+            {
+                Title = "Na legimi",
+                Note = "imie nazw, ulica 1/2, 11-222 miasto",
+                Positions = new List<Position> { new Position("zlecenie stałe", 39.99m) },
+                BookDate = new DateTime(2018, 12, 22),
+                TransactionSourceCreationDate = new DateTime(2018, 12, 20),
+                UserStock = generatedUserStock,
+                ExternalStock = stocks[2],
+                Type = defaultOutcome
+            };
+
+            //when
+            var result = parser.Parse(input, defaultUserStock, stocks[2], defaultOutcome, defaultIncome, true);
+
+            //then
+            Assert.Single(result);
+            ValidateTransaction(result[0], transaction);
+            Assert.Equal(2, parser.Balances.Count);
+            Assert.Equal(145.21m, parser.Balances[generatedUserStock].Value);
+            Assert.Equal(0m, parser.Balances[defaultUserStock].Value);
+        }
+
+        [Fact]
         public void Parse_FewTransactions_SingleBalanceIsMatching()
         {
             //given
