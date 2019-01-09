@@ -16,7 +16,7 @@
     d:DataContext="{d:DesignInstance Type=main:ApplicationViewModel, IsDesignTimeCreatable=True}">
     <Window.Resources>
         <ControlTemplate x:Key="Minimize" TargetType="{x:Type Button}">
-            <Grid Width="20" Height="20" WindowChrome.IsHitTestVisibleInChrome="True">
+            <Grid Width="40" Height="20" WindowChrome.IsHitTestVisibleInChrome="True">
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">
                         <VisualState x:Name="Normal"/>
@@ -48,7 +48,7 @@
             </Grid>
         </ControlTemplate>
         <ControlTemplate x:Key="Close" TargetType="{x:Type Button}">
-            <Grid Width="20" Height="20" WindowChrome.IsHitTestVisibleInChrome="True">
+            <Grid Width="40" Height="20" WindowChrome.IsHitTestVisibleInChrome="True">
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">
                         <VisualState x:Name="Normal"/>
@@ -72,7 +72,7 @@
                         <VisualState x:Name="Disabled"/>
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
-                <Rectangle x:Name="rectangle" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="20" Fill="{DynamicResource BackgroundColorBrush}"/>
+                <Rectangle x:Name="rectangle" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="40" Fill="{DynamicResource BackgroundColorBrush}"/>
                 <Path x:Name="path" Fill="{DynamicResource BorderBrush}" HorizontalAlignment="Center" Height="22" VerticalAlignment="Center" Data="M11.558,0 L16.619999,0 16.619999,11.558 28.178,11.558 28.178,16.620001 16.619999,16.620001 16.619999,28.178 11.558,28.178 11.558,16.620001 0,16.620001 0,11.558 11.558,11.558 z" Margin="-0.821,-0.694,-0.728,-0.412" RenderTransformOrigin="0.499999978204051,0.500000009945565" Stretch="Fill" Width="22">
                     <Path.RenderTransform>
                         <TransformGroup>
@@ -86,7 +86,7 @@
             </Grid>
         </ControlTemplate>
         <ControlTemplate x:Key="RestoreSize" TargetType="{x:Type Button}">
-            <Grid Width="20" Height="20" WindowChrome.IsHitTestVisibleInChrome="True">
+            <Grid Width="40" Height="20" WindowChrome.IsHitTestVisibleInChrome="True">
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">
                         <VisualState x:Name="Normal"/>
@@ -107,6 +107,7 @@
                         <VisualState x:Name="Disabled"/>
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
+                <Rectangle Fill="{DynamicResource BackgroundColorBrush}" HorizontalAlignment="Left" Height="20" StrokeThickness="4" VerticalAlignment="Top" Width="40"/>
                 <Rectangle x:Name="rectangle" Fill="{DynamicResource BackgroundColorBrush}" HorizontalAlignment="Center" Height="20" Stroke="{DynamicResource BorderBrush}" VerticalAlignment="Center" Width="20" Margin="2" StrokeThickness="4"/>
             </Grid>
         </ControlTemplate>
@@ -131,10 +132,10 @@
                     <!--todo: Icon-->
                     <TextBlock Text="{Binding Title}" FontWeight="Bold" Foreground="{DynamicResource ForegroundBrush}" VerticalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0,3,0,2">
-                    <Button Margin="20,0" Template="{DynamicResource Minimize}" Click="MinimizeOnClick" Width="20" />
-                    <Button Margin="20,0" Template="{DynamicResource RestoreSize}" Click="RestoreOnClick" Width="20"/>
-                    <Button Margin="20,0,5,0" Template="{DynamicResource Close}" Click="CloseOnClick" Width="20"/>
+                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0,3,5,2">
+                    <Button Template="{DynamicResource Minimize}" Click="MinimizeOnClick" Width="40" />
+                    <Button Template="{DynamicResource RestoreSize}" Click="RestoreOnClick" Width="40"/>
+                    <Button Template="{DynamicResource Close}" Click="CloseOnClick" Width="40"/>
                 </StackPanel>
             </Grid>
         </Border>
