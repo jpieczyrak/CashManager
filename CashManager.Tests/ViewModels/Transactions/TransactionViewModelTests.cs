@@ -95,7 +95,7 @@ namespace CashManager.Tests.ViewModels.Transactions
             var vm = _fixture.Container.Resolve<TransactionViewModel>();
             vm.Update();
             var userStock = new Stock { Name = "test", Balance = new Balance { Value = startBalance }, IsUserStock = true };
-            
+
             vm.Transaction.Positions = new TrulyObservableCollection<Position>(new[] {
                 new Position
                 {

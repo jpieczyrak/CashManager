@@ -114,13 +114,13 @@ namespace CashManager.Logic.DefaultData
                 position.LastEditDate = RandomDate();
             }
 
-            return new Transaction(type, 
-                RandomDate(), 
-                $"title {_titleCounter} {title}", 
+            return new Transaction(type,
+                RandomDate(),
+                $"title {_titleCounter} {title}",
                 $"note {_titleCounter} {note}",
                 positions,
-                userStock, 
-                externalStock, 
+                userStock,
+                externalStock,
                 $"input source {_titleCounter++}");
         }
 

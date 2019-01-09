@@ -94,7 +94,7 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
 +1 123,12 PLN saldo po operacji: 1 574,38 PLN";
 
             var parser = new GetinBankParser();
-            
+
             var userStock = new Stock { Name = "Getin" };
             var externalStock = new Stock { Name = "Default" };
             var creationDate = new DateTime(2014, 02, 28);
@@ -103,7 +103,7 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
             decimal balance = 1574.38m;
             var expected = new Transaction(incomeType, creationDate, title,
                 $"Firma SP. Z O.O.: PRZELEW PRZYCHODZĄCY (PLN) Saldo: {balance:#,##0.00}",
-                new [] { new Position(title, 1123.12m) }, 
+                new [] { new Position(title, 1123.12m) },
                 userStock, externalStock, input);
 
             //when

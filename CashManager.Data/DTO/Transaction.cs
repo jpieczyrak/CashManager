@@ -18,7 +18,7 @@ namespace CashManager.Data.DTO
 		public List<StoredFileInfo> StoredFiles { get; set; }
 
         public DateTime TransactionSourceCreationDate { get; set; }
-        
+
 		public DateTime BookDate { get; set; }
 
 		public Stock UserStock { get; set; }

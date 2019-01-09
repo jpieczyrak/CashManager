@@ -1,7 +1,5 @@
 ﻿using System;
 
-using CashManager.Data.Extensions;
-
 using CashManager_MVVM;
 using CashManager_MVVM.Configuration.Mapping;
 using CashManager_MVVM.Model;

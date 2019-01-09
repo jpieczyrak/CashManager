@@ -113,12 +113,12 @@ namespace CashManager.Logic.Parsers.Custom
                         }
                         if (transaction.UserStock == null || (!transaction.UserStock.Name?.Equals(stringValue) ?? true))
                         {
-                            transaction.UserStock = generateMissingStocks 
+                            transaction.UserStock = generateMissingStocks
                                                         ? new Stock(stringValue.GenerateGuid())
                                                         {
                                                             Name = stringValue,
                                                             IsUserStock = true
-                                                        } 
+                                                        }
                                                         : defaultUserStock;
                         }
                         break;

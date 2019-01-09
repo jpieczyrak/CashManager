@@ -105,7 +105,7 @@ namespace CashManager.Tests.MVVM.Logic
         {
             //given
             var calculator = new TransactionBalanceCalculator();
-            
+
             var expected = new[]
             {
                 new TransactionBalance(_firstBookDate.AddDays(-1), 51010m),

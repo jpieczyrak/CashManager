@@ -46,7 +46,7 @@ namespace CashManager.Logic.Parsers
             int year = int.Parse(match.Groups["Year"].Value);
 
             int id = int.Parse(match.Groups["Id"].Value);
-            
+
             string operationType = match.Groups["OperationType"].Value.Trim();
             var noteLines = match.Groups["Note"].Value.Split('\n');
             string title = noteLines.FirstOrDefault(x => x.Contains(TITLE_PREFIX))?.Trim();
