@@ -129,7 +129,9 @@ namespace CashManager_MVVM.Features.Parsers
             TransactionsProvider.AllTransactions.RemoveRange(transactions);
             TransactionsProvider.AllTransactions.AddRange(transactions);
 
-            var balances = SelectedParser.Value.Balances.Where(x => x.Value.LastEditDate > x.Key.Balance.LastEditDate).ToArray();
+            var balances = SelectedParser.Value.Balances
+                                         .Where(x => x.Value.LastEditDate > x.Key.Balance.LastEditDate)
+                                         .ToArray();
             if (balances.Any())
             {
                 foreach (var balance in balances) balance.Key.Balance = balance.Value;
