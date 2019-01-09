@@ -22,34 +22,53 @@ using GalaSoft.MvvmLight;
 
 using LiteDB;
 
-using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
-
 using DtoCategory = CashManager.Data.DTO.Category;
 using DtoPosition = CashManager.Data.DTO.Position;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
 using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 using DtoStock = CashManager.Data.DTO.Stock;
 using DtoTag = CashManager.Data.DTO.Tag;
+using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
 
 namespace CashManager.Tests.ViewModels
 {
     public sealed class ViewModelContext
     {
+        public enum SetupDb
+        {
+            Categories,
+            Tags,
+            Types,
+            Stocks,
+            Positions,
+            Transactions
+        }
+
         public readonly IContainer Container;
 
-        protected Lazy<DtoTransaction[]> DtoTransactions { get; set; }
-        protected Lazy<DtoPosition[]> DtoPositions => new Lazy<DtoPosition[]>(() => DtoTransactions.Value.SelectMany(x => x.Positions).ToArray());
-        protected Lazy<DtoCategory[]> DtoCategories { get; set; }
-        protected Lazy<DtoTag[]> DtoTags { get; set; }
-        protected Lazy<DtoTransactionType[]> DtoTypes { get; set; }
-        protected Lazy<DtoStock[]> DtoStocks { get; set; }
+        internal Lazy<Transaction[]> Transactions => new Lazy<Transaction[]>(() => Mapper.Map<Transaction[]>(DtoTransactions.Value));
 
-        protected internal Lazy<Transaction[]> Transactions => new Lazy<Transaction[]>(() => Mapper.Map<Transaction[]>(DtoTransactions.Value));
-        protected internal Lazy<Position[]> Positions => new Lazy<Position[]>(() => Mapper.Map<Transaction[]>(DtoTransactions.Value).SelectMany(x => x.Positions).ToArray());
-        protected Lazy<Category[]> Categories => new Lazy<Category[]>(() => Mapper.Map<Category[]>(DtoCategories.Value));
-        protected internal Lazy<Tag[]> Tags => new Lazy<Tag[]>(() => Mapper.Map<Tag[]>(DtoTags.Value));
-        protected internal Lazy<TransactionType[]> Types => new Lazy<TransactionType[]>(() => Mapper.Map<TransactionType[]>(DtoTypes.Value));
-        protected internal Lazy<Stock[]> Stocks => new Lazy<Stock[]>(() => Mapper.Map<Stock[]>(DtoStocks.Value));
+        internal Lazy<Position[]> Positions => new Lazy<Position[]>(() => Mapper.Map<Transaction[]>(DtoTransactions.Value).SelectMany(x => x.Positions).ToArray());
+
+        internal Lazy<Tag[]> Tags => new Lazy<Tag[]>(() => Mapper.Map<Tag[]>(DtoTags.Value));
+
+        private Lazy<DtoTransaction[]> DtoTransactions { get; set; }
+
+        private Lazy<DtoPosition[]> DtoPositions => new Lazy<DtoPosition[]>(() => DtoTransactions.Value.SelectMany(x => x.Positions).ToArray());
+
+        private Lazy<DtoCategory[]> DtoCategories { get; set; }
+
+        private Lazy<DtoTag[]> DtoTags { get; set; }
+
+        private Lazy<DtoTransactionType[]> DtoTypes { get; set; }
+
+        private Lazy<DtoStock[]> DtoStocks { get; set; }
+
+        private Lazy<Category[]> Categories => new Lazy<Category[]>(() => Mapper.Map<Category[]>(DtoCategories.Value));
+
+        private Lazy<TransactionType[]> Types => new Lazy<TransactionType[]>(() => Mapper.Map<TransactionType[]>(DtoTypes.Value));
+
+        private Lazy<Stock[]> Stocks => new Lazy<Stock[]>(() => Mapper.Map<Stock[]>(DtoStocks.Value));
 
         public ViewModelContext()
         {
@@ -79,7 +98,6 @@ namespace CashManager.Tests.ViewModels
             var repo = Container.Resolve<LiteRepository>();
 
             foreach (var type in setup)
-            {
                 switch (type)
                 {
                     case SetupDb.Categories:
@@ -101,10 +119,9 @@ namespace CashManager.Tests.ViewModels
                         repo.Database.UpsertBulk(DtoTransactions.Value);
                         break;
                 }
-            }
         }
 
-        protected static IContainer GetContainer()
+        private static IContainer GetContainer()
         {
             MapperConfiguration.Configure();
             var builder = AutofacConfiguration.ContainerBuilder();
@@ -136,16 +153,6 @@ namespace CashManager.Tests.ViewModels
                    .Named<ViewModelBase>(nameof(SearchViewModel));
 
             return builder.Build();
-        }
-
-        public enum SetupDb
-        {
-            Categories,
-            Tags,
-            Types,
-            Stocks,
-            Positions,
-            Transactions
         }
     }
 }
