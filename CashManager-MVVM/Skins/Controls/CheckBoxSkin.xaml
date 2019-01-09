@@ -30,7 +30,9 @@
                 <Setter Property="FocusVisualStyle">
                     <Setter.Value>
                         <Style>
+                            <!-- ReSharper disable Xaml.RedundantPropertyTypeQualifier -->
                             <Setter Property="Control.Template">
+                                <!-- ReSharper restore Xaml.RedundantPropertyTypeQualifier -->
                                 <Setter.Value>
                                     <ControlTemplate>
                                         <Rectangle Margin="14,0,0,0" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>

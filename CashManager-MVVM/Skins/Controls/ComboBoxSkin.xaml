@@ -98,7 +98,6 @@
                         <ToggleButton
                             x:Name="ToggleButton"
                             Template="{StaticResource ComboBoxToggleButton}"
-                            Grid.Column="2"
                             Focusable="false"
                             IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                             ClickMode="Press" />
