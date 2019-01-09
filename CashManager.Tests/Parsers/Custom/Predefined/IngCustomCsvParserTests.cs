@@ -69,6 +69,28 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
         }
 
         [Fact]
+        public void ParseAndCreateMissingStocks_NoneEmptyInputNullUserStock_MatchingStockBalancesLastEditDate()
+        {
+            //given
+            var parser = new CustomCsvParserFactory().Create(PredefinedCsvParsers.Ing);
+            var input = NONE_EMPTY_ING_INPUT;
+
+            //when
+            var result = parser.Parse(input, null, null, null, null, true);
+
+            //then
+            Assert.NotEmpty(result);
+            Assert.Equal(7, result.Length);
+            Assert.Equal(3, parser.Balances.Count);
+            var saver = parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Saver")).Value;
+            Assert.Equal(new DateTime(2018, 12, 21), saver.LastEditDate);
+            var direct = parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Direct")).Value;
+            Assert.Equal(new DateTime(2018, 12, 20), direct.LastEditDate);
+            var virtualCard = parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("wirtualna")).Value;
+            Assert.Equal(new DateTime(2018, 12, 20), virtualCard.LastEditDate);
+        }
+
+        [Fact]
         public void ParseAndCreateMissingStocks_NoneEmptyInputNotNullUserStock_MatchingStockBalances()
         {
             //given
