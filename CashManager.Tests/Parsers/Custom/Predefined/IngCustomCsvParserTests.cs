@@ -39,13 +39,33 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //given
             var parser = new CustomCsvParserFactory().Create(PredefinedCsvParsers.Ing);
             var input = NONE_EMPTY_ING_INPUT;
+            var stock = new Stock();
 
             //when
-            var result = parser.Parse(input, new Stock(), null, null, null);
+            var result = parser.Parse(input, stock, null, null, null);
 
             //then
             Assert.NotEmpty(result);
             Assert.Equal(7, result.Length);
+        }
+
+        [Fact]
+        public void ParseAndCreateMissingStocks_NoneEmptyInputNullUserStock_MatchingStockBalances()
+        {
+            //given
+            var parser = new CustomCsvParserFactory().Create(PredefinedCsvParsers.Ing);
+            var input = NONE_EMPTY_ING_INPUT;
+
+            //when
+            var result = parser.Parse(input, null, null, null, null, true);
+
+            //then
+            Assert.NotEmpty(result);
+            Assert.Equal(7, result.Length);
+            Assert.Equal(3, parser.Balances.Count);
+            Assert.Equal(1677.46m, parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Saver")).Value.Value);
+            Assert.Equal(2159.80m, parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Direct")).Value.Value);
+            Assert.Equal(105.22m, parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("wirtualna")).Value.Value);
         }
 
         [Fact]
