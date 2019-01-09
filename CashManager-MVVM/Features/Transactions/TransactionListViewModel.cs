@@ -81,6 +81,7 @@ namespace CashManager_MVVM.Features.Transactions
 
             _commandDispatcher.Execute(new UpsertTransactionsCommand(dto));
             _provider.AllTransactions.Add(transaction);
+            Transactions.Add(transaction);
         }
 
         private bool CanExecuteTransactionDuplicate() => SelectedTransaction != null
