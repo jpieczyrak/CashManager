@@ -14,32 +14,80 @@
     Style="{DynamicResource WindowStyle}"
     Width="{Binding Source={x:Static properties:Settings.Default}, Path=Width, Mode=TwoWay}"
     Height="{Binding Source={x:Static properties:Settings.Default}, Path=Height, Mode=TwoWay}"
-    Title="Cash Manager" 
+    Title="Cash Manager"
     d:DataContext="{d:DesignInstance Type=main:ApplicationViewModel, IsDesignTimeCreatable=True}">
+    <common:CustomWindow.Resources>
+        <Style x:Key="MainMenuStyle" TargetType="{x:Type Menu}">
+            <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource BackgroundColorBrush}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontFamily" Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" />
+            <Setter Property="FontSize" Value="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}" />
+            <Setter Property="FontStyle" Value="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" />
+            <Setter Property="FontWeight" Value="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Menu}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" 
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="true">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </common:CustomWindow.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" MinWidth="120"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Style="{DynamicResource MainMenuStyle}">
+            <MenuItem Header="A" >
+                <MenuItem Header="b"  />
+                <MenuItem Header="c"  />
+            </MenuItem>
+            <MenuItem Header="d" Style="{x:Null}">
+                <MenuItem Header="b" Style="{x:Null}" />
+                <MenuItem Header="c" Style="{x:Null}" />
+            </MenuItem>
+        </Menu>
 
-        <ItemsControl Grid.Column="0" Grid.Row="0" ItemsSource="{Binding ViewModels}" Margin="5,0" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
-                    <Button Content="{Binding Key}"
-                            Command="{Binding DataContext.SetViewModelCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                            CommandParameter="{Binding Value}" Margin="5,5,5,2"/>
-                    <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <stocks:StockSummaryView Grid.Column="0" Grid.Row="1" Content="{Binding SummaryViewModel}" Margin="5,25,5,0" VerticalAlignment="Top" MaxWidth="150"/>
+        <!-- Content -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" MinWidth="120" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <UserControl Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Content="{Binding SelectedViewModel}" Margin="2,0"/>
+            <ItemsControl Grid.Column="0" Grid.Row="0" ItemsSource="{Binding ViewModels}" Margin="5,0"
+                          VerticalAlignment="Top" HorizontalAlignment="Center">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                        <Button Content="{Binding Key}"
+                                Command="{Binding DataContext.SetViewModelCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                CommandParameter="{Binding Value}" Margin="5,5,5,2" />
+                        <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <stocks:StockSummaryView Grid.Column="0" Grid.Row="1" Content="{Binding SummaryViewModel}"
+                                     Margin="5,25,5,0" VerticalAlignment="Top" MaxWidth="150" />
+
+            <UserControl Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Content="{Binding SelectedViewModel}"
+                         Margin="2,0" />
+        </Grid>
     </Grid>
 </common:CustomWindow>

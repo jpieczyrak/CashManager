@@ -23,6 +23,8 @@ namespace CashManager_MVVM.Features.Main
     {
         private ViewModelBase _selectedViewModel;
 
+        private string _title;
+
         public ViewModelBase SelectedViewModel
         {
             get => _selectedViewModel;
@@ -33,8 +35,6 @@ namespace CashManager_MVVM.Features.Main
                 if (_selectedViewModel is IUpdateable model) model.Update();
             }
         }
-
-        private string _title;
 
         public string Title
         {
@@ -73,9 +73,6 @@ namespace CashManager_MVVM.Features.Main
             SummaryViewModel = factory.Create<StockSummaryViewModel>();
         }
 
-        public void GoBack()
-        {
-            SelectedViewModel = PreviousSelectedViewModel;
-        }
+        public void GoBack() { SelectedViewModel = PreviousSelectedViewModel; }
     }
 }
