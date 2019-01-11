@@ -20,7 +20,10 @@ namespace CashManager_MVVM.Features.Common
 
         public DateRangePicker()
         {
+            ViewModel = new DateRangePickerViewModel(this);
             InitializeComponent();
         }
+
+        public DateRangePickerViewModel ViewModel { get; set; }
     }
 }

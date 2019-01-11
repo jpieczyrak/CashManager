@@ -147,6 +147,7 @@
     <Compile Include="Features\Common\DateRangePicker.xaml.cs">
       <DependentUpon>DateRangePicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Features\Common\DateRangePickerViewModel.cs" />
     <Compile Include="Features\Common\ExtendedDatePicker.xaml.cs">
       <DependentUpon>ExtendedDatePicker.xaml</DependentUpon>
     </Compile>

@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="500">
 
-    <Border BorderThickness="1" CornerRadius="5" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="2,0,2,3">
+    <Border BorderThickness="1" CornerRadius="5" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="2,0,2,3" Background="{DynamicResource BackgroundColorBrush}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -61,6 +61,20 @@
                     <local:ExtendedDatePicker Grid.Row="1" Grid.Column="0" Margin="5" SelectedValue="{Binding DateFrame.To, ElementName=DateRangePickerControl}" Grid.ColumnSpan="3" MinWidth="200" />
                 </Grid>
             </WrapPanel>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractYearCommand, ElementName=DateRangePickerControl}" HorizontalAlignment="Left" ToolTip="Previous year" />
+                <Button Grid.Column="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractMonthCommand, ElementName=DateRangePickerControl}" Margin="13,0,0,0" HorizontalAlignment="Left" ToolTip="Previous month" />
+                <Button Grid.Column="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractDayCommand, ElementName=DateRangePickerControl}" Margin="26,0,0,0" HorizontalAlignment="Left" ToolTip="Previous day" />
+                <Button Grid.Column="2" Style="{DynamicResource RightArrowButtonStyle}" Command="{Binding ViewModel.AddDayCommand, ElementName=DateRangePickerControl}" HorizontalAlignment="Left" ToolTip="Next day"/>
+                <Button Grid.Column="2" Style="{DynamicResource RightArrowButtonStyle}" Command="{Binding ViewModel.AddMonthCommand, ElementName=DateRangePickerControl}" Margin="13,0,0,0" HorizontalAlignment="Left" ToolTip="Next month"/>
+                <Button Grid.Column="2" Style="{DynamicResource RightArrowButtonStyle}" Command="{Binding ViewModel.AddYearCommand, ElementName=DateRangePickerControl}" Margin="26,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Next year"/>
+            </Grid>
         </Grid>
     </Border>
 </UserControl>
