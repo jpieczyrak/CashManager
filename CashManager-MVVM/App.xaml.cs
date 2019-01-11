@@ -91,7 +91,16 @@ namespace CashManager_MVVM
                 //it could be using, but then there is problem with resolving func factory... anyway it will die with app.
                 var container = builder.Build();
 
-                if (init?.DataContext is InitViewModel vm) vm.GenerateData(container.Resolve<ICommandDispatcher>());
+                if (init?.DataContext is InitViewModel vm)
+                {
+                    if (vm.CanStartApplication)
+                        vm.GenerateData(container.Resolve<ICommandDispatcher>());
+                    else
+                    {
+                        Current.Shutdown();
+                        return;
+                    }
+                }
 
                 container.Resolve<MainWindow>().Show();
             }

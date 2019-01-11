@@ -91,6 +91,8 @@ namespace CashManager_MVVM.Features.Main.Init
             set => Set(ref _generateTags, value);
         }
 
+        public bool CanStartApplication { get; private set; }
+
         public InitViewModel(ContainerBuilder builder, string databaseFilepath, Action closeWindowAction)
         {
             _generateCategories = _generateTypes = true;
@@ -134,6 +136,8 @@ namespace CashManager_MVVM.Features.Main.Init
             if (passwordExists) connectionString += $";password={Password.Encrypt()}";
 
             _builder.Register(x => connectionString).Keyed<string>(DatabaseCommunicationModule.DB_KEY);
+
+            CanStartApplication = true;
 
             _closeWindowAction.Invoke();
         }
