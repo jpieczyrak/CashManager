@@ -7,7 +7,7 @@ namespace CashManager_MVVM.Model
         private bool _income;
         private bool _outcome;
         private bool _isDefault;
-        
+
         public bool Income
         {
             get => _income;

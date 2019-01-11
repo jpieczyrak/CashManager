@@ -73,7 +73,7 @@ namespace CashManager_MVVM.Logic.Commands
         {
             RaisePropertyChanged();
         }
-        
+
         ~TextFilter()
         {
             _textSelector.PropertyChanged -= TextSelectorOnPropertyChanged;

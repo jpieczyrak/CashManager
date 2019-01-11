@@ -44,7 +44,7 @@ namespace CashManager_MVVM.Features.Search
         private string _title;
         private bool _isTransactionsSearch;
         private bool _isPositionsSearch;
-        
+
         private readonly TrulyObservableCollection<IFilter<Transaction>> _transactionFilters;
         private readonly TrulyObservableCollection<IFilter<Position>> _positionFilters;
         private string _searchName;
@@ -127,12 +127,12 @@ namespace CashManager_MVVM.Features.Search
         public BaseSelectable[] SaveSearches { get; set; }
 
         public bool IsDebounceable { private get; set; } = true;
-        
+
         #endregion
 
         public SearchViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory, TransactionsProvider transactionsProvider)
         {
-            _debouncer = new Debouncer(250);
+            _debouncer = new Debouncer();
             State = new SearchState(queryDispatcher);
             State.PropertyChanged += (sender, args) => ScheduleFiltering(null, null);
             _queryDispatcher = queryDispatcher;

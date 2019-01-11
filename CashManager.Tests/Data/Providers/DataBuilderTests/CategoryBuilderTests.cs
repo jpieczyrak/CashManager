@@ -102,7 +102,7 @@ namespace CashManager.Tests.Data.Providers.DataBuilderTests
             var parent = new Category();
             var child1 = new Category();
             var child2 = new Category();
-            
+
             //when
             var result = builder.AddTopCategory(parent)
                                 .AddChildrenCategory(child1)
@@ -132,7 +132,7 @@ namespace CashManager.Tests.Data.Providers.DataBuilderTests
             var root1Child2 = new Category();
             var root2Child1 = new Category();
             var root2Child1Child1 = new Category();
-            
+
             //when
             var result = builder.AddTopCategory(root1)
                                 .AddChildrenCategoryAndGoUp(root1Child1)

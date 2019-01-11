@@ -8,7 +8,7 @@ namespace CashManager.Logic.DefaultData.Builders
     public class CategoryBuilder
     {
         public Category LastCategory { get; private set; }
-        
+
         public List<Category> Categories { get; }
 
         public CategoryBuilder()
