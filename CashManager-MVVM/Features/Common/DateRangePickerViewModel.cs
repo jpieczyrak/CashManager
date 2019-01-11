@@ -5,6 +5,8 @@ namespace CashManager_MVVM.Features.Common
 {
     public class DateRangePickerViewModel : ViewModelBase
     {
+        private readonly DateRangePicker _owner;
+
         public RelayCommand SubtractDayCommand { get; }
 
         public RelayCommand SubtractMonthCommand { get; }
@@ -19,36 +21,38 @@ namespace CashManager_MVVM.Features.Common
 
         public DateRangePickerViewModel(DateRangePicker owner)
         {
+            _owner = owner;
+
             SubtractDayCommand = new RelayCommand(() =>
             {
-                owner.DateFrame.From = owner.DateFrame.From.AddDays(-1);
-                owner.DateFrame.To = owner.DateFrame.To.AddDays(-1);
+                _owner.DateFrame.From = _owner.DateFrame.From.AddDays(-1);
+                _owner.DateFrame.To = _owner.DateFrame.To.AddDays(-1);
             });
             SubtractMonthCommand = new RelayCommand(() =>
             {
-                owner.DateFrame.From = owner.DateFrame.From.AddMonths(-1);
-                owner.DateFrame.To = owner.DateFrame.To.AddMonths(-1);
+                _owner.DateFrame.From = _owner.DateFrame.From.AddMonths(-1);
+                _owner.DateFrame.To = _owner.DateFrame.To.AddMonths(-1);
             });
             SubtractYearCommand = new RelayCommand(() =>
             {
-                owner.DateFrame.From = owner.DateFrame.From.AddYears(-1);
-                owner.DateFrame.To = owner.DateFrame.To.AddYears(-1);
+                _owner.DateFrame.From = _owner.DateFrame.From.AddYears(-1);
+                _owner.DateFrame.To = _owner.DateFrame.To.AddYears(-1);
             });
 
             AddDayCommand = new RelayCommand(() =>
             {
-                owner.DateFrame.From = owner.DateFrame.From.AddDays(1);
-                owner.DateFrame.To = owner.DateFrame.To.AddDays(1);
+                _owner.DateFrame.From = _owner.DateFrame.From.AddDays(1);
+                _owner.DateFrame.To = _owner.DateFrame.To.AddDays(1);
             });
             AddMonthCommand = new RelayCommand(() =>
             {
-                owner.DateFrame.From = owner.DateFrame.From.AddMonths(1);
-                owner.DateFrame.To = owner.DateFrame.To.AddMonths(1);
+                _owner.DateFrame.From = _owner.DateFrame.From.AddMonths(1);
+                _owner.DateFrame.To = _owner.DateFrame.To.AddMonths(1);
             });
             AddYearCommand = new RelayCommand(() =>
             {
-                owner.DateFrame.From = owner.DateFrame.From.AddYears(1);
-                owner.DateFrame.To = owner.DateFrame.To.AddYears(1);
+                _owner.DateFrame.From = _owner.DateFrame.From.AddYears(1);
+                _owner.DateFrame.To = _owner.DateFrame.To.AddYears(1);
             });
         }
     }

@@ -24,6 +24,6 @@ namespace CashManager_MVVM.Features.Common
             InitializeComponent();
         }
 
-        public DateRangePickerViewModel ViewModel { get; set; }
+        public DateRangePickerViewModel ViewModel { get; private set; }
     }
 }
