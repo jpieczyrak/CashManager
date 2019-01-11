@@ -16,47 +16,25 @@
     Height="{Binding Source={x:Static properties:Settings.Default}, Path=Height, Mode=TwoWay}"
     Title="Cash Manager"
     d:DataContext="{d:DesignInstance Type=main:ApplicationViewModel, IsDesignTimeCreatable=True}">
-    <common:CustomWindow.Resources>
-        <Style x:Key="MainMenuStyle" TargetType="{x:Type Menu}">
-            <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource BackgroundColorBrush}" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="FontFamily" Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" />
-            <Setter Property="FontSize" Value="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}" />
-            <Setter Property="FontStyle" Value="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" />
-            <Setter Property="FontWeight" Value="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
-            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Menu}">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Background="{TemplateBinding Background}" 
-                                Padding="{TemplateBinding Padding}"
-                                SnapsToDevicePixels="true">
-                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </common:CustomWindow.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Style="{DynamicResource MainMenuStyle}">
-            <MenuItem Header="A" >
-                <MenuItem Header="b"  />
-                <MenuItem Header="c"  />
+        <Menu Grid.Row="0">
+            <MenuItem Header="_A" Template="{DynamicResource TopMenuItemControlTemplate}">
+                <MenuItem Header="_B" Template="{DynamicResource InsideMenuItemControlTemplate}" />
+                <MenuItem Header="_C" Template="{DynamicResource InsideMenuItemControlTemplate}" />
+                <MenuItem Header="_D" Template="{DynamicResource InsideMenuItemControlTemplate}" />
             </MenuItem>
-            <MenuItem Header="d" Style="{x:Null}">
-                <MenuItem Header="b" Style="{x:Null}" />
-                <MenuItem Header="c" Style="{x:Null}" />
+            <MenuItem Header="_A'" Template="{DynamicResource TopMenuItemControlTemplate}">
+                <MenuItem Header="_B'" Template="{DynamicResource InsideMenuItemControlTemplate}" />
+                <MenuItem Header="_C'" Template="{DynamicResource InsideMenuItemControlTemplate}" />
+                <MenuItem Header="_D'" Template="{DynamicResource InsideMenuItemControlTemplate}">
+                    <MenuItem Header="_E'" Template="{DynamicResource InsideMenuItemControlTemplate}" /> <!-- not supported -->
+                    <MenuItem Header="_F'" Template="{DynamicResource InsideMenuItemControlTemplate}" /> <!-- not supported -->
+                </MenuItem>
             </MenuItem>
         </Menu>
 

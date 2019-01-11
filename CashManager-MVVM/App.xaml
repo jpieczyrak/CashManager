@@ -33,7 +33,7 @@
                 <ResourceDictionary Source="Skins/DataModels/ViewModels.xaml"/>
                 <ResourceDictionary Source="Skins/Controls/SliderSkin.xaml"/>
                 <ResourceDictionary Source="Skins/Controls/RadioButtonSkin.xaml"/>
-                <ResourceDictionary Source="Skins/Controls/MenuItemSkin.xaml"/>
+                <ResourceDictionary Source="Skins/Controls/MenuSkin.xaml"/>
                 <ResourceDictionary Source="Skins/Controls/WindowChromeSkin.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
