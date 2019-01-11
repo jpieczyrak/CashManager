@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CashManager_MVVM.Features.Balance"
+             xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
              mc:Ignorable="d"
              d:DesignHeight="250" d:DesignWidth="600"
              d:DataContext="{d:DesignInstance Type=local:CustomBalanceViewModel, IsDesignTimeCreatable=True}">
@@ -14,7 +15,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <UserControl Grid.Row="0" Content="{Binding DateFilter}"/>
+        <common:DateRangePicker Grid.Row="0" DateFrame="{Binding DateFilter}"/>
 
         <DataGrid Grid.Row="1" ItemsSource="{Binding SelectedSearchSummary, Mode=OneWay}" 
                   Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">

@@ -144,6 +144,9 @@
     </Compile>
     <Compile Include="Features\Categories\CategoryManagerViewModel.cs" />
     <Compile Include="Features\Common\CustomWindow.cs" />
+    <Compile Include="Features\Common\DateRangePicker.xaml.cs">
+      <DependentUpon>DateRangePicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Features\Common\ExtendedDatePicker.xaml.cs">
       <DependentUpon>ExtendedDatePicker.xaml</DependentUpon>
     </Compile>
@@ -279,6 +282,10 @@
     <Page Include="Features\Categories\CategoryManagerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Common\DateRangePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\Common\ExtendedDatePicker.xaml">
       <SubType>Designer</SubType>

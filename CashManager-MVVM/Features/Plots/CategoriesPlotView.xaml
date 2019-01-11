@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:plots="clr-namespace:CashManager_MVVM.Features.Plots"
              xmlns:oxy="http://oxyplot.org/wpf"
+             xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=plots:CategoriesPlotViewModel, IsDesignTimeCreatable=True}">
 
@@ -21,7 +22,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <UserControl Grid.Column="0" Content="{Binding BookDateFilter}" />
+            <common:DateRangePicker Grid.Column="0" DateFrame="{Binding BookDateFilter}" />
             <UserControl Grid.Column="1" Content="{Binding UserStocksFilter}" />
             <UserControl Grid.Column="2" Content="{Binding TypesFilter}" />
         </Grid>

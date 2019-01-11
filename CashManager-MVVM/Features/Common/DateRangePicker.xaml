@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="CashManager_MVVM.Features.Common.DateRangePicker"
+             x:Name="DateRangePickerControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CashManager_MVVM.Features.Common"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Border BorderThickness="1" CornerRadius="5" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="2,0,2,3">
+        <Grid HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <DockPanel>
+                    <CheckBox IsChecked="{Binding DateFrame.IsChecked, ElementName=DateRangePickerControl}" Style="{StaticResource OnlyCheckBox}" />
+                    <Separator Background="{DynamicResource DisabledForegroundBrush}" Margin="0,0,5,0" Width="Auto"/>
+                </DockPanel>
+                <TextBlock Grid.Column="1" Text="{Binding DateFrame.Description, ElementName=DateRangePickerControl}" Style="{DynamicResource GrayTextBlock}" />
+                <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
+            </Grid>
+            <WrapPanel Grid.Row="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="From" Style="{DynamicResource GrayTextBlock}" />
+                    <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
+                    <local:ExtendedDatePicker Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="5" SelectedValue="{Binding DateFrame.From, ElementName=DateRangePickerControl}" MinWidth="200" />
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="To" Style="{DynamicResource GrayTextBlock}" />
+                    <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
+                    <local:ExtendedDatePicker Grid.Row="1" Grid.Column="0" Margin="5" SelectedValue="{Binding DateFrame.To, ElementName=DateRangePickerControl}" Grid.ColumnSpan="3" MinWidth="200" />
+                </Grid>
+            </WrapPanel>
+        </Grid>
+    </Border>
+</UserControl>
