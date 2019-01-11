@@ -26,7 +26,7 @@ namespace CashManager.Infrastructure.Modules
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            
+
             builder.Register(x => new LiteRepository(x.ResolveKeyed<string>(DB_KEY)));
             LiteDbMappingManager.SetMappings();
 

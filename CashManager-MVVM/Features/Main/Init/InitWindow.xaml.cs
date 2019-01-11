@@ -3,9 +3,11 @@ using System.Windows.Controls;
 
 using Autofac;
 
+using CashManager_MVVM.Features.Common;
+
 namespace CashManager_MVVM.Features.Main.Init
 {
-    public partial class InitWindow : Window
+    public partial class InitWindow : CustomWindow
     {
         public InitWindow(ContainerBuilder builder, string databaseFilepath)
         {

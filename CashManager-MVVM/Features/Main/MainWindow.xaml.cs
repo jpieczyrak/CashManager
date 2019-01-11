@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Windows;
 
+using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Properties;
 
 using log4net;
 
 namespace CashManager_MVVM.Features.Main
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : CustomWindow
     {
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(MainWindow)));
 
@@ -19,35 +20,10 @@ namespace CashManager_MVVM.Features.Main
             _logger.Value.Debug("Loaded");
         }
 
-        private void OnClosed(object sender, EventArgs e)
+        protected override void OnClosed(object sender, EventArgs e)
         {
             Settings.Default.Save();
             Application.Current.Shutdown();
-        }
-
-        private void MinimizeOnClick(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
-        private void CloseOnClick(object sender, RoutedEventArgs e)
-        {
-            OnClosed(sender, e);
-        }
-
-        private void RestoreOnClick(object sender, RoutedEventArgs e)
-        {
-            switch (WindowState)
-            {
-                case WindowState.Normal:
-                    WindowState = WindowState.Maximized;
-                    break;
-                case WindowState.Minimized:
-                    break;
-                case WindowState.Maximized:
-                    WindowState = WindowState.Normal;
-                    break;
-            }
         }
     }
 }

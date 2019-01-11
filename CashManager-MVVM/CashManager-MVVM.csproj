@@ -143,6 +143,7 @@
       <DependentUpon>CategoryManagerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Categories\CategoryManagerViewModel.cs" />
+    <Compile Include="Features\Common\CustomWindow.cs" />
     <Compile Include="Features\Common\ExtendedDatePicker.xaml.cs">
       <DependentUpon>ExtendedDatePicker.xaml</DependentUpon>
     </Compile>
