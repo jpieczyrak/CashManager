@@ -17,12 +17,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ScrollViewer Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-            <ItemsControl ItemsSource="{Binding Tags}" >
+            <ItemsControl ItemsSource="{Binding Tags}" Grid.IsSharedSizeScope="True">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
+                                <ColumnDefinition SharedSizeGroup="NameWidth"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
 
