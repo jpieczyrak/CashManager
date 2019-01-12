@@ -6,6 +6,7 @@
         xmlns:transactions="clr-namespace:CashManager_MVVM.Features.Transactions"
         xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
         x:Class="CashManager_MVVM.Features.Transactions.TransactionView"
         mc:Ignorable="d"
         d:DesignHeight="650" d:DesignWidth="600"
@@ -51,7 +52,7 @@
             <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding TransactionTypes}" SelectedItem="{Binding Transaction.Type}" DisplayMemberPath="Name" />
 
             <Label Grid.Row="3" Grid.Column="0" Content="Book date"/>
-            <DatePicker Grid.Row="3" Grid.Column="1" FirstDayOfWeek="Monday" SelectedDate="{Binding Transaction.BookDate}" DisplayDateEnd="{x:Static sys:DateTime.Today}" />
+            <common:ExtendedDatePicker Grid.Row="3" Grid.Column="1" SelectedValue="{Binding Transaction.BookDate}" EndDate="{x:Static sys:DateTime.Today}" />
 
             <Label Grid.Row="4" Grid.Column="0" Content="User stock"/>
             <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding UserStocks}" SelectedValue="{Binding Transaction.UserStock}" />
