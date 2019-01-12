@@ -18,10 +18,10 @@ namespace CashManager_MVVM.Features.Categories
 {
     public class CategoryPickerViewModel : ViewModelBase
     {
+        private readonly Category[] _flatCategories;
         private Category _selectedCategory;
 
         public IEnumerable<Category> Categories { get; }
-        public Category[] FlatCategories { get; }
 
         public Category SelectedCategory
         {
@@ -42,7 +42,7 @@ namespace CashManager_MVVM.Features.Categories
             foreach (var category in categories)
                 category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category.Id).OrderBy(x => x.Name));
 
-            FlatCategories = categories.ToArray();
+            _flatCategories = categories.ToArray();
             Categories = categories.Where(x => x.Parent == null).OrderBy(x => x.Name).ToArray(); //find the root(s)
             SelectedCategory = selectedCategory;
 
@@ -61,7 +61,7 @@ namespace CashManager_MVVM.Features.Categories
 
         private void ExpandParents(Category selected)
         {
-            var parent = FlatCategories.FirstOrDefault(x => x.Children.Contains(selected));
+            var parent = _flatCategories.FirstOrDefault(x => x.Children.Contains(selected));
             if (parent != null)
             {
                 parent.IsExpanded = true;
