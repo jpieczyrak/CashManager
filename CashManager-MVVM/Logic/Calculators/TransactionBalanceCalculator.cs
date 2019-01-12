@@ -31,13 +31,13 @@ namespace CashManager_MVVM.Logic.Calculators
             decimal stockValue = selectedStocks.Sum(x => x.Balance.Value);
 
             var firstMatch = transactions
-                             .Where(x => selectedStocks.Contains(x.UserStock))
-                             .GroupBy(groupingSelector);
+                             .Where(x => selectedStocks.Contains(x.UserStock));
             decimal transactionsValueBeforeLastStockUpdate =
-                firstMatch.Sum(x => x.Where(z => z.BookDate <= stockDate).Sum(y => y.ValueAsProfit));
+                firstMatch.Where(z => z.BookDate <= stockDate).Sum(y => y.ValueAsProfit);
             decimal startValue = stockValue - transactionsValueBeforeLastStockUpdate;
             var firstTransactionBookDate = transactions.Min(x => x.BookDate).Date;
             var values = firstMatch
+                         .GroupBy(groupingSelector)
                          .Where(x => x.Key <= stockDate)
                          .OrderBy(x => x.Key)
                          .Select(x =>
