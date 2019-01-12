@@ -33,5 +33,11 @@ namespace CashManager_MVVM.Model
             get => _isTransfer;
             set => Set(ref _isTransfer, value);
         }
+
+        #region Override
+
+        public override string ToString() { return Name; }
+
+        #endregion
     }
 }
