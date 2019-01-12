@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="600"
              d:DataContext="{d:DesignInstance Type=transactionTypes:TransactionTypesViewModel, IsDesignTimeCreatable=True}">
-    <Grid>
+    <Grid HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
