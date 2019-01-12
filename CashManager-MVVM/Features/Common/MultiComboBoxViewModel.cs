@@ -65,7 +65,9 @@ namespace CashManager_MVVM.Features.Common
             if (selected != null)
             {
                 var dict = input.ToDictionary(x => x.Id, x => x);
-                foreach (var x in selected) dict[x.Id].IsSelected = true;
+                foreach (var x in selected)
+                    if (dict.ContainsKey(x.Id))
+                        dict[x.Id].IsSelected = true;
             }
 
             _filtrableInput = new TrulyObservableCollection<BaseSelectable>(input);
