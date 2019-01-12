@@ -13,6 +13,7 @@
                 <skins:ColorsResourceDictionary Source="Skins/Colors/DarkColors.xaml"
                                                 DarkSource="Skins/Colors/DarkColors.xaml"
                                                 YellowSource="Skins/Colors/YellowColors.xaml"
+                                                BlackWhite="Skins/Colors/BlackWhiteColors.xaml"
                                                 LightSource="Skins/Colors/LightColors.xaml"/>
                 <skins:ShapesResourceDictionary Source="Skins/Shapes/RoundShapes.xaml"
                                                 RoundShape="Skins/Shapes/RoundShapes.xaml"

@@ -370,6 +370,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Skins\Colors\BlackWhiteColors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Skins\Colors\YellowColors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
