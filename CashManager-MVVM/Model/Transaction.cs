@@ -126,13 +126,16 @@ namespace CashManager_MVVM.Model
         /// <summary>
         /// Total value of transaction as profit of user (negative when buying, positive when receiving payments)
         /// </summary>
-        public decimal ValueAsProfit => Type == null
+        public decimal ValueWithSign => Type == null
                                             ? 0m
                                             : Type.Outcome
                                                 ? -Value
                                                 : Type.Income
                                                     ? Value
                                                     : 0m;
+
+
+        public decimal ValueAsProfit => Type == null || Type.IsTransfer ? 0m : ValueWithSign;
 
         public bool IsValid => Type != null
                                && (Positions?.Any() ?? false)

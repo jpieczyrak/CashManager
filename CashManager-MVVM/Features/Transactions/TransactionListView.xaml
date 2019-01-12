@@ -37,7 +37,7 @@
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="User stock" Binding="{Binding UserStock.Name, Mode=OneWay}" Width="Auto" MaxWidth="80" />
                 <DataGridTextColumn Header="Type" Binding="{Binding Type.Name, Mode=OneWay}" Width="Auto" MaxWidth="80" />
-                <DataGridTextColumn Header="Value" Binding="{Binding ValueAsProfit, Mode=OneWay, StringFormat={}{0:#,##0.00 zł}}" Width="Auto" MinWidth="70" MaxWidth="100">
+                <DataGridTextColumn Header="Value" Binding="{Binding ValueWithSign, Mode=OneWay, StringFormat={}{0:#,##0.00 zł}}" Width="Auto" MinWidth="70" MaxWidth="100">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Right"/>

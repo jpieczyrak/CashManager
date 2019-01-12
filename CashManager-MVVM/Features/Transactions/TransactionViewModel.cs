@@ -265,12 +265,12 @@ namespace CashManager_MVVM.Features.Transactions
                 var updatedStocks = new[] { Transaction.UserStock }.ToList();
                 if (_startUserStock == null || _startUserStock.Equals(Transaction.UserStock))
                 {
-                    Transaction.UserStock.Balance.Value += (Transaction.ValueAsProfit - _startTransactionValue);
+                    Transaction.UserStock.Balance.Value += (Transaction.ValueWithSign - _startTransactionValue);
                 }
                 else
                 {
                     _startUserStock.Balance.Value -= _startTransactionValue;
-                    Transaction.UserStock.Balance.Value += Transaction.ValueAsProfit;
+                    Transaction.UserStock.Balance.Value += Transaction.ValueWithSign;
                     updatedStocks.Add(_startUserStock);
                 }
 
