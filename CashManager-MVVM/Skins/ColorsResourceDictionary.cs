@@ -7,6 +7,7 @@ namespace CashManager_MVVM.Skins
     {
         private Uri _darkSource;
         private Uri _lightSource;
+        private Uri _yellowSource;
 
         public Uri DarkSource
         {
@@ -28,6 +29,16 @@ namespace CashManager_MVVM.Skins
             }
         }
 
+        public Uri YellowSource
+        {
+            get => _yellowSource;
+            set
+            {
+                _yellowSource = value;
+                UpdateSource();
+            }
+        }
+
         private void UpdateSource()
         {
             Uri selected;
@@ -39,8 +50,11 @@ namespace CashManager_MVVM.Skins
                 case SkinColors.Light:
                     selected = LightSource;
                     break;
+                case SkinColors.Yellow:
+                    selected = YellowSource;
+                    break;
                 default:
-                    selected = LightSource;
+                    selected = DarkSource;
                     break;
             }
 
