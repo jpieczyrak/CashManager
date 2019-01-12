@@ -104,7 +104,7 @@ namespace CashManager_MVVM.Features.Main
                     SelectedViewModel = _tagManagerViewModel;
                     break;
                 case ViewModel.About:
-                    //new AboutWindow().Show();
+                    new AboutWindow().Show();
                     break;
                 case ViewModel.Import:
                     SelectedViewModel = _parserViewModel;
