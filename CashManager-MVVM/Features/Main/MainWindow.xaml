@@ -14,7 +14,7 @@
     Style="{DynamicResource WindowStyle}"
     Width="{Binding Source={x:Static properties:Settings.Default}, Path=Width, Mode=TwoWay}"
     Height="{Binding Source={x:Static properties:Settings.Default}, Path=Height, Mode=TwoWay}"
-    Title="Cash Manager"
+    Title="{Binding Title}"
     d:DataContext="{d:DesignInstance Type=main:ApplicationViewModel, IsDesignTimeCreatable=True}">
 
     <Grid>

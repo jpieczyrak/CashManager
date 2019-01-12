@@ -59,7 +59,7 @@ namespace CashManager_MVVM.Features.Main
 
         public ApplicationViewModel(ViewModelFactory factory)
         {
-            Title += $"Cash Manager {Assembly.GetExecutingAssembly().GetName().Version}";
+            Title = $"Cash Manager {Assembly.GetExecutingAssembly().GetName().Version}";
             SetViewModelCommand = new RelayCommand<ViewModelBase>(view => SelectedViewModel = view);
 
             _summaryViewModel = factory.Create<SummaryViewModel>();
