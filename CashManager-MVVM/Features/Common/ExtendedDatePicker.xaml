@@ -28,7 +28,8 @@
         <Button Grid.Column="0" Grid.Row="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractMonthCommand, ElementName=ExDatePicker}" Margin="13,0,0,0" HorizontalAlignment="Left" ToolTip="Previous month" />
         <Button Grid.Column="0" Grid.Row="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractDayCommand, ElementName=ExDatePicker}" Margin="26,0,0,0" HorizontalAlignment="Left" ToolTip="Previous day" />
 
-        <DatePicker Grid.Column="1" Grid.Row="0" SelectedDate="{Binding SelectedValue, ElementName=ExDatePicker}" FirstDayOfWeek="Monday" MinWidth="85" Margin="2,0"/>
+        <DatePicker Grid.Column="1" Grid.Row="0" SelectedDate="{Binding SelectedValue, ElementName=ExDatePicker}" FirstDayOfWeek="Monday" DisplayDateEnd="{Binding EndDate, ElementName=ExDatePicker}" 
+                    MinWidth="85" Margin="2,0"/>
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
