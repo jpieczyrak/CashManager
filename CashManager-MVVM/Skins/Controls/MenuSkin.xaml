@@ -15,7 +15,7 @@
         <Setter Property="Margin" Value="10,0" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource DisabledBorderBrush}" />
-        <Setter Property="Height" Value="22" />
+        <Setter Property="Height" Value="25" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Menu">
@@ -46,7 +46,7 @@
                                   ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header"
                                   Margin="{TemplateBinding Padding}" RecognizesAccessKey="True"
                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                <Popup x:Name="PART_Popup" AllowsTransparency="True" Focusable="False"
+                <Popup Grid.Column="0" x:Name="PART_Popup" AllowsTransparency="True" Focusable="False"
                        IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
                        PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
                        Placement="Bottom">

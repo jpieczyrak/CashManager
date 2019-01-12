@@ -20,22 +20,18 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
-            <MenuItem Header="_A" Template="{DynamicResource TopMenuItemControlTemplate}">
-                <MenuItem Header="_B" Template="{DynamicResource InsideMenuItemControlTemplate}" />
-                <MenuItem Header="_C" Template="{DynamicResource InsideMenuItemControlTemplate}" />
-                <MenuItem Header="_D" Template="{DynamicResource InsideMenuItemControlTemplate}" />
+            <MenuItem Header="_Home" Template="{DynamicResource TopMenuItemControlTemplate}"  Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.Summary}"/>
+            <MenuItem Header="_Manage" Template="{DynamicResource TopMenuItemControlTemplate}">
+                <MenuItem Header="_Stocks Manager" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.StockManager}"/>
+                <MenuItem Header="_Category Manager" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.CategoryManager}"/>
+                <MenuItem Header="_Types Manager" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.TypesManager}"/>
+                <MenuItem Header="_Tags Manager" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.TagsManager}"/>
             </MenuItem>
-            <MenuItem Header="_A'" Template="{DynamicResource TopMenuItemControlTemplate}">
-                <MenuItem Header="_B'" Template="{DynamicResource InsideMenuItemControlTemplate}" />
-                <MenuItem Header="_C'" Template="{DynamicResource InsideMenuItemControlTemplate}" />
-                <MenuItem Header="_D'" Template="{DynamicResource InsideMenuItemControlTemplate}">
-                    <MenuItem Header="_E'" Template="{DynamicResource InsideMenuItemControlTemplate}" /> <!-- not supported -->
-                    <MenuItem Header="_F'" Template="{DynamicResource InsideMenuItemControlTemplate}" /> <!-- not supported -->
-                </MenuItem>
-            </MenuItem>
+            <MenuItem Header="_Import" Template="{DynamicResource TopMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.Import}" />
+            <MenuItem Header="_About" Template="{DynamicResource TopMenuItemControlTemplate}"  Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.About}"/>
         </Menu>
 
         <!-- Content -->

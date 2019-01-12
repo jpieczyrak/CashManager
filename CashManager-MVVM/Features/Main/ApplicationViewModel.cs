@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 using CashManager_MVVM.Features.Balance;
@@ -24,6 +24,12 @@ namespace CashManager_MVVM.Features.Main
         private ViewModelBase _selectedViewModel;
 
         private string _title;
+        private SummaryViewModel _summaryViewModel;
+        private StocksViewModel _stocksViewModel;
+        private CategoryManagerViewModel _categoryManagerViewModel;
+        private TransactionTypesViewModel _transactionTypesViewModel;
+        private TagManagerViewModel _tagManagerViewModel;
+        private ParserViewModel _parserViewModel;
 
         public ViewModelBase SelectedViewModel
         {
@@ -50,27 +56,63 @@ namespace CashManager_MVVM.Features.Main
 
         public RelayCommand<ViewModelBase> SetViewModelCommand { get; private set; }
 
+        public RelayCommand<ViewModel> SelectViewModelCommand { get; }
+
         public ApplicationViewModel(ViewModelFactory factory)
         {
             Title += $"Cash Manager {Assembly.GetExecutingAssembly().GetName().Version}";
             SetViewModelCommand = new RelayCommand<ViewModelBase>(view => SelectedViewModel = view);
+
+            _summaryViewModel = factory.Create<SummaryViewModel>();
+            _stocksViewModel = factory.Create<StocksViewModel>();
+            _categoryManagerViewModel = factory.Create<CategoryManagerViewModel>();
+            _transactionTypesViewModel = factory.Create<TransactionTypesViewModel>();
+            _tagManagerViewModel = factory.Create<TagManagerViewModel>();
+            _parserViewModel = factory.Create<ParserViewModel>();
             ViewModels = new Dictionary<string, ViewModelBase>
             {
-                { "Summary", factory.Create<SummaryViewModel>() },
                 { "Transactions search", factory.Create<SearchViewModel>() },
                 { "Mass replacer", factory.Create<MassReplacerViewModel>() },
                 { "Add transaction", factory.Create<TransactionViewModel>() },
                 { "Wealth plot", factory.Create<WealthViewModel>() },
                 { "Categories plot", factory.Create<CategoriesPlotViewModel>() },
-                { "Custom balances", factory.Create<CustomBalanceViewModel>() },
-                { "Stocks manager", factory.Create<StocksViewModel>() },
-                { "Category manager", factory.Create<CategoryManagerViewModel>() },
-                { "Types manager", factory.Create<TransactionTypesViewModel>() },
-                { "Tags manager", factory.Create<TagManagerViewModel>() },
-                { "Import", factory.Create<ParserViewModel>() }
+                { "Custom balances", factory.Create<CustomBalanceViewModel>() }
             };
-            PreviousSelectedViewModel = SelectedViewModel = ViewModels.FirstOrDefault().Value;
+            PreviousSelectedViewModel = SelectedViewModel = _summaryViewModel;
+
             SummaryViewModel = factory.Create<StockSummaryViewModel>();
+
+            SelectViewModelCommand = new RelayCommand<ViewModel>(ExecuteSelectViewModelCommand);
+        }
+
+        private void ExecuteSelectViewModelCommand(ViewModel viewModel)
+        {
+            switch (viewModel)
+            {
+                case ViewModel.Summary:
+                    SelectedViewModel = _summaryViewModel;
+                    break;
+                case ViewModel.StockManager:
+                    SelectedViewModel = _stocksViewModel;
+                    break;
+                case ViewModel.CategoryManager:
+                    SelectedViewModel = _categoryManagerViewModel;
+                    break;
+                case ViewModel.TypesManager:
+                    SelectedViewModel = _transactionTypesViewModel;
+                    break;
+                case ViewModel.TagsManager:
+                    SelectedViewModel = _tagManagerViewModel;
+                    break;
+                case ViewModel.About:
+                    //new AboutWindow().Show();
+                    break;
+                case ViewModel.Import:
+                    SelectedViewModel = _parserViewModel;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(viewModel), viewModel, null);
+            }
         }
 
         public void GoBack() { SelectedViewModel = PreviousSelectedViewModel; }

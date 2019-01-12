@@ -5,7 +5,9 @@ namespace CashManager_MVVM.Features.Common
 {
     public class DateRangePickerViewModel : ViewModelBase
     {
+        // ReSharper disable PrivateFieldCanBeConvertedToLocalVariable - it has to be a field to work properly
         private readonly DateRangePicker _owner;
+        // ReSharper restore PrivateFieldCanBeConvertedToLocalVariable
 
         public RelayCommand SubtractDayCommand { get; }
 
