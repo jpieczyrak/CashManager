@@ -138,6 +138,7 @@ namespace CashManager_MVVM.Model
         public decimal ValueAsProfit => Type == null || Type.IsTransfer ? 0m : ValueWithSign;
 
         public bool IsValid => Type != null
+                               && UserStock != null
                                && (Positions?.Any() ?? false)
                                && !string.IsNullOrWhiteSpace(Title)
                                && UserStock != null;
