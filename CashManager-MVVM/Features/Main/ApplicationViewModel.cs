@@ -29,6 +29,7 @@ namespace CashManager_MVVM.Features.Main
         private readonly TransactionTypesViewModel _transactionTypesViewModel;
         private readonly TagManagerViewModel _tagManagerViewModel;
         private readonly ParserViewModel _parserViewModel;
+        private readonly SettingsViewModel _settingsViewModel;
 
         public ViewModelBase SelectedViewModel
         {
@@ -68,6 +69,7 @@ namespace CashManager_MVVM.Features.Main
             _transactionTypesViewModel = factory.Create<TransactionTypesViewModel>();
             _tagManagerViewModel = factory.Create<TagManagerViewModel>();
             _parserViewModel = factory.Create<ParserViewModel>();
+            _settingsViewModel = factory.Create<SettingsViewModel>();
             ViewModels = new Dictionary<string, ViewModelBase>
             {
                 { "Transactions search", factory.Create<SearchViewModel>() },
@@ -105,6 +107,9 @@ namespace CashManager_MVVM.Features.Main
                     break;
                 case ViewModel.About:
                     new AboutWindow().Show();
+                    break;
+                case ViewModel.Settings:
+                    SelectedViewModel = _settingsViewModel;
                     break;
                 case ViewModel.Import:
                     SelectedViewModel = _parserViewModel;

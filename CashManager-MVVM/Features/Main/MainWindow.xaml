@@ -31,6 +31,7 @@
                 <MenuItem Header="_Tags Manager" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.TagsManager}"/>
             </MenuItem>
             <MenuItem Header="_Import" Template="{DynamicResource TopMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.Import}" />
+            <MenuItem Header="_Settings" Template="{DynamicResource TopMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.Settings}" />
             <MenuItem Header="_About" Template="{DynamicResource TopMenuItemControlTemplate}"  Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.About}"/>
         </Menu>
 

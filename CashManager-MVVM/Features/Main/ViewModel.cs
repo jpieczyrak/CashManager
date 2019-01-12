@@ -8,6 +8,7 @@
         TypesManager,
         TagsManager,
         Import,
+        Settings,
         About
     }
 }
