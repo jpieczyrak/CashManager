@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Media;
 using System.Windows;
 
 using AutoMapper;
@@ -26,6 +24,7 @@ using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Messages;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
+using CashManager_MVVM.Utils;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -254,12 +253,7 @@ namespace CashManager_MVVM.Features.Transactions
 
             HandleStocksValueUpdate();
 
-            var soundPlayer = new SoundPlayer
-            {
-                SoundLocation = Environment.CurrentDirectory + @"\Resources\Sounds\coin-drop-into-pot.wav"
-            };
-            soundPlayer.Load();
-            soundPlayer.Play();
+            SoundPlayerHelper.PlaySound(SoundPlayerHelper.Sound.AddTransaction);
 
             if (ShouldGoBack) NavigateBack();
         }

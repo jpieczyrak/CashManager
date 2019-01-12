@@ -1,7 +1,5 @@
-﻿using System;
-using System.Media;
-
-using CashManager_MVVM.Features.Common;
+﻿using CashManager_MVVM.Features.Common;
+using CashManager_MVVM.Utils;
 
 namespace CashManager_MVVM.Features.Main
 {
@@ -10,12 +8,7 @@ namespace CashManager_MVVM.Features.Main
         public AboutWindow()
         {
             InitializeComponent();
-            var soundPlayer = new SoundPlayer
-            {
-                SoundLocation = Environment.CurrentDirectory + @"\Resources\Sounds\coin-drop-on-concrete.wav"
-            };
-            soundPlayer.Load();
-            soundPlayer.Play();
+            SoundPlayerHelper.PlaySound(SoundPlayerHelper.Sound.About);
         }
     }
 }

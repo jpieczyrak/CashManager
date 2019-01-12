@@ -277,6 +277,7 @@
     <Compile Include="Skins\SkinColors.cs" />
     <Compile Include="Skins\SkinShapes.cs" />
     <Compile Include="TrulyObservableCollection.cs" />
+    <Compile Include="Utils\SoundPlayerHelper.cs" />
     <Page Include="Features\Balance\CustomBalanceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -521,8 +522,6 @@
     <Resource Include="Resources\cash.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="435587__theknave__small-coins-drop-2.wav" />
-    <Content Include="coin-drop-on-concrete.wav" />
     <Content Include="Resources\Sounds\cash-register-purchase.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -533,6 +532,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>del "$(TargetDir)*.xml", "$(TargetDir)*.pdb"</PostBuildEvent>
