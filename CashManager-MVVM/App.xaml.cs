@@ -43,6 +43,10 @@ namespace CashManager_MVVM
             MapperConfiguration.Configure();
             SkinColors = SkinColors.Dark;
             SkinShape = SkinShapes.Round;
+
+#if DEBUG
+            Settings.Default.SoundEnabled = false;
+#endif
         }
 
         private static Task ShowWindow<T>(T window) where T : Window

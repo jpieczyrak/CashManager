@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Media;
 
+using CashManager_MVVM.Properties;
+
 namespace CashManager_MVVM.Utils
 {
     public static class SoundPlayerHelper
     {
         public static void PlaySound(Sound sound)
         {
+            if (!Settings.Default.SoundEnabled) return;
+
             var soundPlayer = new SoundPlayer();
 
             switch (sound)

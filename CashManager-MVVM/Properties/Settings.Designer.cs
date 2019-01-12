@@ -70,5 +70,17 @@ namespace CashManager_MVVM.Properties {
                 this["UpgradeNeeded"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SoundEnabled {
+            get {
+                return ((bool)(this["SoundEnabled"]));
+            }
+            set {
+                this["SoundEnabled"] = value;
+            }
+        }
     }
 }
