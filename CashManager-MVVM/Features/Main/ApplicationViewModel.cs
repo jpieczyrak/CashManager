@@ -21,15 +21,14 @@ namespace CashManager_MVVM.Features.Main
 {
     public class ApplicationViewModel : ViewModelBase
     {
-        private ViewModelBase _selectedViewModel;
-
         private string _title;
-        private SummaryViewModel _summaryViewModel;
-        private StocksViewModel _stocksViewModel;
-        private CategoryManagerViewModel _categoryManagerViewModel;
-        private TransactionTypesViewModel _transactionTypesViewModel;
-        private TagManagerViewModel _tagManagerViewModel;
-        private ParserViewModel _parserViewModel;
+        private ViewModelBase _selectedViewModel;
+        private readonly SummaryViewModel _summaryViewModel;
+        private readonly StocksViewModel _stocksViewModel;
+        private readonly CategoryManagerViewModel _categoryManagerViewModel;
+        private readonly TransactionTypesViewModel _transactionTypesViewModel;
+        private readonly TagManagerViewModel _tagManagerViewModel;
+        private readonly ParserViewModel _parserViewModel;
 
         public ViewModelBase SelectedViewModel
         {
@@ -45,10 +44,10 @@ namespace CashManager_MVVM.Features.Main
         public string Title
         {
             get => _title;
-            set => Set(ref _title, value);
+            private set => Set(ref _title, value);
         }
 
-        public ViewModelBase PreviousSelectedViewModel { get; private set; }
+        private ViewModelBase PreviousSelectedViewModel { get; set; }
 
         public StockSummaryViewModel SummaryViewModel { get; }
 
