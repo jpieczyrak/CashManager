@@ -12,8 +12,11 @@
             <TextBlock Text=""/>
             <CheckBox Content="Sounds" IsChecked="{Binding IsSoundEnabled}" Margin="5"/>
 
-            <TextBlock Text=""/>
+            <TextBlock Text="Skin colors"/>
             <ComboBox ItemsSource="{Binding Skins}" SelectedValue="{Binding SelectedSkin}" Margin="5"/>
+
+            <TextBlock Text="Skin shape"/>
+            <ComboBox ItemsSource="{Binding Shapes}" SelectedValue="{Binding SelectedShape}" Margin="5"/>
         </UniformGrid>
     </Grid>
 </UserControl>

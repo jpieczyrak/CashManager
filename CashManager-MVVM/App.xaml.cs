@@ -33,7 +33,7 @@ namespace CashManager_MVVM
 
         internal static SkinColors SkinColors { get; set; }
 
-        internal static SkinShapes SkinShape { get; private set; }
+        internal static SkinShapes SkinShape { get; set; }
 
         private string DatabaseFilepath => Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) ?? string.Empty, DB_PATH);
 

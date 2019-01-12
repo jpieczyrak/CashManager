@@ -13,8 +13,10 @@ namespace CashManager_MVVM.Features.Main
     internal class SettingsViewModel : ViewModelBase
     {
         private readonly Lazy<ColorsResourceDictionary> _colorsResourceDictionary;
+        private readonly Lazy<ShapesResourceDictionary> _shapesDictionary;
 
         private SkinColors _selectedSkin;
+        private SkinShapes _selectedShape;
 
         public bool IsSoundEnabled
         {
@@ -23,6 +25,7 @@ namespace CashManager_MVVM.Features.Main
         }
 
         public IEnumerable<SkinColors> Skins { get; } = Enum.GetValues(typeof(SkinColors)).Cast<SkinColors>();
+        public IEnumerable<SkinShapes> Shapes { get; } = Enum.GetValues(typeof(SkinShapes)).Cast<SkinShapes>();
 
         public SkinColors SelectedSkin
         {
@@ -35,6 +38,17 @@ namespace CashManager_MVVM.Features.Main
                 //todo: save to settings
             }
         }
+        public SkinShapes SelectedShape
+        {
+            get => _selectedShape;
+            set
+            {
+                Set(ref _selectedShape, value);
+                App.SkinShape = value;
+                _shapesDictionary.Value?.UpdateSource();
+                //todo: save to settings
+            }
+        }
 
         public SettingsViewModel()
         {
@@ -42,6 +56,10 @@ namespace CashManager_MVVM.Features.Main
                 Application.Current.Resources
                            .MergedDictionaries
                            .FirstOrDefault(x => x is ColorsResourceDictionary) as ColorsResourceDictionary);
+            _shapesDictionary = new Lazy<ShapesResourceDictionary>(() =>
+                Application.Current.Resources
+                           .MergedDictionaries
+                           .FirstOrDefault(x => x is ShapesResourceDictionary) as ShapesResourceDictionary);
         }
     }
 }
