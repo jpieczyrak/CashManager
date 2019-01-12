@@ -3,11 +3,6 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 
-    <!-- Combobox specific styles -->
-    <LinearGradientBrush x:Key="BackgroundBrushPopUp" EndPoint="0,1" StartPoint="0,0">
-        <GradientStop Color="{DynamicResource DisabledBorderColor}" Offset="1" />
-        <GradientStop Color="{DynamicResource BackgroundAccentColor}" Offset="0" />
-    </LinearGradientBrush>
     <LinearGradientBrush x:Key="GlassOverlayBrush" EndPoint="0,1" StartPoint="0,0">
         <GradientStop Color="#80FFFFFF" Offset="0" />
         <GradientStop Color="#28FFFFFF" Offset="0.25" />
@@ -133,7 +128,7 @@
                                 MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border
                                     x:Name="DropDownBorder"
-                                    Background="{StaticResource BackgroundBrushPopUp}"
+                                    Background="{DynamicResource ControlBackgroundBrush}"
                                     BorderThickness="1,1,1,1" CornerRadius="{DynamicResource SmallCornerRadius}" Margin="0,3,0,3"
                                     BorderBrush="{DynamicResource BorderBrush}" />
                                 <ScrollViewer Margin="0,3" SnapsToDevicePixels="True">
