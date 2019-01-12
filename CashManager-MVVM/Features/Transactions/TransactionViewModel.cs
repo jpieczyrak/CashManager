@@ -228,14 +228,11 @@ namespace CashManager_MVVM.Features.Transactions
             NavigateBack();
         }
 
-        private bool CanExecuteSaveTransactionCommand()
-        {
-            return !string.IsNullOrEmpty(Transaction.Title) && Transaction.Positions.Any() && Transaction.Type != null;
-        }
+        private bool CanExecuteSaveTransactionCommand() => Transaction.IsValid;
 
         private void ExecuteSaveTransactionCommand()
         {
-            foreach (var position in _transaction.Positions)
+            foreach (var position in _transaction.Positions.Where(x => x.TagViewModel != null))
                 position.Tags = position.TagViewModel.Results.OfType<Tag>().ToArray();
 
             var bills = NewBillsFilepaths.Select(x => new StoredFileInfo(x, Transaction.Id)).ToArray();

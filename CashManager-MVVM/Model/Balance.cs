@@ -9,7 +9,13 @@ namespace CashManager_MVVM.Model
         public decimal Value
         {
             get => _value;
-            set => Set(nameof(Value), ref _value, value);
+            set
+            {
+                PreviousValue = Value;
+                Set(nameof(Value), ref _value, value);
+            }
         }
+
+        public decimal PreviousValue { get; private set; } = 0m;
     }
 }

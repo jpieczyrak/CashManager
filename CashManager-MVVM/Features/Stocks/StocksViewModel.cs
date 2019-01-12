@@ -1,4 +1,6 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 
 using AutoMapper;
@@ -8,6 +10,8 @@ using CashManager.Infrastructure.Command.Stocks;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 
+using CashManager_MVVM.Features.Transactions;
+using CashManager_MVVM.Features.TransactionTypes;
 using CashManager_MVVM.Messages;
 using CashManager_MVVM.Model;
 
@@ -22,6 +26,8 @@ namespace CashManager_MVVM.Features.Stocks
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
+        private readonly TransactionViewModel _transactionCreator;
+        private TransactionTypesViewModel _typesProvider;
 
         public TrulyObservableCollection<Stock> Stocks { get; set; }
 
@@ -29,17 +35,18 @@ namespace CashManager_MVVM.Features.Stocks
 
         public RelayCommand<Stock> RemoveCommand { get; set; }
 
-        public StocksViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
+        public StocksViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory)
         {
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
+            _transactionCreator = factory.Create<TransactionViewModel>();
+            _typesProvider = factory.Create<TransactionTypesViewModel>();
 
             Update();
 
             AddStockCommand = new RelayCommand(() =>
             {
-                var stock = new Stock();
-                Stocks.Add(stock);
+                Stocks.Add(new Stock());
             });
             RemoveCommand = new RelayCommand<Stock>(x =>
             {
@@ -54,11 +61,49 @@ namespace CashManager_MVVM.Features.Stocks
 
         public void Update()
         {
+            if (Stocks != null) foreach (var stock in Stocks) stock.Balance.PropertyChanged -= BalanceOnPropertyChanged;
             var stocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()))
                                .OrderBy(x => x.InstanceCreationDate)
                                .ToArray();
             Stocks = new TrulyObservableCollection<Stock>(stocks);
+            foreach (var stock in Stocks) stock.Balance.PropertyChanged += BalanceOnPropertyChanged;
             Stocks.CollectionChanged += StocksOnCollectionChanged;
+        }
+
+        private void BalanceOnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(Model.Balance.Value)) return;
+
+            var balance = sender as Model.Balance;
+            decimal diff = balance.Value - balance.PreviousValue;
+            if (diff == 0m) return;
+
+            var incomeTypes = _typesProvider.TransactionTypes
+                                                 .Where(x => x.Income && !x.IsTransfer)
+                                                 .OrderByDescending(x => x.IsDefault);
+            var outcomeTypes = _typesProvider.TransactionTypes
+                                            .Where(x => x.Outcome && !x.IsTransfer)
+                                            .OrderByDescending(x => x.IsDefault);
+            var transaction = new Transaction
+            {
+                Title = "Correction",
+                Note = "Manual stock update",
+                BookDate = DateTime.Today,
+                Type = diff > 0
+                           ? incomeTypes.FirstOrDefault()
+                           : outcomeTypes.FirstOrDefault(),
+                UserStock = Stocks.FirstOrDefault(x => x.Balance == balance)
+            };
+            decimal abs = Math.Abs(diff);
+            var position = new Position
+            {
+                BookDate = DateTime.Today,
+                Value = new PaymentValue(abs, abs, 0m),
+                Parent = transaction
+            };
+            transaction.Positions.Add(position);
+            _transactionCreator.Transaction = transaction;
+            _transactionCreator.SaveTransactionCommand.Execute(null);
         }
 
         private void StocksOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
