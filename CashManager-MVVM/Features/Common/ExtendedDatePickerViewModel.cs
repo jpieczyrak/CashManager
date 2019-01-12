@@ -29,6 +29,8 @@ namespace CashManager_MVVM.Features.Common
 
         public RelayCommand LastMonthCommand { get; }
 
+        public RelayCommand TodayCommand { get; }
+
         public ExtendedDatePickerViewModel(ExtendedDatePicker extendedDatePicker)
         {
             Owner = extendedDatePicker;
@@ -43,6 +45,8 @@ namespace CashManager_MVVM.Features.Common
 
             FirstDayCommand = new RelayCommand(() => Owner.SelectedValue = new DateTime(Owner.SelectedValue.Year, Owner.SelectedValue.Month, 1));
             LastDayCommand = new RelayCommand(() => Owner.SelectedValue = new DateTime(Owner.SelectedValue.Year, Owner.SelectedValue.Month, 1).AddMonths(1).AddDays(-1));
+
+            TodayCommand = new RelayCommand(() => Owner.SelectedValue = DateTime.Today);
 
             FirstMonthCommand = new RelayCommand(() => Owner.SelectedValue = new DateTime(Owner.SelectedValue.Year, 1, Owner.SelectedValue.Day));
             LastMonthCommand = new RelayCommand(() => Owner.SelectedValue = new DateTime(Owner.SelectedValue.Year, 12, Owner.SelectedValue.Day));
