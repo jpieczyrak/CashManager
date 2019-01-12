@@ -48,7 +48,7 @@ namespace CashManager_MVVM.Features.Plots
             Wealth.Series.Clear();
 
             var values = GetWealthValues(_transactionsProvider.AllTransactions, selectedStocks);
-            if (values.Any())
+            if (values.Any(x => x.Y > 0))
             {
                 var series = new AreaSeries
                 {
