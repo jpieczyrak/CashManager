@@ -9,5 +9,7 @@
         public bool Outcome { get; set; }
 
         public bool IsDefault { get; set; }
+
+        public bool IsTransfer { get; set; }
     }
 }

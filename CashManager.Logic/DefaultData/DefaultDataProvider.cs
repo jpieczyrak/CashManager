@@ -46,8 +46,8 @@ namespace CashManager.Logic.DefaultData
         {
             _workType = new TransactionType { Income = true, Name = "Work", IsDefault = true };
             _buyType = new TransactionType { Outcome = true, Name = "Buy", IsDefault = true };
-            _transferInType = new TransactionType { Name = "Transfer in", Income = true };
-            _transferOutType = new TransactionType { Name = "Transfer out", Outcome = true };
+            _transferInType = new TransactionType { Name = "Transfer in", Income = true, IsTransfer = true };
+            _transferOutType = new TransactionType { Name = "Transfer out", Outcome = true, IsTransfer = true };
             _giftsType = new TransactionType { Income = true, Name = "Gifts" };
             return new[]
             {

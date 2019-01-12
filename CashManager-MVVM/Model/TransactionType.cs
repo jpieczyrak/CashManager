@@ -8,6 +8,8 @@ namespace CashManager_MVVM.Model
         private bool _outcome;
         private bool _isDefault;
 
+        private bool _isTransfer;
+
         public bool Income
         {
             get => _income;
@@ -24,6 +26,12 @@ namespace CashManager_MVVM.Model
         {
             get => _isDefault;
             set => Set(nameof(IsDefault), ref _isDefault, value);
+        }
+
+        public bool IsTransfer
+        {
+            get => _isTransfer;
+            set => Set(ref _isTransfer, value);
         }
     }
 }
