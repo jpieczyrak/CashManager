@@ -161,7 +161,7 @@ namespace CashManager_MVVM.Features.Categories
             {
                 var categories = Mapper.Map<Category[]>(result);
                 AddCategoriesToTree(categories);
-                UpsertCategories(categories);
+                UpsertCategories(result);
             }
         }
 
