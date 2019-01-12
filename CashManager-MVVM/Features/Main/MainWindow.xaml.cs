@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Media;
 using System.Windows;
 
 using CashManager_MVVM.Features.Common;
@@ -18,6 +20,12 @@ namespace CashManager_MVVM.Features.Main
             DataContext = viewModel;
             InitializeComponent();
             _logger.Value.Debug("Loaded");
+            var soundPlayer = new SoundPlayer
+            {
+                SoundLocation = Environment.CurrentDirectory + @"\Resources\Sounds\cash-register-purchase.wav"
+            };
+            soundPlayer.Load();
+            soundPlayer.Play();
         }
 
         protected override void OnClosed(object sender, EventArgs e)

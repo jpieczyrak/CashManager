@@ -520,6 +520,19 @@
   <ItemGroup>
     <Resource Include="Resources\cash.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="435587__theknave__small-coins-drop-2.wav" />
+    <Content Include="coin-drop-on-concrete.wav" />
+    <Content Include="Resources\Sounds\cash-register-purchase.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\coin-drop-into-pot.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\coin-drop-on-concrete.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>del "$(TargetDir)*.xml", "$(TargetDir)*.pdb"</PostBuildEvent>

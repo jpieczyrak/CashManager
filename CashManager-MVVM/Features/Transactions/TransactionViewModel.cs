@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Windows;
 
 using AutoMapper;
@@ -251,6 +253,13 @@ namespace CashManager_MVVM.Features.Transactions
             TransactionsProvider.AllTransactions.Add(Transaction);
 
             HandleStocksValueUpdate();
+
+            var soundPlayer = new SoundPlayer
+            {
+                SoundLocation = Environment.CurrentDirectory + @"\Resources\Sounds\coin-drop-into-pot.wav"
+            };
+            soundPlayer.Load();
+            soundPlayer.Play();
 
             if (ShouldGoBack) NavigateBack();
         }
