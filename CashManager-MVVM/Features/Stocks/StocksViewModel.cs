@@ -72,9 +72,9 @@ namespace CashManager_MVVM.Features.Stocks
 
         private void BalanceOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName != nameof(Model.Balance.Value)) return;
-
             var balance = sender as Model.Balance;
+            if (args.PropertyName != nameof(Model.Balance.Value) || balance == null) return;
+
             decimal diff = balance.Value - balance.PreviousValue;
             if (diff == 0m) return;
 
@@ -92,7 +92,7 @@ namespace CashManager_MVVM.Features.Stocks
                 Type = diff > 0
                            ? incomeTypes.FirstOrDefault()
                            : outcomeTypes.FirstOrDefault(),
-                UserStock = Stocks.FirstOrDefault(x => x.Balance == balance)
+                UserStock = Stocks.FirstOrDefault(x => x.Balance.Equals(balance))
             };
             decimal abs = Math.Abs(diff);
             var position = new Position

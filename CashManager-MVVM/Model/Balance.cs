@@ -16,6 +16,6 @@ namespace CashManager_MVVM.Model
             }
         }
 
-        public decimal PreviousValue { get; private set; } = 0m;
+        public decimal PreviousValue { get; private set; }
     }
 }
