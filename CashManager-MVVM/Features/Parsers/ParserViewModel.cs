@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -139,6 +140,7 @@ namespace CashManager_MVVM.Features.Parsers
                 var updatedStocks = balances.Select(x => x.Key).ToArray();
                 var stocks = Mapper.Map<Stock[]>(updatedStocks);
 
+                foreach (var stock in stocks) stock.Balance.Value = stock.Balance.Value; //lets trigger edit date change
                 _commandDispatcher.Execute(new UpsertStocksCommand(updatedStocks));
                 MessengerInstance.Send(new UpdateStockMessage(stocks));
             }
