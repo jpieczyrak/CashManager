@@ -109,7 +109,7 @@ namespace CashManager_MVVM.Features.Plots
         {
             if (!TransactionsMatchingUserStock.Any()) return;
 
-            BookDateFilter.From = TransactionsMatchingUserStock.Min(x => x.BookDate);
+            BookDateFilter.From = TransactionsMatchingUserStock.Min(x => x.BookDate).AddDays(-1);
             BookDateFilter.To = TransactionsMatchingUserStock.Max(x => x.BookDate);
         }
     }
