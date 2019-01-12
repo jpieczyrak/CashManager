@@ -31,7 +31,7 @@ namespace CashManager_MVVM
 
         private const string DB_PATH = "results.litedb";
 
-        internal static SkinColors SkinColors { get; private set; }
+        internal static SkinColors SkinColors { get; set; }
 
         internal static SkinShapes SkinShape { get; private set; }
 

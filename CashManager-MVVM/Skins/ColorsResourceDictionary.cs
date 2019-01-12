@@ -50,7 +50,7 @@ namespace CashManager_MVVM.Skins
             }
         }
 
-        private void UpdateSource()
+        public void UpdateSource()
         {
             Uri selected;
             switch (App.SkinColors)
