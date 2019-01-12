@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
@@ -46,7 +45,6 @@ namespace CashManager_MVVM.Features.Plots
             var selectedStocks = UserStocksFilter.IsChecked
                                      ? UserStocksFilter.Results.OfType<Stock>().ToArray()
                                      : null;
-            UpdateDateFilterRanges(selectedStocks, _transactionsProvider.AllTransactions);
             Wealth.Series.Clear();
 
             var values = GetWealthValues(_transactionsProvider.AllTransactions, selectedStocks);
@@ -63,13 +61,6 @@ namespace CashManager_MVVM.Features.Plots
 
             Wealth.InvalidatePlot(true);
             Wealth.ResetAllAxes();
-        }
-
-        private void UpdateDateFilterRanges(Stock[] selectedStocks, TrulyObservableCollection<Transaction> transactions)
-        {
-            var stocks = new HashSet<Stock>(selectedStocks);
-            BookDateFilter.From = transactions.Where(x => stocks.Contains(x.UserStock)).Min(x => x.BookDate);
-            BookDateFilter.To = transactions.Where(x => stocks.Contains(x.UserStock)).Max(x => x.BookDate);
         }
 
         #endregion

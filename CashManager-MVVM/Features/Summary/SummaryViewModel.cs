@@ -33,19 +33,6 @@ namespace CashManager_MVVM.Features.Summary
 
         public TransactionsSummary[] Balances { get; private set; }
 
-        private IEnumerable<Transaction> MatchingTransactions
-        {
-            get
-            {
-                var stockHashSet = new HashSet<Stock>(UserStocksFilter.Results.OfType<Stock>());
-                return _transactionsProvider.AllTransactions
-                                            .Where(x => !UserStocksFilter.IsChecked || stockHashSet.Contains(x.UserStock))
-                                            .Where(x => !BookDateFilter.IsChecked
-                                                        || x.BookDate >= BookDateFilter.From
-                                                        && x.BookDate <= BookDateFilter.To);
-            }
-        }
-
         public SummaryViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider provider)
             : base(queryDispatcher, provider)
         {
