@@ -73,13 +73,37 @@ namespace CashManager_MVVM.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool SoundEnabled {
             get {
                 return ((bool)(this["SoundEnabled"]));
             }
             set {
                 this["SoundEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SkinColor {
+            get {
+                return ((int)(this["SkinColor"]));
+            }
+            set {
+                this["SkinColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SkinShape {
+            get {
+                return ((int)(this["SkinShape"]));
+            }
+            set {
+                this["SkinShape"] = value;
             }
         }
     }

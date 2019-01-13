@@ -41,12 +41,8 @@ namespace CashManager_MVVM
         {
             DispatcherHelper.Initialize();
             MapperConfiguration.Configure();
-            SkinColors = SkinColors.Dark;
-            SkinShape = SkinShapes.Round;
-
-#if DEBUG
-            Settings.Default.SoundEnabled = false;
-#endif
+            SkinColors = (SkinColors)Settings.Default.SkinColor;
+            SkinShape = (SkinShapes)Settings.Default.SkinShape;
         }
 
         private static Task ShowWindow<T>(T window) where T : Window

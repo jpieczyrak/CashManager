@@ -15,9 +15,6 @@ namespace CashManager_MVVM.Features.Main
         private readonly Lazy<ColorsResourceDictionary> _colorsResourceDictionary;
         private readonly Lazy<ShapesResourceDictionary> _shapesDictionary;
 
-        private SkinColors _selectedSkin;
-        private SkinShapes _selectedShape;
-
         public bool IsSoundEnabled
         {
             get => Settings.Default.SoundEnabled;
@@ -29,24 +26,22 @@ namespace CashManager_MVVM.Features.Main
 
         public SkinColors SelectedSkin
         {
-            get => _selectedSkin;
+            get => (SkinColors)Settings.Default.SkinColor;
             set
             {
-                Set(ref _selectedSkin, value);
+                Settings.Default.SkinColor = (int)value;
                 App.SkinColors = value;
                 _colorsResourceDictionary.Value?.UpdateSource();
-                //todo: save to settings
             }
         }
         public SkinShapes SelectedShape
         {
-            get => _selectedShape;
+            get => (SkinShapes)Settings.Default.SkinShape;
             set
             {
-                Set(ref _selectedShape, value);
+                Settings.Default.SkinShape = (int)value;
                 App.SkinShape = value;
                 _shapesDictionary.Value?.UpdateSource();
-                //todo: save to settings
             }
         }
 
