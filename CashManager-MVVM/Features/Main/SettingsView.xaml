@@ -9,6 +9,9 @@
              d:DataContext="{d:DesignInstance Type=local:SettingsViewModel, IsDesignTimeCreatable=True}">
     <Grid Background="{DynamicResource BackgroundColorBrush}">
         <UniformGrid Columns="2" Margin="5" VerticalAlignment="Top">
+            <TextBlock Text="Language"/>
+            <ComboBox ItemsSource="{Binding Localizations}" SelectedItem="{Binding SelectedLocalization}" Margin="5"/>
+
             <TextBlock Text=""/>
             <CheckBox Content="Sounds" IsChecked="{Binding IsSoundEnabled}" Margin="5"/>
 

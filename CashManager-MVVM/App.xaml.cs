@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
@@ -39,6 +41,7 @@ namespace CashManager_MVVM
 
         static App()
         {
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Settings.Default.Localization);
             DispatcherHelper.Initialize();
             MapperConfiguration.Configure();
             SkinColors = (SkinColors)Settings.Default.SkinColor;

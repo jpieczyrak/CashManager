@@ -106,5 +106,17 @@ namespace CashManager_MVVM.Properties {
                 this["SkinShape"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("en-US")]
+        public string Localization {
+            get {
+                return ((string)(this["Localization"]));
+            }
+            set {
+                this["Localization"] = value;
+            }
+        }
     }
 }
