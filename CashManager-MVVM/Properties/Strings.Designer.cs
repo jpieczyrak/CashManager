@@ -61,6 +61,24 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _About.
+        /// </summary>
+        public static string AboutHeader {
+            get {
+                return ResourceManager.GetString("AboutHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Category Manager.
+        /// </summary>
+        public static string CategoryManagerHeader {
+            get {
+                return ResourceManager.GetString("CategoryManagerHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Generate default categories.
         /// </summary>
         public static string GenerateDefaultCategories {
@@ -106,11 +124,47 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Home.
+        /// </summary>
+        public static string HomeHeader {
+            get {
+                return ResourceManager.GetString("HomeHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Import.
+        /// </summary>
+        public static string ImportHeader {
+            get {
+                return ResourceManager.GetString("ImportHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Initialization.
         /// </summary>
         public static string Initialization {
             get {
                 return ResourceManager.GetString("Initialization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Manage.
+        /// </summary>
+        public static string ManageHeader {
+            get {
+                return ResourceManager.GetString("ManageHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
             }
         }
         
@@ -133,11 +187,56 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter password.
+        /// </summary>
+        public static string PleaseEnterPassword {
+            get {
+                return ResourceManager.GetString("PleaseEnterPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Settings.
+        /// </summary>
+        public static string SettingsHeader {
+            get {
+                return ResourceManager.GetString("SettingsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
         public static string Start {
             get {
                 return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Stocks Manager.
+        /// </summary>
+        public static string StocksManagerHeader {
+            get {
+                return ResourceManager.GetString("StocksManagerHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Tags Manager.
+        /// </summary>
+        public static string TagsManagerHeader {
+            get {
+                return ResourceManager.GetString("TagsManagerHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Types Manager.
+        /// </summary>
+        public static string TypesManagerHeader {
+            get {
+                return ResourceManager.GetString("TypesManagerHeader", resourceCulture);
             }
         }
     }

@@ -12,7 +12,7 @@ namespace CashManager_MVVM.Features.Main
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void OkButtonClick(object sender, RoutedEventArgs e)
         {
             Close();
         }

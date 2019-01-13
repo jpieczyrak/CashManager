@@ -124,4 +124,37 @@
 	<data name="Initialization" xml:space="preserve">
     <value>Initialization</value>
   </data>
+	<data name="HomeHeader" xml:space="preserve">
+    <value>_Home</value>
+  </data>
+	<data name="ManageHeader" xml:space="preserve">
+    <value>_Manage</value>
+  </data>
+	<data name="StocksManagerHeader" xml:space="preserve">
+    <value>_Stocks Manager</value>
+  </data>
+	<data name="CategoryManagerHeader" xml:space="preserve">
+    <value>_Category Manager</value>
+  </data>
+	<data name="TypesManagerHeader" xml:space="preserve">
+    <value>_Types Manager</value>
+  </data>
+	<data name="TagsManagerHeader" xml:space="preserve">
+    <value>_Tags Manager</value>
+  </data>
+	<data name="ImportHeader" xml:space="preserve">
+    <value>_Import</value>
+  </data>
+	<data name="SettingsHeader" xml:space="preserve">
+    <value>_Settings</value>
+  </data>
+	<data name="AboutHeader" xml:space="preserve">
+    <value>_About</value>
+  </data>
+	<data name="PleaseEnterPassword" xml:space="preserve">
+    <value>Please enter password</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
 </root>

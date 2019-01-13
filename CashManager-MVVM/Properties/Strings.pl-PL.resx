@@ -124,4 +124,34 @@
 	<data name="Initialization" xml:space="preserve">
     <value>Inicjalizacja</value>
   </data>
+	<data name="ManageHeader" xml:space="preserve">
+		<value>_Zarządzaj</value>
+	</data>
+	<data name="StocksManagerHeader" xml:space="preserve">
+		<value>_Menadżer zasobów</value>
+	</data>
+	<data name="CategoryManagerHeader" xml:space="preserve">
+		<value>_Menadżer kategorii</value>
+	</data>
+	<data name="TypesManagerHeader" xml:space="preserve">
+		<value>_Menadżer typów</value>
+	</data>
+	<data name="TagsManagerHeader" xml:space="preserve">
+		<value>_Menadżer tagów</value>
+	</data>
+	<data name="ImportHeader" xml:space="preserve">
+		<value>_Import</value>
+	</data>
+	<data name="SettingsHeader" xml:space="preserve">
+		<value>_Ustawienia</value>
+	</data>
+	<data name="AboutHeader" xml:space="preserve">
+		<value>_O programie</value>
+	</data>
+	<data name="HomeHeader" xml:space="preserve">
+		<value>_Start</value>
+	</data>
+	<data name="PleaseEnterPassword" xml:space="preserve">
+		<value>Proszę podaj hasło</value>
+	</data>
 </root>
