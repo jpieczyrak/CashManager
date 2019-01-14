@@ -133,9 +133,9 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="*" MaxHeight="25"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <DockPanel Grid.Column="0" >
                     <CheckBox IsChecked="{Binding IsChecked}" Style="{StaticResource OnlyCheckBox}" />
