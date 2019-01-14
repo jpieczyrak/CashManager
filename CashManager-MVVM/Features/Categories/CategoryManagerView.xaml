@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:model="clr-namespace:CashManager_MVVM.Model"
         xmlns:dd="urn:gong-wpf-dragdrop"
+        xmlns:Properties="clr-namespace:CashManager_MVVM.Properties"
         x:Class="CashManager_MVVM.Features.Categories.CategoryManagerView"
         mc:Ignorable="d"
         MinHeight="200" MinWidth="400" d:DataContext="{d:DesignData CategoryManagerViewModel}">
@@ -52,8 +53,8 @@
         </TreeView>
 
         <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Input}" Margin="5" AcceptsReturn="True" />
-        <Button Grid.Row="1" Grid.Column="1" Content="Add" Width="120" Command="{Binding AddCategoryCommand}" />
-        <Button Grid.Row="1" Grid.Column="2" Content="Remove" Width="120" Command="{Binding RemoveCategoryCommand}" />
-        <Button Grid.Row="1" Grid.Column="3" Content="Load" Width="120" ToolTip="Load content as tree" Command="{Binding LoadCategoriesCommand}" />
+        <Button Grid.Row="1" Grid.Column="1" Content="{x:Static Properties:Strings.Add}" Width="120" Command="{Binding AddCategoryCommand}" />
+        <Button Grid.Row="1" Grid.Column="2" Content="{x:Static Properties:Strings.Remove}" Width="120" Command="{Binding RemoveCategoryCommand}" />
+        <Button Grid.Row="1" Grid.Column="3" Content="{x:Static Properties:Strings.Load}" Width="120" ToolTip="{x:Static Properties:Strings.LoadContentAsTree}" Command="{Binding LoadCategoriesCommand}" />
     </Grid>
 </UserControl>

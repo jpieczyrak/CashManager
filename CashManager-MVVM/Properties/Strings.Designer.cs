@@ -223,6 +223,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Drop bills here.
         /// </summary>
         public static string DropBillsHere {
@@ -313,6 +322,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gross.
+        /// </summary>
+        public static string Gross {
+            get {
+                return ResourceManager.GetString("Gross", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Home.
         /// </summary>
         public static string HomeHeader {
@@ -385,6 +403,24 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load content as tree.
+        /// </summary>
+        public static string LoadContentAsTree {
+            get {
+                return ResourceManager.GetString("LoadContentAsTree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lock tax.
+        /// </summary>
+        public static string LockTax {
+            get {
+                return ResourceManager.GetString("LockTax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Manage.
         /// </summary>
         public static string ManageHeader {
@@ -412,11 +448,47 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Max.
+        /// </summary>
+        public static string Max {
+            get {
+                return ResourceManager.GetString("Max", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Min.
+        /// </summary>
+        public static string Min {
+            get {
+                return ResourceManager.GetString("Min", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Net.
         /// </summary>
         public static string NetValue {
             get {
                 return ResourceManager.GetString("NetValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New category.
+        /// </summary>
+        public static string NewCategory {
+            get {
+                return ResourceManager.GetString("NewCategory", resourceCulture);
             }
         }
         

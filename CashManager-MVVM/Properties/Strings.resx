@@ -316,4 +316,28 @@
   <data name="AddTransactionType" xml:space="preserve">
     <value>Add type</value>
   </data>
+  <data name="Min" xml:space="preserve">
+    <value>Min</value>
+  </data>
+  <data name="Max" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="Gross" xml:space="preserve">
+    <value>Gross</value>
+  </data>
+  <data name="LockTax" xml:space="preserve">
+    <value>Lock tax</value>
+  </data>
+  <data name="LoadContentAsTree" xml:space="preserve">
+    <value>Load content as tree</value>
+  </data>
+  <data name="NewCategory" xml:space="preserve">
+    <value>New category</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
 </root>

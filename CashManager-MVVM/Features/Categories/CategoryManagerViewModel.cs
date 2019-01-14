@@ -11,6 +11,7 @@ using CashManager.Infrastructure.Query.Categories;
 using CashManager.Logic.DefaultData.InputParsers;
 
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Properties;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -52,7 +53,7 @@ namespace CashManager_MVVM.Features.Categories
 
         public CategoryManagerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
         {
-            _input = "New category";
+            _input = Strings.NewCategory;
             _commandDispatcher = commandDispatcher;
             Categories = new TrulyObservableCollection<Category>();
             var categories = queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery())
