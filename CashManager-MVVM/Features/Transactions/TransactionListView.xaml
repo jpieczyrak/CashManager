@@ -6,7 +6,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:command="http://www.galasoft.ch/mvvmlight"
              xmlns:transactions="clr-namespace:CashManager_MVVM.Features.Transactions"
-             xmlns:Properties="clr-namespace:CashManager_MVVM.Properties"
+             xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="600"
              d:DataContext="{d:DesignInstance Type=transactions:TransactionListViewModel, IsDesignTimeCreatable=True}">
@@ -20,25 +20,25 @@
                   EnableRowVirtualization="True" EnableColumnVirtualization="True" ScrollViewer.CanContentScroll="True"
                   CanUserAddRows="False" CanUserDeleteRows="False" Margin="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{x:Static Properties:Strings.BookDate}" Binding="{Binding BookDate, StringFormat=dd.MM.yyyy}" Width="64" MaxWidth="64" MinWidth="64" />
-                <DataGridTextColumn Header="{x:Static Properties:Strings.LastEdit}" Binding="{Binding LastEditDate, Mode=OneWay, StringFormat=dd.MM.yy HH:mm:ss}" Width="100" MaxWidth="100" MinWidth="100"/>
-                <DataGridTextColumn Header="{x:Static Properties:Strings.Title}" Binding="{Binding Title, Mode=OneWay}" Width="3*" MinWidth="100">
+                <DataGridTextColumn Header="{x:Static properties:Strings.BookDate}" Binding="{Binding BookDate, StringFormat=dd.MM.yyyy}" Width="64" MaxWidth="64" MinWidth="64" />
+                <DataGridTextColumn Header="{x:Static properties:Strings.LastEdit}" Binding="{Binding LastEditDate, Mode=OneWay, StringFormat=dd.MM.yy HH:mm:ss}" Width="100" MaxWidth="100" MinWidth="100"/>
+                <DataGridTextColumn Header="{x:Static properties:Strings.Title}" Binding="{Binding Title, Mode=OneWay}" Width="3*" MinWidth="100">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="{x:Static Properties:Strings.Note}" Binding="{Binding Note, Mode=OneWay}" Width="*">
+                <DataGridTextColumn Header="{x:Static properties:Strings.Note}" Binding="{Binding Note, Mode=OneWay}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="{x:Static Properties:Strings.UserStock}" Binding="{Binding UserStock.Name, Mode=OneWay}" Width="Auto" MaxWidth="80" />
-                <DataGridTextColumn Header="{x:Static Properties:Strings.TransactionType}" Binding="{Binding Type.Name, Mode=OneWay}" Width="Auto" MaxWidth="80" />
-                <DataGridTextColumn Header="{x:Static Properties:Strings.Value}" Binding="{Binding ValueWithSign, Mode=OneWay, StringFormat={}{0:#,##0.00 zł}}" Width="Auto" MinWidth="70" MaxWidth="100">
+                <DataGridTextColumn Header="{x:Static properties:Strings.UserStock}" Binding="{Binding UserStock.Name, Mode=OneWay}" Width="Auto" MaxWidth="80" />
+                <DataGridTextColumn Header="{x:Static properties:Strings.TransactionType}" Binding="{Binding Type.Name, Mode=OneWay}" Width="Auto" MaxWidth="80" />
+                <DataGridTextColumn Header="{x:Static properties:Strings.Value}" Binding="{Binding ValueWithSign, Mode=OneWay, StringFormat={}{0:#,##0.00 zł}}" Width="Auto" MinWidth="70" MaxWidth="100">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -48,7 +48,7 @@
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu Background="{DynamicResource ControlBackgroundBrush}" BorderBrush="{DynamicResource ControlBackgroundBrush}">
-                    <MenuItem Header="{x:Static Properties:Strings.Duplicate}" Command="{Binding DuplicateTransactionCommand}" Template="{DynamicResource InsideMenuItemControlTemplate}" />
+                    <MenuItem Header="{x:Static properties:Strings.Duplicate}" Command="{Binding DuplicateTransactionCommand}" Template="{DynamicResource InsideMenuItemControlTemplate}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <i:Interaction.Triggers>

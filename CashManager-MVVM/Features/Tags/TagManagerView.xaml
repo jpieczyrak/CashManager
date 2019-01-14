@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CashManager_MVVM.Features.Tags"
-             xmlns:Properties="clr-namespace:CashManager_MVVM.Properties"
+             xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:TagManagerViewModel, IsDesignTimeCreatable=True}">
 
@@ -27,8 +27,8 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="5" ToolTip="{x:Static Properties:Strings.TagName}"/>
-                            <Button Content="{x:Static Properties:Strings.Remove}" Grid.Column="1"
+                            <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="5" ToolTip="{x:Static properties:Strings.TagName}"/>
+                            <Button Content="{x:Static properties:Strings.Remove}" Grid.Column="1"
                                     Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                     CommandParameter="{Binding}" Margin="5" Width="120" Height="25"/>
                         </Grid>
@@ -43,6 +43,6 @@
         </ScrollViewer>
 
         <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding TagName, UpdateSourceTrigger=PropertyChanged}" Margin="5" />
-        <Button Grid.Row="1" Grid.Column="1" Content="{x:Static Properties:Strings.Add}" Width="120" Command="{Binding AddCommand}" />
+        <Button Grid.Row="1" Grid.Column="1" Content="{x:Static properties:Strings.Add}" Width="120" Command="{Binding AddCommand}" />
     </Grid>
 </UserControl>
