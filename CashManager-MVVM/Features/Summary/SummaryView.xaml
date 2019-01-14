@@ -91,7 +91,7 @@
                 </oxy:PlotView.DefaultTrackerTemplate>
             </oxy:PlotView>
 
-            <DataGrid Grid.Row="3" ItemsSource="{Binding Balances}" AutoGenerateColumns="False" HorizontalAlignment="Center" Margin="5">
+            <DataGrid Grid.Row="3" ItemsSource="{Binding Balances}" AutoGenerateColumns="False" Margin="5">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{x:Static properties:Strings.Date}" Binding="{Binding Name}" Width="Auto" />
                     <DataGridTextColumn Header="{x:Static properties:Strings.Income}" Binding="{Binding GrossIncome, StringFormat={}{0:#,##0.00}}" Width="Auto" />
