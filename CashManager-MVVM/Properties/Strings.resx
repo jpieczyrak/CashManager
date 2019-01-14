@@ -388,4 +388,7 @@
   <data name="RestartRequiredAfterChange" xml:space="preserve">
     <value>After change restart is required!</value>
   </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
 </root>
