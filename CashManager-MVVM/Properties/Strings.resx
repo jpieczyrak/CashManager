@@ -361,4 +361,31 @@
   <data name="TransactionTypes" xml:space="preserve">
     <value>Types</value>
   </data>
+  <data name="PositionTitle" xml:space="preserve">
+    <value>Position title</value>
+  </data>
+  <data name="EditDate" xml:space="preserve">
+    <value>Edit date</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="Sounds" xml:space="preserve">
+    <value>Sounds</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="SkinColors" xml:space="preserve">
+    <value>Skin colors</value>
+  </data>
+  <data name="SkinShape" xml:space="preserve">
+    <value>Skin shape</value>
+  </data>
+  <data name="RestartRequiredAfterChange" xml:space="preserve">
+    <value>After change restart is required!</value>
+  </data>
 </root>

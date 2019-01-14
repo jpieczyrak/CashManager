@@ -1,4 +1,6 @@
-﻿namespace CashManager_MVVM.Model.Selectors
+﻿using CashManager_MVVM.Properties;
+
+namespace CashManager_MVVM.Model.Selectors
 {
     public class RangeSelector : BaseSelector
     {
@@ -39,7 +41,7 @@
             switch (type)
             {
                 case RangeSelectorType.GrossValue:
-                    Description = "Value";
+                    Description = Strings.Value;
                     break;
             }
         }

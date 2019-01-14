@@ -286,6 +286,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit date.
+        /// </summary>
+        public static string EditDate {
+            get {
+                return ResourceManager.GetString("EditDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ex stock.
         /// </summary>
         public static string ExStock {
@@ -300,6 +309,15 @@ namespace CashManager_MVVM.Properties {
         public static string ExternalStock {
             get {
                 return ResourceManager.GetString("ExternalStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From.
+        /// </summary>
+        public static string From {
+            get {
+                return ResourceManager.GetString("From", resourceCulture);
             }
         }
         
@@ -408,6 +426,15 @@ namespace CashManager_MVVM.Properties {
         public static string IsTransfer {
             get {
                 return ResourceManager.GetString("IsTransfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
             }
         }
         
@@ -637,11 +664,29 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Position title.
+        /// </summary>
+        public static string PositionTitle {
+            get {
+                return ResourceManager.GetString("PositionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove.
         /// </summary>
         public static string Remove {
             get {
                 return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After change restart is required!.
+        /// </summary>
+        public static string RestartRequiredAfterChange {
+            get {
+                return ResourceManager.GetString("RestartRequiredAfterChange", resourceCulture);
             }
         }
         
@@ -669,6 +714,33 @@ namespace CashManager_MVVM.Properties {
         public static string SettingsHeader {
             get {
                 return ResourceManager.GetString("SettingsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skin colors.
+        /// </summary>
+        public static string SkinColors {
+            get {
+                return ResourceManager.GetString("SkinColors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skin shape.
+        /// </summary>
+        public static string SkinShape {
+            get {
+                return ResourceManager.GetString("SkinShape", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sounds.
+        /// </summary>
+        public static string Sounds {
+            get {
+                return ResourceManager.GetString("Sounds", resourceCulture);
             }
         }
         
@@ -741,6 +813,15 @@ namespace CashManager_MVVM.Properties {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To.
+        /// </summary>
+        public static string To {
+            get {
+                return ResourceManager.GetString("To", resourceCulture);
             }
         }
         

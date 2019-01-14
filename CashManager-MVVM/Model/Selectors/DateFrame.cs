@@ -1,5 +1,7 @@
 ﻿using System;
 
+using CashManager_MVVM.Properties;
+
 namespace CashManager_MVVM.Model.Selectors
 {
     public class DateFrame : BaseSelector
@@ -27,13 +29,13 @@ namespace CashManager_MVVM.Model.Selectors
             switch (type)
             {
                 case DateFrameType.BookDate:
-                    Description = "Book date";
+                    Description = Strings.BookDate;
                     break;
                 case DateFrameType.CreationDate:
-                    Description = "Creation date";
+                    Description = Strings.CreationDate;
                     break;
                 case DateFrameType.EditDate:
-                    Description = "Edit date";
+                    Description = Strings.EditDate;
                     break;
             }
 

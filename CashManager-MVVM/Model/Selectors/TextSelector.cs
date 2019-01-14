@@ -1,4 +1,6 @@
-﻿namespace CashManager_MVVM.Model.Selectors
+﻿using CashManager_MVVM.Properties;
+
+namespace CashManager_MVVM.Model.Selectors
 {
     public class TextSelector : BaseSelector
     {
@@ -18,13 +20,13 @@
             switch (type)
             {
                 case TextSelectorType.Title:
-                    Description = "Title";
+                    Description = Strings.Title;
                     break;
                 case TextSelectorType.Note:
-                    Description = "Note";
+                    Description = Strings.Note;
                     break;
                 case TextSelectorType.PositionTitle:
-                    Description = "Position title";
+                    Description = Strings.PositionTitle;
                     break;
             }
         }

@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CashManager_MVVM.Features.Common"
+             xmlns:Properties="clr-namespace:CashManager_MVVM.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="500">
 
@@ -56,7 +57,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="From" Style="{DynamicResource GrayTextBlock}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Static Properties:Strings.From}" Style="{DynamicResource GrayTextBlock}" />
                     <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
                     <local:ExtendedDatePicker Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,2,2,2" SelectedValue="{Binding DateFrame.From, ElementName=DateRangePickerControl}" MinWidth="200" />
                 </Grid>
@@ -71,7 +72,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="To" Style="{DynamicResource GrayTextBlock}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Static Properties:Strings.To}" Style="{DynamicResource GrayTextBlock}" />
                     <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
                     <local:ExtendedDatePicker Grid.Row="1" Grid.Column="0" Margin="2,2,0,2" SelectedValue="{Binding DateFrame.To, ElementName=DateRangePickerControl}" Grid.ColumnSpan="3" MinWidth="200" />
                 </Grid>
