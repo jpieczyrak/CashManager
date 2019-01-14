@@ -7,6 +7,7 @@ using CashManager.Infrastructure.Query;
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Logic.Calculators;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Properties;
 
 using OxyPlot;
 using OxyPlot.Axes;
@@ -52,7 +53,7 @@ namespace CashManager_MVVM.Features.Plots
             {
                 var series = new AreaSeries
                 {
-                    Title = "Wealth",
+                    Title = Strings.Wealth,
                     MarkerType = MarkerType.Cross
                 };
                 series.Points.AddRange(values);

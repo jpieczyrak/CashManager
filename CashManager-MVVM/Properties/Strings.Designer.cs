@@ -79,6 +79,33 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default external stock.
+        /// </summary>
+        public static string DefaultExternalStock {
+            get {
+                return ResourceManager.GetString("DefaultExternalStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default income type.
+        /// </summary>
+        public static string DefaultIncomeType {
+            get {
+                return ResourceManager.GetString("DefaultIncomeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default outcome type.
+        /// </summary>
+        public static string DefaultOutcomeType {
+            get {
+                return ResourceManager.GetString("DefaultOutcomeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Generate default categories.
         /// </summary>
         public static string GenerateDefaultCategories {
@@ -111,6 +138,15 @@ namespace CashManager_MVVM.Properties {
         public static string GenerateDefaultTypes {
             get {
                 return ResourceManager.GetString("GenerateDefaultTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate missing stocks.
+        /// </summary>
+        public static string GenerateMissingStocks {
+            get {
+                return ResourceManager.GetString("GenerateMissingStocks", resourceCulture);
             }
         }
         
@@ -160,6 +196,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mass replace.
+        /// </summary>
+        public static string MassReplace {
+            get {
+                return ResourceManager.GetString("MassReplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
         public static string Ok {
@@ -178,6 +223,24 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parse.
+        /// </summary>
+        public static string Parse {
+            get {
+                return ResourceManager.GetString("Parse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parser.
+        /// </summary>
+        public static string Parser {
+            get {
+                return ResourceManager.GetString("Parser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
@@ -187,11 +250,29 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Perform.
+        /// </summary>
+        public static string Perform {
+            get {
+                return ResourceManager.GetString("Perform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter password.
         /// </summary>
         public static string PleaseEnterPassword {
             get {
                 return ResourceManager.GetString("PleaseEnterPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         
@@ -237,6 +318,24 @@ namespace CashManager_MVVM.Properties {
         public static string TypesManagerHeader {
             get {
                 return ResourceManager.GetString("TypesManagerHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User stock.
+        /// </summary>
+        public static string UserStock {
+            get {
+                return ResourceManager.GetString("UserStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wealth.
+        /// </summary>
+        public static string Wealth {
+            get {
+                return ResourceManager.GetString("Wealth", resourceCulture);
             }
         }
     }

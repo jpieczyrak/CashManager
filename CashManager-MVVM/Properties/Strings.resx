@@ -157,4 +157,37 @@
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
   </data>
+  <data name="MassReplace" xml:space="preserve">
+    <value>Mass replace</value>
+  </data>
+  <data name="Perform" xml:space="preserve">
+    <value>Perform</value>
+  </data>
+  <data name="Parser" xml:space="preserve">
+    <value>Parser</value>
+  </data>
+  <data name="DefaultIncomeType" xml:space="preserve">
+    <value>Default income type</value>
+  </data>
+  <data name="DefaultOutcomeType" xml:space="preserve">
+    <value>Default outcome type</value>
+  </data>
+  <data name="UserStock" xml:space="preserve">
+    <value>User stock</value>
+  </data>
+  <data name="DefaultExternalStock" xml:space="preserve">
+    <value>Default external stock</value>
+  </data>
+  <data name="GenerateMissingStocks" xml:space="preserve">
+    <value>Generate missing stocks</value>
+  </data>
+  <data name="Parse" xml:space="preserve">
+    <value>Parse</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Wealth" xml:space="preserve">
+    <value>Wealth</value>
+  </data>
 </root>

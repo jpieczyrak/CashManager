@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:parsers="clr-namespace:CashManager_MVVM.Features.Parsers"
              xmlns:dd="urn:gong-wpf-dragdrop"
+             xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="600"
              d:DataContext="{d:DesignInstance Type=parsers:ParserViewModel, IsDesignTimeCreatable=True}">
@@ -27,33 +28,33 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="TextBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Margin="5" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" 
+        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Margin="5" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" 
                  MaxHeight="150" MinHeight="60" TextWrapping="WrapWithOverflow" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" 
                  dd:DragDrop.IsDropTarget="True" 
                  dd:DragDrop.DropHandler="{Binding}"/>
 
-        <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Text="Parser"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Text="{x:Static properties:Strings.Parser}"/>
         <ComboBox Grid.Row="2" Grid.Column="0" Margin="5" ItemsSource="{Binding Parsers}" 
                   DisplayMemberPath="Key" SelectedItem="{Binding SelectedParser}" />
 
-        <TextBlock Grid.Row="1" Grid.Column="1" Margin="5" Text="Default income type"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Margin="5" Text="{x:Static properties:Strings.DefaultIncomeType}"/>
         <ComboBox Grid.Row="2" Grid.Column="1" Margin="5" ItemsSource="{Binding IncomeTransactionTypes}" DisplayMemberPath="Name" SelectedItem="{Binding DefaultIncomeTransactionType}"/>
 
-        <TextBlock Grid.Row="1" Grid.Column="2" Margin="5" Text="Default outcome type"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Margin="5" Text="{x:Static properties:Strings.DefaultOutcomeType}"/>
         <ComboBox Grid.Row="2" Grid.Column="2" Margin="5" ItemsSource="{Binding OutcomeTransactionTypes}" DisplayMemberPath="Name" SelectedItem="{Binding DefaultOutcomeTransactionType}"/>
 
-        <TextBlock Grid.Row="1" Grid.Column="3" Margin="5" Text="User stock"/>
+        <TextBlock Grid.Row="1" Grid.Column="3" Margin="5" Text="{x:Static properties:Strings.UserStock}"/>
         <ComboBox Grid.Row="2" Grid.Column="3" Margin="5" ItemsSource="{Binding UserStocks}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedUserStock}"/>
 
-        <TextBlock Grid.Row="1" Grid.Column="4" Margin="5" Text="Default external stock"/>
+        <TextBlock Grid.Row="1" Grid.Column="4" Margin="5" Text="{x:Static properties:Strings.DefaultExternalStock}"/>
         <ComboBox Grid.Row="2" Grid.Column="4" Margin="5" ItemsSource="{Binding ExternalStocks}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedExternalStock}"/>
 
-        <CheckBox Grid.Row="2" Grid.Column="5" Margin="5" Content="Generate missing stocks" IsChecked="{Binding GenerateMissingStocks}"/>
+        <CheckBox Grid.Row="2" Grid.Column="5" Margin="5" Content="{x:Static properties:Strings.GenerateMissingStocks}" IsChecked="{Binding GenerateMissingStocks}"/>
 
-        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" Margin="5" Content="Parse" Command="{Binding ParseCommand}"/>
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" Margin="5" Content="{x:Static properties:Strings.Parse}" Command="{Binding ParseCommand}"/>
 
         <UserControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" Margin="5,10" Content="{Binding ResultsListViewModel}"/>
 
-        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6"  Margin="5" Content="Save" Command="{Binding SaveCommand}" Width="120" Height="25"/>
+        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6"  Margin="5" Content="{x:Static properties:Strings.Save}" Command="{Binding SaveCommand}" Width="120" Height="25"/>
     </Grid>
 </UserControl>

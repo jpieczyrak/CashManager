@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:search="clr-namespace:CashManager_MVVM.Features.Search"
              xmlns:massReplacer="clr-namespace:CashManager_MVVM.Features.MassReplacer"
+             xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=massReplacer:MassReplacerViewModel, IsDesignTimeCreatable=True}">
 
@@ -23,7 +24,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
-            <TextBlock Grid.Column="1" Text="Mass replace" Margin="10,0" Style="{DynamicResource GrayTextBlock}" Height="Auto" />
+            <TextBlock Grid.Column="1" Text="{x:Static properties:Strings.MassReplace}" Margin="10,0" Style="{DynamicResource GrayTextBlock}" Height="Auto" />
             <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
         </Grid>
         <Grid Grid.Row="2">
@@ -52,7 +53,7 @@
             
             <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                     Margin="0,5" Height="35" Width="150"
-                    Content="Perform" Command="{Binding PerformCommand}" />
+                    Content="{x:Static properties:Strings.Perform}" Command="{Binding PerformCommand}" />
         </Grid>
     </Grid>
 </UserControl>
