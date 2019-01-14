@@ -219,7 +219,7 @@ namespace CashManager_MVVM.Features.Search
             PerformFilter();
         }
 
-        private void PerformFilter()
+        public void PerformFilter()
         {
             var transactions = _transactionsProvider.AllTransactions;
             if (transactions == null || !transactions.Any()) return;
