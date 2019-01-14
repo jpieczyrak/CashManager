@@ -240,7 +240,7 @@ namespace CashManager_MVVM.Features.Search
 
         private void SetTitle(SearchType searchType)
         {
-            Title = $"{searchType} {Strings.Search.ToLower()}";
+            Title = searchType == SearchType.Transactions ? Strings.TransactionSearch : Strings.PositionSearch;
         }
 
         private void FilterTransactions()

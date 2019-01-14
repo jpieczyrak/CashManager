@@ -219,9 +219,6 @@
   <data name="Load" xml:space="preserve">
     <value>Załaduj</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>szukaj</value>
-  </data>
   <data name="StockName" xml:space="preserve">
     <value>Nazwa zasobu</value>
   </data>

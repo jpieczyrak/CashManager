@@ -664,15 +664,6 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to search.
-        /// </summary>
-        public static string Search {
-            get {
-                return ResourceManager.GetString("Search", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to _Settings.
         /// </summary>
         public static string SettingsHeader {
