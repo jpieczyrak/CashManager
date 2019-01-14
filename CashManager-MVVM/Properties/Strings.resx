@@ -340,4 +340,28 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="TransactionsSearch" xml:space="preserve">
+    <value>Transactions search</value>
+  </data>
+  <data name="MassReplacer" xml:space="preserve">
+    <value>Mass replacer</value>
+  </data>
+  <data name="AddTransaction" xml:space="preserve">
+    <value>Add transaction</value>
+  </data>
+  <data name="WealthPlot" xml:space="preserve">
+    <value>Wealth plot</value>
+  </data>
+  <data name="CategoriesPlot" xml:space="preserve">
+    <value>Categories plot</value>
+  </data>
+  <data name="CustomBalances" xml:space="preserve">
+    <value>Custom balances</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="TransactionTypes" xml:space="preserve">
+    <value>Types</value>
+  </data>
 </root>

@@ -14,6 +14,7 @@ using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
+using CashManager_MVVM.Properties;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -29,7 +30,7 @@ namespace CashManager_MVVM.Features.MassReplacer
         private TextSelector _titleSelector = new TextSelector(TextSelectorType.Title);
         private TextSelector _noteSelector = new TextSelector(TextSelectorType.Note);
         private TextSelector _positionTitleSelector = new TextSelector(TextSelectorType.PositionTitle);
-        private DateSelector _bookDateSelector = new DateSelector("Book date");
+        private DateSelector _bookDateSelector = new DateSelector(Strings.BookDate);
         private SinglePicker _userStocksSelector;
         private SinglePicker _externalStocksSelector;
         private SinglePicker _categoriesSelector;

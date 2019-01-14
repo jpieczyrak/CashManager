@@ -13,6 +13,7 @@ using CashManager_MVVM.Features.Summary;
 using CashManager_MVVM.Features.Tags;
 using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Features.TransactionTypes;
+using CashManager_MVVM.Properties;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -72,12 +73,12 @@ namespace CashManager_MVVM.Features.Main
             _settingsViewModel = factory.Create<SettingsViewModel>();
             ViewModels = new Dictionary<string, ViewModelBase>
             {
-                { "Transactions search", factory.Create<SearchViewModel>() },
-                { "Mass replacer", factory.Create<MassReplacerViewModel>() },
-                { "Add transaction", factory.Create<TransactionViewModel>() },
-                { "Wealth plot", factory.Create<WealthViewModel>() },
-                { "Categories plot", factory.Create<CategoriesPlotViewModel>() },
-                { "Custom balances", factory.Create<CustomBalanceViewModel>() }
+                { Strings.TransactionsSearch, factory.Create<SearchViewModel>() },
+                { Strings.MassReplacer, factory.Create<MassReplacerViewModel>() },
+                { Strings.AddTransaction, factory.Create<TransactionViewModel>() },
+                { Strings.WealthPlot, factory.Create<WealthViewModel>() },
+                { Strings.CategoriesPlot, factory.Create<CategoriesPlotViewModel>() },
+                { Strings.CustomBalances, factory.Create<CustomBalanceViewModel>() }
             };
             PreviousSelectedViewModel = SelectedViewModel = _summaryViewModel;
 

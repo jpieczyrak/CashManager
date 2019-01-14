@@ -97,6 +97,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add transaction.
+        /// </summary>
+        public static string AddTransaction {
+            get {
+                return ResourceManager.GetString("AddTransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add type.
         /// </summary>
         public static string AddTransactionType {
@@ -129,6 +138,24 @@ namespace CashManager_MVVM.Properties {
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categories.
+        /// </summary>
+        public static string Categories {
+            get {
+                return ResourceManager.GetString("Categories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categories plot.
+        /// </summary>
+        public static string CategoriesPlot {
+            get {
+                return ResourceManager.GetString("CategoriesPlot", resourceCulture);
             }
         }
         
@@ -174,6 +201,15 @@ namespace CashManager_MVVM.Properties {
         public static string CurrentBalance {
             get {
                 return ResourceManager.GetString("CurrentBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom balances.
+        /// </summary>
+        public static string CustomBalances {
+            get {
+                return ResourceManager.GetString("CustomBalances", resourceCulture);
             }
         }
         
@@ -444,6 +480,15 @@ namespace CashManager_MVVM.Properties {
         public static string MassReplace {
             get {
                 return ResourceManager.GetString("MassReplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mass replacer.
+        /// </summary>
+        public static string MassReplacer {
+            get {
+                return ResourceManager.GetString("MassReplacer", resourceCulture);
             }
         }
         
@@ -727,11 +772,29 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transactions search.
+        /// </summary>
+        public static string TransactionsSearch {
+            get {
+                return ResourceManager.GetString("TransactionsSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type.
         /// </summary>
         public static string TransactionType {
             get {
                 return ResourceManager.GetString("TransactionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Types.
+        /// </summary>
+        public static string TransactionTypes {
+            get {
+                return ResourceManager.GetString("TransactionTypes", resourceCulture);
             }
         }
         
@@ -786,6 +849,15 @@ namespace CashManager_MVVM.Properties {
         public static string Wealth {
             get {
                 return ResourceManager.GetString("Wealth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wealth plot.
+        /// </summary>
+        public static string WealthPlot {
+            get {
+                return ResourceManager.GetString("WealthPlot", resourceCulture);
             }
         }
     }

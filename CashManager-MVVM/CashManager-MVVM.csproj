@@ -255,6 +255,7 @@
     <Compile Include="Model\Selectors\MultiPickerType.cs" />
     <Compile Include="Model\Selectors\RangeSelector.cs" />
     <Compile Include="Model\Selectors\RangeSelectorType.cs" />
+    <Compile Include="Model\Selectors\SinglePicker.cs" />
     <Compile Include="Model\Selectors\TextSelector.cs" />
     <Compile Include="Model\PaymentValue.cs" />
     <Compile Include="Model\Selectors\TextSelectorType.cs" />
