@@ -163,5 +163,36 @@ namespace CashManager.Tests.ViewModels.Transactions
             Assert.Single(vm.TransactionsProvider.AllTransactions);
             Assert.Equal(expectedBalance, userStock.Balance.Value);
         }
+
+        [Fact]
+        public void CancelTransactionCommand_EditedTransaction_TransactionIsNotEdited()
+        {
+            //given
+            var vm = _fixture.Container.Resolve<TransactionViewModel>();
+            vm.ShouldGoBack = false;
+            string startTitle = "t";
+            var transaction = new Transaction
+            {
+                Title = startTitle,
+                UserStock = new Stock(),
+                Type = new TransactionType(),
+                Positions = new TrulyObservableCollection<Position>(new[] { new Position() })
+            };
+
+            //transaction exists
+            vm.Transaction = transaction;
+            vm.SaveTransactionCommand.Execute(null);
+
+            vm.Transaction = transaction;
+            vm.Transaction.Title += "edited";
+
+            //when
+            vm.CancelTransactionCommand.Execute(null);
+
+            //then
+            Assert.Single(vm.TransactionsProvider.AllTransactions);
+            Assert.Equal(startTitle, vm.TransactionsProvider.AllTransactions[0].Title);
+            Assert.Equal(startTitle, vm.Transaction.Title);
+        }
     }
 }
