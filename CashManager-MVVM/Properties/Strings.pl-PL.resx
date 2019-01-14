@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="GenerateDefaultCategories" xml:space="preserve">
+    <value>Wygeneruj domyślne kategorie</value>
+  </data>
+  <data name="GenerateDefaultTypes" xml:space="preserve">
+    <value>Wygeneruj domyślne typy transakcji</value>
+  </data>
+  <data name="GenerateDefaultStocks" xml:space="preserve">
+    <value>Wygeneruj domyślne zasoby finansowe</value>
+  </data>
+  <data name="GenerateDefaultTags" xml:space="preserve">
+    <value>Wygeneruj domyślne tagi</value>
+  </data>
+  <data name="GenerateSampleTransactions" xml:space="preserve">
+    <value>Wygeneruj przykładowe transakcje</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Hasło</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Opcjonalne</value>
+  </data>
+  <data name="Initialization" xml:space="preserve">
+    <value>Inicjalizacja</value>
+  </data>
+  <data name="ManageHeader" xml:space="preserve">
+    <value>_Zarządzaj</value>
+  </data>
+  <data name="StocksManagerHeader" xml:space="preserve">
+    <value>_Menadżer zasobów</value>
+  </data>
+  <data name="CategoryManagerHeader" xml:space="preserve">
+    <value>_Menadżer kategorii</value>
+  </data>
+  <data name="TypesManagerHeader" xml:space="preserve">
+    <value>_Menadżer typów</value>
+  </data>
+  <data name="TagsManagerHeader" xml:space="preserve">
+    <value>_Menadżer tagów</value>
+  </data>
+  <data name="ImportHeader" xml:space="preserve">
+    <value>_Import</value>
+  </data>
+  <data name="SettingsHeader" xml:space="preserve">
+    <value>_Ustawienia</value>
+  </data>
+  <data name="HomeHeader" xml:space="preserve">
+    <value>_Start</value>
+  </data>
+  <data name="PleaseEnterPassword" xml:space="preserve">
+    <value>Proszę podaj hasło</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="MassReplace" xml:space="preserve">
+    <value>Masowa zamiana</value>
+  </data>
+  <data name="Perform" xml:space="preserve">
+    <value>Wykonaj</value>
+  </data>
+  <data name="Parser" xml:space="preserve">
+    <value>Parser</value>
+  </data>
+  <data name="DefaultIncomeType" xml:space="preserve">
+    <value>Domyślny typ wpływów</value>
+  </data>
+  <data name="DefaultOutcomeType" xml:space="preserve">
+    <value>Domyślny typ wydatków</value>
+  </data>
+  <data name="UserStock" xml:space="preserve">
+    <value>Zasób użytkownika</value>
+  </data>
+  <data name="DefaultExternalStock" xml:space="preserve">
+    <value>Domyślne zasób zewnętrzny</value>
+  </data>
+  <data name="GenerateMissingStocks" xml:space="preserve">
+    <value>Wygeneruj brakujące zasoby</value>
+  </data>
+  <data name="Parse" xml:space="preserve">
+    <value>Analizuj</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Zapisz</value>
+  </data>
+  <data name="Wealth" xml:space="preserve">
+    <value>Zasobność</value>
+  </data>
+  <data name="TransactionSearch" xml:space="preserve">
+    <value>Wyszukiwanie transakcji</value>
+  </data>
+  <data name="PositionSearch" xml:space="preserve">
+    <value>Wyszukiwanie pozycji</value>
+  </data>
+  <data name="SaveSearchCriteria" xml:space="preserve">
+    <value>Zapisz kryteria wyszukiwania</value>
+  </data>
+  <data name="Load" xml:space="preserve">
+    <value>Załaduj</value>
+  </data>
+  <data name="StockName" xml:space="preserve">
+    <value>Nazwa zasobu</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Saldo</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Łącznie</value>
+  </data>
+  <data name="CurrentBalance" xml:space="preserve">
+    <value>Aktualne saldo</value>
+  </data>
+  <data name="UserPercentOwnership" xml:space="preserve">
+    <value>Procentowy udział użytkownika w zasobie</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="AddStock" xml:space="preserve">
+    <value>Dodaj zasób</value>
+  </data>
+  <data name="Correction" xml:space="preserve">
+    <value>Korekta</value>
+  </data>
+  <data name="ManualStockUpdate" xml:space="preserve">
+    <value>Ręczna aktualizacja salda zasobu</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>Wpływ</value>
+  </data>
+  <data name="Outcome" xml:space="preserve">
+    <value>Wydatek</value>
+  </data>
+  <data name="TagName" xml:space="preserve">
+    <value>Nazwa tagu</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="LastEdit" xml:space="preserve">
+    <value>Ostatnia edycja</value>
+  </data>
+  <data name="BookDate" xml:space="preserve">
+    <value>Data zaksięgowania</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Tytuł</value>
+  </data>
+  <data name="TransactionType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategoria</value>
+  </data>
+  <data name="ExStock" xml:space="preserve">
+    <value>Zasób zewn.</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tagi</value>
+  </data>
+  <data name="NetValue" xml:space="preserve">
+    <value>Netto</value>
+  </data>
+  <data name="Tax" xml:space="preserve">
+    <value>Podatek</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Wartość</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Notatka</value>
+  </data>
+  <data name="Duplicate" xml:space="preserve">
+    <value>Duplikuj</value>
+  </data>
+  <data name="ExternalStock" xml:space="preserve">
+    <value>Zasób zewnętrzny</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Data utworzenia</value>
+  </data>
+  <data name="LastEditDate" xml:space="preserve">
+    <value>Data ostatniej modyfikacji</value>
+  </data>
+  <data name="UpdateStock" xml:space="preserve">
+    <value>Zaktualizuj zasób</value>
+  </data>
+  <data name="AddPosition" xml:space="preserve">
+    <value>Dodaj pozycję</value>
+  </data>
+  <data name="DropBillsHere" xml:space="preserve">
+    <value>Tutaj wrzuć rachunki</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="NewPosition" xml:space="preserve">
+    <value>Nowa pozycja</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Domyślny</value>
+  </data>
+  <data name="IsTransfer" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="AddTransactionType" xml:space="preserve">
+    <value>Dodaj typ</value>
+  </data>
+  <data name="Min" xml:space="preserve">
+    <value>Min</value>
+  </data>
+  <data name="Max" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="Gross" xml:space="preserve">
+    <value>Brutto</value>
+  </data>
+  <data name="LockTax" xml:space="preserve">
+    <value>Zablokuj podatek</value>
+  </data>
+  <data name="LoadContentAsTree" xml:space="preserve">
+    <value>Załaduj zawartość jako strukturę drzewiastą</value>
+  </data>
+  <data name="NewCategory" xml:space="preserve">
+    <value>Nowa kategoria</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="AboutHeader" xml:space="preserve">
+    <value>_O...</value>
+  </data>
+  <data name="TransactionsSearch" xml:space="preserve">
+    <value>Wyszukiwanie transakcji</value>
+  </data>
+  <data name="MassReplacer" xml:space="preserve">
+    <value>Masowa zamiana</value>
+  </data>
+  <data name="TransactionTypes" xml:space="preserve">
+    <value>Typy</value>
+  </data>
+  <data name="WealthPlot" xml:space="preserve">
+    <value>Wykres zasobności</value>
+  </data>
+  <data name="CustomBalances" xml:space="preserve">
+    <value>Konfigurowalne salda</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Kategorie</value>
+  </data>
+  <data name="CategoriesPlot" xml:space="preserve">
+    <value>Wykres kategorii</value>
+  </data>
+  <data name="AddTransaction" xml:space="preserve">
+    <value>Dodaj transakcję</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Język</value>
+  </data>
+  <data name="SkinColors" xml:space="preserve">
+    <value>Kolor skórki</value>
+  </data>
+  <data name="RestartRequiredAfterChange" xml:space="preserve">
+    <value>Zmiany będą widoczne dopiero po restarcie aplikacji</value>
+  </data>
+  <data name="SkinShape" xml:space="preserve">
+    <value>Kształt skórki</value>
+  </data>
+  <data name="Sounds" xml:space="preserve">
+    <value>Dźwięki</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Do</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="EditDate" xml:space="preserve">
+    <value>Data edycji</value>
+  </data>
+  <data name="PositionTitle" xml:space="preserve">
+    <value>Tytuł pozycji</value>
+  </data>
+</root>

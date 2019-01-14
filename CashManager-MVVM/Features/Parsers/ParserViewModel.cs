@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Windows;
 
 using AutoMapper;
 
@@ -10,6 +13,7 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.TransactionTypes;
 using CashManager.Logic.Parsers;
+using CashManager.Logic.Parsers.Custom.Predefined;
 
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Transactions;
@@ -19,19 +23,23 @@ using CashManager_MVVM.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
+using GongSolutions.Wpf.DragDrop;
+
 using DtoStock = CashManager.Data.DTO.Stock;
 using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
 
 namespace CashManager_MVVM.Features.Parsers
 {
-    public class ParserViewModel : ViewModelBase, IUpdateable
+    public class ParserViewModel : ViewModelBase, IUpdateable, IDropTarget
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private string _inputText;
 
-        private TransactionListViewModel _resultsListViewModel;
+        private bool _generateMissingStocks;
+
+        private TransactionListViewModel _resultsListViewModel = new TransactionListViewModel();
         private KeyValuePair<string, IParser> _selectedParser;
 
         public string InputText
@@ -68,6 +76,12 @@ namespace CashManager_MVVM.Features.Parsers
 
         public RelayCommand SaveCommand { get; set; }
 
+        public bool GenerateMissingStocks
+        {
+            get => _generateMissingStocks;
+            set => Set(ref _generateMissingStocks, value);
+        }
+
         public TransactionListViewModel ResultsListViewModel
         {
             get => _resultsListViewModel;
@@ -82,12 +96,17 @@ namespace CashManager_MVVM.Features.Parsers
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
 
+            Update();
+
+            //todo: refresh stocks
+            var factory = new CustomCsvParserFactory(Mapper.Map<DtoStock[]>(UserStocks.Concat(ExternalStocks)));
             Parsers = new Dictionary<string, IParser>
             {
                 { "Getin bank", new GetinBankParser() },
                 { "Idea bank", new IdeaBankParser() },
                 { "Millennium bank", new MillenniumBankParser() },
-                { "Ing bank", new IngBankParser() },
+                { "Ing bank (web)", new IngBankParser() },
+                { "Ing bank (csv)", factory.Create(PredefinedCsvParsers.Ing) },
                 { "Intelligo bank", new IntelligoBankParser() },
                 { "Excel", new ExcelParser() }
             };
@@ -110,15 +129,19 @@ namespace CashManager_MVVM.Features.Parsers
             TransactionsProvider.AllTransactions.RemoveRange(transactions);
             TransactionsProvider.AllTransactions.AddRange(transactions);
 
-            var balance = SelectedParser.Value.Balance;
-            if (balance != null)
+            var balances = SelectedParser.Value.Balances
+                                         .Where(x => x.Value.LastEditDate > x.Key.Balance.LastEditDate)
+                                         .ToArray();
+            if (balances.Any())
             {
-                if (SelectedUserStock.Balance == null || balance.LastEditDate > SelectedUserStock.Balance.LastEditDate)
-                {
-                    SelectedUserStock.Balance = Mapper.Map<Model.Balance>(balance);
-                    _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock[]>(new [] { SelectedUserStock } )));
-                    MessengerInstance.Send(new UpdateStockMessage(SelectedUserStock));
-                }
+                foreach (var balance in balances) balance.Key.Balance = balance.Value;
+
+                var updatedStocks = balances.Select(x => x.Key).ToArray();
+                var stocks = Mapper.Map<Stock[]>(updatedStocks);
+
+                foreach (var stock in stocks) stock.Balance.Value = stock.Balance.Value; //lets trigger edit date change
+                _commandDispatcher.Execute(new UpsertStocksCommand(updatedStocks));
+                MessengerInstance.Send(new UpdateStockMessage(stocks));
             }
         }
 
@@ -129,12 +152,17 @@ namespace CashManager_MVVM.Features.Parsers
 
         private void ExecuteParseCommand()
         {
-            var transactions = Mapper.Map<List<Transaction>>(SelectedParser.Value.Parse(InputText, Mapper.Map<DtoStock>(SelectedUserStock),
+            var parser = SelectedParser.Value;
+            var results = parser.Parse(InputText, Mapper.Map<DtoStock>(SelectedUserStock),
                 Mapper.Map<DtoStock>(SelectedExternalStock),
                 Mapper.Map<DtoTransactionType>(DefaultOutcomeTransactionType),
-                Mapper.Map<DtoTransactionType>(DefaultIncomeTransactionType)));
+                Mapper.Map<DtoTransactionType>(DefaultIncomeTransactionType), GenerateMissingStocks);
+            var transactions = Mapper.Map<Transaction[]>(results).Where(x => x.IsValid);
 
-            ResultsListViewModel = new TransactionListViewModel { Transactions = new TrulyObservableCollection<Transaction>(transactions) };
+            ResultsListViewModel = new TransactionListViewModel
+            {
+                Transactions = new TrulyObservableCollection<Transaction>(transactions)
+            };
             RaisePropertyChanged(nameof(ResultsListViewModel));
         }
 
@@ -166,6 +194,35 @@ namespace CashManager_MVVM.Features.Parsers
                                       .ToArray();
             DefaultIncomeTransactionType = IncomeTransactionTypes.FirstOrDefault();
             DefaultOutcomeTransactionType = OutcomeTransactionTypes.FirstOrDefault();
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            dropInfo.Effects = GetProperFilepaths(dropInfo).Any()
+                                   ? DragDropEffects.Copy
+                                   : DragDropEffects.None;
+        }
+
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            string input = string.Empty;
+            var files = GetProperFilepaths(dropInfo);
+            foreach (string file in files)
+                if (File.Exists(file))
+                    input += File.ReadAllText(file, Encoding.Default);
+
+            InputText = input;
+        }
+
+        private string[] GetProperFilepaths(IDropInfo dropInfo)
+        {
+            string[] allowedExtensions = { ".csv", ".txt" };
+            return ((DataObject)dropInfo.Data).GetFileDropList()
+                                              .OfType<string>()
+                                              .Where(x => !string.IsNullOrWhiteSpace(x))
+                                              .Where(x => allowedExtensions.Contains(Path.GetExtension(x).ToLower()))
+                                              .ToArray();
         }
     }
 }

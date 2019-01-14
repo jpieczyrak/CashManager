@@ -6,6 +6,11 @@ namespace CashManager.Infrastructure.Command.Stocks
     {
         public Stock[] Stocks { get; }
 
+        public UpsertStocksCommand(Stock stock)
+        {
+            Stocks = new[] { stock };
+        }
+
         public UpsertStocksCommand(Stock[] stocks)
         {
             Stocks = stocks;

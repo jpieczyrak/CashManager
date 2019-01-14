@@ -1,46 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-using AutoMapper;
-
 using CashManager.Infrastructure.Query;
-using CashManager.Infrastructure.Query.Stocks;
 
 using CashManager_MVVM.CommonData;
+using CashManager_MVVM.Logic.Calculators;
 using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Selectors;
-
-using GalaSoft.MvvmLight;
+using CashManager_MVVM.Properties;
 
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 
-using DtoStock = CashManager.Data.DTO.Stock;
-
 namespace CashManager_MVVM.Features.Plots
 {
-    public class WealthViewModel : ViewModelBase, IUpdateable
+    public class WealthViewModel : FilterableViewModel
     {
-        private readonly IQueryDispatcher _queryDispatcher;
-        private readonly TransactionsProvider _transactionsProvider;
-        private DateFrame _bookDateFilter;
-        private MultiPicker _userStocksFilter;
+        private readonly TransactionBalanceCalculator _calculator;
         private PlotModel _wealth;
-
-        public DateFrame BookDateFilter
-        {
-            get => _bookDateFilter;
-            set => Set(nameof(BookDateFilter), ref _bookDateFilter, value);
-        }
-
-        public MultiPicker UserStocksFilter
-        {
-            get => _userStocksFilter;
-            set => Set(nameof(UserStocksFilter), ref _userStocksFilter, value);
-        }
 
         public PlotModel Wealth
         {
@@ -48,43 +26,22 @@ namespace CashManager_MVVM.Features.Plots
             set => Set(nameof(Wealth), ref _wealth, value);
         }
 
-        public WealthViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider transactionsProvider)
+        public WealthViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider transactionsProvider,
+            TransactionBalanceCalculator calculator) : base(queryDispatcher, transactionsProvider)
         {
-            _queryDispatcher = queryDispatcher;
-            _transactionsProvider = transactionsProvider;
-            _bookDateFilter = new DateFrame(DateFrameType.BookDate);
+            _calculator = calculator;
             Wealth = PlotHelper.CreatePlotModel();
             Wealth.Axes.Add(new DateTimeAxis());
         }
 
-        public void Update()
+        public DataPoint[] GetWealthValues(IEnumerable<Transaction> transactions, Stock[] selectedStocks)
         {
-            var stocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()))
-                               .Where(x => x.IsUserStock)
-                               .OrderBy(x => x.Name)
-                               .ToArray();
-
-            if (UserStocksFilter != null) UserStocksFilter.PropertyChanged -= OnPropertyChanged;
-            UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, stocks);
-            foreach (var result in UserStocksFilter.ComboBox.InternalDisplayableSearchResults) result.IsSelected = true;
-            UserStocksFilter.IsChecked = true;
-            UserStocksFilter.PropertyChanged += OnPropertyChanged;
-            
-            BookDateFilter.PropertyChanged -= OnPropertyChanged;
-            BookDateFilter.From = _transactionsProvider.AllTransactions.Any()
-                                      ? _transactionsProvider.AllTransactions.Min(x => x.BookDate)
-                                      : DateTime.MinValue;
-            BookDateFilter.To = _transactionsProvider.AllTransactions.Any()
-                                    ? _transactionsProvider.AllTransactions.Max(x => x.BookDate)
-                                    : DateTime.MaxValue;
-
-            BookDateFilter.IsChecked = true;
-            BookDateFilter.PropertyChanged += OnPropertyChanged;
-
-            OnPropertyChanged(this, null);
+            return _calculator.GetWealthValues(transactions, selectedStocks, BookDateFilter, x => x.BookDate);
         }
-        
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+
+        #region Override
+
+        protected override void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             var selectedStocks = UserStocksFilter.IsChecked
                                      ? UserStocksFilter.Results.OfType<Stock>().ToArray()
@@ -92,11 +49,11 @@ namespace CashManager_MVVM.Features.Plots
             Wealth.Series.Clear();
 
             var values = GetWealthValues(_transactionsProvider.AllTransactions, selectedStocks);
-            if (values.Any())
+            if (values.Any(x => x.Y > 0))
             {
                 var series = new AreaSeries
                 {
-                    Title = "Wealth",
+                    Title = Strings.Wealth,
                     MarkerType = MarkerType.Cross
                 };
                 series.Points.AddRange(values);
@@ -107,33 +64,6 @@ namespace CashManager_MVVM.Features.Plots
             Wealth.ResetAllAxes();
         }
 
-        public DataPoint[] GetWealthValues(IEnumerable<Transaction> transactions, Stock[] selectedStocks)
-        {
-            if (selectedStocks == null || !selectedStocks.Any()) return new DataPoint[0];
-            if (transactions == null || !transactions.Any()) return new DataPoint[0];
-
-            var stockDate = selectedStocks.Max(x => x.LastEditDate);
-            decimal actualValue = selectedStocks.Sum(x => x.Balance.Value);
-
-            var values = transactions
-                         .Where(x => selectedStocks.Contains(x.UserStock))
-                         .OrderByDescending(x => x.BookDate)
-                         .GroupBy(x => x.BookDate)
-                         .Select(x =>
-                         {
-                             actualValue -= x.Sum(y => y.ValueAsProfit);
-                             double value = (double) actualValue;
-                             return new { BookDate = x.Key, Value = value };
-                         })
-                         .Where(x => !BookDateFilter.IsChecked || x.BookDate >= BookDateFilter.From && x.BookDate <= BookDateFilter.To)
-                         .OrderBy(x => x.BookDate)
-                         .Select(x => new DataPoint(DateTimeAxis.ToDouble(x.BookDate), x.Value))
-                         .Concat(!BookDateFilter.IsChecked || stockDate.Date <= BookDateFilter.To
-                                     ? new[] { new DataPoint(DateTimeAxis.ToDouble(stockDate), (double) actualValue) }
-                                     : new DataPoint[0])
-                         .ToArray();
-
-            return values;
-        }
+        #endregion
     }
 }

@@ -7,6 +7,7 @@ using CashManager.Infrastructure.Modules;
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features;
 using CashManager_MVVM.Features.Main;
+using CashManager_MVVM.Logic.Calculators;
 
 using GalaSoft.MvvmLight;
 
@@ -28,6 +29,7 @@ namespace CashManager_MVVM.Configuration.DI
                    .ExternallyOwned();
 
             builder.RegisterType<ViewModelFactory>().As<ViewModelFactory>();
+            builder.RegisterType<TransactionBalanceCalculator>().As<TransactionBalanceCalculator>();
             builder.RegisterType<TransactionsProvider>().As<TransactionsProvider>().SingleInstance().ExternallyOwned();
 
             builder.Register<Func<Type, ViewModelBase>>(c =>

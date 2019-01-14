@@ -3,20 +3,29 @@ using System.Linq;
 
 using Autofac;
 
+using CashManager.Tests.ViewModels.Fixtures;
+
 using CashManager_MVVM.Features.Search;
 
 using Xunit;
 
 namespace CashManager.Tests.ViewModels.Search.Transactions
 {
-    public class DateFrameTests : ViewModelTests
+    [Collection("Database collection")]
+    public class DateFrameTests
     {
+        private readonly DatabaseFixture _fixture;
+
+        public DateFrameTests(DatabaseFixture fixture)
+        {
+            _fixture = fixture;
+        }
+
         [Fact]
         public void OnBookDateFilterChanged_SomeTransactionsFilterNotEnabled_AllTransactions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             vm.IsTransactionsSearch = true;
 
@@ -25,7 +34,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
 
             //then
             Assert.NotEmpty(vm.MatchingTransactions);
-            Assert.Equal(Transactions.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(_fixture.ViewModelContext.Transactions.Value.Length, vm.MatchingTransactions.Count);
         }
 
         [Fact]
@@ -34,8 +43,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             var minDateTime = DateTime.Today.AddDays(-10);
             var maxDateTime = DateTime.Today.AddDays(10);
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             vm.IsTransactionsSearch = true;
             var expected = vm.MatchingTransactions
@@ -60,8 +68,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             var minDateTime = DateTime.Today.AddDays(-10);
             var maxDateTime = DateTime.Today.AddDays(-1);
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             vm.IsTransactionsSearch = true;
             var expected = vm.MatchingTransactions
@@ -85,8 +92,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             var minDateTime = DateTime.Today.AddDays(-10);
             var maxDateTime = DateTime.Today.AddDays(10);
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             vm.IsTransactionsSearch = true;
             var expected = vm.MatchingTransactions
@@ -110,8 +116,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
         public void OnBookDateFilterChanged_NotTransactionSearchSomeTransactionsFilterNotEnabled_AllTransactions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             vm.IsTransactionsSearch = false;
 
@@ -120,7 +125,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
 
             //then
             Assert.NotEmpty(vm.MatchingTransactions);
-            Assert.Equal(Transactions.Length, vm.MatchingTransactions.Count);
+            Assert.Equal(_fixture.ViewModelContext.Transactions.Value.Length, vm.MatchingTransactions.Count);
         }
 
         [Fact]
@@ -129,8 +134,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             var minDateTime = DateTime.Today.AddDays(-10);
             var maxDateTime = DateTime.Today.AddDays(10);
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             vm.IsTransactionsSearch = false;
             var expected = vm.MatchingTransactions.ToArray();
@@ -152,8 +156,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             var minDateTime = DateTime.Today.AddDays(-10);
             var maxDateTime = DateTime.Today.AddDays(-1);
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             vm.IsTransactionsSearch = false;
             var expected = vm.MatchingTransactions.ToArray();
@@ -174,8 +177,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             //given
             var minDateTime = DateTime.Today.AddDays(-10);
             var maxDateTime = DateTime.Today.AddDays(10);
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             vm.IsTransactionsSearch = false;
             var expected = vm.MatchingTransactions.ToArray();

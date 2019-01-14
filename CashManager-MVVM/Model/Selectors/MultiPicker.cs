@@ -3,6 +3,7 @@ using System.Linq;
 
 using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Model.Common;
+using CashManager_MVVM.Properties;
 
 namespace CashManager_MVVM.Model.Selectors
 {
@@ -36,19 +37,19 @@ namespace CashManager_MVVM.Model.Selectors
             switch (type)
             {
                 case MultiPickerType.Category:
-                    Description = "Categories";
+                    Description = Strings.Categories;
                     break;
                 case MultiPickerType.Tag:
-                    Description = "Tags";
+                    Description = Strings.Tags;
                     break;
                 case MultiPickerType.UserStock:
-                    Description = "User stock";
+                    Description = Strings.UserStock;
                     break;
                 case MultiPickerType.ExternalStock:
-                    Description = "External stock";
+                    Description = Strings.ExternalStock;
                     break;
                 case MultiPickerType.TransactionType:
-                    Description = "Types";
+                    Description = Strings.TransactionTypes;
                     break;
             }
 

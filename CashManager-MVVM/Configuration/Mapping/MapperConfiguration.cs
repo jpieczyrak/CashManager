@@ -11,7 +11,7 @@ using Tag = CashManager_MVVM.Model.Tag;
 
 namespace CashManager_MVVM.Configuration.Mapping
 {
-    public class MapperConfiguration
+    public static class MapperConfiguration
     {
         private static readonly object _lock = new object();
         private static bool _isInitialized;
@@ -28,7 +28,8 @@ namespace CashManager_MVVM.Configuration.Mapping
                         config.CreateMap<CashManager.Data.DTO.Category, Category>();
 
                         config.CreateMap<Balance, CashManager.Data.DTO.Balance>();
-                        config.CreateMap<CashManager.Data.DTO.Balance, Balance>();
+                        config.CreateMap<CashManager.Data.DTO.Balance, Balance>()
+                              .AfterMap((dto, model) => model.IsPropertyChangedEnabled = true);
 
                         config.CreateMap<Stock, CashManager.Data.DTO.Stock>();
                         config.CreateMap<CashManager.Data.DTO.Stock, Stock>()

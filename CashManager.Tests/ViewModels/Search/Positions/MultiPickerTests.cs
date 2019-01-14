@@ -2,25 +2,34 @@
 
 using Autofac;
 
+using CashManager.Tests.ViewModels.Fixtures;
+
 using CashManager_MVVM.Features.Search;
 
 using Xunit;
 
 namespace CashManager.Tests.ViewModels.Search.Positions
 {
-    public class MultiPickerTests : ViewModelTests
+    [Collection("Database collection")]
+    public class MultiPickerTests
     {
+        private readonly DatabaseFixture _fixture;
+
+        public MultiPickerTests(DatabaseFixture fixture)
+        {
+            _fixture = fixture;
+        }
+
         [Fact]
         public void OnCategoryFilterChanged_SomePositions_MatchingPositions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             var filterValue = vm.MatchingTransactions.First().Positions.First().Category;
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = Positions
+            var expected = _fixture.ViewModelContext.Positions.Value
                              .Where(x => filterValue.MatchCategoryFilter(x.Category))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -39,13 +48,12 @@ namespace CashManager.Tests.ViewModels.Search.Positions
         public void OnTagsFilterChanged_SomePositions_MatchingPositions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
-            var filterValue = new [] { Tags[0], Tags[2] };
+            var filterValue = new [] { _fixture.ViewModelContext.Tags.Value[0], _fixture.ViewModelContext.Tags.Value[2] };
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = Positions
+            var expected = _fixture.ViewModelContext.Positions.Value
                              .Where(x => x.Tags.Any(y => filterValue.Contains(y)))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -67,13 +75,12 @@ namespace CashManager.Tests.ViewModels.Search.Positions
         public void OnTypesFilterChanged_SomePositions_MatchingPositions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             var filterValue = vm.MatchingTransactions.First().Positions.First().Parent.Type;
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = Positions
+            var expected = _fixture.ViewModelContext.Positions.Value
                              .Where(x => Equals(x.Parent.Type, filterValue))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -92,13 +99,12 @@ namespace CashManager.Tests.ViewModels.Search.Positions
         public void OnUserStockFilterChanged_SomePositions_MatchingPositions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             var filterValue = vm.MatchingTransactions.First().Positions.First().Parent.UserStock;
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = Positions
+            var expected = _fixture.ViewModelContext.Positions.Value
                              .Where(x => Equals(x.Parent.UserStock, filterValue))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -117,8 +123,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
         public void OnExternalStockFilterChanged_SomePositions_MatchingPositions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             var filterValue = vm.MatchingTransactions.First().Positions.First().Parent.ExternalStock;
             vm.IsPositionsSearch = true;

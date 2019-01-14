@@ -7,7 +7,6 @@ using AutoMapper;
 
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
-using CashManager.Infrastructure.Query.Transactions;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.CommonData;
@@ -20,7 +19,6 @@ using OxyPlot;
 using OxyPlot.Series;
 
 using DtoStock = CashManager.Data.DTO.Stock;
-using DtoTransaction = CashManager.Data.DTO.Transaction;
 
 namespace CashManager_MVVM.Features.Plots
 {
@@ -45,6 +43,7 @@ namespace CashManager_MVVM.Features.Plots
             get => _userStocksFilter;
             set => Set(nameof(UserStocksFilter), ref _userStocksFilter, value);
         }
+
         public MultiPicker TypesFilter
         {
             get => _typesFilter;
@@ -71,6 +70,8 @@ namespace CashManager_MVVM.Features.Plots
             PieCategories = PlotHelper.CreatePlotModel();
         }
 
+        #region IUpdateable
+
         public void Update()
         {
             var stocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()))
@@ -96,7 +97,9 @@ namespace CashManager_MVVM.Features.Plots
 
             OnPropertyChanged(this, null);
         }
-        
+
+        #endregion
+
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             ColumnCategories.Series.Clear();
@@ -121,7 +124,7 @@ namespace CashManager_MVVM.Features.Plots
                              .Select(x =>
                              {
                                  decimal value = x.Sum(y => y.Value.GrossValue);
-                                 return new { Title = x.Key, Value = value} ;
+                                 return new { Title = x.Key, Value = value };
                              })
                              .OrderByDescending(x => x.Value)
                              .ToArray();
@@ -134,11 +137,12 @@ namespace CashManager_MVVM.Features.Plots
                         ColumnCategories.Series.Add(new ColumnSeries
                         {
                             Title = value.Title,
-                            ItemsSource = new [] { value },
+                            ItemsSource = new[] { value },
                             ValueField = nameof(value.Value)
                         });
-                        series.Slices.Add(new PieSlice(value.Title, (double)value.Value));
+                        series.Slices.Add(new PieSlice(value.Title, (double) value.Value));
                     }
+
                     PieCategories.Series.Add(series);
                 }
             }

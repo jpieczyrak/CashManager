@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 using CashManager_MVVM.Model.Common;
 
@@ -50,8 +51,11 @@ namespace CashManager_MVVM.Model
 
         public decimal UserBalance => UserOwnershipPercent != 0m ? Balance.Value * UserOwnershipPercent / 100m : 0m;
 
-        public Stock()
+        public Stock() : this(Guid.NewGuid()) { }
+
+        public Stock(Guid id) : base(id)
         {
+            LastEditDate = DateTime.Now;
             Balance = new Balance();
         }
 

@@ -12,6 +12,9 @@ namespace CashManager.Data.DTO
             LastEditDate = date;
         }
 
-        public Balance() { }
+        public Balance()
+        {
+            LastEditDate = DateTime.MinValue;
+        }
     }
 }

@@ -55,8 +55,8 @@ namespace CashManager.Infrastructure.DbConnection
         public static T[] Query<T>(this LiteDatabase db, Expression<Func<T, bool>> query = null) where T : class
         {
             var collection = db.GetCollection<T>();
-            return query != null 
-                       ? collection.IncludeAll(MAX_DEPTH_FOR_REFERENCES_LOADING).Find(query).ToArray() 
+            return query != null
+                       ? collection.IncludeAll(MAX_DEPTH_FOR_REFERENCES_LOADING).Find(query).ToArray()
                        : collection.IncludeAll(MAX_DEPTH_FOR_REFERENCES_LOADING).FindAll().ToArray();
         }
 

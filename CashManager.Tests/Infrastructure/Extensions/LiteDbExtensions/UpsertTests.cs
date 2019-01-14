@@ -89,7 +89,7 @@ namespace CashManager.Tests.Infrastructure.Extensions.LiteDbExtensions
             Assert.Equal(0, result);
             Assert.Equal(input.OrderBy(x => x.Id), repo.Database.GetCollection<Tag>().FindAll().OrderBy(x => x.Id));
             Assert.Equal(
-                input.OrderBy(x => x.Id).Select(x => x.Name), 
+                input.OrderBy(x => x.Id).Select(x => x.Name),
                 repo.Database.GetCollection<Tag>().FindAll().OrderBy(x => x.Id).Select(x => x.Name));
         }
     }

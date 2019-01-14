@@ -13,16 +13,12 @@ namespace CashManager_MVVM.CommonData
 {
     public class TransactionsProvider
     {
-        private readonly IQueryDispatcher _queryDispatcher;
-
         public TrulyObservableCollection<Transaction> AllTransactions { get; }
 
         public TransactionsProvider(IQueryDispatcher queryDispatcher)
         {
-            _queryDispatcher = queryDispatcher;
-
             var query = new TransactionQuery();
-            var dtos = _queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(query);
+            var dtos = queryDispatcher.Execute<TransactionQuery, DtoTransaction[]>(query);
             AllTransactions = new TrulyObservableCollection<Transaction>(Mapper.Map<List<Transaction>>(dtos));
         }
     }

@@ -4,11 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CashManager_MVVM.Features.Search"
+             xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
+             xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:SearchViewModel, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="bool2VisibilityConverter"/>
+        <BooleanToVisibilityConverter x:Key="Bool2VisibilityConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -19,7 +21,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         
-        <Grid Grid.Row="0" Margin="20">
+        <Grid Grid.Row="0" Margin="20,5,20,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -28,9 +30,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
-            <RadioButton Grid.Column="1" IsChecked="{Binding IsTransactionsSearch}" ToolTip="Transactions search" />
-            <TextBlock Grid.Column="2" Text="{Binding Title}" TextAlignment="Center" HorizontalAlignment="Center" FontSize="11" FontStyle="Italic" Foreground="{DynamicResource DisabledForegroundBrush}" FontWeight="Bold" Margin="10,0"/>
-            <RadioButton Grid.Column="3" IsChecked="{Binding IsPositionsSearch}" ToolTip="Positions search" />
+            <RadioButton Grid.Column="1" IsChecked="{Binding IsTransactionsSearch}" ToolTip="{x:Static properties:Strings.TransactionSearch}" />
+            <TextBlock Grid.Column="2" Text="{Binding Title}" Style="{DynamicResource GrayTextBlock}" Margin="10,0" MinWidth="100"/>
+            <RadioButton Grid.Column="3" IsChecked="{Binding IsPositionsSearch}" ToolTip="{x:Static properties:Strings.PositionSearch}" />
             <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="4" Margin="5,0"/>
         </Grid>
 
@@ -54,19 +56,19 @@
             <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding State.CategoriesFilter}" />
             <UserControl Grid.Row="1" Grid.Column="2" Content="{Binding State.TypesFilter}" />
 
-            <UserControl Grid.Row="2" Grid.Column="0" Content="{Binding State.CreateDateFilter}" />
-            <UserControl Grid.Row="2" Grid.Column="1" Content="{Binding State.BookDateFilter}" />
-            <UserControl Grid.Row="2" Grid.Column="2" Content="{Binding State.LastEditDateFilter}" />
+            <common:DateRangePicker Grid.Row="2" Grid.Column="0" DateFrame="{Binding State.CreateDateFilter}" />
+            <common:DateRangePicker Grid.Row="2" Grid.Column="1" DateFrame="{Binding State.BookDateFilter}" />
+            <common:DateRangePicker Grid.Row="2" Grid.Column="2" DateFrame="{Binding State.LastEditDateFilter}" />
 
             <UserControl Grid.Row="3" Grid.Column="0" Content="{Binding State.UserStocksFilter}" />
             <UserControl Grid.Row="3" Grid.Column="1" Content="{Binding State.ExternalStocksFilter}" />
             <UserControl Grid.Row="3" Grid.Column="2" Content="{Binding State.ValueFilter}" />
         </Grid>
 
-        <UserControl Grid.Row="2" Content="{Binding TransactionsListViewModel}" Visibility="{Binding IsTransactionsSearch, Converter={StaticResource bool2VisibilityConverter}}" />
-        <UserControl Grid.Row="2" Content="{Binding PositionsListViewModel}" Visibility="{Binding IsPositionsSearch, Converter={StaticResource bool2VisibilityConverter}}" />
+        <UserControl Grid.Row="2" Content="{Binding TransactionsListViewModel}" Visibility="{Binding IsTransactionsSearch, Converter={StaticResource Bool2VisibilityConverter}}" />
+        <UserControl Grid.Row="2" Content="{Binding PositionsListViewModel}" Visibility="{Binding IsPositionsSearch, Converter={StaticResource Bool2VisibilityConverter}}" />
 
-        <Grid Grid.Row="3" Margin="0,5">
+        <Grid Grid.Row="3" Margin="0,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -81,8 +83,8 @@
                       SelectedItem="{Binding SelectedSearch}" 
                       Text="{Binding Path=SelectedSearch.Name}"
                       MinWidth="100" Margin="5,0"/>
-            <Button Grid.Column="2" Content="Save search criteria" Command="{Binding SaveSearch}" Margin="5,0"/>
-            <Button Grid.Column="3" Content="Load" Command="{Binding LoadSearch}" Margin="5,0"/>
+            <Button Grid.Column="2" Content="{x:Static properties:Strings.SaveSearchCriteria}" Command="{Binding SaveSearch}" Margin="5,0"/>
+            <Button Grid.Column="3" Content="{x:Static properties:Strings.Load}" Command="{Binding LoadSearch}" Margin="5,0"/>
         </Grid>
     </Grid>
 </UserControl>

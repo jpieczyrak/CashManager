@@ -3,6 +3,10 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 
+using AutoMapper;
+
+using CashManager.Data.Extensions;
+
 using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
@@ -25,7 +29,7 @@ namespace CashManager_MVVM.Model
         /// Date when transaction was performed (in real life, like going to shop or receiving payment)
         /// </summary>
         public DateTime TransactionSourceCreationDate { get; private set; }
-        
+
         /// <summary>
         /// Title of transaction
         /// </summary>
@@ -107,7 +111,11 @@ namespace CashManager_MVVM.Model
         public DateTime BookDate
         {
             get => _bookDate;
-            set => Set(nameof(BookDate), ref _bookDate, value);
+            set
+            {
+                if (value > DateTime.Today) value = DateTime.Today;
+                Set(nameof(BookDate), ref _bookDate, value);
+            }
         }
 
         /// <summary>
@@ -118,12 +126,25 @@ namespace CashManager_MVVM.Model
         /// <summary>
         /// Total value of transaction as profit of user (negative when buying, positive when receiving payments)
         /// </summary>
-        public decimal ValueAsProfit => Type.Outcome
-                                           ? -Value
-                                           : Type.Income
-                                               ? Value
-                                               : 0m;
-        
+        public decimal ValueWithSign => Type == null
+                                            ? 0m
+                                            : Type.Outcome
+                                                ? -Value
+                                                : Type.Income
+                                                    ? Value
+                                                    : 0m;
+
+
+        public decimal ValueAsProfit => Type == null || Type.IsTransfer ? 0m : ValueWithSign;
+
+        public bool IsValid => Type != null
+                               && UserStock != null
+                               && (Positions?.Any() ?? false)
+                               && !string.IsNullOrWhiteSpace(Title)
+                               && UserStock != null;
+
+        public Transaction(Guid id) : this() { Id = id; }
+
         public Transaction()
         {
             _bookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
@@ -132,7 +153,7 @@ namespace CashManager_MVVM.Model
             StoredFiles = new ObservableCollection<StoredFileInfo>();
             IsPropertyChangedEnabled = true;
         }
-        
+
         private void PositionsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsPropertyChangedEnabled)
@@ -145,6 +166,32 @@ namespace CashManager_MVVM.Model
         private void StoredFilesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsPropertyChangedEnabled) RaisePropertyChanged(nameof(StoredFiles));
+        }
+
+        public static Transaction Copy(Transaction source)
+        {
+            if (source == null) return null;
+            var dto = new CashManager.Data.DTO.Transaction($"{source.Id}{DateTime.Now}".GenerateGuid())
+            {
+                TransactionSourceCreationDate = source.TransactionSourceCreationDate
+            };
+
+            var transaction = Mapper.Map<Transaction>(dto);
+            transaction.IsPropertyChangedEnabled = false;
+            transaction.BookDate = source.BookDate;
+            transaction.Title = source.Title;
+            transaction.Note = source.Note;
+            transaction.UserStock = source.UserStock;
+            transaction.ExternalStock = source.ExternalStock;
+            transaction.Type = source.Type;
+
+            transaction.Positions = new TrulyObservableCollection<Position>(source.Positions
+                                                                                  .Where(x => x != null)
+                                                                                  .Select(Position.Copy));
+
+            transaction.IsPropertyChangedEnabled = source.IsPropertyChangedEnabled;
+
+            return transaction;
         }
     }
 }

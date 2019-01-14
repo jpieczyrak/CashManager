@@ -31,7 +31,7 @@ namespace CashManager_MVVM.Features.Balance
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private CustomBalance _selectedCustomBalance;
-        private Summary[] _selectedSearchSummary;
+        private TransactionsSummary[] _selectedSearchSummary;
         private readonly SearchViewModel _searchViewModel;
         private string _name;
         private ObservableCollection<CustomBalance> _customBalances;
@@ -56,7 +56,7 @@ namespace CashManager_MVVM.Features.Balance
             SavedSearches?.RaisePropertyChanged();
         }
 
-        public Summary[] SelectedSearchSummary
+        public TransactionsSummary[] SelectedSearchSummary
         {
             get => _selectedSearchSummary;
             set => Set(nameof(SelectedSearchSummary), ref _selectedSearchSummary, value);
@@ -93,7 +93,7 @@ namespace CashManager_MVVM.Features.Balance
             _commandDispatcher = commandDispatcher;
             DeleteCommand = new RelayCommand(ExecuteDeleteCommand, () => SelectedCustomBalance != null);
             SaveCommand = new RelayCommand(ExecuteSaveCommand);
-            SelectedSearchSummary = new Summary[0];
+            SelectedSearchSummary = new TransactionsSummary[0];
             DateFilter = new DateFrame(DateFrameType.BookDate);
             DateFilter.PropertyChanged += (sender, args) => UpdateSummary();
 
@@ -102,7 +102,7 @@ namespace CashManager_MVVM.Features.Balance
 
             SavedSearches = new MultiComboBoxViewModel();
             SavedSearches.PropertyChanged += SavedSearchesOnPropertyChanged;
-            
+
             var customBalanceQuery = new CustomBalanceQuery();
             var customBalances = _queryDispatcher.Execute<CustomBalanceQuery, DtoCustomBalance[]>(customBalanceQuery);
             CustomBalances = Mapper.Map<ObservableCollection<CustomBalance>>(customBalances);
@@ -121,7 +121,7 @@ namespace CashManager_MVVM.Features.Balance
             CustomBalances.Add(balance);
             SelectedCustomBalance = balance;
         }
-        
+
         private void ExecuteDeleteCommand()
         {
             _commandDispatcher.Execute(new DeleteCustomBalanceCommand(Mapper.Map<DtoCustomBalance>(SelectedCustomBalance)));
@@ -138,7 +138,7 @@ namespace CashManager_MVVM.Features.Balance
 
         private void UpdateSummary()
         {
-            var summaries = new List<Summary>();
+            var summaries = new List<TransactionsSummary>();
             if (SelectedCustomBalance != null)
             {
                 _searchViewModel.Update();
@@ -152,6 +152,7 @@ namespace CashManager_MVVM.Features.Balance
                     }
                     //todo: make it cleaner - do not use search vm?
                     _searchViewModel.State.ApplySearchCriteria(state);
+                    _searchViewModel.PerformFilter();
                     //todo: handle positions if needed
                     var summary = _searchViewModel.TransactionsListViewModel.Summary.Copy();
                     summary.Name = state.Name;
@@ -161,12 +162,14 @@ namespace CashManager_MVVM.Features.Balance
 
             if (summaries.Any())
             {
-                summaries.Add(new Summary
+                summaries.Add(new TransactionsSummary
                 {
                     Name = "Balance",
                     GrossIncome = summaries.Sum(x => x.GrossIncome),
                     GrossOutcome = summaries.Sum(x => x.GrossOutcome),
-                    GrossBalance = summaries.Sum(x => x.GrossBalance)
+                    GrossBalance = summaries.Sum(x => x.GrossBalance),
+                    IncomesCount = summaries.Sum(x => x.IncomesCount),
+                    OutcomesCount = summaries.Sum(x => x.OutcomesCount),
                 });
             }
 

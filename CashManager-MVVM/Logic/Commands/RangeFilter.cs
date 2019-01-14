@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
@@ -56,7 +55,7 @@ namespace CashManager_MVVM.Logic.Commands
         {
             RaisePropertyChanged();
         }
-        
+
         ~RangeFilter()
         {
             _rangeSelector.PropertyChanged -= RangeSelectorOnPropertyChanged;

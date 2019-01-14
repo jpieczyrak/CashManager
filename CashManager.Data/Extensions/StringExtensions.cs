@@ -7,7 +7,7 @@ namespace CashManager.Data.Extensions
     public static class StringExtensions
     {
         /// <summary>
-        /// Generates GUID based on input 
+        /// Generates GUID based on input
         /// </summary>
         /// <returns></returns>
         public static Guid GenerateGuid(this string input)

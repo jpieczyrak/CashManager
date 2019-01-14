@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Texts -->
+    <Color x:Key="ForegroundColor">White</Color>
+    <SolidColorBrush x:Key="ForegroundBrush" Color="{StaticResource ForegroundColor}"/>
+
+    <Color x:Key="DisabledForegroundColor">#aaaaaa</Color>
+    <SolidColorBrush x:Key="DisabledForegroundBrush" Color="{StaticResource DisabledForegroundColor}" />
+
+    <!-- Borders -->
+    <Color x:Key="BorderColor">#cfcfcf</Color>
+    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}" />
+
+    <Color x:Key="DisabledBorderColor">#727272</Color>
+    <SolidColorBrush x:Key="DisabledBorderBrush" Color="{StaticResource DisabledBorderColor}" />
+
+    <Color x:Key="HoverBorderAccentOptionalColor">#FFCCCCCC</Color>
+    <Color x:Key="HoverBorderAccentColor">#FFB2B2B2</Color>
+    <SolidColorBrush x:Key="HoverBorderAccentBrush" Color="{StaticResource HoverBorderAccentColor}" />
+
+    <!-- Backgrounds -->
+    <Color x:Key="BackgroundAccentColor">#FF262626</Color>
+    <Color x:Key="BackgroundMainColor">#000000</Color>
+    <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundMainColor}"/>
+
+    <LinearGradientBrush x:Key="ControlBackgroundBrush" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="{StaticResource HoverBorderAccentOptionalColor}" Offset="0" />
+        <GradientStop Color="{StaticResource HoverBorderAccentColor}" Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="DisabledControlBackgroundBrush" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="{StaticResource ForegroundColor}" Offset="0" /> <!-- maybe it should be changed to sth light like f4f4f4 -->
+        <GradientStop Color="{StaticResource BorderColor}" Offset="0.7" />
+        <GradientStop Color="{StaticResource DisabledForegroundColor}" Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="HoverControlBackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="{StaticResource HoverBorderAccentOptionalColor}" Offset="0" />
+        <GradientStop Color="{StaticResource HoverBorderAccentColor}" Offset="1" />
+    </LinearGradientBrush>
+</ResourceDictionary>

@@ -18,6 +18,7 @@ namespace CashManager_MVVM.Features.Categories
 {
     public class CategoryPickerViewModel : ViewModelBase
     {
+        private readonly Category[] _flatCategories;
         private Category _selectedCategory;
 
         public IEnumerable<Category> Categories { get; }
@@ -39,21 +40,33 @@ namespace CashManager_MVVM.Features.Categories
                                             .ToArray();
 
             foreach (var category in categories)
-                category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category.Id));
+                category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category.Id).OrderBy(x => x.Name));
 
-            Categories = categories.Where(x => x.Parent == null).ToArray(); //find the root(s)
+            _flatCategories = categories.ToArray();
+            Categories = categories.Where(x => x.Parent == null).OrderBy(x => x.Name).ToArray(); //find the root(s)
             SelectedCategory = selectedCategory;
 
             if (selectedCategory != null)
             {
                 var selected = categories.FirstOrDefault(x => x.Id == selectedCategory.Id);
                 if (selected != null) selected.IsSelected = true;
+                ExpandParents(selected);
             }
         }
 
         private void ExecuteUpdateSelectedCategory(Category category)
         {
             if (category != null) SelectedCategory = category;
+        }
+
+        private void ExpandParents(Category selected)
+        {
+            var parent = _flatCategories.FirstOrDefault(x => x.Children.Contains(selected));
+            if (parent != null)
+            {
+                parent.IsExpanded = true;
+                ExpandParents(parent);
+            }
         }
     }
 }

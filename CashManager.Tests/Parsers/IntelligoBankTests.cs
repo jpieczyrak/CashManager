@@ -101,7 +101,7 @@ trash";
 
             //then
             foreach (var result in results) ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balance.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.Value);
         }
 
         [Fact]
@@ -146,7 +146,7 @@ temp trash
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balance.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.Value);
         }
     }
 }

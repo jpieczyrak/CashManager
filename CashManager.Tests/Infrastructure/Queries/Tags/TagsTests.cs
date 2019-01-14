@@ -36,7 +36,7 @@ namespace CashManager.Tests.Infrastructure.Queries.Tags
             var query = new TagQuery();
             var tags = new[]
             {
-                new Tag { Name = "tag1"}, 
+                new Tag { Name = "tag1"},
                 new Tag { Name = "tag2"},
                 new Tag { Name = "tag3"},
                 new Tag { Name = "tag4"},

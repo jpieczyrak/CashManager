@@ -37,8 +37,8 @@ namespace CashManager.Tests.Infrastructure.Queries.TransactionTypes
             var query = new TransactionTypesQuery();
             var transactionTypes = new[]
             {
-                new TransactionType(), 
-                new TransactionType(), 
+                new TransactionType(),
+                new TransactionType()
             };
             repository.Database.GetCollection<TransactionType>().InsertBulk(transactionTypes);
 

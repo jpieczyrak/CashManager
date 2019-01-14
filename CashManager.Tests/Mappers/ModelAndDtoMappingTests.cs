@@ -9,6 +9,7 @@ using CashManager_MVVM.Model;
 using Xunit;
 
 using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
+using DtoCategory = CashManager.Data.DTO.Category;
 
 namespace CashManager.Tests.Mappers
 {
@@ -22,13 +23,13 @@ namespace CashManager.Tests.Mappers
         [Fact]
         public void ModelToDtoTest()
         {
-            //given 
+            //given
             var model1 = new Category { Name = "parent" };
             var model2 = new Category { Name = "child", Parent = model1 };
 
             //when
-            var result1 = Mapper.Map<Data.DTO.Category>(model1);
-            var result2 = Mapper.Map<Data.DTO.Category>(model2);
+            var result1 = Mapper.Map<DtoCategory>(model1);
+            var result2 = Mapper.Map<DtoCategory>(model2);
 
             //then
             Assert.Equal(model1.Id, result1.Id);
@@ -43,9 +44,9 @@ namespace CashManager.Tests.Mappers
         [Fact]
         public void DtoToModelTest()
         {
-            //given 
-            var dto1 = new Data.DTO.Category { Name = "parent" };
-            var dto2 = new Data.DTO.Category { Name = "child", Parent = dto1 };
+            //given
+            var dto1 = new DtoCategory { Name = "parent" };
+            var dto2 = new DtoCategory { Name = "child", Parent = dto1 };
 
             //when
             var result1 = Mapper.Map<Category>(dto1);
@@ -64,13 +65,13 @@ namespace CashManager.Tests.Mappers
         [Fact]
         public void ModelToDtoToModelTest()
         {
-            //given 
+            //given
             var model1 = new Category { Name = "parent" };
             var model2 = new Category { Name = "child", Parent = model1 };
 
             //when
-            var result1 = Mapper.Map<Category>(Mapper.Map<Data.DTO.Category>(model1));
-            var result2 = Mapper.Map<Category>(Mapper.Map<Data.DTO.Category>(model2));
+            var result1 = Mapper.Map<Category>(Mapper.Map<DtoCategory>(model1));
+            var result2 = Mapper.Map<Category>(Mapper.Map<DtoCategory>(model2));
 
             //then
             Assert.Equal(model1.Id, result1.Id);
@@ -85,11 +86,11 @@ namespace CashManager.Tests.Mappers
         [Fact]
         public void PaymentValueModelToDtoToModelTest()
         {
-            //given 
+            //given
             var model = new PaymentValue { GrossValue = 12 };
 
             //when
-            var result = Mapper.Map<PaymentValue>(Mapper.Map<Data.DTO.PaymentValue>(model));
+            var result = Mapper.Map<PaymentValue>(Mapper.Map<CashManager.Data.DTO.PaymentValue>(model));
 
             //then
             Assert.Equal(model.Id, result.Id);
@@ -99,11 +100,11 @@ namespace CashManager.Tests.Mappers
         [Fact]
         public void SimpleTransactionLastEditDateChangeMappingTest()
         {
-            //given 
+            //given
             var model = new Transaction { Note = "now last edit date should be updated" };
 
             //when
-            var dto = Mapper.Map<Data.DTO.Transaction>(model);
+            var dto = Mapper.Map<CashManager.Data.DTO.Transaction>(model);
             var result = Mapper.Map<Transaction>(dto);
 
             //then
@@ -118,7 +119,7 @@ namespace CashManager.Tests.Mappers
         [Fact]
         public void TransactionModelToDtoToModelTest()
         {
-            //given 
+            //given
             var categoryParent = new Category { Name = "cat1", Parent = null };
             decimal balance = 123.45m;
             var model = new Transaction
@@ -155,7 +156,7 @@ namespace CashManager.Tests.Mappers
             };
 
             //when
-            var dto = Mapper.Map<Data.DTO.Transaction>(model);
+            var dto = Mapper.Map<CashManager.Data.DTO.Transaction>(model);
             var result = Mapper.Map<Transaction>(dto);
 
             //then

@@ -8,8 +8,10 @@ using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Categories;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Categories;
+using CashManager.Logic.DefaultData.InputParsers;
 
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Properties;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -22,9 +24,8 @@ namespace CashManager_MVVM.Features.Categories
 {
     public class CategoryManagerViewModel : ViewModelBase, IDropTarget
     {
-        private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
-        private string _categoryName;
+        private string _input;
         private Category _selectedCategory;
 
         public TrulyObservableCollection<Category> Categories { get; private set; }
@@ -32,6 +33,7 @@ namespace CashManager_MVVM.Features.Categories
         public RelayCommand AddCategoryCommand => new RelayCommand(ExecuteAddCategoryCommand);
 
         public RelayCommand RemoveCategoryCommand => new RelayCommand(ExecuteRemoveCategoryCommand, CanExecuteRemoveCategoryCommand);
+        public RelayCommand LoadCategoriesCommand => new RelayCommand(ExecuteLoadCategoriesCommand);
 
         public Category SelectedCategory
         {
@@ -43,33 +45,39 @@ namespace CashManager_MVVM.Features.Categories
             }
         }
 
-        public string CategoryName
+        public string Input
         {
-            get => _categoryName;
-            set => Set(nameof(CategoryName), ref _categoryName, value);
+            get => _input;
+            set => Set(nameof(Input), ref _input, value);
         }
 
         public CategoryManagerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
         {
-            _categoryName = "New category";
-            _queryDispatcher = queryDispatcher;
+            _input = Strings.NewCategory;
             _commandDispatcher = commandDispatcher;
-            var categories = _queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery())
+            Categories = new TrulyObservableCollection<Category>();
+            var categories = queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery())
                                              .Select(Mapper.Map<Category>)
                                              .ToArray();
 
+            AddCategoriesToTree(categories);
+
+            SelectedCategory = categories.FirstOrDefault(x => x.IsSelected);
+        }
+
+        private void AddCategoriesToTree(Category[] categories)
+        {
             foreach (var category in categories)
             {
-                category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category.Id));
+                category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category.Id).OrderBy(x => x.Name));
                 category.PropertyChanged += (sender, args) =>
                 {
                     if (category.IsSelected) SelectedCategory = category;
                 };
             }
 
-            Categories = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent == null)); //find the root(s)
-            
-            SelectedCategory = categories.FirstOrDefault(x => x.IsSelected);
+            //find the root(s)
+            Categories.AddRange(categories.Where(x => x.Parent == null && !Categories.Contains(x)).OrderBy(x => x.Name));
         }
 
         private void Move(Category sourceCategory, Category targetCategory)
@@ -114,7 +122,7 @@ namespace CashManager_MVVM.Features.Categories
         private void ExecuteAddCategoryCommand()
         {
             var parent = SelectedCategory;
-            var category = new Category { Name = CategoryName };
+            var category = new Category { Name = Input };
             if (parent != null)
             {
                 parent.Children.Add(category);
@@ -146,15 +154,32 @@ namespace CashManager_MVVM.Features.Categories
 
         private bool CanExecuteRemoveCategoryCommand() => SelectedCategory?.Parent != null;
 
+        private void ExecuteLoadCategoriesCommand()
+        {
+            var parser = new CategoryParser();
+            var result = parser.Parse(Input);
+            if (result != null && result.Any())
+            {
+                var categories = Mapper.Map<Category[]>(result);
+                AddCategoriesToTree(categories);
+                UpsertCategories(result);
+            }
+        }
+
         private void UpsertCategory(Category category)
         {
             var categories = new [] { category };
             UpsertCategories(categories);
         }
 
+        private void UpsertCategories(DtoCategory[] categories)
+        {
+            _commandDispatcher.Execute(new UpsertCategoriesCommand(categories));
+        }
+
         private void UpsertCategories(Category[] categories)
         {
-            _commandDispatcher.Execute(new UpsertCategoriesCommand(Mapper.Map<DtoCategory[]>(categories)));
+            UpsertCategories(Mapper.Map<DtoCategory[]>(categories));
         }
 
         public void DragOver(IDropInfo dropInfo)

@@ -16,12 +16,12 @@ namespace CashManager.Logic.Parsers
 
         private readonly List<Balance> _balances = new List<Balance>();
 
-        public Balance Balance { get; private set; }
+        public Dictionary<Stock, Balance> Balances { get; private set; } = new Dictionary<Stock, Balance>();
 
         #region IParser
 
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock,
-            TransactionType defaultOutcome, TransactionType defaultIncome)
+            TransactionType defaultOutcome, TransactionType defaultIncome, bool generateMissingStocks = false)
         {
             var output = new List<Transaction>();
 
@@ -30,7 +30,7 @@ namespace CashManager.Logic.Parsers
             foreach (Match match in regex.Matches(input))
                 output.Add(CreateTransaction(match, userStock, externalStock, defaultOutcome, defaultIncome));
 
-            Balance = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
+            Balances[userStock] = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
             _balances.Clear();
 
             return output.ToArray();
@@ -46,7 +46,7 @@ namespace CashManager.Logic.Parsers
             int year = int.Parse(match.Groups["Year"].Value);
 
             int id = int.Parse(match.Groups["Id"].Value);
-            
+
             string operationType = match.Groups["OperationType"].Value.Trim();
             var noteLines = match.Groups["Note"].Value.Split('\n');
             string title = noteLines.FirstOrDefault(x => x.Contains(TITLE_PREFIX))?.Trim();

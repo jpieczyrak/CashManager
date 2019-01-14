@@ -39,19 +39,20 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -100,6 +101,10 @@
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\gong-wpf-dragdrop.1.1.0\lib\net45\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
       <HintPath>..\packages\OxyPlot.Core.1.0.0\lib\net45\OxyPlot.dll</HintPath>
     </Reference>
@@ -138,26 +143,60 @@
       <DependentUpon>CategoryManagerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Categories\CategoryManagerViewModel.cs" />
+    <Compile Include="Features\Common\CustomWindow.cs" />
+    <Compile Include="Features\Common\DateRangePicker.xaml.cs">
+      <DependentUpon>DateRangePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Common\DateRangePickerViewModel.cs" />
+    <Compile Include="Features\Common\ExtendedDatePicker.xaml.cs">
+      <DependentUpon>ExtendedDatePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Common\ExtendedDatePickerViewModel.cs" />
+    <Compile Include="Features\Main\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Main\Init\InitWindow.xaml.cs">
+      <DependentUpon>InitWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Main\Init\InitViewModel.cs" />
+    <Compile Include="Features\Main\PasswordPromptWindow.xaml.cs">
+      <DependentUpon>PasswordPromptWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Main\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Main\SettingsViewModel.cs" />
+    <Compile Include="Features\Main\ViewModel.cs" />
     <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
       <DependentUpon>CategoriesPlotView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Features\Plots\FilterableViewModel.cs" />
     <Compile Include="Features\Plots\PlotHelper.cs" />
     <Compile Include="Features\Plots\WealthView.xaml.cs">
       <DependentUpon>WealthView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Plots\CategoriesPlotViewModel.cs" />
     <Compile Include="Features\Plots\WealthViewModel.cs" />
+    <Compile Include="Logic\Debouncer.cs" />
     <Compile Include="Features\Search\SearchState.cs" />
     <Compile Include="Features\MassReplacer\MassReplacerView.xaml.cs">
       <DependentUpon>MassReplacerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\MassReplacer\MassReplacerViewModel.cs" />
+    <Compile Include="Features\Summary\SummaryView.xaml.cs">
+      <DependentUpon>SummaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Summary\SummaryViewModel.cs" />
+    <Compile Include="Features\Summary\TimeGroupingType.cs" />
+    <Compile Include="Features\Summary\TransactionTypeSelection.cs" />
     <Compile Include="Features\Transactions\Positions\PositionListViewModel.cs" />
     <Compile Include="Features\Search\SearchType.cs" />
     <Compile Include="Features\Transactions\Positions\PositionListView.xaml.cs">
       <DependentUpon>PositionListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\Balances\CustomBalance.cs" />
+    <Compile Include="Logic\Calculators\TransactionBalance.cs" />
+    <Compile Include="Logic\Calculators\TransactionBalanceCalculator.cs" />
     <Compile Include="Logic\Commands\DateFrameFilter.cs" />
     <Compile Include="Logic\Commands\DateFrameReplacer.cs" />
     <Compile Include="Logic\Commands\IReplacer.cs" />
@@ -216,13 +255,14 @@
     <Compile Include="Model\Selectors\MultiPickerType.cs" />
     <Compile Include="Model\Selectors\RangeSelector.cs" />
     <Compile Include="Model\Selectors\RangeSelectorType.cs" />
+    <Compile Include="Model\Selectors\SinglePicker.cs" />
     <Compile Include="Model\Selectors\TextSelector.cs" />
     <Compile Include="Model\PaymentValue.cs" />
     <Compile Include="Model\Selectors\TextSelectorType.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\Position.cs" />
     <Compile Include="Model\StoredFileInfo.cs" />
-    <Compile Include="Model\Summary.cs" />
+    <Compile Include="Model\TransactionsSummary.cs" />
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Model\Selectors\DateFrame.cs" />
     <Compile Include="Model\Transaction.cs" />
@@ -237,13 +277,22 @@
       <DependentUpon>TransactionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\TransactionType.cs" />
+    <Compile Include="Properties\Strings.pl-PL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.pl-PL.resx</DependentUpon>
+    </Compile>
     <Compile Include="Skins\ColorsResourceDictionary.cs" />
     <Compile Include="Skins\ShapesResourceDictionary.cs" />
     <Compile Include="Skins\SkinColors.cs" />
     <Compile Include="Skins\SkinShapes.cs" />
-    <Compile Include="Utils\DbFiller.cs" />
+    <Compile Include="Properties\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
     <Compile Include="TrulyObservableCollection.cs" />
-    <Compile Include="Utils\TreeViewHelper.cs" />
+    <Compile Include="Utils\SoundPlayerHelper.cs" />
     <Page Include="Features\Balance\CustomBalanceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -252,9 +301,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Features\Common\DateRangePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Common\ExtendedDatePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Features\Common\MultiCombobox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Main\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Main\Init\InitWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\Main\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -268,6 +333,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Features\Main\PasswordPromptWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Main\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Features\Parsers\ParserView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -281,6 +354,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Features\Stocks\StockSummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Summary\SummaryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -312,6 +389,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Skins\Colors\BlackWhiteColors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\Colors\YellowColors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\Controls\MenuSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\RadioButtonSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Skins\Colors\DarkColors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -340,11 +433,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Skins\Controls\PasswordBoxSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Skins\Controls\PlotViewSkin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Skins\Controls\TooltipSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\WindowChromeSkin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -376,7 +477,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Skins\DataModels\Summary.xaml">
+    <Page Include="Skins\DataModels\TransactionsSummary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -389,6 +490,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Skins\Shapes\RoundShapes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\SliderSkin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -408,12 +513,23 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Strings.pl-PL.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.pl-PL.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
@@ -437,8 +553,25 @@
       <Name>CashManager.Logic</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Sounds\cash-register-purchase.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\coin-drop-into-pot.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\coin-drop-on-concrete.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>del "$(TargetDir)*.xml", "$(TargetDir)*.pdb"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

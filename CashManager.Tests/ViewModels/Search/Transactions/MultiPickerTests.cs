@@ -2,23 +2,31 @@
 
 using Autofac;
 
+using CashManager.Tests.ViewModels.Fixtures;
+
 using CashManager_MVVM.Features.Search;
-using CashManager_MVVM.Model;
 
 using Xunit;
 
 namespace CashManager.Tests.ViewModels.Search.Transactions
 {
-    public class MultiPickerTests : ViewModelTests
+    [Collection("Database collection")]
+    public class MultiPickerTests
     {
+        private readonly DatabaseFixture _fixture;
+
+        public MultiPickerTests(DatabaseFixture fixture)
+        {
+            _fixture = fixture;
+        }
+
         [Fact]
         public void OnCategoryFilterChanged_SomeTransactions_MatchingTransactions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
-            Category filterValue = vm.MatchingTransactions.First().Positions.FirstOrDefault().Category;
+            var filterValue = vm.MatchingTransactions[0].Positions.First().Category;
             vm.IsTransactionsSearch = true;
             var expected = vm.MatchingTransactions
                              .Where(x => x.Positions.Any(y => filterValue.MatchCategoryFilter(y.Category)))
@@ -39,10 +47,9 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
         public void OnTagsFilterChanged_SomeTransactions_MatchingTransactions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
-            var filterValue = new[] { Tags[0], Tags[1] };
+            var filterValue = new[] { _fixture.ViewModelContext.Tags.Value[0], _fixture.ViewModelContext.Tags.Value[1] };
             vm.IsTransactionsSearch = true;
             var expected = vm.MatchingTransactions
                              .Where(x => x.Positions.Any(y => y.Tags.Any(z => filterValue.Contains(z))))
@@ -66,8 +73,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
         public void OnTypesFilterChanged_SomeTransactions_MatchingTransactions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             var filterValue = vm.MatchingTransactions.First().Type;
             vm.IsTransactionsSearch = true;
@@ -90,8 +96,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
         public void OnUserStockFilterChanged_SomeTransactions_MatchingTransactions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             var filterValue = vm.MatchingTransactions.First().UserStock;
             vm.IsTransactionsSearch = true;
@@ -114,8 +119,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
         public void OnExternalStockFilterChanged_SomeTransactions_MatchingTransactions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             var filterValue = vm.MatchingTransactions.First().ExternalStock;
             vm.IsTransactionsSearch = true;

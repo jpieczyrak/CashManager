@@ -9,11 +9,16 @@ namespace CashManager_MVVM.Model
     public class Category : BaseSelectable
     {
         private Category _parent;
+        private bool _isExpanded;
 
         /// <summary>
         /// Used for tree view purpose
         /// </summary>
-        public bool IsExpanded { get; set; } = true;
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set => Set(ref _isExpanded, value);
+        }
 
         public Category Parent
         {

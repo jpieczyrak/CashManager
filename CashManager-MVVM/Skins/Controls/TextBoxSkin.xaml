@@ -15,16 +15,17 @@
                 <Setter Property="Opacity" TargetName="border" Value="0.56"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource HoverBorderAccentBrush}"/>
             </Trigger>
             <Trigger Property="IsKeyboardFocused" Value="True">
-                <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource HoverBorderAccentBrush}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <Style TargetType="{x:Type TextBox}">
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource HoverControlBackgroundBrush}"/>
     </Style>
 
 </ResourceDictionary>

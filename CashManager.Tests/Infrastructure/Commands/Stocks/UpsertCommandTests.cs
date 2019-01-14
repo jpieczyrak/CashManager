@@ -17,7 +17,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Stocks
             //given
             var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new UpsertStocksCommandHandler(repository);
-            var command = new UpsertStocksCommand(null);
+            var command = new UpsertStocksCommand((Stock) null);
 
             //when
             handler.Execute(command);
@@ -53,7 +53,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Stocks
         public void UpsertStockCommandHandler_EmptyDbUpsertList_ListSaved()
         {
             //given
-            var Stocks = new[]
+            var stocks = new[]
             {
                 new Stock { Name = "test1" },
                 new Stock { Name = "test2" }
@@ -61,14 +61,14 @@ namespace CashManager.Tests.Infrastructure.Commands.Stocks
 
             var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new UpsertStocksCommandHandler(repository);
-            var command = new UpsertStocksCommand(Stocks);
+            var command = new UpsertStocksCommand(stocks);
 
             //when
             handler.Execute(command);
 
             //then
             var orderedStocksInDatabase = repository.Database.Query<Stock>().OrderBy(x => x.Id);
-            Assert.Equal(Stocks.OrderBy(x => x.Id), orderedStocksInDatabase);
+            Assert.Equal(stocks.OrderBy(x => x.Id), orderedStocksInDatabase);
         }
 
         [Fact]

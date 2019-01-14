@@ -30,19 +30,23 @@ namespace CashManager_MVVM.Features.Transactions.Positions
 
         public Position SelectedPosition { get; set; }
 
-        public Summary Summary { get; set; }
+        public TransactionsSummary Summary { get; set; }
 
         public PositionListViewModel(ViewModelFactory factory)
         {
             _factory = factory;
-            Summary = new Summary();
+            Summary = new TransactionsSummary();
             Positions = new TrulyObservableCollection<Position>();
         }
 
         private void PositionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
-            Summary.GrossIncome = Positions.Where(x => x.Income).Sum(x => x.Value.GrossValue);
-            Summary.GrossOutcome = Positions.Where(x => x.Outcome).Sum(x => x.Value.GrossValue);
+            var incomes = Positions.Where(x => x.Income).ToArray();
+            var outcomes = Positions.Where(x => x.Outcome).ToArray();
+            Summary.GrossIncome = incomes.Sum(x => x.Value.GrossValue);
+            Summary.GrossOutcome = outcomes.Sum(x => x.Value.GrossValue);
+            Summary.IncomesCount = incomes.Length;
+            Summary.OutcomesCount = outcomes.Length;
         }
 
         private void TransactionEdit()

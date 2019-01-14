@@ -13,12 +13,15 @@ namespace CashManager.Logic.DefaultData
         private readonly Random _random;
         private readonly decimal[] _vats = { 5m, 8m, 23m };
 
+        private readonly Lazy<Category[]> _categories;
+
         public TestDataProvider()
         {
             _random = new Random(1233213);
             GetCategories();
             GetTransactionTypes();
             GetTags();
+            _categories = new Lazy<Category[]>(GetCategories);
         }
 
         public override Stock[] GetStocks()
@@ -39,22 +42,22 @@ namespace CashManager.Logic.DefaultData
 
             var dtoTransactions = new[]
             {
-                CreateTransaction(2, _fun, _buyType, userStock, externalStock, "some stuff", "fun"),
-                CreateTransaction(3, _home_food_base, _buyType, userStock, externalStock, "food"),
-                CreateTransaction(1, _fun_games_strategy, _buyType, userStock, externalStock, "games!!!"),
-                CreateTransaction(10, _fun_games, _buyType, userStock, externalStock, "new collection", "mike told me to buy"),
-                CreateTransaction(2, _home_food_tea, _buyType, userStock, externalStock, "some tea for home"),
-                CreateTransaction(1, _unknown, _giftsType, userStock, externalStock, "gift from mother"),
-                CreateTransaction(1, _unknown, _workType, userStock, externalStock, "working"),
-                CreateTransaction(1, _unknown, _workType, userStock, externalStock, "working", "it was profitable", 10),
-                CreateTransaction(1, _unknown, _workType, userStock, externalStock, "working"),
-                CreateTransaction(1, _unknown, _workType, userStock, externalStock, "working"),
-                CreateTransaction(5, _unknown, _workType, userStock, externalStock, "working hard", "many tasks", 3),
+                CreateTransaction(2, FindCategory("gry"), _buyType, userStock, externalStock, "some stuff", "fun"),
+                CreateTransaction(3, FindCategory("jedzenie"), _buyType, userStock, externalStock, "food"),
+                CreateTransaction(1, FindCategory("gry"), _buyType, userStock, externalStock, "games!!!"),
+                CreateTransaction(10, FindCategory("gry"), _buyType, userStock, externalStock, "new collection", "mike told me to buy"),
+                CreateTransaction(2, FindCategory("herbata"), _buyType, userStock, externalStock, "some tea for home"),
+                CreateTransaction(1, FindCategory("Inne"), _giftsType, userStock, externalStock, "gift from mother"),
+                CreateTransaction(1, FindCategory("Inne"), _workType, userStock, externalStock, "working"),
+                CreateTransaction(1, FindCategory("Inne"), _workType, userStock, externalStock, "working", "it was profitable", 10),
+                CreateTransaction(1, FindCategory("Inne"), _workType, userStock, externalStock, "working"),
+                CreateTransaction(1, FindCategory("Inne"), _workType, userStock, externalStock, "working"),
+                CreateTransaction(5, FindCategory("Inne"), _workType, userStock, externalStock, "working hard", "many tasks", 3),
                 new Transaction(_workType, DateTime.Now.AddDays(-90), "work", "notes", new List<Position>
                     {
                         new Position
                         {
-                            Category = _unknown,
+                            Category = FindCategory("Inne"),
                             Value = new PaymentValue { TaxPercentValue = 23, GrossValue = 25000 },
                             Title = "income",
                             LastEditDate = RandomDate()
@@ -65,7 +68,7 @@ namespace CashManager.Logic.DefaultData
                     {
                         new Position
                         {
-                            Category = _fun_books,
+                            Category = FindCategory("książki"),
                             Value = new PaymentValue { TaxPercentValue = 23, GrossValue = 2499 },
                             Title = "sth expensive",
                             Tags = new List<Tag> { tags[0] },
@@ -77,7 +80,7 @@ namespace CashManager.Logic.DefaultData
                     {
                         new Position
                         {
-                            Category = _fun_pc,
+                            Category = FindCategory("rozrywka"),
                             Value = new PaymentValue { TaxPercentValue = 23, NetValue = 7129 },
                             Title = "new PC",
                             Tags = new List<Tag> { tags[1], tags[2] },
@@ -111,14 +114,19 @@ namespace CashManager.Logic.DefaultData
                 position.LastEditDate = RandomDate();
             }
 
-            return new Transaction(type, 
-                RandomDate(), 
-                $"title {_titleCounter} {title}", 
+            return new Transaction(type,
+                RandomDate(),
+                $"title {_titleCounter} {title}",
                 $"note {_titleCounter} {note}",
                 positions,
-                userStock, 
-                externalStock, 
+                userStock,
+                externalStock,
                 $"input source {_titleCounter++}");
+        }
+
+        private Category FindCategory(string name)
+        {
+            return _categories.Value.FirstOrDefault(x => x.Name.ToLower().Contains(name.ToLower()));
         }
     }
 }

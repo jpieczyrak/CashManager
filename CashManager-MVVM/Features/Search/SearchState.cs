@@ -9,6 +9,7 @@ using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Tags;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
+using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
@@ -82,7 +83,7 @@ namespace CashManager_MVVM.Features.Search
             if (queryDispatcher != null) UpdateSources(queryDispatcher);
         }
 
-        public void UpdateSources(IQueryDispatcher queryDispatcher)
+        public void UpdateSources(IQueryDispatcher queryDispatcher, TransactionsProvider transactionsProvider = null)
         {
             var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery())).OrderBy(x => x.Name);
             UserStocksFilter.SetInput(availableStocks.Where(x => x.IsUserStock).ToArray());
@@ -98,6 +99,14 @@ namespace CashManager_MVVM.Features.Search
 
             var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
             TagsFilter.SetInput(tags);
+
+            bool availableTransactions = transactionsProvider?.AllTransactions?.Any() ?? false;
+            ValueFilter.MinimumValue = availableTransactions
+                                           ? transactionsProvider.AllTransactions.Min(x => x.ValueAsProfit)
+                                           : decimal.MinValue;
+            ValueFilter.MaximumValue = availableTransactions
+                                           ? transactionsProvider.AllTransactions.Max(x => x.ValueAsProfit)
+                                           : decimal.MaxValue;
         }
 
         public void ApplySearchCriteria(SearchState state)

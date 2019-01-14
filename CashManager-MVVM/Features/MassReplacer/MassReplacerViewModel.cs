@@ -14,6 +14,7 @@ using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
+using CashManager_MVVM.Properties;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -26,15 +27,14 @@ namespace CashManager_MVVM.Features.MassReplacer
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
-        private readonly ViewModelFactory _factory;
         private TextSelector _titleSelector = new TextSelector(TextSelectorType.Title);
         private TextSelector _noteSelector = new TextSelector(TextSelectorType.Note);
         private TextSelector _positionTitleSelector = new TextSelector(TextSelectorType.PositionTitle);
-        private DateSelector _bookDateSelector = new DateSelector("Book date");
-        private MultiPicker _userStocksSelector;
-        private MultiPicker _externalStocksSelector;
-        private MultiPicker _categoriesSelector;
-        private MultiPicker _typesSelector;
+        private DateSelector _bookDateSelector = new DateSelector(Strings.BookDate);
+        private SinglePicker _userStocksSelector;
+        private SinglePicker _externalStocksSelector;
+        private SinglePicker _categoriesSelector;
+        private SinglePicker _typesSelector;
         private MultiPicker _tagsSelector;
 
         public SearchViewModel SearchViewModel { get; private set; }
@@ -44,26 +44,26 @@ namespace CashManager_MVVM.Features.MassReplacer
             get => _bookDateSelector;
             set => Set(nameof(BookDateSelector), ref _bookDateSelector, value);
         }
-        
-        public MultiPicker UserStocksSelector
+
+        public SinglePicker UserStocksSelector
         {
             get => _userStocksSelector;
             set => Set(nameof(UserStocksSelector), ref _userStocksSelector, value);
         }
 
-        public MultiPicker ExternalStocksSelector
+        public SinglePicker ExternalStocksSelector
         {
             get => _externalStocksSelector;
             set => Set(nameof(ExternalStocksSelector), ref _externalStocksSelector, value);
         }
 
-        public MultiPicker CategoriesSelector
+        public SinglePicker CategoriesSelector
         {
             get => _categoriesSelector;
             set => Set(nameof(CategoriesSelector), ref _categoriesSelector, value);
         }
 
-        public MultiPicker TypesSelector
+        public SinglePicker TypesSelector
         {
             get => _typesSelector;
             set => Set(nameof(TypesSelector), ref _typesSelector, value);
@@ -74,7 +74,7 @@ namespace CashManager_MVVM.Features.MassReplacer
             get => _tagsSelector;
             set => Set(nameof(TagsSelector), ref _tagsSelector, value);
         }
-        
+
         public TextSelector TitleSelector
         {
             get => _titleSelector;
@@ -99,22 +99,21 @@ namespace CashManager_MVVM.Features.MassReplacer
         {
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
-            _factory = factory;
-            SearchViewModel = _factory.Create<SearchViewModel>();
+            SearchViewModel = factory.Create<SearchViewModel>();
             PerformCommand = new RelayCommand(ExecutePerformCommand, CanExecutePerformCommand);
         }
 
         private bool CanExecutePerformCommand()
         {
             return (_bookDateSelector.IsChecked
-                     || (_userStocksSelector.IsChecked && _userStocksSelector.Results.Any())
-                     || (_externalStocksSelector.IsChecked && _externalStocksSelector.Results.Any())
+                     || (_userStocksSelector.IsChecked && _userStocksSelector.Selected != null)
+                     || (_externalStocksSelector.IsChecked && _externalStocksSelector.Selected != null)
                      || (_titleSelector.IsChecked && !string.IsNullOrWhiteSpace(_titleSelector.Value))
                      || _noteSelector.IsChecked
                      || (_positionTitleSelector.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleSelector.Value))
-                     || (_categoriesSelector.IsChecked && _categoriesSelector.Results.Any())
-                     || (_typesSelector.IsChecked && _typesSelector.Results.Any())
-                     || _tagsSelector.IsChecked) 
+                     || (_categoriesSelector.IsChecked && _categoriesSelector.Selected != null)
+                     || (_typesSelector.IsChecked && _typesSelector.Selected != null)
+                     || _tagsSelector.IsChecked)
                    && SearchViewModel.MatchingTransactions.Any();
         }
 
@@ -133,26 +132,26 @@ namespace CashManager_MVVM.Features.MassReplacer
                 foreach (var transaction in transactions)
                     transaction.BookDate = _bookDateSelector.Value;
 
-            if (_typesSelector.IsChecked && _typesSelector.Results.Any())
+            if (_typesSelector.IsChecked && _typesSelector.Selected != null)
                 foreach (var transaction in transactions)
-                    transaction.Type = _typesSelector.Results.OfType<TransactionType>().FirstOrDefault();
+                    transaction.Type = _typesSelector.Selected as TransactionType;
 
-            if (_userStocksSelector.IsChecked && _userStocksSelector.Results.Any())
+            if (_userStocksSelector.IsChecked && _userStocksSelector.Selected != null)
                 foreach (var transaction in transactions)
-                    transaction.UserStock = _userStocksSelector.Results.OfType<Stock>().FirstOrDefault();
-            if (_externalStocksSelector.IsChecked && _externalStocksSelector.Results.Any())
+                    transaction.UserStock = _userStocksSelector.Selected as Stock;
+            if (_externalStocksSelector.IsChecked && _externalStocksSelector.Selected != null)
                 foreach (var transaction in transactions)
-                    transaction.ExternalStock = _externalStocksSelector.Results.OfType<Stock>().FirstOrDefault();
+                    transaction.ExternalStock = _externalStocksSelector.Selected as Stock;
 
-            var positions = SearchViewModel.IsTransactionsSearch 
+            var positions = SearchViewModel.IsTransactionsSearch
                                 ? transactions.SelectMany(x => x.Positions).ToList()
                                 : SearchViewModel.MatchingPositions;
             if (_positionTitleSelector.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleSelector.Value))
                 foreach (var position in positions)
                     position.Title = _positionTitleSelector.Value;
-            if (_categoriesSelector.IsChecked && _categoriesSelector.Results.Any())
+            if (_categoriesSelector.IsChecked && _categoriesSelector.Selected != null)
                 foreach (var position in positions)
-                    position.Category = _categoriesSelector.Results.OfType<Category>().FirstOrDefault();
+                    position.Category = _categoriesSelector.Selected as Category;
             if (_tagsSelector.IsChecked)
                 foreach (var position in positions)
                     position.Tags = _tagsSelector.Results.OfType<Tag>().ToArray();
@@ -163,17 +162,17 @@ namespace CashManager_MVVM.Features.MassReplacer
         public void Update()
         {
             var availableStocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery())).OrderBy(x => x.Name);
-            UserStocksSelector = new MultiPicker(MultiPickerType.UserStock, availableStocks.Where(x => x.IsUserStock).ToArray());
+            UserStocksSelector = new SinglePicker(MultiPickerType.UserStock, availableStocks.Where(x => x.IsUserStock).ToArray());
             ExternalStocksSelector =
-                new MultiPicker(MultiPickerType.ExternalStock,
+                new SinglePicker(MultiPickerType.ExternalStock,
                     Mapper.Map<Stock[]>(Mapper.Map<CashManager.Data.DTO.Stock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
 
             var categories = Mapper.Map<Category[]>(_queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery()));
             categories = CategoryDesignHelper.BuildGraphicalOrder(categories);
-            CategoriesSelector = new MultiPicker(MultiPickerType.Category, categories);
+            CategoriesSelector = new SinglePicker(MultiPickerType.Category, categories);
 
             var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
-            TypesSelector = new MultiPicker(MultiPickerType.TransactionType, types);
+            TypesSelector = new SinglePicker(MultiPickerType.TransactionType, types);
 
             var tags = Mapper.Map<Tag[]>(_queryDispatcher.Execute<TagQuery, CashManager.Data.DTO.Tag[]>(new TagQuery()).OrderBy(x => x.Name));
             TagsSelector = new MultiPicker(MultiPickerType.Tag, tags);

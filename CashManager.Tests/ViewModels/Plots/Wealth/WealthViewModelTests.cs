@@ -1,7 +1,9 @@
 ﻿using System;
-using System.Linq;
 
 using Autofac;
+
+using CashManager.Data.Extensions;
+using CashManager.Tests.ViewModels.Fixtures;
 
 using CashManager_MVVM;
 using CashManager_MVVM.Features.Plots;
@@ -14,14 +16,22 @@ using Xunit;
 
 namespace CashManager.Tests.ViewModels.Plots.Wealth
 {
-    public class WealthViewModelTests : ViewModelTests
+    [Collection("Cleanable database collection")]
+    public class WealthViewModelTests
     {
+        private readonly CleanableDatabaseFixture _fixture;
+
+        public WealthViewModelTests(CleanableDatabaseFixture fixture)
+        {
+            _fixture = fixture;
+            _fixture.CleanDatabase();
+        }
+
         [Fact]
         public void GetWealthValues_NullNull_Empty()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<WealthViewModel>();
+            var vm = _fixture.Container.Resolve<WealthViewModel>();
             var expected = new DataPoint[0];
 
             //when
@@ -35,8 +45,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
         public void GetWealthValues_EmptyEmpty_Empty()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<WealthViewModel>();
+            var vm = _fixture.Container.Resolve<WealthViewModel>();
             var expected = new DataPoint[0];
 
             //when
@@ -50,17 +59,23 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
         public void GetWealthValues_NonEmpty_Matching()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<WealthViewModel>();
-            var selectedStocks = Stocks.Take(1).ToArray();
-            var selectedUserStock = Stocks[0];
+            var vm = _fixture.Container.Resolve<WealthViewModel>();
+            var notSelectedStock = new Stock("ns".GenerateGuid());
+            var selectedStocks = new[] { new Stock("selected".GenerateGuid()) { IsUserStock = true } };
+            var selectedUserStock = selectedStocks[0];
+            selectedUserStock.IsPropertyChangedEnabled = true;
+            selectedUserStock.Balance.IsPropertyChangedEnabled = true;
+            selectedUserStock.Balance.Value = 60000m;
+            var firstBookDate = DateTime.Today.AddDays(-30);
+            var income = new TransactionType { Income = true };
+            var outcome = new TransactionType { Outcome = true };
             var transactions = new []
             {
                 new Transaction
                 {
                     BookDate = DateTime.Today.AddDays(-10),
                     UserStock = selectedUserStock,
-                    Type = Types[1],
+                    Type = outcome,
                     Positions = new TrulyObservableCollection<Position>
                     {
                         new Position { Value = new PaymentValue(1000, 1000, 0) }
@@ -69,8 +84,8 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
                 new Transaction
                 {
                     BookDate = DateTime.Today.AddDays(-12),
-                    UserStock = Stocks[1],
-                    Type = Types[1],
+                    UserStock = notSelectedStock,
+                    Type = outcome,
                     Positions = new TrulyObservableCollection<Position>
                     {
                         new Position { Value = new PaymentValue(100, 100, 0) }
@@ -80,7 +95,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
                 {
                     BookDate = DateTime.Today.AddDays(-22),
                     UserStock = selectedUserStock,
-                    Type = Types[1],
+                    Type = outcome,
                     Positions = new TrulyObservableCollection<Position>
                     {
                         new Position { Value = new PaymentValue(10, 10, 0) }
@@ -88,29 +103,23 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
                 },
                 new Transaction
                 {
-                    BookDate = DateTime.Today.AddDays(-30),
+                    BookDate = firstBookDate,
                     UserStock = selectedUserStock,
-                    Type = Types[0],
+                    Type = income,
                     Positions = new TrulyObservableCollection<Position>
                     {
                         new Position { Value = new PaymentValue(10000, 10000, 0) }
                     }
                 },
             };
-            decimal startValue = selectedUserStock.UserBalance;
-            var expected = transactions
-                           .Where(x => selectedStocks.Contains(x.UserStock))
-                           .OrderByDescending(x => x.BookDate)
-                           .GroupBy(x => x.BookDate.Date)
-                           .Select(x => new { BookDate = x.Key, Value = (startValue -= x.Sum(y => y.ValueAsProfit)) } )
-                           .Select(x => new DataPoint(DateTimeAxis.ToDouble(x.BookDate), (double)x.Value))
-                           .Concat(new[] 
-                           {
-                               new DataPoint(DateTimeAxis.ToDouble(selectedUserStock.LastEditDate), 
-                               (double) selectedUserStock.UserBalance)
-                           })
-                           .OrderBy(x => x.X)
-                           .ToArray();
+            var expected = new[]
+            {
+                new DataPoint(DateTimeAxis.ToDouble(firstBookDate.AddDays(-1)), 51010.0d),
+                new DataPoint(DateTimeAxis.ToDouble(firstBookDate), 61010.0d),
+                new DataPoint(DateTimeAxis.ToDouble(DateTime.Today.AddDays(-22)), 61000.0d),
+                new DataPoint(DateTimeAxis.ToDouble(DateTime.Today.AddDays(-10)), 60000.0d),
+                new DataPoint(DateTimeAxis.ToDouble(DateTime.Today), 60000.0d)
+            };
 
             //when
             var result = vm.GetWealthValues(transactions, selectedStocks);

@@ -4,19 +4,22 @@ using System.Linq;
 
 using CashManager.Data.DTO;
 
+using log4net;
+
 namespace CashManager.Logic.Parsers
 {
     public class MillenniumBankParser : IParser
     {
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(MillenniumBankParser)));
         private const int LINES_PER_ENTRY = 7;
         private readonly List<Balance> _balances = new List<Balance>();
 
-        public Balance Balance { get; private set; }
+        public Dictionary<Stock, Balance> Balances { get; private set; } = new Dictionary<Stock, Balance>();
 
         #region IParser
 
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome,
-            TransactionType defaultIncome)
+            TransactionType defaultIncome, bool generateMissingStocks = false)
         {
             if (string.IsNullOrEmpty(input)) return null;
 
@@ -55,18 +58,21 @@ namespace CashManager.Logic.Parsers
                             results.Add(transaction);
                             _balances.Add(new Balance(date, balance));
                         }
-                        catch (Exception e) { }
+                        catch (Exception e)
+                        {
+                            _logger.Value.Debug($"Invalid line entry: {string.Join("\n", elements.Skip(i - 1).Take(4))}", e);
+                        }
 
                         i += LINES_PER_ENTRY;
                     }
                 }
 
-                Balance = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
+                Balances[userStock] = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
                 _balances.Clear();
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _logger.Value.Info("Parsing failed", e);
             }
 
             return results.ToArray();

@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Texts -->
+    <Color x:Key="ForegroundColor">#FFBA770A</Color>
+    <SolidColorBrush x:Key="ForegroundBrush" Color="{StaticResource ForegroundColor}"/>
+
+    <Color x:Key="DisabledForegroundColor">#FF595959</Color>
+    <SolidColorBrush x:Key="DisabledForegroundBrush" Color="{StaticResource DisabledForegroundColor}" />
+
+    <!-- Borders -->
+    <Color x:Key="BorderColor">#4c4c4c</Color>
+    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}" />
+
+    <Color x:Key="DisabledBorderColor">#727272</Color>
+    <Color x:Key="DisabledControlColor">#7F727272</Color>
+    <SolidColorBrush x:Key="DisabledBorderBrush" Color="{StaticResource DisabledBorderColor}" />
+
+    <Color x:Key="HoverBorderAccentOptionalColor">#FFE0A94F</Color>
+    <Color x:Key="HoverBorderAccentColor">#FFDF9223</Color>
+    <SolidColorBrush x:Key="HoverBorderAccentBrush" Color="{StaticResource HoverBorderAccentColor}" />
+
+    <!-- Backgrounds -->
+    <Color x:Key="BackgroundAccentColor">#FFFF9E3E</Color>
+    <Color x:Key="BackgroundAccent2Color">#FFFF9226</Color>
+    <Color x:Key="BackgroundMainColor">#FFFFE1B0</Color>
+    <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundMainColor}"/>
+
+    <LinearGradientBrush x:Key="ControlBackgroundBrush" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="{StaticResource BackgroundAccentColor}" Offset="0" />
+        <GradientStop Color="{StaticResource BackgroundAccent2Color}" Offset="1" />
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="DisabledControlBackgroundBrush" Color="{StaticResource DisabledControlColor}"/>
+
+    <LinearGradientBrush x:Key="HoverControlBackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+    <GradientStop Color="{StaticResource HoverBorderAccentOptionalColor}" Offset="0" />
+    <GradientStop Color="{StaticResource HoverBorderAccentColor}" Offset="1" />
+    </LinearGradientBrush>
+</ResourceDictionary>

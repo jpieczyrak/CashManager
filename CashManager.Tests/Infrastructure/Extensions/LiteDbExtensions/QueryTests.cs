@@ -43,7 +43,7 @@ namespace CashManager.Tests.Infrastructure.Extensions.LiteDbExtensions
         {
             //given
             var repo = LiteDbHelper.CreateMemoryDb();
-            var input = new[] 
+            var input = new[]
             {
                 new Tag { Name = "a"},
                 new Tag { Name = "b"},

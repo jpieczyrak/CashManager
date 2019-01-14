@@ -18,7 +18,6 @@ namespace CashManager_MVVM.Features.Tags
 {
     public class TagManagerViewModel : ViewModelBase
     {
-        private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private TrulyObservableCollection<Tag> _observableTags;
         private string _tagName;
@@ -43,13 +42,12 @@ namespace CashManager_MVVM.Features.Tags
 
         public TagManagerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
         {
-            _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
 
             AddCommand = new RelayCommand(ExecuteAddCommand, CanExecuteAddCommand);
             RemoveCommand = new RelayCommand<Tag>(ExecuteRemoveCommand);
 
-            var dtos = _queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery());
+            var dtos = queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery());
             _observableTags = new TrulyObservableCollection<Tag>(Mapper.Map<Tag[]>(dtos).OrderBy(x => x.Name));
             Tags = new TrulyObservableCollection<Tag>(_observableTags);
         }

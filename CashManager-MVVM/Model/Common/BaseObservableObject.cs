@@ -7,6 +7,8 @@ namespace CashManager_MVVM.Model.Common
 {
     public abstract class BaseObservableObject : ObservableObject, IEditable
     {
+        private DateTime _lastEditDate;
+
         public Guid Id { get; protected set; } = Guid.NewGuid();
 
         /// <summary>
@@ -17,8 +19,12 @@ namespace CashManager_MVVM.Model.Common
         /// <summary>
         /// Last time when transaction was edited by user (within app)
         /// </summary>
-        public DateTime LastEditDate { get; protected set; }
-        
+        public DateTime LastEditDate
+        {
+            get => _lastEditDate;
+            protected set => Set(ref _lastEditDate, value);
+        }
+
         public bool IsPropertyChangedEnabled { get; set; }
 
         protected BaseObservableObject()

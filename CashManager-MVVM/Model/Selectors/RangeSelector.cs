@@ -1,9 +1,13 @@
-﻿namespace CashManager_MVVM.Model.Selectors
+﻿using CashManager_MVVM.Properties;
+
+namespace CashManager_MVVM.Model.Selectors
 {
     public class RangeSelector : BaseSelector
     {
         private decimal _min;
         private decimal _max;
+        private decimal _minimumValue;
+        private decimal _maximumValue;
 
         public decimal Min
         {
@@ -17,6 +21,18 @@
             set => Set(nameof(Max), ref _max, value);
         }
 
+        public decimal MinimumValue
+        {
+            get => _minimumValue;
+            set => Set(ref _minimumValue, value);
+        }
+
+        public decimal MaximumValue
+        {
+            get => _maximumValue;
+            set => Set(ref _maximumValue, value);
+        }
+
         public RangeSelectorType Type { get; private set; }
 
         public RangeSelector(RangeSelectorType type)
@@ -25,7 +41,7 @@
             switch (type)
             {
                 case RangeSelectorType.GrossValue:
-                    Description = "Value";
+                    Description = Strings.Value;
                     break;
             }
         }

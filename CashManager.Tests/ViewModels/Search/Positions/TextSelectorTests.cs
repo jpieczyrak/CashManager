@@ -2,25 +2,34 @@
 
 using Autofac;
 
+using CashManager.Tests.ViewModels.Fixtures;
+
 using CashManager_MVVM.Features.Search;
 
 using Xunit;
 
 namespace CashManager.Tests.ViewModels.Search.Positions
 {
-    public class TextSelectorTests : ViewModelTests
+    [Collection("Database collection")]
+    public class TextSelectorTests
     {
+        private readonly DatabaseFixture _fixture;
+
+        public TextSelectorTests(DatabaseFixture fixture)
+        {
+            _fixture = fixture;
+        }
+
         [Fact]
         public void OnTitleFilterChanged_SomePositions_MatchingPositions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             string searchString = vm.MatchingTransactions.First().Title;
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = Positions
+            var expected = _fixture.ViewModelContext.Positions.Value
                              .Where(x => x.Parent.Title.ToLower().Contains(searchString.ToLower()))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -39,13 +48,12 @@ namespace CashManager.Tests.ViewModels.Search.Positions
         public void OnNoteFilterChanged_SomePositions_MatchingPositions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             string searchString = vm.MatchingTransactions.First().Note;
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = Positions
+            var expected = _fixture.ViewModelContext.Positions.Value
                              .Where(x => x.Parent.Note.ToLower().Contains(searchString.ToLower()))
                              .OrderBy(x => x.Id)
                              .ToArray();
@@ -64,13 +72,12 @@ namespace CashManager.Tests.ViewModels.Search.Positions
         public void OnPositionTitleFilterChanged_SomePositions_MatchingPositions()
         {
             //given
-            SetupDatabase();
-            var vm = _container.Resolve<SearchViewModel>();
+            var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
             string searchString = vm.MatchingTransactions.First().Positions.First().Title.ToUpper();
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
-            var expected = Positions
+            var expected = _fixture.ViewModelContext.Positions.Value
                              .Where(x => x.Title.ToLower().Contains(searchString.ToLower()))
                              .OrderBy(x => x.Id)
                              .ToArray();
