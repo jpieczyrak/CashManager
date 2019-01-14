@@ -7,12 +7,11 @@
     xmlns:Properties="clr-namespace:CashManager_MVVM.Properties"
     x:Name="ExDatePicker" x:Class="CashManager_MVVM.Features.Common.ExtendedDatePicker"
              mc:Ignorable="d"
-             d:DesignHeight="50" d:DesignWidth="200">
+             d:DesignHeight="50" d:DesignWidth="125">
 
     <Grid>
         <DatePicker SelectedDate="{Binding SelectedValue, ElementName=ExDatePicker}" 
-                    FirstDayOfWeek="Monday" DisplayDateEnd="{Binding EndDate, ElementName=ExDatePicker}" 
-                    MinWidth="85" Margin="2,0">
+                    FirstDayOfWeek="Monday" DisplayDateEnd="{Binding EndDate, ElementName=ExDatePicker}" Margin="2,0">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseEnter">
                     <Custom:EventToCommand Command="{Binding ViewModel.OpenPopupCommand, ElementName=ExDatePicker}"/>
