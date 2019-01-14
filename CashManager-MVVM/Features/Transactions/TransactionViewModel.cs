@@ -24,6 +24,7 @@ using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Messages;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
+using CashManager_MVVM.Properties;
 using CashManager_MVVM.Utils;
 
 using GalaSoft.MvvmLight;
@@ -204,7 +205,7 @@ namespace CashManager_MVVM.Features.Transactions
             var category = _categoryPickerViewModel.Categories.FirstOrDefault(x => x.Parent == null);
             var position = new Position
             {
-                Title = "new position",
+                Title = Strings.NewPosition,
                 Category = category,
                 TagViewModel = _factory.Create<MultiComboBoxViewModel>(),
                 CategoryPickerViewModel = new CategoryPickerViewModel(_queryDispatcher, category)

@@ -247,4 +247,73 @@
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="LastEdit" xml:space="preserve">
+    <value>Last edit</value>
+  </data>
+  <data name="BookDate" xml:space="preserve">
+    <value>Book date</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="TransactionType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="ExStock" xml:space="preserve">
+    <value>Ex stock</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="NetValue" xml:space="preserve">
+    <value>Net</value>
+  </data>
+  <data name="Tax" xml:space="preserve">
+    <value>Tax</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="Duplicate" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
+  <data name="ExternalStock" xml:space="preserve">
+    <value>External stock</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Creation date</value>
+  </data>
+  <data name="LastEditDate" xml:space="preserve">
+    <value>Last edit date</value>
+  </data>
+  <data name="UpdateStock" xml:space="preserve">
+    <value>Update stock</value>
+  </data>
+  <data name="AddPosition" xml:space="preserve">
+    <value>Add position</value>
+  </data>
+  <data name="DropBillsHere" xml:space="preserve">
+    <value>Drop bills here</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="NewPosition" xml:space="preserve">
+    <value>New position</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="IsTransfer" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="AddTransactionType" xml:space="preserve">
+    <value>Add type</value>
+  </data>
 </root>
