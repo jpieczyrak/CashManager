@@ -7,6 +7,8 @@ namespace CashManager_MVVM.Features.Common
 {
     public class ExtendedDatePickerViewModel : ViewModelBase
     {
+        private bool _isOpen;
+
         public ExtendedDatePicker Owner { get; set; }
 
         public RelayCommand SubtractDayCommand { get; }
@@ -31,6 +33,20 @@ namespace CashManager_MVVM.Features.Common
 
         public RelayCommand TodayCommand { get; }
 
+        public RelayCommand OpenPopupCommand { get; }
+
+        public RelayCommand ClosePopupCommand { get; }
+
+        public bool IsOpen
+        {
+            get => _isOpen;
+            set
+            {
+                if (_isOpen && value) Set(ref _isOpen, false);
+                Set(ref _isOpen, value);
+            }
+        }
+
         public ExtendedDatePickerViewModel(ExtendedDatePicker extendedDatePicker)
         {
             Owner = extendedDatePicker;
@@ -50,6 +66,9 @@ namespace CashManager_MVVM.Features.Common
 
             FirstMonthCommand = new RelayCommand(() => Owner.SelectedValue = new DateTime(Owner.SelectedValue.Year, 1, Owner.SelectedValue.Day));
             LastMonthCommand = new RelayCommand(() => Owner.SelectedValue = new DateTime(Owner.SelectedValue.Year, 12, Owner.SelectedValue.Day));
+
+            OpenPopupCommand = new RelayCommand(() => IsOpen = true);
+            ClosePopupCommand = new RelayCommand(() => IsOpen = false);
         }
     }
 }
