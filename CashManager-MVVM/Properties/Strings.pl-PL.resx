@@ -165,9 +165,6 @@
   <data name="SettingsHeader" xml:space="preserve">
     <value>_Ustawienia</value>
   </data>
-  <data name="AboutHeader" xml:space="preserve">
-    <value>_O programie</value>
-  </data>
   <data name="HomeHeader" xml:space="preserve">
     <value>_Start</value>
   </data>
@@ -176,5 +173,191 @@
   </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
+  </data>
+  <data name="MassReplace" xml:space="preserve">
+    <value>Masowa zamiana</value>
+  </data>
+  <data name="Perform" xml:space="preserve">
+    <value>Wykonaj</value>
+  </data>
+  <data name="Parser" xml:space="preserve">
+    <value>Parser</value>
+  </data>
+  <data name="DefaultIncomeType" xml:space="preserve">
+    <value>Domyślny typ wpływów</value>
+  </data>
+  <data name="DefaultOutcomeType" xml:space="preserve">
+    <value>Domyślny typ wydatków</value>
+  </data>
+  <data name="UserStock" xml:space="preserve">
+    <value>Zasób użytkownika</value>
+  </data>
+  <data name="DefaultExternalStock" xml:space="preserve">
+    <value>Domyślne zasób zewnętrzny</value>
+  </data>
+  <data name="GenerateMissingStocks" xml:space="preserve">
+    <value>Wygeneruj brakujące zasoby</value>
+  </data>
+  <data name="Parse" xml:space="preserve">
+    <value>Analizuj</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Zapisz</value>
+  </data>
+  <data name="Wealth" xml:space="preserve">
+    <value>Zasobność</value>
+  </data>
+  <data name="TransactionSearch" xml:space="preserve">
+    <value>Wyszukiwanie transakcji</value>
+  </data>
+  <data name="PositionSearch" xml:space="preserve">
+    <value>Wyszukiwanie pozycji</value>
+  </data>
+  <data name="SaveSearchCriteria" xml:space="preserve">
+    <value>Zapisz kryteria wyszukiwania</value>
+  </data>
+  <data name="Load" xml:space="preserve">
+    <value>Załaduj</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>szukaj</value>
+  </data>
+  <data name="StockName" xml:space="preserve">
+    <value>Nazwa zasobu</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Saldo</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Łącznie</value>
+  </data>
+  <data name="CurrentBalance" xml:space="preserve">
+    <value>Aktualne saldo</value>
+  </data>
+  <data name="UserPercentOwnership" xml:space="preserve">
+    <value>Procentowy udział użytkownika w zasobie</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="AddStock" xml:space="preserve">
+    <value>Dodaj zasób</value>
+  </data>
+  <data name="Correction" xml:space="preserve">
+    <value>Korekta</value>
+  </data>
+  <data name="ManualStockUpdate" xml:space="preserve">
+    <value>Ręczna aktualizacja salda zasobu</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>Wpływ</value>
+  </data>
+  <data name="Outcome" xml:space="preserve">
+    <value>Wydatek</value>
+  </data>
+  <data name="TagName" xml:space="preserve">
+    <value>Nazwa tagu</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="LastEdit" xml:space="preserve">
+    <value>Ostatnia edycja</value>
+  </data>
+  <data name="BookDate" xml:space="preserve">
+    <value>Data zaksięgowania</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Tytuł</value>
+  </data>
+  <data name="TransactionType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategoria</value>
+  </data>
+  <data name="ExStock" xml:space="preserve">
+    <value>Zasób zewn.</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tagi</value>
+  </data>
+  <data name="NetValue" xml:space="preserve">
+    <value>Netto</value>
+  </data>
+  <data name="Tax" xml:space="preserve">
+    <value>Podatek</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Wartość</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Notatka</value>
+  </data>
+  <data name="Duplicate" xml:space="preserve">
+    <value>Duplikuj</value>
+  </data>
+  <data name="ExternalStock" xml:space="preserve">
+    <value>Zasób zewnętrzny</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Data utworzenia</value>
+  </data>
+  <data name="LastEditDate" xml:space="preserve">
+    <value>Data ostatniej modyfikacji</value>
+  </data>
+  <data name="UpdateStock" xml:space="preserve">
+    <value>Zaktualizuj zasób</value>
+  </data>
+  <data name="AddPosition" xml:space="preserve">
+    <value>Dodaj pozycję</value>
+  </data>
+  <data name="DropBillsHere" xml:space="preserve">
+    <value>Tutaj wrzuć rachunki</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="NewPosition" xml:space="preserve">
+    <value>Nowa pozycja</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Domyślny</value>
+  </data>
+  <data name="IsTransfer" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="AddTransactionType" xml:space="preserve">
+    <value>Dodaj typ</value>
+  </data>
+  <data name="Min" xml:space="preserve">
+    <value>Min</value>
+  </data>
+  <data name="Max" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="Gross" xml:space="preserve">
+    <value>Brutto</value>
+  </data>
+  <data name="LockTax" xml:space="preserve">
+    <value>Zablokuj podatek</value>
+  </data>
+  <data name="LoadContentAsTree" xml:space="preserve">
+    <value>Załaduj zawartość jako strukturę drzewiastą</value>
+  </data>
+  <data name="NewCategory" xml:space="preserve">
+    <value>Nowa kategoria</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="AboutHeader" xml:space="preserve">
+    <value>_O...</value>
   </data>
 </root>
