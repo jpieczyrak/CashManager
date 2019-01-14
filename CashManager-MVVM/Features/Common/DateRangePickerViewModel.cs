@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
 namespace CashManager_MVVM.Features.Common
@@ -20,6 +22,8 @@ namespace CashManager_MVVM.Features.Common
         public RelayCommand AddMonthCommand { get; }
 
         public RelayCommand AddYearCommand { get; }
+
+        public RelayCommand CurrentMonthCommand { get; }
 
         public DateRangePickerViewModel(DateRangePicker owner)
         {
@@ -55,6 +59,13 @@ namespace CashManager_MVVM.Features.Common
             {
                 _owner.DateFrame.From = _owner.DateFrame.From.AddYears(1);
                 _owner.DateFrame.To = _owner.DateFrame.To.AddYears(1);
+            });
+
+            CurrentMonthCommand = new RelayCommand(() =>
+            {
+                var firstDay = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                _owner.DateFrame.From = firstDay;
+                _owner.DateFrame.To = firstDay.AddMonths(1).AddDays(-1);
             });
         }
     }
