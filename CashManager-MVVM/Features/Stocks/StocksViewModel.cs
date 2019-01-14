@@ -14,6 +14,7 @@ using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Features.TransactionTypes;
 using CashManager_MVVM.Messages;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Properties;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -86,8 +87,8 @@ namespace CashManager_MVVM.Features.Stocks
                                             .OrderByDescending(x => x.IsDefault);
             var transaction = new Transaction
             {
-                Title = "Correction",
-                Note = "Manual stock update",
+                Title = Strings.Correction,
+                Note = Strings.ManualStockUpdate,
                 BookDate = DateTime.Today,
                 Type = diff > 0
                            ? incomeTypes.FirstOrDefault()

@@ -17,6 +17,7 @@ using CashManager_MVVM.Logic;
 using CashManager_MVVM.Logic.Commands;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
+using CashManager_MVVM.Properties;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -239,7 +240,7 @@ namespace CashManager_MVVM.Features.Search
 
         private void SetTitle(SearchType searchType)
         {
-            Title = $"{searchType} search";
+            Title = $"{searchType} {Strings.Search.ToLower()}";
         }
 
         private void FilterTransactions()

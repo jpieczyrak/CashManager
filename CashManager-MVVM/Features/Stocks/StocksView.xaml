@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:stocks="clr-namespace:CashManager_MVVM.Features.Stocks"
+             xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="500"
              d:DataContext="{d:DesignInstance Type=stocks:StocksViewModel, IsDesignTimeCreatable=True}">
@@ -23,11 +24,11 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0" Text="{Binding Name}" MinWidth="100" Margin="5" ToolTip="Stock name"/>
-                        <CheckBox Grid.Column="1" IsChecked="{Binding IsUserStock}" IsEnabled="{Binding IsEditable}" Content="User stock" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
-                        <TextBox Grid.Column="2" IsEnabled="{Binding IsUserStock}" Text="{Binding Balance.Value}" Width="60" TextAlignment="Right" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="Current balance" Margin="5"/>
-                        <TextBox Grid.Column="3" Text="{Binding UserOwnershipPercent}" IsEnabled="{Binding IsUserStock}" Width="40" TextAlignment="Right" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="User percent ownership" Margin="5"/>
-                        <Button Grid.Column="4" Content="Remove"
+                        <TextBox Grid.Column="0" Text="{Binding Name}" MinWidth="100" Margin="5" ToolTip="{x:Static properties:Strings.StockName}"/>
+                        <CheckBox Grid.Column="1" IsChecked="{Binding IsUserStock}" IsEnabled="{Binding IsEditable}" Content="{x:Static properties:Strings.UserStock}" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+                        <TextBox Grid.Column="2" IsEnabled="{Binding IsUserStock}" Text="{Binding Balance.Value}" Width="60" TextAlignment="Right" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{x:Static properties:Strings.CurrentBalance}" Margin="5"/>
+                        <TextBox Grid.Column="3" Text="{Binding UserOwnershipPercent}" IsEnabled="{Binding IsUserStock}" Width="40" TextAlignment="Right" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{x:Static properties:Strings.UserPercentOwnership}" Margin="5"/>
+                        <Button Grid.Column="4" Content="{x:Static properties:Strings.Remove}"
                                 Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                 CommandParameter="{Binding}"
                                 Margin="5" Width="120" Height="25"/>
@@ -35,7 +36,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Button Grid.Row="1" Content="Add stock" Command="{Binding AddStockCommand}"
+        <Button Grid.Row="1" Content="{x:Static properties:Strings.AddStock}" Command="{Binding AddStockCommand}"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="30" Margin="5"/>
     </Grid>
 </UserControl>

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CashManager_MVVM.Features.Search"
              xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
+             xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:SearchViewModel, IsDesignTimeCreatable=True}">
 
@@ -29,9 +30,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
-            <RadioButton Grid.Column="1" IsChecked="{Binding IsTransactionsSearch}" ToolTip="Transactions search" />
+            <RadioButton Grid.Column="1" IsChecked="{Binding IsTransactionsSearch}" ToolTip="{x:Static properties:Strings.TransactionSearch}" />
             <TextBlock Grid.Column="2" Text="{Binding Title}" Style="{DynamicResource GrayTextBlock}" Margin="10,0" MinWidth="100"/>
-            <RadioButton Grid.Column="3" IsChecked="{Binding IsPositionsSearch}" ToolTip="Positions search" />
+            <RadioButton Grid.Column="3" IsChecked="{Binding IsPositionsSearch}" ToolTip="{x:Static properties:Strings.PositionSearch}" />
             <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="4" Margin="5,0"/>
         </Grid>
 
@@ -82,8 +83,8 @@
                       SelectedItem="{Binding SelectedSearch}" 
                       Text="{Binding Path=SelectedSearch.Name}"
                       MinWidth="100" Margin="5,0"/>
-            <Button Grid.Column="2" Content="Save search criteria" Command="{Binding SaveSearch}" Margin="5,0"/>
-            <Button Grid.Column="3" Content="Load" Command="{Binding LoadSearch}" Margin="5,0"/>
+            <Button Grid.Column="2" Content="{x:Static properties:Strings.SaveSearchCriteria}" Command="{Binding SaveSearch}" Margin="5,0"/>
+            <Button Grid.Column="3" Content="{x:Static properties:Strings.Load}" Command="{Binding LoadSearch}" Margin="5,0"/>
         </Grid>
     </Grid>
 </UserControl>
