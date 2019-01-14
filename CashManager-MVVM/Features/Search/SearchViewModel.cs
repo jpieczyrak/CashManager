@@ -225,15 +225,14 @@ namespace CashManager_MVVM.Features.Search
             if (transactions == null || !transactions.Any()) return;
             if (IsTransactionsSearch)
             {
-                if (!CanExecuteAnyTransactionFilter)
-                    if (TransactionsListViewModel.Transactions.Count == transactions.Count) return;
+                //todo: rethink - it could improve performance, but it fails refreshing grids after transaction edit cancel
+                //if (!CanExecuteAnyTransactionFilter)if (TransactionsListViewModel.Transactions.Count == transactions.Count) return;
 
                 FilterTransactions();
             }
             else if (IsPositionsSearch)
             {
-                if (!CanExecuteAnyPositionFilter)
-                    if (PositionsListViewModel.Positions.Count == transactions.Sum(x => x.Positions.Count)) return;
+                //if (!CanExecuteAnyPositionFilter) if (PositionsListViewModel.Positions.Count == transactions.Sum(x => x.Positions.Count)) return;
                 FilterPositions();
             }
         }
