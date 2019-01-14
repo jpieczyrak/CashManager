@@ -64,7 +64,8 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
             var selectedStocks = new[] { new Stock("selected".GenerateGuid()) { IsUserStock = true } };
             var selectedUserStock = selectedStocks[0];
             selectedUserStock.IsPropertyChangedEnabled = true;
-            selectedUserStock.Balance = new Balance { Value = 60000m };
+            selectedUserStock.Balance.IsPropertyChangedEnabled = true;
+            selectedUserStock.Balance.Value = 60000m;
             var firstBookDate = DateTime.Today.AddDays(-30);
             var income = new TransactionType { Income = true };
             var outcome = new TransactionType { Outcome = true };

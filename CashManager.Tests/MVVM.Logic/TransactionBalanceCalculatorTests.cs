@@ -28,7 +28,8 @@ namespace CashManager.Tests.MVVM.Logic
             _selectedStocks = new[] { new Stock("selected".GenerateGuid()) { IsUserStock = true } };
             var selectedUserStock = _selectedStocks[0];
             selectedUserStock.IsPropertyChangedEnabled = true;
-            selectedUserStock.Balance = new Balance { Value = 60000m };
+            selectedUserStock.Balance.IsPropertyChangedEnabled = true;
+            selectedUserStock.Balance.Value = 60000m;
             var income = new TransactionType { Income = true };
             var outcome = new TransactionType { Outcome = true };
             _firstBookDate = DateTime.Today.AddDays(-30);
