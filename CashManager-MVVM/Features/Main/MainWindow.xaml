@@ -38,7 +38,7 @@
         <!-- Content -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" MinWidth="120" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -47,19 +47,19 @@
             </Grid.RowDefinitions>
 
             <ItemsControl Grid.Column="0" Grid.Row="0" ItemsSource="{Binding ViewModels}" Margin="5,0"
-                          VerticalAlignment="Top" HorizontalAlignment="Center">
+                          VerticalAlignment="Top">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
                         <Button Content="{Binding Key}"
                                 Command="{Binding DataContext.SetViewModelCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                                CommandParameter="{Binding Value}" Margin="5,5,5,2" />
+                                CommandParameter="{Binding Value}" Margin="5,5,5,2" Width="150"/>
                         <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
             <stocks:StockSummaryView Grid.Column="0" Grid.Row="1" Content="{Binding SummaryViewModel}"
-                                     Margin="5,25,5,0" VerticalAlignment="Top" MaxWidth="150" />
+                                     Margin="5,25,5,0" VerticalAlignment="Top" MaxWidth="150" HorizontalAlignment="Center" />
 
             <UserControl Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Content="{Binding SelectedViewModel}"
                          Margin="2,0" />
