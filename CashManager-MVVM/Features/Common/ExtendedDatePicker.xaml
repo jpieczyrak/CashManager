@@ -7,39 +7,71 @@
              d:DesignHeight="50" d:DesignWidth="200">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        <DatePicker x:Name="datePicker" SelectedDate="{Binding SelectedValue, ElementName=ExDatePicker}" 
+                    FirstDayOfWeek="Monday" DisplayDateEnd="{Binding EndDate, ElementName=ExDatePicker}" 
+                    MinWidth="85" Margin="2,0">
+            <DatePicker.Triggers>
+                <EventTrigger RoutedEvent="TextBlock.MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard TargetName="popup" TargetProperty="IsOpen">
+                            <BooleanAnimationUsingKeyFrames FillBehavior="HoldEnd">
+                                <DiscreteBooleanKeyFrame KeyTime="00:00:00" Value="True" />
+                            </BooleanAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </DatePicker.Triggers>
+        </DatePicker>
+        <Popup Grid.Column="0" x:Name="popup" StaysOpen="false" Placement="Bottom"
+               PlacementTarget="{Binding ElementName=datePicker}" 
+               VerticalOffset="0">
+            <Border Background="{DynamicResource BackgroundColorBrush}" CornerRadius="{DynamicResource BigCornerRadius}" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}">
+                <Grid Background="{DynamicResource BackgroundColorBrush}" Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-        <Button Grid.Column="0" Grid.Row="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractYearCommand, ElementName=ExDatePicker}" HorizontalAlignment="Left" ToolTip="Previous year" />
-        <Button Grid.Column="0" Grid.Row="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractMonthCommand, ElementName=ExDatePicker}" Margin="13,0,0,0" HorizontalAlignment="Left" ToolTip="Previous month" />
-        <Button Grid.Column="0" Grid.Row="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractDayCommand, ElementName=ExDatePicker}" Margin="26,0,0,0" HorizontalAlignment="Left" ToolTip="Previous day" />
+                    <Button Grid.Column="0" Grid.Row="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractYearCommand, ElementName=ExDatePicker}" HorizontalAlignment="Left" ToolTip="Previous year" />
+                    <Button Grid.Column="0" Grid.Row="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractMonthCommand, ElementName=ExDatePicker}" Margin="13,0,0,0" HorizontalAlignment="Left" ToolTip="Previous month" />
+                    <Button Grid.Column="0" Grid.Row="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractDayCommand, ElementName=ExDatePicker}" Margin="26,0,0,0" HorizontalAlignment="Left" ToolTip="Previous day" />
 
-        <DatePicker Grid.Column="1" Grid.Row="0" SelectedDate="{Binding SelectedValue, ElementName=ExDatePicker}" FirstDayOfWeek="Monday" DisplayDateEnd="{Binding EndDate, ElementName=ExDatePicker}" 
-                    MinWidth="85" Margin="2,0"/>
-        <Grid Grid.Column="1" Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Style="{StaticResource SimpleButtonStyle}" Command="{Binding ViewModel.FirstMonthCommand, ElementName=ExDatePicker}" ToolTip="Select first month" />
-            <Button Grid.Column="1" Style="{StaticResource SimpleButtonStyle}" Command="{Binding ViewModel.FirstDayCommand, ElementName=ExDatePicker}" ToolTip="Select first day of month" />
-            <Button Grid.Column="2" Style="{StaticResource SimpleButtonStyle}" Command="{Binding ViewModel.TodayCommand, ElementName=ExDatePicker}" ToolTip="Today" />
-            <Button Grid.Column="3" Style="{StaticResource SimpleButtonStyle}" Command="{Binding ViewModel.LastDayCommand, ElementName=ExDatePicker}" ToolTip="Select last day of month" />
-            <Button Grid.Column="4" Style="{StaticResource SimpleButtonStyle}" Command="{Binding ViewModel.LastMonthCommand, ElementName=ExDatePicker}" ToolTip="Select last month" />
-        </Grid>
+                    <Grid Grid.Column="1" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Style="{StaticResource SimpleButtonStyle}" Command="{Binding ViewModel.FirstMonthCommand, ElementName=ExDatePicker}" ToolTip="Select first month" />
+                        <Button Grid.Column="1" Style="{StaticResource SimpleButtonStyle}" Command="{Binding ViewModel.FirstDayCommand, ElementName=ExDatePicker}" ToolTip="Select first day of month" />
+                        <Button Grid.Column="2" Style="{StaticResource SimpleButtonStyle}" Command="{Binding ViewModel.TodayCommand, ElementName=ExDatePicker}" ToolTip="Today" />
+                        <Button Grid.Column="3" Style="{StaticResource SimpleButtonStyle}" Command="{Binding ViewModel.LastDayCommand, ElementName=ExDatePicker}" ToolTip="Select last day of month" />
+                        <Button Grid.Column="4" Style="{StaticResource SimpleButtonStyle}" Command="{Binding ViewModel.LastMonthCommand, ElementName=ExDatePicker}" ToolTip="Select last month" />
+                    </Grid>
 
-        <Button Grid.Column="2" Grid.Row="0" Style="{DynamicResource RightArrowButtonStyle}" Command="{Binding ViewModel.AddDayCommand, ElementName=ExDatePicker}" HorizontalAlignment="Left" ToolTip="Next day"/>
-        <Button Grid.Column="2" Grid.Row="0" Style="{DynamicResource RightArrowButtonStyle}" Command="{Binding ViewModel.AddMonthCommand, ElementName=ExDatePicker}" Margin="13,0,0,0" HorizontalAlignment="Left" ToolTip="Next month"/>
-        <Button Grid.Column="2" Grid.Row="0" Style="{DynamicResource RightArrowButtonStyle}" Command="{Binding ViewModel.AddYearCommand, ElementName=ExDatePicker}" Margin="26,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Next year"/>
+                    <Button Grid.Column="2" Grid.Row="0" Style="{DynamicResource RightArrowButtonStyle}" Command="{Binding ViewModel.AddDayCommand, ElementName=ExDatePicker}" HorizontalAlignment="Left" ToolTip="Next day"/>
+                    <Button Grid.Column="2" Grid.Row="0" Style="{DynamicResource RightArrowButtonStyle}" Command="{Binding ViewModel.AddMonthCommand, ElementName=ExDatePicker}" Margin="13,0,0,0" HorizontalAlignment="Left" ToolTip="Next month"/>
+                    <Button Grid.Column="2" Grid.Row="0" Style="{DynamicResource RightArrowButtonStyle}" Command="{Binding ViewModel.AddYearCommand, ElementName=ExDatePicker}" Margin="26,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Next year"/>
+                </Grid>
+                <Border.Triggers>
+                    <EventTrigger RoutedEvent="Border.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard TargetName="popup" TargetProperty="IsOpen">
+                                <BooleanAnimationUsingKeyFrames FillBehavior="HoldEnd">
+                                    <DiscreteBooleanKeyFrame KeyTime="00:00:00" Value="False" />
+                                </BooleanAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Border.Triggers>
+            </Border>
+        </Popup>
     </Grid>
 </UserControl>
