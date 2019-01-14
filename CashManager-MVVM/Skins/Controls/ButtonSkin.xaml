@@ -106,6 +106,42 @@
         <Setter Property="Width" Value="20"/>
         <Setter Property="Height" Value="25"/>
     </Style>
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}" x:Key="LeftArrowButtonStyle1">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill)" Storyboard.TargetName="path">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource HoverControlBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill)" Storyboard.TargetName="path">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource HoverControlBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Path x:Name="path" Data="M-33,0 L-46.5,11.5 -33,23 -29,19 -38.5,11.5 -29,4.5 z" Stretch="Uniform" VerticalAlignment="Stretch" Stroke="{DynamicResource BorderBrush}" Fill="{DynamicResource ControlBackgroundBrush}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True"/>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Height" Value="25"/>
+    </Style>
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource LeftArrowButtonStyle}" x:Key="RightArrowButtonStyle">
         <Setter Property="Template">
             <Setter.Value>
