@@ -360,4 +360,28 @@
   <data name="AboutHeader" xml:space="preserve">
     <value>_O...</value>
   </data>
+  <data name="TransactionsSearch" xml:space="preserve">
+    <value>Wyszukiwanie transakcji</value>
+  </data>
+  <data name="MassReplacer" xml:space="preserve">
+    <value>Masowa zamiana</value>
+  </data>
+  <data name="TransactionTypes" xml:space="preserve">
+    <value>Typy</value>
+  </data>
+  <data name="WealthPlot" xml:space="preserve">
+    <value>Wykres zasobności</value>
+  </data>
+  <data name="CustomBalances" xml:space="preserve">
+    <value>Konfigurowalne salda</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Kategorie</value>
+  </data>
+  <data name="CategoriesPlot" xml:space="preserve">
+    <value>Wykres kategorii</value>
+  </data>
+  <data name="AddTransaction" xml:space="preserve">
+    <value>Dodaj transakcję</value>
+  </data>
 </root>
