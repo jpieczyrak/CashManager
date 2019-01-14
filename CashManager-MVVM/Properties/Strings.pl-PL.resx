@@ -381,4 +381,31 @@
   <data name="AddTransaction" xml:space="preserve">
     <value>Dodaj transakcję</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Język</value>
+  </data>
+  <data name="SkinColors" xml:space="preserve">
+    <value>Kolor skórki</value>
+  </data>
+  <data name="RestartRequiredAfterChange" xml:space="preserve">
+    <value>Zmiany będą widoczne dopiero po restarcie aplikacji</value>
+  </data>
+  <data name="SkinShape" xml:space="preserve">
+    <value>Kształt skórki</value>
+  </data>
+  <data name="Sounds" xml:space="preserve">
+    <value>Dzwięki</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Do</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="EditDate" xml:space="preserve">
+    <value>Data edycji</value>
+  </data>
+  <data name="PositionTitle" xml:space="preserve">
+    <value>Tytuł pozycji</value>
+  </data>
 </root>
