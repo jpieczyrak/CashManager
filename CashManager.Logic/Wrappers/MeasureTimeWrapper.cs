@@ -21,8 +21,8 @@ namespace CashManager.Logic.Wrappers
 
         public void Dispose()
         {
-            string msPart = _stopwatch.ElapsedMilliseconds < 1000 ? $" [{_stopwatch.ElapsedMilliseconds,3}]ms" : string.Empty;
-            LogManager.GetLogger(typeof(MeasureTimeWrapper)).Info($"{_description,-24} Time: {_stopwatch.Elapsed:g}{msPart}");
+            string msPart = _stopwatch.ElapsedMilliseconds < 1000 ? $" [{_stopwatch.ElapsedMilliseconds,3}] ms" : string.Empty;
+            LogManager.GetLogger(typeof(MeasureTimeWrapper)).Info($"{_description,-30} Time: {_stopwatch.Elapsed:c}{msPart}");
         }
     }
 }
