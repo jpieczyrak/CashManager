@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 
 using CashManager.Infrastructure.Query;
+using CashManager.Logic.Wrappers;
 
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Plots;
@@ -53,9 +54,7 @@ namespace CashManager_MVVM.Features.Summary
 
         public sealed override void Update()
         {
-            _logger.Value.Debug("Update");
             base.Update();
-            _logger.Value.Debug("Updated");
         }
 
         protected override void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+
+using CashManager.Logic.Wrappers;
 
 using CashManager_MVVM.Features.Balance;
 using CashManager_MVVM.Features.Categories;
@@ -39,7 +42,11 @@ namespace CashManager_MVVM.Features.Main
             {
                 PreviousSelectedViewModel = _selectedViewModel;
                 Set(ref _selectedViewModel, value);
-                if (_selectedViewModel is IUpdateable model) model.Update();
+                if (_selectedViewModel is IUpdateable model)
+                {
+                    string name = model.GetType().ToString().Split('.').LastOrDefault();
+                    using (new MeasureTimeWrapper(() => model.Update(), $"{name}.Update")) { }
+                }
             }
         }
 
