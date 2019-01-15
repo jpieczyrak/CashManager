@@ -313,6 +313,24 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to First day of month.
+        /// </summary>
+        public static string FirstDayOfTheMonth {
+            get {
+                return ResourceManager.GetString("FirstDayOfTheMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First month.
+        /// </summary>
+        public static string FirstMonth {
+            get {
+                return ResourceManager.GetString("FirstMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
         public static string From {
@@ -439,6 +457,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last day of month.
+        /// </summary>
+        public static string LastDayOfTheMonth {
+            get {
+                return ResourceManager.GetString("LastDayOfTheMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last edit.
         /// </summary>
         public static string LastEdit {
@@ -453,6 +480,15 @@ namespace CashManager_MVVM.Properties {
         public static string LastEditDate {
             get {
                 return ResourceManager.GetString("LastEditDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last month.
+        /// </summary>
+        public static string LastMonth {
+            get {
+                return ResourceManager.GetString("LastMonth", resourceCulture);
             }
         }
         
@@ -574,6 +610,33 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next day.
+        /// </summary>
+        public static string NextDay {
+            get {
+                return ResourceManager.GetString("NextDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next month.
+        /// </summary>
+        public static string NextMonth {
+            get {
+                return ResourceManager.GetString("NextMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next year.
+        /// </summary>
+        public static string NextYear {
+            get {
+                return ResourceManager.GetString("NextYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Note.
         /// </summary>
         public static string Note {
@@ -669,6 +732,33 @@ namespace CashManager_MVVM.Properties {
         public static string PositionTitle {
             get {
                 return ResourceManager.GetString("PositionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous day.
+        /// </summary>
+        public static string PreviousDay {
+            get {
+                return ResourceManager.GetString("PreviousDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous month.
+        /// </summary>
+        public static string PreviousMonth {
+            get {
+                return ResourceManager.GetString("PreviousMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous year.
+        /// </summary>
+        public static string PreviousYear {
+            get {
+                return ResourceManager.GetString("PreviousYear", resourceCulture);
             }
         }
         

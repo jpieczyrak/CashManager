@@ -408,4 +408,37 @@
   <data name="PositionTitle" xml:space="preserve">
     <value>Tytuł pozycji</value>
   </data>
+  <data name="Today" xml:space="preserve">
+    <value>Dzisiaj</value>
+  </data>
+  <data name="PreviousYear" xml:space="preserve">
+    <value>Poprzedni rok</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Poprzedni miesiąc</value>
+  </data>
+  <data name="PreviousDay" xml:space="preserve">
+    <value>Poprzedni dzień</value>
+  </data>
+  <data name="NextDay" xml:space="preserve">
+    <value>Następny dzień</value>
+  </data>
+  <data name="NextMonth" xml:space="preserve">
+    <value>Następny miesiąc</value>
+  </data>
+  <data name="NextYear" xml:space="preserve">
+    <value>Następny rok</value>
+  </data>
+  <data name="FirstMonth" xml:space="preserve">
+    <value>Pierwszy miesiąc</value>
+  </data>
+  <data name="FirstDayOfTheMonth" xml:space="preserve">
+    <value>Pierwszy dzień miesiąca</value>
+  </data>
+  <data name="LastDayOfTheMonth" xml:space="preserve">
+    <value>Ostatni dzień miesiąca</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Ostatni miesiąc</value>
+  </data>
 </root>

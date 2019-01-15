@@ -391,4 +391,34 @@
   <data name="Today" xml:space="preserve">
     <value>Today</value>
   </data>
+  <data name="PreviousYear" xml:space="preserve">
+    <value>Previous year</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Previous month</value>
+  </data>
+  <data name="PreviousDay" xml:space="preserve">
+    <value>Previous day</value>
+  </data>
+  <data name="NextDay" xml:space="preserve">
+    <value>Next day</value>
+  </data>
+  <data name="NextMonth" xml:space="preserve">
+    <value>Next month</value>
+  </data>
+  <data name="NextYear" xml:space="preserve">
+    <value>Next year</value>
+  </data>
+  <data name="FirstMonth" xml:space="preserve">
+    <value>First month</value>
+  </data>
+  <data name="FirstDayOfTheMonth" xml:space="preserve">
+    <value>First day of month</value>
+  </data>
+  <data name="LastDayOfTheMonth" xml:space="preserve">
+    <value>Last day of month</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Last month</value>
+  </data>
 </root>
