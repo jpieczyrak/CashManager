@@ -148,16 +148,16 @@
     <value>_Zarządzaj</value>
   </data>
   <data name="StocksManagerHeader" xml:space="preserve">
-    <value>_Menadżer zasobów</value>
+    <value>Menadżer _zasobów</value>
   </data>
   <data name="CategoryManagerHeader" xml:space="preserve">
-    <value>_Menadżer kategorii</value>
+    <value>Menadżer _kategorii</value>
   </data>
   <data name="TypesManagerHeader" xml:space="preserve">
-    <value>_Menadżer typów</value>
+    <value>Menadżer t_ypów</value>
   </data>
   <data name="TagsManagerHeader" xml:space="preserve">
-    <value>_Menadżer tagów</value>
+    <value>Menadżer t_agów</value>
   </data>
   <data name="ImportHeader" xml:space="preserve">
     <value>_Import</value>
