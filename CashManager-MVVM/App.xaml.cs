@@ -13,6 +13,7 @@ using Autofac;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Modules;
 using CashManager.Logic.Extensions;
+using CashManager.Logic.Wrappers;
 
 using CashManager_MVVM.Configuration.DI;
 using CashManager_MVVM.Configuration.Mapping;
@@ -66,7 +67,8 @@ namespace CashManager_MVVM
             HandleSettingsUpgrade();
             _logger.Value.Debug("Startup");
 
-            var builder = AutofacConfiguration.ContainerBuilder();
+            ContainerBuilder builder = null;
+            using (new MeasureTimeWrapper(() => builder = AutofacConfiguration.ContainerBuilder(), "ContainerBuilder")) { }
 
             InitWindow init = null;
             if (File.Exists(DatabaseFilepath))
@@ -92,12 +94,16 @@ namespace CashManager_MVVM
             try
             {
                 //it could be using, but then there is problem with resolving func factory... anyway it will die with app.
-                var container = builder.Build();
+                IContainer container = null;
+                using (new MeasureTimeWrapper(() => container = builder.Build(), "Container.Build")) { }
 
                 if (init?.DataContext is InitViewModel vm)
                 {
                     if (vm.CanStartApplication)
-                        vm.GenerateData(container.Resolve<ICommandDispatcher>());
+                    {
+                        using (new MeasureTimeWrapper(
+                            () => vm.GenerateData(container.Resolve<ICommandDispatcher>()), "GenerateData")) { }
+                    }
                     else
                     {
                         Current.Shutdown();
@@ -105,7 +111,7 @@ namespace CashManager_MVVM
                     }
                 }
 
-                container.Resolve<MainWindow>().Show();
+                using (new MeasureTimeWrapper(() => container.Resolve<MainWindow>().Show(), "Resolve<MainWindow>().Show()")) { }
             }
             catch (Exception exception)
             {
@@ -129,7 +135,7 @@ namespace CashManager_MVVM
         {
 #if DEBUG
             string errorMessage = $"An unhandled exception: {e.Exception.Message}";
-            MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(errorMessage, "Error [OnDispatcherUnhandledException]", MessageBoxButton.OK, MessageBoxImage.Error);
 #endif
             _logger.Value.Fatal("An unhandled exception", e.Exception);
             e.Handled = false;

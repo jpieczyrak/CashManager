@@ -9,6 +9,7 @@ using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.States;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.States;
+using CashManager.Logic.Wrappers;
 
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Transactions;
@@ -176,9 +177,7 @@ namespace CashManager_MVVM.Features.Search
                 _logger.Value.Debug("Calling filter");
                 _debouncer.Debouce(() => DispatcherHelper.RunAsync(() =>
                 {
-                    _logger.Value.Debug("Running filter");
-                    PerformFilter();
-                    _logger.Value.Debug("End running filter");
+                    using (new MeasureTimeWrapper(PerformFilter, "Running filter")) { }
                 }));
             }
             else
