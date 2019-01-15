@@ -25,7 +25,9 @@ namespace CashManager.Logic.DefaultData.InputParsers
                 if (depth == 0) map = new Dictionary<int, Category>();
                 if (depth != 0)
                 {
-                    var parent = map[depth - 1];
+                    int key = depth - 1;
+                    if (!map.ContainsKey(key)) return new Category[0];
+                    var parent = map[key];
                     category.Parent = parent;
                 }
 
