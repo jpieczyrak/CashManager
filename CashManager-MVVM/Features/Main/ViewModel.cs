@@ -9,6 +9,12 @@
         TagsManager,
         Import,
         Settings,
-        About
+        About,
+        Search,
+        MassReplacer,
+        Transaction,
+        WealthPlot,
+        CategoriesPlot,
+        CustomBalances
     }
 }

@@ -70,7 +70,7 @@ namespace CashManager_MVVM.Features.Transactions
             var applicationViewModel = _factory.Create<ApplicationViewModel>();
             var transactionViewModel = _factory.Create<TransactionViewModel>();
             transactionViewModel.Transaction = SelectedTransaction;
-            applicationViewModel.SetViewModelCommand.Execute(transactionViewModel);
+            applicationViewModel.SelectViewModelCommand.Execute(ViewModel.Transaction);
         }
 
         private void TransactionDuplicate()

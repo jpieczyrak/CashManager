@@ -54,7 +54,7 @@ namespace CashManager_MVVM.Features.Transactions.Positions
             var applicationViewModel = _factory.Create<ApplicationViewModel>();
             var transactionViewModel = _factory.Create<TransactionViewModel>();
             transactionViewModel.Transaction = SelectedPosition.Parent;
-            applicationViewModel.SetViewModelCommand.Execute(transactionViewModel);
+            applicationViewModel.SelectViewModelCommand.Execute(ViewModel.Transaction);
         }
     }
 }
