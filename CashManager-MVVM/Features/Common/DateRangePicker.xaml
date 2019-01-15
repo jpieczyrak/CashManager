@@ -52,38 +52,51 @@
                 </Grid>
                 <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
             </Grid>
-            <WrapPanel Grid.Row="1" HorizontalAlignment="Center">
-                <Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Margin="2,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Static properties:Strings.From}" Style="{DynamicResource GrayTextBlock}" />
-                    <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
-                    <local:ExtendedDatePicker Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,2,2,2" SelectedValue="{Binding DateFrame.From, ElementName=DateRangePickerControl}" />
+                    <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0"
+                               Margin="5,0" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Static properties:Strings.From}"
+                               Style="{DynamicResource GrayTextBlock}" />
+                    <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2"
+                               Margin="5,0" />
+                    <local:ExtendedDatePicker Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,2,2,2"
+                                              SelectedValue="{Binding DateFrame.From, ElementName=DateRangePickerControl}" />
                 </Grid>
-                <Grid>
+                <Grid Column="1" Margin="2,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Static properties:Strings.To}" Style="{DynamicResource GrayTextBlock}" />
-                    <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
-                    <local:ExtendedDatePicker Grid.Row="1" Grid.Column="0" Margin="2,2,0,2" SelectedValue="{Binding DateFrame.To, ElementName=DateRangePickerControl}" Grid.ColumnSpan="3" />
+                    <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0"
+                               Margin="5,0" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Static properties:Strings.To}"
+                               Style="{DynamicResource GrayTextBlock}" />
+                    <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2"
+                               Margin="5,0" />
+                    <local:ExtendedDatePicker Grid.Row="1" Grid.Column="0" Margin="2,2,0,2"
+                                              SelectedValue="{Binding DateFrame.To, ElementName=DateRangePickerControl}"
+                                              Grid.ColumnSpan="3" />
                 </Grid>
-            </WrapPanel>
+            </Grid>
         </Grid>
     </Border>
 </UserControl>
