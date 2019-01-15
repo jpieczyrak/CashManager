@@ -10,7 +10,6 @@ namespace CashManager.Infrastructure.DbConnection
         {
             BsonMapper.Global.Entity<Transaction>()
                       .Id(x => x.Id)
-                      .DbRef(x => x.Positions)
                       .DbRef(x => x.Type)
                       .DbRef(x => x.ExternalStock)
                       .DbRef(x => x.UserStock);

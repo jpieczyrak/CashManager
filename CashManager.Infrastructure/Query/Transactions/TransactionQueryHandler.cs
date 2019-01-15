@@ -23,7 +23,6 @@ namespace CashManager.Infrastructure.Query.Transactions
 	                            .Include(x => x.ExternalStock)
 	                            .Include(x => x.UserStock)
 	                            .Include(x => x.Type)
-	                            .Include(x => x.Positions)
 	                            .Include($"$.{POSITIONS_NAME}[*].{TAGS_NAME}[*]")
 	                            .Include($"$.{POSITIONS_NAME}[*].{CATEGORY_NAME}")
 	                            .Include($"$.{POSITIONS_NAME}[*].{CATEGORY_NAME}.{PARENT_NAME}");
