@@ -99,6 +99,7 @@
     <Compile Include="Parsers\MillenniumBankParser.cs" />
     <Compile Include="Parsers\ParserFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wrappers\MeasureTimeWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CashManager.Data\CashManager.Data.csproj">
