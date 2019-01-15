@@ -178,6 +178,7 @@ namespace CashManager_MVVM.Features.Search
                 _debouncer.Debouce(() => DispatcherHelper.RunAsync(() =>
                 {
                     using (new MeasureTimeWrapper(PerformFilter, "Running filter")) { }
+                    _logger.Value.Debug("Running filter");
                 }));
             }
             else
