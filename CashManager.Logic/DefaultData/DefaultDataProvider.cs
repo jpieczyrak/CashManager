@@ -36,8 +36,8 @@ namespace CashManager.Logic.DefaultData
         {
             return new[]
             {
-                new Stock { Name = "User1", IsUserStock = true, Balance = new Balance(DateTime.MinValue, 0) },
-                new Stock { Name = "Wallet", IsUserStock = true, Balance = new Balance(DateTime.MinValue, 0) },
+                new Stock { Name = "User1", IsUserStock = true, Balance = new Balance(DateTime.Today, 0) },
+                new Stock { Name = "Wallet", IsUserStock = true, Balance = new Balance(DateTime.Today, 0) },
                 new Stock { Name = "Ex1" },
             };
         }
