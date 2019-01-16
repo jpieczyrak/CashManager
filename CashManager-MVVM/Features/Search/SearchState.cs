@@ -22,7 +22,7 @@ using DtoType = CashManager.Data.DTO.TransactionType;
 
 namespace CashManager_MVVM.Features.Search
 {
-    public sealed class SearchState : BaseSelectable
+    public sealed class SearchState : BaseObservableObject
     {
         private string _name;
         public const string DEFAULT_NAME = "default";
@@ -73,7 +73,7 @@ namespace CashManager_MVVM.Features.Search
             LastEditDateFilter = new DateFrame(DateFrameType.EditDate);
             ValueFilter = new RangeSelector(RangeSelectorType.GrossValue);
 
-            var defaultSource = new BaseSelectable[0];
+            var defaultSource = new Selectable[0];
             UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, defaultSource);
             ExternalStocksFilter = new MultiPicker(MultiPickerType.ExternalStock, defaultSource);
             CategoriesFilter = new MultiPicker(MultiPickerType.Category, defaultSource);
@@ -85,20 +85,21 @@ namespace CashManager_MVVM.Features.Search
 
         public void UpdateSources(IQueryDispatcher queryDispatcher, TransactionsProvider transactionsProvider = null)
         {
-            var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery())).OrderBy(x => x.Name);
-            UserStocksFilter.SetInput(availableStocks.Where(x => x.IsUserStock).ToArray());
-            var externalStocks = Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks)); //we don't want to have same reference in 2 pickers
-            ExternalStocksFilter.SetInput(externalStocks);
+            var userStocks = queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()).Where(x => x.IsUserStock).OrderBy(x => x.Name);
+            UserStocksFilter.SetInput(Mapper.Map<Stock[]>(userStocks).Select(x => new Selectable(x)).ToArray());
+
+            var exStocks = queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery());
+            ExternalStocksFilter.SetInput(Mapper.Map<Stock[]>(exStocks).Select(x => new Selectable(x)).ToArray());
 
             var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
             categories = CategoryDesignHelper.BuildGraphicalOrder(categories);
-            CategoriesFilter.SetInput(categories);
+            CategoriesFilter.SetInput(Mapper.Map<Category[]>(categories).Select(x => new Selectable(x)).ToArray());
 
             var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
-            TypesFilter.SetInput(types);
+            TypesFilter.SetInput(types.Select(x => new Selectable(x)).ToArray());
 
             var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
-            TagsFilter.SetInput(tags);
+            TagsFilter.SetInput(tags.Select(x => new Selectable(x)).ToArray());
 
             bool availableTransactions = transactionsProvider?.AllTransactions?.Any() ?? false;
             ValueFilter.MinimumValue = availableTransactions

@@ -10,6 +10,7 @@ using CashManager.Infrastructure.Query.Stocks;
 
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
 
 using GalaSoft.MvvmLight;
@@ -19,7 +20,7 @@ namespace CashManager_MVVM.Features.Plots
     public class FilterableViewModel : ViewModelBase, IUpdateable
     {
         protected readonly TransactionsProvider _transactionsProvider;
-        private readonly IQueryDispatcher _queryDispatcher;
+        protected readonly IQueryDispatcher _queryDispatcher;
 
         private DateFrame _bookDateFilter;
         private MultiPicker _userStocksFilter;
@@ -40,7 +41,7 @@ namespace CashManager_MVVM.Features.Plots
         {
             get
             {
-                var stockHashSet = new HashSet<Stock>(UserStocksFilter.Results.OfType<Stock>());
+                var stockHashSet = new HashSet<Stock>(UserStocksFilter.Results.Select(x => x.Value as Stock));
                 return _transactionsProvider.AllTransactions
                                             .Where(x => !UserStocksFilter.IsChecked || stockHashSet.Contains(x.UserStock));
             }
@@ -63,9 +64,9 @@ namespace CashManager_MVVM.Features.Plots
             _transactionsProvider = transactionsProvider;
 
             var dtos = _queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
-            var stocks = Mapper.Map<Stock[]>(dtos)
-                               .Where(x => x.IsUserStock)
+            var stocks = Mapper.Map<Stock[]>(dtos.Where(x => x.IsUserStock))
                                .OrderBy(x => x.Name)
+                               .Select(x => new Selectable(x))
                                .ToArray();
             UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, stocks) { IsChecked = true };
             foreach (var result in UserStocksFilter.ComboBox.InternalDisplayableSearchResults) result.IsSelected = true;
@@ -91,9 +92,9 @@ namespace CashManager_MVVM.Features.Plots
         public virtual void Update()
         {
             var dtos = _queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
-            var stocks = Mapper.Map<Stock[]>(dtos)
-                               .Where(x => x.IsUserStock)
+            var stocks = Mapper.Map<Stock[]>(dtos.Where(x => x.IsUserStock))
                                .OrderBy(x => x.Name)
+                               .Select(x => new Selectable(x))
                                .ToArray();
 
             UserStocksFilter.SetInput(stocks);

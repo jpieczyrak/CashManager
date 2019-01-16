@@ -7,17 +7,17 @@ namespace CashManager_MVVM.Model.Selectors
     {
         public MultiPickerType Type { get; }
 
-        public BaseSelectable[] Input { get; }
+        public Selectable[] Input { get; }
 
-        private BaseSelectable _selected;
+        private Selectable _selected;
 
-        public BaseSelectable Selected
+        public Selectable Selected
         {
             get => _selected;
             set => Set(ref _selected, value);
         }
 
-        public SinglePicker(MultiPickerType type, BaseSelectable[] input)
+        public SinglePicker(MultiPickerType type, Selectable[] input)
         {
             Type = type;
             Input = input;

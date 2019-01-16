@@ -5,6 +5,7 @@ using Autofac;
 using CashManager.Tests.ViewModels.Fixtures;
 
 using CashManager_MVVM.Features.Search;
+using CashManager_MVVM.Model.Common;
 
 using Xunit;
 
@@ -85,8 +86,10 @@ namespace CashManager.Tests.ViewModels.Search.Positions
                              .OrderBy(x => x.Id)
                              .ToArray();
 
-            //when
+            foreach (var filter in vm.State.TypesFilter.ComboBox.InternalDisplayableSearchResults) filter.IsSelected = false;
             vm.State.TypesFilter.ComboBox.InternalDisplayableSearchResults.First(x => x.Id == filterValue.Id).IsSelected = true;
+
+            //when
             vm.State.TypesFilter.IsChecked = true;
 
             //then

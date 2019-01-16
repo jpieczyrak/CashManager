@@ -1,8 +1,12 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+
+using AutoMapper;
 
 using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Logic.Balances;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
 
 using Category = CashManager_MVVM.Model.Category;
@@ -22,6 +26,8 @@ namespace CashManager_MVVM.Configuration.Mapping
             {
                 if (!_isInitialized)
                 {
+                    var stocks = new Dictionary<Guid, Stock>();
+                    var types = new Dictionary<Guid, TransactionType>();
                     Mapper.Initialize(config =>
                     {
                         config.CreateMap<Category, CashManager.Data.DTO.Category>();
@@ -33,7 +39,16 @@ namespace CashManager_MVVM.Configuration.Mapping
 
                         config.CreateMap<Stock, CashManager.Data.DTO.Stock>();
                         config.CreateMap<CashManager.Data.DTO.Stock, Stock>()
-                              .AfterMap((dto, model) => model.IsPropertyChangedEnabled = true);
+                              .ConstructUsing((dto, context) =>
+                              {
+                                  if (dto == null) return null;
+                                  if (stocks.TryGetValue(dto.Id, out var output)) return output;
+                                  return context.ConfigurationProvider.ServiceCtor(typeof(Stock)) as Stock;
+                              })
+                              .AfterMap((dto, model) =>
+                              {
+                                  stocks[dto.Id] = model;
+                              });
 
                         config.CreateMap<Tag, CashManager.Data.DTO.Tag>();
                         config.CreateMap<CashManager.Data.DTO.Tag, Tag>();
@@ -42,7 +57,17 @@ namespace CashManager_MVVM.Configuration.Mapping
                         config.CreateMap<CashManager.Data.DTO.PaymentValue, PaymentValue>();
 
                         config.CreateMap<TransactionType, CashManager.Data.DTO.TransactionType>();
-                        config.CreateMap<CashManager.Data.DTO.TransactionType, TransactionType>();
+                        config.CreateMap<CashManager.Data.DTO.TransactionType, TransactionType>()
+                              .ConstructUsing((dto, context) =>
+                              {
+                                  if (dto == null) return null;
+                                  if (types.TryGetValue(dto.Id, out var output)) return output;
+                                  return context.ConfigurationProvider.ServiceCtor(typeof(TransactionType)) as TransactionType;
+                              })
+                              .AfterMap((dto, model) =>
+                              {
+                                  types[dto.Id] = model;
+                              });
 
                         config.CreateMap<StoredFileInfo, CashManager.Data.DTO.StoredFileInfo>();
                         config.CreateMap<CashManager.Data.DTO.StoredFileInfo, StoredFileInfo>();

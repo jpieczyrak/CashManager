@@ -11,10 +11,10 @@ namespace CashManager_MVVM.Logic.Balances
 
         public SearchState[] Searches { get; set; }
 
-        public string Name
+        public override string Name
         {
             get => _name;
-            private set
+            set
             {
                 _name = value;
                 Id = Name.GenerateGuid();

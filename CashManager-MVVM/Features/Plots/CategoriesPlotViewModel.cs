@@ -11,6 +11,7 @@ using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
 
 using GalaSoft.MvvmLight;
@@ -19,6 +20,7 @@ using OxyPlot;
 using OxyPlot.Series;
 
 using DtoStock = CashManager.Data.DTO.Stock;
+using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 
 namespace CashManager_MVVM.Features.Plots
 {
@@ -78,7 +80,7 @@ namespace CashManager_MVVM.Features.Plots
                                .Where(x => x.IsUserStock)
                                .OrderBy(x => x.Name)
                                .ToArray();
-            UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, stocks);
+            UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, stocks.Select(x => new Selectable(x)).ToArray());
             foreach (var result in UserStocksFilter.ComboBox.InternalDisplayableSearchResults) result.IsSelected = true;
             UserStocksFilter.IsChecked = true;
             UserStocksFilter.PropertyChanged += OnPropertyChanged;
@@ -88,10 +90,15 @@ namespace CashManager_MVVM.Features.Plots
             BookDateFilter.IsChecked = true;
             BookDateFilter.PropertyChanged += OnPropertyChanged;
 
-            var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
+            var types = Mapper
+                        .Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, DtoTransactionType[]>(new TransactionTypesQuery())
+                                                                .OrderBy(x => !x.Outcome)
+                                                                .ThenBy(x => x.Name))
+                        .Select(x => new Selectable(x))
+                        .ToArray();
             TypesFilter = new MultiPicker(MultiPickerType.TransactionType, types);
-            foreach (var x in TypesFilter.ComboBox.InternalDisplayableSearchResults.OfType<TransactionType>())
-                x.IsSelected = x.Outcome;
+            foreach (var x in TypesFilter.ComboBox.InternalDisplayableSearchResults)
+                x.IsSelected = ((TransactionType) x.Value).Outcome;
             TypesFilter.IsChecked = true;
             TypesFilter.PropertyChanged += OnPropertyChanged;
 
@@ -108,9 +115,9 @@ namespace CashManager_MVVM.Features.Plots
             if (transactions == null || !transactions.Any()) return;
 
             var selectedStocks = UserStocksFilter.IsChecked
-                                     ? UserStocksFilter.Results.OfType<Stock>().ToArray()
+                                     ? UserStocksFilter.Results.Select(x => x.Value as Stock).ToArray()
                                      : null;
-            var selectedTypes = new HashSet<TransactionType>(TypesFilter.Results.OfType<TransactionType>());
+            var selectedTypes = new HashSet<TransactionType>(TypesFilter.Results.Select(x => x.Value as TransactionType));
 
             if (selectedStocks != null && selectedStocks.Any())
             {

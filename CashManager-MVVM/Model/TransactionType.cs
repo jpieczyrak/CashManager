@@ -2,7 +2,7 @@
 
 namespace CashManager_MVVM.Model
 {
-    public class TransactionType : BaseSelectable
+    public class TransactionType : BaseObservableObject
     {
         private bool _income;
         private bool _outcome;

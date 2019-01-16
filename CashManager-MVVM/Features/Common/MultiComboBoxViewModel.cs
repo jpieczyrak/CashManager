@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using CashManager_MVVM.Model.Common;
@@ -10,9 +11,9 @@ namespace CashManager_MVVM.Features.Common
 {
     public class MultiComboBoxViewModel : ViewModelBase
     {
-        private TrulyObservableCollection<BaseSelectable> _internalDisplayableSearchResults;
-        private TrulyObservableCollection<BaseSelectable> _filtrableInput;
-        private BaseSelectable _selectedValue;
+        private TrulyObservableCollection<Selectable> _internalDisplayableSearchResults;
+        private TrulyObservableCollection<Selectable> _filtrableInput;
+        private Selectable _selectedValue;
         private string _text;
 
         public string Text
@@ -22,11 +23,11 @@ namespace CashManager_MVVM.Features.Common
             {
                 Set(nameof(Text), ref _text, value);
                 var items = _filtrableInput.Where(x => x.Name.ToLower().Contains(_text.ToLower())).OrderBy(x => !x.IsSelected);
-                InternalDisplayableSearchResults = new TrulyObservableCollection<BaseSelectable>(items);
+                InternalDisplayableSearchResults = new TrulyObservableCollection<Selectable>(items);
             }
         }
 
-        public BaseSelectable SelectedValue
+        public Selectable SelectedValue
         {
             get => _selectedValue;
             set => Set(nameof(SelectedValue), ref _selectedValue, value);
@@ -35,7 +36,7 @@ namespace CashManager_MVVM.Features.Common
         /// <summary>
         /// Used for displaying data inside of control
         /// </summary>
-        public TrulyObservableCollection<BaseSelectable> InternalDisplayableSearchResults
+        public TrulyObservableCollection<Selectable> InternalDisplayableSearchResults
         {
             get => _internalDisplayableSearchResults;
             private set => Set(nameof(InternalDisplayableSearchResults), ref _internalDisplayableSearchResults, value);
@@ -44,7 +45,7 @@ namespace CashManager_MVVM.Features.Common
         /// <summary>
         /// Returns only selected elements
         /// </summary>
-        public BaseSelectable[] Results => _filtrableInput.Where(x => x.IsSelected).OrderBy(x => x.Name).ToArray();
+        public Selectable[] Results => _filtrableInput.Where(x => x.IsSelected).OrderBy(x => x.Name).ToArray();
 
         public bool AnySelected => Results?.Any() ?? false;
 
@@ -60,7 +61,7 @@ namespace CashManager_MVVM.Features.Common
             //todo: receive msg (element updated) -> add to list as not selected
         }
 
-        public void SetInput(BaseSelectable[] input, BaseSelectable[] selected = null)
+        public void SetInput(IEnumerable<Selectable> input, IEnumerable<Selectable> selected = null)
         {
             if (selected != null)
             {
@@ -70,8 +71,8 @@ namespace CashManager_MVVM.Features.Common
                         dict[x.Id].IsSelected = true;
             }
 
-            _filtrableInput = new TrulyObservableCollection<BaseSelectable>(input);
-            InternalDisplayableSearchResults = new TrulyObservableCollection<BaseSelectable>(_filtrableInput);
+            _filtrableInput = new TrulyObservableCollection<Selectable>(input);
+            InternalDisplayableSearchResults = new TrulyObservableCollection<Selectable>(_filtrableInput);
 
             _filtrableInput.CollectionChanged += (sender, args) =>
             {
@@ -82,11 +83,12 @@ namespace CashManager_MVVM.Features.Common
 
         private void ExecuteAddCommand()
         {
-            var item = new BaseSelectable(Guid.NewGuid()) { Name = Text, IsSelected = true };
-            InternalDisplayableSearchResults.Add(item);
-            _filtrableInput.Add(item);
-            //todo: message new element (save it. update other lists)
-            Text = string.Empty;
+            //todo: remove
+            //var item = new BaseSelectable(Guid.NewGuid()) { Name = Text, IsSelected = true };
+            //InternalDisplayableSearchResults.Add(item);
+            //_filtrableInput.Add(item);
+            ////todo: message new element (save it. update other lists)
+            //Text = string.Empty;
         }
 
         private bool CanExecuteAddCommand()

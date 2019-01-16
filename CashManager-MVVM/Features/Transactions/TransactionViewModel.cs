@@ -164,8 +164,8 @@ namespace CashManager_MVVM.Features.Transactions
                                       .ToArray();
 
             _tags = Mapper.Map<Tag[]>(_queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()))
-                          .OrderBy(x => !x.IsSelected)
-                          .ThenBy(x => x.Name)
+//todo: somehow order by !is selected?
+                          .OrderBy(x => x.Name)
                           .ToArray();
 
             if (_shouldCreateTransaction || Transaction == null) Transaction = CreateNewTransaction();
@@ -174,7 +174,7 @@ namespace CashManager_MVVM.Features.Transactions
             foreach (var position in Transaction.Positions)
             {
                 position.TagViewModel = _factory.Create<MultiComboBoxViewModel>();
-                position.TagViewModel.SetInput(CopyOfTags(_tags), position.Tags);
+                position.TagViewModel.SetInput(CopyOfTags(_tags), position.Tags.Select(x => new Selectable(x)).ToArray());
             }
 
             NewBillsFilepaths?.Clear();
@@ -185,7 +185,7 @@ namespace CashManager_MVVM.Features.Transactions
 
         private void ExecuteAddPositionCommand() => Transaction.Positions.Add(CreatePosition(Transaction));
 
-        private BaseSelectable[] CopyOfTags(Tag[] tags) => Mapper.Map<Tag[]>(Mapper.Map<DtoTag[]>(tags));
+        private Selectable[] CopyOfTags(Tag[] tags) => tags.Select(x => new Selectable(x)).ToArray();
 
         private Transaction CreateNewTransaction()
         {
@@ -213,7 +213,7 @@ namespace CashManager_MVVM.Features.Transactions
             //todo: check sender - only on selected category change
             position.CategoryPickerViewModel.PropertyChanged +=
                 (sender, args) => position.Category = position.CategoryPickerViewModel.SelectedCategory;
-            position.TagViewModel.SetInput(CopyOfTags(_tags), position.Tags);
+            position.TagViewModel.SetInput(CopyOfTags(_tags), position.Tags.Select(x => new Selectable(x)).ToArray());
 
             position.Parent = parent;
 
@@ -243,7 +243,7 @@ namespace CashManager_MVVM.Features.Transactions
         private void ExecuteSaveTransactionCommand()
         {
             foreach (var position in _transaction.Positions.Where(x => x.TagViewModel != null))
-                position.Tags = position.TagViewModel.Results.OfType<Tag>().ToArray();
+                position.Tags = Mapper.Map<Tag[]>(position.TagViewModel.Results);
 
             var bills = NewBillsFilepaths.Select(x => new StoredFileInfo(x, Transaction.Id)).ToArray();
             _commandDispatcher.Execute(new UpsertBillsCommand(Mapper.Map<DtoStoredFileInfo[]>(bills)));
