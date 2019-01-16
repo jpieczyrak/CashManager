@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+
+using AutoMapper;
 
 using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Logic.Balances;
@@ -22,6 +25,7 @@ namespace CashManager_MVVM.Configuration.Mapping
             {
                 if (!_isInitialized)
                 {
+                    var dict = new Dictionary<Guid, TransactionType>();
                     Mapper.Initialize(config =>
                     {
                         config.CreateMap<Category, CashManager.Data.DTO.Category>();
@@ -42,7 +46,27 @@ namespace CashManager_MVVM.Configuration.Mapping
                         config.CreateMap<CashManager.Data.DTO.PaymentValue, PaymentValue>();
 
                         config.CreateMap<TransactionType, CashManager.Data.DTO.TransactionType>();
-                        config.CreateMap<CashManager.Data.DTO.TransactionType, TransactionType>();
+                        config.CreateMap<CashManager.Data.DTO.TransactionType, TransactionType>()
+                              .AfterMap((dto, model) =>
+                              {
+                                  if (!dict.ContainsKey(dto.Id)) dict[dto.Id] = model;
+                              })
+                              .ConvertUsing(dto =>
+                              {
+                                  if (dto == null) return null;
+                                  if (dict.ContainsKey(dto.Id)) return dict[dto.Id];
+                                  var model = new TransactionType(dto.Id)
+                                  {
+                                      Name = dto.Name,
+                                      IsDefault = dto.IsDefault,
+                                      Income = dto.Income,
+                                      Outcome = dto.Outcome,
+                                      IsSelected = dto.IsDefault,
+                                      IsTransfer = dto.IsTransfer
+                                  };
+                                  dict[model.Id] = model;
+                                  return model;
+                              });
 
                         config.CreateMap<StoredFileInfo, CashManager.Data.DTO.StoredFileInfo>();
                         config.CreateMap<CashManager.Data.DTO.StoredFileInfo, StoredFileInfo>();
