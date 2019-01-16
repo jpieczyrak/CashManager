@@ -62,16 +62,7 @@ namespace CashManager_MVVM.Configuration.Mapping
                               {
                                   if (dto == null) return null;
                                   if (types.TryGetValue(dto.Id, out var output)) return output;
-                                  return new TransactionType(dto.Id)
-                                  {
-                                      Name = dto.Name,
-                                      IsDefault = dto.IsDefault,
-                                      Income = dto.Income,
-                                      Outcome = dto.Outcome,
-                                      IsSelected = dto.IsDefault,
-                                      IsTransfer = dto.IsTransfer
-                                  };
-
+                                  return context.ConfigurationProvider.ServiceCtor(typeof(TransactionType)) as TransactionType;
                               })
                               .AfterMap((dto, model) =>
                               {
