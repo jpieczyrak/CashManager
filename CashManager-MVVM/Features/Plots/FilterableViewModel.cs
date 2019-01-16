@@ -64,7 +64,7 @@ namespace CashManager_MVVM.Features.Plots
             _transactionsProvider = transactionsProvider;
 
             var dtos = _queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
-            var stocks = Mapper.Map<BaseSelectable[]>(dtos.Where(x => x.IsUserStock))
+            var stocks = Mapper.Map<Selectable[]>(dtos.Where(x => x.IsUserStock))
                                .OrderBy(x => x.Name)
                                .ToArray();
             UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, stocks) { IsChecked = true };
@@ -91,7 +91,7 @@ namespace CashManager_MVVM.Features.Plots
         public virtual void Update()
         {
             var dtos = _queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
-            var stocks = Mapper.Map<BaseSelectable[]>(dtos.Where(x => x.IsUserStock))
+            var stocks = Mapper.Map<Selectable[]>(dtos.Where(x => x.IsUserStock))
                                .OrderBy(x => x.Name)
                                .ToArray();
 

@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using System.Linq;
+
+using Autofac;
 
 using CashManager.Tests.ViewModels.Fixtures;
 
@@ -7,6 +9,7 @@ using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Common;
 
 using Xunit;
 
@@ -38,7 +41,7 @@ namespace CashManager.Tests.ViewModels.Transactions
                 UserStock = new Stock()
             };
             vm.Transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
-            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags);
+            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags.Select(x => new Selectable(x)));
             vm.ShouldGoBack = false;
 
             var command = vm.SaveTransactionCommand;
@@ -66,7 +69,7 @@ namespace CashManager.Tests.ViewModels.Transactions
                 UserStock = new Stock()
             };
             vm.Transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
-            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags);
+            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags.Select(x => new Selectable(x)));
             vm.ShouldGoBack = false;
 
             var command = vm.SaveTransactionCommand;
@@ -106,7 +109,7 @@ namespace CashManager.Tests.ViewModels.Transactions
             vm.Transaction.Type = new TransactionType { Income = income, Outcome = !income };
             vm.Transaction.UserStock = userStock;
             vm.Transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
-            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags);
+            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags.Select(x => new Selectable(x)));
             vm.ShouldGoBack = false;
 
             var command = vm.SaveTransactionCommand;
@@ -147,7 +150,7 @@ namespace CashManager.Tests.ViewModels.Transactions
                 UserStock = userStock
             };
             vm.Transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
-            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags);
+            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags.Select(x => new Selectable(x)));
             vm.Transaction.Positions[0].Value.GrossValue = transValue;
             vm.Transaction.Positions[0].Value.NetValue = transValue;
             vm.ShouldGoBack = false;

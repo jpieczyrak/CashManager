@@ -1,17 +1,9 @@
-﻿using System;
-
-namespace CashManager_MVVM.Model.Common
+﻿namespace CashManager_MVVM.Model.Common
 {
-    public class BaseSelectable : BaseObservableObject, ISelectable
+    public sealed class 
+        Selectable : BaseObservableObject, ISelectable
     {
-        private string _name;
         private bool _isSelected;
-
-        public virtual string Name
-        {
-            get => _name;
-            set => Set(nameof(Name), ref _name, value);
-        }
 
         public bool IsSelected
         {
@@ -25,13 +17,20 @@ namespace CashManager_MVVM.Model.Common
             }
         }
 
-        public BaseSelectable(Guid id) { Id = id; }
+        public BaseObservableObject Value { get; }
 
-        protected BaseSelectable() { }
+        private Selectable() { }
+
+        public Selectable(BaseObservableObject value)
+        {
+            Id = value.Id;
+            Value = value;
+            Name = value.Name;
+        }
 
         #region Override
 
-        public override string ToString() => Name;
+        public override string ToString() { return Name; }
 
         #endregion
     }

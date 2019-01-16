@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 using Autofac;
 
@@ -8,6 +9,7 @@ using CashManager_MVVM;
 using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Parsers;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Common;
 
 using Xunit;
 
@@ -38,7 +40,7 @@ namespace CashManager.Tests.ViewModels
                 Type = new TransactionType()
             };
             transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
-            transaction.Positions[0].TagViewModel.SetInput(_tags);
+            transaction.Positions[0].TagViewModel.SetInput(_tags.Select(x => new Selectable(x)));
             var transactions = new List<Transaction> { transaction, transaction };
             vm.InputText = "06.09.2016 – PRZELEW WYCHODZĄCY\r\nJĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media\r\n\r\n-684,62 PLN";
             vm.ResultsListViewModel.Transactions.AddRange(transactions);
@@ -66,7 +68,7 @@ namespace CashManager.Tests.ViewModels
                 Type = new TransactionType()
             };
             transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
-            transaction.Positions[0].TagViewModel.SetInput(_tags);
+            transaction.Positions[0].TagViewModel.SetInput(_tags.Select(x => new Selectable(x)));
             var transactions = new List<Transaction> { transaction, transaction };
             vm.InputText = "     06.09.2016 – PRZELEW WYCHODZĄCY\r\nJĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media\r\n\r\n-684,62 PLN";
             vm.ResultsListViewModel.Transactions.AddRange(transactions);

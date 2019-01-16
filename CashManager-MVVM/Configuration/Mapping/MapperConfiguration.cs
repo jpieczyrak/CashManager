@@ -30,16 +30,16 @@ namespace CashManager_MVVM.Configuration.Mapping
                     var types = new Dictionary<Guid, TransactionType>();
                     Mapper.Initialize(config =>
                     {
-                        config.CreateMap<Category, BaseSelectable>().ReverseMap();
-                        config.CreateMap<Tag, BaseSelectable>().ReverseMap();
-                        config.CreateMap<Stock, BaseSelectable>().ReverseMap();
-                        config.CreateMap<TransactionType, BaseSelectable>().ReverseMap();
+                        config.CreateMap<Category, Selectable>().ReverseMap();
+                        config.CreateMap<Tag, Selectable>().ReverseMap();
+                        config.CreateMap<Stock, Selectable>().ReverseMap();
+                        config.CreateMap<TransactionType, Selectable>().ReverseMap();
 
-                        config.CreateMap<CashManager.Data.DTO.Category, BaseSelectable>().ReverseMap();
-                        config.CreateMap<CashManager.Data.DTO.Tag, BaseSelectable>().ReverseMap();
-                        config.CreateMap<CashManager.Data.DTO.Stock, BaseSelectable>().ReverseMap();
-                        config.CreateMap<CashManager.Data.DTO.TransactionType, BaseSelectable>().ReverseMap();
-                        config.CreateMap<SearchState, BaseSelectable>().ReverseMap();
+                        config.CreateMap<CashManager.Data.DTO.Category, Selectable>().ReverseMap();
+                        config.CreateMap<CashManager.Data.DTO.Tag, Selectable>().ReverseMap();
+                        config.CreateMap<CashManager.Data.DTO.Stock, Selectable>().ReverseMap();
+                        config.CreateMap<CashManager.Data.DTO.TransactionType, Selectable>().ReverseMap();
+                        config.CreateMap<SearchState, Selectable>().ReverseMap();
 
                         config.CreateMap<Category, CashManager.Data.DTO.Category>();
                         config.CreateMap<CashManager.Data.DTO.Category, Category>();

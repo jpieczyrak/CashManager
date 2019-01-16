@@ -8,7 +8,7 @@ namespace CashManager_MVVM.Model
     /// Tag can be assigned to many transactions.
     /// Sum of values of all tags dont have to be equal to sum of all transaction value (one tag can be assigned to one or more transaction)
     /// </summary>
-    public class Tag : BaseSelectable
+    public class Tag : BaseObservableObject
     {
         #region Override
 

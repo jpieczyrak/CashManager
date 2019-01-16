@@ -11,11 +11,11 @@ namespace CashManager_MVVM.Model.Selectors
     {
         public MultiPickerType Type { get; }
 
-        private BaseSelectable[] _results;
+        private Selectable[] _results;
 
         public MultiComboBoxViewModel ComboBox { get; private set; }
 
-        public BaseSelectable[] Results
+        public Selectable[] Results
         {
             get => _results;
             private set
@@ -29,10 +29,10 @@ namespace CashManager_MVVM.Model.Selectors
 
         private MultiPicker() { }
 
-        public MultiPicker(MultiPickerType type, BaseSelectable[] source, BaseSelectable[] selected = null)
+        public MultiPicker(MultiPickerType type, Selectable[] source, Selectable[] selected = null)
         {
             Type = type;
-            Results = new BaseSelectable[0];
+            Results = new Selectable[0];
 
             switch (type)
             {
@@ -58,9 +58,9 @@ namespace CashManager_MVVM.Model.Selectors
             ComboBox.PropertyChanged += (sender, args) => Results = ComboBox.Results;
         }
 
-        public void SetInput(BaseSelectable[] source)
+        public void SetInput(Selectable[] source)
         {
-            ComboBox.SetInput(source, Selected.Select(x => new BaseSelectable(x)).ToArray());
+            ComboBox.SetInput(source, Results.Select(x => new Selectable(x)).ToArray());
         }
 
         public void Apply(MultiPicker source)

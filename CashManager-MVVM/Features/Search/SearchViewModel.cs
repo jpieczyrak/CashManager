@@ -50,7 +50,7 @@ namespace CashManager_MVVM.Features.Search
         private readonly TrulyObservableCollection<IFilter<Transaction>> _transactionFilters;
         private readonly TrulyObservableCollection<IFilter<Position>> _positionFilters;
         private string _searchName;
-        private BaseSelectable _selectedSearch;
+        private Selectable _selectedSearch;
         private readonly Debouncer _debouncer;
 
         #endregion
@@ -116,7 +116,7 @@ namespace CashManager_MVVM.Features.Search
             set => Set(nameof(SearchName), ref _searchName, value);
         }
 
-        public BaseSelectable SelectedSearch
+        public Selectable SelectedSearch
         {
             get => _selectedSearch;
             set
@@ -126,7 +126,7 @@ namespace CashManager_MVVM.Features.Search
             }
         }
 
-        public BaseSelectable[] SaveSearches { get; set; }
+        public Selectable[] SaveSearches { get; set; }
 
         public bool IsDebounceable { private get; set; } = true;
 
@@ -199,7 +199,7 @@ namespace CashManager_MVVM.Features.Search
         {
             State.Name = SearchName;
             _commandDispatcher.Execute(new UpsertSearchStateCommand(Mapper.Map<DtoSearchState>(State)));
-            SaveSearches = SaveSearches.Concat(new[] { new BaseSelectable(State.Id) { Name = State.Name } })
+            SaveSearches = SaveSearches.Concat(new[] { new Selectable(State) { Name = State.Name } })
                                        .Distinct()
                                        .ToArray();
             RaisePropertyChanged(nameof(SaveSearches));
@@ -209,9 +209,9 @@ namespace CashManager_MVVM.Features.Search
         {
             MatchingTransactions = _transactionsProvider.AllTransactions.ToList();
             MatchingPositions = new List<Position>();
-            var states = _queryDispatcher.Execute<SearchStateQuery, DtoSearchState[]>(new SearchStateQuery());
+            var states = Mapper.Map<SearchState[]>(_queryDispatcher.Execute<SearchStateQuery, DtoSearchState[]>(new SearchStateQuery()));
             SaveSearches = states
-                           .Select(x => new BaseSelectable(x.Id) { Name = x.Name })
+                           .Select(x => new Selectable(x) { Name = x.Name })
                            .ToArray();
             State.UpdateSources(_queryDispatcher, _transactionsProvider);
             var defaultSearch = states.FirstOrDefault(x => x.Name == SearchState.DEFAULT_NAME);

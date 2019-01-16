@@ -16,6 +16,7 @@ using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Logic.Balances;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
 
 using GalaSoft.MvvmLight;
@@ -52,7 +53,7 @@ namespace CashManager_MVVM.Features.Balance
         {
             if (SavedSearches != null)
                 foreach (var result in SavedSearches.InternalDisplayableSearchResults)
-                    result.IsSelected = SelectedCustomBalance.Searches.Contains(result);
+                    result.IsSelected = SelectedCustomBalance.Searches.Contains(result.Value);
             SavedSearches?.RaisePropertyChanged();
         }
 
@@ -133,7 +134,7 @@ namespace CashManager_MVVM.Features.Balance
         {
             var query = new SearchStateQuery();
             var source = Mapper.Map<SearchState[]>(_queryDispatcher.Execute<SearchStateQuery, DtoSearch[]>(query));
-            SavedSearches.SetInput(source);
+            SavedSearches.SetInput(source.Select(x => new Selectable(x)).ToArray());
         }
 
         private void UpdateSummary()

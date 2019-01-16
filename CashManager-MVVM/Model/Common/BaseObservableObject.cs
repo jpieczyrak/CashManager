@@ -8,6 +8,13 @@ namespace CashManager_MVVM.Model.Common
     public abstract class BaseObservableObject : ObservableObject, IEditable
     {
         private DateTime _lastEditDate;
+        private string _name;
+
+        public virtual string Name
+        {
+            get => _name;
+            set => Set(nameof(Name), ref _name, value);
+        }
 
         public Guid Id { get; protected set; } = Guid.NewGuid();
 
@@ -31,6 +38,8 @@ namespace CashManager_MVVM.Model.Common
         {
             PropertyChanged += OnPropertyChanged;
         }
+
+        protected BaseObservableObject(Guid id) : this() { Id = id; }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {

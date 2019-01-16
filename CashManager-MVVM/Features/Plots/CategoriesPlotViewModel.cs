@@ -20,6 +20,7 @@ using OxyPlot;
 using OxyPlot.Series;
 
 using DtoStock = CashManager.Data.DTO.Stock;
+using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 
 namespace CashManager_MVVM.Features.Plots
 {
@@ -79,7 +80,7 @@ namespace CashManager_MVVM.Features.Plots
                                .Where(x => x.IsUserStock)
                                .OrderBy(x => x.Name)
                                .ToArray();
-            UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, stocks);
+            UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, stocks.Select(x => new Selectable(x)).ToArray());
             foreach (var result in UserStocksFilter.ComboBox.InternalDisplayableSearchResults) result.IsSelected = true;
             UserStocksFilter.IsChecked = true;
             UserStocksFilter.PropertyChanged += OnPropertyChanged;
@@ -89,10 +90,15 @@ namespace CashManager_MVVM.Features.Plots
             BookDateFilter.IsChecked = true;
             BookDateFilter.PropertyChanged += OnPropertyChanged;
 
-            var types = Mapper.Map<BaseSelectable[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => !x.Outcome).ThenBy(x => x.Name));
+            var types = Mapper
+                        .Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, DtoTransactionType[]>(new TransactionTypesQuery())
+                                                                .OrderBy(x => !x.Outcome)
+                                                                .ThenBy(x => x.Name))
+                        .Select(x => new Selectable(x))
+                        .ToArray();
             TypesFilter = new MultiPicker(MultiPickerType.TransactionType, types);
-            foreach (var x in Mapper.Map<TransactionType[]>(TypesFilter.ComboBox.InternalDisplayableSearchResults))
-                x.IsSelected = x.Outcome;
+            foreach (var x in TypesFilter.ComboBox.InternalDisplayableSearchResults)
+                x.IsSelected = ((TransactionType) x.Value).Outcome;
             TypesFilter.IsChecked = true;
             TypesFilter.PropertyChanged += OnPropertyChanged;
 

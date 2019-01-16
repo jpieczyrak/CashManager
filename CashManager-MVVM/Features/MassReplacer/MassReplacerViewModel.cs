@@ -13,6 +13,7 @@ using CashManager.Infrastructure.Query.TransactionTypes;
 using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
 using CashManager_MVVM.Properties;
 
@@ -134,14 +135,14 @@ namespace CashManager_MVVM.Features.MassReplacer
 
             if (_typesSelector.IsChecked && _typesSelector.Selected != null)
                 foreach (var transaction in transactions)
-                    transaction.Type = _typesSelector.Selected as TransactionType;
+                    transaction.Type = _typesSelector.Selected.Value as TransactionType;
 
             if (_userStocksSelector.IsChecked && _userStocksSelector.Selected != null)
                 foreach (var transaction in transactions)
-                    transaction.UserStock = _userStocksSelector.Selected as Stock;
+                    transaction.UserStock = _userStocksSelector.Selected.Value as Stock;
             if (_externalStocksSelector.IsChecked && _externalStocksSelector.Selected != null)
                 foreach (var transaction in transactions)
-                    transaction.ExternalStock = _externalStocksSelector.Selected as Stock;
+                    transaction.ExternalStock = _externalStocksSelector.Selected.Value as Stock;
 
             var positions = SearchViewModel.IsTransactionsSearch
                                 ? transactions.SelectMany(x => x.Positions).ToList()
@@ -151,7 +152,7 @@ namespace CashManager_MVVM.Features.MassReplacer
                     position.Title = _positionTitleSelector.Value;
             if (_categoriesSelector.IsChecked && _categoriesSelector.Selected != null)
                 foreach (var position in positions)
-                    position.Category = _categoriesSelector.Selected as Category;
+                    position.Category = _categoriesSelector.Selected.Value as Category;
             if (_tagsSelector.IsChecked)
                 foreach (var position in positions)
                     position.Tags = Mapper.Map<Tag[]>(_tagsSelector.Results);
@@ -162,20 +163,20 @@ namespace CashManager_MVVM.Features.MassReplacer
         public void Update()
         {
             var availableStocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery())).OrderBy(x => x.Name);
-            UserStocksSelector = new SinglePicker(MultiPickerType.UserStock, availableStocks.Where(x => x.IsUserStock).ToArray());
+            UserStocksSelector = new SinglePicker(MultiPickerType.UserStock, availableStocks.Where(x => x.IsUserStock).Select(x => new Selectable(x)).ToArray());
             ExternalStocksSelector =
                 new SinglePicker(MultiPickerType.ExternalStock,
-                    Mapper.Map<Stock[]>(Mapper.Map<CashManager.Data.DTO.Stock[]>(availableStocks))); //we don't want to have same reference in 2 pickers
+                    Mapper.Map<Stock[]>(Mapper.Map<CashManager.Data.DTO.Stock[]>(availableStocks)).Select(x => new Selectable(x)).ToArray()); //we don't want to have same reference in 2 pickers
 
             var categories = Mapper.Map<Category[]>(_queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery()));
             categories = CategoryDesignHelper.BuildGraphicalOrder(categories);
-            CategoriesSelector = new SinglePicker(MultiPickerType.Category, categories);
+            CategoriesSelector = new SinglePicker(MultiPickerType.Category, categories.Select(x => new Selectable(x)).ToArray());
 
             var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
-            TypesSelector = new SinglePicker(MultiPickerType.TransactionType, types);
+            TypesSelector = new SinglePicker(MultiPickerType.TransactionType, types.Select(x => new Selectable(x)).ToArray());
 
             var tags = Mapper.Map<Tag[]>(_queryDispatcher.Execute<TagQuery, CashManager.Data.DTO.Tag[]>(new TagQuery()).OrderBy(x => x.Name));
-            TagsSelector = new MultiPicker(MultiPickerType.Tag, tags);
+            TagsSelector = new MultiPicker(MultiPickerType.Tag, tags.Select(x => new Selectable(x)).ToArray());
 
             SearchViewModel.Update();
         }

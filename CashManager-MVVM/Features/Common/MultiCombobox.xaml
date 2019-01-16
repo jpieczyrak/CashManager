@@ -20,7 +20,7 @@
         <ComboBox Grid.Row="1" ItemsSource="{Binding InternalDisplayableSearchResults}" Text="{Binding Text, Mode=TwoWay}" SelectedValue="{Binding SelectedValue}"
             IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="false" PreviewKeyDown="ComboBox_PreviewKeyDown" >
             <ComboBox.Resources>
-                <DataTemplate DataType="{x:Type common:BaseSelectable}" >
+                <DataTemplate DataType="{x:Type common:Selectable}" >
                     <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding Name}" Padding="5,0" />
                 </DataTemplate>
             </ComboBox.Resources>

@@ -6,10 +6,11 @@ using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
 {
-    public class Category : BaseSelectable
+    public class Category : BaseObservableObject
     {
         private Category _parent;
         private bool _isExpanded;
+        private bool _isSelected;
 
         /// <summary>
         /// Used for tree view purpose
@@ -24,6 +25,12 @@ namespace CashManager_MVVM.Model
         {
             get => _parent;
             set => Set(nameof(Parent), ref _parent, value);
+        }
+
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => Set(ref _isSelected, value);
         }
 
         public TrulyObservableCollection<Category> Children { get; set; } = new TrulyObservableCollection<Category>();
