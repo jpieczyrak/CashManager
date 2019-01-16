@@ -36,12 +36,11 @@ namespace CashManager_MVVM.Configuration.Mapping
                               .ConstructUsing((dto, context) =>
                               {
                                   if (dto == null) return null;
-                                  if (categories.TryGetValue(dto.Id, out var output)) return output;
-                                  return context.ConfigurationProvider.ServiceCtor(typeof(Category)) as Category;
-                              })
-                              .AfterMap((dto, model) =>
-                              {
-                                  categories[dto.Id] = model;
+                                  if (dto.Name != null && categories.TryGetValue(dto.Id, out var output)) return output;
+
+                                  var category = context.Options.CreateInstance<Category>();
+                                  if (dto.Name != null) categories[dto.Id] = category;
+                                  return category;
                               });
 
                         config.CreateMap<Balance, CashManager.Data.DTO.Balance>();
