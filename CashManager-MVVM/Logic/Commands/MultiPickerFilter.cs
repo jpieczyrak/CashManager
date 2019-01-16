@@ -26,23 +26,23 @@ namespace CashManager_MVVM.Logic.Commands
             switch (_picker.Type)
             {
                 case MultiPickerType.Category:
-                    var categories = Mapper.Map<Category[]>(_picker.Results);
+                    var categories = _picker.Results.Select(x => x.Value as Category).ToArray();
                     elements = elements.Where(x => categories.Any(y => y.MatchCategoryFilter(x.Category)));
                     break;
                 case MultiPickerType.Tag:
-                    var tags = Mapper.Map<HashSet<Tag>>(_picker.Results);
+                    var tags = new HashSet<Tag>(_picker.Results.Select(x => x.Value as Tag));
                     elements = elements.Where(x => x.Tags.Any(y => tags.Contains(y)));
                         break;
                 case MultiPickerType.UserStock:
-                    var userStocks = Mapper.Map<HashSet<Stock>>(_picker.Results);
+                    var userStocks = new HashSet<Stock>(_picker.Results.Select(x => x.Value as Stock));
                     elements = elements.Where(x => userStocks.Contains(x.Parent.UserStock));
                     break;
                 case MultiPickerType.ExternalStock:
-                    var exStocks = Mapper.Map<HashSet<Stock>>(_picker.Results);
+                    var exStocks = new HashSet<Stock>(_picker.Results.Select(x => x.Value as Stock));
                     elements = elements.Where(x => exStocks.Contains(x.Parent.ExternalStock));
                     break;
                 case MultiPickerType.TransactionType:
-                    var types = Mapper.Map<HashSet<TransactionType>>(_picker.Results);
+                    var types = new HashSet<TransactionType>(_picker.Results.Select(x => x.Value as TransactionType));
                     elements = elements.Where(x => types.Contains(x.Parent.Type));
                     break;
             }
@@ -55,24 +55,24 @@ namespace CashManager_MVVM.Logic.Commands
             switch (_picker.Type)
             {
                 case MultiPickerType.Category:
-                    var categories = Mapper.Map<Category[]>(_picker.Results);
+                    var categories = _picker.Results.Select(x => x.Value as Category).ToArray();
                     elements = elements.Where(x => x.Positions.Select(y => y.Category)
                                                     .Any(y => categories.Any(z => z.MatchCategoryFilter(y))));
                     break;
                 case MultiPickerType.Tag:
-                    var tags = Mapper.Map<HashSet<Tag>>(_picker.Results);
+                    var tags = new HashSet<Tag>(_picker.Results.Select(x => x.Value as Tag));
                     elements = elements.Where(x => x.Positions.SelectMany(y => y.Tags).Any(y => tags.Contains(y)));
                     break;
                 case MultiPickerType.UserStock:
-                    var userStocks = Mapper.Map<HashSet<Stock>>(_picker.Results);
+                    var userStocks = new HashSet<Stock>(_picker.Results.Select(x => x.Value as Stock));
                     elements = elements.Where(x => userStocks.Contains(x.UserStock));
                     break;
                 case MultiPickerType.ExternalStock:
-                    var exStocks = Mapper.Map<HashSet<Stock>>(_picker.Results);
+                    var exStocks = new HashSet<Stock>(_picker.Results.Select(x => x.Value as Stock));
                     elements = elements.Where(x => exStocks.Contains(x.ExternalStock));
                     break;
                 case MultiPickerType.TransactionType:
-                    var types = Mapper.Map<HashSet<TransactionType>>(_picker.Results);
+                    var types = new HashSet<TransactionType>(_picker.Results.Select(x => x.Value as TransactionType));
                     elements = elements.Where(x => types.Contains(x.Type));
                     break;
             }

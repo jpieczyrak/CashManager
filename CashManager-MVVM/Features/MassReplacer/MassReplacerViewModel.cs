@@ -155,7 +155,7 @@ namespace CashManager_MVVM.Features.MassReplacer
                     position.Category = _categoriesSelector.Selected.Value as Category;
             if (_tagsSelector.IsChecked)
                 foreach (var position in positions)
-                    position.Tags = Mapper.Map<Tag[]>(_tagsSelector.Results);
+                    position.Tags = _tagsSelector.Results.Select(x => x.Value as Tag).ToArray();
 
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<Transaction[]>(transactions)));
         }

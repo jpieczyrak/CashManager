@@ -115,9 +115,9 @@ namespace CashManager_MVVM.Features.Plots
             if (transactions == null || !transactions.Any()) return;
 
             var selectedStocks = UserStocksFilter.IsChecked
-                                     ? Mapper.Map<Stock[]>(UserStocksFilter.Results)
+                                     ? UserStocksFilter.Results.Select(x => x.Value as Stock).ToArray()
                                      : null;
-            var selectedTypes = Mapper.Map<HashSet<TransactionType>>(TypesFilter.Results);
+            var selectedTypes = new HashSet<TransactionType>(TypesFilter.Results.Select(x => x.Value as TransactionType));
 
             if (selectedStocks != null && selectedStocks.Any())
             {

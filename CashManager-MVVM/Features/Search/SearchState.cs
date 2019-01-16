@@ -86,20 +86,20 @@ namespace CashManager_MVVM.Features.Search
         public void UpdateSources(IQueryDispatcher queryDispatcher, TransactionsProvider transactionsProvider = null)
         {
             var userStocks = queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()).Where(x => x.IsUserStock).OrderBy(x => x.Name);
-            UserStocksFilter.SetInput(Mapper.Map<Selectable[]>(userStocks).ToArray());
+            UserStocksFilter.SetInput(Mapper.Map<Stock[]>(userStocks).Select(x => new Selectable(x)).ToArray());
 
             var exStocks = queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery());
-            ExternalStocksFilter.SetInput(Mapper.Map<Selectable[]>(exStocks).ToArray());
+            ExternalStocksFilter.SetInput(Mapper.Map<Stock[]>(exStocks).Select(x => new Selectable(x)).ToArray());
 
             var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
             categories = CategoryDesignHelper.BuildGraphicalOrder(categories);
-            CategoriesFilter.SetInput(Mapper.Map<Selectable[]>(categories));
+            CategoriesFilter.SetInput(Mapper.Map<Category[]>(categories).Select(x => new Selectable(x)).ToArray());
 
-            var types = Mapper.Map<Selectable[]>(queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
-            TypesFilter.SetInput(types);
+            var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
+            TypesFilter.SetInput(types.Select(x => new Selectable(x)).ToArray());
 
-            var tags = Mapper.Map<Selectable[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
-            TagsFilter.SetInput(tags);
+            var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
+            TagsFilter.SetInput(tags.Select(x => new Selectable(x)).ToArray());
 
             bool availableTransactions = transactionsProvider?.AllTransactions?.Any() ?? false;
             ValueFilter.MinimumValue = availableTransactions

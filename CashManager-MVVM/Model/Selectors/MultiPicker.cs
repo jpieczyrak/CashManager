@@ -60,7 +60,7 @@ namespace CashManager_MVVM.Model.Selectors
 
         public void SetInput(Selectable[] source)
         {
-            ComboBox.SetInput(source, Results.Select(x => new Selectable(x)).ToArray());
+            ComboBox.SetInput(source, Results);
         }
 
         public void Apply(MultiPicker source)

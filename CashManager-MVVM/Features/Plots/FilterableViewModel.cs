@@ -41,7 +41,7 @@ namespace CashManager_MVVM.Features.Plots
         {
             get
             {
-                var stockHashSet = Mapper.Map<HashSet<Stock>>(UserStocksFilter.Results);
+                var stockHashSet = new HashSet<Stock>(UserStocksFilter.Results.Select(x => x.Value as Stock));
                 return _transactionsProvider.AllTransactions
                                             .Where(x => !UserStocksFilter.IsChecked || stockHashSet.Contains(x.UserStock));
             }
@@ -64,8 +64,9 @@ namespace CashManager_MVVM.Features.Plots
             _transactionsProvider = transactionsProvider;
 
             var dtos = _queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
-            var stocks = Mapper.Map<Selectable[]>(dtos.Where(x => x.IsUserStock))
+            var stocks = Mapper.Map<Stock[]>(dtos.Where(x => x.IsUserStock))
                                .OrderBy(x => x.Name)
+                               .Select(x => new Selectable(x))
                                .ToArray();
             UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, stocks) { IsChecked = true };
             foreach (var result in UserStocksFilter.ComboBox.InternalDisplayableSearchResults) result.IsSelected = true;
@@ -91,8 +92,9 @@ namespace CashManager_MVVM.Features.Plots
         public virtual void Update()
         {
             var dtos = _queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
-            var stocks = Mapper.Map<Selectable[]>(dtos.Where(x => x.IsUserStock))
+            var stocks = Mapper.Map<Stock[]>(dtos.Where(x => x.IsUserStock))
                                .OrderBy(x => x.Name)
+                               .Select(x => new Selectable(x))
                                .ToArray();
 
             UserStocksFilter.SetInput(stocks);
