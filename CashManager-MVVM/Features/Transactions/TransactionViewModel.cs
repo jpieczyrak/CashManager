@@ -164,7 +164,7 @@ namespace CashManager_MVVM.Features.Transactions
                                       .ToArray();
 
             _tags = Mapper.Map<Tag[]>(_queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()))
-//todo: somehow order by !is selected?
+                          //todo: somehow order by !is selected?
                           .OrderBy(x => x.Name)
                           .ToArray();
 
@@ -183,7 +183,7 @@ namespace CashManager_MVVM.Features.Transactions
 
         #endregion
 
-        private void ExecuteAddPositionCommand() => Transaction.Positions.Add(CreatePosition(Transaction));
+        public void ExecuteAddPositionCommand() => Transaction.Positions.Add(CreatePosition(Transaction));
 
         private Selectable[] CopyOfTags(Tag[] tags) => tags.Select(x => new Selectable(x)).ToArray();
 

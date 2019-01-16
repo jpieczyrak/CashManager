@@ -10,7 +10,7 @@
         xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
         x:Class="CashManager_MVVM.Features.Transactions.TransactionView"
         mc:Ignorable="d"
-        d:DesignHeight="650" d:DesignWidth="600"
+        d:DesignHeight="680" d:DesignWidth="750"
         d:DataContext="{d:DesignInstance {x:Type transactions:TransactionViewModel}}">
 
     <Grid>
