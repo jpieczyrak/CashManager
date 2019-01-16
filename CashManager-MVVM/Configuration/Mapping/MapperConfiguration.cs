@@ -47,15 +47,12 @@ namespace CashManager_MVVM.Configuration.Mapping
 
                         config.CreateMap<TransactionType, CashManager.Data.DTO.TransactionType>();
                         config.CreateMap<CashManager.Data.DTO.TransactionType, TransactionType>()
-                              .AfterMap((dto, model) =>
-                              {
-                                  if (!dict.ContainsKey(dto.Id)) dict[dto.Id] = model;
-                              })
-                              .ConvertUsing(dto =>
+                              .ConstructUsing((dto, context) =>
                               {
                                   if (dto == null) return null;
                                   if (dict.ContainsKey(dto.Id)) return dict[dto.Id];
-                                  var model = new TransactionType(dto.Id)
+
+                                  return new TransactionType(dto.Id)
                                   {
                                       Name = dto.Name,
                                       IsDefault = dto.IsDefault,
@@ -64,8 +61,10 @@ namespace CashManager_MVVM.Configuration.Mapping
                                       IsSelected = dto.IsDefault,
                                       IsTransfer = dto.IsTransfer
                                   };
-                                  dict[model.Id] = model;
-                                  return model;
+                              })
+                              .AfterMap((dto, model) =>
+                              {
+                                  if (!dict.ContainsKey(dto.Id)) dict[dto.Id] = model;
                               });
 
                         config.CreateMap<StoredFileInfo, CashManager.Data.DTO.StoredFileInfo>();
