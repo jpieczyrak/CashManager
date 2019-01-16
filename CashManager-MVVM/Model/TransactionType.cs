@@ -1,6 +1,4 @@
-﻿using System;
-
-using CashManager_MVVM.Model.Common;
+﻿using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Model
 {
@@ -11,10 +9,6 @@ namespace CashManager_MVVM.Model
         private bool _isDefault;
 
         private bool _isTransfer;
-
-        public TransactionType() : this(Guid.NewGuid()) { }
-
-        public TransactionType(Guid id) : base(id) { }
 
         public bool Income
         {
@@ -42,7 +36,7 @@ namespace CashManager_MVVM.Model
 
         #region Override
 
-        //public override string ToString() { return Name; }
+        public override string ToString() { return Name; }
 
         #endregion
     }
