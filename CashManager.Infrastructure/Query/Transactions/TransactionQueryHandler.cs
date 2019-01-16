@@ -20,8 +20,6 @@ namespace CashManager.Infrastructure.Query.Transactions
 	    public Transaction[] Execute(TransactionQuery query)
 	    {
 	        var collection = _db.GetCollection<Transaction>()
-	                            .Include(x => x.ExternalStock)
-	                            .Include(x => x.UserStock)
 	                            .Include(x => x.Type)
 	                            .Include($"$.{POSITIONS_NAME}[*].{TAGS_NAME}[*]")
 	                            .Include($"$.{POSITIONS_NAME}[*].{CATEGORY_NAME}")

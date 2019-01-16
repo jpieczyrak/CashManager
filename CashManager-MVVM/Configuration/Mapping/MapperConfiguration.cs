@@ -26,6 +26,7 @@ namespace CashManager_MVVM.Configuration.Mapping
             {
                 if (!_isInitialized)
                 {
+                    var stocks = new Dictionary<Guid, Stock>();
                     var types = new Dictionary<Guid, TransactionType>();
                     Mapper.Initialize(config =>
                     {
@@ -48,7 +49,17 @@ namespace CashManager_MVVM.Configuration.Mapping
                               .AfterMap((dto, model) => model.IsPropertyChangedEnabled = true);
 
                         config.CreateMap<Stock, CashManager.Data.DTO.Stock>();
-                        config.CreateMap<CashManager.Data.DTO.Stock, Stock>();
+                        config.CreateMap<CashManager.Data.DTO.Stock, Stock>()
+                              .ConstructUsing((dto, context) =>
+                              {
+                                  if (dto == null) return null;
+                                  if (stocks.TryGetValue(dto.Id, out var output)) return output;
+                                  return context.ConfigurationProvider.ServiceCtor(typeof(Stock)) as Stock;
+                              })
+                              .AfterMap((dto, model) =>
+                              {
+                                  stocks[dto.Id] = model;
+                              });
 
                         config.CreateMap<Tag, CashManager.Data.DTO.Tag>();
                         config.CreateMap<CashManager.Data.DTO.Tag, Tag>();
@@ -66,7 +77,7 @@ namespace CashManager_MVVM.Configuration.Mapping
                               })
                               .AfterMap((dto, model) =>
                               {
-                                  if (!types.ContainsKey(dto.Id)) types[dto.Id] = model;
+                                  types[dto.Id] = model;
                               });
 
                         config.CreateMap<StoredFileInfo, CashManager.Data.DTO.StoredFileInfo>();
