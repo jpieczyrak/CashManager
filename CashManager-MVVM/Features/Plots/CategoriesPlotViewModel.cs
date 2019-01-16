@@ -11,6 +11,7 @@ using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
 
 using GalaSoft.MvvmLight;
@@ -88,9 +89,9 @@ namespace CashManager_MVVM.Features.Plots
             BookDateFilter.IsChecked = true;
             BookDateFilter.PropertyChanged += OnPropertyChanged;
 
-            var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
+            var types = Mapper.Map<BaseSelectable[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => !x.Outcome).ThenBy(x => x.Name));
             TypesFilter = new MultiPicker(MultiPickerType.TransactionType, types);
-            foreach (var x in TypesFilter.ComboBox.InternalDisplayableSearchResults.OfType<TransactionType>())
+            foreach (var x in Mapper.Map<TransactionType[]>(TypesFilter.ComboBox.InternalDisplayableSearchResults))
                 x.IsSelected = x.Outcome;
             TypesFilter.IsChecked = true;
             TypesFilter.PropertyChanged += OnPropertyChanged;
@@ -108,9 +109,9 @@ namespace CashManager_MVVM.Features.Plots
             if (transactions == null || !transactions.Any()) return;
 
             var selectedStocks = UserStocksFilter.IsChecked
-                                     ? UserStocksFilter.Results.OfType<Stock>().ToArray()
+                                     ? Mapper.Map<Stock[]>(UserStocksFilter.Results)
                                      : null;
-            var selectedTypes = new HashSet<TransactionType>(TypesFilter.Results.OfType<TransactionType>());
+            var selectedTypes = Mapper.Map<HashSet<TransactionType>>(TypesFilter.Results);
 
             if (selectedStocks != null && selectedStocks.Any())
             {

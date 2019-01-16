@@ -6,6 +6,7 @@ using AutoMapper;
 using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Logic.Balances;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
 
 using Category = CashManager_MVVM.Model.Category;
@@ -25,9 +26,20 @@ namespace CashManager_MVVM.Configuration.Mapping
             {
                 if (!_isInitialized)
                 {
-                    var dict = new Dictionary<Guid, TransactionType>();
+                    var types = new Dictionary<Guid, TransactionType>();
                     Mapper.Initialize(config =>
                     {
+                        config.CreateMap<Category, BaseSelectable>().ReverseMap();
+                        config.CreateMap<Tag, BaseSelectable>().ReverseMap();
+                        config.CreateMap<Stock, BaseSelectable>().ReverseMap();
+                        config.CreateMap<TransactionType, BaseSelectable>().ReverseMap();
+
+                        config.CreateMap<CashManager.Data.DTO.Category, BaseSelectable>().ReverseMap();
+                        config.CreateMap<CashManager.Data.DTO.Tag, BaseSelectable>().ReverseMap();
+                        config.CreateMap<CashManager.Data.DTO.Stock, BaseSelectable>().ReverseMap();
+                        config.CreateMap<CashManager.Data.DTO.TransactionType, BaseSelectable>().ReverseMap();
+                        config.CreateMap<SearchState, BaseSelectable>().ReverseMap();
+
                         config.CreateMap<Category, CashManager.Data.DTO.Category>();
                         config.CreateMap<CashManager.Data.DTO.Category, Category>();
 
@@ -36,8 +48,7 @@ namespace CashManager_MVVM.Configuration.Mapping
                               .AfterMap((dto, model) => model.IsPropertyChangedEnabled = true);
 
                         config.CreateMap<Stock, CashManager.Data.DTO.Stock>();
-                        config.CreateMap<CashManager.Data.DTO.Stock, Stock>()
-                              .AfterMap((dto, model) => model.IsPropertyChangedEnabled = true);
+                        config.CreateMap<CashManager.Data.DTO.Stock, Stock>();
 
                         config.CreateMap<Tag, CashManager.Data.DTO.Tag>();
                         config.CreateMap<CashManager.Data.DTO.Tag, Tag>();
@@ -50,8 +61,7 @@ namespace CashManager_MVVM.Configuration.Mapping
                               .ConstructUsing((dto, context) =>
                               {
                                   if (dto == null) return null;
-                                  if (dict.ContainsKey(dto.Id)) return dict[dto.Id];
-
+                                  if (types.TryGetValue(dto.Id, out var output)) return output;
                                   return new TransactionType(dto.Id)
                                   {
                                       Name = dto.Name,
@@ -61,10 +71,11 @@ namespace CashManager_MVVM.Configuration.Mapping
                                       IsSelected = dto.IsDefault,
                                       IsTransfer = dto.IsTransfer
                                   };
+
                               })
                               .AfterMap((dto, model) =>
                               {
-                                  if (!dict.ContainsKey(dto.Id)) dict[dto.Id] = model;
+                                  if (!types.ContainsKey(dto.Id)) types[dto.Id] = model;
                               });
 
                         config.CreateMap<StoredFileInfo, CashManager.Data.DTO.StoredFileInfo>();

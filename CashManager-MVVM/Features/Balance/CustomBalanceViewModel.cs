@@ -110,7 +110,7 @@ namespace CashManager_MVVM.Features.Balance
 
         private void SavedSearchesOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            SelectedCustomBalance.Searches = SavedSearches.Results.OfType<SearchState>().ToArray();
+            SelectedCustomBalance.Searches = Mapper.Map<SearchState[]>(SavedSearches.Results);
             UpdateSummary();
         }
 

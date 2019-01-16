@@ -85,19 +85,20 @@ namespace CashManager_MVVM.Features.Search
 
         public void UpdateSources(IQueryDispatcher queryDispatcher, TransactionsProvider transactionsProvider = null)
         {
-            var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery())).OrderBy(x => x.Name);
-            UserStocksFilter.SetInput(availableStocks.Where(x => x.IsUserStock).ToArray());
-            var externalStocks = Mapper.Map<Stock[]>(Mapper.Map<DtoStock[]>(availableStocks)); //we don't want to have same reference in 2 pickers
-            ExternalStocksFilter.SetInput(externalStocks);
+            var userStocks = queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()).Where(x => x.IsUserStock).OrderBy(x => x.Name);
+            UserStocksFilter.SetInput(Mapper.Map<BaseSelectable[]>(userStocks).ToArray());
+
+            var exStocks = queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery());
+            ExternalStocksFilter.SetInput(Mapper.Map<BaseSelectable[]>(exStocks).ToArray());
 
             var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery()));
             categories = CategoryDesignHelper.BuildGraphicalOrder(categories);
-            CategoriesFilter.SetInput(categories);
+            CategoriesFilter.SetInput(Mapper.Map<BaseSelectable[]>(categories));
 
-            var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
+            var types = Mapper.Map<BaseSelectable[]>(queryDispatcher.Execute<TransactionTypesQuery, DtoType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
             TypesFilter.SetInput(types);
 
-            var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
+            var tags = Mapper.Map<BaseSelectable[]>(queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()).OrderBy(x => x.Name));
             TagsFilter.SetInput(tags);
 
             bool availableTransactions = transactionsProvider?.AllTransactions?.Any() ?? false;

@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
+using AutoMapper;
+
 using CashManager.Infrastructure.Query;
+using CashManager.Infrastructure.Query.Stocks;
 
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Logic.Calculators;
@@ -12,6 +16,8 @@ using CashManager_MVVM.Properties;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
+
+using DtoStock = CashManager.Data.DTO.Stock;
 
 namespace CashManager_MVVM.Features.Plots
 {
@@ -43,8 +49,11 @@ namespace CashManager_MVVM.Features.Plots
 
         protected override void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
+            //todo: get it from some kind of stocks provider (instead of db)
+            var ids = new HashSet<Guid>(UserStocksFilter.Results.Select(x => x.Id));
+            var dtos = _queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery(x => ids.Contains(x.Id)));
             var selectedStocks = UserStocksFilter.IsChecked
-                                     ? UserStocksFilter.Results.OfType<Stock>().ToArray()
+                                     ? Mapper.Map<Stock[]>(dtos)
                                      : null;
             Wealth.Series.Clear();
 

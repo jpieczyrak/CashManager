@@ -25,11 +25,14 @@ namespace CashManager_MVVM.Model.Common
             }
         }
 
+        public BaseSelectable(Guid id) { Id = id; }
+
         protected BaseSelectable() { }
 
-        public BaseSelectable(Guid id)
-        {
-            Id = id;
-        }
+        #region Override
+
+        public override string ToString() => Name;
+
+        #endregion
     }
 }

@@ -243,7 +243,7 @@ namespace CashManager_MVVM.Features.Transactions
         private void ExecuteSaveTransactionCommand()
         {
             foreach (var position in _transaction.Positions.Where(x => x.TagViewModel != null))
-                position.Tags = position.TagViewModel.Results.OfType<Tag>().ToArray();
+                position.Tags = Mapper.Map<Tag[]>(position.TagViewModel.Results);
 
             var bills = NewBillsFilepaths.Select(x => new StoredFileInfo(x, Transaction.Id)).ToArray();
             _commandDispatcher.Execute(new UpsertBillsCommand(Mapper.Map<DtoStoredFileInfo[]>(bills)));
