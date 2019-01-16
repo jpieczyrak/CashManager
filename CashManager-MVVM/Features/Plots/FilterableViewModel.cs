@@ -7,6 +7,7 @@ using AutoMapper;
 
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
+using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Model;
@@ -62,6 +63,9 @@ namespace CashManager_MVVM.Features.Plots
         {
             _queryDispatcher = queryDispatcher;
             _transactionsProvider = transactionsProvider;
+
+            //lets cache types [needed after not loading full types in transaction query]:
+            var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()));
 
             var dtos = _queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
             var stocks = Mapper.Map<Stock[]>(dtos.Where(x => x.IsUserStock))

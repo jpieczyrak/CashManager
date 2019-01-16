@@ -6,7 +6,6 @@ using AutoMapper;
 using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Logic.Balances;
 using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
 
 using Category = CashManager_MVVM.Model.Category;
@@ -26,12 +25,24 @@ namespace CashManager_MVVM.Configuration.Mapping
             {
                 if (!_isInitialized)
                 {
+                    var tags = new Dictionary<Guid, Tag>();
                     var stocks = new Dictionary<Guid, Stock>();
+                    var categories = new Dictionary<Guid, Category>();
                     var types = new Dictionary<Guid, TransactionType>();
                     Mapper.Initialize(config =>
                     {
                         config.CreateMap<Category, CashManager.Data.DTO.Category>();
-                        config.CreateMap<CashManager.Data.DTO.Category, Category>();
+                        config.CreateMap<CashManager.Data.DTO.Category, Category>()
+                              .ConstructUsing((dto, context) =>
+                              {
+                                  if (dto == null) return null;
+                                  if (categories.TryGetValue(dto.Id, out var output)) return output;
+                                  return context.ConfigurationProvider.ServiceCtor(typeof(Category)) as Category;
+                              })
+                              .AfterMap((dto, model) =>
+                              {
+                                  categories[dto.Id] = model;
+                              });
 
                         config.CreateMap<Balance, CashManager.Data.DTO.Balance>();
                         config.CreateMap<CashManager.Data.DTO.Balance, Balance>()
@@ -51,7 +62,17 @@ namespace CashManager_MVVM.Configuration.Mapping
                               });
 
                         config.CreateMap<Tag, CashManager.Data.DTO.Tag>();
-                        config.CreateMap<CashManager.Data.DTO.Tag, Tag>();
+                        config.CreateMap<CashManager.Data.DTO.Tag, Tag>()
+                              .ConstructUsing((dto, context) =>
+                              {
+                                  if (dto == null) return null;
+                                  if (tags.TryGetValue(dto.Id, out var output)) return output;
+                                  return context.ConfigurationProvider.ServiceCtor(typeof(Tag)) as Tag;
+                              })
+                              .AfterMap((dto, model) =>
+                              {
+                                  tags[dto.Id] = model;
+                              });
 
                         config.CreateMap<PaymentValue, CashManager.Data.DTO.PaymentValue>();
                         config.CreateMap<CashManager.Data.DTO.PaymentValue, PaymentValue>();
