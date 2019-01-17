@@ -22,28 +22,34 @@ namespace CashManager_MVVM.Model.Selectors
             {
                 Set(nameof(Results), ref _results, value);
                 Selected = _results.Select(x => x.Id).ToArray();
+                RaisePropertyChanged(nameof(AllSelected));
             }
         }
 
         public Guid[] Selected { get; set; }
 
-        public bool AllSelected
+        public bool? AllSelected
         {
-            get => _results.Length == ComboBox.InternalDisplayableSearchResults.Count;
+            get =>
+                _results.Length == ComboBox.InternalDisplayableSearchResults.Count
+                    ? true
+                    : _results.Any()
+                        ? (bool?) null
+                        : false;
             set
             {
-                foreach (var result in ComboBox.InternalDisplayableSearchResults) result.IsSelected = true;
-                RaisePropertyChanged(nameof(NoneSelected));
-            }
-        }
-
-        public bool NoneSelected
-        {
-            get => _results.Length == 0;
-            set
-            {
-                foreach (var result in ComboBox.InternalDisplayableSearchResults) result.IsSelected = false;
-                RaisePropertyChanged(nameof(AllSelected));
+                if (value.HasValue)
+                {
+                    if (value.Value)
+                        foreach (var result in ComboBox.InternalDisplayableSearchResults)
+                            result.IsSelected = true;
+                    else
+                        foreach (var result in ComboBox.InternalDisplayableSearchResults)
+                            result.IsSelected = false;
+                }
+                else
+                    foreach (var result in ComboBox.InternalDisplayableSearchResults)
+                        result.IsSelected = false;
             }
         }
 
