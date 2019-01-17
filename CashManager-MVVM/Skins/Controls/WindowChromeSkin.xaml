@@ -165,7 +165,6 @@
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
                 <WindowChrome ResizeBorderThickness="6"
-                              CaptionHeight="43"
                               UseAeroCaptionButtons="False" />
             </Setter.Value>
         </Setter>
@@ -180,7 +179,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Border Padding="5,2">
+                            <Border Padding="5,0">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
@@ -191,9 +190,9 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Horizontal" Margin="5,0" VerticalAlignment="Center"
+                                    <StackPanel Orientation="Horizontal" Margin="5,4" VerticalAlignment="Center"
                                                 Grid.Column="0">
-                                        <Image Source="../../Resources/cash.png" MaxHeight="40" Margin="0,0,5,0" />
+                                        <Image Source="../../Resources/cash.png" MaxHeight="28" Margin="0,0,5,0" />
                                         <TextBlock Text="{TemplateBinding Title}" FontWeight="Bold"
                                                    Foreground="{DynamicResource ForegroundBrush}"
                                                    VerticalAlignment="Center" />
