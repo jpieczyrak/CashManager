@@ -33,10 +33,10 @@ namespace CashManager_MVVM.Skins
             Uri selected;
             switch (App.SkinShape)
             {
-                case SkinShapes.Round:
+                case SkinShapes.Rounded:
                     selected = RoundShape;
                     break;
-                case SkinShapes.Rect:
+                case SkinShapes.Rectangular:
                     selected = RectShape;
                     break;
                 default:
