@@ -33,6 +33,7 @@ namespace CashManager_MVVM.Configuration.Mapping
                     {
                         config.CreateMap<Category, CashManager.Data.DTO.Category>();
                         config.CreateMap<CashManager.Data.DTO.Category, ExpandableCategory>();
+                        config.CreateMap<Category, ExpandableCategory>();
                         config.CreateMap<ExpandableCategory, Category>()
                               .ConstructUsing((dto, context) =>
                               {
