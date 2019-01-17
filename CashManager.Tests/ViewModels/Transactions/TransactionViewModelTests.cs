@@ -23,9 +23,19 @@ namespace CashManager.Tests.ViewModels.Transactions
     [Collection("Cleanable database collection")]
     public class TransactionViewModelTests
     {
-        private readonly Tag[] _tags = { new Tag() { Name = "1" }, new Tag() { Name = "2" } };
+        private readonly Tag[] _tags = { new Tag { Name = "1" }, new Tag { Name = "2" } };
 
         private CashManager.Data.DTO.Tag[] DtoTags => Mapper.Map<CashManager.Data.DTO.Tag[]>(_tags);
+
+        private readonly Category[] _categories =
+        {
+            new Category { Name = "1" },
+            new Category { Name = "2" },
+            new Category { Name = "3" }
+        };
+
+        private CashManager.Data.DTO.Category[] DtoCategories => Mapper.Map<CashManager.Data.DTO.Category[]>(_categories);
+
         private readonly CleanableDatabaseFixture _fixture;
 
         public TransactionViewModelTests(CleanableDatabaseFixture fixture)
@@ -237,6 +247,26 @@ namespace CashManager.Tests.ViewModels.Transactions
             //then
             Assert.True(vm.Transaction.Positions[0].TagViewModel.InternalDisplayableSearchResults[0].IsSelected);
             Assert.True(vm.Transaction.Positions[1].TagViewModel.InternalDisplayableSearchResults.All(x => x.IsSelected == false));
+        }
+
+        [Fact]
+        public void TransactionCreation_TwoPositions_CategoriesAreNotBeingSynchronizedBetweenPositions()
+        {
+            //given
+            _fixture.Container.Resolve<LiteRepository>().Database.UpsertBulk(DtoCategories);
+            var vm = _fixture.Container.Resolve<TransactionViewModel>();
+            vm.ShouldGoBack = false;
+            vm.Update(); //creates transactions ect (anyway should be perform on view show)
+
+            vm.AddNewPosition.Execute(null);
+
+            //when
+            vm.Transaction.Positions[0].CategoryPickerViewModel.SelectedCategory = _categories[1];
+            vm.Transaction.Positions[1].CategoryPickerViewModel.SelectedCategory = _categories[2];
+
+            //then
+            Assert.NotSame(vm.Transaction.Positions[0].CategoryPickerViewModel.SelectedCategory, vm.Transaction.Positions[1].CategoryPickerViewModel.SelectedCategory);
+            Assert.NotSame(vm.Transaction.Positions[0].Category, vm.Transaction.Positions[1].Category);
         }
     }
 }
