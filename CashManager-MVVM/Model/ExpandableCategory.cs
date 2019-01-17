@@ -20,7 +20,7 @@ namespace CashManager_MVVM.Model
         public ExpandableCategory Parent
         {
             get => _parent;
-            set => Set(nameof(Parent), ref _parent, value);
+            set => Set(ref _parent, value);
         }
 
         public bool IsSelected

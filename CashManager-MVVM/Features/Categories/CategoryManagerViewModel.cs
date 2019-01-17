@@ -26,7 +26,7 @@ namespace CashManager_MVVM.Features.Categories
     {
         private readonly ICommandDispatcher _commandDispatcher;
         private string _input;
-        private Category _selectedCategory;
+        private ExpandableCategory _selectedCategory;
 
         public TrulyObservableCollection<ExpandableCategory> Categories { get; private set; }
 
@@ -35,7 +35,7 @@ namespace CashManager_MVVM.Features.Categories
         public RelayCommand RemoveCategoryCommand => new RelayCommand(ExecuteRemoveCategoryCommand, CanExecuteRemoveCategoryCommand);
         public RelayCommand LoadCategoriesCommand => new RelayCommand(ExecuteLoadCategoriesCommand);
 
-        public Category SelectedCategory
+        public ExpandableCategory SelectedCategory
         {
             get => _selectedCategory;
             private set
@@ -62,7 +62,7 @@ namespace CashManager_MVVM.Features.Categories
 
             AddCategoriesToTree(categories);
 
-            SelectedCategory = Mapper.Map<Category>(categories.FirstOrDefault(x => x.IsSelected));
+            SelectedCategory = categories.FirstOrDefault(x => x.IsSelected);
         }
 
         private void AddCategoriesToTree(ExpandableCategory[] categories)
@@ -72,7 +72,7 @@ namespace CashManager_MVVM.Features.Categories
                 category.Children = new TrulyObservableCollection<ExpandableCategory>(categories.Where(x => x.Parent?.Id == category.Id).OrderBy(x => x.Name));
                 category.PropertyChanged += (sender, args) =>
                 {
-                    if (category.IsSelected) SelectedCategory = Mapper.Map<Category>(category);
+                    if (category.IsSelected) SelectedCategory = category;
                 };
             }
 
@@ -121,7 +121,7 @@ namespace CashManager_MVVM.Features.Categories
 
         private void ExecuteAddCategoryCommand()
         {
-            var parent = Mapper.Map<ExpandableCategory>(SelectedCategory);
+            var parent = SelectedCategory;
             var category = new ExpandableCategory { Name = Input };
             if (parent != null)
             {
