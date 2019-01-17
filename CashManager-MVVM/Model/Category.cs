@@ -9,31 +9,12 @@ namespace CashManager_MVVM.Model
     public class Category : BaseObservableObject
     {
         private Category _parent;
-        private bool _isExpanded;
-        private bool _isSelected;
-
-        /// <summary>
-        /// Used for tree view purpose
-        /// </summary>
-        public bool IsExpanded
-        {
-            get => _isExpanded;
-            set => Set(ref _isExpanded, value);
-        }
 
         public Category Parent
         {
             get => _parent;
             set => Set(nameof(Parent), ref _parent, value);
         }
-
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set => Set(ref _isSelected, value);
-        }
-
-        public TrulyObservableCollection<Category> Children { get; set; } = new TrulyObservableCollection<Category>();
 
         public Category() { }
 

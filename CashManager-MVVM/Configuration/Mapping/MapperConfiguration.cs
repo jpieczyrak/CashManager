@@ -32,6 +32,17 @@ namespace CashManager_MVVM.Configuration.Mapping
                     Mapper.Initialize(config =>
                     {
                         config.CreateMap<Category, CashManager.Data.DTO.Category>();
+                        config.CreateMap<CashManager.Data.DTO.Category, ExpandableCategory>();
+                        config.CreateMap<ExpandableCategory, Category>()
+                              .ConstructUsing((dto, context) =>
+                              {
+                                  if (dto == null) return null;
+                                  if (dto.Name != null && categories.TryGetValue(dto.Id, out var output)) return output;
+
+                                  var category = context.Options.CreateInstance<Category>();
+                                  if (dto.Name != null) categories[dto.Id] = category;
+                                  return category;
+                              });
                         config.CreateMap<CashManager.Data.DTO.Category, Category>()
                               .ConstructUsing((dto, context) =>
                               {

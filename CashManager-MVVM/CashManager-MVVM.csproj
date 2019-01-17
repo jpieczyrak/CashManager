@@ -247,6 +247,7 @@
     <Compile Include="Model\Common\BaseObservableObject.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Common\IBookable.cs" />
+    <Compile Include="Model\ExpandableCategory.cs" />
     <Compile Include="Model\Selectors\BaseSelector.cs" />
     <Compile Include="Model\Selectors\DateFrameType.cs" />
     <Compile Include="Model\Selectors\DateSelector.cs" />

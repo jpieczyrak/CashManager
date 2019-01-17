@@ -28,7 +28,7 @@ namespace CashManager_MVVM.Features.Categories
         private string _input;
         private Category _selectedCategory;
 
-        public TrulyObservableCollection<Category> Categories { get; private set; }
+        public TrulyObservableCollection<ExpandableCategory> Categories { get; private set; }
 
         public RelayCommand AddCategoryCommand => new RelayCommand(ExecuteAddCategoryCommand);
 
@@ -55,24 +55,24 @@ namespace CashManager_MVVM.Features.Categories
         {
             _input = Strings.NewCategory;
             _commandDispatcher = commandDispatcher;
-            Categories = new TrulyObservableCollection<Category>();
+            Categories = new TrulyObservableCollection<ExpandableCategory>();
             var categories = queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery())
-                                             .Select(Mapper.Map<Category>)
+                                             .Select(Mapper.Map<ExpandableCategory>)
                                              .ToArray();
 
             AddCategoriesToTree(categories);
 
-            SelectedCategory = categories.FirstOrDefault(x => x.IsSelected);
+            SelectedCategory = Mapper.Map<Category>(categories.FirstOrDefault(x => x.IsSelected));
         }
 
-        private void AddCategoriesToTree(Category[] categories)
+        private void AddCategoriesToTree(ExpandableCategory[] categories)
         {
             foreach (var category in categories)
             {
-                category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category.Id).OrderBy(x => x.Name));
+                category.Children = new TrulyObservableCollection<ExpandableCategory>(categories.Where(x => x.Parent?.Id == category.Id).OrderBy(x => x.Name));
                 category.PropertyChanged += (sender, args) =>
                 {
-                    if (category.IsSelected) SelectedCategory = category;
+                    if (category.IsSelected) SelectedCategory = Mapper.Map<Category>(category);
                 };
             }
 
@@ -80,7 +80,7 @@ namespace CashManager_MVVM.Features.Categories
             Categories.AddRange(categories.Where(x => x.Parent == null && !Categories.Contains(x)).OrderBy(x => x.Name));
         }
 
-        private void Move(Category sourceCategory, Category targetCategory)
+        private void Move(ExpandableCategory sourceCategory, ExpandableCategory targetCategory)
         {
             if (sourceCategory == null || targetCategory == null) return;
             if (sourceCategory.Id == targetCategory.Id) return;
@@ -104,7 +104,7 @@ namespace CashManager_MVVM.Features.Categories
             UpsertCategory(sourceCategory);
         }
 
-        private Category Find(Category[] categories, Guid id)
+        private ExpandableCategory Find(ExpandableCategory[] categories, Guid id)
         {
             foreach (var category in categories)
             {
@@ -121,8 +121,8 @@ namespace CashManager_MVVM.Features.Categories
 
         private void ExecuteAddCategoryCommand()
         {
-            var parent = SelectedCategory;
-            var category = new Category { Name = Input };
+            var parent = Mapper.Map<ExpandableCategory>(SelectedCategory);
+            var category = new ExpandableCategory { Name = Input };
             if (parent != null)
             {
                 parent.Children.Add(category);
@@ -160,13 +160,13 @@ namespace CashManager_MVVM.Features.Categories
             var result = parser.Parse(Input);
             if (result != null && result.Any())
             {
-                var categories = Mapper.Map<Category[]>(result);
+                var categories = Mapper.Map<ExpandableCategory[]>(result);
                 AddCategoriesToTree(categories);
                 UpsertCategories(result);
             }
         }
 
-        private void UpsertCategory(Category category)
+        private void UpsertCategory(ExpandableCategory category)
         {
             var categories = new [] { category };
             UpsertCategories(categories);
@@ -177,7 +177,7 @@ namespace CashManager_MVVM.Features.Categories
             _commandDispatcher.Execute(new UpsertCategoriesCommand(categories));
         }
 
-        private void UpsertCategories(Category[] categories)
+        private void UpsertCategories(ExpandableCategory[] categories)
         {
             UpsertCategories(Mapper.Map<DtoCategory[]>(categories));
         }
@@ -191,7 +191,7 @@ namespace CashManager_MVVM.Features.Categories
 
         public void Drop(IDropInfo dropInfo)
         {
-            if (dropInfo.Data is Category source && dropInfo.TargetItem is Category target) Move(source, target);
+            if (dropInfo.Data is ExpandableCategory source && dropInfo.TargetItem is ExpandableCategory target) Move(source, target);
         }
     }
 }

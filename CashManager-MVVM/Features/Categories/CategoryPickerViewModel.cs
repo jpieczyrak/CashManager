@@ -17,10 +17,10 @@ namespace CashManager_MVVM.Features.Categories
 {
     public class CategoryPickerViewModel : ViewModelBase
     {
-        private readonly Category[] _flatCategories;
+        private readonly ExpandableCategory[] _flatCategories;
         private Category _selectedCategory;
 
-        public IEnumerable<Category> Categories { get; }
+        public IEnumerable<ExpandableCategory> Categories { get; }
 
         public Category SelectedCategory
         {
@@ -28,19 +28,22 @@ namespace CashManager_MVVM.Features.Categories
             set => Set(ref _selectedCategory, value);
         }
 
-        public RelayCommand<Category> UpdateSelectedCategory => new RelayCommand<Category>(ExecuteUpdateSelectedCategory);
+        public Category DefaultCategory { get; }
+
+        public RelayCommand<ExpandableCategory> UpdateSelectedCategory => new RelayCommand<ExpandableCategory>(ExecuteUpdateSelectedCategory);
 
         public CategoryPickerViewModel(IQueryDispatcher queryDispatcher, Category selectedCategory = null)
         {
             var categories = queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery())
-                                            .Select(Mapper.Map<Category>)
+                                            .Select(Mapper.Map<ExpandableCategory>)
                                             .ToArray();
 
             foreach (var category in categories)
-                category.Children = new TrulyObservableCollection<Category>(categories.Where(x => x.Parent?.Id == category.Id).OrderBy(x => x.Name));
+                category.Children = new TrulyObservableCollection<ExpandableCategory>(categories.Where(x => x.Parent?.Id == category.Id).OrderBy(x => x.Name));
 
             _flatCategories = categories.ToArray();
             Categories = categories.Where(x => x.Parent == null).OrderBy(x => x.Name).ToArray(); //find the root(s)
+            DefaultCategory = Mapper.Map<Category>(categories.FirstOrDefault());
             SelectedCategory = selectedCategory;
 
             if (selectedCategory != null)
@@ -51,12 +54,12 @@ namespace CashManager_MVVM.Features.Categories
             }
         }
 
-        private void ExecuteUpdateSelectedCategory(Category category)
+        private void ExecuteUpdateSelectedCategory(ExpandableCategory category)
         {
-            if (category != null) SelectedCategory = category;
+            if (category != null) SelectedCategory = Mapper.Map<Category>(category);
         }
 
-        private void ExpandParents(Category selected)
+        private void ExpandParents(ExpandableCategory selected)
         {
             var parent = _flatCategories.FirstOrDefault(x => x.Children.Contains(selected));
             if (parent != null)

@@ -202,7 +202,7 @@ namespace CashManager_MVVM.Features.Transactions
 
         private Position CreatePosition(Transaction parent)
         {
-            var category = _categoryPickerViewModel.Categories.FirstOrDefault(x => x.Parent == null);
+            var category = _categoryPickerViewModel.DefaultCategory;
             var position = new Position
             {
                 Title = Strings.NewPosition,
