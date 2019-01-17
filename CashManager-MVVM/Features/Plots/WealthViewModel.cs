@@ -23,6 +23,7 @@ namespace CashManager_MVVM.Features.Plots
 {
     public class WealthViewModel : FilterableViewModel
     {
+        private const string AREA_TRACKER_DAY_FORMAT_STRING = "{2:dd.MM.yyyy}\n{4:#,##0.00 zł}";
         private readonly TransactionBalanceCalculator _calculator;
         private PlotModel _wealth;
 
@@ -63,7 +64,8 @@ namespace CashManager_MVVM.Features.Plots
                 var series = new AreaSeries
                 {
                     Title = Strings.Wealth,
-                    MarkerType = MarkerType.Cross
+                    MarkerType = MarkerType.Cross,
+                    TrackerFormatString = AREA_TRACKER_DAY_FORMAT_STRING
                 };
                 series.Points.AddRange(values);
                 Wealth.Series.Add(series);
