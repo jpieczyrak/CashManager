@@ -184,7 +184,7 @@ namespace CashManager_MVVM.Features.Categories
 
         public void DragOver(IDropInfo dropInfo)
         {
-            dropInfo.Effects = dropInfo.Data is Category
+            dropInfo.Effects = dropInfo.Data is ExpandableCategory
                                    ? DragDropEffects.Copy
                                    : DragDropEffects.None;
         }
