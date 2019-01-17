@@ -373,9 +373,6 @@
   <data name="To" xml:space="preserve">
     <value>To</value>
   </data>
-  <data name="Sounds" xml:space="preserve">
-    <value>Sounds</value>
-  </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
@@ -420,5 +417,17 @@
   </data>
   <data name="LastMonth" xml:space="preserve">
     <value>Last month</value>
+  </data>
+  <data name="UseExtendedDatePicker" xml:space="preserve">
+    <value>Use extended date picking mechanism</value>
+  </data>
+  <data name="UseExtendedDatePickerTooltip" xml:space="preserve">
+    <value>Buttons for easier date picking</value>
+  </data>
+  <data name="ApplicationSounds" xml:space="preserve">
+    <value>Application sounds</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>Enable</value>
   </data>
 </root>

@@ -118,5 +118,17 @@ namespace CashManager_MVVM.Properties {
                 this["Localization"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseExtendedDatePicker {
+            get {
+                return ((bool)(this["UseExtendedDatePicker"]));
+            }
+            set {
+                this["UseExtendedDatePicker"] = value;
+            }
+        }
     }
 }

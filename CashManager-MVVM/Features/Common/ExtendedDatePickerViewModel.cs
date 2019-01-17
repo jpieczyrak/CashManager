@@ -1,5 +1,7 @@
 ﻿using System;
 
+using CashManager_MVVM.Properties;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
@@ -67,7 +69,7 @@ namespace CashManager_MVVM.Features.Common
             FirstMonthCommand = new RelayCommand(() => Owner.SelectedValue = new DateTime(Owner.SelectedValue.Year, 1, Owner.SelectedValue.Day));
             LastMonthCommand = new RelayCommand(() => Owner.SelectedValue = new DateTime(Owner.SelectedValue.Year, 12, Owner.SelectedValue.Day));
 
-            OpenPopupCommand = new RelayCommand(() => IsOpen = true);
+            OpenPopupCommand = new RelayCommand(() => IsOpen = Settings.Default.UseExtendedDatePicker);
             ClosePopupCommand = new RelayCommand(() => IsOpen = false);
         }
     }

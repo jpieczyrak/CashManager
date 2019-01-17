@@ -26,5 +26,8 @@
     <Setting Name="Localization" Type="System.String" Scope="User">
       <Value Profile="(Default)">en-US</Value>
     </Setting>
+    <Setting Name="UseExtendedDatePicker" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

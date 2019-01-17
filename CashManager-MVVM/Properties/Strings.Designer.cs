@@ -115,6 +115,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application sounds.
+        /// </summary>
+        public static string ApplicationSounds {
+            get {
+                return ResourceManager.GetString("ApplicationSounds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Balance.
         /// </summary>
         public static string Balance {
@@ -291,6 +300,15 @@ namespace CashManager_MVVM.Properties {
         public static string EditDate {
             get {
                 return ResourceManager.GetString("EditDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable.
+        /// </summary>
+        public static string Enable {
+            get {
+                return ResourceManager.GetString("Enable", resourceCulture);
             }
         }
         
@@ -826,15 +844,6 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sounds.
-        /// </summary>
-        public static string Sounds {
-            get {
-                return ResourceManager.GetString("Sounds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
         public static string Start {
@@ -984,6 +993,24 @@ namespace CashManager_MVVM.Properties {
         public static string UpdateStock {
             get {
                 return ResourceManager.GetString("UpdateStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use extended date picking mechanism.
+        /// </summary>
+        public static string UseExtendedDatePicker {
+            get {
+                return ResourceManager.GetString("UseExtendedDatePicker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buttons for easier date picking.
+        /// </summary>
+        public static string UseExtendedDatePickerTooltip {
+            get {
+                return ResourceManager.GetString("UseExtendedDatePickerTooltip", resourceCulture);
             }
         }
         

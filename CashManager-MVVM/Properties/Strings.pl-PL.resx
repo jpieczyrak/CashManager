@@ -393,9 +393,6 @@
   <data name="SkinShape" xml:space="preserve">
     <value>Kształt skórki</value>
   </data>
-  <data name="Sounds" xml:space="preserve">
-    <value>Dźwięki</value>
-  </data>
   <data name="To" xml:space="preserve">
     <value>Do</value>
   </data>
@@ -440,5 +437,17 @@
   </data>
   <data name="LastMonth" xml:space="preserve">
     <value>Ostatni miesiąc</value>
+  </data>
+  <data name="UseExtendedDatePicker" xml:space="preserve">
+    <value>Wyświetlaj zaawansowane mechanizmy wyboru daty</value>
+  </data>
+  <data name="UseExtendedDatePickerTooltip" xml:space="preserve">
+    <value>Guzików ułatwiających wybranie daty</value>
+  </data>
+  <data name="ApplicationSounds" xml:space="preserve">
+    <value>Dźwięki aplikacji</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>Włącz</value>
   </data>
 </root>

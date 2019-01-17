@@ -51,6 +51,16 @@ namespace CashManager_MVVM.Features.Main
 
         public string[] Localizations { get; }
 
+        public bool UseExtendedDatePicker
+        {
+            get => Settings.Default.UseExtendedDatePicker;
+            set
+            {
+                Settings.Default.UseExtendedDatePicker = value;
+                RaisePropertyChanged(nameof(UseExtendedDatePicker));
+            }
+        }
+
         public string SelectedLocalization
         {
             get => Settings.Default.Localization;
