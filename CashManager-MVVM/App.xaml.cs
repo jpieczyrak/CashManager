@@ -68,70 +68,72 @@ namespace CashManager_MVVM
             HandleSettingsUpgrade();
             _logger.Value.Debug("Startup");
 
-            ContainerBuilder builder = null;
-            using (new MeasureTimeWrapper(() => builder = AutofacConfiguration.ContainerBuilder(), "ContainerBuilder")) { }
-
-            InitWindow init = null;
-            if (File.Exists(DatabaseFilepath))
+            while (true)
             {
-                string connectionString = $"Filename={DatabaseFilepath};Journal=true";
-                if (Settings.Default.IsPasswordNeeded)
+                ContainerBuilder builder = null;
+                using (new MeasureTimeWrapper(() => builder = AutofacConfiguration.ContainerBuilder(), "ContainerBuilder")) { }
+                InitWindow init = null;
+                if (File.Exists(DatabaseFilepath))
                 {
-                    var passwordWindow = new PasswordPromptWindow();
-                    await ShowWindow(passwordWindow);
-
-                    if (passwordWindow.Success)
+                    string connectionString = $"Filename={DatabaseFilepath};Journal=true";
+                    if (Settings.Default.IsPasswordNeeded)
                     {
-                        string password = string.Empty;
-                        using (new MeasureTimeWrapper(
-                            () => password = passwordWindow.PasswordText.Encrypt(), "Password encryption")) { }
+                        var passwordWindow = new PasswordPromptWindow();
+                        await ShowWindow(passwordWindow);
 
-                        connectionString += $";password={password}";
+                        if (passwordWindow.Success)
+                        {
+                            string password = string.Empty;
+                            using (new MeasureTimeWrapper(
+                                () => password = passwordWindow.PasswordText.Encrypt(), "Password encryption")) { }
+
+                            connectionString += $";password={password}";
+                        }
+                        else
+                        {
+                            _logger.Value.Debug("Password window closed by user");
+                            Current.Shutdown();
+                            return;
+                        }
                     }
-                    else
-                    {
-                        _logger.Value.Debug("Password window closed by user");
-                        Current.Shutdown();
-                        return;
-                    }
+
+                    builder.Register(x => connectionString).Keyed<string>(DatabaseCommunicationModule.DB_KEY);
                 }
-                builder.Register(x => connectionString).Keyed<string>(DatabaseCommunicationModule.DB_KEY);
-            }
-            else
-            {
-                init = new InitWindow(builder, DatabaseFilepath);
-                await ShowWindow(init);
-            }
-
-            try
-            {
-                //it could be using, but then there is problem with resolving func factory... anyway it will die with app.
-                IContainer container = null;
-                using (new MeasureTimeWrapper(() => container = builder.Build(), "Container.Build")) { }
-
-                if (init?.DataContext is InitViewModel vm)
+                else
                 {
-                    if (vm.CanStartApplication)
-                    {
-                        using (new MeasureTimeWrapper(
-                            () => vm.GenerateData(container.Resolve<ICommandDispatcher>()), "GenerateData")) { }
-                    }
-                    else
-                    {
-                        Current.Shutdown();
-                        return;
-                    }
+                    init = new InitWindow(builder, DatabaseFilepath);
+                    await ShowWindow(init);
                 }
 
-                using (new MeasureTimeWrapper(() => container.Resolve<MainWindow>().Show(), "Resolve<MainWindow>().Show()")) { }
-            }
-            catch (Exception exception)
-            {
-                //todo: maybe password was needed (outdated settings) -> handle password?
+                try
+                {
+                    //it could be using, but then there is problem with resolving func factory... anyway it will die with app.
+                    IContainer container = null;
+                    using (new MeasureTimeWrapper(() => container = builder.Build(), "Container.Build")) { }
 
-                _logger.Value.Error("Loading app failed", exception);
-                Console.WriteLine(exception);
-                Current.Shutdown();
+                    if (init?.DataContext is InitViewModel vm)
+                    {
+                        if (vm.CanStartApplication)
+                        {
+                            using (new MeasureTimeWrapper(
+                                () => vm.GenerateData(container.Resolve<ICommandDispatcher>()), "GenerateData")) { }
+                        }
+                        else
+                        {
+                            Current.Shutdown();
+                            return;
+                        }
+                    }
+
+                    using (new MeasureTimeWrapper(() => container.Resolve<MainWindow>().Show(), "Resolve<MainWindow>.Show")) { }
+
+                    break;
+                }
+                catch (Exception exception)
+                {
+                    //todo: catch only litedb exceptions?
+                    _logger.Value.Error("Loading app failed", exception);
+                }
             }
         }
 
