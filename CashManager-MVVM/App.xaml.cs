@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -25,6 +24,8 @@ using CashManager_MVVM.Skins;
 using GalaSoft.MvvmLight.Threading;
 
 using log4net;
+
+using IContainer = Autofac.IContainer;
 
 namespace CashManager_MVVM
 {
@@ -81,9 +82,10 @@ namespace CashManager_MVVM
 
                     if (passwordWindow.Success)
                     {
-                        var s = Stopwatch.StartNew(); //todo: remove
-                        string password = passwordWindow.PasswordText.Encrypt();
-                        Console.WriteLine(s.Elapsed);
+                        string password = string.Empty;
+                        using (new MeasureTimeWrapper(
+                            () => password = passwordWindow.PasswordText.Encrypt(), "Password encryption")) { }
+
                         connectionString += $";password={password}";
                     }
                     else
