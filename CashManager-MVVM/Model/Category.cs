@@ -35,6 +35,10 @@ namespace CashManager_MVVM.Model
 
         public TrulyObservableCollection<Category> Children { get; set; } = new TrulyObservableCollection<Category>();
 
+        public Category() { }
+
+        public Category(Guid id) : base(id) { }
+
         public bool MatchCategoryFilter(Category category)
         {
             return category?.GetParentsId().Contains(Id) ?? false;

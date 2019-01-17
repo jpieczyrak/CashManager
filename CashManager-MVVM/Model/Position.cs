@@ -39,7 +39,11 @@ namespace CashManager_MVVM.Model
         public Category Category
         {
             get => _category;
-            set => Set(nameof(Category), ref _category, value);
+            set
+            {
+                _category = value; //manual setting due to reference update after "lazy mapping"
+                RaisePropertyChanged(nameof(Category));
+            }
         }
 
         /// <summary>

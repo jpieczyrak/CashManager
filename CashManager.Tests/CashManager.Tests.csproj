@@ -118,6 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Data\Positions\PositionCategoryAssignTests.cs" />
     <Compile Include="Data\Data\Positions\PositionsCopyTests.cs" />
     <Compile Include="Data\Data\Transactions\TransactionCopyTests.cs" />
     <Compile Include="Data\Providers\DataBuilderTests\CategoryBuilderTests.cs" />
