@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 
 using AutoMapper;
 
@@ -28,8 +28,6 @@ namespace CashManager_MVVM.Features.Categories
             get => _selectedCategory;
             set => Set(ref _selectedCategory, value);
         }
-
-        public RelayCommand<Window> CloseCommand => new RelayCommand<Window>(window => window?.Close());
 
         public RelayCommand<Category> UpdateSelectedCategory => new RelayCommand<Category>(ExecuteUpdateSelectedCategory);
 

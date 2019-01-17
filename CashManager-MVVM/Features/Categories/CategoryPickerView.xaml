@@ -34,9 +34,6 @@
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
-                    <command:EventToCommand Command="{Binding CloseCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=window, Mode=OneWay}"/>
-                </i:EventTrigger>
                 <i:EventTrigger EventName="SelectedItemChanged" SourceObject="{Binding ElementName=TreeView}">
                     <i:InvokeCommandAction Command="{Binding UpdateSelectedCategory}" CommandParameter="{Binding SelectedItem, ElementName=TreeView, Mode=OneWay}"/>
                 </i:EventTrigger>
