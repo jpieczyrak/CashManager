@@ -164,7 +164,6 @@ namespace CashManager_MVVM.Features.Transactions
                                       .ToArray();
 
             _tags = Mapper.Map<Tag[]>(_queryDispatcher.Execute<TagQuery, DtoTag[]>(new TagQuery()))
-                          //todo: somehow order by !is selected?
                           .OrderBy(x => x.Name)
                           .ToArray();
 
