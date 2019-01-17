@@ -27,6 +27,26 @@ namespace CashManager_MVVM.Model.Selectors
 
         public Guid[] Selected { get; set; }
 
+        public bool AllSelected
+        {
+            get => _results.Length == ComboBox.InternalDisplayableSearchResults.Count;
+            set
+            {
+                foreach (var result in ComboBox.InternalDisplayableSearchResults) result.IsSelected = true;
+                RaisePropertyChanged(nameof(NoneSelected));
+            }
+        }
+
+        public bool NoneSelected
+        {
+            get => _results.Length == 0;
+            set
+            {
+                foreach (var result in ComboBox.InternalDisplayableSearchResults) result.IsSelected = false;
+                RaisePropertyChanged(nameof(AllSelected));
+            }
+        }
+
         private MultiPicker() { }
 
         public MultiPicker(MultiPickerType type, Selectable[] source, Selectable[] selected = null)
