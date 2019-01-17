@@ -21,7 +21,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <oxy:PlotView Grid.Row="0" Model="{Binding BalanceModel}">
+            <oxy:PlotView Grid.Row="0" Model="{Binding BalanceModel}" ToolTip="Balance">
                 <oxy:PlotView.DefaultTrackerTemplate>
                     <ControlTemplate>
                         <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
@@ -40,7 +40,7 @@
                     </ControlTemplate>
                 </oxy:PlotView.DefaultTrackerTemplate>
             </oxy:PlotView>
-            <oxy:PlotView Grid.Row="1" Model="{Binding FlowsModel}">
+            <oxy:PlotView Grid.Row="1" Model="{Binding FlowsModel}" ToolTip="Income / outcome">
                 <oxy:PlotView.DefaultTrackerTemplate>
                     <ControlTemplate>
                         <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
@@ -71,7 +71,7 @@
 
             <common:DateRangePicker Grid.Row="0" DateFrame="{Binding BookDateFilter}" Margin="0,10,0,0" MaxWidth="280" />
             <UserControl Grid.Row="1" Content="{Binding UserStocksFilter}" />
-            <oxy:PlotView Grid.Row="2" Model="{Binding YearBalanceModel}">
+            <oxy:PlotView Grid.Row="2" Model="{Binding YearBalanceModel}" ToolTip="Year balance">
                 <oxy:PlotView.DefaultTrackerTemplate>
                     <ControlTemplate>
                         <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
