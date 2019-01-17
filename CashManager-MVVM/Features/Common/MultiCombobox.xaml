@@ -21,7 +21,7 @@
             IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="false" PreviewKeyDown="ComboBox_PreviewKeyDown" >
             <ComboBox.Resources>
                 <DataTemplate DataType="{x:Type common:Selectable}" >
-                    <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding Name}" Padding="5,0" />
+                    <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding Name}" Padding="5,7" />
                 </DataTemplate>
             </ComboBox.Resources>
         </ComboBox>

@@ -149,8 +149,7 @@
                             <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
                         </Trigger>
                         <Trigger SourceName="Popup" Property="AllowsTransparency" Value="true" />
-                        <Trigger Property="IsEditable"
-                                 Value="true">
+                        <Trigger Property="IsEditable" Value="true">
                             <Setter Property="IsTabStop" Value="false" />
                             <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />
                             <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden" />
@@ -169,8 +168,8 @@
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
                     <Border
                         x:Name="Border"
-                        Padding="2"
-                        BorderThickness="1"
+                        Padding="0"
+                        BorderThickness="0"
                         SnapsToDevicePixels="true">
                         <ContentPresenter />
                     </Border>
