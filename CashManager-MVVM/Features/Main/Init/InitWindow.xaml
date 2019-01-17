@@ -9,6 +9,7 @@
                      mc:Ignorable="d"
                      Height="320" Width="500"
                      WindowStartupLocation="CenterScreen"
+                     FocusManager.FocusedElement="{Binding ElementName=PasswordBox}"
                      Title="{x:Static properties:Strings.Initialization}" Style="{DynamicResource WindowStyle}"
                      d:DataContext="{d:DesignInstance Type=local:InitViewModel, IsDesignTimeCreatable=True}"
                      Background="{DynamicResource BackgroundColorBrush}">
@@ -20,7 +21,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical" Grid.Row="0" Margin="30,10,30,20">
             <TextBlock Margin="5" Text="{x:Static properties:Strings.Password}" HorizontalAlignment="Center" />
-            <PasswordBox Margin="0,5,0,20" Height="25" ToolTip="{x:Static properties:Strings.Optional}" PasswordChanged="PasswordBox_PasswordChanged" />
+            <PasswordBox x:Name="PasswordBox" Margin="0,5,0,20" Height="25" ToolTip="{x:Static properties:Strings.Optional}" PasswordChanged="PasswordBox_PasswordChanged" />
 
             <CheckBox Margin="5" Content="{x:Static properties:Strings.GenerateDefaultCategories}" IsChecked="{Binding GenerateCategories}" />
             <CheckBox Margin="5" Content="{x:Static properties:Strings.GenerateDefaultTypes}" IsChecked="{Binding GenerateTypes}" />
