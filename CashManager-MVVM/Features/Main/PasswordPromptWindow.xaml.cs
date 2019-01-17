@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace CashManager_MVVM.Features.Main
 {
@@ -20,6 +21,14 @@ namespace CashManager_MVVM.Features.Main
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             PasswordText = ((PasswordBox) sender).Password;
+        }
+
+        private void PasswordBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                OkButtonClick(sender, e);
+            }
         }
     }
 }
