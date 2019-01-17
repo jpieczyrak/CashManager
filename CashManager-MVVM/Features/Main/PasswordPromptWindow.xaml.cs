@@ -6,6 +6,8 @@ namespace CashManager_MVVM.Features.Main
 {
     public partial class PasswordPromptWindow : Window
     {
+        public bool Success { get; private set; }
+
         public string PasswordText { get; private set; }
 
         public PasswordPromptWindow()
@@ -15,6 +17,7 @@ namespace CashManager_MVVM.Features.Main
 
         private void OkButtonClick(object sender, RoutedEventArgs e)
         {
+            Success = true;
             Close();
         }
 

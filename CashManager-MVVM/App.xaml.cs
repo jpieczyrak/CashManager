@@ -78,10 +78,20 @@ namespace CashManager_MVVM
                 {
                     var passwordWindow = new PasswordPromptWindow();
                     await ShowWindow(passwordWindow);
-                var s = Stopwatch.StartNew(); //todo: remove
-                    string password = passwordWindow.PasswordText.Encrypt();
-                Console.WriteLine(s.Elapsed);
-                    connectionString += $";password={password}";
+
+                    if (passwordWindow.Success)
+                    {
+                        var s = Stopwatch.StartNew(); //todo: remove
+                        string password = passwordWindow.PasswordText.Encrypt();
+                        Console.WriteLine(s.Elapsed);
+                        connectionString += $";password={password}";
+                    }
+                    else
+                    {
+                        _logger.Value.Debug("Password window closed by user");
+                        Current.Shutdown();
+                        return;
+                    }
                 }
                 builder.Register(x => connectionString).Keyed<string>(DatabaseCommunicationModule.DB_KEY);
             }
