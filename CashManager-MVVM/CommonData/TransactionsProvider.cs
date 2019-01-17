@@ -18,8 +18,7 @@ namespace CashManager_MVVM.CommonData
         public TransactionsProvider(IQueryDispatcher queryDispatcher)
         {
             //lets cache categories [needed after not loading full categories in transaction query]:
-            var catDtos = queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery());
-            var categories = Mapper.Map<Category[]>(catDtos);
+            Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery()));
 
             var query = new TransactionQuery();
             DtoTransaction[] dtos = null;

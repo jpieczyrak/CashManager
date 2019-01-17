@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 
 using CashManager.Infrastructure.Query;
-using CashManager.Logic.Wrappers;
 
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Plots;

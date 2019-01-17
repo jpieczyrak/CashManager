@@ -1,7 +1,6 @@
 ﻿namespace CashManager_MVVM.Model.Common
 {
-    public sealed class 
-        Selectable : BaseObservableObject, ISelectable
+    public sealed class Selectable : BaseObservableObject, ISelectable
     {
         private bool _isSelected;
 

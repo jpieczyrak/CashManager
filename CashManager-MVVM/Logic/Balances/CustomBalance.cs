@@ -5,7 +5,7 @@ using CashManager_MVVM.Model.Common;
 
 namespace CashManager_MVVM.Logic.Balances
 {
-    public class CustomBalance : BaseObservableObject
+    public sealed class CustomBalance : BaseObservableObject
     {
         private string _name;
 

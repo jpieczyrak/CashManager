@@ -65,7 +65,7 @@ namespace CashManager_MVVM.Features.Plots
             _transactionsProvider = transactionsProvider;
 
             //lets cache types [needed after not loading full types in transaction query]:
-            var types = Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()));
+            Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()));
 
             var dtos = _queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
             var stocks = Mapper.Map<Stock[]>(dtos.Where(x => x.IsUserStock))

@@ -25,7 +25,9 @@ namespace CashManager_MVVM.Features.Main
 {
     public class ApplicationViewModel : ViewModelBase
     {
+        // ReSharper disable PrivateFieldCanBeConvertedToLocalVariable it have to be field to make commands work properly
         private readonly ViewModelFactory _factory;
+        // ReSharper restore PrivateFieldCanBeConvertedToLocalVariable
         private string _title;
         private ViewModelBase _selectedViewModel;
         private readonly Lazy<SummaryViewModel> _summaryViewModel;

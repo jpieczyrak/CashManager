@@ -2,8 +2,6 @@
 using System.ComponentModel;
 using System.Linq;
 
-using AutoMapper;
-
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
 
