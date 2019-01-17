@@ -10,20 +10,20 @@
              d:DataContext="{d:DesignInstance Type=local:SettingsViewModel, IsDesignTimeCreatable=True}">
     <Grid Background="{DynamicResource BackgroundColorBrush}">
         <UniformGrid Columns="2" Margin="5" VerticalAlignment="Top">
-            <TextBlock Text="{x:Static properties:Strings.ApplicationSounds}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <CheckBox Content="{x:Static properties:Strings.Enable}" IsChecked="{Binding IsSoundEnabled}" Margin="10,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Text="{x:Static properties:Strings.ApplicationSounds}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <CheckBox Content="{x:Static properties:Strings.Enable}" IsChecked="{Binding IsSoundEnabled}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-            <TextBlock Text="{x:Static properties:Strings.UseExtendedDatePicker}" ToolTip="{x:Static properties:Strings.UseExtendedDatePickerTooltip}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <CheckBox IsChecked="{Binding UseExtendedDatePicker}" Content="{x:Static properties:Strings.Enable}" Margin="10,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <TextBlock Text="{x:Static properties:Strings.UseExtendedDatePicker}" ToolTip="{x:Static properties:Strings.UseExtendedDatePickerTooltip}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <CheckBox IsChecked="{Binding UseExtendedDatePicker}" Content="{x:Static properties:Strings.Enable}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-            <TextBlock Text="{x:Static properties:Strings.Language}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{Binding Localizations}" SelectedItem="{Binding SelectedLocalization}" Margin="10,5" ToolTip="{x:Static properties:Strings.RestartRequiredAfterChange}" Width="200" HorizontalAlignment="Left"/>
+            <TextBlock Text="{x:Static properties:Strings.Language}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <ComboBox ItemsSource="{Binding Localizations}" SelectedItem="{Binding SelectedLocalization}" Margin="5" ToolTip="{x:Static properties:Strings.RestartRequiredAfterChange}" Width="200" HorizontalAlignment="Left"/>
 
-            <TextBlock Text="{x:Static properties:Strings.SkinColors}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{Binding Skins}" SelectedValue="{Binding SelectedSkin}" Margin="10,5" Width="200" HorizontalAlignment="Left"/>
+            <TextBlock Text="{x:Static properties:Strings.SkinColors}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <ComboBox ItemsSource="{Binding Skins}" SelectedValue="{Binding SelectedSkin}" Margin="5" Width="200" HorizontalAlignment="Left"/>
 
-            <TextBlock Text="{x:Static properties:Strings.SkinShape}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{Binding Shapes}" SelectedValue="{Binding SelectedShape}" Margin="10,5" Width="200" HorizontalAlignment="Left"/>
+            <TextBlock Text="{x:Static properties:Strings.SkinShape}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <ComboBox ItemsSource="{Binding Shapes}" SelectedValue="{Binding SelectedShape}" Margin="5" Width="200" HorizontalAlignment="Left"/>
         </UniformGrid>
     </Grid>
 </UserControl>
