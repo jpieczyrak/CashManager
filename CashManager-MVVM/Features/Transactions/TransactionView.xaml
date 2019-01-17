@@ -94,7 +94,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <TextBox Grid.Column="0" Text="{Binding Title}" Margin="5" VerticalAlignment="Center" MinWidth="20" Height="22"/>
-                                        <Button x:Name="categoryButton" Grid.Column="1" Margin="5" Content="{Binding CategoryPickerViewModel.SelectedCategory.Name}" 
+                                        <Button x:Name="categoryButton" Grid.Column="1" Margin="5" Content="{Binding Category.Name}" 
                                                 VerticalAlignment="Center">
                                             <Button.Triggers>
                                                 <EventTrigger RoutedEvent="TextBlock.MouseEnter">
