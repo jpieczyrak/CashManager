@@ -107,6 +107,11 @@ namespace CashManager_MVVM.Configuration.Mapping
                                   {
                                       position.IsPropertyChangedEnabled = false;
                                       position.Parent = model;
+
+                                      if (position.Category != null && position.Category.Name == null)
+                                          if (categories.TryGetValue(position.Category.Id, out var output))
+                                              position.Category = output;
+
                                       position.IsPropertyChangedEnabled = true;
                                   }
                                   model.IsPropertyChangedEnabled = true;
