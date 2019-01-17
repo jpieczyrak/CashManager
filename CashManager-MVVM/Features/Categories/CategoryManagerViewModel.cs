@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 
@@ -70,10 +71,7 @@ namespace CashManager_MVVM.Features.Categories
             foreach (var category in categories)
             {
                 category.Children = new TrulyObservableCollection<ExpandableCategory>(categories.Where(x => x.Parent?.Id == category.Id).OrderBy(x => x.Name));
-                category.PropertyChanged += (sender, args) =>
-                {
-                    if (category.IsSelected) SelectedCategory = category;
-                };
+                category.PropertyChanged += CategoryOnPropertyChanged;
             }
 
             //find the root(s)
@@ -123,6 +121,7 @@ namespace CashManager_MVVM.Features.Categories
         {
             var parent = SelectedCategory;
             var category = new ExpandableCategory { Name = Input };
+            category.PropertyChanged += CategoryOnPropertyChanged;
             if (parent != null)
             {
                 parent.Children.Add(category);
@@ -180,6 +179,11 @@ namespace CashManager_MVVM.Features.Categories
         private void UpsertCategories(ExpandableCategory[] categories)
         {
             UpsertCategories(Mapper.Map<DtoCategory[]>(categories));
+        }
+
+        private void CategoryOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is ExpandableCategory category && category.IsSelected) SelectedCategory = category;
         }
 
         public void DragOver(IDropInfo dropInfo)
