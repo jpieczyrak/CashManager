@@ -817,6 +817,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select all/none.
+        /// </summary>
+        public static string SelectAllNone {
+            get {
+                return ResourceManager.GetString("SelectAllNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Settings.
         /// </summary>
         public static string SettingsHeader {

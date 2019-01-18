@@ -450,4 +450,7 @@
   <data name="Enable" xml:space="preserve">
     <value>Włącz</value>
   </data>
+  <data name="SelectAllNone" xml:space="preserve">
+    <value>Zaznacz/odznacz wszystkie</value>
+  </data>
 </root>

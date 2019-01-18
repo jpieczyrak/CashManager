@@ -430,4 +430,7 @@
   <data name="Enable" xml:space="preserve">
     <value>Enable</value>
   </data>
+  <data name="SelectAllNone" xml:space="preserve">
+    <value>Select all/none</value>
+  </data>
 </root>
