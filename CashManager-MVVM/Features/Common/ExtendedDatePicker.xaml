@@ -19,8 +19,8 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </DatePicker>
-        <Popup Grid.Column="0" StaysOpen="false"
-               PlacementTarget="{Binding ElementName=datePicker}" IsOpen="{Binding ViewModel.IsOpen, ElementName=ExDatePicker}" HorizontalOffset="-160">
+        <Popup Grid.Column="0" StaysOpen="false" IsOpen="{Binding ViewModel.IsOpen, ElementName=ExDatePicker}" 
+               PlacementTarget="{Binding ElementName=ExDatePicker}" HorizontalOffset="-120">
             <Border Background="{DynamicResource BackgroundColorBrush}" CornerRadius="{DynamicResource BigCornerRadius}" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeave">
