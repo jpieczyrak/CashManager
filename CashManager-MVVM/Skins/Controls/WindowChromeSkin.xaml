@@ -49,10 +49,6 @@
                     <VisualState x:Name="MouseOver">
                         <Storyboard>
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill)"
-                                                           Storyboard.TargetName="rectangle">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BackgroundColorBrush}" />
-                            </ObjectAnimationUsingKeyFrames>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill)"
                                                            Storyboard.TargetName="path">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource HoverBorderAccentBrush}" />
                             </ObjectAnimationUsingKeyFrames>
