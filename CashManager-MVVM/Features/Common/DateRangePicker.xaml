@@ -25,7 +25,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <DockPanel>
-                    <CheckBox IsChecked="{Binding DateFrame.IsChecked, ElementName=DateRangePickerControl}" Style="{StaticResource OnlyCheckBox}" />
+                    <CheckBox IsChecked="{Binding DateFrame.IsChecked, ElementName=DateRangePickerControl}" ToolTip="{x:Static properties:Strings.Enable}" Style="{StaticResource OnlyCheckBox}" />
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Margin="0,0,5,0" Width="Auto"/>
                 </DockPanel>
                 <Grid Grid.Column="1">
