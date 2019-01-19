@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,15 +25,11 @@ using GalaSoft.MvvmLight.Threading;
 
 using log4net;
 
-using Squirrel;
-
 namespace CashManager_MVVM
 {
     public partial class App : Application
     {
         private const string DB_PATH = "results.litedb";
-        private const string UPDATES_URL = "http://cmh.eu5.org/";
-        private const string ICON_NAME = "app.ico";
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(App)));
 
         private string DatabaseFilepath
@@ -78,7 +73,7 @@ namespace CashManager_MVVM
 
                     using (new MeasureTimeWrapper(() => container.Resolve<MainWindow>().Show(), "Resolve<MainWindow>.Show")) { }
 
-                    await HandleApplicationUpdates();
+                    await UpdatesManager.HandleApplicationUpdates();
                     break;
                 }
                 catch (Exception exception)
@@ -143,42 +138,6 @@ namespace CashManager_MVVM
             return init;
         }
 
-        private static void HandleSquirrelEvents()
-        {
-            try
-            {
-                using (var mgr = new UpdateManager(UPDATES_URL))
-                {
-                    void Install(Version v)
-                    {
-                        string location = Assembly.GetEntryAssembly().Location;
-                        string iconPath = Path.Combine(Path.GetDirectoryName(location) ?? string.Empty, @"..\", ICON_NAME);
-                        mgr.CreateShortcutsForExecutable(Path.GetFileName(location), ShortcutLocation.StartMenu|ShortcutLocation.Desktop,
-                            !Environment.CommandLine.Contains("squirrel-install"), null, iconPath);
-                    }
-
-                    SquirrelAwareApp.HandleEvents(Install, Install, onAppUninstall: v => mgr.RemoveShortcutForThisExe());
-                }
-            }
-            catch (Exception) { }
-        }
-
-        private async Task HandleApplicationUpdates()
-        {
-            try
-            {
-                using (var mgr = new UpdateManager(UPDATES_URL))
-                {
-                    var result = await mgr.UpdateApp();
-                    _logger.Value.Debug(result != null ? $"Updated to: {result.Version}" : "Up-to-date");
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.Value.Debug("Updated failed", e);
-            }
-        }
-
         private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
 #if DEBUG
@@ -201,7 +160,7 @@ namespace CashManager_MVVM
         {
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
 
-            HandleSquirrelEvents();
+            UpdatesManager.HandleSquirrelEvents();
             base.OnStartup(e);
             _logger.Value.Debug("Startup");
 
