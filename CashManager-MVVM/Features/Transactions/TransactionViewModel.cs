@@ -81,10 +81,10 @@ namespace CashManager_MVVM.Features.Transactions
                         //todo: check sender - only on selected category change (no on all changes)
                         position.CategoryPickerViewModel.PropertyChanged +=
                             (sender, args) => position.Category = position.CategoryPickerViewModel.SelectedCategory;
-
-                        _startTransactionValue = _transaction.ValueAsProfit;
-                        _startUserStock = _transaction.UserStock;
                     }
+
+                    _startTransactionValue = _transaction.ValueAsProfit;
+                    _startUserStock = _transaction.UserStock;
                 }
             }
         }
