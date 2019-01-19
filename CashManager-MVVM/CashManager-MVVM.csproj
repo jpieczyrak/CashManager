@@ -628,7 +628,7 @@
     <PropertyGroup>
       <ReleaseDir>$(SolutionDir)Releases\</ReleaseDir>
       <!-- Extra optional params for squirrel. can be empty -->
-      <SquirrelParams>--no-msi --setupIcon $(ProjectDir)\Resources\cash.ico --icon $(ProjectDir)\Resources\cash.ico</SquirrelParams>
+      <SquirrelParams>--no-msi --setupIcon $(ProjectDir)\Resources\cash.ico --icon $(ProjectDir)\Resources\cash.ico --i $(ProjectDir)\Resources\cash.ico</SquirrelParams>
       <SemVerNumber>$([System.Version]::Parse(%(myAssemblyInfo.Version)).ToString(3))</SemVerNumber>
     </PropertyGroup>
     <!-- Add some nice errors for the next person that comes along -->

@@ -35,6 +35,7 @@ namespace CashManager_MVVM
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(App)));
 
         private const string DB_PATH = "results.litedb";
+        private const string UPDATES_URL = "http://cmh.eu5.org/";
 
         internal static SkinColors SkinColors { get; set; }
 
@@ -67,6 +68,7 @@ namespace CashManager_MVVM
         protected override async void OnStartup(StartupEventArgs e)
         {
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+            HandleSquirrelEvents();
             base.OnStartup(e);
             HandleSettingsUpgrade();
             _logger.Value.Debug("Startup");
@@ -141,11 +143,22 @@ namespace CashManager_MVVM
             }
         }
 
+        private static void HandleSquirrelEvents()
+        {
+            using (var mgr = new UpdateManager(UPDATES_URL))
+            {
+                SquirrelAwareApp.HandleEvents(
+                    v => mgr.CreateShortcutForThisExe(),
+                    v => mgr.CreateShortcutForThisExe(),
+                    onAppUninstall: v => mgr.RemoveShortcutForThisExe());
+            }
+        }
+
         private async Task HandleUpdate()
         {
             try
             {
-                using (var mgr = new UpdateManager("http://cmh.eu5.org/"))
+                using (var mgr = new UpdateManager(UPDATES_URL))
                 {
                     var result = await mgr.UpdateApp();
                     _logger.Value.Debug(result != null ? $"Updated to: {result.Version}" : "Up-to-date");
