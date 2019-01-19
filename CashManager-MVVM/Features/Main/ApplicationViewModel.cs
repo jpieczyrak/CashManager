@@ -29,6 +29,7 @@ namespace CashManager_MVVM.Features.Main
         private readonly ViewModelFactory _factory;
         // ReSharper restore PrivateFieldCanBeConvertedToLocalVariable
         private string _title;
+        private AboutWindow _aboutWindow;
         private ViewModelBase _selectedViewModel;
         private readonly Lazy<SummaryViewModel> _summaryViewModel;
         private readonly Lazy<StocksViewModel> _stocksViewModel;
@@ -127,7 +128,8 @@ namespace CashManager_MVVM.Features.Main
                     SelectedViewModel = _tagManagerViewModel.Value;
                     break;
                 case ViewModel.About:
-                    new AboutWindow().Show();
+                    if (_aboutWindow == null || _aboutWindow.IsVisible == false) _aboutWindow = new AboutWindow();
+                    _aboutWindow.Show();
                     break;
                 case ViewModel.Settings:
                     SelectedViewModel = _settingsViewModel.Value;
