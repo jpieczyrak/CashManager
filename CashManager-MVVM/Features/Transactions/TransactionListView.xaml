@@ -56,6 +56,9 @@
                     <command:EventToCommand Command="{Binding TransactionEditCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <DataGrid.InputBindings>
+                <KeyBinding Modifiers="Shift" Key="Delete" Command="{Binding TransactionDeleteCommand}" />
+            </DataGrid.InputBindings>
         </DataGrid>
 
         <UserControl Grid.Row="1" Margin="5" Content="{Binding Summary}" />

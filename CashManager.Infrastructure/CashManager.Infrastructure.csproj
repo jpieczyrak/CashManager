@@ -104,6 +104,8 @@
     <Compile Include="Command\Stocks\DeleteStockCommandHandler.cs" />
     <Compile Include="Command\Transactions\Bills\UpsertBillsCommand.cs" />
     <Compile Include="Command\Transactions\Bills\UpsertBillsCommandHandler.cs" />
+    <Compile Include="Command\Transactions\DeleteTransactionCommand.cs" />
+    <Compile Include="Command\Transactions\DeleteTransactionCommandHandler.cs" />
     <Compile Include="Command\TransactionTypes\DeleteTransactionTypeCommand.cs" />
     <Compile Include="Command\TransactionTypes\DeleteTransactionTypeCommandHandler.cs" />
     <Compile Include="Command\TransactionTypes\UpsertTransactionTypesCommand.cs" />

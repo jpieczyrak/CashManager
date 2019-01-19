@@ -35,6 +35,7 @@ namespace CashManager_MVVM.Features.Transactions
         }
 
         public RelayCommand TransactionEditCommand => new RelayCommand(TransactionEdit, () => true);
+        public RelayCommand TransactionDeleteCommand => new RelayCommand(ExecuteTransactionDelete, CanExecuteTransactionDelete);
 
         public RelayCommand DuplicateTransactionCommand => new RelayCommand(TransactionDuplicate, CanExecuteTransactionDuplicate);
 
@@ -86,5 +87,16 @@ namespace CashManager_MVVM.Features.Transactions
         private bool CanExecuteTransactionDuplicate() => SelectedTransaction != null
                                                          && _provider != null
                                                          && _commandDispatcher != null;
+
+        private void ExecuteTransactionDelete()
+        {
+            var dto = Mapper.Map<CashManager.Data.DTO.Transaction>(SelectedTransaction);
+            _commandDispatcher.Execute(new DeleteTransactionCommand(dto));
+
+            _provider.AllTransactions.Remove(SelectedTransaction);
+            Transactions.Remove(SelectedTransaction);
+        }
+
+        private bool CanExecuteTransactionDelete() => SelectedTransaction != null;
     }
 }
