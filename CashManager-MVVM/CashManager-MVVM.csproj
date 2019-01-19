@@ -186,6 +186,7 @@
       <DependentUpon>ExtendedDatePicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Common\ExtendedDatePickerViewModel.cs" />
+    <Compile Include="Features\IClosable.cs" />
     <Compile Include="Features\Main\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>

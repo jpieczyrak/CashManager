@@ -23,7 +23,7 @@ using DtoStock = CashManager.Data.DTO.Stock;
 
 namespace CashManager_MVVM.Features.Stocks
 {
-    public class StocksViewModel : ViewModelBase, IUpdateable
+    public class StocksViewModel : ViewModelBase, IUpdateable, IClosable
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
@@ -64,7 +64,6 @@ namespace CashManager_MVVM.Features.Stocks
 
         public void Update()
         {
-            if (Stocks != null) foreach (var stock in Stocks) stock.Balance.PropertyChanged -= BalanceOnPropertyChanged;
             var stocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()))
                                .OrderBy(x => x.InstanceCreationDate)
                                .ToArray();
@@ -122,6 +121,11 @@ namespace CashManager_MVVM.Features.Stocks
                 var deleted = e.OldItems.OfType<Stock>().ToArray();
                 MessengerInstance.Send(new DeleteStockMessage(deleted));
             }
+        }
+
+        public void Close()
+        {
+            if (Stocks != null) foreach (var stock in Stocks) stock.Balance.PropertyChanged -= BalanceOnPropertyChanged;
         }
     }
 }

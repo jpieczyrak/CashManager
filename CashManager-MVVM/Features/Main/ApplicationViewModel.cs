@@ -50,6 +50,11 @@ namespace CashManager_MVVM.Features.Main
             private set
             {
                 PreviousSelectedViewModel = _selectedViewModel;
+                if (_selectedViewModel is IClosable closable)
+                {
+                    string name = closable.GetType().ToString().Split('.').LastOrDefault();
+                    using (new MeasureTimeWrapper(() => closable.Close(), $"{name}.Close")) { }
+                }
                 Set(ref _selectedViewModel, value);
                 if (_selectedViewModel is IUpdateable model)
                 {
