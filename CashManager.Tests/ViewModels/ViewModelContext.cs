@@ -134,7 +134,15 @@ namespace CashManager.Tests.ViewModels
                    .Where(t => t.IsSubclassOf(typeof(ViewModelBase)))
                    .Named<ViewModelBase>(x => x.Name)
                    .As(t => t);
+            builder.RegisterAssemblyTypes(typeof(ApplicationViewModel).Assembly)
+                                       .Where(t => t.IsSubclassOf(typeof(ViewModelBase)))
+                                       .Named<ViewModelBase>(x => x.Name)
+                                       .As(t => t);
             builder.RegisterType<TransactionsProvider>().As<TransactionsProvider>();
+            builder.RegisterType<ApplicationViewModel>()
+                   .Named<ApplicationViewModel>(nameof(ApplicationViewModel))
+                   .SingleInstance()
+                   .ExternallyOwned();
 
             //search should be perform instantly in tests
             builder.Register(x =>
