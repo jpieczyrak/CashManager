@@ -84,22 +84,6 @@ namespace CashManager_MVVM
             }
         }
 
-        private static bool HandleInitDataGeneration(InitWindow init, IContainer container)
-        {
-            if (init?.DataContext is InitViewModel vm)
-                if (vm.CanStartApplication)
-                {
-                    using (new MeasureTimeWrapper(() => vm.GenerateData(container.Resolve<ICommandDispatcher>()), "GenerateData")) { }
-                }
-                else
-                {
-                    Current.Shutdown();
-                    return true;
-                }
-
-            return false;
-        }
-
         private async Task<InitWindow> HandleApplicationInit(ContainerBuilder builder)
         {
             InitWindow init = null;
@@ -136,6 +120,22 @@ namespace CashManager_MVVM
             }
 
             return init;
+        }
+
+        private static bool HandleInitDataGeneration(InitWindow init, IContainer container)
+        {
+            if (init?.DataContext is InitViewModel vm)
+                if (vm.CanStartApplication)
+                {
+                    using (new MeasureTimeWrapper(() => vm.GenerateData(container.Resolve<ICommandDispatcher>()), "GenerateData")) { }
+                }
+                else
+                {
+                    Current.Shutdown();
+                    return true;
+                }
+
+            return false;
         }
 
         private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
