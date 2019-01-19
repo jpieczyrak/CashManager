@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Windows;
 
 using CashManager_MVVM.Properties;
+using CashManager_MVVM.Skins;
 
 using log4net;
 
@@ -42,6 +45,13 @@ namespace CashManager_MVVM.Utils
                 Settings.Default.UpgradeNeeded = false;
                 Settings.Default.Save();
                 _logger.Value.Debug("Settings upgraded");
+
+                (Application.Current.Resources
+                            .MergedDictionaries
+                            .FirstOrDefault(x => x is ColorsResourceDictionary) as ColorsResourceDictionary)?.UpdateSource();
+                (Application.Current.Resources
+                            .MergedDictionaries
+                            .FirstOrDefault(x => x is ShapesResourceDictionary) as ShapesResourceDictionary)?.UpdateSource();
             }
         }
 
