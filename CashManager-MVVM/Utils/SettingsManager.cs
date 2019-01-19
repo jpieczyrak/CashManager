@@ -31,7 +31,7 @@ namespace CashManager_MVVM.Utils
             }
         }
 
-        internal static void HandleSettingsUpgrade(Lazy<ILog> logger)
+        internal static void HandleSettingsUpgrade()
         {
             RestoreSettings();
             if (Settings.Default.UpgradeNeeded)
@@ -41,7 +41,7 @@ namespace CashManager_MVVM.Utils
                 Settings.Default.Reload();
                 Settings.Default.UpgradeNeeded = false;
                 Settings.Default.Save();
-                logger.Value.Debug("Settings upgraded");
+                _logger.Value.Debug("Settings upgraded");
             }
         }
 
@@ -52,6 +52,16 @@ namespace CashManager_MVVM.Utils
                 _logger.Value.Debug("There is no settings backup file");
                 return;
             }
+
+            try
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(SettingsPath));
+            }
+            catch (Exception e)
+            {
+                _logger.Value.Info("Could not created directory", e);
+            }
+            if (!File.Exists(SettingsPath)) _logger.Value.Debug($"Settings path does not exists: {SettingsPath}");
 
             try
             {

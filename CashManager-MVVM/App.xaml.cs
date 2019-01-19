@@ -56,7 +56,7 @@ namespace CashManager_MVVM
 
         private async Task PerformStart()
         {
-            SettingsManager.HandleSettingsUpgrade(_logger);
+            SettingsManager.HandleSettingsUpgrade();
             while (true)
             {
                 ContainerBuilder builder = null;
