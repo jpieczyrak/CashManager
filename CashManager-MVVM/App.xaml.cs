@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -41,7 +40,9 @@ namespace CashManager_MVVM
 
         internal static SkinShapes SkinShape { get; set; }
 
-        private string DatabaseFilepath => Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) ?? string.Empty, DB_PATH);
+        private string DatabaseFilepath => Path.Combine(SolutionSettingsDir, DB_PATH);
+
+        private string SolutionSettingsDir => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), typeof(App).Namespace);
 
         static App()
         {
