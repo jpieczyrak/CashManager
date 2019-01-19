@@ -558,7 +558,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="log4net.config">
+    <None Include="log4net.Release.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="log4net.Debug.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -632,8 +635,8 @@
     <Error Condition="!Exists(%(NuGetExe.FullPath))" Text="You are trying to use the NuGet.CommandLine package, but it is not installed. Please install NuGet.CommandLine from the Package Manager." />
     <Error Condition="!Exists(%(SquirrelExe.FullPath))" Text="You are trying to use the Squirrel.Windows package, but it is not installed. Please install Squirrel.Windows from the Package Manager." />
     <!-- Build nupkg into the project local bin\Release\ directory temporarily -->
-    <Exec Command='"%(NuGetExe.FullPath)" pack $(SolutionDir)$(SolutionName).nuspec -Version $(SemVerNumber) -OutputDirectory $(OutDir) -BasePath $(OutDir)' />
+    <Exec Command="&quot;%(NuGetExe.FullPath)&quot; pack $(SolutionDir)$(SolutionName).nuspec -Version $(SemVerNumber) -OutputDirectory $(OutDir) -BasePath $(OutDir)" />
     <!-- Squirrelify into the release dir (usually at solution level. Change the property above for a different location -->
-    <Exec Command='"%(SquirrelExe.FullPath)" --releasify $(ProjectDir)$(OutDir)$(SolutionName).$(SemVerNumber).nupkg --releaseDir=$(ReleaseDir) $(SquirrelParams)' />
+    <Exec Command="&quot;%(SquirrelExe.FullPath)&quot; --releasify $(ProjectDir)$(OutDir)$(SolutionName).$(SemVerNumber).nupkg --releaseDir=$(ReleaseDir) $(SquirrelParams)" />
   </Target>
 </Project>
