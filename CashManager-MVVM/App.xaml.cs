@@ -147,17 +147,21 @@ namespace CashManager_MVVM
 
         private static void HandleSquirrelEvents()
         {
-            using (var mgr = new UpdateManager(UPDATES_URL))
+            try
             {
-                void Install(Version v)
+                using (var mgr = new UpdateManager(UPDATES_URL))
                 {
-                    string location = Assembly.GetEntryAssembly().Location;
-                    string iconPath = Path.Combine(Path.GetDirectoryName(location) ?? string.Empty, @"..\", ICON_NAME);
-                    mgr.CreateShortcutsForExecutable(Path.GetFileName(location), ShortcutLocation.StartMenu|ShortcutLocation.Desktop, !Environment.CommandLine.Contains("squirrel-install"), null, iconPath);
-                }
+                    void Install(Version v)
+                    {
+                        string location = Assembly.GetEntryAssembly().Location;
+                        string iconPath = Path.Combine(Path.GetDirectoryName(location) ?? string.Empty, @"..\", ICON_NAME);
+                        mgr.CreateShortcutsForExecutable(Path.GetFileName(location), ShortcutLocation.StartMenu | ShortcutLocation.Desktop, !Environment.CommandLine.Contains("squirrel-install"), null, iconPath);
+                    }
 
-                SquirrelAwareApp.HandleEvents(Install, Install, onAppUninstall: v => mgr.RemoveShortcutForThisExe());
+                    SquirrelAwareApp.HandleEvents(Install, Install, onAppUninstall: v => mgr.RemoveShortcutForThisExe());
+                }
             }
+            catch (Exception) { }
         }
 
         private async Task HandleUpdate()
