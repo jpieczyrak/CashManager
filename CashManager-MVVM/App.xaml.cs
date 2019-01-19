@@ -148,7 +148,7 @@ namespace CashManager_MVVM
                 using (var mgr = new UpdateManager("http://cmh.eu5.org/"))
                 {
                     var result = await mgr.UpdateApp();
-                    _logger.Value.Debug($"Updated to: {result.Version}");
+                    _logger.Value.Debug(result != null ? $"Updated to: {result.Version}" : "Up-to-date");
                 }
             }
             catch (Exception e)
