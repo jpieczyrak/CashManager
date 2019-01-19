@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -36,6 +37,7 @@ namespace CashManager_MVVM
 
         private const string DB_PATH = "results.litedb";
         private const string UPDATES_URL = "http://cmh.eu5.org/";
+        private const string ICON_NAME = "app.ico";
 
         internal static SkinColors SkinColors { get; set; }
 
@@ -147,10 +149,14 @@ namespace CashManager_MVVM
         {
             using (var mgr = new UpdateManager(UPDATES_URL))
             {
-                SquirrelAwareApp.HandleEvents(
-                    v => mgr.CreateShortcutForThisExe(),
-                    v => mgr.CreateShortcutForThisExe(),
-                    onAppUninstall: v => mgr.RemoveShortcutForThisExe());
+                void Install(Version v)
+                {
+                    string location = Assembly.GetEntryAssembly().Location;
+                    string iconPath = Path.Combine(Path.GetDirectoryName(location) ?? string.Empty, @"..\", ICON_NAME);
+                    mgr.CreateShortcutsForExecutable(Path.GetFileName(location), ShortcutLocation.StartMenu|ShortcutLocation.Desktop, !Environment.CommandLine.Contains("squirrel-install"), null, iconPath);
+                }
+
+                SquirrelAwareApp.HandleEvents(Install, Install, onAppUninstall: v => mgr.RemoveShortcutForThisExe());
             }
         }
 
