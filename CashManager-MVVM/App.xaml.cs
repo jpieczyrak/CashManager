@@ -19,7 +19,6 @@ using CashManager_MVVM.Configuration.Mapping;
 using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Features.Main.Init;
 using CashManager_MVVM.Properties;
-using CashManager_MVVM.Skins;
 
 using GalaSoft.MvvmLight.Threading;
 
@@ -38,8 +37,18 @@ namespace CashManager_MVVM
         private const string DB_PATH = "results.litedb";
         private const string UPDATES_URL = "http://cmh.eu5.org/";
         private const string ICON_NAME = "app.ico";
-        
-        private string DatabaseFilepath => Path.Combine(SolutionSettingsDir, DB_PATH);
+
+        private string DatabaseFilepath
+        {
+            get
+            {
+#if DEBUG
+                return DB_PATH;
+#else
+                return Path.Combine(SolutionSettingsDir, DB_PATH);
+#endif
+            }
+        }
 
         private string SolutionSettingsDir => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), typeof(App).Namespace ?? string.Empty);
 
@@ -59,7 +68,7 @@ namespace CashManager_MVVM
             return task.Task;
         }
 
-        #region Override
+#region Override
 
         protected override async void OnStartup(StartupEventArgs e)
         {
@@ -200,7 +209,7 @@ namespace CashManager_MVVM
             base.OnExit(e);
         }
 
-        #endregion
+#endregion
 
         private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
