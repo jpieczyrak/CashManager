@@ -25,6 +25,8 @@ using GalaSoft.MvvmLight.Threading;
 
 using log4net;
 
+using Squirrel;
+
 using IContainer = Autofac.IContainer;
 
 namespace CashManager_MVVM
@@ -127,6 +129,7 @@ namespace CashManager_MVVM
 
                     using (new MeasureTimeWrapper(() => container.Resolve<MainWindow>().Show(), "Resolve<MainWindow>.Show")) { }
 
+                    HandleUpdate();
                     break;
                 }
                 catch (Exception exception)
@@ -134,6 +137,22 @@ namespace CashManager_MVVM
                     //todo: catch only litedb exceptions?
                     _logger.Value.Error("Loading app failed", exception);
                 }
+            }
+        }
+
+        private async Task HandleUpdate()
+        {
+            try
+            {
+                using (var mgr = new UpdateManager("http://cmh.eu5.org/"))
+                {
+                    var result = await mgr.UpdateApp();
+                    _logger.Value.Debug($"Updated to: {result.Version}");
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.Value.Debug("Updated failed", e);
             }
         }
 
