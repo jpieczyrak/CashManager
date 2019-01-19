@@ -42,7 +42,7 @@ namespace CashManager_MVVM
 
         private string DatabaseFilepath => Path.Combine(SolutionSettingsDir, DB_PATH);
 
-        private string SolutionSettingsDir => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), typeof(App).Namespace);
+        private string SolutionSettingsDir => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), typeof(App).Namespace ?? string.Empty);
 
         static App()
         {
@@ -130,7 +130,7 @@ namespace CashManager_MVVM
 
                     using (new MeasureTimeWrapper(() => container.Resolve<MainWindow>().Show(), "Resolve<MainWindow>.Show")) { }
 
-                    HandleUpdate();
+                    await HandleUpdate();
                     break;
                 }
                 catch (Exception exception)
