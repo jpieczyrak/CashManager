@@ -167,6 +167,7 @@
     </ApplicationDefinition>
     <Compile Include="CommonData\TransactionsProvider.cs" />
     <Compile Include="Configuration\DI\AutofacConfiguration.cs" />
+    <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="Features\Balance\CustomBalanceView.xaml.cs">
       <DependentUpon>CustomBalanceView.xaml</DependentUpon>
     </Compile>
@@ -326,6 +327,7 @@
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="TrulyObservableCollection.cs" />
+    <Compile Include="Utils\SettingsManager.cs" />
     <Compile Include="Utils\SoundPlayerHelper.cs" />
     <Page Include="Features\Balance\CustomBalanceView.xaml">
       <SubType>Designer</SubType>
@@ -638,6 +640,6 @@
     <Exec Command="&quot;%(NuGetExe.FullPath)&quot; pack $(SolutionDir)$(SolutionName).nuspec -Version $(SemVerNumber) -OutputDirectory $(OutDir) -BasePath $(OutDir)" />
     <!-- Squirrelify into the release dir (usually at solution level. Change the property above for a different location -->
     <Exec Command="&quot;%(SquirrelExe.FullPath)&quot; --releasify $(ProjectDir)$(OutDir)$(SolutionName).$(SemVerNumber).nupkg --releaseDir=$(ReleaseDir) $(SquirrelParams)" />
-	<Exec Command="del &quot;$(TargetDir)*.nupkg&quot;" />
+    <Exec Command="del &quot;$(TargetDir)*.nupkg&quot;" />
   </Target>
 </Project>

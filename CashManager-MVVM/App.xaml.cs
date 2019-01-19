@@ -16,9 +16,11 @@ using CashManager.Logic.Wrappers;
 
 using CashManager_MVVM.Configuration.DI;
 using CashManager_MVVM.Configuration.Mapping;
+using CashManager_MVVM.Extensions;
 using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Features.Main.Init;
 using CashManager_MVVM.Properties;
+using CashManager_MVVM.Utils;
 
 using GalaSoft.MvvmLight.Threading;
 
@@ -26,17 +28,14 @@ using log4net;
 
 using Squirrel;
 
-using IContainer = Autofac.IContainer;
-
 namespace CashManager_MVVM
 {
     public partial class App : Application
     {
-        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(App)));
-
         private const string DB_PATH = "results.litedb";
         private const string UPDATES_URL = "http://cmh.eu5.org/";
         private const string ICON_NAME = "app.ico";
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(App)));
 
         private string DatabaseFilepath
         {
@@ -59,31 +58,9 @@ namespace CashManager_MVVM
             MapperConfiguration.Configure();
         }
 
-        private static Task ShowWindow<T>(T window) where T : Window
-        {
-            var task = new TaskCompletionSource<object>();
-            window.Closed += (sender, args) => task.SetResult(null);
-            window.Show();
-            window.Focus();
-            return task.Task;
-        }
-
-#region Override
-
-        protected override async void OnStartup(StartupEventArgs e)
-        {
-            Dispatcher.UnhandledException += OnDispatcherUnhandledException;
-
-            HandleSquirrelEvents();
-            base.OnStartup(e);
-            _logger.Value.Debug("Startup");
-
-            await PerformStart();
-        }
-
         private async Task PerformStart()
         {
-            HandleSettingsUpgrade();
+            SettingsManager.HandleSettingsUpgrade(_logger);
             while (true)
             {
                 ContainerBuilder builder = null;
@@ -115,7 +92,6 @@ namespace CashManager_MVVM
         private static bool HandleInitDataGeneration(InitWindow init, IContainer container)
         {
             if (init?.DataContext is InitViewModel vm)
-            {
                 if (vm.CanStartApplication)
                 {
                     using (new MeasureTimeWrapper(() => vm.GenerateData(container.Resolve<ICommandDispatcher>()), "GenerateData")) { }
@@ -125,7 +101,6 @@ namespace CashManager_MVVM
                     Current.Shutdown();
                     return true;
                 }
-            }
 
             return false;
         }
@@ -139,7 +114,7 @@ namespace CashManager_MVVM
                 if (Settings.Default.IsPasswordNeeded)
                 {
                     var passwordWindow = new PasswordPromptWindow();
-                    await ShowWindow(passwordWindow);
+                    await passwordWindow.ShowBlocking();
 
                     if (passwordWindow.Success)
                     {
@@ -162,7 +137,7 @@ namespace CashManager_MVVM
             else
             {
                 init = new InitWindow(builder, DatabaseFilepath);
-                await ShowWindow(init);
+                await init.ShowBlocking();
             }
 
             return init;
@@ -178,7 +153,8 @@ namespace CashManager_MVVM
                     {
                         string location = Assembly.GetEntryAssembly().Location;
                         string iconPath = Path.Combine(Path.GetDirectoryName(location) ?? string.Empty, @"..\", ICON_NAME);
-                        mgr.CreateShortcutsForExecutable(Path.GetFileName(location), ShortcutLocation.StartMenu | ShortcutLocation.Desktop, !Environment.CommandLine.Contains("squirrel-install"), null, iconPath);
+                        mgr.CreateShortcutsForExecutable(Path.GetFileName(location), ShortcutLocation.StartMenu|ShortcutLocation.Desktop,
+                            !Environment.CommandLine.Contains("squirrel-install"), null, iconPath);
                     }
 
                     SquirrelAwareApp.HandleEvents(Install, Install, onAppUninstall: v => mgr.RemoveShortcutForThisExe());
@@ -203,14 +179,6 @@ namespace CashManager_MVVM
             }
         }
 
-        protected override void OnExit(ExitEventArgs e)
-        {
-            _logger.Value.Debug("Exit");
-            base.OnExit(e);
-        }
-
-#endregion
-
         private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
 #if DEBUG
@@ -221,17 +189,25 @@ namespace CashManager_MVVM
             e.Handled = false;
         }
 
-        private static void HandleSettingsUpgrade()
+        #region Override
+
+        protected override void OnExit(ExitEventArgs e)
         {
-            if (Settings.Default.UpgradeNeeded)
-            {
-                Settings.Default.Upgrade();
-                Settings.Default.Save();
-                Settings.Default.Reload();
-                Settings.Default.UpgradeNeeded = false;
-                Settings.Default.Save();
-                _logger.Value.Debug("Settings upgraded");
-            }
+            _logger.Value.Debug("Exit");
+            base.OnExit(e);
         }
+
+        protected override async void OnStartup(StartupEventArgs e)
+        {
+            Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+
+            HandleSquirrelEvents();
+            base.OnStartup(e);
+            _logger.Value.Debug("Startup");
+
+            await PerformStart();
+        }
+
+        #endregion
     }
 }
