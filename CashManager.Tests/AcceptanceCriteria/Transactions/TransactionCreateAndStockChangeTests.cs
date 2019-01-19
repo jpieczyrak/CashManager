@@ -11,7 +11,6 @@ using CashManager_MVVM.Features.Stocks;
 using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Features.TransactionTypes;
 using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Common;
 
 using Xunit;
 
@@ -168,8 +167,10 @@ namespace CashManager.Tests.AcceptanceCriteria.Transactions
 
             if (daysSinceLastStockEdit != 0)
             {
-                var prop = userStock.Balance.GetType().GetProperty("LastEditDate");
-                prop.SetValue(userStock.Balance, DateTime.Today.AddDays(-daysSinceLastStockEdit));
+                userStock.Balance
+                         .GetType()
+                         .GetProperty("LastEditDate")?
+                         .SetValue(userStock.Balance, DateTime.Today.AddDays(-daysSinceLastStockEdit));
             }
 
             return userStock;
