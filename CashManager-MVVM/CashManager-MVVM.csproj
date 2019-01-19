@@ -607,7 +607,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>del "$(TargetDir)*.xml", "$(TargetDir)*.pdb"</PostBuildEvent>
+    <PostBuildEvent>del "$(TargetDir)*.xml", "$(TargetDir)*.pdb","$(TargetDir)*.nupkg"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -638,5 +638,6 @@
     <Exec Command="&quot;%(NuGetExe.FullPath)&quot; pack $(SolutionDir)$(SolutionName).nuspec -Version $(SemVerNumber) -OutputDirectory $(OutDir) -BasePath $(OutDir)" />
     <!-- Squirrelify into the release dir (usually at solution level. Change the property above for a different location -->
     <Exec Command="&quot;%(SquirrelExe.FullPath)&quot; --releasify $(ProjectDir)$(OutDir)$(SolutionName).$(SemVerNumber).nupkg --releaseDir=$(ReleaseDir) $(SquirrelParams)" />
+	<Exec Command="del &quot;$(TargetDir)*.nupkg&quot;" />
   </Target>
 </Project>
