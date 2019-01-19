@@ -100,7 +100,11 @@ namespace CashManager_MVVM.Model
         public TransactionType Type
         {
             get => _type;
-            set => Set(nameof(Type), ref _type, value);
+            set
+            {
+                _type = value;
+                RaisePropertyChanged(nameof(Type));
+            }
         }
 
         /// <summary>
