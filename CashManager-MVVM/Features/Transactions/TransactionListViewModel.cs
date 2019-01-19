@@ -69,8 +69,7 @@ namespace CashManager_MVVM.Features.Transactions
         private void TransactionEdit()
         {
             var applicationViewModel = _factory.Create<ApplicationViewModel>();
-            var transactionViewModel = _factory.Create<TransactionViewModel>();
-            transactionViewModel.Transaction = SelectedTransaction;
+            applicationViewModel.TransactionViewModel.Value.Transaction = SelectedTransaction;
             applicationViewModel.SelectViewModelCommand.Execute(ViewModel.Transaction);
         }
 

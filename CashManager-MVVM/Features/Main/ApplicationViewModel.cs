@@ -40,7 +40,6 @@ namespace CashManager_MVVM.Features.Main
         private readonly Lazy<SettingsViewModel> _settingsViewModel;
         private readonly Lazy<SearchViewModel> _searchViewModel;
         private readonly Lazy<MassReplacerViewModel> _massReplacerViewModel;
-        private readonly Lazy<TransactionViewModel> _transactionViewModel;
         private readonly Lazy<WealthViewModel> _wealthPlotViewModel;
         private readonly Lazy<CategoriesPlotViewModel> _categoriesPlotViewModel;
         private readonly Lazy<CustomBalanceViewModel> _customBalancesViewModel;
@@ -70,6 +69,8 @@ namespace CashManager_MVVM.Features.Main
 
         public StockSummaryViewModel SummaryViewModel { get; }
 
+        public Lazy<TransactionViewModel> TransactionViewModel { get; }
+
         public Dictionary<string, ViewModel> ViewModels { get; private set; }
 
         public RelayCommand<ViewModel> SelectViewModelCommand { get; }
@@ -88,7 +89,7 @@ namespace CashManager_MVVM.Features.Main
             _settingsViewModel = new Lazy<SettingsViewModel>(_factory.Create<SettingsViewModel>);
             _searchViewModel = new Lazy<SearchViewModel>(_factory.Create<SearchViewModel>);
             _massReplacerViewModel = new Lazy<MassReplacerViewModel>(_factory.Create<MassReplacerViewModel>);
-            _transactionViewModel = new Lazy<TransactionViewModel>(_factory.Create<TransactionViewModel>);
+            TransactionViewModel = new Lazy<TransactionViewModel>(_factory.Create<TransactionViewModel>);
             _wealthPlotViewModel = new Lazy<WealthViewModel>(_factory.Create<WealthViewModel>);
             _categoriesPlotViewModel = new Lazy<CategoriesPlotViewModel>(_factory.Create<CategoriesPlotViewModel>);
             _customBalancesViewModel = new Lazy<CustomBalanceViewModel>(_factory.Create<CustomBalanceViewModel>);
@@ -144,7 +145,7 @@ namespace CashManager_MVVM.Features.Main
                     SelectedViewModel = _massReplacerViewModel.Value;
                     break;
                 case ViewModel.Transaction:
-                    SelectedViewModel = _transactionViewModel.Value;
+                    SelectedViewModel = TransactionViewModel.Value;
                     break;
                 case ViewModel.WealthPlot:
                     SelectedViewModel = _wealthPlotViewModel.Value;
