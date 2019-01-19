@@ -70,15 +70,22 @@ namespace CashManager_MVVM
         protected override async void OnStartup(StartupEventArgs e)
         {
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+
             HandleSquirrelEvents();
             base.OnStartup(e);
-            HandleSettingsUpgrade();
             _logger.Value.Debug("Startup");
 
+            await PerformStart();
+        }
+
+        private async Task PerformStart()
+        {
+            HandleSettingsUpgrade();
             while (true)
             {
                 ContainerBuilder builder = null;
                 using (new MeasureTimeWrapper(() => builder = AutofacConfiguration.ContainerBuilder(), "ContainerBuilder")) { }
+
                 var init = await HandleApplicationInit(builder);
 
                 try
@@ -87,23 +94,11 @@ namespace CashManager_MVVM
                     IContainer container = null;
                     using (new MeasureTimeWrapper(() => container = builder.Build(), "Container.Build")) { }
 
-                    if (init?.DataContext is InitViewModel vm)
-                    {
-                        if (vm.CanStartApplication)
-                        {
-                            using (new MeasureTimeWrapper(
-                                () => vm.GenerateData(container.Resolve<ICommandDispatcher>()), "GenerateData")) { }
-                        }
-                        else
-                        {
-                            Current.Shutdown();
-                            return;
-                        }
-                    }
+                    if (HandleInitDataGeneration(init, container)) return;
 
                     using (new MeasureTimeWrapper(() => container.Resolve<MainWindow>().Show(), "Resolve<MainWindow>.Show")) { }
 
-                    await HandleUpdate();
+                    await HandleApplicationUpdates();
                     break;
                 }
                 catch (Exception exception)
@@ -112,6 +107,25 @@ namespace CashManager_MVVM
                     _logger.Value.Error("Loading app failed", exception);
                 }
             }
+        }
+
+        private static bool HandleInitDataGeneration(InitWindow init, IContainer container)
+        {
+            if (init?.DataContext is InitViewModel vm)
+            {
+                if (vm.CanStartApplication)
+                {
+                    using (new MeasureTimeWrapper(
+                        () => vm.GenerateData(container.Resolve<ICommandDispatcher>()), "GenerateData")) { }
+                }
+                else
+                {
+                    Current.Shutdown();
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private async Task<InitWindow> HandleApplicationInit(ContainerBuilder builder)
@@ -171,7 +185,7 @@ namespace CashManager_MVVM
             catch (Exception) { }
         }
 
-        private async Task HandleUpdate()
+        private async Task HandleApplicationUpdates()
         {
             try
             {
