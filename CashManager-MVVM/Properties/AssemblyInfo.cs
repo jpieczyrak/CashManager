@@ -50,10 +50,10 @@ using log4net.Config;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.8.5.0")]
+[assembly: AssemblyVersion("0.8.6.0")]
 #if DEBUG
-    [assembly: XmlConfigurator(ConfigFile = "log4net.Debug.config", Watch = true)]
+[assembly: XmlConfigurator(ConfigFile = "log4net.Debug.config", Watch = true)]
 #else
-    [assembly: XmlConfigurator(ConfigFile = "log4net.Release.config", Watch = true)]
+[assembly: XmlConfigurator(ConfigFile = "log4net.Release.config", Watch = true)]
 #endif
 

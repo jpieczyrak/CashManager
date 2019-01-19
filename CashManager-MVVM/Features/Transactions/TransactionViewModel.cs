@@ -100,6 +100,7 @@ namespace CashManager_MVVM.Features.Transactions
         public RelayCommand CancelTransactionCommand { get; }
 
         public RelayCommand AddNewPosition { get; }
+        public RelayCommand ClearCommand { get; }
 
         public bool ShouldGoBack { private get; set; } = true;
 
@@ -126,7 +127,11 @@ namespace CashManager_MVVM.Features.Transactions
 
             SaveTransactionCommand = new RelayCommand(ExecuteSaveTransactionCommand, CanExecuteSaveTransactionCommand);
             CancelTransactionCommand = new RelayCommand(ExecuteCancelTransactionCommand);
+
+            ClearCommand = new RelayCommand(ExecuteClearCommand);
         }
+
+        private void ExecuteClearCommand() { Transaction = CreateNewTransaction(); }
 
         #region IDropTarget
 
