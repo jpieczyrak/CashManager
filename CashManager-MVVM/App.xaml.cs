@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -162,7 +163,7 @@ namespace CashManager_MVVM
 
             UpdatesManager.HandleSquirrelEvents();
             base.OnStartup(e);
-            _logger.Value.Debug("Startup");
+            _logger.Value.Debug($"Startup [{Assembly.GetExecutingAssembly().GetName().Version}]");
 
             await PerformStart();
         }
