@@ -23,6 +23,7 @@ namespace CashManager_MVVM.Utils
                 {
                     var result = await mgr.UpdateApp();
                     _logger.Value.Debug(result != null ? $"Updated to: {result.Version}" : "Up-to-date");
+                    if (result != null) SettingsManager.BackupSettings();
                 }
             }
             catch (Exception e)
