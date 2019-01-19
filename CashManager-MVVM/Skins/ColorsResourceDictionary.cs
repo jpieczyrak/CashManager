@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 
+using CashManager_MVVM.Properties;
+
 namespace CashManager_MVVM.Skins
 {
     internal class ColorsResourceDictionary : ResourceDictionary
@@ -53,7 +55,7 @@ namespace CashManager_MVVM.Skins
         public void UpdateSource()
         {
             Uri selected;
-            switch (App.SkinColors)
+            switch ((SkinColors)Settings.Default.SkinColor)
             {
                 case SkinColors.Dark:
                     selected = DarkSource;

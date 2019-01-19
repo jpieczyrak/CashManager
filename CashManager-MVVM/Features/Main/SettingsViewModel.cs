@@ -33,7 +33,6 @@ namespace CashManager_MVVM.Features.Main
             set
             {
                 Settings.Default.SkinColor = (int) value;
-                App.SkinColors = value;
                 _colorsResourceDictionary.Value?.UpdateSource();
             }
         }
@@ -44,7 +43,6 @@ namespace CashManager_MVVM.Features.Main
             set
             {
                 Settings.Default.SkinShape = (int) value;
-                App.SkinShape = value;
                 _shapesDictionary.Value?.UpdateSource();
             }
         }

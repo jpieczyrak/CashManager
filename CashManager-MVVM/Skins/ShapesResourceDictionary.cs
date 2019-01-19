@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 
+using CashManager_MVVM.Properties;
+
 namespace CashManager_MVVM.Skins
 {
     internal class ShapesResourceDictionary : ResourceDictionary
@@ -31,7 +33,7 @@ namespace CashManager_MVVM.Skins
         public void UpdateSource()
         {
             Uri selected;
-            switch (App.SkinShape)
+            switch ((SkinShapes)Settings.Default.SkinShape)
             {
                 case SkinShapes.Rounded:
                     selected = RoundShape;

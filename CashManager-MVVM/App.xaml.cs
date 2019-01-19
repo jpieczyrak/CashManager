@@ -38,11 +38,7 @@ namespace CashManager_MVVM
         private const string DB_PATH = "results.litedb";
         private const string UPDATES_URL = "http://cmh.eu5.org/";
         private const string ICON_NAME = "app.ico";
-
-        internal static SkinColors SkinColors { get; set; }
-
-        internal static SkinShapes SkinShape { get; set; }
-
+        
         private string DatabaseFilepath => Path.Combine(SolutionSettingsDir, DB_PATH);
 
         private string SolutionSettingsDir => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), typeof(App).Namespace ?? string.Empty);
@@ -52,8 +48,6 @@ namespace CashManager_MVVM
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Settings.Default.Localization);
             DispatcherHelper.Initialize();
             MapperConfiguration.Configure();
-            SkinColors = (SkinColors)Settings.Default.SkinColor;
-            SkinShape = (SkinShapes)Settings.Default.SkinShape;
         }
 
         private static Task ShowWindow<T>(T window) where T : Window
@@ -115,8 +109,7 @@ namespace CashManager_MVVM
             {
                 if (vm.CanStartApplication)
                 {
-                    using (new MeasureTimeWrapper(
-                        () => vm.GenerateData(container.Resolve<ICommandDispatcher>()), "GenerateData")) { }
+                    using (new MeasureTimeWrapper(() => vm.GenerateData(container.Resolve<ICommandDispatcher>()), "GenerateData")) { }
                 }
                 else
                 {
