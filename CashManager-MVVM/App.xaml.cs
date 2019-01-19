@@ -79,38 +79,7 @@ namespace CashManager_MVVM
             {
                 ContainerBuilder builder = null;
                 using (new MeasureTimeWrapper(() => builder = AutofacConfiguration.ContainerBuilder(), "ContainerBuilder")) { }
-                InitWindow init = null;
-                if (File.Exists(DatabaseFilepath))
-                {
-                    string connectionString = $"Filename={DatabaseFilepath};Journal=true";
-                    if (Settings.Default.IsPasswordNeeded)
-                    {
-                        var passwordWindow = new PasswordPromptWindow();
-                        await ShowWindow(passwordWindow);
-
-                        if (passwordWindow.Success)
-                        {
-                            string password = string.Empty;
-                            using (new MeasureTimeWrapper(
-                                () => password = passwordWindow.PasswordText.Encrypt(), "Password encryption")) { }
-
-                            connectionString += $";password={password}";
-                        }
-                        else
-                        {
-                            _logger.Value.Debug("Password window closed by user");
-                            Current.Shutdown();
-                            return;
-                        }
-                    }
-
-                    builder.Register(x => connectionString).Keyed<string>(DatabaseCommunicationModule.DB_KEY);
-                }
-                else
-                {
-                    init = new InitWindow(builder, DatabaseFilepath);
-                    await ShowWindow(init);
-                }
+                var init = await HandleApplicationInit(builder);
 
                 try
                 {
@@ -143,6 +112,44 @@ namespace CashManager_MVVM
                     _logger.Value.Error("Loading app failed", exception);
                 }
             }
+        }
+
+        private async Task<InitWindow> HandleApplicationInit(ContainerBuilder builder)
+        {
+            InitWindow init = null;
+            if (File.Exists(DatabaseFilepath))
+            {
+                string connectionString = $"Filename={DatabaseFilepath};Journal=true";
+                if (Settings.Default.IsPasswordNeeded)
+                {
+                    var passwordWindow = new PasswordPromptWindow();
+                    await ShowWindow(passwordWindow);
+
+                    if (passwordWindow.Success)
+                    {
+                        string password = string.Empty;
+                        using (new MeasureTimeWrapper(
+                            () => password = passwordWindow.PasswordText.Encrypt(), "Password encryption")) { }
+
+                        connectionString += $";password={password}";
+                    }
+                    else
+                    {
+                        _logger.Value.Debug("Password window closed by user");
+                        Current.Shutdown();
+                        return null;
+                    }
+                }
+
+                builder.Register(x => connectionString).Keyed<string>(DatabaseCommunicationModule.DB_KEY);
+            }
+            else
+            {
+                init = new InitWindow(builder, DatabaseFilepath);
+                await ShowWindow(init);
+            }
+
+            return init;
         }
 
         private static void HandleSquirrelEvents()
