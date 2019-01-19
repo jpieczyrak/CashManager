@@ -47,7 +47,9 @@ namespace CashManager_MVVM.Features.Stocks
 
             AddStockCommand = new RelayCommand(() =>
             {
-                Stocks.Add(new Stock());
+                var stock = new Stock();
+                stock.Balance.PropertyChanged += BalanceOnPropertyChanged;
+                Stocks.Add(stock);
             });
             RemoveCommand = new RelayCommand<Stock>(x =>
             {
