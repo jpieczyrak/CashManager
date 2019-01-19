@@ -15,7 +15,7 @@ namespace CashManager_MVVM.Utils
         private const string ICON_NAME = "app.ico";
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(UpdatesManager)));
 
-        internal static async Task HandleApplicationUpdates()
+        internal static async Task HandleApplicationUpdatesCheck()
         {
             try
             {

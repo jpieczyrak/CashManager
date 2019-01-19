@@ -73,7 +73,7 @@ namespace CashManager_MVVM
 
                     using (new MeasureTimeWrapper(() => container.Resolve<MainWindow>().Show(), "Resolve<MainWindow>.Show")) { }
 
-                    await UpdatesManager.HandleApplicationUpdates();
+                    await UpdatesManager.HandleApplicationUpdatesCheck();
                     break;
                 }
                 catch (Exception exception)
