@@ -229,7 +229,11 @@ namespace CashManager_MVVM.Features.Transactions
             var transaction = _queryDispatcher
                               .Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery(x => x.Id == Transaction.Id))
                               .FirstOrDefault();
-            if (transaction != null)
+            if (transaction == null)
+            {
+                _shouldCreateTransaction = false;
+            }
+            else
             {
                 _transaction = Mapper.Map<Transaction>(transaction);
                 var found = TransactionsProvider.AllTransactions.FirstOrDefault(x => x.Id == _transaction.Id);
@@ -239,6 +243,7 @@ namespace CashManager_MVVM.Features.Transactions
                     TransactionsProvider.AllTransactions.Add(_transaction);
                 }
             }
+
             NavigateBack();
         }
 
