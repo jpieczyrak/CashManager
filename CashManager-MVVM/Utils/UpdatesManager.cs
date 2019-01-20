@@ -28,7 +28,7 @@ namespace CashManager_MVVM.Utils
             }
             catch (Exception e)
             {
-                _logger.Value.Debug("Updated failed", e);
+                _logger.Value.Info("Application updated failed", e);
             }
         }
 
