@@ -30,7 +30,6 @@ namespace CashManager_MVVM.Features.Plots
         private readonly TransactionsProvider _transactionsProvider;
         private DateFrame _bookDateFilter = new DateFrame(DateFrameType.BookDate);
         private MultiPicker _userStocksFilter;
-        private PlotModel _columnCategories;
         private PlotModel _pieCategories;
         private MultiPicker _typesFilter;
 
@@ -52,12 +51,6 @@ namespace CashManager_MVVM.Features.Plots
             set => Set(nameof(TypesFilter), ref _typesFilter, value);
         }
 
-        public PlotModel ColumnCategories
-        {
-            get => _columnCategories;
-            set => Set(nameof(ColumnCategories), ref _columnCategories, value);
-        }
-
         public PlotModel PieCategories
         {
             get => _pieCategories;
@@ -68,7 +61,6 @@ namespace CashManager_MVVM.Features.Plots
         {
             _queryDispatcher = queryDispatcher;
             _transactionsProvider = transactionsProvider;
-            ColumnCategories = PlotHelper.CreatePlotModel();
             PieCategories = PlotHelper.CreatePlotModel();
         }
 
@@ -109,7 +101,6 @@ namespace CashManager_MVVM.Features.Plots
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            ColumnCategories.Series.Clear();
             PieCategories.Series.Clear();
             var transactions = _transactionsProvider.AllTransactions;
             if (transactions == null || !transactions.Any()) return;
@@ -139,23 +130,11 @@ namespace CashManager_MVVM.Features.Plots
                 if (values.Any())
                 {
                     var series = new PieSeries();
-                    foreach (var value in values)
-                    {
-                        ColumnCategories.Series.Add(new ColumnSeries
-                        {
-                            Title = value.Title,
-                            ItemsSource = new[] { value },
-                            ValueField = nameof(value.Value)
-                        });
-                        series.Slices.Add(new PieSlice(value.Title, (double) value.Value));
-                    }
+                    foreach (var value in values) series.Slices.Add(new PieSlice(value.Title, (double) value.Value));
 
                     PieCategories.Series.Add(series);
                 }
             }
-
-            ColumnCategories.InvalidatePlot(true);
-            ColumnCategories.ResetAllAxes();
 
             PieCategories.InvalidatePlot(true);
         }
