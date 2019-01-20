@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace CashManager_MVVM.Features.Plots
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly TransactionsProvider _transactionsProvider;
         private DateFrame _bookDateFilter = new DateFrame(DateFrameType.BookDate);
+        private IEnumerable<KeyValuePair<string, decimal>> _values;
         private MultiPicker _userStocksFilter;
         private PlotModel _pieCategories;
         private MultiPicker _typesFilter;
@@ -55,6 +57,12 @@ namespace CashManager_MVVM.Features.Plots
         {
             get => _pieCategories;
             set => Set(nameof(PieCategories), ref _pieCategories, value);
+        }
+
+        public IEnumerable<KeyValuePair<string, decimal>> Values
+        {
+            get => _values;
+            private set => Set(ref _values, value);
         }
 
         public CategoriesPlotViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider transactionsProvider)
@@ -112,7 +120,7 @@ namespace CashManager_MVVM.Features.Plots
 
             if (selectedStocks != null && selectedStocks.Any())
             {
-                var values = transactions
+                Values = transactions
                              .Where(x => selectedStocks.Contains(x.UserStock))
                              .Where(x => !BookDateFilter.IsChecked || x.BookDate >= BookDateFilter.From && x.BookDate <= BookDateFilter.To)
                              .Where(x => !TypesFilter.IsChecked || selectedTypes.Contains(x.Type))
@@ -122,15 +130,15 @@ namespace CashManager_MVVM.Features.Plots
                              .Select(x =>
                              {
                                  decimal value = x.Sum(y => y.Value.GrossValue);
-                                 return new { Title = x.Key, Value = value };
+                                 return new KeyValuePair<string, decimal>(x.Key, value);
                              })
                              .OrderByDescending(x => x.Value)
                              .ToArray();
 
-                if (values.Any())
+                if (Values.Any())
                 {
                     var series = new PieSeries();
-                    foreach (var value in values) series.Slices.Add(new PieSlice(value.Title, (double) value.Value));
+                    foreach (var value in Values) series.Slices.Add(new PieSlice(value.Key, (double) value.Value));
 
                     PieCategories.Series.Add(series);
                 }

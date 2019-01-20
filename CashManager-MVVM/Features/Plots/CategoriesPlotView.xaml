@@ -6,6 +6,7 @@
              xmlns:plots="clr-namespace:CashManager_MVVM.Features.Plots"
              xmlns:oxy="http://oxyplot.org/wpf"
              xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
+             xmlns:Properties="clr-namespace:CashManager_MVVM.Properties"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=plots:CategoriesPlotViewModel, IsDesignTimeCreatable=True}">
 
@@ -29,10 +30,17 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <DataGrid Grid.Column="0" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding Values}" 
+                      Margin="5" VerticalAlignment="Bottom" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{x:Static Properties:Strings.Category}" Binding="{Binding Key}" Width="*" MinWidth="70" />
+                    <DataGridTextColumn Header="{x:Static Properties:Strings.Value}" Binding="{Binding Value}" Width="*" MinWidth="60"/>
+                </DataGrid.Columns>
+            </DataGrid>
             <oxy:PlotView Grid.Column="1" Model="{Binding PieCategories}" >
                 <oxy:PlotView.DefaultTrackerTemplate>
                     <ControlTemplate>
