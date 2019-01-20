@@ -6,7 +6,6 @@ using AutoMapper;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 
-using CashManager_MVVM.Messages;
 using CashManager_MVVM.Messages.Models;
 using CashManager_MVVM.Model;
 

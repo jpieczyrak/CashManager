@@ -10,6 +10,7 @@ using CashManager_MVVM.Features.Plots;
 using CashManager_MVVM.Features.Stocks;
 using CashManager_MVVM.Logic.Calculators;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Properties;
 
 using log4net;
 
@@ -24,9 +25,9 @@ namespace CashManager_MVVM.Features.Summary
     {
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(SummaryViewModel)));
 
-        private const string AREA_TRACKER_MONTH_FORMAT_STRING = "{2:MM.yyyy}\n{4.ToString(Strings.ValueFormat) zł}";
-        private const string AREA_TRACKER_YEAR_FORMAT_STRING = "{2:yyyy}\n{4.ToString(Strings.ValueFormat) zł}";
-        private const string MONTH_DATE_FORMAT = "MM.yyyy";
+        private readonly string _areaTrackerMonthFormatString = $"{{2:MM.yyyy}}\n{{4:{Strings.ValueFormat}}}";
+        private readonly string _areaTrackerYearFormatString = $"{{2:yyyy}}\n{{4:{Strings.ValueFormat}}}";
+        private readonly string MONTH_DATE_FORMAT = "MM.yyyy";
 
         public PlotModel BalanceModel { get; }
         public PlotModel FlowsModel { get; }
@@ -210,8 +211,8 @@ namespace CashManager_MVVM.Features.Summary
                 Mapping = x => new DataPoint(DateTimeAxis.ToDouble(((TransactionBalance)x).BookDate),
                     (double)((TransactionBalance)x).Value),
                 TrackerFormatString = groupingType == TimeGroupingType.Month
-                                          ? AREA_TRACKER_MONTH_FORMAT_STRING
-                                          : AREA_TRACKER_YEAR_FORMAT_STRING
+                                          ? _areaTrackerMonthFormatString
+                                          : _areaTrackerYearFormatString
             });
         }
 
