@@ -26,7 +26,7 @@ namespace CashManager_MVVM.Utils
             try
             {
                 File.Copy(SettingsPath, BackupPath, true);
-                _logger.Value.Info("Settings backup done");
+                _logger.Value.Debug("Settings backup done");
             }
             catch (Exception e)
             {
@@ -69,7 +69,7 @@ namespace CashManager_MVVM.Utils
             }
             catch (Exception e)
             {
-                _logger.Value.Info("Could not created directory", e);
+                _logger.Value.Debug("Could not create settings target directory", e);
             }
             if (!File.Exists(SettingsPath)) _logger.Value.Debug($"Settings path does not exists: {SettingsPath}");
 
@@ -79,13 +79,13 @@ namespace CashManager_MVVM.Utils
             }
             catch (Exception e)
             {
-                _logger.Value.Warn("Could not perform settings restore", e);
+                _logger.Value.Debug("Could not perform settings restore", e);
                 return;
             }
 
-            _logger.Value.Info("Settings backup restored");
+            _logger.Value.Debug("Settings backup restored");
             Settings.Default.Reload();
-            _logger.Value.Info("Settings reloaded");
+            _logger.Value.Debug("Settings reloaded");
 
             try
             {
@@ -93,7 +93,7 @@ namespace CashManager_MVVM.Utils
             }
             catch (Exception e)
             {
-                _logger.Value.Info("Could not delete settings backup", e);
+                _logger.Value.Debug("Could not delete settings backup", e);
             }
         }
     }

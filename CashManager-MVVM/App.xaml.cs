@@ -153,7 +153,7 @@ namespace CashManager_MVVM
 
         protected override void OnExit(ExitEventArgs e)
         {
-            _logger.Value.Debug("Exit");
+            _logger.Value.Info("Exit");
             base.OnExit(e);
         }
 
@@ -163,7 +163,7 @@ namespace CashManager_MVVM
 
             UpdatesManager.HandleSquirrelEvents();
             base.OnStartup(e);
-            _logger.Value.Debug($"Startup [{Assembly.GetExecutingAssembly().GetName().Version}]");
+            _logger.Value.Info($"Startup [{Assembly.GetExecutingAssembly().GetName().Version}]");
 
             await PerformStart();
         }

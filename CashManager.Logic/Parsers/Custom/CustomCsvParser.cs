@@ -138,7 +138,7 @@ namespace CashManager.Logic.Parsers.Custom
             }
             catch (Exception e)
             {
-                _logger.Value.Info("Parsing failed", e);
+                _logger.Value.Debug("Parsing failed", e);
                 return false;
             }
 
