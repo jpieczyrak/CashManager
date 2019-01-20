@@ -22,9 +22,9 @@
                   Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static properties:Strings.Name}" Binding="{Binding Name, Mode=OneWay}" Width="*" />
-                <DataGridTextColumn Header="{x:Static properties:Strings.Income}" Binding="{Binding GrossIncome, Mode=OneWay, StringFormat=\{0:#\,##0.00\}}" Width="*" />
-                <DataGridTextColumn Header="{x:Static properties:Strings.Outcome}" Binding="{Binding GrossOutcome, Mode=OneWay, StringFormat=\{0:#\,##0.00\}}" Width="*" />
-                <DataGridTextColumn Header="{x:Static properties:Strings.Balance}" Binding="{Binding GrossBalance, Mode=OneWay, StringFormat=\{0:#\,##0.00\}}" Width="*" />
+                <DataGridTextColumn Header="{x:Static properties:Strings.Income}" Binding="{Binding GrossIncome, Mode=OneWay, StringFormat={x:Static properties:Strings.ValueFormat}}" Width="*" />
+                <DataGridTextColumn Header="{x:Static properties:Strings.Outcome}" Binding="{Binding GrossOutcome, Mode=OneWay, StringFormat={x:Static properties:Strings.ValueFormat}}" Width="*" />
+                <DataGridTextColumn Header="{x:Static properties:Strings.Balance}" Binding="{Binding GrossBalance, Mode=OneWay, StringFormat={x:Static properties:Strings.ValueFormat}}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
 

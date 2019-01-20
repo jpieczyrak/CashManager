@@ -1060,6 +1060,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to #,##0.00.
+        /// </summary>
+        public static string ValueFormat {
+            get {
+                return ResourceManager.GetString("ValueFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wealth.
         /// </summary>
         public static string Wealth {

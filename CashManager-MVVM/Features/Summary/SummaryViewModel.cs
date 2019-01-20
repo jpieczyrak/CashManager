@@ -24,8 +24,8 @@ namespace CashManager_MVVM.Features.Summary
     {
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(SummaryViewModel)));
 
-        private const string AREA_TRACKER_MONTH_FORMAT_STRING = "{2:MM.yyyy}\n{4:#,##0.00 zł}";
-        private const string AREA_TRACKER_YEAR_FORMAT_STRING = "{2:yyyy}\n{4:#,##0.00 zł}";
+        private const string AREA_TRACKER_MONTH_FORMAT_STRING = "{2:MM.yyyy}\n{4.ToString(Strings.ValueFormat) zł}";
+        private const string AREA_TRACKER_YEAR_FORMAT_STRING = "{2:yyyy}\n{4.ToString(Strings.ValueFormat) zł}";
         private const string MONTH_DATE_FORMAT = "MM.yyyy";
 
         public PlotModel BalanceModel { get; }

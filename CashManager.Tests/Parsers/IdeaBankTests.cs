@@ -4,6 +4,8 @@ using System.Linq;
 using CashManager.Data.DTO;
 using CashManager.Logic.Parsers;
 
+using CashManager_MVVM.Properties;
+
 using Xunit;
 
 namespace CashManager.Tests.Parsers
@@ -25,7 +27,7 @@ trash scam";
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
             decimal balance = 1665.36m;
             var expected = new Transaction(outcomeType, creationDate, "Opłata za kartę - 10/2018",
-                $"Saldo: {balance:#,##0.00}",
+                $"Saldo: {balance.ToString(Strings.ValueFormat)}",
                 new[]
                 {
                     new Position
@@ -68,7 +70,7 @@ spam not valid trash";
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
             decimal balance = 1665.36m;
             var expected = new Transaction(outcomeType, creationDate, "Opłata za kartę - 10/2018",
-                $"Saldo: {balance:#,##0.00}",
+                $"Saldo: {balance.ToString(Strings.ValueFormat)}",
                 new[]
                 {
                     new Position
@@ -107,7 +109,7 @@ spam not valid trash";
             string title = "Premia - Promocja Premiowanie za Bankowanie - 10.2018";
             decimal balance = 1375.81m;
             var expected = new Transaction(incomeType, creationDate, title,
-                $"Saldo: {balance:#,##0.00}",
+                $"Saldo: {balance.ToString(Strings.ValueFormat)}",
                 new[]
                 {
                     new Position
@@ -144,7 +146,7 @@ Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa
             string title = "Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa";
             decimal balance = 1063.65m;
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"Saldo: {balance:#,##0.00}",
+                $"Saldo: {balance.ToString(Strings.ValueFormat)}",
                 new[]
                 {
                     new Position
@@ -185,7 +187,7 @@ Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa
             string title = "Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa";
             decimal balance = 1063.65m;
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"Saldo: {balance:#,##0.00}",
+                $"Saldo: {balance.ToString(Strings.ValueFormat)}",
                 new[]
                 {
                     new Position

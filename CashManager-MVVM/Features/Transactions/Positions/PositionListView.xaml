@@ -34,7 +34,7 @@
                 <DataGridTextColumn Header="{x:Static properties:Strings.UserStock}" Binding="{Binding Parent.UserStock.Name, Mode=OneWay}" Width="Auto" />
                 <DataGridTextColumn Header="{x:Static properties:Strings.ExStock}" Binding="{Binding Parent.ExternalStock.Name, Mode=OneWay}" Width="Auto" />
                 <DataGridTextColumn Header="{x:Static properties:Strings.Tags}" Binding="{Binding TagsGuiString, Mode=OneWay}" Width="Auto" />
-                <DataGridTextColumn Header="{x:Static properties:Strings.NetValue}" Binding="{Binding Value.NetValue, Mode=OneWay, StringFormat={}{0:#,##0.00 zł}}" Width="Auto" MinWidth="80">
+                <DataGridTextColumn Header="{x:Static properties:Strings.NetValue}" Binding="{Binding Value.NetValue, Mode=OneWay, StringFormat={x:Static properties:Strings.ValueFormat}}" Width="Auto" MinWidth="80">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Right"/>

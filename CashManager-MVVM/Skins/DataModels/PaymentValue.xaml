@@ -23,7 +23,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="{x:Static properties:Strings.NetValue}" HorizontalAlignment="Center"/>
-                    <TextBox Grid.Row="1" Text="{Binding NetValue, StringFormat={}{0:#,##0.00}, UpdateSourceTrigger=PropertyChanged}" Margin="0,5"/>
+                    <TextBox Grid.Row="1" Text="{Binding NetValue, StringFormat={x:Static properties:Strings.ValueFormat}, UpdateSourceTrigger=PropertyChanged}" Margin="0,5"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="1" Margin="5,0">
                     <Grid.RowDefinitions>
@@ -41,7 +41,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="{x:Static properties:Strings.Gross}" HorizontalAlignment="Center"/>
-                    <TextBox Grid.Row="1" Text="{Binding GrossValue, StringFormat={}{0:#,##0.00}, UpdateSourceTrigger=PropertyChanged}" Margin="0,5"/>
+                    <TextBox Grid.Row="1" Text="{Binding GrossValue, StringFormat={x:Static properties:Strings.ValueFormat}, UpdateSourceTrigger=PropertyChanged}" Margin="0,5"/>
                 </Grid>
                 <CheckBox Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0"
                           IsChecked="{Binding TaxLocked, UpdateSourceTrigger=PropertyChanged}" Content="{x:Static properties:Strings.LockTax}" HorizontalAlignment="Center"/>

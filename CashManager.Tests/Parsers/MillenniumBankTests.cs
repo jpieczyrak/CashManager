@@ -4,6 +4,8 @@ using System.Linq;
 using CashManager.Data.DTO;
 using CashManager.Logic.Parsers;
 
+using CashManager_MVVM.Properties;
+
 using Xunit;
 
 namespace CashManager.Tests.Parsers
@@ -34,7 +36,7 @@ Saldo: 1 253,76 PLN
             string title = "Centrum Niskich Cen Sp.Gliwice";
             decimal balance = 1253.76m;
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"TRANSAKCJA KARTĄ PŁATNICZĄ, Saldo: {balance:#,##0.00}",
+                $"TRANSAKCJA KARTĄ PŁATNICZĄ, Saldo: {balance.ToString(Strings.ValueFormat)}",
                 new[]
                 {
                     new Position
@@ -90,7 +92,7 @@ spam not valid trash";
             string title = "Centrum Niskich Cen Sp.Gliwice";
             decimal balance = 1253.76m;
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"TRANSAKCJA KARTĄ PŁATNICZĄ, Saldo: {balance:#,##0.00}",
+                $"TRANSAKCJA KARTĄ PŁATNICZĄ, Saldo: {balance.ToString(Strings.ValueFormat)}",
                 new[]
                 {
                     new Position
@@ -131,7 +133,7 @@ Saldo: 1 253,76 PLN
             string title = "Za kwiatki";
             decimal balance = 1253.76m;
             var expected = new Transaction(income, creationDate, title,
-                $"PRZELEW PRZYCHODZĄCY, Saldo: {balance:#,##0.00}",
+                $"PRZELEW PRZYCHODZĄCY, Saldo: {balance.ToString(Strings.ValueFormat)}",
                 new[]
                 {
                     new Position
