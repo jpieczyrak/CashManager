@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
+                    mc:Ignorable="d">
 
     <ControlTemplate x:Key="Minimize" TargetType="{x:Type Button}">
         <Grid Width="40" Height="20" WindowChrome.IsHitTestVisibleInChrome="True">
@@ -153,20 +155,19 @@
         </Grid>
     </ControlTemplate>
 
-    <Style x:Key="WindowStyle" TargetType="{x:Type Window}">
+    <Style x:Key="WindowStyle" TargetType="{x:Type common:CustomWindow}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Icon" Value="../../Resources/cash.png" />
         <Setter Property="AllowsTransparency" Value="True" />
         <Setter Property="WindowStyle" Value="None" />
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
-                <WindowChrome ResizeBorderThickness="6"
-                              UseAeroCaptionButtons="False" />
+                <WindowChrome ResizeBorderThickness="6" UseAeroCaptionButtons="False" />
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Window}">
+                <ControlTemplate TargetType="{x:Type common:CustomWindow}">
                     <Border CornerRadius="{DynamicResource BigCornerRadius}"
                             Background="{DynamicResource BackgroundColorBrush}"
                             BorderThickness="1" BorderBrush="{DynamicResource ControlBackgroundBrush}">
@@ -182,8 +183,8 @@
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Orientation="Horizontal" Margin="5,4" VerticalAlignment="Center"
@@ -193,11 +194,11 @@
                                                    Foreground="{DynamicResource ForegroundBrush}"
                                                    VerticalAlignment="Center" />
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1"
+                                    <UserControl Grid.Row="0" Grid.Column="1" Content="{TemplateBinding NotificationPanel}" />
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2"
                                                 HorizontalAlignment="Right" Margin="0,3,5,2">
                                         <Button Template="{DynamicResource Minimize}" x:Name="WindowMinimizeButton" Width="40" />
-                                        <Button Template="{DynamicResource MaxSize}" x:Name="WindowSizeButton"
-                                                Width="40" />
+                                        <Button Template="{DynamicResource MaxSize}" x:Name="WindowSizeButton" Width="40" />
                                         <Button Template="{DynamicResource Close}" x:Name="WindowCloseButton" Width="40" />
                                     </StackPanel>
                                     <Separator Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="1" Margin="5,0" />
@@ -208,8 +209,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="WindowState" Value="Maximized">
-                            <Setter Property="Template" TargetName="WindowSizeButton"
-                                    Value="{DynamicResource RestoreSize}" />
+                            <Setter Property="Template" TargetName="WindowSizeButton" Value="{DynamicResource RestoreSize}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

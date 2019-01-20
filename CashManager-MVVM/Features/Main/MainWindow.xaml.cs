@@ -11,9 +11,11 @@ namespace CashManager_MVVM.Features.Main
 {
     public partial class MainWindow : CustomWindow
     {
-        public MainWindow(ApplicationViewModel viewModel)
+        public MainWindow(ApplicationViewModel viewModel, NotificationViewModel notificationViewModel)
         {
             DataContext = viewModel;
+            NotificationPanel = notificationViewModel;
+
             using (new MeasureTimeWrapper(InitializeComponent, "MainWindow.Init")) { }
 
             SoundPlayerHelper.PlaySound(SoundPlayerHelper.Sound.AppStart);

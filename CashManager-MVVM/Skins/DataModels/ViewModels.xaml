@@ -72,5 +72,8 @@
     <DataTemplate DataType="{x:Type main:SettingsViewModel}">
         <main:SettingsView />
     </DataTemplate>
+    <DataTemplate DataType="{x:Type main:NotificationViewModel}">
+        <main:NotificationView />
+    </DataTemplate>
 
 </ResourceDictionary>

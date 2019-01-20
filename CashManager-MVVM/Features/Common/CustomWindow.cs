@@ -2,10 +2,21 @@
 using System.Windows;
 using System.Windows.Controls;
 
+using CashManager_MVVM.Features.Main;
+
 namespace CashManager_MVVM.Features.Common
 {
     public class CustomWindow : Window
     {
+        public static readonly DependencyProperty NotificationPanelProperty = DependencyProperty.Register(
+            "NotificationPanel", typeof(NotificationViewModel), typeof(CustomWindow), new PropertyMetadata(default(NotificationViewModel)));
+
+        public NotificationViewModel NotificationPanel
+        {
+            get => (NotificationViewModel) GetValue(NotificationPanelProperty);
+            internal set => SetValue(NotificationPanelProperty, value);
+        }
+
         private Button _minimize;
         private Button _size;
         private Button _close;
