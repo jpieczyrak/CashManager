@@ -19,16 +19,20 @@ using CashManager_MVVM.Properties;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
+using log4net;
+
 using DtoStock = CashManager.Data.DTO.Stock;
 
 namespace CashManager_MVVM.Features.Stocks
 {
     public class StocksViewModel : ViewModelBase, IUpdateable, IClosable
     {
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(StocksViewModel)));
+
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly TransactionViewModel _transactionCreator;
-        private TransactionTypesViewModel _typesProvider;
+        private readonly TransactionTypesViewModel _typesProvider;
 
         public TrulyObservableCollection<Stock> Stocks { get; set; }
 
@@ -96,6 +100,7 @@ namespace CashManager_MVVM.Features.Stocks
                            : outcomeTypes.FirstOrDefault(),
                 UserStock = Stocks.FirstOrDefault(x => x.Balance.Equals(balance))
             };
+            if (transaction.Type == null) _logger.Value.Info("Could not create correction transaction, no matching types!");
             decimal abs = Math.Abs(diff);
             var position = new Position
             {
@@ -104,8 +109,10 @@ namespace CashManager_MVVM.Features.Stocks
                 Parent = transaction
             };
             transaction.Positions.Add(position);
+            _transactionCreator.ShouldGoBack = false;
             _transactionCreator.Transaction = transaction;
             _transactionCreator.SaveTransactionCommand.Execute(null);
+            _transactionCreator.ShouldGoBack = true;
         }
 
         private void StocksOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
