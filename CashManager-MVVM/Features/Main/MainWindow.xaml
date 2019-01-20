@@ -24,11 +24,19 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="{x:Static properties:Strings.HomeHeader}" Template="{DynamicResource TopMenuItemControlTemplate}"  Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.Summary}"/>
+            <MenuItem Header="{x:Static properties:Strings.TransactionsSearch}" Template="{DynamicResource TopMenuItemControlTemplate}"  Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.Search}"/>
+            <MenuItem Header="{x:Static properties:Strings.MassReplacer}" Template="{DynamicResource TopMenuItemControlTemplate}"  Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.MassReplacer}"/>
+            <MenuItem Header="{x:Static properties:Strings.AddTransaction}" Template="{DynamicResource TopMenuItemControlTemplate}"  Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.Transaction}"/>
             <MenuItem Header="{x:Static properties:Strings.ManageHeader}" Template="{DynamicResource TopMenuItemControlTemplate}">
                 <MenuItem Header="{x:Static properties:Strings.StocksManagerHeader}" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.StockManager}"/>
                 <MenuItem Header="{x:Static properties:Strings.CategoryManagerHeader}" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.CategoryManager}"/>
                 <MenuItem Header="{x:Static properties:Strings.TypesManagerHeader}" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.TypesManager}"/>
                 <MenuItem Header="{x:Static properties:Strings.TagsManagerHeader}" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.TagsManager}"/>
+            </MenuItem>
+            <MenuItem Header="{x:Static properties:Strings.Analytics}" Template="{DynamicResource TopMenuItemControlTemplate}">
+                <MenuItem Header="{x:Static properties:Strings.WealthPlot}" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.WealthPlot}"/>
+                <MenuItem Header="{x:Static properties:Strings.CategoriesPlot}" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.CategoriesPlot}"/>
+                <MenuItem Header="{x:Static properties:Strings.CustomBalances}" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.CustomBalances}"/>
             </MenuItem>
             <MenuItem Header="{x:Static properties:Strings.ImportHeader}" Template="{DynamicResource TopMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.Import}" />
             <MenuItem Header="{x:Static properties:Strings.SettingsHeader}" Template="{DynamicResource TopMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.Settings}" />
@@ -45,24 +53,10 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-
-            <ItemsControl Grid.Column="0" Grid.Row="0" ItemsSource="{Binding ViewModels}" Margin="5,0"
-                          VerticalAlignment="Top">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
-                        <Button Content="{Binding Key}"
-                                Command="{Binding DataContext.SelectViewModelCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                                CommandParameter="{Binding Value}" Margin="5,5,5,2" Width="150"/>
-                        <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
             <stocks:StockSummaryView Grid.Column="0" Grid.Row="1" Content="{Binding SummaryViewModel}"
                                      Margin="5,25,5,0" VerticalAlignment="Top" MaxWidth="150" HorizontalAlignment="Center" />
 
-            <UserControl Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Content="{Binding SelectedViewModel}"
-                         Margin="2,0" />
+            <UserControl Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Content="{Binding SelectedViewModel}" Margin="2,0" />
         </Grid>
     </Grid>
 </common:CustomWindow>

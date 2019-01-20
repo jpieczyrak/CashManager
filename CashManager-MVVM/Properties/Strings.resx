@@ -433,4 +433,7 @@
   <data name="SelectAllNone" xml:space="preserve">
     <value>Select all/none</value>
   </data>
+  <data name="Analytics" xml:space="preserve">
+    <value>Analitics</value>
+  </data>
 </root>

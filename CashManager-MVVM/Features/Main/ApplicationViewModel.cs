@@ -76,8 +76,6 @@ namespace CashManager_MVVM.Features.Main
 
         public Lazy<TransactionViewModel> TransactionViewModel { get; }
 
-        public Dictionary<string, ViewModel> ViewModels { get; private set; }
-
         public RelayCommand<ViewModel> SelectViewModelCommand { get; }
 
         public ApplicationViewModel(ViewModelFactory factory)
@@ -98,15 +96,6 @@ namespace CashManager_MVVM.Features.Main
             _wealthPlotViewModel = new Lazy<WealthViewModel>(_factory.Create<WealthViewModel>);
             _categoriesPlotViewModel = new Lazy<CategoriesPlotViewModel>(_factory.Create<CategoriesPlotViewModel>);
             _customBalancesViewModel = new Lazy<CustomBalanceViewModel>(_factory.Create<CustomBalanceViewModel>);
-            ViewModels = new Dictionary<string, ViewModel>
-            {
-                { Strings.TransactionsSearch, ViewModel.Search },
-                { Strings.MassReplacer, ViewModel.MassReplacer },
-                { Strings.AddTransaction, ViewModel.Transaction },
-                { Strings.WealthPlot, ViewModel.WealthPlot },
-                { Strings.CategoriesPlot, ViewModel.CategoriesPlot },
-                { Strings.CustomBalances, ViewModel.CustomBalances }
-            };
             PreviousSelectedViewModel = SelectedViewModel = _summaryViewModel.Value;
 
             SummaryViewModel = factory.Create<StockSummaryViewModel>();

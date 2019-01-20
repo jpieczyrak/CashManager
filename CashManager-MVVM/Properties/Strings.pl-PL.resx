@@ -453,4 +453,7 @@
   <data name="SelectAllNone" xml:space="preserve">
     <value>Zaznacz/odznacz wszystkie</value>
   </data>
+  <data name="Analytics" xml:space="preserve">
+    <value>Analiza</value>
+  </data>
 </root>
