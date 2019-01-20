@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource WindowStyle}"
-        Height="500" Width="400" Title="About Cash Manager">
+        Height="500" Width="400" Title="About Cash Manager" ResizeMode="NoResize">
     <common:CustomWindow.Resources>
         <Storyboard x:Key="Animate">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="path">
