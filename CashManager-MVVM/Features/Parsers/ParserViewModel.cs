@@ -18,6 +18,7 @@ using CashManager.Logic.Parsers.Custom.Predefined;
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Messages;
+using CashManager_MVVM.Messages.Models;
 using CashManager_MVVM.Model;
 
 using GalaSoft.MvvmLight;

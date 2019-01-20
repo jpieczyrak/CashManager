@@ -462,4 +462,10 @@
   <data name="CountFormat" xml:space="preserve">
     <value>#,##0</value>
   </data>
+  <data name="UpdateInstalled" xml:space="preserve">
+    <value>Update installed</value>
+  </data>
+  <data name="PleaseRestartApplicationToUseNewerVersion" xml:space="preserve">
+    <value>Please restart application to use newer version</value>
+  </data>
 </root>

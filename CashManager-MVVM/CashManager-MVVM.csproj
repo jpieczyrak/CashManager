@@ -243,7 +243,8 @@
     <Compile Include="Logic\Commands\MultiPickerFilter.cs" />
     <Compile Include="Logic\Commands\RangeFilter.cs" />
     <Compile Include="Logic\Commands\TextFilter.cs" />
-    <Compile Include="Messages\DeleteStockMessage.cs" />
+    <Compile Include="Messages\App\ApplicationUpdateMessage.cs" />
+    <Compile Include="Messages\Models\DeleteStockMessage.cs" />
     <Compile Include="Model\BillImage.cs" />
     <Compile Include="Model\Common\Selectable.cs" />
     <Compile Include="Model\Common\IEditable.cs" />
@@ -282,7 +283,7 @@
     </Compile>
     <Compile Include="Features\Transactions\TransactionListViewModel.cs" />
     <Compile Include="Configuration\Mapping\MapperConfiguration.cs" />
-    <Compile Include="Messages\UpdateStockMessage.cs" />
+    <Compile Include="Messages\Models\UpdateStockMessage.cs" />
     <Compile Include="Model\Balance.cs" />
     <Compile Include="Model\Common\BaseObservableObject.cs" />
     <Compile Include="Model\Category.cs" />

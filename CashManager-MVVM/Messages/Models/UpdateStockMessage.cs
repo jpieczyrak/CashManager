@@ -1,6 +1,6 @@
 ﻿using CashManager_MVVM.Model;
 
-namespace CashManager_MVVM.Messages
+namespace CashManager_MVVM.Messages.Models
 {
     public class UpdateStockMessage
     {

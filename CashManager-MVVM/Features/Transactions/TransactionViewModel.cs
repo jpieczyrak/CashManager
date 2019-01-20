@@ -22,6 +22,7 @@ using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Messages;
+using CashManager_MVVM.Messages.Models;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Properties;

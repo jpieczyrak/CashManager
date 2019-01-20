@@ -3,6 +3,11 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 
+using CashManager_MVVM.Messages.App;
+using CashManager_MVVM.Properties;
+
+using GalaSoft.MvvmLight.Messaging;
+
 using log4net;
 
 using Squirrel;
@@ -23,7 +28,11 @@ namespace CashManager_MVVM.Utils
                 {
                     var result = await mgr.UpdateApp();
                     _logger.Value.Debug(result != null ? $"Updated to: {result.Version}" : "Up-to-date");
-                    if (result != null) SettingsManager.BackupSettings();
+                    if (result != null)
+                    {
+                        Messenger.Default.Send(new ApplicationUpdateMessage(Strings.UpdateInstalled, Strings.PleaseRestartApplicationToUseNewerVersion));
+                        SettingsManager.BackupSettings();
+                    }
                 }
             }
             catch (Exception e)

@@ -754,6 +754,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please restart application to use newer version.
+        /// </summary>
+        public static string PleaseRestartApplicationToUseNewerVersion {
+            get {
+                return ResourceManager.GetString("PleaseRestartApplicationToUseNewerVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Positions search.
         /// </summary>
         public static string PositionSearch {
@@ -1011,6 +1020,15 @@ namespace CashManager_MVVM.Properties {
         public static string TypesManagerHeader {
             get {
                 return ResourceManager.GetString("TypesManagerHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update installed.
+        /// </summary>
+        public static string UpdateInstalled {
+            get {
+                return ResourceManager.GetString("UpdateInstalled", resourceCulture);
             }
         }
         
