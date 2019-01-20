@@ -7,6 +7,7 @@ using CashManager.Infrastructure.Query;
 
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Plots;
+using CashManager_MVVM.Features.Stocks;
 using CashManager_MVVM.Logic.Calculators;
 using CashManager_MVVM.Model;
 
@@ -33,9 +34,11 @@ namespace CashManager_MVVM.Features.Summary
 
         public TransactionsSummary[] Balances { get; private set; }
 
-        public SummaryViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider provider)
-            : base(queryDispatcher, provider)
+        public StockSummaryViewModel StocksSummaryViewModel { get; private set; }
+
+        public SummaryViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider provider, StockSummaryViewModel stockSummary) : base(queryDispatcher, provider)
         {
+            StocksSummaryViewModel = stockSummary;
             BalanceModel = PlotHelper.CreatePlotModel();
             BalanceModel.IsLegendVisible = false;
             FlowsModel = PlotHelper.CreatePlotModel();

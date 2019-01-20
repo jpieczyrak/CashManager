@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -16,7 +15,6 @@ using CashManager_MVVM.Features.Summary;
 using CashManager_MVVM.Features.Tags;
 using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Features.TransactionTypes;
-using CashManager_MVVM.Properties;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -72,8 +70,6 @@ namespace CashManager_MVVM.Features.Main
 
         private ViewModelBase PreviousSelectedViewModel { get; set; }
 
-        public StockSummaryViewModel SummaryViewModel { get; }
-
         public Lazy<TransactionViewModel> TransactionViewModel { get; }
 
         public RelayCommand<ViewModel> SelectViewModelCommand { get; }
@@ -97,8 +93,6 @@ namespace CashManager_MVVM.Features.Main
             _categoriesPlotViewModel = new Lazy<CategoriesPlotViewModel>(_factory.Create<CategoriesPlotViewModel>);
             _customBalancesViewModel = new Lazy<CustomBalanceViewModel>(_factory.Create<CustomBalanceViewModel>);
             PreviousSelectedViewModel = SelectedViewModel = _summaryViewModel.Value;
-
-            SummaryViewModel = factory.Create<StockSummaryViewModel>();
 
             SelectViewModelCommand = new RelayCommand<ViewModel>(ExecuteSelectViewModelCommand);
         }
