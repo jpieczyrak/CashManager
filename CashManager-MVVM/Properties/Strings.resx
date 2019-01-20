@@ -459,4 +459,7 @@
   <data name="ValueFormat" xml:space="preserve">
     <value>#,##0.00</value>
   </data>
+  <data name="CountFormat" xml:space="preserve">
+    <value>#,##0</value>
+  </data>
 </root>

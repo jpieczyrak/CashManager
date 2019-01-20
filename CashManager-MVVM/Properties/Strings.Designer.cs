@@ -205,6 +205,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to #,##0.
+        /// </summary>
+        public static string CountFormat {
+            get {
+                return ResourceManager.GetString("CountFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creation date.
         /// </summary>
         public static string CreationDate {

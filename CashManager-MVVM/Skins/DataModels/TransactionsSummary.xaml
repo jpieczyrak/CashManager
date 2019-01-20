@@ -18,7 +18,7 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,5,0" >
                 <TextBlock Text="["/>
-                <TextBlock Text="{Binding IncomesCount, StringFormat={}{0:#,##0}}"/>
+                <TextBlock Text="{Binding IncomesCount, StringFormat={x:Static properties:Strings.CountFormat}}"/>
                 <TextBlock Text="]"/>
             </StackPanel>
             <TextBlock Text="{x:Static properties:Strings.Income}" Grid.Row="0" Grid.Column="1" />
@@ -26,7 +26,7 @@
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,5,0" >
                 <TextBlock Text="["/>
-                <TextBlock Text="{Binding OutcomesCount, StringFormat={}{0:#,##0}}"/>
+                <TextBlock Text="{Binding OutcomesCount, StringFormat={x:Static properties:Strings.CountFormat}}"/>
                 <TextBlock Text="]"/>
             </StackPanel>
             <TextBlock Text="{x:Static properties:Strings.Outcome}" Grid.Row="1" Grid.Column="1" />
@@ -36,7 +36,7 @@
 
             <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,5,0" >
                 <TextBlock Text="["/>
-                <TextBlock Text="{Binding TotalCount, StringFormat={}{0:#,##0}}"/>
+                <TextBlock Text="{Binding TotalCount, StringFormat={x:Static properties:Strings.CountFormat}}"/>
                 <TextBlock Text="]"/>
             </StackPanel>
             <TextBlock Text="{x:Static properties:Strings.Balance}" Grid.Row="3" Grid.Column="1" />
