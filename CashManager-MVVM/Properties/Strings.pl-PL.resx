@@ -456,10 +456,10 @@
   <data name="Analytics" xml:space="preserve">
     <value>Analiza</value>
   </data>
-  <data name="UpdateInstalled" xml:space="preserve">
-    <value>Zainstalowano aktualizację</value>
-  </data>
   <data name="PleaseRestartApplicationToUseNewerVersion" xml:space="preserve">
     <value>Zrestartuj aplikację, żeby używać nowszej wersji</value>
+  </data>
+  <data name="Installed" xml:space="preserve">
+    <value>Zainstalowano</value>
   </data>
 </root>

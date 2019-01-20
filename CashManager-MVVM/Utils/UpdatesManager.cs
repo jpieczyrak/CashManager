@@ -30,7 +30,7 @@ namespace CashManager_MVVM.Utils
                     _logger.Value.Debug(result != null ? $"Updated to: {result.Version}" : "Up-to-date");
                     if (result != null)
                     {
-                        Messenger.Default.Send(new ApplicationUpdateMessage(Strings.UpdateInstalled, Strings.PleaseRestartApplicationToUseNewerVersion));
+                        Messenger.Default.Send(new ApplicationUpdateMessage($"{Strings.Installed}: {result.Version}", Strings.PleaseRestartApplicationToUseNewerVersion));
                         SettingsManager.BackupSettings();
                     }
                 }

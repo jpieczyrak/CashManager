@@ -475,6 +475,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Installed.
+        /// </summary>
+        public static string Installed {
+            get {
+                return ResourceManager.GetString("Installed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transfer.
         /// </summary>
         public static string IsTransfer {
@@ -1020,15 +1029,6 @@ namespace CashManager_MVVM.Properties {
         public static string TypesManagerHeader {
             get {
                 return ResourceManager.GetString("TypesManagerHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update installed.
-        /// </summary>
-        public static string UpdateInstalled {
-            get {
-                return ResourceManager.GetString("UpdateInstalled", resourceCulture);
             }
         }
         
