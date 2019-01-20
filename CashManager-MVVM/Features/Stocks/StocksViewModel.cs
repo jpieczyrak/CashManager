@@ -104,6 +104,7 @@ namespace CashManager_MVVM.Features.Stocks
             decimal abs = Math.Abs(diff);
             var position = new Position
             {
+                Title = Strings.ManualStockUpdate,
                 BookDate = DateTime.Today,
                 Value = new PaymentValue(abs, abs, 0m),
                 Parent = transaction
@@ -111,6 +112,7 @@ namespace CashManager_MVVM.Features.Stocks
             transaction.Positions.Add(position);
             _transactionCreator.ShouldGoBack = false;
             _transactionCreator.Transaction = transaction;
+            _transactionCreator.Update();
             _transactionCreator.SaveTransactionCommand.Execute(null);
             _transactionCreator.ShouldGoBack = true;
         }
