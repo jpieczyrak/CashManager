@@ -4,7 +4,6 @@ using System.Windows;
 using CashManager.Logic.Wrappers;
 
 using CashManager_MVVM.Features.Common;
-using CashManager_MVVM.Properties;
 using CashManager_MVVM.Utils;
 
 namespace CashManager_MVVM.Features.Main
@@ -22,7 +21,7 @@ namespace CashManager_MVVM.Features.Main
 
         protected override void OnClosed(object sender, EventArgs e)
         {
-            Settings.Default.Save();
+            Properties.Settings.Default.Save();
             Application.Current.Shutdown();
         }
     }

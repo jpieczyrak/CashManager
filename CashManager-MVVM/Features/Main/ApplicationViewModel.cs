@@ -6,6 +6,7 @@ using CashManager.Logic.Wrappers;
 
 using CashManager_MVVM.Features.Balance;
 using CashManager_MVVM.Features.Categories;
+using CashManager_MVVM.Features.Main.Settings;
 using CashManager_MVVM.Features.MassReplacer;
 using CashManager_MVVM.Features.Parsers;
 using CashManager_MVVM.Features.Plots;

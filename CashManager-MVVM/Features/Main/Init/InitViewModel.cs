@@ -12,8 +12,6 @@ using CashManager.Infrastructure.Modules;
 using CashManager.Logic.DefaultData;
 using CashManager.Logic.Extensions;
 
-using CashManager_MVVM.Properties;
-
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
@@ -130,7 +128,7 @@ namespace CashManager_MVVM.Features.Main.Init
         private void ExecuteStartCommand()
         {
             bool passwordExists = !string.IsNullOrWhiteSpace(Password);
-            Settings.Default.IsPasswordNeeded = passwordExists;
+            Properties.Settings.Default.IsPasswordNeeded = passwordExists;
 
             string connectionString = $"Filename={_databaseFilepath};Journal=true";
             if (passwordExists) connectionString += $";password={Password.Encrypt()}";

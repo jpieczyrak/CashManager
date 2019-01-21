@@ -202,10 +202,11 @@
     <Compile Include="Features\Main\PasswordPromptWindow.xaml.cs">
       <DependentUpon>PasswordPromptWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Features\Main\SettingsView.xaml.cs">
+    <Compile Include="Features\Main\Settings\GeneralSettings.cs" />
+    <Compile Include="Features\Main\Settings\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Features\Main\SettingsViewModel.cs" />
+    <Compile Include="Features\Main\Settings\SettingsViewModel.cs" />
     <Compile Include="Features\Main\ViewModel.cs" />
     <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
       <DependentUpon>CategoriesPlotView.xaml</DependentUpon>
@@ -334,6 +335,8 @@
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="TrulyObservableCollection.cs" />
+    <Compile Include="UserCommunication\IMessagesService.cs" />
+    <Compile Include="UserCommunication\MessageBoxService.cs" />
     <Compile Include="Utils\SettingsManager.cs" />
     <Compile Include="Utils\SoundPlayerHelper.cs" />
     <Compile Include="Utils\UpdatesManager.cs" />
@@ -385,7 +388,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Features\Main\SettingsView.xaml">
+    <Page Include="Features\Main\Settings\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -5,22 +5,21 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 
-using CashManager_MVVM.Properties;
 using CashManager_MVVM.Skins;
 
 using GalaSoft.MvvmLight;
 
-namespace CashManager_MVVM.Features.Main
+namespace CashManager_MVVM.Features.Main.Settings
 {
-    internal class SettingsViewModel : ViewModelBase
+    internal class GeneralSettings : ObservableObject
     {
         private readonly Lazy<ColorsResourceDictionary> _colorsResourceDictionary;
         private readonly Lazy<ShapesResourceDictionary> _shapesDictionary;
 
         public bool IsSoundEnabled
         {
-            get => Settings.Default.SoundEnabled;
-            set => Settings.Default.SoundEnabled = value;
+            get => Properties.Settings.Default.SoundEnabled;
+            set => Properties.Settings.Default.SoundEnabled = value;
         }
 
         public IEnumerable<SkinColors> Skins { get; } = Enum.GetValues(typeof(SkinColors)).Cast<SkinColors>();
@@ -29,20 +28,20 @@ namespace CashManager_MVVM.Features.Main
 
         public SkinColors SelectedSkin
         {
-            get => (SkinColors) Settings.Default.SkinColor;
+            get => (SkinColors)Properties.Settings.Default.SkinColor;
             set
             {
-                Settings.Default.SkinColor = (int) value;
+                Properties.Settings.Default.SkinColor = (int)value;
                 _colorsResourceDictionary.Value?.UpdateSource();
             }
         }
 
         public SkinShapes SelectedShape
         {
-            get => (SkinShapes) Settings.Default.SkinShape;
+            get => (SkinShapes)Properties.Settings.Default.SkinShape;
             set
             {
-                Settings.Default.SkinShape = (int) value;
+                Properties.Settings.Default.SkinShape = (int)value;
                 _shapesDictionary.Value?.UpdateSource();
             }
         }
@@ -51,25 +50,25 @@ namespace CashManager_MVVM.Features.Main
 
         public bool UseExtendedDatePicker
         {
-            get => Settings.Default.UseExtendedDatePicker;
+            get => Properties.Settings.Default.UseExtendedDatePicker;
             set
             {
-                Settings.Default.UseExtendedDatePicker = value;
+                Properties.Settings.Default.UseExtendedDatePicker = value;
                 RaisePropertyChanged(nameof(UseExtendedDatePicker));
             }
         }
 
         public string SelectedLocalization
         {
-            get => Settings.Default.Localization;
+            get => Properties.Settings.Default.Localization;
             set
             {
-                Settings.Default.Localization = value;
+                Properties.Settings.Default.Localization = value;
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(value);
             }
         }
 
-        public SettingsViewModel()
+        public GeneralSettings()
         {
             Localizations = new[] { "pl-PL", "en-US" };
             _colorsResourceDictionary = new Lazy<ColorsResourceDictionary>(() =>
