@@ -13,6 +13,7 @@ using CashManager.Logic.DefaultData.InputParsers;
 
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Properties;
+using CashManager_MVVM.UserCommunication;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -26,6 +27,7 @@ namespace CashManager_MVVM.Features.Categories
     public class CategoryManagerViewModel : ViewModelBase, IDropTarget
     {
         private readonly ICommandDispatcher _commandDispatcher;
+        private readonly IMessagesService _messagesService;
         private string _input;
         private ExpandableCategory _selectedCategory;
 
@@ -52,10 +54,11 @@ namespace CashManager_MVVM.Features.Categories
             set => Set(nameof(Input), ref _input, value);
         }
 
-        public CategoryManagerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
+        public CategoryManagerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, IMessagesService messagesService)
         {
             _input = Strings.NewCategory;
             _commandDispatcher = commandDispatcher;
+            _messagesService = messagesService;
             Categories = new TrulyObservableCollection<ExpandableCategory>();
             var categories = queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery())
                                              .Select(Mapper.Map<ExpandableCategory>)
@@ -135,6 +138,10 @@ namespace CashManager_MVVM.Features.Categories
         {
             if (SelectedCategory?.Parent != null)
             {
+                if (Settings.Default.QuestionForCategoryDelete)
+                    if (!_messagesService.ShowQuestionMessage("Question", string.Format("Are you sure, that you want to remove {0} category?", SelectedCategory.Name)))
+                        return;
+
                 var input = Categories.ToArray();
                 var selected = Find(input, SelectedCategory.Id);
                 var parent = Find(input, selected.Parent.Id);
