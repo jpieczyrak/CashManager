@@ -130,5 +130,17 @@ namespace CashManager_MVVM.Properties {
                 this["UseExtendedDatePicker"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool QuestionForCategoryDelete {
+            get {
+                return ((bool)(this["QuestionForCategoryDelete"]));
+            }
+            set {
+                this["QuestionForCategoryDelete"] = value;
+            }
+        }
     }
 }
