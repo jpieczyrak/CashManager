@@ -480,4 +480,16 @@
   <data name="AskForCategoryDelete" xml:space="preserve">
     <value>Ask for category delete</value>
   </data>
+  <data name="AskForPositionDelete" xml:space="preserve">
+    <value>Ask for position delete</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="QuestionDoYouWantToDeleteCategoryFormat" xml:space="preserve">
+    <value>Are you sure, that you want to remove {0} category?</value>
+  </data>
+  <data name="QuestionDoYouWantToRemovePositionFormat" xml:space="preserve">
+    <value>Are you sure, that you want to remove {0} position?</value>
+  </data>
 </root>

@@ -474,4 +474,13 @@
   <data name="AskForCategoryDelete" xml:space="preserve">
     <value>Pytaj przy kasowaniu kategorii</value>
   </data>
+  <data name="AskForPositionDelete" xml:space="preserve">
+    <value>Pytaj przy kasowaniu pozycji</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Pytanie</value>
+  </data>
+  <data name="QuestionDoYouWantToDeleteCategory" xml:space="preserve">
+    <value>Czy na pewno chcesz skasować kategorię: {0}?</value>
+  </data>
 </root>

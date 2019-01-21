@@ -139,7 +139,7 @@ namespace CashManager_MVVM.Features.Categories
             if (SelectedCategory?.Parent != null)
             {
                 if (Settings.Default.QuestionForCategoryDelete)
-                    if (!_messagesService.ShowQuestionMessage("Question", string.Format("Are you sure, that you want to remove {0} category?", SelectedCategory.Name)))
+                    if (!_messagesService.ShowQuestionMessage(Strings.Question, string.Format(Strings.QuestionDoYouWantToDeleteCategoryFormat, SelectedCategory.Name)))
                         return;
 
                 var input = Categories.ToArray();

@@ -142,6 +142,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ask for position delete.
+        /// </summary>
+        public static string AskForPositionDelete {
+            get {
+                return ResourceManager.GetString("AskForPositionDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Balance.
         /// </summary>
         public static string Balance {
@@ -840,6 +849,33 @@ namespace CashManager_MVVM.Properties {
         public static string PreviousYear {
             get {
                 return ResourceManager.GetString("PreviousYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string Question {
+            get {
+                return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure, that you want to remove {0} category?.
+        /// </summary>
+        public static string QuestionDoYouWantToDeleteCategoryFormat {
+            get {
+                return ResourceManager.GetString("QuestionDoYouWantToDeleteCategoryFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure, that you want to remove {0} position?.
+        /// </summary>
+        public static string QuestionDoYouWantToRemovePositionFormat {
+            get {
+                return ResourceManager.GetString("QuestionDoYouWantToRemovePositionFormat", resourceCulture);
             }
         }
         

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -21,11 +22,11 @@ using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Main;
-using CashManager_MVVM.Messages;
 using CashManager_MVVM.Messages.Models;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Properties;
+using CashManager_MVVM.UserCommunication;
 using CashManager_MVVM.Utils;
 
 using GalaSoft.MvvmLight;
@@ -48,6 +49,7 @@ namespace CashManager_MVVM.Features.Transactions
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ViewModelFactory _factory;
+        private readonly IMessagesService _messagesService;
         private readonly CategoryPickerViewModel _categoryPickerViewModel;
         private IEnumerable<Stock> _stocks;
         private Transaction _transaction;
@@ -112,24 +114,33 @@ namespace CashManager_MVVM.Features.Transactions
         }
 
         public TransactionViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
-            ViewModelFactory factory, TransactionsProvider transactionsProvider)
+            ViewModelFactory factory, TransactionsProvider transactionsProvider, IMessagesService messagesService)
         {
             UpdateStock = true;
             TransactionsProvider = transactionsProvider;
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
             _factory = factory;
+            _messagesService = messagesService;
             _categoryPickerViewModel = _factory.Create<CategoryPickerViewModel>();
 
             NewBillsFilepaths = new ObservableCollection<string>();
 
             AddNewPosition = new RelayCommand(ExecuteAddPositionCommand);
-            RemovePositionCommand = new RelayCommand<Position>(position => Transaction.Positions.Remove(position));
+            RemovePositionCommand = new RelayCommand<Position>(ExecuteRemovePositionCommand);
 
             SaveTransactionCommand = new RelayCommand(ExecuteSaveTransactionCommand, CanExecuteSaveTransactionCommand);
             CancelTransactionCommand = new RelayCommand(ExecuteCancelTransactionCommand);
 
             ClearCommand = new RelayCommand(ExecuteClearCommand);
+        }
+
+        private void ExecuteRemovePositionCommand(Position position)
+        {
+            if (Settings.Default.QuestionForPositionDelete)
+                if (!_messagesService.ShowQuestionMessage(Strings.Question, string.Format(Strings.QuestionDoYouWantToRemovePositionFormat, position.Title)))
+                    return;
+            Transaction.Positions.Remove(position);
         }
 
         private void ExecuteClearCommand() { Transaction = CreateNewTransaction(); }

@@ -37,6 +37,9 @@
                     <TextBlock Text="{x:Static properties:Strings.AskForCategoryDelete}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
                     <CheckBox Content="{x:Static properties:Strings.Enable}" IsChecked="{Binding Warnings.QuestionForCategoryDelete}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
+                    <TextBlock Text="{x:Static properties:Strings.AskForPositionDelete}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <CheckBox Content="{x:Static properties:Strings.Enable}" IsChecked="{Binding Warnings.QuestionForPositionDelete}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
                 </UniformGrid>
             </TabItem>
             <TabItem Header="{x:Static properties:Strings.Notifications}" />
