@@ -187,6 +187,9 @@
       <DependentUpon>ExtendedDatePicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Common\ExtendedDatePickerViewModel.cs" />
+    <Compile Include="Features\Common\SimpleMessageBoxWindow.xaml.cs">
+      <DependentUpon>SimpleMessageBoxWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Features\IClosable.cs" />
     <Compile Include="Features\Main\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
@@ -360,6 +363,10 @@
     <Page Include="Features\Common\MultiCombobox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Common\SimpleMessageBoxWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\Main\AboutWindow.xaml">
       <SubType>Designer</SubType>
