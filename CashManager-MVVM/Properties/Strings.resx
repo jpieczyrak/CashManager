@@ -504,4 +504,13 @@
   <data name="QuestionDoYouWantToMoveCategoryFormat" xml:space="preserve">
     <value>Are you sure, that you want to move category {0} under category {1}?</value>
   </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="EnableAll" xml:space="preserve">
+    <value>Enable all</value>
+  </data>
 </root>

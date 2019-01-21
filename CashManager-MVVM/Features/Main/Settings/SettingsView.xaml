@@ -32,7 +32,7 @@
             <TabItem Header="{x:Static properties:Strings.Warnings}">
                 <UniformGrid Columns="2" Margin="5" VerticalAlignment="Top">
                     <TextBlock Text="" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                    <CheckBox Content="Enable all" IsChecked="{Binding Warnings.AllSelected}" IsThreeState="True" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <CheckBox Content="{x:Static properties:Strings.EnableAll}" IsChecked="{Binding Warnings.AllSelected}" IsThreeState="True" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                     <TextBlock Text="{x:Static properties:Strings.AskForCategoryDelete}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
                     <CheckBox Content="{x:Static properties:Strings.Enable}" IsChecked="{Binding Warnings.QuestionForCategoryDelete}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>

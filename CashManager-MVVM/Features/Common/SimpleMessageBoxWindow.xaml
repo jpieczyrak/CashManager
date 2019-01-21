@@ -4,6 +4,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:local="clr-namespace:CashManager_MVVM.Features.Common"
+                    xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
                     mc:Ignorable="d"
                     Style="{DynamicResource WindowStyle}"
                     WindowStartupLocation="CenterScreen"
@@ -15,10 +16,10 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" x:Name="TextBlockMessage" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="OkButton" Tag="{x:Static MessageBoxResult.OK}" Content="Ok" Margin="5" Click="Button_OnClick" Visibility="Collapsed" />
-            <Button x:Name="CancelButton" Tag="{x:Static MessageBoxResult.Cancel}" Content="Cancel" Margin="5" Click="Button_OnClick" Visibility="Collapsed" />
-            <Button x:Name="YesButton" Tag="{x:Static MessageBoxResult.Yes}" Content="Yes" Margin="5" Click="Button_OnClick" Visibility="Collapsed" />
-            <Button x:Name="NoButton" Tag="{x:Static MessageBoxResult.No}" Content="No" Margin="5" Click="Button_OnClick" Visibility="Collapsed" />
+            <Button x:Name="OkButton" Tag="{x:Static MessageBoxResult.OK}" Content="{x:Static properties:Strings.Ok}" Margin="5" Click="Button_OnClick" Visibility="Collapsed" />
+            <Button x:Name="CancelButton" Tag="{x:Static MessageBoxResult.Cancel}" Content="{x:Static properties:Strings.Cancel}" Margin="5" Click="Button_OnClick" Visibility="Collapsed" />
+            <Button x:Name="YesButton" Tag="{x:Static MessageBoxResult.Yes}" Content="{x:Static properties:Strings.Yes}" Margin="5" Click="Button_OnClick" Visibility="Collapsed" />
+            <Button x:Name="NoButton" Tag="{x:Static MessageBoxResult.No}" Content="{x:Static properties:Strings.No}" Margin="5" Click="Button_OnClick" Visibility="Collapsed" />
         </StackPanel>
     </Grid>
 </local:CustomWindow>

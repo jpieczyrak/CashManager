@@ -498,4 +498,13 @@
   <data name="QuestionDoYouWantToMoveCategoryFormat" xml:space="preserve">
     <value>Czy na pewno chcesz przenieść kategorię {0} pod kategorię {1}?</value>
   </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Tak</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nie</value>
+  </data>
+  <data name="EnableAll" xml:space="preserve">
+    <value>Włącz wszystkie</value>
+  </data>
 </root>

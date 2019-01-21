@@ -367,6 +367,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable all.
+        /// </summary>
+        public static string EnableAll {
+            get {
+                return ResourceManager.GetString("EnableAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ex stock.
         /// </summary>
         public static string ExStock {
@@ -723,6 +732,15 @@ namespace CashManager_MVVM.Properties {
         public static string NextYear {
             get {
                 return ResourceManager.GetString("NextYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
             }
         }
         
@@ -1218,6 +1236,15 @@ namespace CashManager_MVVM.Properties {
         public static string WealthPlot {
             get {
                 return ResourceManager.GetString("WealthPlot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }
