@@ -462,4 +462,13 @@
   <data name="Installed" xml:space="preserve">
     <value>Zainstalowano</value>
   </data>
+  <data name="General" xml:space="preserve">
+    <value>Ogólne</value>
+  </data>
+  <data name="Warnings" xml:space="preserve">
+    <value>Ostrzeżenia</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Powiadomienia</value>
+  </data>
 </root>

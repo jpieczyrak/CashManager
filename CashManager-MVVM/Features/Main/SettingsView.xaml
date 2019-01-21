@@ -10,7 +10,7 @@
              d:DataContext="{d:DesignInstance Type=local:SettingsViewModel, IsDesignTimeCreatable=True}">
     <Grid Background="{DynamicResource BackgroundColorBrush}">
         <TabControl TabStripPlacement="Bottom" BorderThickness="0">
-            <TabItem Header="General">
+            <TabItem Header="{x:Static properties:Strings.General}">
                 <UniformGrid Columns="2" Margin="5" VerticalAlignment="Top">
                     <TextBlock Text="{x:Static properties:Strings.ApplicationSounds}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
                     <CheckBox Content="{x:Static properties:Strings.Enable}" IsChecked="{Binding IsSoundEnabled}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -28,8 +28,8 @@
                     <ComboBox ItemsSource="{Binding Shapes}" SelectedValue="{Binding SelectedShape}" Margin="5" Width="200" HorizontalAlignment="Left"/>
                 </UniformGrid>
             </TabItem>
-            <TabItem Header="Warnings" />
-            <TabItem Header="Notifications" />
+            <TabItem Header="{x:Static properties:Strings.Warnings}" />
+            <TabItem Header="{x:Static properties:Strings.Notifications}" />
         </TabControl>
 
     </Grid>
