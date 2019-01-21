@@ -11,10 +11,9 @@ namespace CashManager_MVVM.Features.Main
 {
     public partial class MainWindow : CustomWindow
     {
-        public MainWindow(ApplicationViewModel viewModel, NotificationViewModel notificationViewModel)
+        public MainWindow(ApplicationViewModel viewModel)
         {
             DataContext = viewModel;
-            NotificationPanel = notificationViewModel;
 
             using (new MeasureTimeWrapper(InitializeComponent, "MainWindow.Init")) { }
 

@@ -74,6 +74,8 @@ namespace CashManager_MVVM.Features.Main
 
         public RelayCommand<ViewModel> SelectViewModelCommand { get; }
 
+        public NotificationViewModel NotificationViewModel { get; }
+
         public ApplicationViewModel(ViewModelFactory factory)
         {
             _factory = factory;
@@ -93,6 +95,7 @@ namespace CashManager_MVVM.Features.Main
             _categoriesPlotViewModel = new Lazy<CategoriesPlotViewModel>(_factory.Create<CategoriesPlotViewModel>);
             _customBalancesViewModel = new Lazy<CustomBalanceViewModel>(_factory.Create<CustomBalanceViewModel>);
             PreviousSelectedViewModel = SelectedViewModel = _summaryViewModel.Value;
+            NotificationViewModel = _factory.Create<NotificationViewModel>();
 
             SelectViewModelCommand = new RelayCommand<ViewModel>(ExecuteSelectViewModelCommand);
         }
