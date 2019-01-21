@@ -29,7 +29,13 @@
                     <ComboBox ItemsSource="{Binding General.Shapes}" SelectedValue="{Binding General.SelectedShape}" Margin="5" Width="200" HorizontalAlignment="Left"/>
                 </UniformGrid>
             </TabItem>
-            <TabItem Header="{x:Static properties:Strings.Warnings}" />
+            <TabItem Header="{x:Static properties:Strings.Warnings}">
+                <UniformGrid Columns="2" Margin="5" VerticalAlignment="Top">
+                    <TextBlock Text="{x:Static properties:Strings.AskForCategoryDelete}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <CheckBox Content="{x:Static properties:Strings.Enable}" IsChecked="{Binding Warnings.QuestionForCategoryDelete}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                </UniformGrid>
+            </TabItem>
             <TabItem Header="{x:Static properties:Strings.Notifications}" />
         </TabControl>
 

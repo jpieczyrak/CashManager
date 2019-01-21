@@ -133,6 +133,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ask for category delete.
+        /// </summary>
+        public static string AskForCategoryDelete {
+            get {
+                return ResourceManager.GetString("AskForCategoryDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Balance.
         /// </summary>
         public static string Balance {

@@ -207,6 +207,7 @@
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Main\Settings\SettingsViewModel.cs" />
+    <Compile Include="Features\Main\Settings\WarningsSettings.cs" />
     <Compile Include="Features\Main\ViewModel.cs" />
     <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
       <DependentUpon>CategoriesPlotView.xaml</DependentUpon>

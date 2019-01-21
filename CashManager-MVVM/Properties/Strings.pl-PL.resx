@@ -471,4 +471,7 @@
   <data name="Notifications" xml:space="preserve">
     <value>Powiadomienia</value>
   </data>
+  <data name="AskForCategoryDelete" xml:space="preserve">
+    <value>Pytaj przy kasowaniu kategorii</value>
+  </data>
 </root>
