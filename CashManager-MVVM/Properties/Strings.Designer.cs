@@ -151,6 +151,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ask for transaction delete.
+        /// </summary>
+        public static string AskForTransactionDelete {
+            get {
+                return ResourceManager.GetString("AskForTransactionDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Balance.
         /// </summary>
         public static string Balance {
@@ -876,6 +885,15 @@ namespace CashManager_MVVM.Properties {
         public static string QuestionDoYouWantToRemovePositionFormat {
             get {
                 return ResourceManager.GetString("QuestionDoYouWantToRemovePositionFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure, that you want to remove {0} transaction?.
+        /// </summary>
+        public static string QuestionDoYouWantToRemoveTransactionFormat {
+            get {
+                return ResourceManager.GetString("QuestionDoYouWantToRemoveTransactionFormat", resourceCulture);
             }
         }
         

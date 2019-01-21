@@ -9,6 +9,8 @@ using CashManager.Infrastructure.Command.Transactions;
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Model;
+using CashManager_MVVM.Properties;
+using CashManager_MVVM.UserCommunication;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -20,6 +22,7 @@ namespace CashManager_MVVM.Features.Transactions
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ViewModelFactory _factory;
         private readonly TransactionsProvider _provider;
+        private readonly IMessagesService _messagesService;
         private TrulyObservableCollection<Transaction> _transactions;
 
         public TrulyObservableCollection<Transaction> Transactions
@@ -49,11 +52,12 @@ namespace CashManager_MVVM.Features.Transactions
             Transactions = new TrulyObservableCollection<Transaction>();
         }
 
-        public TransactionListViewModel(ICommandDispatcher commandDispatcher, ViewModelFactory factory, TransactionsProvider provider) : this()
+        public TransactionListViewModel(ICommandDispatcher commandDispatcher, ViewModelFactory factory, TransactionsProvider provider, IMessagesService messagesService) : this()
         {
             _commandDispatcher = commandDispatcher;
             _factory = factory;
             _provider = provider;
+            _messagesService = messagesService;
         }
 
         private void TransactionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
@@ -89,6 +93,10 @@ namespace CashManager_MVVM.Features.Transactions
 
         private void ExecuteTransactionDelete()
         {
+            if (Settings.Default.QuestionForTransactionDelete)
+                if (!_messagesService.ShowQuestionMessage(Strings.Question, string.Format(Strings.QuestionDoYouWantToRemoveTransactionFormat, SelectedTransaction.Title)))
+                    return;
+
             var dto = Mapper.Map<CashManager.Data.DTO.Transaction>(SelectedTransaction);
             _commandDispatcher.Execute(new DeleteTransactionCommand(dto));
 

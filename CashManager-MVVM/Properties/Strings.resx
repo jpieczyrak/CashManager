@@ -492,4 +492,10 @@
   <data name="QuestionDoYouWantToRemovePositionFormat" xml:space="preserve">
     <value>Are you sure, that you want to remove {0} position?</value>
   </data>
+  <data name="QuestionDoYouWantToRemoveTransactionFormat" xml:space="preserve">
+    <value>Are you sure, that you want to remove {0} transaction?</value>
+  </data>
+  <data name="AskForTransactionDelete" xml:space="preserve">
+    <value>Ask for transaction delete</value>
+  </data>
 </root>

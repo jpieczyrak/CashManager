@@ -480,7 +480,16 @@
   <data name="Question" xml:space="preserve">
     <value>Pytanie</value>
   </data>
-  <data name="QuestionDoYouWantToDeleteCategory" xml:space="preserve">
+  <data name="QuestionDoYouWantToRemovePositionFormat" xml:space="preserve">
+    <value>Czy na pewno chcesz skasować pozycję: {0}?</value>
+  </data>
+  <data name="QuestionDoYouWantToDeleteCategoryFormat" xml:space="preserve">
     <value>Czy na pewno chcesz skasować kategorię: {0}?</value>
+  </data>
+  <data name="QuestionDoYouWantToRemoveTransactionFormat" xml:space="preserve">
+    <value>Czy na pewno chcesz skasować transakcję: {0}?</value>
+  </data>
+  <data name="AskForTransactionDelete" xml:space="preserve">
+    <value>Pytaj przy kasowaniu transakcji</value>
   </data>
 </root>

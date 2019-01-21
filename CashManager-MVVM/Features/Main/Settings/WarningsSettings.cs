@@ -13,7 +13,8 @@ namespace CashManager_MVVM.Features.Main.Settings
                 var allWarnings = new[]
                 {
                     QuestionForCategoryDelete,
-                    QuestionForPositionDelete
+                    QuestionForPositionDelete,
+                    QuestionForTransactionDelete
                 };
                 return allWarnings.All(x => x)
                            ? true
@@ -24,7 +25,7 @@ namespace CashManager_MVVM.Features.Main.Settings
             set
             {
                 if (AllSelected == value) return;
-                QuestionForPositionDelete = QuestionForCategoryDelete = value ?? false;
+                QuestionForTransactionDelete = QuestionForPositionDelete = QuestionForCategoryDelete = value ?? false;
             }
         }
 
@@ -48,6 +49,18 @@ namespace CashManager_MVVM.Features.Main.Settings
                 if (Properties.Settings.Default.QuestionForPositionDelete == value) return;
                 Properties.Settings.Default.QuestionForPositionDelete = value;
                 RaisePropertyChanged(nameof(QuestionForPositionDelete));
+                RaisePropertyChanged(nameof(AllSelected));
+            }
+        }
+
+        public bool QuestionForTransactionDelete
+        {
+            get => Properties.Settings.Default.QuestionForTransactionDelete;
+            set
+            {
+                if (Properties.Settings.Default.QuestionForTransactionDelete == value) return;
+                Properties.Settings.Default.QuestionForTransactionDelete = value;
+                RaisePropertyChanged(nameof(QuestionForTransactionDelete));
                 RaisePropertyChanged(nameof(AllSelected));
             }
         }
