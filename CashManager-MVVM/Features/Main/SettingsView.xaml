@@ -9,21 +9,28 @@
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=local:SettingsViewModel, IsDesignTimeCreatable=True}">
     <Grid Background="{DynamicResource BackgroundColorBrush}">
-        <UniformGrid Columns="2" Margin="5" VerticalAlignment="Top">
-            <TextBlock Text="{x:Static properties:Strings.ApplicationSounds}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
-            <CheckBox Content="{x:Static properties:Strings.Enable}" IsChecked="{Binding IsSoundEnabled}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TabControl TabStripPlacement="Bottom" BorderThickness="0">
+            <TabItem Header="General">
+                <UniformGrid Columns="2" Margin="5" VerticalAlignment="Top">
+                    <TextBlock Text="{x:Static properties:Strings.ApplicationSounds}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <CheckBox Content="{x:Static properties:Strings.Enable}" IsChecked="{Binding IsSoundEnabled}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-            <TextBlock Text="{x:Static properties:Strings.UseExtendedDatePicker}" ToolTip="{x:Static properties:Strings.UseExtendedDatePickerTooltip}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
-            <CheckBox IsChecked="{Binding UseExtendedDatePicker}" Content="{x:Static properties:Strings.Enable}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <TextBlock Text="{x:Static properties:Strings.UseExtendedDatePicker}" ToolTip="{x:Static properties:Strings.UseExtendedDatePickerTooltip}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <CheckBox IsChecked="{Binding UseExtendedDatePicker}" Content="{x:Static properties:Strings.Enable}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-            <TextBlock Text="{x:Static properties:Strings.Language}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
-            <ComboBox ItemsSource="{Binding Localizations}" SelectedItem="{Binding SelectedLocalization}" Margin="5" ToolTip="{x:Static properties:Strings.RestartRequiredAfterChange}" Width="200" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{x:Static properties:Strings.Language}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox ItemsSource="{Binding Localizations}" SelectedItem="{Binding SelectedLocalization}" Margin="5" ToolTip="{x:Static properties:Strings.RestartRequiredAfterChange}" Width="200" HorizontalAlignment="Left"/>
 
-            <TextBlock Text="{x:Static properties:Strings.SkinColors}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
-            <ComboBox ItemsSource="{Binding Skins}" SelectedValue="{Binding SelectedSkin}" Margin="5" Width="200" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{x:Static properties:Strings.SkinColors}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox ItemsSource="{Binding Skins}" SelectedValue="{Binding SelectedSkin}" Margin="5" Width="200" HorizontalAlignment="Left"/>
 
-            <TextBlock Text="{x:Static properties:Strings.SkinShape}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
-            <ComboBox ItemsSource="{Binding Shapes}" SelectedValue="{Binding SelectedShape}" Margin="5" Width="200" HorizontalAlignment="Left"/>
-        </UniformGrid>
+                    <TextBlock Text="{x:Static properties:Strings.SkinShape}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox ItemsSource="{Binding Shapes}" SelectedValue="{Binding SelectedShape}" Margin="5" Width="200" HorizontalAlignment="Left"/>
+                </UniformGrid>
+            </TabItem>
+            <TabItem Header="Warnings" />
+            <TabItem Header="Notifications" />
+        </TabControl>
+
     </Grid>
 </UserControl>
