@@ -492,4 +492,10 @@
   <data name="AskForTransactionDelete" xml:space="preserve">
     <value>Pytaj przy kasowaniu transakcji</value>
   </data>
+  <data name="AskForCategoryMove" xml:space="preserve">
+    <value>Pytaj przy przenoszeniu kategorii</value>
+  </data>
+  <data name="QuestionDoYouWantToMoveCategoryFormat" xml:space="preserve">
+    <value>Czy na pewno chcesz przenieść kategorię {0} pod kategorię {1}?</value>
+  </data>
 </root>

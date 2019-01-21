@@ -498,4 +498,10 @@
   <data name="AskForTransactionDelete" xml:space="preserve">
     <value>Ask for transaction delete</value>
   </data>
+  <data name="AskForCategoryMove" xml:space="preserve">
+    <value>Ask for category move</value>
+  </data>
+  <data name="QuestionDoYouWantToMoveCategoryFormat" xml:space="preserve">
+    <value>Are you sure, that you want to move category {0} under category {1}?</value>
+  </data>
 </root>

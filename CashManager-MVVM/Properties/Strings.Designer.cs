@@ -142,6 +142,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ask for category move.
+        /// </summary>
+        public static string AskForCategoryMove {
+            get {
+                return ResourceManager.GetString("AskForCategoryMove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ask for position delete.
         /// </summary>
         public static string AskForPositionDelete {
@@ -876,6 +885,15 @@ namespace CashManager_MVVM.Properties {
         public static string QuestionDoYouWantToDeleteCategoryFormat {
             get {
                 return ResourceManager.GetString("QuestionDoYouWantToDeleteCategoryFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure, that you want to move category {0} under category {1}?.
+        /// </summary>
+        public static string QuestionDoYouWantToMoveCategoryFormat {
+            get {
+                return ResourceManager.GetString("QuestionDoYouWantToMoveCategoryFormat", resourceCulture);
             }
         }
         

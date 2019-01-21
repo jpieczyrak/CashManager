@@ -166,5 +166,17 @@ namespace CashManager_MVVM.Properties {
                 this["QuestionForTransactionDelete"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool QuestionForCategoryMove {
+            get {
+                return ((bool)(this["QuestionForCategoryMove"]));
+            }
+            set {
+                this["QuestionForCategoryMove"] = value;
+            }
+        }
     }
 }

@@ -202,7 +202,14 @@ namespace CashManager_MVVM.Features.Categories
 
         public void Drop(IDropInfo dropInfo)
         {
-            if (dropInfo.Data is ExpandableCategory source && dropInfo.TargetItem is ExpandableCategory target) Move(source, target);
+            if (dropInfo.Data is ExpandableCategory source && dropInfo.TargetItem is ExpandableCategory target)
+            {
+                if (Settings.Default.QuestionForCategoryMove)
+                    if (!_messagesService.ShowQuestionMessage(Strings.Question, string.Format(Strings.QuestionDoYouWantToMoveCategoryFormat, source.Name, target.Name)))
+                        return;
+
+                Move(source, target);
+            }
         }
     }
 }
