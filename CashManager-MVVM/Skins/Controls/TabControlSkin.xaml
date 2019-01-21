@@ -23,7 +23,7 @@
                             <RowDefinition x:Name="RowDefinition1" Height="*" />
                         </Grid.RowDefinitions>
                         <TabPanel x:Name="headerPanel" Background="Transparent" Grid.Column="0" IsItemsHost="true"
-                                  Margin="2,2,2,0" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1" />
+                                  Margin="2,2,2,0" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1" HorizontalAlignment="Center" />
                         <Border x:Name="contentPanel" BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 Background="{TemplateBinding Background}" Grid.Column="0"
