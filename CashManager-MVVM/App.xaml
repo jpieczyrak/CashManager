@@ -37,6 +37,8 @@
                 <ResourceDictionary Source="Skins/Controls/RadioButtonSkin.xaml"/>
                 <ResourceDictionary Source="Skins/Controls/MenuSkin.xaml"/>
                 <ResourceDictionary Source="Skins/Controls/WindowChromeSkin.xaml"/>
+                <ResourceDictionary Source="Skins/Controls/TabControlSkin.xaml"/>
+                <ResourceDictionary Source="Skins/Controls/TabItemSkin.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
