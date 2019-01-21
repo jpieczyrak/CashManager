@@ -8,7 +8,7 @@
              d:DesignHeight="45" d:DesignWidth="400"
              d:DataContext="{d:DesignInstance Type=local:NotificationViewModel, IsDesignTimeCreatable=True}">
 
-    <Grid VerticalAlignment="Center" Margin="5,0">
+    <Grid VerticalAlignment="Center" Margin="5,0" WindowChrome.IsHitTestVisibleInChrome="True">
         <TextBlock Text="{Binding UpdateStatus}" ToolTip="{Binding Tooltip}" HorizontalAlignment="Right" Foreground="{DynamicResource HoverBorderAccentBrush}" />
     </Grid>
 </UserControl>
