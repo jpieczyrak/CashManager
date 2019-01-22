@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -101,6 +102,7 @@ namespace CashManager_MVVM.Features.Transactions
                     _startTransactionValue = _transaction.ValueAsProfit;
                     _startUserStock = _transaction.UserStock;
                     IsInEditMode = true;
+                    SetDefaultMode();
                 }
             }
         }
@@ -175,11 +177,7 @@ namespace CashManager_MVVM.Features.Transactions
             Transaction.Positions.Remove(position);
         }
 
-        private void ExecuteClearCommand()
-        {
-            _transaction = CreateNewTransaction();
-            RaisePropertyChanged(nameof(Transaction));
-        }
+        private void ExecuteClearCommand() => FillWithNewTransaction();
 
         #region IDropTarget
 
@@ -220,11 +218,7 @@ namespace CashManager_MVVM.Features.Transactions
                           .OrderBy(x => x.Name)
                           .ToArray();
 
-            if (_shouldCreateTransaction || Transaction == null)
-            {
-                _transaction = CreateNewTransaction();
-                RaisePropertyChanged(nameof(Transaction));
-            }
+            if (_shouldCreateTransaction || Transaction == null) FillWithNewTransaction();
             _shouldCreateTransaction = true;
 
             foreach (var position in Transaction.Positions)
@@ -237,13 +231,7 @@ namespace CashManager_MVVM.Features.Transactions
             LoadedBills = new ObservableCollection<BillImage>(Transaction.StoredFiles.Select(CreateBillImage));
         }
 
-        #endregion
-
-        public void ExecuteAddPositionCommand() => Transaction.Positions.Add(CreatePosition(Transaction));
-
-        private Selectable[] CopyOfTags(Tag[] tags) => tags.Select(x => new Selectable(x)).ToArray();
-
-        private Transaction CreateNewTransaction()
+        private void FillWithNewTransaction()
         {
             IsInEditMode = false;
             var transaction = new Transaction
@@ -254,8 +242,31 @@ namespace CashManager_MVVM.Features.Transactions
             };
 
             transaction.Positions = new TrulyObservableCollection<Position>(new[] { CreatePosition(transaction) });
-            return transaction;
+            _transaction = transaction;
+
+            SetDefaultMode();
+
+            RaisePropertyChanged(nameof(Transaction));
         }
+
+        private void SetDefaultMode()
+        {
+            foreach (var mode in Modes) mode.Value.IsSelected = false;
+
+            if (IsInEditMode)
+                if (Transaction.BookDate.Date == DateTime.Today)
+                    Modes[TransactionEditModes.NoChange].IsSelected = true;
+                else
+                    Modes[TransactionEditModes.AddCorrection].IsSelected = true;
+            else
+                Modes[TransactionEditModes.ChangeStockBalance].IsSelected = true;
+        }
+
+        #endregion
+
+        public void ExecuteAddPositionCommand() => Transaction.Positions.Add(CreatePosition(Transaction));
+
+        private Selectable[] CopyOfTags(Tag[] tags) => tags.Select(x => new Selectable(x)).ToArray();
 
         private Position CreatePosition(Transaction parent)
         {
