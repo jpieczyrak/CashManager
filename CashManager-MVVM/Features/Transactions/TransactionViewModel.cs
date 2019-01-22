@@ -249,19 +249,6 @@ namespace CashManager_MVVM.Features.Transactions
             RaisePropertyChanged(nameof(Transaction));
         }
 
-        private void SetDefaultMode()
-        {
-            foreach (var mode in Modes) mode.Value.IsSelected = false;
-
-            if (IsInEditMode)
-                if (Transaction.BookDate.Date == DateTime.Today)
-                    Modes[TransactionEditModes.NoChange].IsSelected = true;
-                else
-                    Modes[TransactionEditModes.AddCorrection].IsSelected = true;
-            else
-                Modes[TransactionEditModes.ChangeStockBalance].IsSelected = true;
-        }
-
         #endregion
 
         public void ExecuteAddPositionCommand() => Transaction.Positions.Add(CreatePosition(Transaction));
@@ -378,6 +365,26 @@ namespace CashManager_MVVM.Features.Transactions
         {
             var image = _queryDispatcher.Execute<BillQuery, byte[]>(new BillQuery(fileInfo.DbAlias));
             return new BillImage(fileInfo.SourceName, fileInfo.DisplayName, image);
+        }
+
+        public void SetUpdateMode(TransactionEditModes selectedMode)
+        {
+            foreach (var mode in Modes.Where(x => x.Value.IsSelected)) mode.Value.IsSelected = false;
+            Modes[selectedMode].IsSelected = true;
+        }
+
+        private void SetDefaultMode()
+        {
+            if (IsInEditMode)
+            {
+                SetUpdateMode(Transaction.BookDate.Date == DateTime.Today
+                                  ? TransactionEditModes.NoChange
+                                  : TransactionEditModes.AddCorrection);
+            }
+            else
+            {
+                SetUpdateMode(TransactionEditModes.ChangeStockBalance);
+            }
         }
     }
 }
