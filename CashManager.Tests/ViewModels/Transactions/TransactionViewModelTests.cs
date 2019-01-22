@@ -167,6 +167,7 @@ namespace CashManager.Tests.ViewModels.Transactions
                 Type = new TransactionType { Income = income, Outcome = !income},
                 UserStock = userStock
             };
+            vm.SetUpdateMode(TransactionEditModes.ChangeStockBalance);
             vm.Transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
             vm.Transaction.Positions[0].TagViewModel.SetInput(_tags.Select(x => new Selectable(x)));
             vm.Transaction.Positions[0].Value.GrossValue = transValue;

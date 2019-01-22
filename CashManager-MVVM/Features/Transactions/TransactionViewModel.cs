@@ -122,16 +122,9 @@ namespace CashManager_MVVM.Features.Transactions
 
         public bool ShouldGoBack { private get; set; } = true;
 
-        public bool UpdateStock
-        {
-            get => _updateStock;
-            set => Set(ref _updateStock, value);
-        }
-
         public TransactionViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
             ViewModelFactory factory, TransactionsProvider transactionsProvider, IMessagesService messagesService)
         {
-            UpdateStock = true;
             Modes = new Dictionary<TransactionEditModes, TransactionEditMode>
             {
                 [TransactionEditModes.NoChange] = new TransactionEditMode
@@ -327,7 +320,7 @@ namespace CashManager_MVVM.Features.Transactions
 
         private void HandleStocksValueUpdate()
         {
-            if (UpdateStock)
+            if (Modes[TransactionEditModes.ChangeStockBalance].IsSelected)
             {
                 var updatedStocks = new[] { Transaction.UserStock }.ToList();
                 if (_startUserStock == null || _startUserStock.Equals(Transaction.UserStock))

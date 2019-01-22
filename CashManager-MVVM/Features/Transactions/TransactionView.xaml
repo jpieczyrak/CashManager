@@ -46,7 +46,6 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
@@ -74,11 +73,8 @@
                 <TextBlock Grid.Row="7" Grid.Column="0" Text="{x:Static properties:Strings.LastEditDate}" VerticalAlignment="Center" Margin="0,0,12,0"/>
                 <TextBlock Grid.Row="7" Grid.Column="1" Margin="0,5" Text="{Binding Transaction.LastEditDate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss:fff\}}" VerticalAlignment="Center"/>
 
-                <TextBlock Grid.Row="8" Grid.Column="0" Text="{x:Static properties:Strings.UpdateStock}" VerticalAlignment="Center" Margin="0,0,12,0"/>
-                <CheckBox Grid.Row="8" Grid.Column="1" Margin="0,5" IsChecked="{Binding UpdateStock}"/>
-                
-                <TextBlock Grid.Row="9" Grid.Column="0" Text="Update mode" VerticalAlignment="Center" Margin="0,0,12,0"/>
-                <ItemsControl Grid.Row="9" Grid.Column="1" MinHeight="20" ItemsSource="{Binding Modes}">
+                <TextBlock Grid.Row="8" Grid.Column="0" Text="Update mode" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                <ItemsControl Grid.Row="8" Grid.Column="1" MinHeight="20" ItemsSource="{Binding Modes}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <RadioButton Content="{Binding Value.Name}" ToolTip="{Binding Value.Tooltip}" IsChecked="{Binding Value.IsSelected}"
@@ -88,7 +84,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <Button Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Width="120" Margin="5" Command="{Binding AddNewPosition}" Content="{x:Static properties:Strings.AddPosition}" />
+                <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Width="120" Margin="5" Command="{Binding AddNewPosition}" Content="{x:Static properties:Strings.AddPosition}" />
             </Grid>
             <Border BorderThickness="1" CornerRadius="{DynamicResource BigCornerRadius}" BorderBrush="{StaticResource DisabledForegroundBrush}" Margin="5,0" Grid.Column="1">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">

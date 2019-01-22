@@ -45,7 +45,7 @@ namespace CashManager.Tests.AcceptanceCriteria.Transactions.Add
             app.SelectViewModelCommand.Execute(ViewModel.Transaction);
             var transactionVm = (TransactionViewModel) app.SelectedViewModel;
 
-            transactionVm.UpdateStock = true;
+            transactionVm.Modes[TransactionEditModes.ChangeStockBalance].IsSelected = true;
             transactionVm.Transaction.Title = "first one";
             transactionVm.Transaction.Type = type;
             transactionVm.Transaction.UserStock = userStock;
