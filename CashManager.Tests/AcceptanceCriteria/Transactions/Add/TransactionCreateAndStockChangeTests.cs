@@ -94,5 +94,39 @@ namespace CashManager.Tests.AcceptanceCriteria.Transactions.Add
             Assert.Single(transactionVm.TransactionsProvider.AllTransactions);
             Assert.Equal(expectedBalance, _fixture.Container.Resolve<StocksViewModel>().Stocks[0].UserBalance);
         }
+
+        [Theory]
+        [InlineData(1000, 500, -1, 0)]
+        [InlineData(1000, 500, 0, 0)]
+        [InlineData(1000, 500, 1, 0)]
+        [InlineData(1000, 500, -1, -5)]
+        [InlineData(1000, 500, 0, -5)]
+        [InlineData(1000, 500, 1, -5)]
+        [InlineData(1000, 500, -1, 5)]
+        [InlineData(1000, 500, 0, 5)]
+        [InlineData(1000, 500, 1, 5)]
+        public void AddingIncomeTransaction_NoChange_StockBalanceShouldBeNotModified(decimal startBalance, decimal transactionValue, int daysSinceLastStockEdit, int transactionBookDateAsDaysCountUntilToday)
+        {
+            var userStock = CreateUserStock(startBalance, daysSinceLastStockEdit);
+            var type = CreateType(TransactionTypes.Income);
+            var app = _fixture.Container.Resolve<ApplicationViewModel>();
+            app.SelectViewModelCommand.Execute(ViewModel.Transaction);
+            var transactionVm = (TransactionViewModel)app.SelectedViewModel;
+
+            transactionVm.SetUpdateMode(TransactionEditModes.NoChange);
+            transactionVm.Transaction.Title = "first one";
+            transactionVm.Transaction.Type = type;
+            transactionVm.Transaction.UserStock = userStock;
+            transactionVm.Transaction.BookDate = DateTime.Today.AddDays(-transactionBookDateAsDaysCountUntilToday);
+            transactionVm.Transaction.Positions[0].Title = "title";
+            transactionVm.Transaction.Positions[0].Value.GrossValue = transactionValue;
+
+            //when
+            transactionVm.SaveTransactionCommand.Execute(null);
+
+            //then
+            Assert.Single(transactionVm.TransactionsProvider.AllTransactions);
+            Assert.Equal(startBalance, _fixture.Container.Resolve<StocksViewModel>().Stocks[0].UserBalance);
+        }
     }
 }
