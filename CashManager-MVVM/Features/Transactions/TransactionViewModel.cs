@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -44,8 +43,6 @@ namespace CashManager_MVVM.Features.Transactions
 {
     public class TransactionViewModel : ViewModelBase, IUpdateable, IDropTarget
     {
-        //todo: on unload / hide etc - cancel changes to transaction
-
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ViewModelFactory _factory;
@@ -54,6 +51,17 @@ namespace CashManager_MVVM.Features.Transactions
         private IEnumerable<Stock> _stocks;
         private Transaction _transaction;
         private bool _shouldCreateTransaction;
+
+        private bool _isInEditMode;
+
+        public bool IsInEditMode
+        {
+            get => _isInEditMode;
+            private set => Set(ref _isInEditMode, value);
+        }
+
+        public Dictionary<TransactionEditModes, TransactionEditMode> Modes { get; }
+
         private Tag[] _tags;
 
         private bool _updateStock;
@@ -88,6 +96,7 @@ namespace CashManager_MVVM.Features.Transactions
 
                     _startTransactionValue = _transaction.ValueAsProfit;
                     _startUserStock = _transaction.UserStock;
+                    IsInEditMode = true;
                 }
             }
         }
@@ -117,6 +126,25 @@ namespace CashManager_MVVM.Features.Transactions
             ViewModelFactory factory, TransactionsProvider transactionsProvider, IMessagesService messagesService)
         {
             UpdateStock = true;
+            Modes = new Dictionary<TransactionEditModes, TransactionEditMode>
+            {
+                [TransactionEditModes.NoChange] = new TransactionEditMode
+                {
+                    Name = "No change",
+                    Type = TransactionEditModes.NoChange,
+                    IsSelected = true
+                },
+                [TransactionEditModes.AddCorrection] = new TransactionEditMode
+                {
+                    Name = "Add correction transaction",
+                    Type = TransactionEditModes.AddCorrection
+                },
+                [TransactionEditModes.ChangeStockBalance] = new TransactionEditMode
+                {
+                    Name = "Just change stock balance",
+                    Type = TransactionEditModes.ChangeStockBalance
+                }
+            };
             TransactionsProvider = transactionsProvider;
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
@@ -143,7 +171,11 @@ namespace CashManager_MVVM.Features.Transactions
             Transaction.Positions.Remove(position);
         }
 
-        private void ExecuteClearCommand() { Transaction = CreateNewTransaction(); }
+        private void ExecuteClearCommand()
+        {
+            Transaction = CreateNewTransaction();
+            IsInEditMode = false;
+        }
 
         #region IDropTarget
 
@@ -184,7 +216,11 @@ namespace CashManager_MVVM.Features.Transactions
                           .OrderBy(x => x.Name)
                           .ToArray();
 
-            if (_shouldCreateTransaction || Transaction == null) Transaction = CreateNewTransaction();
+            if (_shouldCreateTransaction || Transaction == null)
+            {
+                Transaction = CreateNewTransaction();
+                IsInEditMode = false;
+            }
             _shouldCreateTransaction = true;
 
             foreach (var position in Transaction.Positions)

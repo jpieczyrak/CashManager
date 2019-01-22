@@ -225,6 +225,8 @@
     <Compile Include="Features\Transactions\PaymentValueControl.xaml.cs">
       <DependentUpon>PaymentValueControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Features\Transactions\TransactionEditMode.cs" />
+    <Compile Include="Features\Transactions\TransactionEditModes.cs" />
     <Compile Include="Logic\Debouncer.cs" />
     <Compile Include="Features\Search\SearchState.cs" />
     <Compile Include="Features\MassReplacer\MassReplacerView.xaml.cs">
