@@ -15,9 +15,9 @@ using Xunit;
 namespace CashManager.Tests.AcceptanceCriteria.Transactions.Edit
 {
     [Collection("Cleanable database collection")]
-    public class TransactionCreateAndStockChangeTests : BaseTransactionTests
+    public class TransactionValueEditAndStockBalanceUpdate : BaseTransactionTests
     {
-        public TransactionCreateAndStockChangeTests(CleanableDatabaseFixture fixture) : base(fixture) { }
+        public TransactionValueEditAndStockBalanceUpdate(CleanableDatabaseFixture fixture) : base(fixture) { }
 
         [Theory]
         [InlineData(1000, 500, 500, TransactionTypes.Outcome, TransactionTypes.Income, -1, 0, 1500)]
