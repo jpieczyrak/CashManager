@@ -42,7 +42,7 @@ namespace CashManager.Tests.ViewModels.Transactions
         {
             _fixture = fixture;
             _fixture.Container.Resolve<TransactionsProvider>().AllTransactions.Clear();
-            _fixture.CleanDatabase();
+            _fixture.Reset();
         }
 
         [Fact]

@@ -23,15 +23,6 @@ namespace CashManager.Tests.ViewModels.Fixtures
 
         #endregion
 
-        public void CleanDatabase()
-        {
-            var repository = Container.Resolve<LiteRepository>();
-            foreach (var name in repository.Database.GetCollectionNames())
-            {
-                repository.Database.GetCollection(name).Delete(Query.All());
-            }
-        }
-
         public void Reset()
         {
             if (ContainerWrapper.IsValueCreated) ContainerWrapper = new Lazy<IContainer>(ViewModelContext.GetContainer);

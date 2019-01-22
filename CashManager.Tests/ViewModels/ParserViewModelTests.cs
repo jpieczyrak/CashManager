@@ -24,7 +24,7 @@ namespace CashManager.Tests.ViewModels
         public ParserViewModelTests(CleanableDatabaseFixture fixture)
         {
             _fixture = fixture;
-            _fixture.CleanDatabase();
+            _fixture.Reset();
         }
 
         [Fact]

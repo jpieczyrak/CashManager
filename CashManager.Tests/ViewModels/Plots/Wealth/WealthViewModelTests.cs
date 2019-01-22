@@ -24,7 +24,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
         public WealthViewModelTests(CleanableDatabaseFixture fixture)
         {
             _fixture = fixture;
-            _fixture.CleanDatabase();
+            _fixture.Reset();
         }
 
         [Fact]
