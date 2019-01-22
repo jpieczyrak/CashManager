@@ -64,7 +64,7 @@ namespace CashManager.Tests.AcceptanceCriteria.Transactions.Edit
             var app = _fixture.Container.Resolve<ApplicationViewModel>();
 
             var descType = CreateType(destinationType);
-            var sourceType = destinationType == originalType ? descType : CreateType(originalType);
+            var sourceType = CreateType(originalType);
             if (destinationType == originalType && destinationType == TransactionTypes.Outcome)
                 CreateType(TransactionTypes.Income); //there have to be income type to create stock balance
             var userStock = CreateUserStock(startBalance, daysSinceLastStockEdit);
