@@ -129,12 +129,6 @@ namespace CashManager.Tests.ViewModels
             //override db register
             builder.Register(x => new LiteRepository(new LiteDatabase(new MemoryStream()))).SingleInstance().ExternallyOwned();
 
-            //override - we dont want to have singletons in tests
-            builder.RegisterAssemblyTypes(typeof(ApplicationViewModel).Assembly)
-                   .Where(t => t.IsSubclassOf(typeof(ViewModelBase)))
-                   .Named<ViewModelBase>(x => x.Name)
-                   .As(t => t);
-            builder.RegisterType<TransactionsProvider>().As<TransactionsProvider>();
             builder.RegisterType<ApplicationViewModel>()
                    .Named<ViewModelBase>(nameof(ApplicationViewModel))
                    .As<ViewModelBase>()
