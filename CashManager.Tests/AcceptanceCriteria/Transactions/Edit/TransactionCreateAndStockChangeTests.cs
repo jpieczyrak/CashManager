@@ -91,11 +91,6 @@ namespace CashManager.Tests.AcceptanceCriteria.Transactions.Edit
             searchVm.TransactionsListViewModel.TransactionEditCommand.Execute(null);
 
             //when
-                //todo: for some reason there is still search vm as "selected" instead of transaction vm...
-                app.SelectViewModelCommand.Execute(ViewModel.Transaction);
-                transactionVm = (TransactionViewModel)app.SelectedViewModel;
-                transactionVm.Transaction = app.TransactionViewModel.Value.TransactionsProvider.AllTransactions.FirstOrDefault(x => x.Id == id);
-                //todo: 3 lines above should be removed, when search test will be added and problem will be fixed.
             transactionVm.Transaction.Type = descType;
             transactionVm.Transaction.Positions[0].Value.GrossValue = newValue;
             Assert.True(transactionVm.IsInEditMode);

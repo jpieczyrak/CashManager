@@ -118,6 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcceptanceCriteria\Search\NavigationTests.cs" />
     <Compile Include="AcceptanceCriteria\Transactions\BaseTransactionTests.cs" />
     <Compile Include="AcceptanceCriteria\Transactions\Edit\TransactionCreateAndStockChangeTests.cs" />
     <Compile Include="AcceptanceCriteria\Transactions\Add\TransactionCreateAndStockChangeTests.cs" />

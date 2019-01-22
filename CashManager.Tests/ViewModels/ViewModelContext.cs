@@ -121,7 +121,7 @@ namespace CashManager.Tests.ViewModels
                 }
         }
 
-        private static IContainer GetContainer()
+        internal static IContainer GetContainer()
         {
             MapperConfiguration.Configure();
             var builder = AutofacConfiguration.ContainerBuilder();
@@ -136,9 +136,10 @@ namespace CashManager.Tests.ViewModels
                    .As(t => t);
             builder.RegisterType<TransactionsProvider>().As<TransactionsProvider>();
             builder.RegisterType<ApplicationViewModel>()
-                   .Named<ApplicationViewModel>(nameof(ApplicationViewModel))
-                   .SingleInstance()
-                   .ExternallyOwned();
+                   .Named<ViewModelBase>(nameof(ApplicationViewModel))
+                   .As<ViewModelBase>()
+                   .As<ApplicationViewModel>()
+                   .SingleInstance();
 
             //search should be perform instantly in tests
             builder.Register(x =>
