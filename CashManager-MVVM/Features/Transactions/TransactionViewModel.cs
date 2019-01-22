@@ -57,7 +57,11 @@ namespace CashManager_MVVM.Features.Transactions
         public bool IsInEditMode
         {
             get => _isInEditMode;
-            private set => Set(ref _isInEditMode, value);
+            private set
+            {
+                Set(ref _isInEditMode, value);
+                Modes[TransactionEditModes.AddCorrection].IsVisible = value;
+            }
         }
 
         public Dictionary<TransactionEditModes, TransactionEditMode> Modes { get; }
@@ -134,15 +138,15 @@ namespace CashManager_MVVM.Features.Transactions
                     Type = TransactionEditModes.NoChange,
                     IsSelected = true
                 },
-                [TransactionEditModes.AddCorrection] = new TransactionEditMode
-                {
-                    Name = "Add correction transaction",
-                    Type = TransactionEditModes.AddCorrection
-                },
                 [TransactionEditModes.ChangeStockBalance] = new TransactionEditMode
                 {
                     Name = "Just change stock balance",
                     Type = TransactionEditModes.ChangeStockBalance
+                },
+                [TransactionEditModes.AddCorrection] = new TransactionEditMode
+                {
+                    Name = "Add correction transaction",
+                    Type = TransactionEditModes.AddCorrection
                 }
             };
             TransactionsProvider = transactionsProvider;
