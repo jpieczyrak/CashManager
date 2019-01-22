@@ -177,8 +177,8 @@ namespace CashManager_MVVM.Features.Transactions
 
         private void ExecuteClearCommand()
         {
-            Transaction = CreateNewTransaction();
-            IsInEditMode = false;
+            _transaction = CreateNewTransaction();
+            RaisePropertyChanged(nameof(Transaction));
         }
 
         #region IDropTarget
@@ -222,8 +222,8 @@ namespace CashManager_MVVM.Features.Transactions
 
             if (_shouldCreateTransaction || Transaction == null)
             {
-                Transaction = CreateNewTransaction();
-                IsInEditMode = false;
+                _transaction = CreateNewTransaction();
+                RaisePropertyChanged(nameof(Transaction));
             }
             _shouldCreateTransaction = true;
 
@@ -245,6 +245,7 @@ namespace CashManager_MVVM.Features.Transactions
 
         private Transaction CreateNewTransaction()
         {
+            IsInEditMode = false;
             var transaction = new Transaction
             {
                 Type = TransactionTypes.FirstOrDefault(x => x.IsDefault && x.Outcome),
