@@ -34,14 +34,14 @@
                 <DataGridTextColumn Header="{x:Static properties:Strings.UserStock}" Binding="{Binding Parent.UserStock.Name, Mode=OneWay}" Width="Auto" />
                 <DataGridTextColumn Header="{x:Static properties:Strings.ExStock}" Binding="{Binding Parent.ExternalStock.Name, Mode=OneWay}" Width="Auto" />
                 <DataGridTextColumn Header="{x:Static properties:Strings.Tags}" Binding="{Binding TagsGuiString, Mode=OneWay}" Width="Auto" />
-                <DataGridTextColumn Header="{x:Static properties:Strings.NetValue}" Binding="{Binding Value.NetValue, Mode=OneWay, StringFormat={x:Static properties:Strings.ValueFormat}}" Width="Auto" MinWidth="80">
+                <DataGridTextColumn Header="{x:Static properties:Strings.NetValue}" Binding="{Binding Value.NetValue, Mode=OneWay, StringFormat={x:Static properties:Strings.ValueFormat}}" Width="Auto" MinWidth="80" Visibility="{Binding AdvancePaymentMode, Converter={StaticResource Bool2VisibilityConverter}, Source={x:Static properties:Settings.Default}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Right"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="{x:Static properties:Strings.Tax}" Binding="{Binding Value.TaxGuiString, Mode=OneWay}" Width="Auto" MinWidth="50" MaxWidth="100">
+                <DataGridTextColumn Header="{x:Static properties:Strings.Tax}" Binding="{Binding Value.TaxGuiString, Mode=OneWay}" Width="Auto" MinWidth="50" MaxWidth="100" Visibility="{Binding AdvancePaymentMode, Converter={StaticResource Bool2VisibilityConverter}, Source={x:Static properties:Settings.Default}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Right"/>

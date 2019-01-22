@@ -513,4 +513,10 @@
   <data name="EnableAll" xml:space="preserve">
     <value>Enable all</value>
   </data>
+  <data name="AdvancePaymentMode" xml:space="preserve">
+    <value>Advanced payment mode</value>
+  </data>
+  <data name="AdvancePaymentModeTooltip" xml:space="preserve">
+    <value>Net/tax/gross instead simple value</value>
+  </data>
 </root>

@@ -178,5 +178,17 @@ namespace CashManager_MVVM.Properties {
                 this["QuestionForCategoryMove"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AdvancePaymentMode {
+            get {
+                return ((bool)(this["AdvancePaymentMode"]));
+            }
+            set {
+                this["AdvancePaymentMode"] = value;
+            }
+        }
     }
 }

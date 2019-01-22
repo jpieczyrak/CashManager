@@ -68,6 +68,12 @@ namespace CashManager_MVVM.Features.Main.Settings
             }
         }
 
+        public bool AdvancePaymentMode
+        {
+            get => Properties.Settings.Default.AdvancePaymentMode;
+            set => Properties.Settings.Default.AdvancePaymentMode = value;
+        }
+
         public GeneralSettings()
         {
             Localizations = new[] { "pl-PL", "en-US" };

@@ -115,6 +115,24 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advanced payment mode.
+        /// </summary>
+        public static string AdvancePaymentMode {
+            get {
+                return ResourceManager.GetString("AdvancePaymentMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Net/tax/gross instead simple value.
+        /// </summary>
+        public static string AdvancePaymentModeTooltip {
+            get {
+                return ResourceManager.GetString("AdvancePaymentModeTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Analitics.
         /// </summary>
         public static string Analytics {

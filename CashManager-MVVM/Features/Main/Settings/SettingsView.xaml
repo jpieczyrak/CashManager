@@ -19,6 +19,9 @@
                     <TextBlock Text="{x:Static properties:Strings.UseExtendedDatePicker}" ToolTip="{x:Static properties:Strings.UseExtendedDatePickerTooltip}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
                     <CheckBox IsChecked="{Binding General.UseExtendedDatePicker}" Content="{x:Static properties:Strings.Enable}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
+                    <TextBlock Text="{x:Static properties:Strings.AdvancePaymentMode}" ToolTip="{x:Static properties:Strings.AdvancePaymentModeTooltip}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <CheckBox IsChecked="{Binding General.AdvancePaymentMode}" Content="{x:Static properties:Strings.Enable}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" />
+
                     <TextBlock Text="{x:Static properties:Strings.Language}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
                     <ComboBox ItemsSource="{Binding General.Localizations}" SelectedItem="{Binding General.SelectedLocalization}" Margin="5" ToolTip="{x:Static properties:Strings.RestartRequiredAfterChange}" Width="200" HorizontalAlignment="Left"/>
 
