@@ -86,7 +86,7 @@ namespace CashManager_MVVM.Features.Transactions
             get => _transaction;
             set
             {
-                Set(nameof(Transaction), ref _transaction, value);
+                _transaction = value;
                 _shouldCreateTransaction = false;
                 if (_transaction != null)
                 {
@@ -104,6 +104,7 @@ namespace CashManager_MVVM.Features.Transactions
                     IsInEditMode = true;
                     SetDefaultMode();
                 }
+                RaisePropertyChanged(nameof(Transaction));
             }
         }
 
@@ -226,7 +227,6 @@ namespace CashManager_MVVM.Features.Transactions
 
         private void FillWithNewTransaction()
         {
-            IsInEditMode = false;
             var transaction = new Transaction
             {
                 Type = TransactionTypes.FirstOrDefault(x => x.IsDefault && x.Outcome),
@@ -235,11 +235,10 @@ namespace CashManager_MVVM.Features.Transactions
             };
 
             transaction.Positions = new TrulyObservableCollection<Position>(new[] { CreatePosition(transaction) });
-            _transaction = transaction;
+            Transaction = transaction;
+            IsInEditMode = false;
 
             SetDefaultMode();
-
-            RaisePropertyChanged(nameof(Transaction));
         }
 
         #endregion
