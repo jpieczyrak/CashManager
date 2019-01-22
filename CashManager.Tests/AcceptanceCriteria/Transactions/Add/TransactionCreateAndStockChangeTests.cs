@@ -32,6 +32,8 @@ namespace CashManager.Tests.AcceptanceCriteria.Transactions.Add
             var userStock = CreateUserStock(startBalance, daysSinceLastStockEdit);
             var type = CreateType(TransactionTypes.Income);
             var app = _fixture.Container.Resolve<ApplicationViewModel>();
+            app.SelectViewModelCommand.Execute(ViewModel.StockManager);
+            var stocksViewModel = app.SelectedViewModel as StocksViewModel;
             app.SelectViewModelCommand.Execute(ViewModel.Transaction);
             var transactionVm = (TransactionViewModel)app.SelectedViewModel;
 
@@ -48,7 +50,7 @@ namespace CashManager.Tests.AcceptanceCriteria.Transactions.Add
 
             //then
             Assert.Single(transactionVm.TransactionsProvider.AllTransactions);
-            Assert.Equal(expectedBalance, _fixture.Container.Resolve<StocksViewModel>().Stocks[0].UserBalance);
+            Assert.Equal(expectedBalance, stocksViewModel.Stocks[0].UserBalance);
         }
 
         [Theory]
@@ -66,6 +68,8 @@ namespace CashManager.Tests.AcceptanceCriteria.Transactions.Add
             var userStock = CreateUserStock(startBalance, daysSinceLastStockEdit);
             var type = CreateType(TransactionTypes.Outcome);
             var app = _fixture.Container.Resolve<ApplicationViewModel>();
+            app.SelectViewModelCommand.Execute(ViewModel.StockManager);
+            var stocksViewModel = app.SelectedViewModel as StocksViewModel;
             app.SelectViewModelCommand.Execute(ViewModel.Transaction);
             var transactionVm = (TransactionViewModel)app.SelectedViewModel;
 
@@ -82,7 +86,7 @@ namespace CashManager.Tests.AcceptanceCriteria.Transactions.Add
 
             //then
             Assert.Single(transactionVm.TransactionsProvider.AllTransactions);
-            Assert.Equal(expectedBalance, _fixture.Container.Resolve<StocksViewModel>().Stocks[0].UserBalance);
+            Assert.Equal(expectedBalance, stocksViewModel.Stocks[0].UserBalance);
         }
 
         [Theory]
