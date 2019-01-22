@@ -222,6 +222,9 @@
     </Compile>
     <Compile Include="Features\Plots\CategoriesPlotViewModel.cs" />
     <Compile Include="Features\Plots\WealthViewModel.cs" />
+    <Compile Include="Features\Transactions\PaymentValueControl.xaml.cs">
+      <DependentUpon>PaymentValueControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Logic\Debouncer.cs" />
     <Compile Include="Features\Search\SearchState.cs" />
     <Compile Include="Features\MassReplacer\MassReplacerView.xaml.cs">
@@ -428,6 +431,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Features\Transactions\PaymentValueControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Features\Transactions\Positions\PositionListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -457,6 +464,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Skins\Controls\MenuSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\PaymentValueControlSkin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -509,10 +520,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Skins\Controls\WindowChromeSkin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Skins\DataModels\PaymentValue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

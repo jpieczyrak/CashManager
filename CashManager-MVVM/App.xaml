@@ -30,7 +30,6 @@
                 <ResourceDictionary Source="Skins/Controls/TooltipSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/PlotViewSkin.xaml" />
                 <ResourceDictionary Source="Skins/DataModels/Selectors.xaml" />
-                <ResourceDictionary Source="Skins/DataModels/PaymentValue.xaml"/>
                 <ResourceDictionary Source="Skins/DataModels/TransactionsSummary.xaml"/>
                 <ResourceDictionary Source="Skins/DataModels/ViewModels.xaml"/>
                 <ResourceDictionary Source="Skins/Controls/SliderSkin.xaml"/>
@@ -39,6 +38,7 @@
                 <ResourceDictionary Source="Skins/Controls/WindowChromeSkin.xaml"/>
                 <ResourceDictionary Source="Skins/Controls/TabControlSkin.xaml"/>
                 <ResourceDictionary Source="Skins/Controls/TabItemSkin.xaml"/>
+                <ResourceDictionary Source="Skins/Controls/PaymentValueControlSkin.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
