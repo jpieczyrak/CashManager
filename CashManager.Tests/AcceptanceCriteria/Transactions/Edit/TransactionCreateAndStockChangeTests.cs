@@ -103,5 +103,58 @@ namespace CashManager.Tests.AcceptanceCriteria.Transactions.Edit
             var stocksViewModel = _fixture.Container.Resolve<StocksViewModel>();
             Assert.Equal(expectedBalance, stocksViewModel.Stocks[0].UserBalance);
         }
+
+        [Theory]
+        [InlineData(1000, 500, 500, TransactionTypes.Outcome, TransactionTypes.Income, 0, 0)]
+        [InlineData(1000, 500, 500, TransactionTypes.Income, TransactionTypes.Outcome, 0, 0)]
+        [InlineData(1000, 500, 1000, TransactionTypes.Income, TransactionTypes.Income, 0, 0)]
+        [InlineData(1000, 500, 1000, TransactionTypes.Outcome, TransactionTypes.Outcome, 0, 0)]
+        [InlineData(1000, 500, 1000, TransactionTypes.Outcome, TransactionTypes.Outcome, -1, 0)]
+        [InlineData(1000, 500, 1000, TransactionTypes.Outcome, TransactionTypes.Outcome, 0, -1)]
+        public void EditTransaction_NoChange_StockBalanceShouldNotBeModified(decimal startBalance, decimal transactionValue, decimal newValue, TransactionTypes originalType, TransactionTypes destinationType, int daysSinceLastStockEdit, int transactionBookDateAsDaysCountUntilToday)
+        {
+            //given
+            var app = _fixture.Container.Resolve<ApplicationViewModel>();
+
+            var descType = CreateType(destinationType);
+            var sourceType = CreateType(originalType);
+            if (destinationType == originalType && destinationType == TransactionTypes.Outcome)
+                CreateType(TransactionTypes.Income); //there have to be income type to create stock balance
+            var userStock = CreateUserStock(startBalance, daysSinceLastStockEdit);
+
+            app.SelectViewModelCommand.Execute(ViewModel.Transaction);
+            var transactionVm = (TransactionViewModel)app.SelectedViewModel;
+
+            transactionVm.SetUpdateMode(TransactionEditModes.NoChange);
+            var transaction = transactionVm.Transaction;
+            var id = transaction.Id;
+            transaction.Title = "first one unedited";
+            transaction.Type = sourceType;
+            transaction.UserStock = userStock;
+            transaction.BookDate = DateTime.Today.AddDays(-transactionBookDateAsDaysCountUntilToday);
+            transaction.Positions[0].Title = "title";
+            transaction.Positions[0].Value.GrossValue = transactionValue;
+            transactionVm.SaveTransactionCommand.Execute(null);
+
+            app.SelectViewModelCommand.Execute(ViewModel.Search);
+            var searchVm = (SearchViewModel)app.SelectedViewModel;
+
+            //edit
+            searchVm.TransactionsListViewModel.SelectedTransaction = searchVm.TransactionsListViewModel.Transactions.FirstOrDefault(x => x.Id == id);
+            searchVm.TransactionsListViewModel.TransactionEditCommand.Execute(null);
+
+            //when
+            transactionVm.Transaction.Type = descType;
+            transactionVm.Transaction.Positions[0].Value.GrossValue = newValue;
+            Assert.True(transactionVm.IsInEditMode);
+            transactionVm.SetUpdateMode(TransactionEditModes.NoChange);
+            transactionVm.SaveTransactionCommand.Execute(null);
+
+            //then
+            Assert.Equal(2, app.TransactionViewModel.Value.TransactionsProvider.AllTransactions.Count); //one is from stock creation
+            Assert.Equal(2, searchVm.TransactionsListViewModel.Transactions.Count);
+            var stocksViewModel = _fixture.Container.Resolve<StocksViewModel>();
+            Assert.Equal(startBalance, stocksViewModel.Stocks[0].UserBalance);
+        }
     }
 }
