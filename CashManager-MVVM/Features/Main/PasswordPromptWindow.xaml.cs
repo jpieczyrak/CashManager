@@ -2,9 +2,11 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
+using CashManager_MVVM.Features.Common;
+
 namespace CashManager_MVVM.Features.Main
 {
-    public partial class PasswordPromptWindow : Window
+    public partial class PasswordPromptWindow : CustomWindow
     {
         public bool Success { get; private set; }
 
