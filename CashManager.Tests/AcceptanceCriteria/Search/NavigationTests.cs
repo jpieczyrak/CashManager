@@ -6,7 +6,6 @@ using Autofac;
 using CashManager.Tests.AcceptanceCriteria.Transactions;
 using CashManager.Tests.ViewModels.Fixtures;
 
-using CashManager_MVVM.Features;
 using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Features.Transactions;

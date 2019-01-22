@@ -68,8 +68,6 @@ namespace CashManager_MVVM.Features.Transactions
         public Dictionary<TransactionEditModes, TransactionEditMode> Modes { get; }
 
         private Tag[] _tags;
-
-        private bool _updateStock;
         private decimal _startTransactionValue;
         private Stock _startUserStock;
 

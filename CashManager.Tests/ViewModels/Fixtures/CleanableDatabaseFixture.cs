@@ -2,8 +2,6 @@
 
 using Autofac;
 
-using LiteDB;
-
 namespace CashManager.Tests.ViewModels.Fixtures
 {
     public class CleanableDatabaseFixture : IDisposable

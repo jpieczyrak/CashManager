@@ -12,7 +12,6 @@ using CashManager.Infrastructure.Query.Stocks;
 
 using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Features.TransactionTypes;
-using CashManager_MVVM.Messages;
 using CashManager_MVVM.Messages.Models;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Properties;
