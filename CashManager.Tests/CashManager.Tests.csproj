@@ -118,7 +118,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcceptanceCriteria\Transactions\TransactionCreateAndStockChangeTests.cs" />
+    <Compile Include="AcceptanceCriteria\Transactions\BaseTransactionTests.cs" />
+    <Compile Include="AcceptanceCriteria\Transactions\Edit\TransactionCreateAndStockChangeTests.cs" />
+    <Compile Include="AcceptanceCriteria\Transactions\Add\TransactionCreateAndStockChangeTests.cs" />
     <Compile Include="AcceptanceCriteria\Transactions\TransactionTypes.cs" />
     <Compile Include="Data\Data\Positions\PositionCategoryAssignTests.cs" />
     <Compile Include="Data\Data\Positions\PositionsCopyTests.cs" />
