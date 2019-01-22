@@ -4,7 +4,6 @@ using Autofac;
 
 using CashManager.Tests.ViewModels.Fixtures;
 
-using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Features.Stocks;
 using CashManager_MVVM.Features.TransactionTypes;
@@ -19,8 +18,7 @@ namespace CashManager.Tests.AcceptanceCriteria.Transactions
         protected BaseTransactionTests(CleanableDatabaseFixture fixture)
         {
             _fixture = fixture;
-            _fixture.Container.Resolve<TransactionsProvider>().AllTransactions.Clear();
-            _fixture.CleanDatabase();
+            _fixture.Reset();
         }
 
         protected TransactionType CreateType(TransactionTypes type)
