@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using Autofac;
 
@@ -27,7 +28,7 @@ namespace CashManager.Tests.AcceptanceCriteria.Transactions
             app.SelectViewModelCommand.Execute(ViewModel.TypesManager);
             var vm = (TransactionTypesViewModel)app.SelectedViewModel;
             vm.AddTransactionTypeCommand.Execute(null);
-            var transactionType = vm.TransactionTypes[0];
+            var transactionType = vm.TransactionTypes.Last();
 
             switch (type)
             {
