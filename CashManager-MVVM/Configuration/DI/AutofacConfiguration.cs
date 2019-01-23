@@ -9,6 +9,7 @@ using CashManager_MVVM.Features;
 using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Main;
 using CashManager_MVVM.Logic.Calculators;
+using CashManager_MVVM.Logic.Creators;
 using CashManager_MVVM.UserCommunication;
 
 using GalaSoft.MvvmLight;
@@ -32,6 +33,7 @@ namespace CashManager_MVVM.Configuration.DI
 
             builder.RegisterType<ViewModelFactory>().As<ViewModelFactory>();
             builder.RegisterType<TransactionBalanceCalculator>().As<TransactionBalanceCalculator>();
+            builder.RegisterType<CorrectionsCreator>().As<ICorrectionsCreator>().SingleInstance().ExternallyOwned();
             builder.RegisterType<TransactionsProvider>().As<TransactionsProvider>().SingleInstance().ExternallyOwned();
 
             builder.RegisterType<MessageBoxService>().As<IMessagesService>();

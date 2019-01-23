@@ -222,6 +222,8 @@
     </Compile>
     <Compile Include="Features\Plots\CategoriesPlotViewModel.cs" />
     <Compile Include="Features\Plots\WealthViewModel.cs" />
+    <Compile Include="Logic\Creators\CorrectionsCreator.cs" />
+    <Compile Include="Logic\Creators\ICorrectionsCreator.cs" />
     <Compile Include="Features\Transactions\PaymentValueControl.xaml.cs">
       <DependentUpon>PaymentValueControl.xaml</DependentUpon>
     </Compile>

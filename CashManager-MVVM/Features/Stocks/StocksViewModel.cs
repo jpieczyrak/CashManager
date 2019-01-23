@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 
@@ -10,16 +9,12 @@ using CashManager.Infrastructure.Command.Stocks;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 
-using CashManager_MVVM.Features.Transactions;
-using CashManager_MVVM.Features.TransactionTypes;
+using CashManager_MVVM.Logic.Creators;
 using CashManager_MVVM.Messages.Models;
 using CashManager_MVVM.Model;
-using CashManager_MVVM.Properties;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-
-using log4net;
 
 using DtoStock = CashManager.Data.DTO.Stock;
 
@@ -27,12 +22,9 @@ namespace CashManager_MVVM.Features.Stocks
 {
     public class StocksViewModel : ViewModelBase, IUpdateable, IClosable
     {
-        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(StocksViewModel)));
-
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
-        private readonly TransactionViewModel _transactionCreator;
-        private readonly TransactionTypesViewModel _typesProvider;
+        private readonly ICorrectionsCreator _correctionsCreator;
 
         public TrulyObservableCollection<Stock> Stocks { get; set; }
 
@@ -40,13 +32,12 @@ namespace CashManager_MVVM.Features.Stocks
 
         public RelayCommand<Stock> RemoveCommand { get; set; }
 
-        public StocksViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory)
+        public StocksViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ICorrectionsCreator correctionsCreator)
         {
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
-            _transactionCreator = factory.Create<TransactionViewModel>();
-            _typesProvider = factory.Create<TransactionTypesViewModel>();
 
+            _correctionsCreator = correctionsCreator;
             Update();
 
             AddStockCommand = new RelayCommand(() =>
@@ -81,40 +72,7 @@ namespace CashManager_MVVM.Features.Stocks
             var balance = sender as Model.Balance;
             if (args.PropertyName != nameof(Model.Balance.Value) || balance == null) return;
 
-            decimal diff = balance.Value - balance.PreviousValue;
-            if (diff == 0m) return;
-
-            var incomeTypes = _typesProvider.TransactionTypes
-                                                 .Where(x => x.Income && !x.IsTransfer)
-                                                 .OrderByDescending(x => x.IsDefault);
-            var outcomeTypes = _typesProvider.TransactionTypes
-                                            .Where(x => x.Outcome && !x.IsTransfer)
-                                            .OrderByDescending(x => x.IsDefault);
-            var transaction = new Transaction
-            {
-                Title = Strings.Correction,
-                Note = Strings.ManualStockUpdate,
-                BookDate = DateTime.Today,
-                Type = diff > 0
-                           ? incomeTypes.FirstOrDefault()
-                           : outcomeTypes.FirstOrDefault(),
-                UserStock = Stocks.FirstOrDefault(x => x.Balance.Equals(balance))
-            };
-            if (transaction.Type == null) _logger.Value.Info("Could not create correction transaction, no matching types!");
-            decimal abs = Math.Abs(diff);
-            var position = new Position
-            {
-                Title = Strings.ManualStockUpdate,
-                BookDate = DateTime.Today,
-                Value = new PaymentValue(abs, abs, 0m),
-                Parent = transaction
-            };
-            transaction.Positions.Add(position);
-            _transactionCreator.ShouldGoBack = false;
-            _transactionCreator.Transaction = transaction;
-            _transactionCreator.Update();
-            _transactionCreator.SaveTransactionCommand.Execute(null);
-            _transactionCreator.ShouldGoBack = true;
+            _correctionsCreator.CreateCorrection(Stocks.FirstOrDefault(x => x.Balance.Equals(balance)));
         }
 
         private void StocksOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
