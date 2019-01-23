@@ -93,6 +93,7 @@ namespace CashManager_MVVM.Features.Stocks
 
         public void Close()
         {
+            Stocks.CollectionChanged -= StocksOnCollectionChanged;
             if (Stocks != null) foreach (var stock in Stocks) stock.Balance.PropertyChanged -= BalanceOnPropertyChanged;
         }
     }
