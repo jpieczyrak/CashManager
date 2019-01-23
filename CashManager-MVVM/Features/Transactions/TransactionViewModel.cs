@@ -344,12 +344,13 @@ namespace CashManager_MVVM.Features.Transactions
                     //add new transaction with diff value
                     if (isSameStockAsAtStart)
                     {
-                        Stock stock = Transaction.UserStock;
-                        _creator.CreateCorrection(stock, -diff);
+                        _creator.CreateCorrection(Transaction.UserStock, -diff);
                     }
                     else
                     {
-                        throw new NotImplementedException();
+                        Transaction.UserStock.Balance.Value += Transaction.ValueWithSign;
+                        _creator.CreateCorrection(_startUserStock, _startTransactionValue);
+                        updatedStocks.Add(_startUserStock);
                     }
                 }
 
