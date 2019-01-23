@@ -22,6 +22,7 @@ using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Categories;
 using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Features.Main;
+using CashManager_MVVM.Logic.Creators;
 using CashManager_MVVM.Messages.Models;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
@@ -48,6 +49,7 @@ namespace CashManager_MVVM.Features.Transactions
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ViewModelFactory _factory;
         private readonly IMessagesService _messagesService;
+        private readonly ICorrectionsCreator _creator;
         private readonly CategoryPickerViewModel _categoryPickerViewModel;
         private IEnumerable<Stock> _stocks;
         private Transaction _transaction;
@@ -122,7 +124,7 @@ namespace CashManager_MVVM.Features.Transactions
         public bool ShouldGoBack { private get; set; } = true;
 
         public TransactionViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
-            ViewModelFactory factory, TransactionsProvider transactionsProvider, IMessagesService messagesService)
+            ViewModelFactory factory, TransactionsProvider transactionsProvider, IMessagesService messagesService, ICorrectionsCreator creator)
         {
             Modes = new Dictionary<TransactionEditModes, TransactionEditMode>
             {
@@ -148,6 +150,7 @@ namespace CashManager_MVVM.Features.Transactions
             _commandDispatcher = commandDispatcher;
             _factory = factory;
             _messagesService = messagesService;
+            _creator = creator;
             _categoryPickerViewModel = _factory.Create<CategoryPickerViewModel>();
 
             NewBillsFilepaths = new ObservableCollection<string>();
@@ -317,18 +320,34 @@ namespace CashManager_MVVM.Features.Transactions
 
         private void HandleStocksValueUpdate()
         {
-            if (Modes[TransactionEditModes.ChangeStockBalance].IsSelected)
+            if (Modes[TransactionEditModes.ChangeStockBalance].IsSelected || Modes[TransactionEditModes.AddCorrection].IsSelected)
             {
                 var updatedStocks = new[] { Transaction.UserStock }.ToList();
-                if (_startUserStock == null || _startUserStock.Equals(Transaction.UserStock))
+                bool isSameStockAsAtStart = _startUserStock == null || _startUserStock.Equals(Transaction.UserStock);
+                decimal diff = Transaction.ValueWithSign - _startTransactionValue;
+
+                if (Modes[TransactionEditModes.ChangeStockBalance].IsSelected)
                 {
-                    Transaction.UserStock.Balance.Value += (Transaction.ValueWithSign - _startTransactionValue);
+                    if (isSameStockAsAtStart) Transaction.UserStock.Balance.Value += diff;
+                    else
+                    {
+                        _startUserStock.Balance.Value -= _startTransactionValue;
+                        Transaction.UserStock.Balance.Value += Transaction.ValueWithSign;
+                        updatedStocks.Add(_startUserStock);
+                    }
                 }
-                else
+                else if (Modes[TransactionEditModes.AddCorrection].IsSelected)
                 {
-                    _startUserStock.Balance.Value -= _startTransactionValue;
-                    Transaction.UserStock.Balance.Value += Transaction.ValueWithSign;
-                    updatedStocks.Add(_startUserStock);
+                    //add new transaction with diff value
+                    if (isSameStockAsAtStart)
+                    {
+                        Stock stock = Transaction.UserStock;
+                        _creator.CreateCorrection(stock, -diff);
+                    }
+                    else
+                    {
+                        throw new NotImplementedException();
+                    }
                 }
 
                 _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock[]>(updatedStocks)));

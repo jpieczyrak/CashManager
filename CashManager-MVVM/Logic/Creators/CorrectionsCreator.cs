@@ -26,9 +26,8 @@ namespace CashManager_MVVM.Logic.Creators
             _typesProvider = new Lazy<TransactionTypesViewModel>(() => _factory.Create<TransactionTypesViewModel>());
         }
 
-        public void CreateCorrection(Stock stock)
+        public void CreateCorrection(Stock stock, decimal diff)
         {
-            decimal diff = stock.Balance.Value - stock.Balance.PreviousValue;
             if (diff == 0m) return;
 
             var incomeTypes = _typesProvider.Value.TransactionTypes

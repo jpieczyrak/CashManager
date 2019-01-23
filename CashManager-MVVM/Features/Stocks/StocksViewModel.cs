@@ -72,7 +72,8 @@ namespace CashManager_MVVM.Features.Stocks
             var balance = sender as Model.Balance;
             if (args.PropertyName != nameof(Model.Balance.Value) || balance == null) return;
 
-            _correctionsCreator.CreateCorrection(Stocks.FirstOrDefault(x => x.Balance.Equals(balance)));
+            var stock = Stocks.FirstOrDefault(x => x.Balance.Equals(balance));
+            _correctionsCreator.CreateCorrection(stock, stock.Balance.Value - stock.Balance.PreviousValue);
         }
 
         private void StocksOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
