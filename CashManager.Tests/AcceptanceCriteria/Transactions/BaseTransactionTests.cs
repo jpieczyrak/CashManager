@@ -51,9 +51,9 @@ namespace CashManager.Tests.AcceptanceCriteria.Transactions
             app.SelectViewModelCommand.Execute(ViewModel.StockManager);
             var stockVm = (StocksViewModel)app.SelectedViewModel;
             stockVm.AddStockCommand.Execute(null);
-            var userStock = stockVm.Stocks[0];
+            var userStock = stockVm.Stocks.Last();
             userStock.IsUserStock = true;
-            userStock.Name = "User stock no 1";
+            userStock.Name = $"User stock no {stockVm.Stocks.Count + 1}";
             userStock.Balance.Value = balanceValue;
 
             if (daysSinceLastStockEdit != 0)
