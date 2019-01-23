@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-
-using AutoMapper;
-
+﻿using AutoMapper;
 using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Logic.Balances;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
-
+using System;
+using System.Collections.Generic;
 using Category = CashManager_MVVM.Model.Category;
 using Stock = CashManager_MVVM.Model.Stock;
 using Tag = CashManager_MVVM.Model.Tag;
@@ -59,8 +56,13 @@ namespace CashManager_MVVM.Configuration.Mapping
                         config.CreateMap<CashManager.Data.DTO.Balance, Balance>()
                               .AfterMap((dto, model) => model.IsPropertyChangedEnabled = true);
 
-                        config.CreateMap<Stock, CashManager.Data.DTO.Stock>();
+                        config.CreateMap<Stock, CashManager.Data.DTO.Stock>()
+                              .AfterMap((model, dto) =>
+                              {
+                                  stocks[model.Id] = model;
+                              });
                         config.CreateMap<CashManager.Data.DTO.Stock, Stock>()
+                              .BeforeMap((dto, model) => model.IsPropertyChangedEnabled = false)
                               .ConstructUsing((dto, context) =>
                               {
                                   if (dto == null) return null;
@@ -70,6 +72,7 @@ namespace CashManager_MVVM.Configuration.Mapping
                               .AfterMap((dto, model) =>
                               {
                                   stocks[dto.Id] = model;
+                                  model.IsPropertyChangedEnabled = true;
                               });
 
                         config.CreateMap<Tag, CashManager.Data.DTO.Tag>();
