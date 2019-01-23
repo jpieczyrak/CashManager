@@ -74,11 +74,11 @@
                 <TextBlock Grid.Row="7" Grid.Column="1" Margin="0,5" Text="{Binding Transaction.LastEditDate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss:fff\}}" VerticalAlignment="Center"/>
 
                 <TextBlock Grid.Row="8" Grid.Column="0" Text="{x:Static properties:Strings.UpdateMode}" VerticalAlignment="Center" Margin="0,0,12,0"/>
-                <ItemsControl Grid.Row="8" Grid.Column="1" MinHeight="20" ItemsSource="{Binding Modes}">
+                <ItemsControl Grid.Row="8" Grid.Column="1" MinHeight="20" ItemsSource="{Binding Modes}" Margin="0,5">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <RadioButton Content="{Binding Value.Name}" ToolTip="{Binding Value.Tooltip}" IsChecked="{Binding Value.IsSelected}"
-                                         GroupName="SelectionModeGroup"
+                                         GroupName="SelectionModeGroup" Margin="0,2,0,4"
                                          Visibility="{Binding Value.IsVisible, Converter={StaticResource Bool2VisibilityConverter}}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
