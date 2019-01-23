@@ -1,4 +1,6 @@
-﻿using CashManager_MVVM.Features.Common;
+﻿using System.Windows;
+
+using CashManager_MVVM.Features.Common;
 using CashManager_MVVM.Utils;
 
 namespace CashManager_MVVM.Features.Main
@@ -10,5 +12,7 @@ namespace CashManager_MVVM.Features.Main
             InitializeComponent();
             SoundPlayerHelper.PlaySound(SoundPlayerHelper.Sound.About);
         }
+
+        protected override void RestoreOnClick(object sender, RoutedEventArgs e) { }
     }
 }
