@@ -130,18 +130,21 @@ namespace CashManager_MVVM.Features.Transactions
             {
                 [TransactionEditModes.NoChange] = new TransactionEditMode
                 {
-                    Name = "No change",
+                    Name = Strings.NoBalanceChange,
+                    Tooltip = Strings.NoBalanceChangeTooltip,
                     Type = TransactionEditModes.NoChange,
                     IsSelected = true
                 },
                 [TransactionEditModes.ChangeStockBalance] = new TransactionEditMode
                 {
-                    Name = "Just change stock balance",
+                    Name = Strings.UpdateStockBalance,
+                    Tooltip = Strings.UpdateStockBalanceTooltip,
                     Type = TransactionEditModes.ChangeStockBalance
                 },
                 [TransactionEditModes.AddCorrection] = new TransactionEditMode
                 {
-                    Name = "Add correction transaction",
+                    Name = Strings.AddCorrectionTransaction,
+                    Tooltip = Strings.AddCorrectionTransactionTooltip,
                     Type = TransactionEditModes.AddCorrection
                 }
             };

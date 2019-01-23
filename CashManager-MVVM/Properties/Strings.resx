@@ -519,4 +519,28 @@
   <data name="AdvancePaymentModeTooltip" xml:space="preserve">
     <value>Net/tax/gross instead simple value</value>
   </data>
+  <data name="NoBalanceChange" xml:space="preserve">
+    <value>No balance change</value>
+  </data>
+  <data name="UpdateStockBalance" xml:space="preserve">
+    <value>Update stock balance</value>
+  </data>
+  <data name="AddCorrectionTransaction" xml:space="preserve">
+    <value>Add correction transaction</value>
+  </data>
+  <data name="NoBalanceChangeTooltip" xml:space="preserve">
+    <value>Stock balance value will stay the same.
+Case: "I just made a mistake, but stock balance is still ok".</value>
+  </data>
+  <data name="UpdateStockBalanceTooltip" xml:space="preserve">
+    <value>Stock balance will be updated.
+Case: "I just made a mistake and everything is wrong (balance and transaction)"!</value>
+  </data>
+  <data name="AddCorrectionTransactionTooltip" xml:space="preserve">
+    <value>It will add additional transaction to leave history untouched.
+Case: "The history (and balance) is ok, but that transaction has wrong value, anyway there as another transaction, which I can't remember and that transaction made history as it is now.</value>
+  </data>
+  <data name="UpdateMode" xml:space="preserve">
+    <value>Update mode</value>
+  </data>
 </root>

@@ -79,6 +79,25 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add correction transaction.
+        /// </summary>
+        public static string AddCorrectionTransaction {
+            get {
+                return ResourceManager.GetString("AddCorrectionTransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It will add additional transaction to leave history untouched.
+        ///Case: &quot;The history (and balance) is ok, but that transaction has wrong value, anyway there as another transaction, which I can&apos;t remember and that transaction made history as it is now..
+        /// </summary>
+        public static string AddCorrectionTransactionTooltip {
+            get {
+                return ResourceManager.GetString("AddCorrectionTransactionTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add position.
         /// </summary>
         public static string AddPosition {
@@ -763,6 +782,25 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No balance change.
+        /// </summary>
+        public static string NoBalanceChange {
+            get {
+                return ResourceManager.GetString("NoBalanceChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stock balance value will stay the same.
+        ///Case: &quot;I just made a mistake, but stock balance is still ok&quot;..
+        /// </summary>
+        public static string NoBalanceChangeTooltip {
+            get {
+                return ResourceManager.GetString("NoBalanceChangeTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Note.
         /// </summary>
         public static string Note {
@@ -1168,11 +1206,39 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update mode.
+        /// </summary>
+        public static string UpdateMode {
+            get {
+                return ResourceManager.GetString("UpdateMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update stock.
         /// </summary>
         public static string UpdateStock {
             get {
                 return ResourceManager.GetString("UpdateStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update stock balance.
+        /// </summary>
+        public static string UpdateStockBalance {
+            get {
+                return ResourceManager.GetString("UpdateStockBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stock balance will be updated.
+        ///Case: &quot;I just made a mistake and everything is wrong (balance and transaction)&quot;!.
+        /// </summary>
+        public static string UpdateStockBalanceTooltip {
+            get {
+                return ResourceManager.GetString("UpdateStockBalanceTooltip", resourceCulture);
             }
         }
         
