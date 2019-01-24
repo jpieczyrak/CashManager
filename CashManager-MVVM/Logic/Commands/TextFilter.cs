@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
@@ -62,9 +63,22 @@ namespace CashManager_MVVM.Logic.Commands
             }
 
             if (selector == null) return results;
-            results = _textSelector.IsCaseSensitive
-                          ? elements.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value))
-                          : elements.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()));
+
+            if (_textSelector.IsRegex)
+            {
+                var regex = new Regex(_textSelector.Value);
+                results = elements.Where(x => regex.IsMatch(selector(x)));
+            }
+            else if (_textSelector.IsWildCard)
+            {
+
+            }
+            else
+            {
+                results = _textSelector.IsCaseSensitive
+                              ? elements.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value))
+                              : elements.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()));
+            }
 
             return results;
         }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 
 using CashManager_MVVM.Logic.Commands;
 using CashManager_MVVM.Model;
@@ -87,6 +88,22 @@ namespace CashManager.Tests.MVVM.Logic.Filters.TextFilters
 
             //then
             Assert.Equal(_transactions.Where(x => x.Title.Contains("Title")), results);
+        }
+
+        [Fact]
+        public void TextFilter_CheckedValueSetRegex_MatchingResults()
+        {
+            //given
+            var selector = new TextSelector(TextSelectorType.Title) { IsChecked = true, Value = ".*[2-4].*", IsRegex = true };
+            var filter = TextFilter.Create(selector);
+            var regex = new Regex(".*[2-4].*");
+
+            //when
+            var results = filter.Execute(_transactions);
+
+            //then
+            Assert.Equal(_transactions.Where(x => regex.IsMatch(x.Title.ToLower())), results);
+            Assert.Equal(3, results.Count());
         }
     }
 }
