@@ -44,28 +44,7 @@ namespace CashManager_MVVM.Logic.Commands
                     break;
             }
 
-            if (selector == null) return new Position[0];
-            if (_textSelector.IsRegex || _textSelector.IsWildCard)
-            {
-                string selectorValue = _textSelector.IsRegex ? _textSelector.Value : _textSelector.Value.WildCardToRegex();
-                try
-                {
-                    var regex = new Regex(selectorValue);
-                    results = results.Where(x => regex.IsMatch(selector(x)) != _textSelector.DisplayOnlyNotMatching);
-                }
-                catch (Exception e)
-                {
-                    _logger.Value.Info("Invalid regex", e);
-                }
-            }
-            else
-            {
-                results = _textSelector.IsCaseSensitive
-                              ? results.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value) != _textSelector.DisplayOnlyNotMatching)
-                              : results.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()) != _textSelector.DisplayOnlyNotMatching);
-            }
-
-            return results;
+            return FilterPositions(selector, results);
         }
 
         public IEnumerable<Transaction> Execute(IEnumerable<Transaction> elements)
@@ -84,28 +63,7 @@ namespace CashManager_MVVM.Logic.Commands
                     return results.Where(x => x.Positions.Any(y => (_textSelector.IsCaseSensitive ? y.Title.Contains(_textSelector.Value) : y.Title.ToLower().Contains(_textSelector.Value.ToLower()))));
             }
 
-            if (selector == null) return new Transaction[0];
-            if (_textSelector.IsRegex || _textSelector.IsWildCard)
-            {
-                string selectorValue = _textSelector.IsRegex ? _textSelector.Value : _textSelector.Value.WildCardToRegex();
-                try
-                {
-                    var regex = new Regex(selectorValue);
-                    results = results.Where(x => regex.IsMatch(selector(x)) != _textSelector.DisplayOnlyNotMatching);
-                }
-                catch (Exception e)
-                {
-                    _logger.Value.Info("Invalid regex", e);
-                }
-            }
-            else
-            {
-                results = _textSelector.IsCaseSensitive
-                              ? results.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value) != _textSelector.DisplayOnlyNotMatching)
-                              : results.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()) != _textSelector.DisplayOnlyNotMatching);
-            }
-
-            return results;
+            return FilterTransactions(selector, results);
         }
 
         public bool CanExecute()
@@ -126,6 +84,60 @@ namespace CashManager_MVVM.Logic.Commands
         ~TextFilter()
         {
             _textSelector.PropertyChanged -= TextSelectorOnPropertyChanged;
+        }
+
+        private IEnumerable<Transaction> FilterTransactions(Func<Transaction, string> selector, IEnumerable<Transaction> results)
+        {
+            if (selector == null) return new Transaction[0];
+            if (_textSelector.IsRegex || _textSelector.IsWildCard)
+            {
+                string selectorValue = _textSelector.IsRegex ? $"^{_textSelector.Value}$" : _textSelector.Value.WildCardToRegex();
+                try
+                {
+                    var regex = new Regex(selectorValue);
+                    results = results.Where(x => regex.IsMatch(selector(x)) != _textSelector.DisplayOnlyNotMatching);
+                }
+                catch (Exception e)
+                {
+                    _logger.Value.Info($"Invalid regex: {_textSelector.Value}", e);
+                }
+            }
+            else
+            {
+                results = _textSelector.IsCaseSensitive
+                              ? results.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value) != _textSelector.DisplayOnlyNotMatching)
+                              : results.Where(x =>
+                                  !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()) != _textSelector.DisplayOnlyNotMatching);
+            }
+
+            return results;
+        }
+
+        private IEnumerable<Position> FilterPositions(Func<Position, string> selector, IEnumerable<Position> results)
+        {
+            if (selector == null) return new Position[0];
+            if (_textSelector.IsRegex || _textSelector.IsWildCard)
+            {
+                string selectorValue = _textSelector.IsRegex ? $"^{_textSelector.Value}$" : _textSelector.Value.WildCardToRegex();
+                try
+                {
+                    var regex = new Regex(selectorValue);
+                    results = results.Where(x => regex.IsMatch(selector(x)) != _textSelector.DisplayOnlyNotMatching);
+                }
+                catch (Exception e)
+                {
+                    _logger.Value.Info($"Invalid regex: {_textSelector.Value}", e);
+                }
+            }
+            else
+            {
+                results = _textSelector.IsCaseSensitive
+                              ? results.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value) != _textSelector.DisplayOnlyNotMatching)
+                              : results.Where(x =>
+                                  !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()) != _textSelector.DisplayOnlyNotMatching);
+            }
+
+            return results;
         }
     }
 }
