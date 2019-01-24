@@ -63,6 +63,20 @@ namespace CashManager.Tests.MVVM.Logic.Filters.TextFilters
         }
 
         [Fact]
+        public void TextFilter_CheckedValueSetInverse_NotMatchingResults()
+        {
+            //given
+            var selector = new TextSelector(TextSelectorType.Title) { IsChecked = true, Value = "Th", DisplayOnlyNotMatching = true };
+            var filter = TextFilter.Create(selector);
+
+            //when
+            var results = filter.Execute(_transactions);
+
+            //then
+            Assert.Equal(_transactions.Where(x => !x.Title.Contains("th")), results);
+        }
+
+        [Fact]
         public void TextFilter_CheckedValueSetCaseSensitive_NoResults()
         {
             //given
@@ -107,6 +121,22 @@ namespace CashManager.Tests.MVVM.Logic.Filters.TextFilters
         }
 
         [Fact]
+        public void TextFilter_CheckedValueSetRegexInverse_NotMatchingResults()
+        {
+            //given
+            var selector = new TextSelector(TextSelectorType.Title) { IsChecked = true, Value = ".*[2-4].*", IsRegex = true, DisplayOnlyNotMatching = true };
+            var filter = TextFilter.Create(selector);
+            var regex = new Regex(".*[2-4].*");
+
+            //when
+            var results = filter.Execute(_transactions);
+
+            //then
+            Assert.Equal(2, results.Count());
+            Assert.Equal(_transactions.Where(x => !regex.IsMatch(x.Title)), results);
+        }
+
+        [Fact]
         public void TextFilter_CheckedValueSetWildcardStar_MatchingResults()
         {
             //given
@@ -136,6 +166,22 @@ namespace CashManager.Tests.MVVM.Logic.Filters.TextFilters
             //then
             Assert.Single(results);
             Assert.Equal(_transactions.Where(x => regex.IsMatch(x.Title)), results);
+        }
+
+        [Fact]
+        public void TextFilter_CheckedValueSetWildcardQuestionInverse_NotMatchingResults()
+        {
+            //given
+            var selector = new TextSelector(TextSelectorType.Title) { IsChecked = true, Value = "?th Title", IsWildCard = true, DisplayOnlyNotMatching = true };
+            var filter = TextFilter.Create(selector);
+            var regex = new Regex(".{1}th Title");
+
+            //when
+            var results = filter.Execute(_transactions);
+
+            //then
+            Assert.Equal(4, results.Count());
+            Assert.Equal(_transactions.Where(x => !regex.IsMatch(x.Title)), results);
         }
     }
 }

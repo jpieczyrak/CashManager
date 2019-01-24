@@ -69,18 +69,18 @@ namespace CashManager_MVVM.Logic.Commands
             if (_textSelector.IsRegex)
             {
                 var regex = new Regex(_textSelector.Value);
-                results = elements.Where(x => regex.IsMatch(selector(x)));
+                results = elements.Where(x => regex.IsMatch(selector(x)) != _textSelector.DisplayOnlyNotMatching);
             }
             else if (_textSelector.IsWildCard)
             {
                 var regex = new Regex(_textSelector.Value.WildCardToRegex());
-                results = elements.Where(x => regex.IsMatch(selector(x)));
+                results = elements.Where(x => regex.IsMatch(selector(x)) != _textSelector.DisplayOnlyNotMatching);
             }
             else
             {
                 results = _textSelector.IsCaseSensitive
-                              ? elements.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value))
-                              : elements.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()));
+                              ? elements.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value) != _textSelector.DisplayOnlyNotMatching)
+                              : elements.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()) != _textSelector.DisplayOnlyNotMatching);
             }
 
             return results;
