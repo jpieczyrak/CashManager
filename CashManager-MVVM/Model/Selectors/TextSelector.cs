@@ -15,7 +15,12 @@ namespace CashManager_MVVM.Model.Selectors
         public string Value
         {
             get => _value;
-            set => Set(nameof(Value), ref _value, value);
+            set
+            {
+                bool addictive = value.Length > _value.Length;
+                Set(nameof(Value), ref _value, value);
+                if (addictive) IsChecked = true;
+            }
         }
 
         public bool IsCaseSensitive
