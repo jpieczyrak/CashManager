@@ -27,13 +27,23 @@ namespace CashManager_MVVM.Model.Selectors
         public bool IsWildCard
         {
             get => _isWildCard;
-            set => Set(ref _isWildCard, value);
+            set
+            {
+                Set(ref _isWildCard, value);
+                _isRegex = false;
+                RaisePropertyChanged(nameof(IsRegex));
+            }
         }
 
         public bool IsRegex
         {
             get => _isRegex;
-            set => Set(ref _isRegex, value);
+            set
+            {
+                Set(ref _isRegex, value);
+                _isWildCard = false;
+                RaisePropertyChanged(nameof(IsWildCard));
+            }
         }
 
         public bool DisplayOnlyNotMatching
