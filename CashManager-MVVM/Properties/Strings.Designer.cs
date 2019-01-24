@@ -233,6 +233,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Case sensitive.
+        /// </summary>
+        public static string CaseSensitive {
+            get {
+                return ResourceManager.GetString("CaseSensitive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Categories.
         /// </summary>
         public static string Categories {
@@ -571,6 +580,15 @@ namespace CashManager_MVVM.Properties {
         public static string Installed {
             get {
                 return ResourceManager.GetString("Installed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inverse - display not matching.
+        /// </summary>
+        public static string InverseMatching {
+            get {
+                return ResourceManager.GetString("InverseMatching", resourceCulture);
             }
         }
         
@@ -990,6 +1008,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Regex.
+        /// </summary>
+        public static string Regex {
+            get {
+                return ResourceManager.GetString("Regex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove.
         /// </summary>
         public static string Remove {
@@ -1320,6 +1347,15 @@ namespace CashManager_MVVM.Properties {
         public static string WealthPlot {
             get {
                 return ResourceManager.GetString("WealthPlot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wildcard.
+        /// </summary>
+        public static string Wildcard {
+            get {
+                return ResourceManager.GetString("Wildcard", resourceCulture);
             }
         }
         

@@ -5,6 +5,10 @@ namespace CashManager_MVVM.Model.Selectors
     public class TextSelector : BaseSelector
     {
         private string _value = string.Empty;
+        private bool _isCaseSensitive;
+        private bool _isWildCard;
+        private bool _isRegex;
+        private bool _displayOnlyNotMatching;
 
         public TextSelectorType Type { get; private set; }
 
@@ -12,6 +16,30 @@ namespace CashManager_MVVM.Model.Selectors
         {
             get => _value;
             set => Set(nameof(Value), ref _value, value);
+        }
+
+        public bool IsCaseSensitive
+        {
+            get => _isCaseSensitive;
+            set => Set(ref _isCaseSensitive, value);
+        }
+
+        public bool IsWildCard
+        {
+            get => _isWildCard;
+            set => Set(ref _isWildCard, value);
+        }
+
+        public bool IsRegex
+        {
+            get => _isRegex;
+            set => Set(ref _isRegex, value);
+        }
+
+        public bool DisplayOnlyNotMatching
+        {
+            get => _displayOnlyNotMatching;
+            set => Set(ref _displayOnlyNotMatching, value);
         }
 
         public TextSelector(TextSelectorType type)

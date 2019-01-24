@@ -543,4 +543,16 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   <data name="UpdateMode" xml:space="preserve">
     <value>Update mode</value>
   </data>
+  <data name="CaseSensitive" xml:space="preserve">
+    <value>Case sensitive</value>
+  </data>
+  <data name="Wildcard" xml:space="preserve">
+    <value>Wildcard</value>
+  </data>
+  <data name="Regex" xml:space="preserve">
+    <value>Regex</value>
+  </data>
+  <data name="InverseMatching" xml:space="preserve">
+    <value>Inverse - display not matching</value>
+  </data>
 </root>
