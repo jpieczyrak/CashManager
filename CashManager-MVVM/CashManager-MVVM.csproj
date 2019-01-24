@@ -212,6 +212,7 @@
     <Compile Include="Features\Main\Settings\SettingsViewModel.cs" />
     <Compile Include="Features\Main\Settings\WarningsSettings.cs" />
     <Compile Include="Features\Main\ViewModel.cs" />
+    <Compile Include="Features\MassReplacer\ReplacerState.cs" />
     <Compile Include="Features\MassReplacer\Selectors\SinglePicker.xaml.cs">
       <DependentUpon>SinglePicker.xaml</DependentUpon>
     </Compile>
