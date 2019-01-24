@@ -22,6 +22,7 @@ namespace CashManager_MVVM.Logic.Commands
 
         public IEnumerable<Position> Execute(IEnumerable<Position> elements)
         {
+            IEnumerable<Position> results = new Position[0];
             Func<Position, string> selector = null;
             switch (_textSelector.Type)
             {
@@ -36,8 +37,12 @@ namespace CashManager_MVVM.Logic.Commands
                     break;
             }
 
-            if (selector == null) return new Position[0];
-            return elements.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()));
+            if (selector == null) return results;
+            results = _textSelector.IsCaseSensitive
+                          ? elements.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value))
+                          : elements.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()));
+
+            return results;
         }
 
         public IEnumerable<Transaction> Execute(IEnumerable<Transaction> elements)

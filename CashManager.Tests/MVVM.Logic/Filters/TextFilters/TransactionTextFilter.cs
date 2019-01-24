@@ -8,9 +8,9 @@ using Xunit;
 
 namespace CashManager.Tests.MVVM.Logic.Filters.TextFilters
 {
-    public class SelectorTextFilter
+    public class TransactionTextFilter
     {
-        private Transaction[] _transactions = new[]
+        private readonly Transaction[] _transactions =
         {
             new Transaction { Title = "1st Title" },
             new Transaction { Title = "2nd Title" },
