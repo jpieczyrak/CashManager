@@ -25,7 +25,7 @@ namespace CashManager_MVVM.Logic.Commands
 
         public IEnumerable<Position> Execute(IEnumerable<Position> elements)
         {
-            IEnumerable<Position> results = new Position[0];
+            var results = elements;
             Func<Position, string> selector = null;
             switch (_textSelector.Type)
             {
@@ -40,10 +40,19 @@ namespace CashManager_MVVM.Logic.Commands
                     break;
             }
 
-            if (selector == null) return results;
-            results = _textSelector.IsCaseSensitive
-                          ? elements.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value))
-                          : elements.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()));
+            if (selector == null) return new Position[0];
+            if (_textSelector.IsRegex || _textSelector.IsWildCard)
+            {
+                string selectorValue = _textSelector.IsRegex ? _textSelector.Value : _textSelector.Value.WildCardToRegex();
+                var regex = new Regex(selectorValue);
+                results = results.Where(x => regex.IsMatch(selector(x)) != _textSelector.DisplayOnlyNotMatching);
+            }
+            else
+            {
+                results = _textSelector.IsCaseSensitive
+                              ? results.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value) != _textSelector.DisplayOnlyNotMatching)
+                              : results.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()) != _textSelector.DisplayOnlyNotMatching);
+            }
 
             return results;
         }
@@ -65,7 +74,6 @@ namespace CashManager_MVVM.Logic.Commands
             }
 
             if (selector == null) return new Transaction[0];
-
             if (_textSelector.IsRegex || _textSelector.IsWildCard)
             {
                 string selectorValue = _textSelector.IsRegex ? _textSelector.Value : _textSelector.Value.WildCardToRegex();

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 
 using CashManager_MVVM.Logic.Commands;
 using CashManager_MVVM.Model;
@@ -62,6 +63,20 @@ namespace CashManager.Tests.MVVM.Logic.Filters.TextFilters
         }
 
         [Fact]
+        public void TextFilter_CheckedValueSetInverse_NotMatchingResults()
+        {
+            //given
+            var selector = new TextSelector(TextSelectorType.PositionTitle) { IsChecked = true, Value = "Th", DisplayOnlyNotMatching = true };
+            var filter = TextFilter.Create(selector);
+
+            //when
+            var results = filter.Execute(_positions);
+
+            //then
+            Assert.Equal(_positions.Where(x => !x.Title.Contains("th")), results);
+        }
+
+        [Fact]
         public void TextFilter_CheckedValueSetCaseSensitive_NoResults()
         {
             //given
@@ -87,6 +102,86 @@ namespace CashManager.Tests.MVVM.Logic.Filters.TextFilters
 
             //then
             Assert.Equal(_positions.Where(x => x.Title.Contains("Title")), results);
+        }
+
+        [Fact]
+        public void TextFilter_CheckedValueSetRegex_MatchingResults()
+        {
+            //given
+            var selector = new TextSelector(TextSelectorType.PositionTitle) { IsChecked = true, Value = ".*[2-4].*", IsRegex = true };
+            var filter = TextFilter.Create(selector);
+            var regex = new Regex(".*[2-4].*");
+
+            //when
+            var results = filter.Execute(_positions);
+
+            //then
+            Assert.Equal(3, results.Count());
+            Assert.Equal(_positions.Where(x => regex.IsMatch(x.Title)), results);
+        }
+
+        [Fact]
+        public void TextFilter_CheckedValueSetRegexInverse_NotMatchingResults()
+        {
+            //given
+            var selector = new TextSelector(TextSelectorType.PositionTitle) { IsChecked = true, Value = ".*[2-4].*", IsRegex = true, DisplayOnlyNotMatching = true };
+            var filter = TextFilter.Create(selector);
+            var regex = new Regex(".*[2-4].*");
+
+            //when
+            var results = filter.Execute(_positions);
+
+            //then
+            Assert.Equal(2, results.Count());
+            Assert.Equal(_positions.Where(x => !regex.IsMatch(x.Title)), results);
+        }
+
+        [Fact]
+        public void TextFilter_CheckedValueSetWildcardStar_MatchingResults()
+        {
+            //given
+            var selector = new TextSelector(TextSelectorType.PositionTitle) { IsChecked = true, Value = "*th*", IsWildCard = true };
+            var filter = TextFilter.Create(selector);
+            var regex = new Regex(".*th.*");
+
+            //when
+            var results = filter.Execute(_positions);
+
+            //then
+            Assert.Equal(2, results.Count());
+            Assert.Equal(_positions.Where(x => regex.IsMatch(x.Title)), results);
+        }
+
+        [Fact]
+        public void TextFilter_CheckedValueSetWildcardQuestion_MatchingResults()
+        {
+            //given
+            var selector = new TextSelector(TextSelectorType.PositionTitle) { IsChecked = true, Value = "?th Title", IsWildCard = true };
+            var filter = TextFilter.Create(selector);
+            var regex = new Regex(".{1}th Title");
+
+            //when
+            var results = filter.Execute(_positions);
+
+            //then
+            Assert.Single(results);
+            Assert.Equal(_positions.Where(x => regex.IsMatch(x.Title)), results);
+        }
+
+        [Fact]
+        public void TextFilter_CheckedValueSetWildcardQuestionInverse_NotMatchingResults()
+        {
+            //given
+            var selector = new TextSelector(TextSelectorType.PositionTitle) { IsChecked = true, Value = "?th Title", IsWildCard = true, DisplayOnlyNotMatching = true };
+            var filter = TextFilter.Create(selector);
+            var regex = new Regex(".{1}th Title");
+
+            //when
+            var results = filter.Execute(_positions);
+
+            //then
+            Assert.Equal(4, results.Count());
+            Assert.Equal(_positions.Where(x => !regex.IsMatch(x.Title)), results);
         }
     }
 }
