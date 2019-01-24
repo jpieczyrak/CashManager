@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
+        <Menu Grid.Row="0" Grid.IsSharedSizeScope="True">
             <MenuItem Header="{x:Static properties:Strings.HomeHeader}" Template="{DynamicResource TopMenuItemControlTemplate}"  Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.Summary}"/>
             <MenuItem Header="{x:Static properties:Strings.TransactionsSearch}" Template="{DynamicResource TopMenuItemControlTemplate}"  Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.Search}"/>
             <MenuItem Header="{x:Static properties:Strings.MassReplacer}" Template="{DynamicResource TopMenuItemControlTemplate}"  Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.MassReplacer}"/>
