@@ -15,6 +15,7 @@ using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
+using CashManager_MVVM.Model.Setters;
 using CashManager_MVVM.Properties;
 
 using GalaSoft.MvvmLight;
@@ -28,9 +29,9 @@ namespace CashManager_MVVM.Features.MassReplacer
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
-        private TextSelector _titleSelector = new TextSelector(TextSelectorType.Title);
-        private TextSelector _noteSelector = new TextSelector(TextSelectorType.Note);
-        private TextSelector _positionTitleSelector = new TextSelector(TextSelectorType.PositionTitle);
+        private TextSetter _titleSelector = new TextSetter(TextSetterType.Title);
+        private TextSetter _noteSelector = new TextSetter(TextSetterType.Note);
+        private TextSetter _positionTitleSelector = new TextSetter(TextSetterType.PositionTitle);
         private DateSelector _bookDateSelector = new DateSelector(Strings.BookDate);
         private SinglePicker _userStocksSelector;
         private SinglePicker _externalStocksSelector;
@@ -76,19 +77,19 @@ namespace CashManager_MVVM.Features.MassReplacer
             set => Set(nameof(TagsSelector), ref _tagsSelector, value);
         }
 
-        public TextSelector TitleSelector
+        public TextSetter TitleSelector
         {
             get => _titleSelector;
             set => Set(nameof(TitleSelector), ref _titleSelector, value);
         }
 
-        public TextSelector NoteSelector
+        public TextSetter NoteSelector
         {
             get => _noteSelector;
             set => Set(nameof(NoteSelector), ref _noteSelector, value);
         }
 
-        public TextSelector PositionTitleSelector
+        public TextSetter PositionTitleSelector
         {
             get => _positionTitleSelector;
             set => Set(nameof(PositionTitleSelector), ref _positionTitleSelector, value);

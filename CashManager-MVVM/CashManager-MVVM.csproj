@@ -215,6 +215,9 @@
     <Compile Include="Features\MassReplacer\Selectors\SinglePicker.xaml.cs">
       <DependentUpon>SinglePicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Features\MassReplacer\Setters\TextSetter.xaml.cs">
+      <DependentUpon>TextSetter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
       <DependentUpon>CategoriesPlotView.xaml</DependentUpon>
     </Compile>
@@ -328,6 +331,8 @@
     <Compile Include="Model\Selectors\TextSelector.cs" />
     <Compile Include="Model\PaymentValue.cs" />
     <Compile Include="Model\Selectors\TextSelectorType.cs" />
+    <Compile Include="Model\Setters\TextSetter.cs" />
+    <Compile Include="Model\Setters\TextSetterType.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\Position.cs" />
     <Compile Include="Model\StoredFileInfo.cs" />
@@ -423,6 +428,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\MassReplacer\Selectors\SinglePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\MassReplacer\Setters\TextSetter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -679,7 +688,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Logic\Commands\Filters\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>del "$(TargetDir)*.xml", "$(TargetDir)*.pdb","$(TargetDir)*.nupkg"</PostBuildEvent>

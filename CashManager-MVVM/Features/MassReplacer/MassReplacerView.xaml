@@ -8,6 +8,7 @@
              xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
              xmlns:selectors="clr-namespace:CashManager_MVVM.Features.Search.Selectors"
              xmlns:massReplaceSelectors="clr-namespace:CashManager_MVVM.Features.MassReplacer.Selectors"
+             xmlns:setters="clr-namespace:CashManager_MVVM.Features.MassReplacer.Setters"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=massReplacer:MassReplacerViewModel, IsDesignTimeCreatable=True}">
 
@@ -41,9 +42,9 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <selectors:TextSelector Grid.Row="0" Grid.Column="0" DataContext="{Binding TitleSelector}" />
-            <selectors:TextSelector Grid.Row="0" Grid.Column="1" DataContext="{Binding NoteSelector}" />
-            <selectors:TextSelector Grid.Row="0" Grid.Column="2" DataContext="{Binding PositionTitleSelector}" />
+            <setters:TextSetter Grid.Row="0" Grid.Column="0" DataContext="{Binding TitleSelector}" />
+            <setters:TextSetter Grid.Row="0" Grid.Column="1" DataContext="{Binding NoteSelector}" />
+            <setters:TextSetter Grid.Row="0" Grid.Column="2" DataContext="{Binding PositionTitleSelector}" />
 
             <selectors:MultiPicker Grid.Row="1" Grid.Column="0" DataContext="{Binding TagsSelector}" />
             <massReplaceSelectors:SinglePicker Grid.Row="1" Grid.Column="1" DataContext="{Binding CategoriesSelector}" />
