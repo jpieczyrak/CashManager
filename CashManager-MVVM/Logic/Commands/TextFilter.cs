@@ -50,7 +50,7 @@ namespace CashManager_MVVM.Logic.Commands
 
         public IEnumerable<Transaction> Execute(IEnumerable<Transaction> elements)
         {
-            IEnumerable<Transaction> results = new Transaction[0];
+            var results = elements;
             Func<Transaction, string> selector = null;
             switch (_textSelector.Type)
             {
@@ -61,26 +61,22 @@ namespace CashManager_MVVM.Logic.Commands
                     selector = x => x.Note;
                     break;
                 case TextSelectorType.PositionTitle:
-                    return elements.Where(x => x.Positions.Any(y => (_textSelector.IsCaseSensitive ? y.Title.Contains(_textSelector.Value) : y.Title.ToLower().Contains(_textSelector.Value.ToLower()))));
+                    return results.Where(x => x.Positions.Any(y => (_textSelector.IsCaseSensitive ? y.Title.Contains(_textSelector.Value) : y.Title.ToLower().Contains(_textSelector.Value.ToLower()))));
             }
 
-            if (selector == null) return results;
+            if (selector == null) return new Transaction[0];
 
-            if (_textSelector.IsRegex)
+            if (_textSelector.IsRegex || _textSelector.IsWildCard)
             {
-                var regex = new Regex(_textSelector.Value);
-                results = elements.Where(x => regex.IsMatch(selector(x)) != _textSelector.DisplayOnlyNotMatching);
-            }
-            else if (_textSelector.IsWildCard)
-            {
-                var regex = new Regex(_textSelector.Value.WildCardToRegex());
-                results = elements.Where(x => regex.IsMatch(selector(x)) != _textSelector.DisplayOnlyNotMatching);
+                string selectorValue = _textSelector.IsRegex ? _textSelector.Value : _textSelector.Value.WildCardToRegex();
+                var regex = new Regex(selectorValue);
+                results = results.Where(x => regex.IsMatch(selector(x)) != _textSelector.DisplayOnlyNotMatching);
             }
             else
             {
                 results = _textSelector.IsCaseSensitive
-                              ? elements.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value) != _textSelector.DisplayOnlyNotMatching)
-                              : elements.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()) != _textSelector.DisplayOnlyNotMatching);
+                              ? results.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value) != _textSelector.DisplayOnlyNotMatching)
+                              : results.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()) != _textSelector.DisplayOnlyNotMatching);
             }
 
             return results;
