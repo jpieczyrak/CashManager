@@ -5,7 +5,7 @@ namespace CashManager_MVVM.Logic.Commands.Setters
 {
     public interface ISetter<T>
     {
-        void Execute(IEnumerable<T> elements, DateTime value);
+        IEnumerable<T> Execute(IEnumerable<T> elements);
 
         bool CanExecute();
     }

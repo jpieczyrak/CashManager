@@ -32,7 +32,7 @@ namespace CashManager_MVVM.Features.MassReplacer
         private TextSetter _titleSelector = new TextSetter(TextSetterType.Title);
         private TextSetter _noteSelector = new TextSetter(TextSetterType.Note);
         private TextSetter _positionTitleSelector = new TextSetter(TextSetterType.PositionTitle);
-        private DateSelector _bookDateSelector = new DateSelector(Strings.BookDate);
+        private DateSetter _bookDateSetter = new DateSetter(DateSetterType.BookDate);
         private SinglePicker _userStocksSelector;
         private SinglePicker _externalStocksSelector;
         private SinglePicker _categoriesSelector;
@@ -41,10 +41,10 @@ namespace CashManager_MVVM.Features.MassReplacer
 
         public SearchViewModel SearchViewModel { get; private set; }
 
-        public DateSelector BookDateSelector
+        public DateSetter BookDateSetter
         {
-            get => _bookDateSelector;
-            set => Set(nameof(BookDateSelector), ref _bookDateSelector, value);
+            get => _bookDateSetter;
+            set => Set(nameof(BookDateSetter), ref _bookDateSetter, value);
         }
 
         public SinglePicker UserStocksSelector
@@ -107,7 +107,7 @@ namespace CashManager_MVVM.Features.MassReplacer
 
         private bool CanExecutePerformCommand()
         {
-            return (_bookDateSelector.IsChecked
+            return (_bookDateSetter.IsChecked
                      || (_userStocksSelector.IsChecked && _userStocksSelector.Selected != null)
                      || (_externalStocksSelector.IsChecked && _externalStocksSelector.Selected != null)
                      || (_titleSelector.IsChecked && !string.IsNullOrWhiteSpace(_titleSelector.Value))
@@ -130,9 +130,9 @@ namespace CashManager_MVVM.Features.MassReplacer
                 foreach (var transaction in transactions)
                     transaction.Note = _noteSelector.Value;
 
-            if (_bookDateSelector.IsChecked)
+            if (_bookDateSetter.IsChecked)
                 foreach (var transaction in transactions)
-                    transaction.BookDate = _bookDateSelector.Value;
+                    transaction.BookDate = _bookDateSetter.Value;
 
             if (_typesSelector.IsChecked && _typesSelector.Selected != null)
                 foreach (var transaction in transactions)

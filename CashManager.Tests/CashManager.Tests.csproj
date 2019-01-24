@@ -159,6 +159,7 @@
     <Compile Include="MVVM.Logic\Filters\TextFilters\PositionMultiFilter.cs" />
     <Compile Include="MVVM.Logic\Filters\TextFilters\TransactionMultiFilter.cs" />
     <Compile Include="MVVM.Logic\Filters\TextFilters\TransactionTextFilter.cs" />
+    <Compile Include="MVVM.Logic\Setters\TransactionDateSetter.cs" />
     <Compile Include="MVVM.Logic\TransactionBalanceCalculatorTests.cs" />
     <Compile Include="Parsers\BaseParserTests.cs" />
     <Compile Include="Parsers\Custom\CustomCsvParserTests.cs" />

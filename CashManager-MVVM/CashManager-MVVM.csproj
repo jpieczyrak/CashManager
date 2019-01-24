@@ -228,8 +228,8 @@
     </Compile>
     <Compile Include="Features\Plots\CategoriesPlotViewModel.cs" />
     <Compile Include="Features\Plots\WealthViewModel.cs" />
-    <Compile Include="Features\MassReplacer\Selectors\DateSelector.xaml.cs">
-      <DependentUpon>DateSelector.xaml</DependentUpon>
+    <Compile Include="Features\MassReplacer\Setters\DateSetterControl.xaml.cs">
+      <DependentUpon>DateSetterControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Search\Selectors\MultiPicker.xaml.cs">
       <DependentUpon>MultiPicker.xaml</DependentUpon>
@@ -268,7 +268,7 @@
     <Compile Include="Logic\Calculators\TransactionBalance.cs" />
     <Compile Include="Logic\Calculators\TransactionBalanceCalculator.cs" />
     <Compile Include="Logic\Commands\Filters\DateFrameFilter.cs" />
-    <Compile Include="Logic\Commands\Setters\DateFrameSetter.cs" />
+    <Compile Include="Logic\Commands\Setters\DateSetterCommand.cs" />
     <Compile Include="Logic\Commands\Setters\ISetter.cs" />
     <Compile Include="Logic\Commands\Filters\MultiPickerFilter.cs" />
     <Compile Include="Logic\Commands\Filters\RangeFilter.cs" />
@@ -321,8 +321,9 @@
     <Compile Include="Model\ExpandableCategory.cs" />
     <Compile Include="Model\Selectors\BaseSelector.cs" />
     <Compile Include="Model\Selectors\DateFrameType.cs" />
-    <Compile Include="Model\Selectors\DateSelector.cs" />
+    <Compile Include="Model\Setters\DateSetter.cs" />
     <Compile Include="Logic\Commands\Filters\IFilter.cs" />
+    <Compile Include="Model\Setters\DateSetterType.cs" />
     <Compile Include="Model\Selectors\MultiPicker.cs" />
     <Compile Include="Model\Selectors\MultiPickerType.cs" />
     <Compile Include="Model\Selectors\RangeSelector.cs" />
@@ -447,7 +448,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Features\MassReplacer\Selectors\DateSelector.xaml">
+    <Page Include="Features\MassReplacer\Setters\DateSetterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

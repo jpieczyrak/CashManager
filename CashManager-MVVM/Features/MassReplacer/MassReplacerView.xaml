@@ -50,7 +50,7 @@
             <massReplaceSelectors:SinglePicker Grid.Row="1" Grid.Column="1" DataContext="{Binding CategoriesSelector}" />
             <massReplaceSelectors:SinglePicker Grid.Row="1" Grid.Column="2" DataContext="{Binding TypesSelector}" />
 
-            <massReplaceSelectors:DateSelector Grid.Row="2" Grid.Column="0" DataContext="{Binding BookDateSelector}" />
+            <setters:DateSetterControl Grid.Row="2" Grid.Column="0" DataContext="{Binding BookDateSetter}" />
             <massReplaceSelectors:SinglePicker Grid.Row="2" Grid.Column="1" DataContext="{Binding UserStocksSelector}" />
             <massReplaceSelectors:SinglePicker Grid.Row="2" Grid.Column="2" DataContext="{Binding ExternalStocksSelector}" />
             
