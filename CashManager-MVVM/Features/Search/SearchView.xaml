@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:CashManager_MVVM.Features.Search"
              xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
              xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
+             xmlns:selectors="clr-namespace:CashManager_MVVM.Features.Search.Selectors"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:SearchViewModel, IsDesignTimeCreatable=True}">
 
@@ -48,9 +49,9 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <UserControl Grid.Row="0" Grid.Column="0" Content="{Binding State.TitleFilter}" />
-            <UserControl Grid.Row="0" Grid.Column="1" Content="{Binding State.NoteFilter}" />
-            <UserControl Grid.Row="0" Grid.Column="2" Content="{Binding State.PositionTitleFilter}" />
+            <selectors:TextSelector Grid.Row="0" Grid.Column="0" DataContext="{Binding State.TitleFilter}" />
+            <selectors:TextSelector Grid.Row="0" Grid.Column="1" DataContext="{Binding State.NoteFilter}" />
+            <selectors:TextSelector Grid.Row="0" Grid.Column="2" DataContext="{Binding State.PositionTitleFilter}" />
 
             <UserControl Grid.Row="1" Grid.Column="0" Content="{Binding State.TagsFilter}" />
             <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding State.CategoriesFilter}" />

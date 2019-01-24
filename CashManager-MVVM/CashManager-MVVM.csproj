@@ -222,6 +222,9 @@
     </Compile>
     <Compile Include="Features\Plots\CategoriesPlotViewModel.cs" />
     <Compile Include="Features\Plots\WealthViewModel.cs" />
+    <Compile Include="Features\Search\Selectors\TextSelector.xaml.cs">
+      <DependentUpon>TextSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Logic\Creators\CorrectionsCreator.cs" />
     <Compile Include="Logic\Creators\ICorrectionsCreator.cs" />
     <Compile Include="Features\Transactions\PaymentValueControl.xaml.cs">
@@ -418,6 +421,10 @@
     <Page Include="Features\Plots\WealthView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Search\Selectors\TextSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\Stocks\StockSummaryView.xaml">
       <SubType>Designer</SubType>
