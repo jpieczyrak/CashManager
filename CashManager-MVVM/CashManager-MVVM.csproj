@@ -228,6 +228,9 @@
     <Compile Include="Features\Search\Selectors\TextSelector.xaml.cs">
       <DependentUpon>TextSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Features\Search\Selectors\ValueRangeSelector.xaml.cs">
+      <DependentUpon>ValueRangeSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Logic\Creators\CorrectionsCreator.cs" />
     <Compile Include="Logic\Creators\ICorrectionsCreator.cs" />
     <Compile Include="Features\Transactions\PaymentValueControl.xaml.cs">
@@ -430,6 +433,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\Search\Selectors\TextSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Search\Selectors\ValueRangeSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

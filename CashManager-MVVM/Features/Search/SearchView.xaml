@@ -63,7 +63,7 @@
 
             <UserControl Grid.Row="3" Grid.Column="0" Content="{Binding State.UserStocksFilter}" />
             <UserControl Grid.Row="3" Grid.Column="1" Content="{Binding State.ExternalStocksFilter}" />
-            <UserControl Grid.Row="3" Grid.Column="2" Content="{Binding State.ValueFilter}" />
+            <selectors:ValueRangeSelector Grid.Row="3" Grid.Column="2" DataContext="{Binding State.ValueFilter}" />
         </Grid>
 
         <UserControl Grid.Row="2" Content="{Binding TransactionsListViewModel}" Visibility="{Binding IsTransactionsSearch, Converter={StaticResource Bool2VisibilityConverter}}" />
