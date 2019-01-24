@@ -7,6 +7,7 @@
              xmlns:massReplacer="clr-namespace:CashManager_MVVM.Features.MassReplacer"
              xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
              xmlns:selectors="clr-namespace:CashManager_MVVM.Features.Search.Selectors"
+             xmlns:massReplaceSelectors="clr-namespace:CashManager_MVVM.Features.MassReplacer.Selectors"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=massReplacer:MassReplacerViewModel, IsDesignTimeCreatable=True}">
 
@@ -48,7 +49,7 @@
             <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding CategoriesSelector}" />
             <UserControl Grid.Row="1" Grid.Column="2" Content="{Binding TypesSelector}" />
 
-            <UserControl Grid.Row="2" Grid.Column="0" Content="{Binding BookDateSelector}" />
+            <massReplaceSelectors:DateSelector Grid.Row="2" Grid.Column="0" DataContext="{Binding BookDateSelector}" />
             <UserControl Grid.Row="2" Grid.Column="1" Content="{Binding UserStocksSelector}" />
             <UserControl Grid.Row="2" Grid.Column="2" Content="{Binding ExternalStocksSelector}" />
             
