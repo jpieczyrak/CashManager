@@ -9,7 +9,7 @@ using CashManager_MVVM.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 
-namespace CashManager_MVVM.Logic.Commands
+namespace CashManager_MVVM.Logic.Commands.Filters
 {
     public class DateFrameFilter : ObservableObject, IFilter<Transaction>, IFilter<Position>
     {

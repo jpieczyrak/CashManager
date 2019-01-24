@@ -16,6 +16,7 @@ using CashManager_MVVM.Features.Transactions;
 using CashManager_MVVM.Features.Transactions.Positions;
 using CashManager_MVVM.Logic;
 using CashManager_MVVM.Logic.Commands;
+using CashManager_MVVM.Logic.Commands.Filters;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Properties;

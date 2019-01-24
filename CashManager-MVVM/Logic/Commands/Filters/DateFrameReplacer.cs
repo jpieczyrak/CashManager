@@ -5,7 +5,7 @@ using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
 
-namespace CashManager_MVVM.Logic.Commands
+namespace CashManager_MVVM.Logic.Commands.Filters
 {
     public class DateFrameReplacer : IReplacer<Transaction>, IReplacer<Position>
     {

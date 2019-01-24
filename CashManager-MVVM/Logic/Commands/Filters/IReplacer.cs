@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CashManager_MVVM.Logic.Commands
+namespace CashManager_MVVM.Logic.Commands.Filters
 {
     public interface IReplacer<T>
     {

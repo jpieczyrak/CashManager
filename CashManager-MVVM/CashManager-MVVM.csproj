@@ -267,12 +267,12 @@
     <Compile Include="Logic\Balances\CustomBalance.cs" />
     <Compile Include="Logic\Calculators\TransactionBalance.cs" />
     <Compile Include="Logic\Calculators\TransactionBalanceCalculator.cs" />
-    <Compile Include="Logic\Commands\DateFrameFilter.cs" />
-    <Compile Include="Logic\Commands\DateFrameReplacer.cs" />
-    <Compile Include="Logic\Commands\IReplacer.cs" />
-    <Compile Include="Logic\Commands\MultiPickerFilter.cs" />
-    <Compile Include="Logic\Commands\RangeFilter.cs" />
-    <Compile Include="Logic\Commands\TextFilter.cs" />
+    <Compile Include="Logic\Commands\Filters\DateFrameFilter.cs" />
+    <Compile Include="Logic\Commands\Filters\DateFrameReplacer.cs" />
+    <Compile Include="Logic\Commands\Filters\IReplacer.cs" />
+    <Compile Include="Logic\Commands\Filters\MultiPickerFilter.cs" />
+    <Compile Include="Logic\Commands\Filters\RangeFilter.cs" />
+    <Compile Include="Logic\Commands\Filters\TextFilter.cs" />
     <Compile Include="Messages\App\ApplicationUpdateMessage.cs" />
     <Compile Include="Messages\Models\DeleteStockMessage.cs" />
     <Compile Include="Model\BillImage.cs" />
@@ -322,7 +322,7 @@
     <Compile Include="Model\Selectors\BaseSelector.cs" />
     <Compile Include="Model\Selectors\DateFrameType.cs" />
     <Compile Include="Model\Selectors\DateSelector.cs" />
-    <Compile Include="Logic\Commands\IFilter.cs" />
+    <Compile Include="Logic\Commands\Filters\IFilter.cs" />
     <Compile Include="Model\Selectors\MultiPicker.cs" />
     <Compile Include="Model\Selectors\MultiPickerType.cs" />
     <Compile Include="Model\Selectors\RangeSelector.cs" />
@@ -688,9 +688,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Logic\Commands\Filters\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>del "$(TargetDir)*.xml", "$(TargetDir)*.pdb","$(TargetDir)*.nupkg"</PostBuildEvent>

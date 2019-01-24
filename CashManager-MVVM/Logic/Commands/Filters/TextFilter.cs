@@ -13,7 +13,7 @@ using GalaSoft.MvvmLight;
 
 using log4net;
 
-namespace CashManager_MVVM.Logic.Commands
+namespace CashManager_MVVM.Logic.Commands.Filters
 {
     public class TextFilter : ObservableObject, IFilter<Transaction>, IFilter<Position>
     {
