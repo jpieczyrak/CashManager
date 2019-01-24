@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+using CashManager.Logic.Extensions;
+
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
 
@@ -71,7 +73,8 @@ namespace CashManager_MVVM.Logic.Commands
             }
             else if (_textSelector.IsWildCard)
             {
-
+                var regex = new Regex(_textSelector.Value.WildCardToRegex());
+                results = elements.Where(x => regex.IsMatch(selector(x)));
             }
             else
             {
