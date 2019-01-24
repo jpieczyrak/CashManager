@@ -27,6 +27,8 @@ namespace CashManager_MVVM.Logic.Commands
             _textSelector.PropertyChanged += TextSelectorOnPropertyChanged;
         }
 
+        #region IFilter<Position>
+
         public IEnumerable<Position> Execute(IEnumerable<Position> elements)
         {
             var results = elements;
@@ -47,6 +49,10 @@ namespace CashManager_MVVM.Logic.Commands
             return FilterPositions(selector, results);
         }
 
+        #endregion
+
+        #region IFilter<Transaction>
+
         public IEnumerable<Transaction> Execute(IEnumerable<Transaction> elements)
         {
             var results = elements;
@@ -66,25 +72,13 @@ namespace CashManager_MVVM.Logic.Commands
             return FilterTransactions(selector, results);
         }
 
-        public bool CanExecute()
-        {
-            return _textSelector.IsChecked && !string.IsNullOrEmpty(_textSelector.Value);
-        }
+        public bool CanExecute() { return _textSelector.IsChecked && !string.IsNullOrEmpty(_textSelector.Value); }
 
-        public static TextFilter Create(TextSelector textSelector)
-        {
-            return new TextFilter(textSelector);
-        }
+        #endregion
 
-        private void TextSelectorOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            RaisePropertyChanged();
-        }
+        public static TextFilter Create(TextSelector textSelector) => new TextFilter(textSelector);
 
-        ~TextFilter()
-        {
-            _textSelector.PropertyChanged -= TextSelectorOnPropertyChanged;
-        }
+        private void TextSelectorOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs) => RaisePropertyChanged();
 
         private IEnumerable<Transaction> FilterTransactions(Func<Transaction, string> selector, IEnumerable<Transaction> results)
         {
@@ -139,5 +133,11 @@ namespace CashManager_MVVM.Logic.Commands
 
             return results;
         }
+
+        #region Override
+
+        ~TextFilter() => _textSelector.PropertyChanged -= TextSelectorOnPropertyChanged;
+
+        #endregion
     }
 }
