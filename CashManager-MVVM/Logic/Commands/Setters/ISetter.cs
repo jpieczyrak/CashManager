@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CashManager_MVVM.Logic.Commands.Filters
+namespace CashManager_MVVM.Logic.Commands.Setters
 {
-    public interface IReplacer<T>
+    public interface ISetter<T>
     {
         void Execute(IEnumerable<T> elements, DateTime value);
 

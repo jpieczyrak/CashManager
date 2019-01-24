@@ -5,14 +5,14 @@ using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
 
-namespace CashManager_MVVM.Logic.Commands.Filters
+namespace CashManager_MVVM.Logic.Commands.Setters
 {
-    public class DateFrameReplacer : IReplacer<Transaction>, IReplacer<Position>
+    public class DateFrameSetter : ISetter<Transaction>, ISetter<Position>
     {
         private readonly DateFrame _dateFrame;
         private readonly Action<IBookable, DateTime> _setter;
 
-        private DateFrameReplacer(DateFrame dateFrame, Action<IBookable, DateTime> setter)
+        private DateFrameSetter(DateFrame dateFrame, Action<IBookable, DateTime> setter)
         {
             _dateFrame = dateFrame;
             _setter = setter;
@@ -29,16 +29,16 @@ namespace CashManager_MVVM.Logic.Commands.Filters
             foreach (var bookable in elements) _setter(bookable, value);
         }
 
-        public static DateFrameReplacer Create(DateFrame dateFrame)
+        public static DateFrameSetter Create(DateFrame dateFrame)
         {
             switch (dateFrame.Type)
             {
                 case DateFrameType.BookDate:
-                    return new DateFrameReplacer(dateFrame, (bookable, time) => bookable.BookDate = time);
+                    return new DateFrameSetter(dateFrame, (bookable, time) => bookable.BookDate = time);
                 case DateFrameType.CreationDate:
-                    return new DateFrameReplacer(dateFrame, (bookable, time) => { } );
+                    return new DateFrameSetter(dateFrame, (bookable, time) => { } );
                 case DateFrameType.EditDate:
-                    return new DateFrameReplacer(dateFrame, (bookable, time) => { } );
+                    return new DateFrameSetter(dateFrame, (bookable, time) => { } );
             }
 
             return null;

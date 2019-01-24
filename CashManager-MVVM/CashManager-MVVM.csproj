@@ -268,8 +268,8 @@
     <Compile Include="Logic\Calculators\TransactionBalance.cs" />
     <Compile Include="Logic\Calculators\TransactionBalanceCalculator.cs" />
     <Compile Include="Logic\Commands\Filters\DateFrameFilter.cs" />
-    <Compile Include="Logic\Commands\Filters\DateFrameReplacer.cs" />
-    <Compile Include="Logic\Commands\Filters\IReplacer.cs" />
+    <Compile Include="Logic\Commands\Setters\DateFrameSetter.cs" />
+    <Compile Include="Logic\Commands\Setters\ISetter.cs" />
     <Compile Include="Logic\Commands\Filters\MultiPickerFilter.cs" />
     <Compile Include="Logic\Commands\Filters\RangeFilter.cs" />
     <Compile Include="Logic\Commands\Filters\TextFilter.cs" />
