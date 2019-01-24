@@ -12,6 +12,8 @@ namespace CashManager_MVVM.Model.Selectors
         public MultiPickerType Type { get; }
 
         private Selectable[] _results;
+        private bool _shouldMatchAllOfTheElements;
+        private bool _canMatchMultipleElements;
 
         public MultiComboBoxViewModel ComboBox { get; private set; }
 
@@ -53,6 +55,18 @@ namespace CashManager_MVVM.Model.Selectors
             }
         }
 
+        public bool ShouldMatchAllOfTheElements
+        {
+            get => _shouldMatchAllOfTheElements;
+            set => Set(ref _shouldMatchAllOfTheElements, value);
+        }
+
+        public bool CanMatchMultipleElements
+        {
+            get => _canMatchMultipleElements;
+            set => Set(ref _canMatchMultipleElements, value);
+        }
+
         private MultiPicker() { }
 
         public MultiPicker(MultiPickerType type, Selectable[] source, Selectable[] selected = null)
@@ -67,6 +81,7 @@ namespace CashManager_MVVM.Model.Selectors
                     break;
                 case MultiPickerType.Tag:
                     Description = Strings.Tags;
+                    CanMatchMultipleElements = true;
                     break;
                 case MultiPickerType.UserStock:
                     Description = Strings.UserStock;

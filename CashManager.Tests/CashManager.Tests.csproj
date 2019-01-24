@@ -156,6 +156,8 @@
     <Compile Include="Mappers\ModelAndDtoMappingTests.cs" />
     <Compile Include="Mappers\ReferenceCreationTests.cs" />
     <Compile Include="MVVM.Logic\Filters\TextFilters\PositionTextFilter.cs" />
+    <Compile Include="MVVM.Logic\Filters\TextFilters\PositionMultiFilter.cs" />
+    <Compile Include="MVVM.Logic\Filters\TextFilters\TransactionMultiFilter.cs" />
     <Compile Include="MVVM.Logic\Filters\TextFilters\TransactionTextFilter.cs" />
     <Compile Include="MVVM.Logic\TransactionBalanceCalculatorTests.cs" />
     <Compile Include="Parsers\BaseParserTests.cs" />

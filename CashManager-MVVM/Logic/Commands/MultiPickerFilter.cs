@@ -29,8 +29,10 @@ namespace CashManager_MVVM.Logic.Commands
                     break;
                 case MultiPickerType.Tag:
                     var tags = new HashSet<Tag>(_picker.Results.Select(x => x.Value as Tag));
-                    elements = elements.Where(x => x.Tags.Any(y => tags.Contains(y)));
-                        break;
+                    elements = _picker.ShouldMatchAllOfTheElements
+                                   ? elements.Where(x => tags.All(y => x.Tags.Contains(y)))
+                                   : elements.Where(x => x.Tags.Any(y => tags.Contains(y)));
+                    break;
                 case MultiPickerType.UserStock:
                     var userStocks = new HashSet<Stock>(_picker.Results.Select(x => x.Value as Stock));
                     elements = elements.Where(x => userStocks.Contains(x.Parent.UserStock));
@@ -59,7 +61,9 @@ namespace CashManager_MVVM.Logic.Commands
                     break;
                 case MultiPickerType.Tag:
                     var tags = new HashSet<Tag>(_picker.Results.Select(x => x.Value as Tag));
-                    elements = elements.Where(x => x.Positions.SelectMany(y => y.Tags).Any(y => tags.Contains(y)));
+                    elements = _picker.ShouldMatchAllOfTheElements
+                                   ? elements.Where(x => tags.All(y => x.Positions.SelectMany(z => z.Tags).Contains(y)))
+                                   : elements.Where(x => x.Positions.SelectMany(y => y.Tags).Any(y => tags.Contains(y)));
                     break;
                 case MultiPickerType.UserStock:
                     var userStocks = new HashSet<Stock>(_picker.Results.Select(x => x.Value as Stock));
