@@ -212,6 +212,9 @@
     <Compile Include="Features\Main\Settings\SettingsViewModel.cs" />
     <Compile Include="Features\Main\Settings\WarningsSettings.cs" />
     <Compile Include="Features\Main\ViewModel.cs" />
+    <Compile Include="Features\MassReplacer\Selectors\SinglePicker.xaml.cs">
+      <DependentUpon>SinglePicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
       <DependentUpon>CategoriesPlotView.xaml</DependentUpon>
     </Compile>
@@ -419,6 +422,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Features\MassReplacer\Selectors\SinglePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Features\Parsers\ParserView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -560,10 +567,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Skins\Controls\TextBoxSkin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Skins\DataModels\Selectors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

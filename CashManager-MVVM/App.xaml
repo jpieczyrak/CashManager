@@ -29,7 +29,6 @@
                 <ResourceDictionary Source="Skins/Controls/TextBlockSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/TooltipSkin.xaml" />
                 <ResourceDictionary Source="Skins/Controls/PlotViewSkin.xaml" />
-                <ResourceDictionary Source="Skins/DataModels/Selectors.xaml" />
                 <ResourceDictionary Source="Skins/DataModels/TransactionsSummary.xaml"/>
                 <ResourceDictionary Source="Skins/DataModels/ViewModels.xaml"/>
                 <ResourceDictionary Source="Skins/Controls/SliderSkin.xaml"/>
