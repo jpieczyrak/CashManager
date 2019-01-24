@@ -11,10 +11,14 @@ using CashManager_MVVM.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 
+using log4net;
+
 namespace CashManager_MVVM.Logic.Commands
 {
     public class TextFilter : ObservableObject, IFilter<Transaction>, IFilter<Position>
     {
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(TextFilter)));
+
         private readonly TextSelector _textSelector;
 
         private TextFilter(TextSelector textSelector)
@@ -44,8 +48,15 @@ namespace CashManager_MVVM.Logic.Commands
             if (_textSelector.IsRegex || _textSelector.IsWildCard)
             {
                 string selectorValue = _textSelector.IsRegex ? _textSelector.Value : _textSelector.Value.WildCardToRegex();
-                var regex = new Regex(selectorValue);
-                results = results.Where(x => regex.IsMatch(selector(x)) != _textSelector.DisplayOnlyNotMatching);
+                try
+                {
+                    var regex = new Regex(selectorValue);
+                    results = results.Where(x => regex.IsMatch(selector(x)) != _textSelector.DisplayOnlyNotMatching);
+                }
+                catch (Exception e)
+                {
+                    _logger.Value.Info("Invalid regex", e);
+                }
             }
             else
             {
@@ -77,8 +88,15 @@ namespace CashManager_MVVM.Logic.Commands
             if (_textSelector.IsRegex || _textSelector.IsWildCard)
             {
                 string selectorValue = _textSelector.IsRegex ? _textSelector.Value : _textSelector.Value.WildCardToRegex();
-                var regex = new Regex(selectorValue);
-                results = results.Where(x => regex.IsMatch(selector(x)) != _textSelector.DisplayOnlyNotMatching);
+                try
+                {
+                    var regex = new Regex(selectorValue);
+                    results = results.Where(x => regex.IsMatch(selector(x)) != _textSelector.DisplayOnlyNotMatching);
+                }
+                catch (Exception e)
+                {
+                    _logger.Value.Info("Invalid regex", e);
+                }
             }
             else
             {
