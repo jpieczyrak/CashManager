@@ -140,7 +140,7 @@
                 <DockPanel Grid.Column="0">
                     <StackPanel Orientation="Horizontal" Margin="0,0,5,0">
                         <CheckBox IsChecked="{Binding IsChecked}" ToolTip="{x:Static properties:Strings.Enable}" Style="{StaticResource OnlyCheckBox}" />
-                        <CheckBox IsChecked="{Binding AllSelected}" Style="{StaticResource OnlyCheckBox}" ToolTip="{x:Static properties:Strings.SelectAllNone}" IsThreeState="True" />
+                        <CheckBox IsChecked="{Binding AllSelected}" Style="{StaticResource OnlyCheckBox}" ToolTip="{x:Static properties:Strings.SelectAllNone}" IsThreeState="True" Margin="0,2,2,0" />
                     </StackPanel>
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Margin="0,0,5,0" Width="Auto"/>
                 </DockPanel>
