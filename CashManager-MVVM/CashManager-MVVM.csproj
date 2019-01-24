@@ -225,6 +225,9 @@
     <Compile Include="Features\MassReplacer\Selectors\DateSelector.xaml.cs">
       <DependentUpon>DateSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Features\Search\Selectors\MultiPicker.xaml.cs">
+      <DependentUpon>MultiPicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Features\Search\Selectors\TextSelector.xaml.cs">
       <DependentUpon>TextSelector.xaml</DependentUpon>
     </Compile>
@@ -429,6 +432,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Features\MassReplacer\Selectors\DateSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Search\Selectors\MultiPicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -45,7 +45,7 @@
             <selectors:TextSelector Grid.Row="0" Grid.Column="1" DataContext="{Binding NoteSelector}" />
             <selectors:TextSelector Grid.Row="0" Grid.Column="2" DataContext="{Binding PositionTitleSelector}" />
 
-            <UserControl Grid.Row="1" Grid.Column="0" Content="{Binding TagsSelector}" />
+            <selectors:MultiPicker Grid.Row="1" Grid.Column="0" DataContext="{Binding TagsSelector}" />
             <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding CategoriesSelector}" />
             <UserControl Grid.Row="1" Grid.Column="2" Content="{Binding TypesSelector}" />
 

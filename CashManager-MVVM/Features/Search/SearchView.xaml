@@ -53,16 +53,16 @@
             <selectors:TextSelector Grid.Row="0" Grid.Column="1" DataContext="{Binding State.NoteFilter}" />
             <selectors:TextSelector Grid.Row="0" Grid.Column="2" DataContext="{Binding State.PositionTitleFilter}" />
 
-            <UserControl Grid.Row="1" Grid.Column="0" Content="{Binding State.TagsFilter}" />
-            <UserControl Grid.Row="1" Grid.Column="1" Content="{Binding State.CategoriesFilter}" />
-            <UserControl Grid.Row="1" Grid.Column="2" Content="{Binding State.TypesFilter}" />
+            <selectors:MultiPicker Grid.Row="1" Grid.Column="0" DataContext="{Binding State.TagsFilter}" />
+            <selectors:MultiPicker Grid.Row="1" Grid.Column="1" DataContext="{Binding State.CategoriesFilter}" />
+            <selectors:MultiPicker Grid.Row="1" Grid.Column="2" DataContext="{Binding State.TypesFilter}" />
 
             <common:DateRangePicker Grid.Row="2" Grid.Column="0" DateFrame="{Binding State.CreateDateFilter}" />
             <common:DateRangePicker Grid.Row="2" Grid.Column="1" DateFrame="{Binding State.BookDateFilter}" />
             <common:DateRangePicker Grid.Row="2" Grid.Column="2" DateFrame="{Binding State.LastEditDateFilter}" />
 
-            <UserControl Grid.Row="3" Grid.Column="0" Content="{Binding State.UserStocksFilter}" />
-            <UserControl Grid.Row="3" Grid.Column="1" Content="{Binding State.ExternalStocksFilter}" />
+            <selectors:MultiPicker Grid.Row="3" Grid.Column="0" DataContext="{Binding State.UserStocksFilter}" />
+            <selectors:MultiPicker Grid.Row="3" Grid.Column="1" DataContext="{Binding State.ExternalStocksFilter}" />
             <selectors:ValueRangeSelector Grid.Row="3" Grid.Column="2" DataContext="{Binding State.ValueFilter}" />
         </Grid>
 
