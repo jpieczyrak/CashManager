@@ -60,7 +60,7 @@ namespace CashManager_MVVM.Logic.Commands
                     selector = x => x.Note;
                     break;
                 case TextSelectorType.PositionTitle:
-                    return results.Where(x => x.Positions.Any(y => (_textSelector.IsCaseSensitive ? y.Title.Contains(_textSelector.Value) : y.Title.ToLower().Contains(_textSelector.Value.ToLower()))));
+                    return FilterPositions(x => x.Title, results.SelectMany(x => x.Positions)).Select(x => x.Parent).Distinct();
             }
 
             return FilterTransactions(selector, results);
