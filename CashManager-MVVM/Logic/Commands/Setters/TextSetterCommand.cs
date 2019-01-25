@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 using CashManager.Logic.Extensions;
@@ -30,7 +31,11 @@ namespace CashManager_MVVM.Logic.Commands.Setters
         public IEnumerable<Position> Execute(IEnumerable<Position> elements)
         {
             var action = GetPositionAction(_textSetter.Type);
-            foreach (var position in elements) action(position, _textSetter.Value);
+            var positions = _textSetter.Type == TextSetterType.Title || _textSetter.Type == TextSetterType.Note
+                                 ? elements.Select(x => x.Parent).Distinct().SelectMany(x => x.Positions)
+                                 : elements;
+            foreach (var position in positions)
+                action(position, _textSetter.Value);
             return elements;
         }
 
@@ -189,7 +194,6 @@ namespace CashManager_MVVM.Logic.Commands.Setters
             return null;
         }
 
-
         public string GetMatchValue(Transaction transaction)
         {
             //todo: [DisplayOnlyNotMatching]
@@ -224,7 +228,6 @@ namespace CashManager_MVVM.Logic.Commands.Setters
 
             return string.Empty;
         }
-
 
         public string GetMatchValue(Position position)
         {

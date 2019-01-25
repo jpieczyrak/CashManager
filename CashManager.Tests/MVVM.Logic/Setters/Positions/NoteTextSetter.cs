@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 
+using CashManager_MVVM;
 using CashManager_MVVM.Logic.Commands.Setters;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
@@ -19,6 +20,12 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions
             new Position { Parent = new Transaction { Note = "Note 2" } },
             new Position { Parent = new Transaction { Note = "Note 3" } }
         };
+
+        public NoteTextSetter()
+        {
+            foreach (var position in _positions)
+                position.Parent.Positions = new TrulyObservableCollection<Position> { position };
+        }
 
         [Fact]
         public void TextSetter_DisabledSetter_NoChange()

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 
+using CashManager_MVVM;
 using CashManager_MVVM.Logic.Commands.Setters;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
@@ -13,29 +14,19 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions
 {
     public class TransactionTitleTextSetter
     {
-        private static readonly Transaction _commonParent = new Transaction { Title = "Title 3" };
-        private readonly Position[] _positions =
-        {
-            new Position { Parent = new Transaction { Title = "Title 1" } },
-
-            new Position { Parent = new Transaction { Title = "Title 2" } },
-            new Position { Parent = _commonParent },
-            new Position { Parent = _commonParent },
-        };
-
-
         [Fact]
         public void TextSetter_DisabledSetter_NoChange()
         {
             //given
             var textSetter = new TextSetter(TextSetterType.Title);
             var command = TextSetterCommand.Create(textSetter);
+            var positions = GetPositions();
 
             //when
-            var result = command.Execute(_positions);
+            var result = command.Execute(positions);
 
             //then
-            Assert.Equal(_positions.Select(x => x.Parent.Title), result.Select(x => x.Parent.Title));
+            Assert.Equal(positions.Select(x => x.Parent.Title), result.Select(x => x.Parent.Title));
         }
 
         [Fact]
@@ -49,7 +40,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions
             var expected = new[] { targetText, targetText, targetText, targetText };
 
             //when
-            var result = command.Execute(_positions);
+            var result = command.Execute(GetPositions());
 
             //then
             Assert.Equal(expected, result.Select(x => x.Parent.Title));
@@ -63,10 +54,11 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions
             string targetText = "title";
             var textSetter = new TextSetter(TextSetterType.Title) { IsChecked = true, Value = targetText, AppendMode = true };
             var command = TextSetterCommand.Create(textSetter);
-            var expected = _positions.Select(x => $"{x.Parent.Title}{targetText}").ToArray();
+            var positions = GetPositions();
+            var expected = positions.Select(x => $"{x.Parent.Title}{targetText}").ToArray();
 
             //when
-            var result = command.Execute(_positions);
+            var result = command.Execute(positions);
 
             //then
             Assert.Equal(expected, result.Select(x => x.Parent.Title));
@@ -84,7 +76,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions
             var expected = new[] { "Ttitlele 1", "Ttitlele 2", "Ttitlele 3", "Ttitlele 3" };
 
             //when
-            var result = command.Execute(_positions);
+            var result = command.Execute(GetPositions());
 
             //then
             Assert.Equal(expected, result.Select(x => x.Parent.Title));
@@ -102,10 +94,27 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions
             var expected = new[] { "Title X", "Title X", "Title X", "Title X" };
 
             //when
-            var result = command.Execute(_positions);
+            var result = command.Execute(GetPositions());
 
             //then
             Assert.Equal(expected, result.Select(x => x.Parent.Title));
+        }
+
+        private Position[] GetPositions()
+        {
+            var commonParent = new Transaction { Title = "Title 3" };
+            Position[] positions =
+            {
+                new Position { Parent = new Transaction { Title = "Title 1" } },
+
+                new Position { Parent = new Transaction { Title = "Title 2" } },
+                new Position { Parent = commonParent },
+                new Position { Parent = commonParent }
+            };
+            foreach (var position in positions)
+                position.Parent.Positions = new TrulyObservableCollection<Position> { position };
+
+            return positions;
         }
     }
 }
