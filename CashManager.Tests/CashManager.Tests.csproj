@@ -161,7 +161,7 @@
     <Compile Include="MVVM.Logic\Filters\TextFilters\TransactionTextFilter.cs" />
     <Compile Include="MVVM.Logic\Setters\Positions\NoteTextSetter.cs" />
     <Compile Include="MVVM.Logic\Setters\Positions\PositionTitleTextSetter.cs" />
-    <Compile Include="MVVM.Logic\Setters\Positions\TitleTextSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Positions\TransactionTitleTextSetter.cs" />
     <Compile Include="MVVM.Logic\Setters\Positions\TransactionDateSetter.cs" />
     <Compile Include="MVVM.Logic\Setters\Transactions\PositionTitleTextSetter.cs" />
     <Compile Include="MVVM.Logic\Setters\Transactions\NoteTextSetter.cs" />
