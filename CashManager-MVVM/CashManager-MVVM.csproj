@@ -241,6 +241,7 @@
     <Compile Include="Features\Search\Selectors\ValueRangeSelector.xaml.cs">
       <DependentUpon>ValueRangeSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Commands\Setters\TextSetterCommand.cs" />
     <Compile Include="Logic\Creators\CorrectionsCreator.cs" />
     <Compile Include="Logic\Creators\ICorrectionsCreator.cs" />
     <Compile Include="Features\Transactions\PaymentValueControl.xaml.cs">
