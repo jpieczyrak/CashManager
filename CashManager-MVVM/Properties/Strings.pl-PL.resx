@@ -205,7 +205,7 @@
     <value>Zapisz</value>
   </data>
   <data name="Wealth" xml:space="preserve">
-    <value>Zasobność</value>
+    <value>Majątek</value>
   </data>
   <data name="TransactionSearch" xml:space="preserve">
     <value>Wyszukiwanie transakcji</value>
@@ -367,7 +367,7 @@
     <value>Typy</value>
   </data>
   <data name="WealthPlot" xml:space="preserve">
-    <value>Wykres zasobności</value>
+    <value>Wykres majątku</value>
   </data>
   <data name="CustomBalances" xml:space="preserve">
     <value>Konfigurowalne salda</value>
@@ -536,5 +536,11 @@ Przypadek: "Historia oraz balans są w porządku, ale transakcja miała złą wa
   </data>
   <data name="UpdateMode" xml:space="preserve">
     <value>Tryb modyfikacji</value>
+  </data>
+  <data name="CaseSensitive" xml:space="preserve">
+    <value>Tryb edycji</value>
+  </data>
+  <data name="InverseMatching" xml:space="preserve">
+    <value>Przeciwieństwo - wyświetl niepasujące</value>
   </data>
 </root>
