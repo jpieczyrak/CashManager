@@ -161,6 +161,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Append mode.
+        /// </summary>
+        public static string AppendMode {
+            get {
+                return ResourceManager.GetString("AppendMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application sounds.
         /// </summary>
         public static string ApplicationSounds {
@@ -1022,6 +1031,15 @@ namespace CashManager_MVVM.Properties {
         public static string Remove {
             get {
                 return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace match.
+        /// </summary>
+        public static string ReplaceMatch {
+            get {
+                return ResourceManager.GetString("ReplaceMatch", resourceCulture);
             }
         }
         

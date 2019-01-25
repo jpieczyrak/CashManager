@@ -555,4 +555,10 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   <data name="InverseMatching" xml:space="preserve">
     <value>Inverse - display not matching</value>
   </data>
+  <data name="AppendMode" xml:space="preserve">
+    <value>Append mode</value>
+  </data>
+  <data name="ReplaceMatch" xml:space="preserve">
+    <value>Replace match</value>
+  </data>
 </root>

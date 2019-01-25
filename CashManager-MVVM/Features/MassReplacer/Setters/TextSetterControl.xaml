@@ -23,6 +23,8 @@
                 </Grid.RowDefinitions>
                 <DockPanel Grid.Column="0" >
                     <CheckBox IsChecked="{Binding IsChecked}" ToolTip="{x:Static properties:Strings.Enable}" Style="{StaticResource OnlyCheckBox}" />
+                    <CheckBox IsChecked="{Binding AppendMode}" ToolTip="{x:Static properties:Strings.AppendMode}" Style="{StaticResource OnlyCheckBox}" Margin="0,2,2,0" />
+                    <CheckBox IsChecked="{Binding ReplaceMatch}" ToolTip="{x:Static properties:Strings.ReplaceMatch}" Style="{StaticResource OnlyCheckBox}" Margin="0,2,2,0" />
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Margin="0,0,5,0" Width="Auto"/>
                 </DockPanel>
                 <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Description}" Style="{DynamicResource GrayTextBlock}" />

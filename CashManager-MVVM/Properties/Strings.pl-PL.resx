@@ -543,4 +543,10 @@ Przypadek: "Historia oraz balans są w porządku, ale transakcja miała złą wa
   <data name="InverseMatching" xml:space="preserve">
     <value>Przeciwieństwo - wyświetl niepasujące</value>
   </data>
+  <data name="ReplaceMatch" xml:space="preserve">
+    <value>Zamień dopasowanie</value>
+  </data>
+  <data name="AppendMode" xml:space="preserve">
+    <value>Tryb dopisywania</value>
+  </data>
 </root>
