@@ -148,7 +148,7 @@ namespace CashManager_MVVM.Logic.Commands.Setters
                             {
                                 string matchValue = GetMatchValue(x);
                                 if (!string.IsNullOrWhiteSpace(matchValue))
-                                    x.Title = x.Title.Replace(matchValue, _textSetter.Value);
+                                    x.Parent.Title = x.Parent.Title.Replace(matchValue, _textSetter.Value);
                                 else
                                     _logger.Value.Debug("No match");
                             };
@@ -166,9 +166,7 @@ namespace CashManager_MVVM.Logic.Commands.Setters
                             {
                                 string matchValue = GetMatchValue(x);
                                 if (!string.IsNullOrWhiteSpace(matchValue))
-                                {
                                     x.Title = x.Title.Replace(matchValue, _textSetter.Value);
-                                }
                                 else
                                     _logger.Value.Debug("No match");
                             };
