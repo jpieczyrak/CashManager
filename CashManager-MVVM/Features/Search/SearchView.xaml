@@ -49,21 +49,21 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <selectors:TextSelector Grid.Row="0" Grid.Column="0" DataContext="{Binding State.TitleFilter}" />
-            <selectors:TextSelector Grid.Row="0" Grid.Column="1" DataContext="{Binding State.NoteFilter}" />
-            <selectors:TextSelector Grid.Row="0" Grid.Column="2" DataContext="{Binding State.PositionTitleFilter}" />
+            <selectors:TextSelectorControl Grid.Row="0" Grid.Column="0" DataContext="{Binding State.TitleFilter}" />
+            <selectors:TextSelectorControl Grid.Row="0" Grid.Column="1" DataContext="{Binding State.NoteFilter}" />
+            <selectors:TextSelectorControl Grid.Row="0" Grid.Column="2" DataContext="{Binding State.PositionTitleFilter}" />
 
-            <selectors:MultiPicker Grid.Row="1" Grid.Column="0" DataContext="{Binding State.TagsFilter}" />
-            <selectors:MultiPicker Grid.Row="1" Grid.Column="1" DataContext="{Binding State.CategoriesFilter}" />
-            <selectors:MultiPicker Grid.Row="1" Grid.Column="2" DataContext="{Binding State.TypesFilter}" />
+            <selectors:MultiPickerControl Grid.Row="1" Grid.Column="0" DataContext="{Binding State.TagsFilter}" />
+            <selectors:MultiPickerControl Grid.Row="1" Grid.Column="1" DataContext="{Binding State.CategoriesFilter}" />
+            <selectors:MultiPickerControl Grid.Row="1" Grid.Column="2" DataContext="{Binding State.TypesFilter}" />
 
             <common:DateRangePicker Grid.Row="2" Grid.Column="0" DateFrame="{Binding State.CreateDateFilter}" />
             <common:DateRangePicker Grid.Row="2" Grid.Column="1" DateFrame="{Binding State.BookDateFilter}" />
             <common:DateRangePicker Grid.Row="2" Grid.Column="2" DateFrame="{Binding State.LastEditDateFilter}" />
 
-            <selectors:MultiPicker Grid.Row="3" Grid.Column="0" DataContext="{Binding State.UserStocksFilter}" />
-            <selectors:MultiPicker Grid.Row="3" Grid.Column="1" DataContext="{Binding State.ExternalStocksFilter}" />
-            <selectors:ValueRangeSelector Grid.Row="3" Grid.Column="2" DataContext="{Binding State.ValueFilter}" />
+            <selectors:MultiPickerControl Grid.Row="3" Grid.Column="0" DataContext="{Binding State.UserStocksFilter}" />
+            <selectors:MultiPickerControl Grid.Row="3" Grid.Column="1" DataContext="{Binding State.ExternalStocksFilter}" />
+            <selectors:ValueRangeControl Grid.Row="3" Grid.Column="2" DataContext="{Binding State.ValueFilter}" />
         </Grid>
 
         <UserControl Grid.Row="2" Content="{Binding TransactionsListViewModel}" Visibility="{Binding IsTransactionsSearch, Converter={StaticResource Bool2VisibilityConverter}}" />

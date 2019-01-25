@@ -2,9 +2,9 @@
 
 namespace CashManager_MVVM.Features.MassReplacer.Setters
 {
-    public partial class TextSetter : UserControl
+    public partial class TextSetterControl : UserControl
     {
-        public TextSetter()
+        public TextSetterControl()
         {
             InitializeComponent();
         }

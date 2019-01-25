@@ -2,9 +2,9 @@
 
 namespace CashManager_MVVM.Features.MassReplacer.Selectors
 {
-    public partial class SinglePicker : UserControl
+    public partial class SinglePickerControl : UserControl
     {
-        public SinglePicker()
+        public SinglePickerControl()
         {
             InitializeComponent();
         }

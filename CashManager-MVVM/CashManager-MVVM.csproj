@@ -213,11 +213,11 @@
     <Compile Include="Features\Main\Settings\WarningsSettings.cs" />
     <Compile Include="Features\Main\ViewModel.cs" />
     <Compile Include="Features\MassReplacer\ReplacerState.cs" />
-    <Compile Include="Features\MassReplacer\Selectors\SinglePicker.xaml.cs">
-      <DependentUpon>SinglePicker.xaml</DependentUpon>
+    <Compile Include="Features\MassReplacer\Selectors\SinglePickerControl.xaml.cs">
+      <DependentUpon>SinglePickerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Features\MassReplacer\Setters\TextSetter.xaml.cs">
-      <DependentUpon>TextSetter.xaml</DependentUpon>
+    <Compile Include="Features\MassReplacer\Setters\TextSetterControl.xaml.cs">
+      <DependentUpon>TextSetterControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
       <DependentUpon>CategoriesPlotView.xaml</DependentUpon>
@@ -232,14 +232,14 @@
     <Compile Include="Features\MassReplacer\Setters\DateSetterControl.xaml.cs">
       <DependentUpon>DateSetterControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Features\Search\Selectors\MultiPicker.xaml.cs">
-      <DependentUpon>MultiPicker.xaml</DependentUpon>
+    <Compile Include="Features\Search\Selectors\MultiPickerControl.xaml.cs">
+      <DependentUpon>MultiPickerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Features\Search\Selectors\TextSelector.xaml.cs">
-      <DependentUpon>TextSelector.xaml</DependentUpon>
+    <Compile Include="Features\Search\Selectors\TextSelectorControl.xaml.cs">
+      <DependentUpon>TextSelectorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Features\Search\Selectors\ValueRangeSelector.xaml.cs">
-      <DependentUpon>ValueRangeSelector.xaml</DependentUpon>
+    <Compile Include="Features\Search\Selectors\ValueRangeControl.xaml.cs">
+      <DependentUpon>ValueRangeControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\Commands\Setters\TextSetterCommand.cs" />
     <Compile Include="Logic\Creators\CorrectionsCreator.cs" />
@@ -430,11 +430,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Features\MassReplacer\Selectors\SinglePicker.xaml">
+    <Page Include="Features\MassReplacer\Selectors\SinglePickerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Features\MassReplacer\Setters\TextSetter.xaml">
+    <Page Include="Features\MassReplacer\Setters\TextSetterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -454,15 +454,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Features\Search\Selectors\MultiPicker.xaml">
+    <Page Include="Features\Search\Selectors\MultiPickerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Features\Search\Selectors\TextSelector.xaml">
+    <Page Include="Features\Search\Selectors\TextSelectorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Features\Search\Selectors\ValueRangeSelector.xaml">
+    <Page Include="Features\Search\Selectors\ValueRangeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

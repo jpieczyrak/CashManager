@@ -23,7 +23,7 @@
             </Grid.ColumnDefinitions>
 
             <common:DateRangePicker Grid.Column="0" DateFrame="{Binding BookDateFilter}" />
-            <selectors:MultiPicker Grid.Column="1" DataContext="{Binding UserStocksFilter}" />
+            <selectors:MultiPickerControl Grid.Column="1" DataContext="{Binding UserStocksFilter}" />
         </Grid>
 
         <oxy:PlotView Grid.Row="1" Model="{Binding Wealth}">

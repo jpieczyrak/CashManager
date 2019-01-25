@@ -2,9 +2,9 @@
 
 namespace CashManager_MVVM.Features.Search.Selectors
 {
-    public partial class TextSelector : UserControl
+    public partial class TextSelectorControl : UserControl
     {
-        public TextSelector()
+        public TextSelectorControl()
         {
             InitializeComponent();
         }

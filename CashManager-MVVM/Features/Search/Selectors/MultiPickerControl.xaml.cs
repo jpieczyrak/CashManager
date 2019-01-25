@@ -2,9 +2,9 @@
 
 namespace CashManager_MVVM.Features.Search.Selectors
 {
-    public partial class MultiPicker : UserControl
+    public partial class MultiPickerControl : UserControl
     {
-        public MultiPicker()
+        public MultiPickerControl()
         {
             InitializeComponent();
         }
