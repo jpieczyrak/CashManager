@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 
 using CashManager.Logic.Extensions;
 
-using CashManager_MVVM.Logic.Commands.Filters;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
 using CashManager_MVVM.Model.Setters;
@@ -51,19 +50,7 @@ namespace CashManager_MVVM.Logic.Commands.Setters
         #endregion
 
         public static TextSetterCommand Create(TextSetter setter, TextSelector selector = null)
-        {
-            switch (setter.Type)
-            {
-                case TextSetterType.Title:
-                    return new TextSetterCommand(setter, selector);
-                case TextSetterType.Note:
-                    break;
-                case TextSetterType.PositionTitle:
-                    break;
-            }
-
-            return null;
-        }
+            => new TextSetterCommand(setter, selector);
 
         private Action<Transaction, string> GetTransactionAction(TextSetterType type)
         {
@@ -74,7 +61,7 @@ namespace CashManager_MVVM.Logic.Commands.Setters
                     case TextSetterType.Title:
                         return (transaction, s) => transaction.Title += s;
                     case TextSetterType.Note:
-                        break;
+                        return (transaction, s) => transaction.Note += s;
                     case TextSetterType.PositionTitle:
                         break;
                 }
@@ -95,7 +82,14 @@ namespace CashManager_MVVM.Logic.Commands.Setters
                                     _logger.Value.Debug("No match");
                             };
                         case TextSetterType.Note:
-                            break;
+                            return (x, s) =>
+                            {
+                                string matchValue = GetMatchValue(x);
+                                if (!string.IsNullOrWhiteSpace(matchValue))
+                                    x.Note = x.Note.Replace(matchValue, _textSetter.Value);
+                                else
+                                    _logger.Value.Debug("No match");
+                            };
                         case TextSetterType.PositionTitle:
                             break;
                     }
@@ -107,7 +101,7 @@ namespace CashManager_MVVM.Logic.Commands.Setters
                         case TextSetterType.Title:
                             return (transaction, s) => transaction.Title = s;
                         case TextSetterType.Note:
-                            break;
+                            return (transaction, s) => transaction.Note = s;
                         case TextSetterType.PositionTitle:
                             break;
                     }
@@ -146,7 +140,6 @@ namespace CashManager_MVVM.Logic.Commands.Setters
 
             return null;
         }
-
 
 
         public string GetMatchValue(Transaction transaction)
