@@ -42,17 +42,17 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <setters:TextSetter Grid.Row="0" Grid.Column="0" DataContext="{Binding TitleSelector}" />
-            <setters:TextSetter Grid.Row="0" Grid.Column="1" DataContext="{Binding NoteSelector}" />
-            <setters:TextSetter Grid.Row="0" Grid.Column="2" DataContext="{Binding PositionTitleSelector}" />
+            <setters:TextSetter Grid.Row="0" Grid.Column="0" DataContext="{Binding State.TitleSelector}" />
+            <setters:TextSetter Grid.Row="0" Grid.Column="1" DataContext="{Binding State.NoteSelector}" />
+            <setters:TextSetter Grid.Row="0" Grid.Column="2" DataContext="{Binding State.PositionTitleSelector}" />
 
-            <selectors:MultiPicker Grid.Row="1" Grid.Column="0" DataContext="{Binding TagsSelector}" />
-            <massReplaceSelectors:SinglePicker Grid.Row="1" Grid.Column="1" DataContext="{Binding CategoriesSelector}" />
-            <massReplaceSelectors:SinglePicker Grid.Row="1" Grid.Column="2" DataContext="{Binding TypesSelector}" />
+            <selectors:MultiPicker Grid.Row="1" Grid.Column="0" DataContext="{Binding State.TagsSelector}" />
+            <massReplaceSelectors:SinglePicker Grid.Row="1" Grid.Column="1" DataContext="{Binding State.CategoriesSelector}" />
+            <massReplaceSelectors:SinglePicker Grid.Row="1" Grid.Column="2" DataContext="{Binding State.TypesSelector}" />
 
-            <setters:DateSetterControl Grid.Row="2" Grid.Column="0" DataContext="{Binding BookDateSetter}" />
-            <massReplaceSelectors:SinglePicker Grid.Row="2" Grid.Column="1" DataContext="{Binding UserStocksSelector}" />
-            <massReplaceSelectors:SinglePicker Grid.Row="2" Grid.Column="2" DataContext="{Binding ExternalStocksSelector}" />
+            <setters:DateSetterControl Grid.Row="2" Grid.Column="0" DataContext="{Binding State.BookDateSetter}" />
+            <massReplaceSelectors:SinglePicker Grid.Row="2" Grid.Column="1" DataContext="{Binding State.UserStocksSelector}" />
+            <massReplaceSelectors:SinglePicker Grid.Row="2" Grid.Column="2" DataContext="{Binding State.ExternalStocksSelector}" />
             
             <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                     Margin="0,5" Height="35" Width="150"
