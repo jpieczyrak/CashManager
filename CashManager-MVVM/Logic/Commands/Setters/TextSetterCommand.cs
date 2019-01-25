@@ -63,7 +63,7 @@ namespace CashManager_MVVM.Logic.Commands.Setters
                     case TextSetterType.Note:
                         return (transaction, s) => transaction.Note += s;
                     case TextSetterType.PositionTitle:
-                        break;
+                        return (transaction, s) => { foreach (var position in transaction.Positions) position.Title += s; };
                 }
             }
             else
@@ -91,7 +91,19 @@ namespace CashManager_MVVM.Logic.Commands.Setters
                                     _logger.Value.Debug("No match");
                             };
                         case TextSetterType.PositionTitle:
-                            break;
+                            return (x, s) =>
+                            {
+                                foreach (var position in x.Positions)
+                                {
+                                    string matchValue = GetMatchValue(position);
+                                    if (!string.IsNullOrWhiteSpace(matchValue))
+                                    {
+                                        position.Title = position.Title.Replace(matchValue, _textSetter.Value);
+                                    }
+                                    else
+                                        _logger.Value.Debug("No match");
+                                }
+                            };
                     }
                 }
                 else
@@ -103,7 +115,7 @@ namespace CashManager_MVVM.Logic.Commands.Setters
                         case TextSetterType.Note:
                             return (transaction, s) => transaction.Note = s;
                         case TextSetterType.PositionTitle:
-                            break;
+                            return (transaction, s) => { foreach (var position in transaction.Positions) position.Title = s; };
                     }
                 }
             }
@@ -154,9 +166,6 @@ namespace CashManager_MVVM.Logic.Commands.Setters
                 case TextSelectorType.Note:
                     selector = t => t.Note;
                     break;
-                case TextSelectorType.PositionTitle:
-                    selector = t => t.Title; //todo:
-                    break;
             }
 
             if (_selector.IsRegex || _selector.IsWildCard)
@@ -166,6 +175,45 @@ namespace CashManager_MVVM.Logic.Commands.Setters
                 {
                     var regex = new Regex(selectorValue);
                     return regex.Match(selector(transaction)).Value;
+                }
+                catch (Exception e)
+                {
+                    _logger.Value.Info($"Invalid regex: {_selector.Value}", e);
+                }
+            }
+            else
+            {
+                return _selector.Value;
+            }
+
+            return string.Empty;
+        }
+
+
+        public string GetMatchValue(Position position)
+        {
+            //todo: [DisplayOnlyNotMatching]
+            Func<Position, string> selector = null;
+            switch (_selector.Type)
+            {
+                case TextSelectorType.Title:
+                    selector = t => t.Parent.Title;
+                    break;
+                case TextSelectorType.Note:
+                    selector = t => t.Parent.Note;
+                    break;
+                case TextSelectorType.PositionTitle:
+                    selector = t => t.Title;
+                    break;
+            }
+
+            if (_selector.IsRegex || _selector.IsWildCard)
+            {
+                string selectorValue = _selector.IsRegex ? _selector.Value : _selector.Value.WildCardToRegex();
+                try
+                {
+                    var regex = new Regex(selectorValue);
+                    return regex.Match(selector(position)).Value;
                 }
                 catch (Exception e)
                 {
