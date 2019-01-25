@@ -4,22 +4,21 @@ using System.Linq;
 using AutoMapper;
 
 using CashManager_MVVM.Logic.Commands.Setters;
-using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Setters;
 
 using Xunit;
 
 using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
 
-namespace CashManager.Tests.MVVM.Logic.Setters
+namespace CashManager.Tests.MVVM.Logic.Setters.Transaction
 {
     public class TransactionDateSetter
     {
-        private readonly Transaction[] _transactions =
+        private readonly CashManager_MVVM.Model.Transaction[] _transactions =
         {
-            new Transaction { BookDate = DateTime.Today.AddDays(-5) },
-            new Transaction { BookDate = DateTime.Today.AddDays(-4) },
-            new Transaction { BookDate = DateTime.Today.AddDays(-3) }
+            new CashManager_MVVM.Model.Transaction { BookDate = DateTime.Today.AddDays(-5) },
+            new CashManager_MVVM.Model.Transaction { BookDate = DateTime.Today.AddDays(-4) },
+            new CashManager_MVVM.Model.Transaction { BookDate = DateTime.Today.AddDays(-3) }
         };
 
         [Fact]
@@ -50,7 +49,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters
 
             //then
             Assert.All(result.Select(x => x.BookDate), time => time.Equals(targetDate));
-            var expected = Mapper.Map<Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
+            var expected = Mapper.Map<CashManager_MVVM.Model.Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
             foreach (var transaction in expected) transaction.BookDate = targetDate;
             Assert.Equal(expected, result);
         }

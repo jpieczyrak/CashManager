@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 using AutoMapper;
 
 using CashManager_MVVM.Logic.Commands.Setters;
-using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
 using CashManager_MVVM.Model.Setters;
 
@@ -12,15 +10,15 @@ using Xunit;
 
 using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
 
-namespace CashManager.Tests.MVVM.Logic.Setters
+namespace CashManager.Tests.MVVM.Logic.Setters.Transaction
 {
-    public class TransactionTextSetter
+    public class TitleTextSetter
     {
-        private readonly Transaction[] _transactions =
+        private readonly CashManager_MVVM.Model.Transaction[] _transactions =
         {
-            new Transaction { Title = "Title 1" },
-            new Transaction { Title = "Title 2" },
-            new Transaction { Title = "Title 3" }
+            new CashManager_MVVM.Model.Transaction { Title = "Title 1" },
+            new CashManager_MVVM.Model.Transaction { Title = "Title 2" },
+            new CashManager_MVVM.Model.Transaction { Title = "Title 3" }
         };
 
         [Fact]
@@ -45,7 +43,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters
             string targetText = "title";
             var textSetter = new TextSetter(TextSetterType.Title) { IsChecked = true, Value = targetText };
             var command = TextSetterCommand.Create(textSetter);
-            var expected = Mapper.Map<Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
+            var expected = Mapper.Map<CashManager_MVVM.Model.Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
             foreach (var transaction in expected) transaction.Title = targetText;
 
             //when
@@ -63,7 +61,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters
             string targetText = "title";
             var textSetter = new TextSetter(TextSetterType.Title) { IsChecked = true, Value = targetText, AppendMode = true };
             var command = TextSetterCommand.Create(textSetter);
-            var expected = Mapper.Map<Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
+            var expected = Mapper.Map<CashManager_MVVM.Model.Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
             foreach (var transaction in expected) transaction.Title += targetText;
 
             //when
