@@ -38,7 +38,7 @@ namespace CashManager_MVVM.Logic.Commands.Setters
 
         #region ISetter<Transaction>
 
-        public bool CanExecute() => _textSetter.IsChecked;
+        public bool CanExecute() => _textSetter.IsChecked && !string.IsNullOrWhiteSpace(_textSetter.Value);
 
         public IEnumerable<Transaction> Execute(IEnumerable<Transaction> elements)
         {
