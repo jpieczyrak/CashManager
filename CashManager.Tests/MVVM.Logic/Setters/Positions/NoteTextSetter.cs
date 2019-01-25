@@ -10,7 +10,7 @@ using Xunit;
 
 using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
 
-namespace CashManager.Tests.MVVM.Logic.Setters.Transaction
+namespace CashManager.Tests.MVVM.Logic.Setters.Positions
 {
     public class NoteTextSetter
     {

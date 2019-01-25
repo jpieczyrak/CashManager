@@ -132,21 +132,59 @@ namespace CashManager_MVVM.Logic.Commands.Setters
                     case TextSetterType.Title:
                         return (position, s) => position.Parent.Title += s;
                     case TextSetterType.Note:
-                        break;
+                        return (position, s) => position.Parent.Note += s;
                     case TextSetterType.PositionTitle:
-                        break;
+                        return (position, s) => { position.Title += s; };
                 }
             }
             else
             {
-                switch (type)
+                if (_textSetter.ReplaceMatch && (_selector?.IsChecked ?? false))
                 {
-                    case TextSetterType.Title:
-                        return (position, s) => position.Parent.Title = s;
-                    case TextSetterType.Note:
-                        break;
-                    case TextSetterType.PositionTitle:
-                        break;
+                    switch (type)
+                    {
+                        case TextSetterType.Title:
+                            return (x, s) =>
+                            {
+                                string matchValue = GetMatchValue(x);
+                                if (!string.IsNullOrWhiteSpace(matchValue))
+                                    x.Title = x.Title.Replace(matchValue, _textSetter.Value);
+                                else
+                                    _logger.Value.Debug("No match");
+                            };
+                        case TextSetterType.Note:
+                            return (x, s) =>
+                            {
+                                string matchValue = GetMatchValue(x);
+                                if (!string.IsNullOrWhiteSpace(matchValue))
+                                    x.Parent.Note = x.Parent.Note.Replace(matchValue, _textSetter.Value);
+                                else
+                                    _logger.Value.Debug("No match");
+                            };
+                        case TextSetterType.PositionTitle:
+                            return (x, s) =>
+                            {
+                                string matchValue = GetMatchValue(x);
+                                if (!string.IsNullOrWhiteSpace(matchValue))
+                                {
+                                    x.Title = x.Title.Replace(matchValue, _textSetter.Value);
+                                }
+                                else
+                                    _logger.Value.Debug("No match");
+                            };
+                    }
+                }
+                else
+                {
+                    switch (type)
+                    {
+                        case TextSetterType.Title:
+                            return (position, s) => position.Parent.Title = s;
+                        case TextSetterType.Note:
+                            return (position, s) => position.Parent.Note = s;
+                        case TextSetterType.PositionTitle:
+                            return (position, s) => position.Title = s;
+                    }
                 }
             }
 

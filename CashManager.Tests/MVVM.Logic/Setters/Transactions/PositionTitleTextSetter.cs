@@ -12,16 +12,16 @@ using Xunit;
 
 using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
 
-namespace CashManager.Tests.MVVM.Logic.Setters.Transaction
+namespace CashManager.Tests.MVVM.Logic.Setters.Transactions
 {
     public class PositionTitleTextSetter
     {
-        private readonly CashManager_MVVM.Model.Transaction[] _transactions =
+        private readonly Transaction[] _transactions =
         {
-            new CashManager_MVVM.Model.Transaction { Positions = new TrulyObservableCollection<Position> { new Position { Title = "Title 1" } } },
+            new Transaction { Positions = new TrulyObservableCollection<Position> { new Position { Title = "Title 1" } } },
 
-            new CashManager_MVVM.Model.Transaction { Positions = new TrulyObservableCollection<Position> { new Position { Title = "Title 2" } } },
-            new CashManager_MVVM.Model.Transaction
+            new Transaction { Positions = new TrulyObservableCollection<Position> { new Position { Title = "Title 2" } } },
+            new Transaction
             {
                 Positions = new TrulyObservableCollection<Position>
                 {
@@ -53,7 +53,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transaction
             string targetText = "test";
             var textSetter = new TextSetter(TextSetterType.PositionTitle) { IsChecked = true, Value = targetText };
             var command = TextSetterCommand.Create(textSetter);
-            var expected = Mapper.Map<CashManager_MVVM.Model.Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
+            var expected = Mapper.Map<Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
             foreach (var position in expected.SelectMany(x => x.Positions)) position.Title = targetText;
 
             //when
@@ -71,7 +71,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transaction
             string targetText = "test";
             var textSetter = new TextSetter(TextSetterType.PositionTitle) { IsChecked = true, Value = targetText, AppendMode = true };
             var command = TextSetterCommand.Create(textSetter);
-            var expected = Mapper.Map<CashManager_MVVM.Model.Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
+            var expected = Mapper.Map<Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
             foreach (var position in expected.SelectMany(x => x.Positions)) position.Title += targetText;
 
             //when
@@ -108,7 +108,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transaction
             var textSelector = new TextSelector(TextSelectorType.PositionTitle) { IsChecked = true, Value = @"\d", IsRegex = true };
             var textSetter = new TextSetter(TextSetterType.PositionTitle) { IsChecked = true, Value = targetText, ReplaceMatch = true };
             var command = TextSetterCommand.Create(textSetter, textSelector);
-            var expected = new[] { "Title X", "Title X", "Title X", "Title X", };
+            var expected = new[] { "Title X", "Title X", "Title X", "Title X" };
 
             //when
             var result = command.Execute(_transactions);
