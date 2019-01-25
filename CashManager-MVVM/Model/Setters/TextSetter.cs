@@ -35,6 +35,14 @@ namespace CashManager_MVVM.Model.Setters
             set => Set(ref _appendMode, value);
         }
 
+        private bool _replaceMatch;
+
+        public bool ReplaceMatch
+        {
+            get => _replaceMatch;
+            set => Set(ref _replaceMatch, value);
+        }
+
         public TextSetter(TextSetterType type)
         {
             Type = type;
