@@ -27,6 +27,14 @@ namespace CashManager_MVVM.Model.Setters
             set => Set(ref _displayOnlyNotMatching, value);
         }
 
+        private bool _appendMode;
+
+        public bool AppendMode
+        {
+            get => _appendMode;
+            set => Set(ref _appendMode, value);
+        }
+
         public TextSetter(TextSetterType type)
         {
             Type = type;

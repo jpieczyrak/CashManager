@@ -56,14 +56,29 @@ namespace CashManager_MVVM.Logic.Commands.Setters
 
         private Action<Transaction, string> GetTransactionAction(TextSetterType type)
         {
-            switch (type)
+            if (_textSetter.AppendMode)
             {
-                case TextSetterType.Title:
-                    return (transaction, s) => transaction.Title = s;
-                case TextSetterType.Note:
-                    break;
-                case TextSetterType.PositionTitle:
-                    break;
+                switch (type)
+                {
+                    case TextSetterType.Title:
+                        return (transaction, s) => transaction.Title += s;
+                    case TextSetterType.Note:
+                        break;
+                    case TextSetterType.PositionTitle:
+                        break;
+                }
+            }
+            else
+            {
+                switch (type)
+                {
+                    case TextSetterType.Title:
+                        return (transaction, s) => transaction.Title = s;
+                    case TextSetterType.Note:
+                        break;
+                    case TextSetterType.PositionTitle:
+                        break;
+                }
             }
 
             return null;
@@ -71,14 +86,29 @@ namespace CashManager_MVVM.Logic.Commands.Setters
 
         private Action<Position, string> GetPositionAction(TextSetterType type)
         {
-            switch (type)
+            if (_textSetter.AppendMode)
             {
-                case TextSetterType.Title:
-                    return (position, s) => position.Title = s;
-                case TextSetterType.Note:
-                    break;
-                case TextSetterType.PositionTitle:
-                    break;
+                switch (type)
+                {
+                    case TextSetterType.Title:
+                        return (position, s) => position.Parent.Title += s;
+                    case TextSetterType.Note:
+                        break;
+                    case TextSetterType.PositionTitle:
+                        break;
+                }
+            }
+            else
+            {
+                switch (type)
+                {
+                    case TextSetterType.Title:
+                        return (position, s) => position.Parent.Title = s;
+                    case TextSetterType.Note:
+                        break;
+                    case TextSetterType.PositionTitle:
+                        break;
+                }
             }
 
             return null;

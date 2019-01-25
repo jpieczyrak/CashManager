@@ -17,9 +17,9 @@ namespace CashManager.Tests.MVVM.Logic.Setters
     {
         private readonly Transaction[] _transactions =
         {
-            new Transaction { Title="Title 1" },
-            new Transaction { Title="Title 2" },
-            new Transaction { Title="Title 3" }
+            new Transaction { Title = "Title 1" },
+            new Transaction { Title = "Title 2" },
+            new Transaction { Title = "Title 3" }
         };
 
         [Fact]
@@ -33,7 +33,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters
             var result = command.Execute(_transactions);
 
             //then
-            Assert.Equal(_transactions, result);
+            Assert.Equal(_transactions.Select(x => x.Title), result.Select(x => x.Title));
         }
 
         [Fact]
@@ -44,15 +44,32 @@ namespace CashManager.Tests.MVVM.Logic.Setters
             string targetText = "title";
             var textSetter = new TextSetter(TextSetterType.Title) { IsChecked = true, Value = targetText };
             var command = TextSetterCommand.Create(textSetter);
+            var expected = Mapper.Map<Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
+            foreach (var transaction in expected) transaction.Title = targetText;
 
             //when
             var result = command.Execute(_transactions);
 
             //then
-            Assert.All(result.Select(x => x.Title), value => value.Equals(targetText));
+            Assert.Equal(expected.Select(x => x.Title), result.Select(x => x.Title));
+        }
+
+        [Fact]
+        public void TextSetter_EnabledSetterAppend_Appended()
+        {
+            //given
+            MapperConfiguration.Configure();
+            string targetText = "title";
+            var textSetter = new TextSetter(TextSetterType.Title) { IsChecked = true, Value = targetText, AppendMode = true };
+            var command = TextSetterCommand.Create(textSetter);
             var expected = Mapper.Map<Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
-            foreach (var transaction in expected) transaction.Title = targetText;
-            Assert.Equal(expected, result);
+            foreach (var transaction in expected) transaction.Title += targetText;
+
+            //when
+            var result = command.Execute(_transactions);
+
+            //then
+            Assert.Equal(expected.Select(x => x.Title), result.Select(x => x.Title));
         }
     }
 }
