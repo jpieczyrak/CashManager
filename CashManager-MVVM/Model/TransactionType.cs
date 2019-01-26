@@ -34,6 +34,8 @@ namespace CashManager_MVVM.Model
             set => Set(ref _isTransfer, value);
         }
 
+        public string DisplayName => $"[{(Income ? "+" : "-")}] {Name}";
+
         #region Override
 
         public override string ToString() { return Name; }
