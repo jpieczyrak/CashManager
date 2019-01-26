@@ -17,7 +17,7 @@ namespace CashManager_MVVM.Model.Selectors
             get => _value;
             set
             {
-                bool addictive = (value?.Length ?? 0) > _value.Length;
+                bool addictive = (value?.Length ?? 0) > (_value?.Length ?? 0);
                 Set(nameof(Value), ref _value, value);
                 if (addictive) IsChecked = true;
             }
