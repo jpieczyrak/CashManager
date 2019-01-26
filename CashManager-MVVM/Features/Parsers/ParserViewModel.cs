@@ -30,8 +30,9 @@ using GongSolutions.Wpf.DragDrop;
 using log4net;
 
 using DtoStock = CashManager.Data.DTO.Stock;
-using DtoTransactionType = CashManager.Data.DTO.TransactionType;
+using DtoBalance = CashManager.Data.DTO.Balance;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
+using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 
 namespace CashManager_MVVM.Features.Parsers
 {
@@ -122,46 +123,7 @@ namespace CashManager_MVVM.Features.Parsers
             SaveCommand = new RelayCommand(ExecuteSaveCommand, CanExecuteSaveCommand);
         }
 
-        private bool CanExecuteSaveCommand()
-        {
-            return ResultsListViewModel != null && ResultsListViewModel.Transactions.Any();
-        }
-
-        private void ExecuteSaveCommand()
-        {
-            var transactions = ResultsListViewModel.Transactions;
-            _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction[]>(transactions)));
-
-            TransactionsProvider.AllTransactions.RemoveRange(transactions);
-            TransactionsProvider.AllTransactions.AddRange(transactions);
-
-            var balances = SelectedParser.Value.Balances
-                                         //.Where(x => x.Value.LastEditDate > x.Key.Balance.LastEditDate) //todo: ask for update
-                                         .ToArray();
-            if (balances.Any())
-            {
-                foreach (var balance in balances) balance.Key.Balance = balance.Value;
-
-                var updatedStocks = balances.Select(x => x.Key).ToArray();
-                var stocks = Mapper.Map<Stock[]>(updatedStocks);
-
-                //todo: simplify
-                var idBalances = balances.ToDictionary(x => x.Key.Id, x => x.Value);
-
-                foreach (var stock in stocks)
-                {
-                    stock.Balance.IsPropertyChangedEnabled = true;
-                    stock.Balance.Value = idBalances[stock.Id].Value; //lets trigger edit date change [and update balance - there is some problem with mapping]
-                }
-                _commandDispatcher.Execute(new UpsertStocksCommand(updatedStocks));
-                MessengerInstance.Send(new UpdateStockMessage(stocks));
-            }
-        }
-
-        private bool CanExecuteParseCommand()
-        {
-            return !string.IsNullOrEmpty(InputText);
-        }
+        private bool CanExecuteParseCommand() => !string.IsNullOrEmpty(InputText);
 
         private void ExecuteParseCommand()
         {
@@ -183,6 +145,41 @@ namespace CashManager_MVVM.Features.Parsers
 
 
             RaisePropertyChanged(nameof(ResultsListViewModel));
+        }
+
+        private bool CanExecuteSaveCommand() => ResultsListViewModel != null && ResultsListViewModel.Transactions.Any();
+
+        private void ExecuteSaveCommand()
+        {
+            var transactions = ResultsListViewModel.Transactions;
+            _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction[]>(transactions)));
+
+            TransactionsProvider.AllTransactions.RemoveRange(transactions);
+            TransactionsProvider.AllTransactions.AddRange(transactions);
+
+            var balances = SelectedParser.Value.Balances
+                                         .Where(x => x.Value.LastEditDate > x.Key.Balance.LastEditDate)
+                                         .ToArray();
+            if (balances.Any())
+            {
+                var updatedStocks = Mapper.Map<Stock[]>(balances.Select(x => x.Key));
+                var updatedDtos = UpdateStockBalances(balances, updatedStocks);
+                _commandDispatcher.Execute(new UpsertStocksCommand(updatedDtos));
+                MessengerInstance.Send(new UpdateStockMessage(updatedStocks));
+            }
+        }
+
+        private static DtoStock[] UpdateStockBalances(KeyValuePair<DtoStock, DtoBalance>[] balances, Stock[] updatedStocks)
+        {
+            var idBalances = balances.ToDictionary(x => x.Key.Id, x => x.Value);
+
+            foreach (var stock in updatedStocks)
+            {
+                stock.Balance.IsPropertyChangedEnabled = true;
+                stock.Balance.Value = idBalances[stock.Id].Value;
+            }
+
+            return Mapper.Map<DtoStock[]>(updatedStocks);
         }
 
         public void Update()
