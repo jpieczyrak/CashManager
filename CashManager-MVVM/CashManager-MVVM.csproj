@@ -241,6 +241,7 @@
     <Compile Include="Features\Search\Selectors\ValueRangeControl.xaml.cs">
       <DependentUpon>ValueRangeControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Commands\Setters\SinglePickerSetterCommand.cs" />
     <Compile Include="Logic\Commands\Setters\TextSetterCommand.cs" />
     <Compile Include="Logic\Creators\CorrectionsCreator.cs" />
     <Compile Include="Logic\Creators\ICorrectionsCreator.cs" />
