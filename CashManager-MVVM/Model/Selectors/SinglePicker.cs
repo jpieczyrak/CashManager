@@ -14,7 +14,11 @@ namespace CashManager_MVVM.Model.Selectors
         public Selectable Selected
         {
             get => _selected;
-            set => Set(ref _selected, value);
+            set
+            {
+                Set(ref _selected, value);
+                IsChecked = true;
+            }
         }
 
         public SinglePicker(MultiPickerType type, Selectable[] input)
