@@ -90,7 +90,7 @@
                     <Button Content="{x:Static properties:Strings.Cancel}" Command="{Binding CancelTransactionCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Margin="5" Width="120"/>
                 </UniformGrid>
             </Grid>
-            <Border BorderThickness="1" CornerRadius="{DynamicResource BigCornerRadius}" BorderBrush="{StaticResource DisabledForegroundBrush}" Margin="5,0" Grid.Column="1">
+            <Border BorderThickness="0" CornerRadius="{DynamicResource BigCornerRadius}" BorderBrush="{StaticResource DisabledForegroundBrush}" Margin="5" Grid.Column="1">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
