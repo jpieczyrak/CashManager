@@ -6,7 +6,6 @@ namespace CashManager_MVVM.Model.Setters
     public class TextSetter : BaseSelector
     {
         private string _value = string.Empty;
-        private bool _displayOnlyNotMatching;
 
         public TextSetterType Type { get; private set; }
 
@@ -21,18 +20,20 @@ namespace CashManager_MVVM.Model.Setters
             }
         }
 
-        public bool DisplayOnlyNotMatching
-        {
-            get => _displayOnlyNotMatching;
-            set => Set(ref _displayOnlyNotMatching, value);
-        }
-
         private bool _appendMode;
 
         public bool AppendMode
         {
             get => _appendMode;
-            set => Set(ref _appendMode, value);
+            set
+            {
+                Set(ref _appendMode, value);
+                if (value)
+                {
+                    _replaceMatch = false;
+                    RaisePropertyChanged(nameof(ReplaceMatch));
+                }
+            }
         }
 
         private bool _replaceMatch;
@@ -40,7 +41,15 @@ namespace CashManager_MVVM.Model.Setters
         public bool ReplaceMatch
         {
             get => _replaceMatch;
-            set => Set(ref _replaceMatch, value);
+            set
+            {
+                Set(ref _replaceMatch, value);
+                if (value)
+                {
+                    _appendMode = false;
+                    RaisePropertyChanged(nameof(AppendMode));
+                }
+            }
         }
 
         public TextSetter(TextSetterType type)
