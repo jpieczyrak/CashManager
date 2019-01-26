@@ -514,17 +514,17 @@
     <value>Netto/podatek/brutto zamiast pojedynczej wartości</value>
   </data>
   <data name="NoBalanceChange" xml:space="preserve">
-    <value>Nie zmieniaj balansu</value>
+    <value>Nie zmieniaj bilansu</value>
   </data>
   <data name="UpdateStockBalance" xml:space="preserve">
-    <value>Zaktualizuj balans</value>
+    <value>Zaktualizuj bilans</value>
   </data>
   <data name="AddCorrectionTransaction" xml:space="preserve">
     <value>Dodaj transakcję korekcyjną</value>
   </data>
   <data name="NoBalanceChangeTooltip" xml:space="preserve">
     <value>Wartość zasobu pozostanie bez zmian.
-Przypadek: "Właśnie popełniłem błąd, ale balans jest w porządku".</value>
+Przypadek: "Właśnie popełniłem błąd, ale bilans jest w porządku".</value>
   </data>
   <data name="UpdateStockBalanceTooltip" xml:space="preserve">
     <value>Wartość zasobu zostanie zaktualizowana.
@@ -532,7 +532,7 @@ Przypadek: "Właśnie popełniłem błąd i wszystko jest źle!"</value>
   </data>
   <data name="AddCorrectionTransactionTooltip" xml:space="preserve">
     <value>Zostanie dodana dodatkowa transakcja, żeby historia pozostała bez zmian.
-Przypadek: "Historia oraz balans są w porządku, ale transakcja miała złą wartość. Ponadto istniała transakcja, której nie mogę sobie przypomnieć, a ona spowodowała, że historia wygląda tak jak dotychczas.</value>
+Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wartość. Ponadto istniała transakcja, której nie mogę sobie przypomnieć, a ona spowodowała, że historia wygląda tak jak dotychczas.</value>
   </data>
   <data name="UpdateMode" xml:space="preserve">
     <value>Tryb modyfikacji</value>
