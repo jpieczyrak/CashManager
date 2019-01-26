@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 
-using CashManager_MVVM.Logic.Commands;
 using CashManager_MVVM.Logic.Commands.Filters;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;

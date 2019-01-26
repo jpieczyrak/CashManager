@@ -8,7 +8,6 @@
              xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
              xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
              xmlns:stocks="clr-namespace:CashManager_MVVM.Features.Stocks"
-             xmlns:selectors="clr-namespace:CashManager_MVVM.Features.Search.Selectors"
              xmlns:setters="clr-namespace:CashManager_MVVM.Features.MassReplacer.Setters"
              mc:Ignorable="d"
              d:DesignHeight="250" d:DesignWidth="600"

@@ -1,9 +1,6 @@
 ﻿using System.Linq;
 
-using AutoMapper;
-
 using CashManager_MVVM;
-using CashManager_MVVM.Logic.Commands;
 using CashManager_MVVM.Logic.Commands.Filters;
 using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;

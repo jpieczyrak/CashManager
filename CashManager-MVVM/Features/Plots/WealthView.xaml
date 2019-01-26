@@ -6,7 +6,6 @@
              xmlns:plots="clr-namespace:CashManager_MVVM.Features.Plots"
              xmlns:oxy="http://oxyplot.org/wpf"
              xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
-             xmlns:selectors="clr-namespace:CashManager_MVVM.Features.Search.Selectors"
              xmlns:setters="clr-namespace:CashManager_MVVM.Features.MassReplacer.Setters"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=plots:WealthViewModel, IsDesignTimeCreatable=True}">

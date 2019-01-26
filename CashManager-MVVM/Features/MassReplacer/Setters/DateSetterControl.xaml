@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
              xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
-             xmlns:selectors="clr-namespace:CashManager_MVVM.Model.Selectors"
              xmlns:setters="clr-namespace:CashManager_MVVM.Model.Setters"
              mc:Ignorable="d" 
              d:DesignHeight="70" d:DesignWidth="350"

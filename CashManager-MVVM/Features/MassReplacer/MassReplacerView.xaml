@@ -6,7 +6,6 @@
              xmlns:search="clr-namespace:CashManager_MVVM.Features.Search"
              xmlns:massReplacer="clr-namespace:CashManager_MVVM.Features.MassReplacer"
              xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
-             xmlns:selectors="clr-namespace:CashManager_MVVM.Features.Search.Selectors"
              xmlns:massReplaceSelectors="clr-namespace:CashManager_MVVM.Features.MassReplacer.Selectors"
              xmlns:setters="clr-namespace:CashManager_MVVM.Features.MassReplacer.Setters"
              mc:Ignorable="d"

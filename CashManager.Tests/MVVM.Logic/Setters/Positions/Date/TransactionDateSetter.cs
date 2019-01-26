@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using AutoMapper;
-
 using CashManager_MVVM.Logic.Commands.Setters;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Setters;

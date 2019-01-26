@@ -7,7 +7,6 @@
              xmlns:oxy="http://oxyplot.org/wpf"
              xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
              xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
-             xmlns:selectors="clr-namespace:CashManager_MVVM.Features.Search.Selectors"
              xmlns:setters="clr-namespace:CashManager_MVVM.Features.MassReplacer.Setters"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=plots:CategoriesPlotViewModel, IsDesignTimeCreatable=True}">
