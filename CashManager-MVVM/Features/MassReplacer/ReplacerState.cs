@@ -12,7 +12,6 @@ using CashManager.Infrastructure.Query.Tags;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
 using CashManager_MVVM.Features.Categories;
-using CashManager_MVVM.Features.Search;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
@@ -23,10 +22,10 @@ namespace CashManager_MVVM.Features.MassReplacer
     public class ReplacerState : BaseObservableObject
     {
         private string _name;
-        private TextSetter _titleSelector = new TextSetter(TextSetterType.Title);
-        private TextSetter _noteSelector = new TextSetter(TextSetterType.Note);
-        private TextSetter _positionTitleSelector = new TextSetter(TextSetterType.PositionTitle);
-        private DateSetter _bookDateSetter = new DateSetter(DateSetterType.BookDate);
+        private TextSetter _titleSelector;
+        private TextSetter _noteSelector;
+        private TextSetter _positionTitleSelector;
+        private DateSetter _bookDateSetter;
         private SinglePicker _userStocksSelector;
         private SinglePicker _externalStocksSelector;
         private SinglePicker _categoriesSelector;
@@ -97,25 +96,39 @@ namespace CashManager_MVVM.Features.MassReplacer
             set => Set(nameof(PositionTitleSelector), ref _positionTitleSelector, value);
         }
 
-        public ReplacerState() { Id = Guid.NewGuid(); }
+        public ReplacerState()
+        {
+            Id = Guid.NewGuid();
+            _bookDateSetter = new DateSetter(DateSetterType.BookDate);
+            _positionTitleSelector = new TextSetter(TextSetterType.PositionTitle);
+            _noteSelector = new TextSetter(TextSetterType.Note);
+            _titleSelector = new TextSetter(TextSetterType.Title);
+
+            var defaultSource = new Selectable[0];
+            UserStocksSelector = new SinglePicker(MultiPickerType.UserStock, defaultSource);
+            ExternalStocksSelector = new SinglePicker(MultiPickerType.ExternalStock, defaultSource);
+            CategoriesSelector = new SinglePicker(MultiPickerType.Category, defaultSource);
+            TypesSelector = new SinglePicker(MultiPickerType.TransactionType, defaultSource);
+            TagsSelector = new MultiPicker(MultiPickerType.Tag, defaultSource);
+        }
+
 
         public void Update(IQueryDispatcher queryDispatcher)
         {
             var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery())).OrderBy(x => x.Name);
-            UserStocksSelector = new SinglePicker(MultiPickerType.UserStock, availableStocks.Where(x => x.IsUserStock).Select(x => new Selectable(x)).ToArray());
-            ExternalStocksSelector =
-                new SinglePicker(MultiPickerType.ExternalStock,
-                    Mapper.Map<Stock[]>(Mapper.Map<CashManager.Data.DTO.Stock[]>(availableStocks)).Select(x => new Selectable(x)).ToArray()); //we don't want to have same reference in 2 pickers
+            UserStocksSelector.Input = availableStocks.Where(x => x.IsUserStock).Select(x => new Selectable(x)).ToArray();
+            ExternalStocksSelector.Input =
+                Mapper.Map<Stock[]>(Mapper.Map<CashManager.Data.DTO.Stock[]>(availableStocks)).Select(x => new Selectable(x)).ToArray();
 
             var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery()));
             categories = CategoryDesignHelper.BuildGraphicalOrder(categories);
-            CategoriesSelector = new SinglePicker(MultiPickerType.Category, categories.Select(x => new Selectable(x)).ToArray());
+            CategoriesSelector.Input = categories.Select(x => new Selectable(x)).ToArray();
 
             var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
-            TypesSelector = new SinglePicker(MultiPickerType.TransactionType, types.Select(x => new Selectable(x)).ToArray());
+            TypesSelector.Input = types.Select(x => new Selectable(x)).ToArray();
 
             var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, CashManager.Data.DTO.Tag[]>(new TagQuery()).OrderBy(x => x.Name));
-            TagsSelector = new MultiPicker(MultiPickerType.Tag, tags.Select(x => new Selectable(x)).ToArray());
+            TagsSelector.SetInput(tags.Select(x => new Selectable(x)).ToArray());
         }
 
         public void Execute(List<Transaction> transactions, bool isTransactionsSearch, List<Position> matchingPositions)

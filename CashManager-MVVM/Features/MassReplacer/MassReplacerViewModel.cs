@@ -22,8 +22,8 @@ namespace CashManager_MVVM.Features.MassReplacer
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
-        private ISetter<Model.Transaction>[] _transactionSetters;
-        private ISetter<Model.Position>[] _positionSetter;
+        private readonly ISetter<Model.Transaction>[] _transactionSetters;
+        private readonly ISetter<Model.Position>[] _positionSetter;
 
         public SearchViewModel SearchViewModel { get; private set; }
 
@@ -38,6 +38,19 @@ namespace CashManager_MVVM.Features.MassReplacer
             State = new ReplacerState();
             SearchViewModel = factory.Create<SearchViewModel>();
             PerformCommand = new RelayCommand(ExecutePerformCommand, CanExecutePerformCommand);
+
+            _transactionSetters = new ISetter<Model.Transaction>[]
+            {
+                TextSetterCommand.Create(State.TitleSelector, SearchViewModel.State.TitleFilter),
+                TextSetterCommand.Create(State.NoteSelector, SearchViewModel.State.NoteFilter),
+                TextSetterCommand.Create(State.PositionTitleSelector, SearchViewModel.State.PositionTitleFilter),
+                DateSetterCommand.Create(State.BookDateSetter),
+                SinglePickerSetterCommand.Create(State.CategoriesSelector),
+                SinglePickerSetterCommand.Create(State.UserStocksSelector),
+                SinglePickerSetterCommand.Create(State.ExternalStocksSelector),
+                SinglePickerSetterCommand.Create(State.TypesSelector)
+            };
+            _positionSetter = _transactionSetters.OfType<ISetter<Model.Position>>().ToArray();
         }
 
         private bool CanExecutePerformCommand()
@@ -79,22 +92,6 @@ namespace CashManager_MVVM.Features.MassReplacer
         {
             State.Update(_queryDispatcher);
             SearchViewModel.Update();
-
-            if (_transactionSetters == null)
-            {
-                _transactionSetters = new ISetter<Model.Transaction>[]
-                {
-                    TextSetterCommand.Create(State.TitleSelector, SearchViewModel.State.TitleFilter),
-                    TextSetterCommand.Create(State.NoteSelector, SearchViewModel.State.NoteFilter),
-                    TextSetterCommand.Create(State.PositionTitleSelector, SearchViewModel.State.PositionTitleFilter),
-                    DateSetterCommand.Create(State.BookDateSetter),
-                    SinglePickerSetterCommand.Create(State.CategoriesSelector),
-                    SinglePickerSetterCommand.Create(State.UserStocksSelector),
-                    SinglePickerSetterCommand.Create(State.ExternalStocksSelector),
-                    SinglePickerSetterCommand.Create(State.TypesSelector)
-                };
-                _positionSetter = _transactionSetters.OfType<ISetter<Model.Position>>().ToArray();
-            }
         }
     }
 }
