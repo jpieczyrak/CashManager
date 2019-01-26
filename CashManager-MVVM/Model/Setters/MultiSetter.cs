@@ -23,7 +23,7 @@ namespace CashManager_MVVM.Model.Setters
             private set
             {
                 Set(nameof(Results), ref _results, value);
-                if (_results.Length > Selected.Length) IsChecked = true;
+                if (_results.Length > (Selected?.Length ?? 0)) IsChecked = true;
                 Selected = _results.Select(x => x.Id).ToArray();
                 RaisePropertyChanged(nameof(AllSelected));
             }

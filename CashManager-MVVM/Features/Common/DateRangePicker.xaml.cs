@@ -7,15 +7,15 @@ namespace CashManager_MVVM.Features.Common
 {
     public partial class DateRangePicker : UserControl
     {
-        public static readonly DependencyProperty DateFrameProperty = DependencyProperty.Register(
-            nameof(DateFrame),
-            typeof(DateFrame),
+        public static readonly DependencyProperty DateFrameSelectorProperty = DependencyProperty.Register(
+            nameof(DateFrameSelector),
+            typeof(DateFrameSelector),
             typeof(DateRangePicker));
 
-        public DateFrame DateFrame
+        public DateFrameSelector DateFrameSelector
         {
-            get => (DateFrame) GetValue(DateFrameProperty);
-            set => SetValue(DateFrameProperty, value);
+            get => (DateFrameSelector) GetValue(DateFrameSelectorProperty);
+            set => SetValue(DateFrameSelectorProperty, value);
         }
 
         public DateRangePicker()

@@ -36,7 +36,7 @@ namespace CashManager_MVVM.Features.Balance
         private readonly SearchViewModel _searchViewModel;
         private string _name;
         private ObservableCollection<CustomBalance> _customBalances;
-        private DateFrame _dateFilter;
+        private DateFrameSelector _dateFilter;
 
         public CustomBalance SelectedCustomBalance
         {
@@ -81,7 +81,7 @@ namespace CashManager_MVVM.Features.Balance
             set => Set(nameof(Name), ref _name, value);
         }
 
-        public DateFrame DateFilter
+        public DateFrameSelector DateFilter
         {
             get => _dateFilter;
             set => Set(nameof(DateFilter), ref _dateFilter, value);
@@ -95,7 +95,7 @@ namespace CashManager_MVVM.Features.Balance
             DeleteCommand = new RelayCommand(ExecuteDeleteCommand, () => SelectedCustomBalance != null);
             SaveCommand = new RelayCommand(ExecuteSaveCommand);
             SelectedSearchSummary = new TransactionsSummary[0];
-            DateFilter = new DateFrame(DateFrameType.BookDate);
+            DateFilter = new DateFrameSelector(DateFrameType.BookDate);
             DateFilter.PropertyChanged += (sender, args) => UpdateSummary();
 
             Name = "custom balance";

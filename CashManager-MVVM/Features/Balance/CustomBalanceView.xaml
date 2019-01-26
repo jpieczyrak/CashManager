@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <common:DateRangePicker Grid.Row="0" DateFrame="{Binding DateFilter}"/>
+        <common:DateRangePicker Grid.Row="0" DateFrameSelector="{Binding DateFilter}"/>
 
         <DataGrid Grid.Row="1" ItemsSource="{Binding SelectedSearchSummary, Mode=OneWay}" 
                   Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">

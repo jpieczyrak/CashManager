@@ -34,6 +34,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
 
             //when
             vm.State.BookDateFilter.From = DateTime.Today;
+            vm.State.BookDateFilter.IsChecked = false;
 
             //then
             Assert.NotEmpty(vm.MatchingPositions);

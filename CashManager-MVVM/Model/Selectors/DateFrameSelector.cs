@@ -4,7 +4,7 @@ using CashManager_MVVM.Properties;
 
 namespace CashManager_MVVM.Model.Selectors
 {
-    public class DateFrame : BaseSelector
+    public class DateFrameSelector : BaseSelector
     {
         private DateTime _from;
         private DateTime _to;
@@ -14,16 +14,24 @@ namespace CashManager_MVVM.Model.Selectors
         public DateTime From
         {
             get => _from;
-            set => Set(nameof(From), ref _from, value);
+            set
+            {
+                Set(nameof(From), ref _from, value);
+                IsChecked = true;
+            }
         }
 
         public DateTime To
         {
             get => _to;
-            set => Set(nameof(To), ref _to, value);
+            set
+            {
+                Set(nameof(To), ref _to, value);
+                IsChecked = true;
+            }
         }
 
-        public DateFrame(DateFrameType type)
+        public DateFrameSelector(DateFrameType type)
         {
             Type = type;
             switch (type)
@@ -44,7 +52,7 @@ namespace CashManager_MVVM.Model.Selectors
             _to = _from.AddMonths(1).AddDays(-1);
         }
 
-        public void Apply(DateFrame source)
+        public void Apply(DateFrameSelector source)
         {
             From = source.From;
             To = source.To;

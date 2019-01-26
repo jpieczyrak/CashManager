@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <common:DateRangePicker Grid.Column="0" DateFrame="{Binding BookDateFilter}" />
+            <common:DateRangePicker Grid.Column="0" DateFrameSelector="{Binding BookDateFilter}" />
             <setters:MultiSetterControl Grid.Column="1" DataContext="{Binding UserStocksFilter}" />
             <setters:MultiSetterControl Grid.Column="2" DataContext="{Binding TypesFilter}" />
         </Grid>

@@ -25,7 +25,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <DockPanel>
-                    <CheckBox IsChecked="{Binding DateFrame.IsChecked, ElementName=DateRangePickerControl}" ToolTip="{x:Static properties:Strings.Enable}" Style="{StaticResource OnlyCheckBox}" />
+                    <CheckBox IsChecked="{Binding DateFrameSelector.IsChecked, ElementName=DateRangePickerControl}" ToolTip="{x:Static properties:Strings.Enable}" Style="{StaticResource OnlyCheckBox}" />
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Margin="0,0,5,0" Width="Auto"/>
                 </DockPanel>
                 <Grid Grid.Column="1">
@@ -39,7 +39,7 @@
                     <Button Grid.Column="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractMonthCommand, ElementName=DateRangePickerControl}" Margin="11,0,0,0" HorizontalAlignment="Left" ToolTip="Previous month" Height="18" Width="Auto" />
                     <Button Grid.Column="0" Style="{DynamicResource LeftArrowButtonStyle}" Command="{Binding ViewModel.SubtractDayCommand, ElementName=DateRangePickerControl}" Margin="22,0,0,0" ToolTip="Previous day" Height="18" HorizontalAlignment="Left" Width="Auto" />
 
-                    <TextBlock Grid.Column="1" Text="{Binding DateFrame.Description, ElementName=DateRangePickerControl}" Style="{DynamicResource GrayTextBlock}" MinWidth="40" Margin="10,0" >
+                    <TextBlock Grid.Column="1" Text="{Binding DateFrameSelector.Description, ElementName=DateRangePickerControl}" Style="{DynamicResource GrayTextBlock}" MinWidth="40" Margin="10,0" >
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseUp">
                                 <custom:EventToCommand Command="{Binding ViewModel.CurrentMonthCommand, ElementName=DateRangePickerControl}"/>
@@ -75,7 +75,7 @@
                     <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2"
                                Margin="5,0" />
                     <local:ExtendedDatePicker Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,2,2,2"
-                                              SelectedValue="{Binding DateFrame.From, ElementName=DateRangePickerControl}" />
+                                              SelectedValue="{Binding DateFrameSelector.From, ElementName=DateRangePickerControl}" />
                 </Grid>
                 <Grid Column="1" Margin="2,0">
                     <Grid.ColumnDefinitions>
@@ -94,7 +94,7 @@
                     <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2"
                                Margin="5,0" />
                     <local:ExtendedDatePicker Grid.Row="1" Grid.Column="0" Margin="2,2,0,2"
-                                              SelectedValue="{Binding DateFrame.To, ElementName=DateRangePickerControl}"
+                                              SelectedValue="{Binding DateFrameSelector.To, ElementName=DateRangePickerControl}"
                                               Grid.ColumnSpan="3" />
                 </Grid>
             </Grid>

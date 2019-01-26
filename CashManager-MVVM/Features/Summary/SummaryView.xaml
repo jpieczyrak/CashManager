@@ -72,7 +72,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <common:DateRangePicker Grid.Row="0" DateFrame="{Binding BookDateFilter}" Margin="0,10,0,0" MaxWidth="280" />
+            <common:DateRangePicker Grid.Row="0" DateFrameSelector="{Binding BookDateFilter}" Margin="0,10,0,0" MaxWidth="280" />
             <setters:MultiSetterControl Grid.Row="1" DataContext="{Binding UserStocksFilter}" />
             <oxy:PlotView Grid.Row="2" Model="{Binding YearBalanceModel}" ToolTip="Year balance">
                 <oxy:PlotView.DefaultTrackerTemplate>

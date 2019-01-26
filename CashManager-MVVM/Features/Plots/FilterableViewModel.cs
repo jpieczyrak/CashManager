@@ -23,10 +23,10 @@ namespace CashManager_MVVM.Features.Plots
         protected readonly TransactionsProvider _transactionsProvider;
         protected readonly IQueryDispatcher _queryDispatcher;
 
-        private DateFrame _bookDateFilter;
+        private DateFrameSelector _bookDateFilter;
         private MultiPicker _userStocksFilter;
 
-        public DateFrame BookDateFilter
+        public DateFrameSelector BookDateFilter
         {
             get => _bookDateFilter;
             set => Set(nameof(BookDateFilter), ref _bookDateFilter, value);
@@ -75,7 +75,7 @@ namespace CashManager_MVVM.Features.Plots
             UserStocksFilter = new MultiPicker(MultiPickerType.UserStock, stocks) { IsChecked = true };
             foreach (var result in UserStocksFilter.ComboBox.InternalDisplayableSearchResults) result.IsSelected = true;
 
-            _bookDateFilter = new DateFrame(DateFrameType.BookDate) { IsChecked = true };
+            _bookDateFilter = new DateFrameSelector(DateFrameType.BookDate) { IsChecked = true };
             BookDateFilter.From = _transactionsProvider.AllTransactions.Any()
                                       ? _transactionsProvider.AllTransactions.Min(x => x.BookDate).AddDays(-1)
                                       : DateTime.MinValue;

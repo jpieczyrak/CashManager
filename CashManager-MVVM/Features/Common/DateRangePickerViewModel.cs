@@ -31,41 +31,41 @@ namespace CashManager_MVVM.Features.Common
 
             SubtractDayCommand = new RelayCommand(() =>
             {
-                _owner.DateFrame.From = _owner.DateFrame.From.AddDays(-1);
-                _owner.DateFrame.To = _owner.DateFrame.To.AddDays(-1);
+                _owner.DateFrameSelector.From = _owner.DateFrameSelector.From.AddDays(-1);
+                _owner.DateFrameSelector.To = _owner.DateFrameSelector.To.AddDays(-1);
             });
             SubtractMonthCommand = new RelayCommand(() =>
             {
-                _owner.DateFrame.From = _owner.DateFrame.From.AddMonths(-1);
-                _owner.DateFrame.To = _owner.DateFrame.To.AddMonths(-1);
+                _owner.DateFrameSelector.From = _owner.DateFrameSelector.From.AddMonths(-1);
+                _owner.DateFrameSelector.To = _owner.DateFrameSelector.To.AddMonths(-1);
             });
             SubtractYearCommand = new RelayCommand(() =>
             {
-                _owner.DateFrame.From = _owner.DateFrame.From.AddYears(-1);
-                _owner.DateFrame.To = _owner.DateFrame.To.AddYears(-1);
+                _owner.DateFrameSelector.From = _owner.DateFrameSelector.From.AddYears(-1);
+                _owner.DateFrameSelector.To = _owner.DateFrameSelector.To.AddYears(-1);
             });
 
             AddDayCommand = new RelayCommand(() =>
             {
-                _owner.DateFrame.From = _owner.DateFrame.From.AddDays(1);
-                _owner.DateFrame.To = _owner.DateFrame.To.AddDays(1);
+                _owner.DateFrameSelector.From = _owner.DateFrameSelector.From.AddDays(1);
+                _owner.DateFrameSelector.To = _owner.DateFrameSelector.To.AddDays(1);
             });
             AddMonthCommand = new RelayCommand(() =>
             {
-                _owner.DateFrame.From = _owner.DateFrame.From.AddMonths(1);
-                _owner.DateFrame.To = _owner.DateFrame.To.AddMonths(1);
+                _owner.DateFrameSelector.From = _owner.DateFrameSelector.From.AddMonths(1);
+                _owner.DateFrameSelector.To = _owner.DateFrameSelector.To.AddMonths(1);
             });
             AddYearCommand = new RelayCommand(() =>
             {
-                _owner.DateFrame.From = _owner.DateFrame.From.AddYears(1);
-                _owner.DateFrame.To = _owner.DateFrame.To.AddYears(1);
+                _owner.DateFrameSelector.From = _owner.DateFrameSelector.From.AddYears(1);
+                _owner.DateFrameSelector.To = _owner.DateFrameSelector.To.AddYears(1);
             });
 
             CurrentMonthCommand = new RelayCommand(() =>
             {
                 var firstDay = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-                _owner.DateFrame.From = firstDay;
-                _owner.DateFrame.To = firstDay.AddMonths(1).AddDays(-1);
+                _owner.DateFrameSelector.From = firstDay;
+                _owner.DateFrameSelector.To = firstDay.AddMonths(1).AddDays(-1);
             });
         }
     }

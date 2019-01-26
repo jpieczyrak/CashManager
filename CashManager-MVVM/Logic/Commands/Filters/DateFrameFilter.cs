@@ -13,39 +13,39 @@ namespace CashManager_MVVM.Logic.Commands.Filters
 {
     public class DateFrameFilter : ObservableObject, IFilter<Transaction>, IFilter<Position>
     {
-        private readonly DateFrame _dateFrame;
+        private readonly DateFrameSelector _dateFrameSelector;
         private readonly Func<IBookable, DateTime> _selector;
 
-        private DateFrameFilter(DateFrame dateFrame, Func<IBookable, DateTime> selector)
+        private DateFrameFilter(DateFrameSelector dateFrameSelector, Func<IBookable, DateTime> selector)
         {
-            _dateFrame = dateFrame;
+            _dateFrameSelector = dateFrameSelector;
             _selector = selector;
-            _dateFrame.PropertyChanged += DateFrameOnPropertyChanged;
+            _dateFrameSelector.PropertyChanged += DateFrameOnPropertyChanged;
         }
 
-        ~DateFrameFilter() { _dateFrame.PropertyChanged -= DateFrameOnPropertyChanged; }
+        ~DateFrameFilter() { _dateFrameSelector.PropertyChanged -= DateFrameOnPropertyChanged; }
 
         public IEnumerable<Position> Execute(IEnumerable<Position> elements) => Filter(elements).OfType<Position>();
 
         public IEnumerable<Transaction> Execute(IEnumerable<Transaction> elements) => Filter(elements).OfType<Transaction>();
 
-        public bool CanExecute() => _dateFrame.IsChecked;
+        public bool CanExecute() => _dateFrameSelector.IsChecked;
 
         public IEnumerable<IBookable> Filter(IEnumerable<IBookable> elements)
         {
-            return elements.Where(x => _selector(x) >= _dateFrame.From && _selector(x) <= _dateFrame.To);
+            return elements.Where(x => _selector(x) >= _dateFrameSelector.From && _selector(x) <= _dateFrameSelector.To);
         }
 
-        public static DateFrameFilter Create(DateFrame dateFrame)
+        public static DateFrameFilter Create(DateFrameSelector dateFrameSelector)
         {
-            switch (dateFrame.Type)
+            switch (dateFrameSelector.Type)
             {
                 case DateFrameType.BookDate:
-                    return new DateFrameFilter(dateFrame, x => x.BookDate);
+                    return new DateFrameFilter(dateFrameSelector, x => x.BookDate);
                 case DateFrameType.CreationDate:
-                    return new DateFrameFilter(dateFrame, x => x.InstanceCreationDate);
+                    return new DateFrameFilter(dateFrameSelector, x => x.InstanceCreationDate);
                 case DateFrameType.EditDate:
-                    return new DateFrameFilter(dateFrame, x => x.LastEditDate);
+                    return new DateFrameFilter(dateFrameSelector, x => x.LastEditDate);
             }
 
             return null;

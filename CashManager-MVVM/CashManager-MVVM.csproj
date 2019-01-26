@@ -347,7 +347,7 @@
     <Compile Include="Model\StoredFileInfo.cs" />
     <Compile Include="Model\TransactionsSummary.cs" />
     <Compile Include="Model\Tag.cs" />
-    <Compile Include="Model\Selectors\DateFrame.cs" />
+    <Compile Include="Model\Selectors\DateFrameSelector.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Features\ViewModelFactory.cs" />
     <Compile Include="Features\Categories\CategoryPickerViewModel.cs" />

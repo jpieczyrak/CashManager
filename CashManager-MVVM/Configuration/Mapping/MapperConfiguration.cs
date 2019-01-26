@@ -135,8 +135,8 @@ namespace CashManager_MVVM.Configuration.Mapping
                         config.CreateMap<SearchState, CashManager.Data.ViewModelState.SearchState>();
                         config.CreateMap<CashManager.Data.ViewModelState.SearchState, SearchState>();
 
-                        config.CreateMap<DateFrame, CashManager.Data.ViewModelState.Selectors.DateFrame>();
-                        config.CreateMap<CashManager.Data.ViewModelState.Selectors.DateFrame, DateFrame>();
+                        config.CreateMap<DateFrameSelector, CashManager.Data.ViewModelState.Selectors.DateFrame>();
+                        config.CreateMap<CashManager.Data.ViewModelState.Selectors.DateFrame, DateFrameSelector>();
 
                         config.CreateMap<RangeSelector, CashManager.Data.ViewModelState.Selectors.RangeSelector>();
                         config.CreateMap<CashManager.Data.ViewModelState.Selectors.RangeSelector, RangeSelector>();

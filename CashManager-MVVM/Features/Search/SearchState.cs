@@ -43,11 +43,11 @@ namespace CashManager_MVVM.Features.Search
 
         public TextSelector PositionTitleFilter { get; private set; }
 
-        public DateFrame BookDateFilter { get; private set; }
+        public DateFrameSelector BookDateFilter { get; private set; }
 
-        public DateFrame CreateDateFilter { get; private set; }
+        public DateFrameSelector CreateDateFilter { get; private set; }
 
-        public DateFrame LastEditDateFilter { get; private set; }
+        public DateFrameSelector LastEditDateFilter { get; private set; }
 
         public MultiPicker UserStocksFilter { get; set; }
 
@@ -68,9 +68,9 @@ namespace CashManager_MVVM.Features.Search
             TitleFilter = new TextSelector(TextSelectorType.Title);
             NoteFilter = new TextSelector(TextSelectorType.Note);
             PositionTitleFilter = new TextSelector(TextSelectorType.PositionTitle);
-            BookDateFilter = new DateFrame(DateFrameType.BookDate);
-            CreateDateFilter = new DateFrame(DateFrameType.CreationDate);
-            LastEditDateFilter = new DateFrame(DateFrameType.EditDate);
+            BookDateFilter = new DateFrameSelector(DateFrameType.BookDate);
+            CreateDateFilter = new DateFrameSelector(DateFrameType.CreationDate);
+            LastEditDateFilter = new DateFrameSelector(DateFrameType.EditDate);
             ValueFilter = new RangeSelector(RangeSelectorType.GrossValue);
 
             var defaultSource = new Selectable[0];

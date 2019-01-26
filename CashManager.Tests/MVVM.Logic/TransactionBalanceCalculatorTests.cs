@@ -19,7 +19,7 @@ namespace CashManager.Tests.MVVM.Logic
     {
         private static readonly Transaction[] _transactions;
         private static readonly Stock[] _selectedStocks;
-        private static readonly DateFrame _dateFilter;
+        private static readonly DateFrameSelector _dateFilter;
         private static DateTime _firstBookDate;
 
         static TransactionBalanceCalculatorTests()
@@ -33,7 +33,7 @@ namespace CashManager.Tests.MVVM.Logic
             var income = new TransactionType { Income = true };
             var outcome = new TransactionType { Outcome = true };
             _firstBookDate = DateTime.Today.AddDays(-30);
-            _dateFilter = new DateFrame(DateFrameType.BookDate);
+            _dateFilter = new DateFrameSelector(DateFrameType.BookDate);
             _transactions = new[]
             {
                 new Transaction

@@ -28,13 +28,13 @@ namespace CashManager_MVVM.Features.Plots
     {
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly TransactionsProvider _transactionsProvider;
-        private DateFrame _bookDateFilter = new DateFrame(DateFrameType.BookDate);
+        private DateFrameSelector _bookDateFilter = new DateFrameSelector(DateFrameType.BookDate);
         private IEnumerable<KeyValuePair<string, decimal>> _values;
         private MultiPicker _userStocksFilter;
         private PlotModel _pieCategories;
         private MultiPicker _typesFilter;
 
-        public DateFrame BookDateFilter
+        public DateFrameSelector BookDateFilter
         {
             get => _bookDateFilter;
             set => Set(nameof(BookDateFilter), ref _bookDateFilter, value);
