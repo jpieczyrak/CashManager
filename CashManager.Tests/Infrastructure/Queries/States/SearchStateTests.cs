@@ -40,7 +40,7 @@ namespace CashManager.Tests.Infrastructure.Queries.States
                 new SearchState
                 {
                     Name = "test 1",
-                    BookDateFilter = new DateFrame
+                    BookDateFilter = new DateFrameSelector
                     {
                         From = DateTime.Today,
                         To = DateTime.Today.AddDays(1),

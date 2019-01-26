@@ -2,7 +2,7 @@
 
 namespace CashManager.Data.ViewModelState.Selectors
 {
-    public class DateFrame
+    public class DateFrameSelector
     {
         public int Type { get; set; }
 
