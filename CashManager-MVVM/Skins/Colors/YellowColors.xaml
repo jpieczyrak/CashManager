@@ -2,14 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- Texts -->
-    <Color x:Key="ForegroundColor">#FFBA770A</Color>
+    <Color x:Key="ForegroundColor">#FF181818</Color>
     <SolidColorBrush x:Key="ForegroundBrush" Color="{StaticResource ForegroundColor}"/>
 
     <Color x:Key="DisabledForegroundColor">#FF595959</Color>
     <SolidColorBrush x:Key="DisabledForegroundBrush" Color="{StaticResource DisabledForegroundColor}" />
 
     <!-- Borders -->
-    <Color x:Key="BorderColor">#4c4c4c</Color>
+    <Color x:Key="BorderColor">#FF181818</Color>
     <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}" />
 
     <Color x:Key="DisabledBorderColor">#727272</Color>
@@ -21,9 +21,9 @@
     <SolidColorBrush x:Key="HoverBorderAccentBrush" Color="{StaticResource HoverBorderAccentColor}" />
 
     <!-- Backgrounds -->
-    <Color x:Key="BackgroundAccentColor">#FFFF9E3E</Color>
-    <Color x:Key="BackgroundAccent2Color">#FFFF9226</Color>
-    <Color x:Key="BackgroundMainColor">#FFFFE1B0</Color>
+    <Color x:Key="BackgroundAccentColor">#FFD7BE66</Color>
+    <Color x:Key="BackgroundAccent2Color">#FFD5B365</Color>
+    <Color x:Key="BackgroundMainColor">#FFE8CDA2</Color>
     <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundMainColor}"/>
 
     <LinearGradientBrush x:Key="ControlBackgroundBrush" EndPoint="0,1" StartPoint="0,0">
