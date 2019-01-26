@@ -164,6 +164,7 @@
     <Compile Include="MVVM.Logic\Setters\Positions\Text\PositionTitleTextSetter.cs" />
     <Compile Include="MVVM.Logic\Setters\Positions\Text\TransactionTitleTextSetter.cs" />
     <Compile Include="MVVM.Logic\Setters\Positions\Date\TransactionDateSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Transactions\MultiPicker\MultiPickerSetter.cs" />
     <Compile Include="MVVM.Logic\Setters\Transactions\SinglePicker\SinglePickerSetter.cs" />
     <Compile Include="MVVM.Logic\Setters\Transactions\Text\PositionTitleTextSetter.cs" />
     <Compile Include="MVVM.Logic\Setters\Transactions\Text\NoteTextSetter.cs" />

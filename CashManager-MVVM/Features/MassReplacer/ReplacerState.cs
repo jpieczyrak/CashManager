@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using AutoMapper;
@@ -129,44 +128,6 @@ namespace CashManager_MVVM.Features.MassReplacer
 
             var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, CashManager.Data.DTO.Tag[]>(new TagQuery()).OrderBy(x => x.Name));
             TagsSelector.SetInput(tags.Select(x => new Selectable(x)).ToArray());
-        }
-
-        public void Execute(List<Transaction> transactions, bool isTransactionsSearch, List<Position> matchingPositions)
-        {
-            if (_titleSelector.IsChecked && !string.IsNullOrWhiteSpace(_titleSelector.Value))
-                foreach (var transaction in transactions)
-                    transaction.Title = _titleSelector.Value;
-            if (_noteSelector.IsChecked)
-                foreach (var transaction in transactions)
-                    transaction.Note = _noteSelector.Value;
-
-            if (_bookDateSetter.IsChecked)
-                foreach (var transaction in transactions)
-                    transaction.BookDate = _bookDateSetter.Value;
-
-            if (_typesSelector.IsChecked && _typesSelector.Selected != null)
-                foreach (var transaction in transactions)
-                    transaction.Type = _typesSelector.Selected.Value as TransactionType;
-
-            if (_userStocksSelector.IsChecked && _userStocksSelector.Selected != null)
-                foreach (var transaction in transactions)
-                    transaction.UserStock = _userStocksSelector.Selected.Value as Stock;
-            if (_externalStocksSelector.IsChecked && _externalStocksSelector.Selected != null)
-                foreach (var transaction in transactions)
-                    transaction.ExternalStock = _externalStocksSelector.Selected.Value as Stock;
-
-            var positions = isTransactionsSearch
-                                ? transactions.SelectMany(x => x.Positions).ToList()
-                                : matchingPositions;
-            if (_positionTitleSelector.IsChecked && !string.IsNullOrWhiteSpace(_positionTitleSelector.Value))
-                foreach (var position in positions)
-                    position.Title = _positionTitleSelector.Value;
-            if (_categoriesSelector.IsChecked && _categoriesSelector.Selected != null)
-                foreach (var position in positions)
-                    position.Category = _categoriesSelector.Selected.Value as Category;
-            if (_tagsSelector.IsChecked)
-                foreach (var position in positions)
-                    position.Tags = _tagsSelector.Results.Select(x => x.Value as Tag).ToArray();
         }
     }
 }

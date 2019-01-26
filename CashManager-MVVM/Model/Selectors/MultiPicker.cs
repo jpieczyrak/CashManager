@@ -72,7 +72,7 @@ namespace CashManager_MVVM.Model.Selectors
         public MultiPicker(MultiPickerType type, Selectable[] source, Selectable[] selected = null)
         {
             Type = type;
-            Results = new Selectable[0];
+            Results = selected ?? new Selectable[0];
 
             switch (type)
             {

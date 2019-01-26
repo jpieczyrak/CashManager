@@ -5,7 +5,6 @@ using System.Linq;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
-using CashManager_MVVM.Model.Setters;
 
 namespace CashManager_MVVM.Logic.Commands.Setters
 {
