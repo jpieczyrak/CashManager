@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 
 using CashManager_MVVM;
-using CashManager_MVVM.Logic.Commands.Setters;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
@@ -11,18 +10,18 @@ using Xunit;
 
 namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.MultiPicker
 {
-    public class MultiPickerSetter
+    public class MultiSetterCommand
     {
         private readonly Tag _tagA = new Tag { Name = "A" };
         private readonly Tag _tagB = new Tag { Name = "B" };
         private readonly Tag _tagC = new Tag { Name = "C" };
 
         [Fact]
-        public void DateSetter_DisabledSetter_NoChange()
+        public void MultiSetter_DisabledSetter_NoChange()
         {
             //given
             var selector = new MultiSetter(MultiPickerType.Tag, GetTags());
-            var command = MultiSetterCommand.Create(selector);
+            var command = CashManager_MVVM.Logic.Commands.Setters.MultiSetterCommand.Create(selector);
             var transactions = GetTransactions();
 
             //when
@@ -33,7 +32,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.MultiPicker
         }
 
         [Fact]
-        public void DateSetter_EnabledSetter_Change()
+        public void MultiSetter_EnabledSetter_Change()
         {
             //given
             var selector = new MultiSetter(MultiPickerType.Tag, GetTags(),
@@ -41,7 +40,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.MultiPicker
             {
                 IsChecked = true
             };
-            var command = MultiSetterCommand.Create(selector);
+            var command = CashManager_MVVM.Logic.Commands.Setters.MultiSetterCommand.Create(selector);
             var transactions = GetTransactions();
 
             //when
@@ -51,6 +50,32 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.MultiPicker
             var tags = result.SelectMany(x => x.Positions.SelectMany(y => y.Tags));
             Assert.NotEmpty(tags);
             Assert.All(tags, tag => Assert.Equal(_tagB, tag));
+        }
+
+        [Fact]
+        public void MultiSetter_EnabledSetterAppend_Change()
+        {
+            //given
+            var selector = new MultiSetter(MultiPickerType.Tag, GetTags(),
+                new[] { new Selectable(_tagB) })
+            {
+                IsChecked = true,
+                Append = true
+            };
+            var command = CashManager_MVVM.Logic.Commands.Setters.MultiSetterCommand.Create(selector);
+            var transactions = GetTransactions();
+
+            //when
+            var result = command.Execute(transactions);
+
+            //then
+            var tags = result.SelectMany(x => x.Positions.SelectMany(y => y.Tags));
+            Assert.NotEmpty(tags);
+            Assert.All(result.SelectMany(x => x.Positions), position =>
+            {
+                Assert.Contains(_tagA, position.Tags);
+                Assert.Contains(_tagB, position.Tags);
+            });
         }
 
         private Transaction[] GetTransactions()

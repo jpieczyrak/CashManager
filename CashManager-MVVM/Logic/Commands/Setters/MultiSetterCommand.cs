@@ -46,11 +46,18 @@ namespace CashManager_MVVM.Logic.Commands.Setters
             switch (_setter.Type)
             {
                 case MultiPickerType.Tag:
-                    return (transaction, o) =>
-                    {
-                        foreach (var position in transaction.Positions)
-                            position.Tags = o.OfType<Tag>().ToArray();
-                    };
+                    if (_setter.Append)
+                        return (transaction, o) =>
+                        {
+                            foreach (var position in transaction.Positions)
+                                position.Tags = position.Tags.Concat(o.OfType<Tag>()).Distinct().ToArray();
+                        };
+                    else
+                        return (transaction, o) =>
+                        {
+                            foreach (var position in transaction.Positions)
+                                position.Tags = o.OfType<Tag>().ToArray();
+                        };
             }
 
             return null;
@@ -61,7 +68,10 @@ namespace CashManager_MVVM.Logic.Commands.Setters
             switch (_setter.Type)
             {
                 case MultiPickerType.Tag:
-                    return (position, o) => position.Tags = o.OfType<Tag>().ToArray();
+                    if (_setter.Append)
+                        return (position, o) => position.Tags = position.Tags.Concat(o.OfType<Tag>()).Distinct().ToArray();
+                    else
+                        return (position, o) => position.Tags = o.OfType<Tag>().ToArray();
             }
 
             return null;
