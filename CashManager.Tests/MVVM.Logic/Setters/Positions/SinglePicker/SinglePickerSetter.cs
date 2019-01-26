@@ -7,7 +7,7 @@ using CashManager_MVVM.Model.Selectors;
 
 using Xunit;
 
-namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.SinglePicker
+namespace CashManager.Tests.MVVM.Logic.Setters.Positions.SinglePicker
 {
     public class SinglePickerSetter
     {
@@ -20,13 +20,13 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.SinglePicker
             //given
             var selector = new CashManager_MVVM.Model.Selectors.SinglePicker(MultiPickerType.TransactionType, GetTransactionTypes());
             var command = SinglePickerSetterCommand.Create(selector);
-            var transactions = GetTransactions();
+            var positions = GetPositions();
 
             //when
-            var result = command.Execute(transactions);
+            var result = command.Execute(positions);
 
             //then
-            Assert.Equal(transactions.Select(x => x.Type), result.Select(x => x.Type));
+            Assert.Equal(positions.Select(x => x.Parent.Type), result.Select(x => x.Parent.Type));
         }
 
         [Fact]
@@ -39,22 +39,22 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.SinglePicker
                 Selected = new Selectable(_typeB)
             };
             var command = SinglePickerSetterCommand.Create(selector);
-            var transactions = GetTransactions();
+            var positions = GetPositions();
 
             //when
-            var result = command.Execute(transactions);
+            var result = command.Execute(positions);
 
             //then
-            Assert.All(result.Select(x => x.Type), type => Assert.Equal(type, _typeB));
+            Assert.All(result.Select(x => x.Parent.Type), type => Assert.Equal(type, _typeB));
         }
 
-        private Transaction[] GetTransactions()
+        private Position[] GetPositions()
         {
             return new[]
             {
-                new Transaction { Type = _typeA },
-                new Transaction { Type = _typeA },
-                new Transaction { Type = _typeA }
+                new Position { Parent = new Transaction { Type = _typeA } },
+                new Position { Parent = new Transaction { Type = _typeA } },
+                new Position { Parent = new Transaction { Type = _typeA } }
             };
         }
 
