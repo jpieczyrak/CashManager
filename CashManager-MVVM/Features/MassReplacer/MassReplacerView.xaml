@@ -6,7 +6,6 @@
              xmlns:search="clr-namespace:CashManager_MVVM.Features.Search"
              xmlns:massReplacer="clr-namespace:CashManager_MVVM.Features.MassReplacer"
              xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
-             xmlns:massReplaceSelectors="clr-namespace:CashManager_MVVM.Features.MassReplacer.Selectors"
              xmlns:setters="clr-namespace:CashManager_MVVM.Features.MassReplacer.Setters"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=massReplacer:MassReplacerViewModel, IsDesignTimeCreatable=True}">
@@ -46,12 +45,12 @@
             <setters:TextSetterControl Grid.Row="0" Grid.Column="2" DataContext="{Binding State.PositionTitleSelector}" />
 
             <setters:MultiSetterControl Grid.Row="1" Grid.Column="0" DataContext="{Binding State.TagsSelector}" />
-            <massReplaceSelectors:SinglePickerControl Grid.Row="1" Grid.Column="1" DataContext="{Binding State.CategoriesSelector}" />
-            <massReplaceSelectors:SinglePickerControl Grid.Row="1" Grid.Column="2" DataContext="{Binding State.TypesSelector}" />
+            <setters:SingleSetterControl Grid.Row="1" Grid.Column="1" DataContext="{Binding State.CategoriesSelector}" />
+            <setters:SingleSetterControl Grid.Row="1" Grid.Column="2" DataContext="{Binding State.TypesSelector}" />
 
             <setters:DateSetterControl Grid.Row="2" Grid.Column="0" DataContext="{Binding State.BookDateSetter}" />
-            <massReplaceSelectors:SinglePickerControl Grid.Row="2" Grid.Column="1" DataContext="{Binding State.UserStocksSelector}" />
-            <massReplaceSelectors:SinglePickerControl Grid.Row="2" Grid.Column="2" DataContext="{Binding State.ExternalStocksSelector}" />
+            <setters:SingleSetterControl Grid.Row="2" Grid.Column="1" DataContext="{Binding State.UserStocksSelector}" />
+            <setters:SingleSetterControl Grid.Row="2" Grid.Column="2" DataContext="{Binding State.ExternalStocksSelector}" />
             
             <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                     Margin="0,5" Height="35" Width="150"

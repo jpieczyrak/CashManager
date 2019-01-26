@@ -219,6 +219,9 @@
     <Compile Include="Features\MassReplacer\Setters\MultiSetterControl.xaml.cs">
       <DependentUpon>MultiSetterControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Features\MassReplacer\Setters\SingleSetterControl.xaml.cs">
+      <DependentUpon>SingleSetterControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Features\MassReplacer\Setters\TextSetterControl.xaml.cs">
       <DependentUpon>TextSetterControl.xaml</DependentUpon>
     </Compile>
@@ -245,7 +248,7 @@
       <DependentUpon>ValueRangeControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\Commands\Setters\MultiSetterCommand.cs" />
-    <Compile Include="Logic\Commands\Setters\SinglePickerSetterCommand.cs" />
+    <Compile Include="Logic\Commands\Setters\SingleSetterCommand.cs" />
     <Compile Include="Logic\Commands\Setters\TextSetterCommand.cs" />
     <Compile Include="Logic\Creators\CorrectionsCreator.cs" />
     <Compile Include="Logic\Creators\ICorrectionsCreator.cs" />
@@ -340,6 +343,7 @@
     <Compile Include="Model\PaymentValue.cs" />
     <Compile Include="Model\Selectors\TextSelectorType.cs" />
     <Compile Include="Model\Setters\MultiSetter.cs" />
+    <Compile Include="Model\Setters\SingleSetter.cs" />
     <Compile Include="Model\Setters\TextSetter.cs" />
     <Compile Include="Model\Setters\TextSetterType.cs" />
     <Compile Include="Model\Stock.cs" />
@@ -441,6 +445,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\MassReplacer\Setters\MultiSetterControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\MassReplacer\Setters\SingleSetterControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

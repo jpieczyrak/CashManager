@@ -43,10 +43,10 @@ namespace CashManager_MVVM.Features.MassReplacer
                 TextSetterCommand.Create(State.NoteSelector, SearchViewModel.State.NoteFilter),
                 TextSetterCommand.Create(State.PositionTitleSelector, SearchViewModel.State.PositionTitleFilter),
                 DateSetterCommand.Create(State.BookDateSetter),
-                SinglePickerSetterCommand.Create(State.CategoriesSelector),
-                SinglePickerSetterCommand.Create(State.UserStocksSelector),
-                SinglePickerSetterCommand.Create(State.ExternalStocksSelector),
-                SinglePickerSetterCommand.Create(State.TypesSelector),
+                SingleSetterCommand.Create(State.CategoriesSelector),
+                SingleSetterCommand.Create(State.UserStocksSelector),
+                SingleSetterCommand.Create(State.ExternalStocksSelector),
+                SingleSetterCommand.Create(State.TypesSelector),
                 MultiSetterCommand.Create(State.TagsSelector)
             };
             _positionSetter = _transactionSetters.OfType<ISetter<Model.Position>>().ToArray();

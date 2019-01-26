@@ -160,13 +160,13 @@
     <Compile Include="MVVM.Logic\Filters\TextFilters\TransactionMultiFilter.cs" />
     <Compile Include="MVVM.Logic\Filters\TextFilters\TransactionTextFilter.cs" />
     <Compile Include="MVVM.Logic\Setters\Positions\MultiPicker\MultiSetterCommand.cs" />
-    <Compile Include="MVVM.Logic\Setters\Positions\SinglePicker\SinglePickerSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Positions\SinglePicker\SingleSetterCommand.cs" />
     <Compile Include="MVVM.Logic\Setters\Positions\Text\NoteTextSetter.cs" />
     <Compile Include="MVVM.Logic\Setters\Positions\Text\PositionTitleTextSetter.cs" />
     <Compile Include="MVVM.Logic\Setters\Positions\Text\TransactionTitleTextSetter.cs" />
     <Compile Include="MVVM.Logic\Setters\Positions\Date\TransactionDateSetter.cs" />
     <Compile Include="MVVM.Logic\Setters\Transactions\MultiPicker\MultiSetterCommand.cs" />
-    <Compile Include="MVVM.Logic\Setters\Transactions\SinglePicker\SinglePickerSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Transactions\SinglePicker\SingleSetterCommand.cs" />
     <Compile Include="MVVM.Logic\Setters\Transactions\Text\PositionTitleTextSetter.cs" />
     <Compile Include="MVVM.Logic\Setters\Transactions\Text\NoteTextSetter.cs" />
     <Compile Include="MVVM.Logic\Setters\Transactions\Text\TitleTextSetter.cs" />

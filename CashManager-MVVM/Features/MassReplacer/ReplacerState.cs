@@ -25,10 +25,10 @@ namespace CashManager_MVVM.Features.MassReplacer
         private TextSetter _noteSelector;
         private TextSetter _positionTitleSelector;
         private DateSetter _bookDateSetter;
-        private SinglePicker _userStocksSelector;
-        private SinglePicker _externalStocksSelector;
-        private SinglePicker _categoriesSelector;
-        private SinglePicker _typesSelector;
+        private SingleSetter _userStocksSelector;
+        private SingleSetter _externalStocksSelector;
+        private SingleSetter _categoriesSelector;
+        private SingleSetter _typesSelector;
         private MultiSetter _tagsSelector;
 
         public override string Name
@@ -47,25 +47,25 @@ namespace CashManager_MVVM.Features.MassReplacer
             set => Set(nameof(BookDateSetter), ref _bookDateSetter, value);
         }
 
-        public SinglePicker UserStocksSelector
+        public SingleSetter UserStocksSelector
         {
             get => _userStocksSelector;
             set => Set(nameof(UserStocksSelector), ref _userStocksSelector, value);
         }
 
-        public SinglePicker ExternalStocksSelector
+        public SingleSetter ExternalStocksSelector
         {
             get => _externalStocksSelector;
             set => Set(nameof(ExternalStocksSelector), ref _externalStocksSelector, value);
         }
 
-        public SinglePicker CategoriesSelector
+        public SingleSetter CategoriesSelector
         {
             get => _categoriesSelector;
             set => Set(nameof(CategoriesSelector), ref _categoriesSelector, value);
         }
 
-        public SinglePicker TypesSelector
+        public SingleSetter TypesSelector
         {
             get => _typesSelector;
             set => Set(nameof(TypesSelector), ref _typesSelector, value);
@@ -104,10 +104,10 @@ namespace CashManager_MVVM.Features.MassReplacer
             _titleSelector = new TextSetter(TextSetterType.Title);
 
             var defaultSource = new Selectable[0];
-            UserStocksSelector = new SinglePicker(MultiPickerType.UserStock, defaultSource);
-            ExternalStocksSelector = new SinglePicker(MultiPickerType.ExternalStock, defaultSource);
-            CategoriesSelector = new SinglePicker(MultiPickerType.Category, defaultSource);
-            TypesSelector = new SinglePicker(MultiPickerType.TransactionType, defaultSource);
+            UserStocksSelector = new SingleSetter(MultiPickerType.UserStock, defaultSource);
+            ExternalStocksSelector = new SingleSetter(MultiPickerType.ExternalStock, defaultSource);
+            CategoriesSelector = new SingleSetter(MultiPickerType.Category, defaultSource);
+            TypesSelector = new SingleSetter(MultiPickerType.TransactionType, defaultSource);
             TagsSelector = new MultiSetter(MultiPickerType.Tag, defaultSource);
         }
 

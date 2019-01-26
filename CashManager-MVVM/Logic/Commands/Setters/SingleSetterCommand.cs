@@ -5,28 +5,29 @@ using System.Linq;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
+using CashManager_MVVM.Model.Setters;
 
 namespace CashManager_MVVM.Logic.Commands.Setters
 {
-    public class SinglePickerSetterCommand : ISetter<Transaction>, ISetter<Position>
+    public class SingleSetterCommand : ISetter<Transaction>, ISetter<Position>
     {
-        private readonly SinglePicker _selector;
+        private readonly SingleSetter _setter;
 
-        private SinglePickerSetterCommand(SinglePicker selector) { _selector = selector; }
+        private SingleSetterCommand(SingleSetter setter) { _setter = setter; }
 
         #region ISetter<Transaction>
 
-        public bool CanExecute() => _selector?.IsChecked == true && _selector.Selected?.Value != null;
+        public bool CanExecute() => _setter?.IsChecked == true && _setter.Selected?.Value != null;
 
         #endregion
 
         public IEnumerable<Position> Execute(IEnumerable<Position> elements)
         {
             if (!CanExecute()) return elements;
-            if (_selector.Type == MultiPickerType.Category)
+            if (_setter.Type == MultiPickerType.Category)
             {
                 var setter = GetPositionAction();
-                foreach (var position in elements) setter(position, _selector.Selected.Value);
+                foreach (var position in elements) setter(position, _setter.Selected.Value);
             }
             else
             {
@@ -39,15 +40,15 @@ namespace CashManager_MVVM.Logic.Commands.Setters
         {
             if (!CanExecute()) return elements;
             var setter = GetTransactionAction();
-            foreach (var transaction in elements) setter(transaction, _selector.Selected.Value);
+            foreach (var transaction in elements) setter(transaction, _setter.Selected.Value);
             return elements;
         }
 
-        public static SinglePickerSetterCommand Create(SinglePicker selector) => new SinglePickerSetterCommand(selector);
+        public static SingleSetterCommand Create(SingleSetter setter) => new SingleSetterCommand(setter);
 
         private Action<Transaction, BaseObservableObject> GetTransactionAction()
         {
-            switch (_selector.Type)
+            switch (_setter.Type)
             {
                 case MultiPickerType.Category:
                     return (transaction, o) =>
@@ -68,7 +69,7 @@ namespace CashManager_MVVM.Logic.Commands.Setters
 
         private Action<Position, BaseObservableObject> GetPositionAction()
         {
-            switch (_selector.Type)
+            switch (_setter.Type)
             {
                 case MultiPickerType.Category:
                     return (position, o) => position.Category = o as Category;
