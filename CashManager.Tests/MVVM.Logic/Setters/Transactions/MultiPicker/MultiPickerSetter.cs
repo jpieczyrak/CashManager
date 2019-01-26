@@ -47,7 +47,9 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.MultiPicker
             var result = command.Execute(transactions);
 
             //then
-            Assert.All(result.SelectMany(x => x.Positions.SelectMany(y => y.Tags)), tag => Assert.Equal(_tagB, tag));
+            var tags = result.SelectMany(x => x.Positions.SelectMany(y => y.Tags));
+            Assert.NotEmpty(tags);
+            Assert.All(tags, tag => Assert.Equal(_tagB, tag));
         }
 
         private Transaction[] GetTransactions()

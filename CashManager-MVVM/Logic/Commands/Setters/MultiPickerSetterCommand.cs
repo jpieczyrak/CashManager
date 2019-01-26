@@ -24,7 +24,8 @@ namespace CashManager_MVVM.Logic.Commands.Setters
         {
             if (!CanExecute()) return elements;
             var setter = GetPositionAction();
-            foreach (var position in elements) setter(position, _selector.Results);
+            var selected = _selector.Results.Select(x => x.Value).ToArray();
+            foreach (var position in elements) setter(position, selected);
             return elements;
         }
 
@@ -32,7 +33,8 @@ namespace CashManager_MVVM.Logic.Commands.Setters
         {
             if (!CanExecute()) return elements;
             var setter = GetTransactionAction();
-            foreach (var transaction in elements) setter(transaction, _selector.Results);
+            var selected = _selector.Results.Select(x => x.Value).ToArray();
+            foreach (var transaction in elements) setter(transaction, selected);
             return elements;
         }
 
