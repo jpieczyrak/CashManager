@@ -157,10 +157,8 @@ namespace CashManager_MVVM.Features.Parsers
             TransactionsProvider.AllTransactions.RemoveRange(transactions);
             TransactionsProvider.AllTransactions.AddRange(transactions);
 
-            var balances = SelectedParser.Value.Balances
-                                         .Where(x => x.Value.LastEditDate > x.Key.Balance.LastEditDate)
-                                         .ToArray();
-            if (balances.Any())
+            var balances = SelectedParser.Value.Balances.ToArray();
+            if (balances.Any()) //todo: ask if balances should be updated
             {
                 var updatedStocks = Mapper.Map<Stock[]>(balances.Select(x => x.Key));
                 var updatedDtos = UpdateStockBalances(balances, updatedStocks);
