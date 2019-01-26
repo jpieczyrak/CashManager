@@ -28,13 +28,15 @@ namespace CashManager.Logic.Parsers.Custom
             TransactionType defaultIncome, bool generateMissingStocks = false)
         {
             var output = new List<Transaction>();
-            input = input.Replace("\"", string.Empty);
 
             var lines = input.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string line in lines)
             {
-                var elements = line.Count(x => x == ';') >= (_rules.Any() ? _rules.Max(x => x.Index) : 0) ? line.Split(';') : line.Split(',');
+                var elements = line.Count(x => x == ';') >= (_rules.Any() ? _rules.Max(x => x.Index) : 0)
+                                   ? line.Split(';')
+                                   : line.Split(new[] { (line.Contains("\",\"") ? "\",\"" : ",") }, StringSplitOptions.None);
+                elements = elements.Select(x => x.Replace("\"", string.Empty)).ToArray();
                 var transaction = new Transaction(line.GenerateGuid())
                 {
                     ExternalStock = externalStock,

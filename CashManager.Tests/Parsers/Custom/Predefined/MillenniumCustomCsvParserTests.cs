@@ -120,5 +120,42 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             ValidateTransaction(result[0], transaction);
             Assert.Equal(2225.33m, parser.Balances[stocks[1]].Value); //the matching one has been updated
         }
+
+        [Fact]
+        public void Parse_SingleOutcomeTransactionWithComma_Matching()
+        {
+            //given
+            var defaultIncome = new TransactionType { Name = "in", Income = true };
+            var defaultOutcome = new TransactionType { Name = "out", Outcome = true };
+            Stock[] stocks =
+            {
+                new Stock { Name = "fake one", IsUserStock = true },
+                new Stock { Name = "Millennium", IsUserStock = true },
+                new Stock { Name = "external" }
+            };
+            var parser = new CustomCsvParserFactory(stocks).Create(PredefinedCsvParsers.Millennium);
+            var input = "\"PL12 1160 2202 0000 0987 1234 1234\",\"2018-08-29\",\"2018-08-29\",\"PRZELEW DO INNEGO BANKU\",\"51 10 9011 2800 0000 0131 1602 94\",\"Osoba ul. Gdyńska 1A/1 62-800, Kalisz\",\"osoba - opłata\",\"-105.50\",\"\",\"162.51\",\"\"";
+            var defaultUserStock = stocks[1];
+            var guid = input.Replace(";", string.Empty).GenerateGuid();
+            var transaction = new Transaction(guid)
+            {
+                Title = "osoba - opłata",
+                Note = "PRZELEW DO INNEGO BANKU",
+                Positions = new List<Position> { new Position("osoba - opłata", 105.5m) },
+                BookDate = new DateTime(2018, 08, 29),
+                TransactionSourceCreationDate = new DateTime(2018, 08, 29),
+                UserStock = stocks[1],
+                ExternalStock = stocks[2],
+                Type = defaultOutcome
+            };
+
+            //when
+            var result = parser.Parse(input, defaultUserStock, stocks[2], defaultOutcome, defaultIncome);
+
+            //then
+            Assert.Single(result);
+            ValidateTransaction(result[0], transaction);
+            Assert.Equal(162.51m, parser.Balances[stocks[1]].Value); //the matching one has been updated
+        }
     }
 }
