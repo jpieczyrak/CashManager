@@ -131,7 +131,7 @@ namespace CashManager_MVVM.Features.Parsers
             TransactionsProvider.AllTransactions.AddRange(transactions);
 
             var balances = SelectedParser.Value.Balances
-                                         .Where(x => x.Value.LastEditDate > x.Key.Balance.LastEditDate)
+                                         //.Where(x => x.Value.LastEditDate > x.Key.Balance.LastEditDate) //todo: ask for update
                                          .ToArray();
             if (balances.Any())
             {
@@ -140,7 +140,10 @@ namespace CashManager_MVVM.Features.Parsers
                 var updatedStocks = balances.Select(x => x.Key).ToArray();
                 var stocks = Mapper.Map<Stock[]>(updatedStocks);
 
-                foreach (var stock in stocks) stock.Balance.Value = stock.Balance.Value; //lets trigger edit date change
+                //todo: simplify
+                var idBalances = balances.ToDictionary(x => x.Key.Id, x => x.Value);
+
+                foreach (var stock in stocks) stock.Balance.Value = idBalances[stock.Id].Value; //lets trigger edit date change [and update balance - there is some problem with mapping]
                 _commandDispatcher.Execute(new UpsertStocksCommand(updatedStocks));
                 MessengerInstance.Send(new UpdateStockMessage(stocks));
             }
