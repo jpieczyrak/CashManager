@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 
 using CashManager_MVVM.Logic.Commands.Setters;
+using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Setters;
 
 using Xunit;
@@ -12,13 +13,25 @@ using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfigu
 
 namespace CashManager.Tests.MVVM.Logic.Setters.Positions.Date
 {
-    public class TransactionDateSetter
+    public class PositionDateSetter
     {
-        private readonly CashManager_MVVM.Model.Transaction[] _transactions =
+        private readonly Position[] _positions =
         {
-            new CashManager_MVVM.Model.Transaction { BookDate = DateTime.Today.AddDays(-5) },
-            new CashManager_MVVM.Model.Transaction { BookDate = DateTime.Today.AddDays(-4) },
-            new CashManager_MVVM.Model.Transaction { BookDate = DateTime.Today.AddDays(-3) }
+            new Position
+            {
+                BookDate = DateTime.Today.AddDays(-5),
+                Parent = new Transaction { BookDate = DateTime.Today.AddDays(-5) }
+            },
+            new Position
+            {
+                BookDate = DateTime.Today.AddDays(-4),
+                Parent = new Transaction { BookDate = DateTime.Today.AddDays(-4) }
+            },
+            new Position
+            {
+                BookDate = DateTime.Today.AddDays(-3),
+                Parent = new Transaction { BookDate = DateTime.Today.AddDays(-3) }
+            }
         };
 
         [Fact]
@@ -29,10 +42,10 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions.Date
             var command = DateSetterCommand.Create(dateSetter);
 
             //when
-            var result = command.Execute(_transactions);
+            var result = command.Execute(_positions);
 
             //then
-            Assert.Equal(_transactions, result);
+            Assert.Equal(_positions, result);
         }
 
         [Fact]
@@ -45,13 +58,11 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions.Date
             var command = DateSetterCommand.Create(dateSetter);
 
             //when
-            var result = command.Execute(_transactions);
+            var result = command.Execute(_positions);
 
             //then
             Assert.All(result.Select(x => x.BookDate), time => time.Equals(targetDate));
-            var expected = Mapper.Map<CashManager_MVVM.Model.Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
-            foreach (var transaction in expected) transaction.BookDate = targetDate;
-            Assert.Equal(expected, result);
+            Assert.All(result.Select(x => x.Parent.BookDate), time => time.Equals(targetDate));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
@@ -26,19 +27,15 @@ namespace CashManager_MVVM.Logic.Commands.Setters
 
         public IEnumerable<Position> Execute(IEnumerable<Position> elements)
         {
-            Replace(elements);
+            foreach (var position in elements) _setterAction(position, _dateFrame.Value);
+            foreach (var transaction in elements.Select(x => x.Parent).Distinct()) _setterAction(transaction, _dateFrame.Value);
             return elements;
         }
 
         public IEnumerable<Transaction> Execute(IEnumerable<Transaction> elements)
         {
-            Replace(elements);
+            foreach (var transaction in elements) _setterAction(transaction, _dateFrame.Value);
             return elements;
-        }
-
-        public void Replace(IEnumerable<IBookable> elements)
-        {
-            foreach (var bookable in elements) _setterAction(bookable, _dateFrame.Value);
         }
 
         public static DateSetterCommand Create(DateSetter setter)
