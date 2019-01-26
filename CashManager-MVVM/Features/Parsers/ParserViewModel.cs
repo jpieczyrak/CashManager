@@ -162,20 +162,21 @@ namespace CashManager_MVVM.Features.Parsers
         private void ExecuteParseCommand()
         {
             var parser = SelectedParser.Value;
+            DtoTransaction[] results = null;
+            IEnumerable<Transaction> transactions = null;
             using (new MeasureTimeWrapper(
-                () =>
+                () => results = parser.Parse(InputText, Mapper.Map<DtoStock>(SelectedUserStock),
+                          Mapper.Map<DtoStock>(SelectedExternalStock),
+                          Mapper.Map<DtoTransactionType>(DefaultOutcomeTransactionType),
+                          Mapper.Map<DtoTransactionType>(DefaultIncomeTransactionType), GenerateMissingStocks), $"Parsing: {SelectedParser.Key}")) { }
+            using (new MeasureTimeWrapper(
+                () => transactions = Mapper.Map<Transaction[]>(results).Where(x => x.IsValid), $"Mapping: {results.Length,6}")) { }
+            using (new MeasureTimeWrapper(
+                () => ResultsListViewModel = new TransactionListViewModel
                 {
-                    var results = parser.Parse(InputText, Mapper.Map<DtoStock>(SelectedUserStock),
-                        Mapper.Map<DtoStock>(SelectedExternalStock),
-                        Mapper.Map<DtoTransactionType>(DefaultOutcomeTransactionType),
-                        Mapper.Map<DtoTransactionType>(DefaultIncomeTransactionType), GenerateMissingStocks);
-                    var transactions = Mapper.Map<Transaction[]>(results).Where(x => x.IsValid);
+                    Transactions = new TrulyObservableCollection<Transaction>(transactions)
+                }, "List creation")) { }
 
-                    ResultsListViewModel = new TransactionListViewModel
-                    {
-                        Transactions = new TrulyObservableCollection<Transaction>(transactions)
-                    };
-                }, "Parse")) { }
 
             RaisePropertyChanged(nameof(ResultsListViewModel));
         }
