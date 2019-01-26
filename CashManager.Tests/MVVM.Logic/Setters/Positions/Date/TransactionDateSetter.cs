@@ -61,8 +61,8 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions.Date
             var result = command.Execute(_positions);
 
             //then
-            Assert.All(result.Select(x => x.BookDate), time => time.Equals(targetDate));
-            Assert.All(result.Select(x => x.Parent.BookDate), time => time.Equals(targetDate));
+            Assert.All(result.Select(x => x.BookDate), time => Assert.Equal(targetDate, time));
+            Assert.All(result.Select(x => x.Parent.BookDate), time => Assert.Equal(targetDate, time));
         }
     }
 }

@@ -49,7 +49,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.Date
             var result = command.Execute(_transactions);
 
             //then
-            Assert.All(result.Select(x => x.BookDate), time => time.Equals(targetDate));
+            Assert.All(result.Select(x => x.BookDate), time => Assert.Equal(targetDate, time));
             var expected = Mapper.Map<Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
             foreach (var transaction in expected) transaction.BookDate = targetDate;
             Assert.Equal(expected, result);
