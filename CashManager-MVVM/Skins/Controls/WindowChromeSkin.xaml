@@ -170,7 +170,8 @@
                 <ControlTemplate TargetType="{x:Type common:CustomWindow}">
                     <Border CornerRadius="{DynamicResource BigCornerRadius}"
                             Background="{DynamicResource BackgroundColorBrush}"
-                            BorderThickness="1" BorderBrush="{DynamicResource ControlBackgroundBrush}">
+                            BorderThickness="1" BorderBrush="{DynamicResource ControlBackgroundBrush}"
+                            x:Name="MainContainer">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -210,6 +211,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="WindowState" Value="Maximized">
                             <Setter Property="Template" TargetName="WindowSizeButton" Value="{DynamicResource RestoreSize}" />
+                            <Setter Property="Padding" TargetName="MainContainer" Value="6"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
