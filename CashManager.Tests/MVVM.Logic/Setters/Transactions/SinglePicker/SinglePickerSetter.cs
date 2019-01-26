@@ -15,7 +15,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.SinglePicker
         private readonly TransactionType _typeB = new TransactionType { Name = "B" };
 
         [Fact]
-        public void DateSetter_DisabledSetter_NoChange()
+        public void SinglePickerSetter_DisabledSetter_NoChange()
         {
             //given
             var selector = new CashManager_MVVM.Model.Selectors.SinglePicker(MultiPickerType.TransactionType, GetTransactionTypes());
@@ -30,7 +30,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.SinglePicker
         }
 
         [Fact]
-        public void DateSetter_EnabledSetter_Change()
+        public void SinglePickerSetter_EnabledSetter_Change()
         {
             //given
             var selector = new CashManager_MVVM.Model.Selectors.SinglePicker(MultiPickerType.TransactionType, GetTransactionTypes())
