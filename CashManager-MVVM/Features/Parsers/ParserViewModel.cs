@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.TransactionTypes;
 using CashManager.Logic.Parsers;
 using CashManager.Logic.Parsers.Custom.Predefined;
+using CashManager.Logic.Wrappers;
 
 using CashManager_MVVM.CommonData;
 using CashManager_MVVM.Features.Transactions;
@@ -25,6 +27,8 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 using GongSolutions.Wpf.DragDrop;
 
+using log4net;
+
 using DtoStock = CashManager.Data.DTO.Stock;
 using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
@@ -33,6 +37,7 @@ namespace CashManager_MVVM.Features.Parsers
 {
     public class ParserViewModel : ViewModelBase, IUpdateable, IDropTarget
     {
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(ParserViewModel)));
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private string _inputText;
@@ -157,16 +162,21 @@ namespace CashManager_MVVM.Features.Parsers
         private void ExecuteParseCommand()
         {
             var parser = SelectedParser.Value;
-            var results = parser.Parse(InputText, Mapper.Map<DtoStock>(SelectedUserStock),
-                Mapper.Map<DtoStock>(SelectedExternalStock),
-                Mapper.Map<DtoTransactionType>(DefaultOutcomeTransactionType),
-                Mapper.Map<DtoTransactionType>(DefaultIncomeTransactionType), GenerateMissingStocks);
-            var transactions = Mapper.Map<Transaction[]>(results).Where(x => x.IsValid);
+            using (new MeasureTimeWrapper(
+                () =>
+                {
+                    var results = parser.Parse(InputText, Mapper.Map<DtoStock>(SelectedUserStock),
+                        Mapper.Map<DtoStock>(SelectedExternalStock),
+                        Mapper.Map<DtoTransactionType>(DefaultOutcomeTransactionType),
+                        Mapper.Map<DtoTransactionType>(DefaultIncomeTransactionType), GenerateMissingStocks);
+                    var transactions = Mapper.Map<Transaction[]>(results).Where(x => x.IsValid);
 
-            ResultsListViewModel = new TransactionListViewModel
-            {
-                Transactions = new TrulyObservableCollection<Transaction>(transactions)
-            };
+                    ResultsListViewModel = new TransactionListViewModel
+                    {
+                        Transactions = new TrulyObservableCollection<Transaction>(transactions)
+                    };
+                }, "Parse")) { }
+
             RaisePropertyChanged(nameof(ResultsListViewModel));
         }
 
