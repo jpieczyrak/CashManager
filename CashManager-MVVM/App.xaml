@@ -10,8 +10,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!-- Using source (for custom dict) for design preview purpose -->
-                <skins:ColorsResourceDictionary Source="Skins/Colors/DarkColors.xaml"
-                                                DarkSource="Skins/Colors/DarkColors.xaml"
+                <skins:ColorsResourceDictionary Source="Skins/Colors/DarkOrangeColors.xaml"
+                                                DarkOrangeSource="Skins/Colors/DarkOrangeColors.xaml"
+                                                DarkRedSource="Skins/Colors/DarkRedColors.xaml"
                                                 YellowSource="Skins/Colors/YellowColors.xaml"
                                                 BlackWhite="Skins/Colors/BlackWhiteColors.xaml"
                                                 LightSource="Skins/Colors/LightColors.xaml"/>

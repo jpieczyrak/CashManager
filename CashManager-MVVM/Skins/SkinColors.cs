@@ -2,7 +2,8 @@
 {
     internal enum SkinColors
     {
-        Dark,
+        DarkOrange,
+        DarkRed,
         Light,
         Yellow,
         BlackWhite

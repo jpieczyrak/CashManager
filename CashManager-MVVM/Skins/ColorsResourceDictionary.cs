@@ -7,17 +7,28 @@ namespace CashManager_MVVM.Skins
 {
     internal class ColorsResourceDictionary : ResourceDictionary
     {
-        private Uri _darkSource;
+        private Uri _darkRedSource;
+        private Uri _darkOrangeSource;
         private Uri _lightSource;
         private Uri _yellowSource;
         private Uri _blackWhiteSource;
 
-        public Uri DarkSource
+        public Uri DarkRedSource
         {
-            get => _darkSource;
+            get => _darkRedSource;
             set
             {
-                _darkSource = value;
+                _darkRedSource = value;
+                UpdateSource();
+            }
+        }
+
+        public Uri DarkOrangeSource
+        {
+            get => _darkOrangeSource;
+            set
+            {
+                _darkOrangeSource = value;
                 UpdateSource();
             }
         }
@@ -55,10 +66,13 @@ namespace CashManager_MVVM.Skins
         public void UpdateSource()
         {
             Uri selected;
-            switch ((SkinColors)Settings.Default.SkinColor)
+            switch ((SkinColors) Settings.Default.SkinColor)
             {
-                case SkinColors.Dark:
-                    selected = DarkSource;
+                case SkinColors.DarkOrange:
+                    selected = DarkOrangeSource;
+                    break;
+                case SkinColors.DarkRed:
+                    selected = DarkRedSource;
                     break;
                 case SkinColors.Light:
                     selected = LightSource;
@@ -70,7 +84,7 @@ namespace CashManager_MVVM.Skins
                     selected = BlackWhite;
                     break;
                 default:
-                    selected = DarkSource;
+                    selected = DarkOrangeSource;
                     break;
             }
 
