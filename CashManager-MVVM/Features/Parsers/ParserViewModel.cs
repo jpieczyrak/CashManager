@@ -148,7 +148,11 @@ namespace CashManager_MVVM.Features.Parsers
                 //todo: simplify
                 var idBalances = balances.ToDictionary(x => x.Key.Id, x => x.Value);
 
-                foreach (var stock in stocks) stock.Balance.Value = idBalances[stock.Id].Value; //lets trigger edit date change [and update balance - there is some problem with mapping]
+                foreach (var stock in stocks)
+                {
+                    stock.Balance.IsPropertyChangedEnabled = true;
+                    stock.Balance.Value = idBalances[stock.Id].Value; //lets trigger edit date change [and update balance - there is some problem with mapping]
+                }
                 _commandDispatcher.Execute(new UpsertStocksCommand(updatedStocks));
                 MessengerInstance.Send(new UpdateStockMessage(stocks));
             }
