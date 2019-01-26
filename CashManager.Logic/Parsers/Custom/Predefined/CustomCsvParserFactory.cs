@@ -25,6 +25,18 @@ namespace CashManager.Logic.Parsers.Custom.Predefined
                     new Rule { Column = 15, Property = TransactionField.UserStock },
                     new Rule { Column = 16, Property = TransactionField.Balance },
                     new Rule { Column = 17, Property = TransactionField.Currency },
+                },
+                [PredefinedCsvParsers.Millennium] = new[]
+                {
+                    new Rule { Column = 2, Property = TransactionField.CreationDate },
+                    new Rule { Column = 3, Property = TransactionField.BookDate },
+                    new Rule { Column = 4, Property = TransactionField.Note },
+                    new Rule { Column = 7, Property = TransactionField.Title },
+                    new Rule { Column = 7, Property = TransactionField.PositionTitle },
+                    new Rule { Column = 8, Property = TransactionField.ValueAsLost },
+                    new Rule { Column = 9, Property = TransactionField.ValueAsProfit },
+                    new Rule { Column = 10, Property = TransactionField.Balance },
+                    new Rule { Column = 11, Property = TransactionField.Currency },
                 }
             };
         }

@@ -34,7 +34,7 @@ namespace CashManager.Logic.Parsers.Custom
 
             foreach (string line in lines)
             {
-                var elements = line.Split(';');
+                var elements = line.Count(x => x == ';') >= (_rules.Any() ? _rules.Max(x => x.Index) : 0) ? line.Split(';') : line.Split(',');
                 var transaction = new Transaction(line.GenerateGuid())
                 {
                     ExternalStock = externalStock,
@@ -101,9 +101,27 @@ namespace CashManager.Logic.Parsers.Custom
 
                         break;
                     case TransactionField.Value:
-                        decimal value = decimal.Parse(stringValue);
-                        transaction.Type = value >= 0 ? defaultIncome : defaultOutcome;
-                        transaction.Positions[0].Value.GrossValue = Math.Abs(value);
+                        {
+                            decimal value = decimal.Parse(stringValue.Replace(".", ","));
+                            transaction.Type = value >= 0 ? defaultIncome : defaultOutcome;
+                            transaction.Positions[0].Value.GrossValue = Math.Abs(value);
+                        }
+                        break;
+                    case TransactionField.ValueAsLost:
+                        {
+                            if (string.IsNullOrWhiteSpace(stringValue)) return true;
+                            decimal value = decimal.Parse(stringValue.Replace(".", ","));
+                            transaction.Type = value >= 0 ? defaultIncome : defaultOutcome;
+                            transaction.Positions[0].Value.GrossValue = Math.Abs(value);
+                        }
+                        break;
+                    case TransactionField.ValueAsProfit:
+                        {
+                            if (string.IsNullOrWhiteSpace(stringValue)) return true;
+                            decimal value = decimal.Parse(stringValue.Replace(".", ","));
+                            transaction.Type = value >= 0 ? defaultIncome : defaultOutcome;
+                            transaction.Positions[0].Value.GrossValue = Math.Abs(value);
+                        }
                         break;
                     case TransactionField.UserStock:
                         if (_stocks != null && _stocks.Any())
@@ -127,7 +145,7 @@ namespace CashManager.Logic.Parsers.Custom
                         var balance = Balances[transaction.UserStock];
                         if (balance.LastEditDate < transaction.TransactionSourceCreationDate)
                         {
-                            balance.Value = decimal.Parse(stringValue);
+                            balance.Value = decimal.Parse(stringValue.Replace(".", ","));
                             balance.LastEditDate = transaction.TransactionSourceCreationDate;
                         }
                         break;

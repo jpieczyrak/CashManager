@@ -2,6 +2,7 @@
 {
     public enum PredefinedCsvParsers
     {
-        Ing
+        Ing,
+        Millennium
     }
 }

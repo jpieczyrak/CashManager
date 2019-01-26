@@ -105,6 +105,7 @@ namespace CashManager_MVVM.Features.Parsers
                 { "Getin bank", new GetinBankParser() },
                 { "Idea bank", new IdeaBankParser() },
                 { "Millennium bank", new MillenniumBankParser() },
+                { "Millennium bank (csv)", factory.Create(PredefinedCsvParsers.Millennium) },
                 { "Ing bank (web)", new IngBankParser() },
                 { "Ing bank (csv)", factory.Create(PredefinedCsvParsers.Ing) },
                 { "Intelligo bank", new IntelligoBankParser() },
