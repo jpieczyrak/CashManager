@@ -6,7 +6,7 @@
              xmlns:plots="clr-namespace:CashManager_MVVM.Features.Plots"
              xmlns:oxy="http://oxyplot.org/wpf"
              xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
-             xmlns:setters="clr-namespace:CashManager_MVVM.Features.MassReplacer.Setters"
+             xmlns:selectors="clr-namespace:CashManager_MVVM.Features.Search.Selectors"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=plots:WealthViewModel, IsDesignTimeCreatable=True}">
 
@@ -23,7 +23,7 @@
             </Grid.ColumnDefinitions>
 
             <common:DateRangePicker Grid.Column="0" DateFrameSelector="{Binding BookDateFilter}" />
-            <setters:MultiSetterControl Grid.Column="1" DataContext="{Binding UserStocksFilter}" />
+            <selectors:MultiPickerControl Grid.Column="1" DataContext="{Binding UserStocksFilter}" />
         </Grid>
 
         <oxy:PlotView Grid.Row="1" Model="{Binding Wealth}">

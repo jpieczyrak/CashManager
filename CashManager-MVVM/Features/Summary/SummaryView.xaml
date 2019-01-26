@@ -8,7 +8,7 @@
              xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
              xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
              xmlns:stocks="clr-namespace:CashManager_MVVM.Features.Stocks"
-             xmlns:setters="clr-namespace:CashManager_MVVM.Features.MassReplacer.Setters"
+             xmlns:selectors="clr-namespace:CashManager_MVVM.Features.Search.Selectors"
              mc:Ignorable="d"
              d:DesignHeight="250" d:DesignWidth="600"
              d:DataContext="{d:DesignInstance Type=summary:SummaryViewModel, IsDesignTimeCreatable=True}">
@@ -73,7 +73,7 @@
             </Grid.RowDefinitions>
 
             <common:DateRangePicker Grid.Row="0" DateFrameSelector="{Binding BookDateFilter}" Margin="0,10,0,0" MaxWidth="280" />
-            <setters:MultiSetterControl Grid.Row="1" DataContext="{Binding UserStocksFilter}" />
+            <selectors:MultiPickerControl Grid.Row="1" DataContext="{Binding UserStocksFilter}" />
             <oxy:PlotView Grid.Row="2" Model="{Binding YearBalanceModel}" ToolTip="Year balance">
                 <oxy:PlotView.DefaultTrackerTemplate>
                     <ControlTemplate>
