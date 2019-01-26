@@ -12,7 +12,7 @@ using Xunit;
 
 using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
 
-namespace CashManager.Tests.MVVM.Logic.Setters.Transactions
+namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.Text
 {
     public class PositionTitleTextSetter
     {

@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 
-using AutoMapper;
-
+using CashManager_MVVM;
 using CashManager_MVVM.Logic.Commands.Setters;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
@@ -11,29 +10,23 @@ using Xunit;
 
 using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
 
-namespace CashManager.Tests.MVVM.Logic.Setters.Transactions
+namespace CashManager.Tests.MVVM.Logic.Setters.Positions.Text
 {
-    public class TitleTextSetter
+    public class TransactionTitleTextSetter
     {
-        private readonly Transaction[] _transactions =
-        {
-            new Transaction { Title = "Title 1" },
-            new Transaction { Title = "Title 2" },
-            new Transaction { Title = "Title 3" }
-        };
-
         [Fact]
         public void TextSetter_DisabledSetter_NoChange()
         {
             //given
             var textSetter = new TextSetter(TextSetterType.Title);
             var command = TextSetterCommand.Create(textSetter);
+            var positions = GetPositions();
 
             //when
-            var result = command.Execute(_transactions);
+            var result = command.Execute(positions);
 
             //then
-            Assert.Equal(_transactions.Select(x => x.Title), result.Select(x => x.Title));
+            Assert.Equal(positions.Select(x => x.Parent.Title), result.Select(x => x.Parent.Title));
         }
 
         [Fact]
@@ -44,14 +37,13 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions
             string targetText = "title";
             var textSetter = new TextSetter(TextSetterType.Title) { IsChecked = true, Value = targetText };
             var command = TextSetterCommand.Create(textSetter);
-            var expected = Mapper.Map<Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
-            foreach (var transaction in expected) transaction.Title = targetText;
+            var expected = new[] { targetText, targetText, targetText, targetText };
 
             //when
-            var result = command.Execute(_transactions);
+            var result = command.Execute(GetPositions());
 
             //then
-            Assert.Equal(expected.Select(x => x.Title), result.Select(x => x.Title));
+            Assert.Equal(expected, result.Select(x => x.Parent.Title));
         }
 
         [Fact]
@@ -62,14 +54,14 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions
             string targetText = "title";
             var textSetter = new TextSetter(TextSetterType.Title) { IsChecked = true, Value = targetText, AppendMode = true };
             var command = TextSetterCommand.Create(textSetter);
-            var expected = Mapper.Map<Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
-            foreach (var transaction in expected) transaction.Title += targetText;
+            var positions = GetPositions();
+            var expected = positions.Select(x => $"{x.Parent.Title}{targetText}").ToArray();
 
             //when
-            var result = command.Execute(_transactions);
+            var result = command.Execute(positions);
 
             //then
-            Assert.Equal(expected.Select(x => x.Title), result.Select(x => x.Title));
+            Assert.Equal(expected, result.Select(x => x.Parent.Title));
         }
 
         [Fact]
@@ -81,13 +73,13 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions
             var textSelector = new TextSelector(TextSelectorType.Title) { IsChecked = true, Value = "it" };
             var textSetter = new TextSetter(TextSetterType.Title) { IsChecked = true, Value = targetText, ReplaceMatch = true };
             var command = TextSetterCommand.Create(textSetter, textSelector);
-            var expected = new[] { "Ttitlele 1", "Ttitlele 2", "Ttitlele 3" };
+            var expected = new[] { "Ttitlele 1", "Ttitlele 2", "Ttitlele 3", "Ttitlele 3" };
 
             //when
-            var result = command.Execute(_transactions);
+            var result = command.Execute(GetPositions());
 
             //then
-            Assert.Equal(expected, result.Select(x => x.Title));
+            Assert.Equal(expected, result.Select(x => x.Parent.Title));
         }
 
         [Fact]
@@ -99,13 +91,30 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions
             var textSelector = new TextSelector(TextSelectorType.Title) { IsChecked = true, Value = @"\d", IsRegex = true };
             var textSetter = new TextSetter(TextSetterType.Title) { IsChecked = true, Value = targetText, ReplaceMatch = true };
             var command = TextSetterCommand.Create(textSetter, textSelector);
-            var expected = new[] { "Title X", "Title X", "Title X" };
+            var expected = new[] { "Title X", "Title X", "Title X", "Title X" };
 
             //when
-            var result = command.Execute(_transactions);
+            var result = command.Execute(GetPositions());
 
             //then
-            Assert.Equal(expected, result.Select(x => x.Title));
+            Assert.Equal(expected, result.Select(x => x.Parent.Title));
+        }
+
+        private Position[] GetPositions()
+        {
+            var commonParent = new Transaction { Title = "Title 3" };
+            Position[] positions =
+            {
+                new Position { Parent = new Transaction { Title = "Title 1" } },
+
+                new Position { Parent = new Transaction { Title = "Title 2" } },
+                new Position { Parent = commonParent },
+                new Position { Parent = commonParent }
+            };
+            foreach (var position in positions)
+                position.Parent.Positions = new TrulyObservableCollection<Position> { position };
+
+            return positions;
         }
     }
 }

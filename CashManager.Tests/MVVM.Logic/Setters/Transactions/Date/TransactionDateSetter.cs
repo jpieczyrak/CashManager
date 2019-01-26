@@ -11,7 +11,7 @@ using Xunit;
 
 using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
 
-namespace CashManager.Tests.MVVM.Logic.Setters.Transactions
+namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.Date
 {
     public class TransactionDateSetter
     {

@@ -159,14 +159,14 @@
     <Compile Include="MVVM.Logic\Filters\TextFilters\PositionMultiFilter.cs" />
     <Compile Include="MVVM.Logic\Filters\TextFilters\TransactionMultiFilter.cs" />
     <Compile Include="MVVM.Logic\Filters\TextFilters\TransactionTextFilter.cs" />
-    <Compile Include="MVVM.Logic\Setters\Positions\NoteTextSetter.cs" />
-    <Compile Include="MVVM.Logic\Setters\Positions\PositionTitleTextSetter.cs" />
-    <Compile Include="MVVM.Logic\Setters\Positions\TransactionTitleTextSetter.cs" />
-    <Compile Include="MVVM.Logic\Setters\Positions\TransactionDateSetter.cs" />
-    <Compile Include="MVVM.Logic\Setters\Transactions\PositionTitleTextSetter.cs" />
-    <Compile Include="MVVM.Logic\Setters\Transactions\NoteTextSetter.cs" />
-    <Compile Include="MVVM.Logic\Setters\Transactions\TitleTextSetter.cs" />
-    <Compile Include="MVVM.Logic\Setters\Transactions\TransactionDateSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Positions\Text\NoteTextSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Positions\Text\PositionTitleTextSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Positions\Text\TransactionTitleTextSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Positions\Date\TransactionDateSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Transactions\Text\PositionTitleTextSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Transactions\Text\NoteTextSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Transactions\Text\TitleTextSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Transactions\Date\TransactionDateSetter.cs" />
     <Compile Include="MVVM.Logic\TransactionBalanceCalculatorTests.cs" />
     <Compile Include="Parsers\BaseParserTests.cs" />
     <Compile Include="Parsers\Custom\CustomCsvParserTests.cs" />
@@ -222,7 +222,10 @@
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="MVVM.Logic\Setters\Positions\SinglePicker\" />
+    <Folder Include="MVVM.Logic\Setters\Transactions\SinglePicker\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

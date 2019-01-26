@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
-using CashManager_MVVM;
+using AutoMapper;
+
 using CashManager_MVVM.Logic.Commands.Setters;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Selectors;
@@ -10,22 +11,16 @@ using Xunit;
 
 using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
 
-namespace CashManager.Tests.MVVM.Logic.Setters.Positions
+namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.Text
 {
     public class NoteTextSetter
     {
-        private readonly Position[] _positions =
+        private readonly Transaction[] _transactions =
         {
-            new Position { Parent = new Transaction { Note = "Note 1" } },
-            new Position { Parent = new Transaction { Note = "Note 2" } },
-            new Position { Parent = new Transaction { Note = "Note 3" } }
+            new Transaction { Note = "Note 1" },
+            new Transaction { Note = "Note 2" },
+            new Transaction { Note = "Note 3" }
         };
-
-        public NoteTextSetter()
-        {
-            foreach (var position in _positions)
-                position.Parent.Positions = new TrulyObservableCollection<Position> { position };
-        }
 
         [Fact]
         public void TextSetter_DisabledSetter_NoChange()
@@ -35,10 +30,10 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions
             var command = TextSetterCommand.Create(textSetter);
 
             //when
-            var result = command.Execute(_positions);
+            var result = command.Execute(_transactions);
 
             //then
-            Assert.Equal(_positions.Select(x => x.Parent.Note), result.Select(x => x.Parent.Note));
+            Assert.Equal(_transactions.Select(x => x.Note), result.Select(x => x.Note));
         }
 
         [Fact]
@@ -49,13 +44,14 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions
             string targetText = "test";
             var textSetter = new TextSetter(TextSetterType.Note) { IsChecked = true, Value = targetText };
             var command = TextSetterCommand.Create(textSetter);
-            var expected = new [] { "test", "test", "test" };
+            var expected = Mapper.Map<Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
+            foreach (var transaction in expected) transaction.Note = targetText;
 
             //when
-            var result = command.Execute(_positions);
+            var result = command.Execute(_transactions);
 
             //then
-            Assert.Equal(expected, result.Select(x => x.Parent.Note));
+            Assert.Equal(expected.Select(x => x.Note), result.Select(x => x.Note));
         }
 
         [Fact]
@@ -66,13 +62,14 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions
             string targetText = "test";
             var textSetter = new TextSetter(TextSetterType.Note) { IsChecked = true, Value = targetText, AppendMode = true };
             var command = TextSetterCommand.Create(textSetter);
-            var expected = new[] { "Note 1test", "Note 2test", "Note 3test" };
+            var expected = Mapper.Map<Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
+            foreach (var transaction in expected) transaction.Note += targetText;
 
             //when
-            var result = command.Execute(_positions);
+            var result = command.Execute(_transactions);
 
             //then
-            Assert.Equal(expected, result.Select(x => x.Parent.Note));
+            Assert.Equal(expected.Select(x => x.Note), result.Select(x => x.Note));
         }
 
         [Fact]
@@ -87,10 +84,10 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions
             var expected = new[] { "Nxe 1", "Nxe 2", "Nxe 3" };
 
             //when
-            var result = command.Execute(_positions);
+            var result = command.Execute(_transactions);
 
             //then
-            Assert.Equal(expected, result.Select(x => x.Parent.Note));
+            Assert.Equal(expected, result.Select(x => x.Note));
         }
 
         [Fact]
@@ -105,10 +102,10 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions
             var expected = new[] { "Note X", "Note X", "Note X" };
 
             //when
-            var result = command.Execute(_positions);
+            var result = command.Execute(_transactions);
 
             //then
-            Assert.Equal(expected, result.Select(x => x.Parent.Note));
+            Assert.Equal(expected, result.Select(x => x.Note));
         }
     }
 }
