@@ -5,6 +5,7 @@ using CashManager_MVVM.Logic.Commands.Setters;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
+using CashManager_MVVM.Model.Setters;
 
 using Xunit;
 
@@ -20,8 +21,8 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.MultiPicker
         public void DateSetter_DisabledSetter_NoChange()
         {
             //given
-            var selector = new CashManager_MVVM.Model.Selectors.MultiPicker(MultiPickerType.Tag, GetTags());
-            var command = MultiPickerSetterCommand.Create(selector);
+            var selector = new MultiSetter(MultiPickerType.Tag, GetTags());
+            var command = MultiSetterCommand.Create(selector);
             var transactions = GetTransactions();
 
             //when
@@ -35,12 +36,12 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.MultiPicker
         public void DateSetter_EnabledSetter_Change()
         {
             //given
-            var selector = new CashManager_MVVM.Model.Selectors.MultiPicker(MultiPickerType.Tag, GetTags(),
+            var selector = new MultiSetter(MultiPickerType.Tag, GetTags(),
                 new[] { new Selectable(_tagB) })
             {
                 IsChecked = true
             };
-            var command = MultiPickerSetterCommand.Create(selector);
+            var command = MultiSetterCommand.Create(selector);
             var transactions = GetTransactions();
 
             //when

@@ -46,7 +46,7 @@
             <setters:TextSetterControl Grid.Row="0" Grid.Column="1" DataContext="{Binding State.NoteSelector}" />
             <setters:TextSetterControl Grid.Row="0" Grid.Column="2" DataContext="{Binding State.PositionTitleSelector}" />
 
-            <selectors:MultiPickerControl Grid.Row="1" Grid.Column="0" DataContext="{Binding State.TagsSelector}" />
+            <setters:MultiSetterControl Grid.Row="1" Grid.Column="0" DataContext="{Binding State.TagsSelector}" />
             <massReplaceSelectors:SinglePickerControl Grid.Row="1" Grid.Column="1" DataContext="{Binding State.CategoriesSelector}" />
             <massReplaceSelectors:SinglePickerControl Grid.Row="1" Grid.Column="2" DataContext="{Binding State.TypesSelector}" />
 

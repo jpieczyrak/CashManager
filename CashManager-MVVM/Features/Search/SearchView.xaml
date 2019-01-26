@@ -7,6 +7,7 @@
              xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
              xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
              xmlns:selectors="clr-namespace:CashManager_MVVM.Features.Search.Selectors"
+             xmlns:setters="clr-namespace:CashManager_MVVM.Features.MassReplacer.Setters"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:SearchViewModel, IsDesignTimeCreatable=True}">
 
@@ -53,16 +54,16 @@
             <selectors:TextSelectorControl Grid.Row="0" Grid.Column="1" DataContext="{Binding State.NoteFilter}" />
             <selectors:TextSelectorControl Grid.Row="0" Grid.Column="2" DataContext="{Binding State.PositionTitleFilter}" />
 
-            <selectors:MultiPickerControl Grid.Row="1" Grid.Column="0" DataContext="{Binding State.TagsFilter}" />
-            <selectors:MultiPickerControl Grid.Row="1" Grid.Column="1" DataContext="{Binding State.CategoriesFilter}" />
-            <selectors:MultiPickerControl Grid.Row="1" Grid.Column="2" DataContext="{Binding State.TypesFilter}" />
+            <setters:MultiSetterControl Grid.Row="1" Grid.Column="0" DataContext="{Binding State.TagsFilter}" />
+            <setters:MultiSetterControl Grid.Row="1" Grid.Column="1" DataContext="{Binding State.CategoriesFilter}" />
+            <setters:MultiSetterControl Grid.Row="1" Grid.Column="2" DataContext="{Binding State.TypesFilter}" />
 
             <common:DateRangePicker Grid.Row="2" Grid.Column="0" DateFrame="{Binding State.CreateDateFilter}" />
             <common:DateRangePicker Grid.Row="2" Grid.Column="1" DateFrame="{Binding State.BookDateFilter}" />
             <common:DateRangePicker Grid.Row="2" Grid.Column="2" DateFrame="{Binding State.LastEditDateFilter}" />
 
-            <selectors:MultiPickerControl Grid.Row="3" Grid.Column="0" DataContext="{Binding State.UserStocksFilter}" />
-            <selectors:MultiPickerControl Grid.Row="3" Grid.Column="1" DataContext="{Binding State.ExternalStocksFilter}" />
+            <setters:MultiSetterControl Grid.Row="3" Grid.Column="0" DataContext="{Binding State.UserStocksFilter}" />
+            <setters:MultiSetterControl Grid.Row="3" Grid.Column="1" DataContext="{Binding State.ExternalStocksFilter}" />
             <selectors:ValueRangeControl Grid.Row="3" Grid.Column="2" DataContext="{Binding State.ValueFilter}" />
         </Grid>
 

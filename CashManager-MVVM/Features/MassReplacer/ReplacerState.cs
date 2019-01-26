@@ -29,7 +29,7 @@ namespace CashManager_MVVM.Features.MassReplacer
         private SinglePicker _externalStocksSelector;
         private SinglePicker _categoriesSelector;
         private SinglePicker _typesSelector;
-        private MultiPicker _tagsSelector;
+        private MultiSetter _tagsSelector;
 
         public override string Name
         {
@@ -71,7 +71,7 @@ namespace CashManager_MVVM.Features.MassReplacer
             set => Set(nameof(TypesSelector), ref _typesSelector, value);
         }
 
-        public MultiPicker TagsSelector
+        public MultiSetter TagsSelector
         {
             get => _tagsSelector;
             set => Set(nameof(TagsSelector), ref _tagsSelector, value);
@@ -108,7 +108,7 @@ namespace CashManager_MVVM.Features.MassReplacer
             ExternalStocksSelector = new SinglePicker(MultiPickerType.ExternalStock, defaultSource);
             CategoriesSelector = new SinglePicker(MultiPickerType.Category, defaultSource);
             TypesSelector = new SinglePicker(MultiPickerType.TransactionType, defaultSource);
-            TagsSelector = new MultiPicker(MultiPickerType.Tag, defaultSource);
+            TagsSelector = new MultiSetter(MultiPickerType.Tag, defaultSource);
         }
 
 

@@ -5,18 +5,19 @@ using System.Linq;
 using CashManager_MVVM.Model;
 using CashManager_MVVM.Model.Common;
 using CashManager_MVVM.Model.Selectors;
+using CashManager_MVVM.Model.Setters;
 
 namespace CashManager_MVVM.Logic.Commands.Setters
 {
-    public class MultiPickerSetterCommand : ISetter<Transaction>, ISetter<Position>
+    public class MultiSetterCommand : ISetter<Transaction>, ISetter<Position>
     {
-        private readonly MultiPicker _selector;
+        private readonly MultiSetter _setter;
 
-        private MultiPickerSetterCommand(MultiPicker selector) { _selector = selector; }
+        private MultiSetterCommand(MultiSetter setter) { _setter = setter; }
 
         #region ISetter<Transaction>
 
-        public bool CanExecute() => _selector?.IsChecked == true && (_selector.Results?.Any() ?? false);
+        public bool CanExecute() => _setter?.IsChecked == true && (_setter.Results?.Any() ?? false);
 
         #endregion
 
@@ -24,7 +25,7 @@ namespace CashManager_MVVM.Logic.Commands.Setters
         {
             if (!CanExecute()) return elements;
             var setter = GetPositionAction();
-            var selected = _selector.Results.Select(x => x.Value).ToArray();
+            var selected = _setter.Results.Select(x => x.Value).ToArray();
             foreach (var position in elements) setter(position, selected);
             return elements;
         }
@@ -33,16 +34,16 @@ namespace CashManager_MVVM.Logic.Commands.Setters
         {
             if (!CanExecute()) return elements;
             var setter = GetTransactionAction();
-            var selected = _selector.Results.Select(x => x.Value).ToArray();
+            var selected = _setter.Results.Select(x => x.Value).ToArray();
             foreach (var transaction in elements) setter(transaction, selected);
             return elements;
         }
 
-        public static MultiPickerSetterCommand Create(MultiPicker selector) => new MultiPickerSetterCommand(selector);
+        public static MultiSetterCommand Create(MultiSetter setter) => new MultiSetterCommand(setter);
 
         private Action<Transaction, BaseObservableObject[]> GetTransactionAction()
         {
-            switch (_selector.Type)
+            switch (_setter.Type)
             {
                 case MultiPickerType.Tag:
                     return (transaction, o) =>
@@ -57,7 +58,7 @@ namespace CashManager_MVVM.Logic.Commands.Setters
 
         private Action<Position, BaseObservableObject[]> GetPositionAction()
         {
-            switch (_selector.Type)
+            switch (_setter.Type)
             {
                 case MultiPickerType.Tag:
                     return (position, o) => position.Tags = o.OfType<Tag>().ToArray();

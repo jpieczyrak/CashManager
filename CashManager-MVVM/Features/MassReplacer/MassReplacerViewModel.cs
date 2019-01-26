@@ -47,7 +47,7 @@ namespace CashManager_MVVM.Features.MassReplacer
                 SinglePickerSetterCommand.Create(State.UserStocksSelector),
                 SinglePickerSetterCommand.Create(State.ExternalStocksSelector),
                 SinglePickerSetterCommand.Create(State.TypesSelector),
-                MultiPickerSetterCommand.Create(State.TagsSelector)
+                MultiSetterCommand.Create(State.TagsSelector)
             };
             _positionSetter = _transactionSetters.OfType<ISetter<Model.Position>>().ToArray();
         }
