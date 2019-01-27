@@ -5,7 +5,6 @@ using AutoMapper;
 
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Transactions;
-
 using CashManager.WPF.CommonData;
 using CashManager.WPF.Features.Main;
 using CashManager.WPF.Model;
@@ -80,7 +79,7 @@ namespace CashManager.WPF.Features.Transactions
         private void TransactionDuplicate()
         {
             var transaction = Transaction.Copy(SelectedTransaction);
-            var dto = Mapper.Map<CashManager.Data.DTO.Transaction>(transaction);
+            var dto = Mapper.Map<Data.DTO.Transaction>(transaction);
 
             _commandDispatcher.Execute(new UpsertTransactionsCommand(dto));
             _provider.AllTransactions.Add(transaction);
@@ -97,7 +96,7 @@ namespace CashManager.WPF.Features.Transactions
                 if (!_messagesService.ShowQuestionMessage(Strings.Question, string.Format(Strings.QuestionDoYouWantToRemoveTransactionFormat, SelectedTransaction.Title)))
                     return;
 
-            var dto = Mapper.Map<CashManager.Data.DTO.Transaction>(SelectedTransaction);
+            var dto = Mapper.Map<Data.DTO.Transaction>(SelectedTransaction);
             _commandDispatcher.Execute(new DeleteTransactionCommand(dto));
 
             _provider.AllTransactions.Remove(SelectedTransaction);

@@ -4,7 +4,6 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Categories;
 using CashManager.Infrastructure.Query.Transactions;
 using CashManager.Logic.Wrappers;
-
 using CashManager.WPF.Model;
 
 using DtoTransaction = CashManager.Data.DTO.Transaction;
@@ -18,7 +17,7 @@ namespace CashManager.WPF.CommonData
         public TransactionsProvider(IQueryDispatcher queryDispatcher)
         {
             //lets cache categories [needed after not loading full categories in transaction query]:
-            Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery()));
+            Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, Data.DTO.Category[]>(new CategoryQuery()));
 
             var query = new TransactionQuery();
             DtoTransaction[] dtos = null;

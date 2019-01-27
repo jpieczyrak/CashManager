@@ -1,13 +1,12 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+
+using AutoMapper;
+
 using CashManager.WPF.Features.Search;
 using CashManager.WPF.Logic.Balances;
 using CashManager.WPF.Model;
 using CashManager.WPF.Model.Selectors;
-using System;
-using System.Collections.Generic;
-using Category = CashManager.WPF.Model.Category;
-using Stock = CashManager.WPF.Model.Stock;
-using Tag = CashManager.WPF.Model.Tag;
 
 namespace CashManager.WPF.Configuration.Mapping
 {
@@ -28,8 +27,8 @@ namespace CashManager.WPF.Configuration.Mapping
                     var types = new Dictionary<Guid, TransactionType>();
                     Mapper.Initialize(config =>
                     {
-                        config.CreateMap<Category, CashManager.Data.DTO.Category>();
-                        config.CreateMap<CashManager.Data.DTO.Category, ExpandableCategory>();
+                        config.CreateMap<Category, Data.DTO.Category>();
+                        config.CreateMap<Data.DTO.Category, ExpandableCategory>();
                         config.CreateMap<Category, ExpandableCategory>();
                         config.CreateMap<ExpandableCategory, Category>()
                               .ConstructUsing((dto, context) =>
@@ -41,7 +40,7 @@ namespace CashManager.WPF.Configuration.Mapping
                                   if (dto.Name != null) categories[dto.Id] = category;
                                   return category;
                               });
-                        config.CreateMap<CashManager.Data.DTO.Category, Category>()
+                        config.CreateMap<Data.DTO.Category, Category>()
                               .ConstructUsing((dto, context) =>
                               {
                                   if (dto == null) return null;
@@ -52,16 +51,16 @@ namespace CashManager.WPF.Configuration.Mapping
                                   return category;
                               });
 
-                        config.CreateMap<Balance, CashManager.Data.DTO.Balance>();
-                        config.CreateMap<CashManager.Data.DTO.Balance, Balance>()
+                        config.CreateMap<Balance, Data.DTO.Balance>();
+                        config.CreateMap<Data.DTO.Balance, Balance>()
                               .AfterMap((dto, model) => model.IsPropertyChangedEnabled = true);
 
-                        config.CreateMap<Stock, CashManager.Data.DTO.Stock>()
+                        config.CreateMap<Stock, Data.DTO.Stock>()
                               .AfterMap((model, dto) =>
                               {
                                   stocks[model.Id] = model;
                               });
-                        config.CreateMap<CashManager.Data.DTO.Stock, Stock>()
+                        config.CreateMap<Data.DTO.Stock, Stock>()
                               .BeforeMap((dto, model) => model.IsPropertyChangedEnabled = false)
                               .ConstructUsing((dto, context) =>
                               {
@@ -75,8 +74,8 @@ namespace CashManager.WPF.Configuration.Mapping
                                   model.IsPropertyChangedEnabled = true;
                               });
 
-                        config.CreateMap<Tag, CashManager.Data.DTO.Tag>();
-                        config.CreateMap<CashManager.Data.DTO.Tag, Tag>()
+                        config.CreateMap<Tag, Data.DTO.Tag>();
+                        config.CreateMap<Data.DTO.Tag, Tag>()
                               .ConstructUsing((dto, context) =>
                               {
                                   if (dto == null) return null;
@@ -88,11 +87,11 @@ namespace CashManager.WPF.Configuration.Mapping
                                   tags[dto.Id] = model;
                               });
 
-                        config.CreateMap<PaymentValue, CashManager.Data.DTO.PaymentValue>();
-                        config.CreateMap<CashManager.Data.DTO.PaymentValue, PaymentValue>();
+                        config.CreateMap<PaymentValue, Data.DTO.PaymentValue>();
+                        config.CreateMap<Data.DTO.PaymentValue, PaymentValue>();
 
-                        config.CreateMap<TransactionType, CashManager.Data.DTO.TransactionType>();
-                        config.CreateMap<CashManager.Data.DTO.TransactionType, TransactionType>()
+                        config.CreateMap<TransactionType, Data.DTO.TransactionType>();
+                        config.CreateMap<Data.DTO.TransactionType, TransactionType>()
                               .ConstructUsing((dto, context) =>
                               {
                                   if (dto == null) return null;
@@ -104,17 +103,17 @@ namespace CashManager.WPF.Configuration.Mapping
                                   types[dto.Id] = model;
                               });
 
-                        config.CreateMap<StoredFileInfo, CashManager.Data.DTO.StoredFileInfo>();
-                        config.CreateMap<CashManager.Data.DTO.StoredFileInfo, StoredFileInfo>();
+                        config.CreateMap<StoredFileInfo, Data.DTO.StoredFileInfo>();
+                        config.CreateMap<Data.DTO.StoredFileInfo, StoredFileInfo>();
 
-                        config.CreateMap<Position, CashManager.Data.DTO.Position>()
-                              .ConstructUsing(x => new CashManager.Data.DTO.Position());
-                        config.CreateMap<CashManager.Data.DTO.Position, Position>()
+                        config.CreateMap<Position, Data.DTO.Position>()
+                              .ConstructUsing(x => new Data.DTO.Position());
+                        config.CreateMap<Data.DTO.Position, Position>()
                               .BeforeMap((dto, model) => model.IsPropertyChangedEnabled = false)
                               .AfterMap((dto, model) => model.IsPropertyChangedEnabled = true);
 
-                        config.CreateMap<Transaction, CashManager.Data.DTO.Transaction>();
-                        config.CreateMap<CashManager.Data.DTO.Transaction, Transaction>()
+                        config.CreateMap<Transaction, Data.DTO.Transaction>();
+                        config.CreateMap<Data.DTO.Transaction, Transaction>()
                               .BeforeMap((dto, model) => model.IsPropertyChangedEnabled = false)
                               .AfterMap((dto, model) =>
                               {
@@ -132,23 +131,23 @@ namespace CashManager.WPF.Configuration.Mapping
                                   model.IsPropertyChangedEnabled = true;
                               });
 
-                        config.CreateMap<SearchState, CashManager.Data.ViewModelState.SearchState>();
-                        config.CreateMap<CashManager.Data.ViewModelState.SearchState, SearchState>();
+                        config.CreateMap<SearchState, Data.ViewModelState.SearchState>();
+                        config.CreateMap<Data.ViewModelState.SearchState, SearchState>();
 
-                        config.CreateMap<DateFrameSelector, CashManager.Data.ViewModelState.Selectors.DateFrameSelector>();
-                        config.CreateMap<CashManager.Data.ViewModelState.Selectors.DateFrameSelector, DateFrameSelector>();
+                        config.CreateMap<DateFrameSelector, Data.ViewModelState.Selectors.DateFrameSelector>();
+                        config.CreateMap<Data.ViewModelState.Selectors.DateFrameSelector, DateFrameSelector>();
 
-                        config.CreateMap<RangeSelector, CashManager.Data.ViewModelState.Selectors.RangeSelector>();
-                        config.CreateMap<CashManager.Data.ViewModelState.Selectors.RangeSelector, RangeSelector>();
+                        config.CreateMap<RangeSelector, Data.ViewModelState.Selectors.RangeSelector>();
+                        config.CreateMap<Data.ViewModelState.Selectors.RangeSelector, RangeSelector>();
 
-                        config.CreateMap<TextSelector, CashManager.Data.ViewModelState.Selectors.TextSelector>();
-                        config.CreateMap<CashManager.Data.ViewModelState.Selectors.TextSelector, TextSelector>();
+                        config.CreateMap<TextSelector, Data.ViewModelState.Selectors.TextSelector>();
+                        config.CreateMap<Data.ViewModelState.Selectors.TextSelector, TextSelector>();
 
-                        config.CreateMap<MultiPicker, CashManager.Data.ViewModelState.Selectors.MultiPicker>();
-                        config.CreateMap<CashManager.Data.ViewModelState.Selectors.MultiPicker, MultiPicker>();
+                        config.CreateMap<MultiPicker, Data.ViewModelState.Selectors.MultiPicker>();
+                        config.CreateMap<Data.ViewModelState.Selectors.MultiPicker, MultiPicker>();
 
-                        config.CreateMap<CustomBalance, CashManager.Data.ViewModelState.Balances.CustomBalance>();
-                        config.CreateMap<CashManager.Data.ViewModelState.Balances.CustomBalance, CustomBalance>();
+                        config.CreateMap<CustomBalance, Data.ViewModelState.Balances.CustomBalance>();
+                        config.CreateMap<Data.ViewModelState.Balances.CustomBalance, CustomBalance>();
                     });
 
                     _isInitialized = true;

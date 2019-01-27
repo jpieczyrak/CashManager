@@ -19,7 +19,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.SinglePicker
         {
             //given
             var selector = new SingleSetter(MultiPickerType.TransactionType, GetTransactionTypes());
-            var command = CashManager.WPF.Logic.Commands.Setters.SingleSetterCommand.Create(selector);
+            var command = WPF.Logic.Commands.Setters.SingleSetterCommand.Create(selector);
             var transactions = GetTransactions();
 
             //when
@@ -38,7 +38,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.SinglePicker
                 IsChecked = true,
                 Selected = new Selectable(_typeB)
             };
-            var command = CashManager.WPF.Logic.Commands.Setters.SingleSetterCommand.Create(selector);
+            var command = WPF.Logic.Commands.Setters.SingleSetterCommand.Create(selector);
             var transactions = GetTransactions();
 
             //when

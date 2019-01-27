@@ -6,7 +6,6 @@ using System.Linq;
 using AutoMapper;
 
 using CashManager.Data.Extensions;
-
 using CashManager.WPF.Model.Common;
 
 namespace CashManager.WPF.Model
@@ -175,7 +174,7 @@ namespace CashManager.WPF.Model
         public static Transaction Copy(Transaction source)
         {
             if (source == null) return null;
-            var dto = new CashManager.Data.DTO.Transaction($"{source.Id}{DateTime.Now}".GenerateGuid())
+            var dto = new Data.DTO.Transaction($"{source.Id}{DateTime.Now}".GenerateGuid())
             {
                 TransactionSourceCreationDate = source.TransactionSourceCreationDate
             };
@@ -186,7 +185,7 @@ namespace CashManager.WPF.Model
         public static Transaction Clone(Transaction source)
         {
             if (source == null) return null;
-            var dto = new CashManager.Data.DTO.Transaction(source.Id)
+            var dto = new Data.DTO.Transaction(source.Id)
             {
                 TransactionSourceCreationDate = source.TransactionSourceCreationDate
             };
@@ -194,7 +193,7 @@ namespace CashManager.WPF.Model
             return BuildTransaction(source, dto);
         }
 
-        private static Transaction BuildTransaction(Transaction source, CashManager.Data.DTO.Transaction dto)
+        private static Transaction BuildTransaction(Transaction source, Data.DTO.Transaction dto)
         {
             var transaction = Mapper.Map<Transaction>(dto);
             transaction.IsPropertyChangedEnabled = false;

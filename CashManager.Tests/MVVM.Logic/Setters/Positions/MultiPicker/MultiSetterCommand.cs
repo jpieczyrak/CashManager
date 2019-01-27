@@ -20,7 +20,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions.MultiPicker
         {
             //given
             var selector = new MultiSetter(MultiPickerType.Tag, GetTags());
-            var command = CashManager.WPF.Logic.Commands.Setters.MultiSetterCommand.Create(selector);
+            var command = WPF.Logic.Commands.Setters.MultiSetterCommand.Create(selector);
             var positions = GetPositions();
 
             //when
@@ -39,7 +39,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions.MultiPicker
             {
                 IsChecked = true
             };
-            var command = CashManager.WPF.Logic.Commands.Setters.MultiSetterCommand.Create(selector);
+            var command = WPF.Logic.Commands.Setters.MultiSetterCommand.Create(selector);
             var positions = GetPositions();
 
             //when
@@ -61,7 +61,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions.MultiPicker
                 IsChecked = true,
                 Append = true
             };
-            var command = CashManager.WPF.Logic.Commands.Setters.MultiSetterCommand.Create(selector);
+            var command = WPF.Logic.Commands.Setters.MultiSetterCommand.Create(selector);
             var positions = GetPositions();
 
             //when
@@ -87,7 +87,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions.MultiPicker
                 new Position { Tags = new[] { _tagA }, Parent = parentA },
                 new Position { Tags = new[] { _tagA }, Parent = parentA },
                 new Position { Tags = new[] { _tagA }, Parent = parentB },
-                new Position { Tags = new[] { _tagA }, Parent = parentB },
+                new Position { Tags = new[] { _tagA }, Parent = parentB }
             };
         }
 

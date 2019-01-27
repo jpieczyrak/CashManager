@@ -8,7 +8,6 @@ using AutoMapper;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.TransactionTypes;
-
 using CashManager.WPF.CommonData;
 using CashManager.WPF.Model;
 using CashManager.WPF.Model.Common;
@@ -65,9 +64,9 @@ namespace CashManager.WPF.Features.Plots
             _transactionsProvider = transactionsProvider;
 
             //lets cache types [needed after not loading full types in transaction query]:
-            Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()));
+            Mapper.Map<TransactionType[]>(_queryDispatcher.Execute<TransactionTypesQuery, Data.DTO.TransactionType[]>(new TransactionTypesQuery()));
 
-            var dtos = _queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
+            var dtos = _queryDispatcher.Execute<StockQuery, Data.DTO.Stock[]>(new StockQuery());
             var stocks = Mapper.Map<Stock[]>(dtos.Where(x => x.IsUserStock))
                                .OrderBy(x => x.Name)
                                .Select(x => new Selectable(x))
@@ -95,7 +94,7 @@ namespace CashManager.WPF.Features.Plots
 
         public virtual void Update()
         {
-            var dtos = _queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery());
+            var dtos = _queryDispatcher.Execute<StockQuery, Data.DTO.Stock[]>(new StockQuery());
             var stocks = Mapper.Map<Stock[]>(dtos.Where(x => x.IsUserStock))
                                .OrderBy(x => x.Name)
                                .Select(x => new Selectable(x))

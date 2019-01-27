@@ -4,7 +4,6 @@ using System.Linq;
 using AutoMapper;
 
 using CashManager.Data.Extensions;
-
 using CashManager.WPF.Features.Categories;
 using CashManager.WPF.Features.Common;
 using CashManager.WPF.Model.Common;
@@ -93,7 +92,7 @@ namespace CashManager.WPF.Model
         {
             if (source == null) return null;
 
-            var dto = new CashManager.Data.DTO.Position($"{source.Id}{DateTime.Now}".GenerateGuid());
+            var dto = new Data.DTO.Position($"{source.Id}{DateTime.Now}".GenerateGuid());
 
             var position = Mapper.Map<Position>(dto);
             position.IsPropertyChangedEnabled = false;

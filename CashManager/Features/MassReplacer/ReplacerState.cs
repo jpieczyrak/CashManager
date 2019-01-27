@@ -9,7 +9,6 @@ using CashManager.Infrastructure.Query.Categories;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Tags;
 using CashManager.Infrastructure.Query.TransactionTypes;
-
 using CashManager.WPF.Features.Categories;
 using CashManager.WPF.Model;
 using CashManager.WPF.Model.Common;
@@ -114,19 +113,19 @@ namespace CashManager.WPF.Features.MassReplacer
 
         public void Update(IQueryDispatcher queryDispatcher)
         {
-            var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, CashManager.Data.DTO.Stock[]>(new StockQuery())).OrderBy(x => x.Name);
+            var availableStocks = Mapper.Map<Stock[]>(queryDispatcher.Execute<StockQuery, Data.DTO.Stock[]>(new StockQuery())).OrderBy(x => x.Name);
             UserStocksSelector.Input = availableStocks.Where(x => x.IsUserStock).Select(x => new Selectable(x)).ToArray();
             ExternalStocksSelector.Input =
-                Mapper.Map<Stock[]>(Mapper.Map<CashManager.Data.DTO.Stock[]>(availableStocks)).Select(x => new Selectable(x)).ToArray();
+                Mapper.Map<Stock[]>(Mapper.Map<Data.DTO.Stock[]>(availableStocks)).Select(x => new Selectable(x)).ToArray();
 
-            var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, CashManager.Data.DTO.Category[]>(new CategoryQuery()));
+            var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, Data.DTO.Category[]>(new CategoryQuery()));
             categories = CategoryDesignHelper.BuildGraphicalOrder(categories);
             CategoriesSelector.Input = categories.Select(x => new Selectable(x)).ToArray();
 
-            var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, CashManager.Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
+            var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
             TypesSelector.Input = types.Select(x => new Selectable(x)).ToArray();
 
-            var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, CashManager.Data.DTO.Tag[]>(new TagQuery()).OrderBy(x => x.Name));
+            var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, Data.DTO.Tag[]>(new TagQuery()).OrderBy(x => x.Name));
             TagsSelector.SetInput(tags.Select(x => new Selectable(x)).ToArray());
         }
     }

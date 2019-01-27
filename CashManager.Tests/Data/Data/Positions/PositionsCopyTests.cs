@@ -30,7 +30,7 @@ namespace CashManager.Tests.Data.Data.Positions
             var external = new Stock { Name = "Ex" };
             var type = new TransactionType { Income = true, IsDefault = true };
             var tag = new Tag { Name = "tag" };
-            var category = new CashManager.WPF.Model.Category { Name = "cat" };
+            var category = new WPF.Model.Category { Name = "cat" };
             var parent = new Transaction
             {
                 Title = "Title",
