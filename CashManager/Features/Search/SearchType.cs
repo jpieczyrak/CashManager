@@ -1,4 +1,4 @@
-﻿namespace CashManager.WPF.Features.Search
+﻿namespace CashManager.Features.Search
 {
     public enum SearchType
     {

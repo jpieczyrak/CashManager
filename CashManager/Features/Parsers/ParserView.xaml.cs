@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager.WPF.Features.Parsers
+namespace CashManager.Features.Parsers
 {
     public partial class ParserView : UserControl
     {

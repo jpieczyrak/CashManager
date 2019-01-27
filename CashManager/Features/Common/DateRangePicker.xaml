@@ -3,10 +3,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:CashManager.WPF.Features.Common"
-    xmlns:properties="clr-namespace:CashManager.WPF.Properties"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:custom="http://www.galasoft.ch/mvvmlight" x:Class="CashManager.WPF.Features.Common.DateRangePicker"
+    xmlns:custom="http://www.galasoft.ch/mvvmlight"
+    xmlns:common="clr-namespace:CashManager.Features.Common"
+    xmlns:properties="clr-namespace:CashManager.Properties"
+    x:Class="CashManager.Features.Common.DateRangePicker"
     x:Name="DateRangePickerControl"
     mc:Ignorable="d"
     d:DesignHeight="100" d:DesignWidth="500">
@@ -74,7 +75,7 @@
                                Style="{DynamicResource GrayTextBlock}" />
                     <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2"
                                Margin="5,0" />
-                    <local:ExtendedDatePicker Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,2,2,2"
+                    <common:ExtendedDatePicker Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,2,2,2"
                                               SelectedValue="{Binding DateFrameSelector.From, ElementName=DateRangePickerControl}" />
                 </Grid>
                 <Grid Column="1" Margin="2,0">
@@ -93,7 +94,7 @@
                                Style="{DynamicResource GrayTextBlock}" />
                     <Separator Grid.Row="0" Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2"
                                Margin="5,0" />
-                    <local:ExtendedDatePicker Grid.Row="1" Grid.Column="0" Margin="2,2,0,2"
+                    <common:ExtendedDatePicker Grid.Row="1" Grid.Column="0" Margin="2,2,0,2"
                                               SelectedValue="{Binding DateFrameSelector.To, ElementName=DateRangePickerControl}"
                                               Grid.ColumnSpan="3" />
                 </Grid>

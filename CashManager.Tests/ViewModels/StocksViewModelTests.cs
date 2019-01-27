@@ -2,10 +2,9 @@
 
 using Autofac;
 
+using CashManager.Features.Stocks;
+using CashManager.Model;
 using CashManager.Tests.ViewModels.Fixtures;
-
-using CashManager.WPF.Features.Stocks;
-using CashManager.WPF.Model;
 
 using Xunit;
 

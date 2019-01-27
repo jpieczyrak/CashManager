@@ -1,12 +1,12 @@
-﻿<UserControl x:Class="CashManager.WPF.Features.Plots.WealthView"
+﻿<UserControl x:Class="CashManager.Features.Plots.WealthView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:plots="clr-namespace:CashManager.WPF.Features.Plots"
+             xmlns:plots="clr-namespace:CashManager.Features.Plots"
              xmlns:oxy="http://oxyplot.org/wpf"
-             xmlns:common="clr-namespace:CashManager.WPF.Features.Common"
-             xmlns:selectors="clr-namespace:CashManager.WPF.Features.Search.Selectors"
+             xmlns:common1="clr-namespace:CashManager.Features.Common"
+             xmlns:selectors1="clr-namespace:CashManager.Features.Search.Selectors"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=plots:WealthViewModel, IsDesignTimeCreatable=True}">
 
@@ -22,8 +22,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <common:DateRangePicker Grid.Column="0" DateFrameSelector="{Binding BookDateFilter}" />
-            <selectors:MultiPickerControl Grid.Column="1" DataContext="{Binding UserStocksFilter}" />
+            <common1:DateRangePicker Grid.Column="0" DateFrameSelector="{Binding BookDateFilter}" />
+            <selectors1:MultiPickerControl Grid.Column="1" DataContext="{Binding UserStocksFilter}" />
         </Grid>
 
         <oxy:PlotView Grid.Row="1" Model="{Binding Wealth}">

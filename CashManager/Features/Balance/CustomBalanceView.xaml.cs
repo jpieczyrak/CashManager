@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager.WPF.Features.Balance
+namespace CashManager.Features.Balance
 {
     public partial class CustomBalanceView : UserControl
     {

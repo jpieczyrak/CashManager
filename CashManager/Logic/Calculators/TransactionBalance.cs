@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CashManager.WPF.Logic.Calculators
+namespace CashManager.Logic.Calculators
 {
     public class TransactionBalance
     {

@@ -3,18 +3,18 @@ using System.Linq;
 
 using AutoMapper;
 
+using CashManager.CommonData;
+using CashManager.Features.Main;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Transactions;
-using CashManager.WPF.CommonData;
-using CashManager.WPF.Features.Main;
-using CashManager.WPF.Model;
-using CashManager.WPF.Properties;
-using CashManager.WPF.UserCommunication;
+using CashManager.Model;
+using CashManager.Properties;
+using CashManager.UserCommunication;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
-namespace CashManager.WPF.Features.Transactions
+namespace CashManager.Features.Transactions
 {
     public class TransactionListViewModel : ViewModelBase
     {

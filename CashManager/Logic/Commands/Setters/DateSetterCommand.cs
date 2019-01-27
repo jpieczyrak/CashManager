@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Common;
-using CashManager.WPF.Model.Setters;
+using CashManager.Model;
+using CashManager.Model.Common;
+using CashManager.Model.Setters;
 
-namespace CashManager.WPF.Logic.Commands.Setters
+namespace CashManager.Logic.Commands.Setters
 {
     public class DateSetterCommand : ISetter<Transaction>, ISetter<Position>
     {

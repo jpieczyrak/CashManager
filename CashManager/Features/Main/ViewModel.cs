@@ -1,4 +1,4 @@
-﻿namespace CashManager.WPF.Features.Main
+﻿namespace CashManager.Features.Main
 {
     public enum ViewModel
     {

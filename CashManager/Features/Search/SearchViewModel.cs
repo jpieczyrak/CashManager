@@ -5,20 +5,19 @@ using System.Linq;
 
 using AutoMapper;
 
+using CashManager.CommonData;
+using CashManager.Features.Transactions;
+using CashManager.Features.Transactions.Positions;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.States;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.States;
+using CashManager.Logic;
+using CashManager.Logic.Commands.Filters;
 using CashManager.Logic.Wrappers;
-
-using CashManager.WPF.CommonData;
-using CashManager.WPF.Features.Transactions;
-using CashManager.WPF.Features.Transactions.Positions;
-using CashManager.WPF.Logic;
-using CashManager.WPF.Logic.Commands.Filters;
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Common;
-using CashManager.WPF.Properties;
+using CashManager.Model;
+using CashManager.Model.Common;
+using CashManager.Properties;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -28,7 +27,7 @@ using log4net;
 
 using DtoSearchState = CashManager.Data.ViewModelState.SearchState;
 
-namespace CashManager.WPF.Features.Search
+namespace CashManager.Features.Search
 {
     public class SearchViewModel : ViewModelBase, IUpdateable
     {

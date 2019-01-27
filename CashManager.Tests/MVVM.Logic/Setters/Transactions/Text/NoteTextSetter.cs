@@ -2,14 +2,14 @@
 
 using AutoMapper;
 
-using CashManager.WPF.Logic.Commands.Setters;
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Selectors;
-using CashManager.WPF.Model.Setters;
+using CashManager.Logic.Commands.Setters;
+using CashManager.Model;
+using CashManager.Model.Selectors;
+using CashManager.Model.Setters;
 
 using Xunit;
 
-using MapperConfiguration = CashManager.WPF.Configuration.Mapping.MapperConfiguration;
+using MapperConfiguration = CashManager.Configuration.Mapping.MapperConfiguration;
 
 namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.Text
 {

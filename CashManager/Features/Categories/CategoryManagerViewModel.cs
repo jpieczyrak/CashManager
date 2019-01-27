@@ -10,10 +10,9 @@ using CashManager.Infrastructure.Command.Categories;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Categories;
 using CashManager.Logic.DefaultData.InputParsers;
-
-using CashManager.WPF.Model;
-using CashManager.WPF.Properties;
-using CashManager.WPF.UserCommunication;
+using CashManager.Model;
+using CashManager.Properties;
+using CashManager.UserCommunication;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -22,7 +21,7 @@ using GongSolutions.Wpf.DragDrop;
 
 using DtoCategory = CashManager.Data.DTO.Category;
 
-namespace CashManager.WPF.Features.Categories
+namespace CashManager.Features.Categories
 {
     public class CategoryManagerViewModel : ViewModelBase, IDropTarget
     {

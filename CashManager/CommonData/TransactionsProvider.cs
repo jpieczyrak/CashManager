@@ -4,11 +4,11 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Categories;
 using CashManager.Infrastructure.Query.Transactions;
 using CashManager.Logic.Wrappers;
-using CashManager.WPF.Model;
+using CashManager.Model;
 
 using DtoTransaction = CashManager.Data.DTO.Transaction;
 
-namespace CashManager.WPF.CommonData
+namespace CashManager.CommonData
 {
     public class TransactionsProvider
     {

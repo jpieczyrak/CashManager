@@ -5,15 +5,14 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 using CashManager.Logic.Extensions;
-
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Selectors;
+using CashManager.Model;
+using CashManager.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 
 using log4net;
 
-namespace CashManager.WPF.Logic.Commands.Filters
+namespace CashManager.Logic.Commands.Filters
 {
     public class TextFilter : ObservableObject, IFilter<Transaction>, IFilter<Position>
     {

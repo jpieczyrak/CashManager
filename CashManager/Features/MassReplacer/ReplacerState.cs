@@ -4,18 +4,18 @@ using System.Linq;
 using AutoMapper;
 
 using CashManager.Data.Extensions;
+using CashManager.Features.Categories;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Categories;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Tags;
 using CashManager.Infrastructure.Query.TransactionTypes;
-using CashManager.WPF.Features.Categories;
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Common;
-using CashManager.WPF.Model.Selectors;
-using CashManager.WPF.Model.Setters;
+using CashManager.Model;
+using CashManager.Model.Common;
+using CashManager.Model.Selectors;
+using CashManager.Model.Setters;
 
-namespace CashManager.WPF.Features.MassReplacer
+namespace CashManager.Features.MassReplacer
 {
     public class ReplacerState : BaseObservableObject
     {

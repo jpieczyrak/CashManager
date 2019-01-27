@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager.WPF.Features.Categories
+namespace CashManager.Features.Categories
 {
     public partial class CategoryPickerView : UserControl
     {

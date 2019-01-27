@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Windows;
 
+using CashManager.Features.Common;
 using CashManager.Logic.Wrappers;
+using CashManager.Utils;
 
-using CashManager.WPF.Features.Common;
-using CashManager.WPF.Utils;
-
-namespace CashManager.WPF.Features.Main
+namespace CashManager.Features.Main
 {
     public partial class MainWindow : CustomWindow
     {

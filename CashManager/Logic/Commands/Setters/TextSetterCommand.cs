@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 using CashManager.Logic.Extensions;
-
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Selectors;
-using CashManager.WPF.Model.Setters;
+using CashManager.Model;
+using CashManager.Model.Selectors;
+using CashManager.Model.Setters;
 
 using log4net;
 
-namespace CashManager.WPF.Logic.Commands.Setters
+namespace CashManager.Logic.Commands.Setters
 {
     public class TextSetterCommand : ISetter<Transaction>, ISetter<Position>
     {

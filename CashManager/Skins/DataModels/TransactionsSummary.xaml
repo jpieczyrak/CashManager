@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:model="clr-namespace:CashManager.WPF.Model"
-                    xmlns:properties="clr-namespace:CashManager.WPF.Properties">
+                    xmlns:model="clr-namespace:CashManager.Model"
+                    xmlns:properties="clr-namespace:CashManager.Properties">
 
     <DataTemplate DataType="{x:Type model:TransactionsSummary}">
         <Grid>

@@ -1,6 +1,6 @@
-﻿using CashManager.WPF.Model;
+﻿using CashManager.Model;
 
-namespace CashManager.WPF.Messages.Models
+namespace CashManager.Messages.Models
 {
     public class DeleteStockMessage
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CashManager.WPF.Model.Common
+namespace CashManager.Model.Common
 {
     public interface IEditable
     {

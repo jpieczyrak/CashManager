@@ -2,7 +2,7 @@
 
 using OxyPlot;
 
-namespace CashManager.WPF.Features.Plots
+namespace CashManager.Features.Plots
 {
     internal static class PlotHelper
     {

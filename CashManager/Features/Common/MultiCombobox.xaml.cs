@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace CashManager.WPF.Features.Common
+namespace CashManager.Features.Common
 {
     public partial class MultiComboBox : UserControl
     {

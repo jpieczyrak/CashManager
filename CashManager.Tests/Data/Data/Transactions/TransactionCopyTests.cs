@@ -1,9 +1,8 @@
 ﻿using System;
 
+using CashManager.Configuration.Mapping;
 using CashManager.Data.Extensions;
-using CashManager.WPF;
-using CashManager.WPF.Configuration.Mapping;
-using CashManager.WPF.Model;
+using CashManager.Model;
 
 using Xunit;
 
@@ -33,7 +32,7 @@ namespace CashManager.Tests.Data.Data.Transactions
             var position = new Position
             {
                 Value = new PaymentValue(10, 10, 0),
-                Category = new WPF.Model.Category { Name = "cat" },
+                Category = new Model.Category { Name = "cat" },
                 Title = "pos",
                 Tags = new [] { new Tag { Name = "tag" } }
             };

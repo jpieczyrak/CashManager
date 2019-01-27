@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace CashManager.WPF.UserCommunication
+namespace CashManager.UserCommunication
 {
     public interface IMessagesService
     {

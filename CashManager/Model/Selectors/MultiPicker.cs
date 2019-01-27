@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 
-using CashManager.WPF.Features.Common;
-using CashManager.WPF.Model.Common;
-using CashManager.WPF.Properties;
+using CashManager.Features.Common;
+using CashManager.Model.Common;
+using CashManager.Properties;
 
-namespace CashManager.WPF.Model.Selectors
+namespace CashManager.Model.Selectors
 {
     public class MultiPicker : BaseSelector
     {

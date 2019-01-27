@@ -1,11 +1,11 @@
 ﻿using System;
 
-using CashManager.WPF.Properties;
+using CashManager.Properties;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
-namespace CashManager.WPF.Features.Common
+namespace CashManager.Features.Common
 {
     public class ExtendedDatePickerViewModel : ViewModelBase
     {

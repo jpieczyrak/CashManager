@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 
-using CashManager.WPF.Logic.Commands.Setters;
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Setters;
+using CashManager.Logic.Commands.Setters;
+using CashManager.Model;
+using CashManager.Model.Setters;
 
 using Xunit;
 
-using MapperConfiguration = CashManager.WPF.Configuration.Mapping.MapperConfiguration;
+using MapperConfiguration = CashManager.Configuration.Mapping.MapperConfiguration;
 
 namespace CashManager.Tests.MVVM.Logic.Setters.Positions.Date
 {

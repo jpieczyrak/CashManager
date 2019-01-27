@@ -1,4 +1,4 @@
-﻿namespace CashManager.WPF.Features.Summary
+﻿namespace CashManager.Features.Summary
 {
     public enum TransactionTypeSelection
     {

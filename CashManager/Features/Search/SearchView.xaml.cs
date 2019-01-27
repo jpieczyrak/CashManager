@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager.WPF.Features.Search
+namespace CashManager.Features.Search
 {
     public partial class SearchView : UserControl
     {

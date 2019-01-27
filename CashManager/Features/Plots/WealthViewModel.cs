@@ -5,13 +5,12 @@ using System.Linq;
 
 using AutoMapper;
 
+using CashManager.CommonData;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
-
-using CashManager.WPF.CommonData;
-using CashManager.WPF.Logic.Calculators;
-using CashManager.WPF.Model;
-using CashManager.WPF.Properties;
+using CashManager.Logic.Calculators;
+using CashManager.Model;
+using CashManager.Properties;
 
 using OxyPlot;
 using OxyPlot.Axes;
@@ -19,7 +18,7 @@ using OxyPlot.Series;
 
 using DtoStock = CashManager.Data.DTO.Stock;
 
-namespace CashManager.WPF.Features.Plots
+namespace CashManager.Features.Plots
 {
     public class WealthViewModel : FilterableViewModel
     {

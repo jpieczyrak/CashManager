@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Common;
-using CashManager.WPF.Model.Selectors;
+using CashManager.Model;
+using CashManager.Model.Common;
+using CashManager.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 
-namespace CashManager.WPF.Logic.Commands.Filters
+namespace CashManager.Logic.Commands.Filters
 {
     public class DateFrameFilter : ObservableObject, IFilter<Transaction>, IFilter<Position>
     {

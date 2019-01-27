@@ -5,8 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:custom="http://www.galasoft.ch/mvvmlight"
-    xmlns:properties="clr-namespace:CashManager.WPF.Properties"
-    x:Name="ExDatePicker" x:Class="CashManager.WPF.Features.Common.ExtendedDatePicker"
+    xmlns:properties="clr-namespace:CashManager.Properties"
+    x:Name="ExDatePicker" x:Class="CashManager.Features.Common.ExtendedDatePicker"
     mc:Ignorable="d"
     d:DesignHeight="50" d:DesignWidth="125">
 

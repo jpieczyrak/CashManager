@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace CashManager.WPF.Features.Common
+namespace CashManager.Features.Common
 {
     public partial class ExtendedDatePicker : UserControl
     {

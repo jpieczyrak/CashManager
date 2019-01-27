@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
+using CashManager.CommonData;
+using CashManager.Features.Plots;
+using CashManager.Features.Stocks;
 using CashManager.Infrastructure.Query;
-
-using CashManager.WPF.CommonData;
-using CashManager.WPF.Features.Plots;
-using CashManager.WPF.Features.Stocks;
-using CashManager.WPF.Logic.Calculators;
-using CashManager.WPF.Model;
-using CashManager.WPF.Properties;
+using CashManager.Logic.Calculators;
+using CashManager.Model;
+using CashManager.Properties;
 
 using log4net;
 
@@ -18,8 +17,7 @@ using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 
-
-namespace CashManager.WPF.Features.Summary
+namespace CashManager.Features.Summary
 {
     public class SummaryViewModel : FilterableViewModel
     {

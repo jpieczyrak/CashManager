@@ -6,9 +6,9 @@ using System.Linq;
 using AutoMapper;
 
 using CashManager.Data.Extensions;
-using CashManager.WPF.Model.Common;
+using CashManager.Model.Common;
 
-namespace CashManager.WPF.Model
+namespace CashManager.Model
 {
     public class Transaction : BaseObservableObject, IBookable
     {

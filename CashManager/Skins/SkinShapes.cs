@@ -1,4 +1,4 @@
-﻿namespace CashManager.WPF.Skins
+﻿namespace CashManager.Skins
 {
     internal enum SkinShapes
     {

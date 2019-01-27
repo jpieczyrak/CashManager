@@ -5,11 +5,11 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 
-using CashManager.WPF.Skins;
+using CashManager.Skins;
 
 using GalaSoft.MvvmLight;
 
-namespace CashManager.WPF.Features.Main.Settings
+namespace CashManager.Features.Main.Settings
 {
     internal class GeneralSettings : ObservableObject
     {

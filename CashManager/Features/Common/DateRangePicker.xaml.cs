@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-using CashManager.WPF.Model.Selectors;
+using CashManager.Model.Selectors;
 
-namespace CashManager.WPF.Features.Common
+namespace CashManager.Features.Common
 {
     public partial class DateRangePicker : UserControl
     {

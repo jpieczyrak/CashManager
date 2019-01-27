@@ -1,4 +1,4 @@
-﻿namespace CashManager.WPF.Messages.App
+﻿namespace CashManager.Messages.App
 {
     internal class ApplicationUpdateMessage
     {

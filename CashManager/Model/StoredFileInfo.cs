@@ -2,10 +2,9 @@ using System;
 using System.IO;
 
 using CashManager.Data.Extensions;
+using CashManager.Model.Common;
 
-using CashManager.WPF.Model.Common;
-
-namespace CashManager.WPF.Model
+namespace CashManager.Model
 {
     public class StoredFileInfo : BaseObservableObject
     {

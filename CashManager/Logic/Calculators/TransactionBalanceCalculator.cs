@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Selectors;
+using CashManager.Model;
+using CashManager.Model.Selectors;
 
 using OxyPlot;
 using OxyPlot.Axes;
 
-namespace CashManager.WPF.Logic.Calculators
+namespace CashManager.Logic.Calculators
 {
     public class TransactionBalanceCalculator
     {

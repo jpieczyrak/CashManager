@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace CashManager.WPF.Features.Tags
+namespace CashManager.Features.Tags
 {
     public partial class TagManagerView : UserControl
     {

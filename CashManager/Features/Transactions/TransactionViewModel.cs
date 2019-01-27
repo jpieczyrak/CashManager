@@ -7,6 +7,10 @@ using System.Windows;
 
 using AutoMapper;
 
+using CashManager.CommonData;
+using CashManager.Features.Categories;
+using CashManager.Features.Common;
+using CashManager.Features.Main;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Stocks;
 using CashManager.Infrastructure.Command.Transactions;
@@ -16,18 +20,13 @@ using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Tags;
 using CashManager.Infrastructure.Query.Transactions.Bills;
 using CashManager.Infrastructure.Query.TransactionTypes;
-
-using CashManager.WPF.CommonData;
-using CashManager.WPF.Features.Categories;
-using CashManager.WPF.Features.Common;
-using CashManager.WPF.Features.Main;
-using CashManager.WPF.Logic.Creators;
-using CashManager.WPF.Messages.Models;
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Common;
-using CashManager.WPF.Properties;
-using CashManager.WPF.UserCommunication;
-using CashManager.WPF.Utils;
+using CashManager.Logic.Creators;
+using CashManager.Messages.Models;
+using CashManager.Model;
+using CashManager.Model.Common;
+using CashManager.Properties;
+using CashManager.UserCommunication;
+using CashManager.Utils;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -40,7 +39,7 @@ using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
 using DtoStoredFileInfo = CashManager.Data.DTO.StoredFileInfo;
 
-namespace CashManager.WPF.Features.Transactions
+namespace CashManager.Features.Transactions
 {
     public class TransactionViewModel : ViewModelBase, IUpdateable, IDropTarget
     {

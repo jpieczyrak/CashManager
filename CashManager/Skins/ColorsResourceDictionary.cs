@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows;
 
-using CashManager.WPF.Properties;
+using CashManager.Properties;
 
-namespace CashManager.WPF.Skins
+namespace CashManager.Skins
 {
     internal class ColorsResourceDictionary : ResourceDictionary
     {

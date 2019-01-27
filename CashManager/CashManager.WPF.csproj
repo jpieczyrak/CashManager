@@ -7,7 +7,7 @@
     <ProjectGuid>{49BCCABB-E76D-4C04-82A4-20FB886AC076}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CashManager.WPF</RootNamespace>
+    <RootNamespace>CashManager</RootNamespace>
     <AssemblyName>CashManager</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

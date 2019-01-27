@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using CashManager.WPF.Model.Common;
+using CashManager.Model.Common;
 
-namespace CashManager.WPF.Model
+namespace CashManager.Model
 {
     public class Category : BaseObservableObject
     {

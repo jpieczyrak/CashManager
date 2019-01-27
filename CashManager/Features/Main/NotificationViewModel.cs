@@ -1,8 +1,8 @@
-﻿using CashManager.WPF.Messages.App;
+﻿using CashManager.Messages.App;
 
 using GalaSoft.MvvmLight;
 
-namespace CashManager.WPF.Features.Main
+namespace CashManager.Features.Main
 {
     public class NotificationViewModel : ViewModelBase
     {

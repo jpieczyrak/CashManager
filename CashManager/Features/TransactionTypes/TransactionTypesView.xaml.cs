@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager.WPF.Features.TransactionTypes
+namespace CashManager.Features.TransactionTypes
 {
     public partial class TransactionTypesView : UserControl
     {

@@ -2,25 +2,24 @@
 
 using AutoMapper;
 
+using CashManager.CommonData;
 using CashManager.Data.Extensions;
+using CashManager.Features.Categories;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Categories;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Tags;
 using CashManager.Infrastructure.Query.TransactionTypes;
-
-using CashManager.WPF.CommonData;
-using CashManager.WPF.Features.Categories;
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Common;
-using CashManager.WPF.Model.Selectors;
+using CashManager.Model;
+using CashManager.Model.Common;
+using CashManager.Model.Selectors;
 
 using DtoTag = CashManager.Data.DTO.Tag;
 using DtoStock = CashManager.Data.DTO.Stock;
 using DtoCategory = CashManager.Data.DTO.Category;
 using DtoType = CashManager.Data.DTO.TransactionType;
 
-namespace CashManager.WPF.Features.Search
+namespace CashManager.Features.Search
 {
     public sealed class SearchState : BaseObservableObject
     {

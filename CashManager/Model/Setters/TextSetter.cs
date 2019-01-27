@@ -1,7 +1,7 @@
-﻿using CashManager.WPF.Model.Selectors;
-using CashManager.WPF.Properties;
+﻿using CashManager.Model.Selectors;
+using CashManager.Properties;
 
-namespace CashManager.WPF.Model.Setters
+namespace CashManager.Model.Setters
 {
     public class TextSetter : BaseSelector
     {

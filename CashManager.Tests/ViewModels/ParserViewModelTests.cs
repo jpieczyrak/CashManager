@@ -3,13 +3,11 @@ using System.Linq;
 
 using Autofac;
 
+using CashManager.Features.Common;
+using CashManager.Features.Parsers;
+using CashManager.Model;
+using CashManager.Model.Common;
 using CashManager.Tests.ViewModels.Fixtures;
-
-using CashManager.WPF;
-using CashManager.WPF.Features.Common;
-using CashManager.WPF.Features.Parsers;
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Common;
 
 using Xunit;
 

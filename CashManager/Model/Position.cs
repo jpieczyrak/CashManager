@@ -4,11 +4,11 @@ using System.Linq;
 using AutoMapper;
 
 using CashManager.Data.Extensions;
-using CashManager.WPF.Features.Categories;
-using CashManager.WPF.Features.Common;
-using CashManager.WPF.Model.Common;
+using CashManager.Features.Categories;
+using CashManager.Features.Common;
+using CashManager.Model.Common;
 
-namespace CashManager.WPF.Model
+namespace CashManager.Model
 {
     public sealed class Position : BaseObservableObject, IBookable
     {

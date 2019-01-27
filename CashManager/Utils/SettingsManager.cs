@@ -5,12 +5,12 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 
-using CashManager.WPF.Properties;
-using CashManager.WPF.Skins;
+using CashManager.Properties;
+using CashManager.Skins;
 
 using log4net;
 
-namespace CashManager.WPF.Utils
+namespace CashManager.Utils
 {
     internal static class SettingsManager
     {

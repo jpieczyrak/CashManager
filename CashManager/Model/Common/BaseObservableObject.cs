@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 using GalaSoft.MvvmLight;
 
-namespace CashManager.WPF.Model.Common
+namespace CashManager.Model.Common
 {
     public abstract class BaseObservableObject : ObservableObject, IEditable
     {

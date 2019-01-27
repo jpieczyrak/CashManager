@@ -1,4 +1,4 @@
-﻿namespace CashManager.WPF.Features
+﻿namespace CashManager.Features
 {
     public interface IUpdateable
     {

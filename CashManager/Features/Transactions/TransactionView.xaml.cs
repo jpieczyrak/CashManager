@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager.WPF.Features.Transactions
+namespace CashManager.Features.Transactions
 {
     /// <summary>
     /// Interaction logic for TransactionView.xaml

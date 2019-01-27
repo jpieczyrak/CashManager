@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace CashManager.WPF.Model.Common
+namespace CashManager.Model.Common
 {
     public interface ISelectable : INotifyPropertyChanged
     {

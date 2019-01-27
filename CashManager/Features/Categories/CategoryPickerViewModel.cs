@@ -5,15 +5,14 @@ using AutoMapper;
 
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Categories;
-
-using CashManager.WPF.Model;
+using CashManager.Model;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
 using DtoCategory = CashManager.Data.DTO.Category;
 
-namespace CashManager.WPF.Features.Categories
+namespace CashManager.Features.Categories
 {
     public class CategoryPickerViewModel : ViewModelBase
     {

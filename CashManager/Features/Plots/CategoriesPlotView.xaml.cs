@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager.WPF.Features.Plots
+namespace CashManager.Features.Plots
 {
     public partial class CategoriesPlotView : UserControl
     {

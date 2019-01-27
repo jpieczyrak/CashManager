@@ -1,4 +1,4 @@
-﻿namespace CashManager.WPF.Model.Setters
+﻿namespace CashManager.Model.Setters
 {
     public enum TextSetterType
     {

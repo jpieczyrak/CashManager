@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:model="clr-namespace:CashManager.WPF.Model"
-        xmlns:dd="urn:gong-wpf-dragdrop"
-        xmlns:properties="clr-namespace:CashManager.WPF.Properties"
-        x:Class="CashManager.WPF.Features.Categories.CategoryManagerView"
+    xmlns:dd="urn:gong-wpf-dragdrop"
+        xmlns:model="clr-namespace:CashManager.Model"
+        xmlns:properties="clr-namespace:CashManager.Properties"
+        x:Class="CashManager.Features.Categories.CategoryManagerView"
         mc:Ignorable="d"
         MinHeight="200" MinWidth="400" d:DataContext="{d:DesignData CategoryManagerViewModel}">
 

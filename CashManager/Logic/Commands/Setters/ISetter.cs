@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CashManager.WPF.Logic.Commands.Setters
+namespace CashManager.Logic.Commands.Setters
 {
     public interface ISetter<T>
     {

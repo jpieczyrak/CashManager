@@ -3,9 +3,9 @@ using System.Windows.Controls;
 
 using Autofac;
 
-using CashManager.WPF.Features.Common;
+using CashManager.Features.Common;
 
-namespace CashManager.WPF.Features.Main.Init
+namespace CashManager.Features.Main.Init
 {
     public partial class InitWindow : CustomWindow
     {

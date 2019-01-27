@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="CashManager.WPF.Features.MassReplacer.Setters.DateSetterControl"
+﻿<UserControl x:Class="CashManager.Features.MassReplacer.Setters.DateSetterControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:properties="clr-namespace:CashManager.WPF.Properties"
-             xmlns:common="clr-namespace:CashManager.WPF.Features.Common"
-             xmlns:setters="clr-namespace:CashManager.WPF.Model.Setters"
+             xmlns:properties="clr-namespace:CashManager.Properties"
+             xmlns:common1="clr-namespace:CashManager.Features.Common"
+             xmlns:setters="clr-namespace:CashManager.Model.Setters"
              mc:Ignorable="d" 
              d:DesignHeight="70" d:DesignWidth="350"
              d:DataContext="{d:DesignInstance Type=setters:DateSetter, IsDesignTimeCreatable=True}">
@@ -33,7 +33,7 @@
                 </Grid>
 
                 <!-- when overriding extended date picker context - you dont have access to DateSelector.Value anymore! -->
-                <common:ExtendedDatePicker Grid.Row="1" Margin="5" SelectedValue="{Binding Value}" />
+                <common1:ExtendedDatePicker Grid.Row="1" Margin="5" SelectedValue="{Binding Value}" />
             </Grid>
         </Border>
     </Grid>

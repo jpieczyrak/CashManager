@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 
-using CashManager.WPF.Model.Common;
+using CashManager.Model.Common;
 
-namespace CashManager.WPF.Model
+namespace CashManager.Model
 {
     /// <summary>
     /// Stores name of "part of" your wallet.

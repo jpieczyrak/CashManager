@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 
-using CashManager.WPF.Features.Common;
-using CashManager.WPF.Utils;
+using CashManager.Features.Common;
+using CashManager.Utils;
 
-namespace CashManager.WPF.Features.Main
+namespace CashManager.Features.Main
 {
     public partial class AboutWindow : CustomWindow
     {

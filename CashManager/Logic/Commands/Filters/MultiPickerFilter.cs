@@ -2,12 +2,12 @@
 using System.ComponentModel;
 using System.Linq;
 
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Selectors;
+using CashManager.Model;
+using CashManager.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 
-namespace CashManager.WPF.Logic.Commands.Filters
+namespace CashManager.Logic.Commands.Filters
 {
     public class MultiPickerFilter : ObservableObject, IFilter<Transaction>, IFilter<Position>
     {

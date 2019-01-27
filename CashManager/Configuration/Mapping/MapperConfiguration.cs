@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 using AutoMapper;
 
-using CashManager.WPF.Features.Search;
-using CashManager.WPF.Logic.Balances;
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Selectors;
+using CashManager.Features.Search;
+using CashManager.Logic.Balances;
+using CashManager.Model;
+using CashManager.Model.Selectors;
 
-namespace CashManager.WPF.Configuration.Mapping
+namespace CashManager.Configuration.Mapping
 {
     public static class MapperConfiguration
     {

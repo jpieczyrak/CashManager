@@ -4,15 +4,13 @@ using Autofac;
 
 using AutoMapper;
 
+using CashManager.CommonData;
+using CashManager.Features.Common;
+using CashManager.Features.Transactions;
 using CashManager.Infrastructure.DbConnection;
+using CashManager.Model;
+using CashManager.Model.Common;
 using CashManager.Tests.ViewModels.Fixtures;
-
-using CashManager.WPF;
-using CashManager.WPF.CommonData;
-using CashManager.WPF.Features.Common;
-using CashManager.WPF.Features.Transactions;
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Common;
 
 using LiteDB;
 

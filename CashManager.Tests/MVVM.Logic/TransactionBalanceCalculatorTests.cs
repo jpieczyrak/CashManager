@@ -2,11 +2,9 @@
 using System.Linq;
 
 using CashManager.Data.Extensions;
-
-using CashManager.WPF;
-using CashManager.WPF.Logic.Calculators;
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Selectors;
+using CashManager.Logic.Calculators;
+using CashManager.Model;
+using CashManager.Model.Selectors;
 
 using OxyPlot;
 using OxyPlot.Axes;

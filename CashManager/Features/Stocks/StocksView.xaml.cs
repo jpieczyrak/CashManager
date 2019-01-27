@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager.WPF.Features.Stocks
+namespace CashManager.Features.Stocks
 {
     /// <summary>
     /// Interaction logic for StocksView.xaml

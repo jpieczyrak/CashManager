@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 
-namespace CashManager.WPF.Features.Transactions
+namespace CashManager.Features.Transactions
 {
     public class TransactionEditMode : ObservableObject
     {

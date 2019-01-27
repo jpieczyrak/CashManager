@@ -1,6 +1,6 @@
-﻿using CashManager.WPF.Model;
+﻿using CashManager.Model;
 
-namespace CashManager.WPF.Logic.Creators
+namespace CashManager.Logic.Creators
 {
     public interface ICorrectionsCreator
     {

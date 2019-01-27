@@ -1,7 +1,7 @@
 ﻿
 using GalaSoft.MvvmLight;
 
-namespace CashManager.WPF.Features.Main.Settings
+namespace CashManager.Features.Main.Settings
 {
     internal class SettingsViewModel : ViewModelBase
     {

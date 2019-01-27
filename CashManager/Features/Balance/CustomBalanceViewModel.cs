@@ -6,18 +6,17 @@ using System.Linq;
 
 using AutoMapper;
 
+using CashManager.Features.Common;
+using CashManager.Features.Search;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.CustomBalances;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.CustomBalances;
 using CashManager.Infrastructure.Query.States;
-
-using CashManager.WPF.Features.Common;
-using CashManager.WPF.Features.Search;
-using CashManager.WPF.Logic.Balances;
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Common;
-using CashManager.WPF.Model.Selectors;
+using CashManager.Logic.Balances;
+using CashManager.Model;
+using CashManager.Model.Common;
+using CashManager.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -25,7 +24,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using DtoSearch = CashManager.Data.ViewModelState.SearchState;
 using DtoCustomBalance = CashManager.Data.ViewModelState.Balances.CustomBalance;
 
-namespace CashManager.WPF.Features.Balance
+namespace CashManager.Features.Balance
 {
     public class CustomBalanceViewModel : ViewModelBase, IUpdateable
     {

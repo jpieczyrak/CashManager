@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager.WPF.Features.MassReplacer.Setters
+namespace CashManager.Features.MassReplacer.Setters
 {
     public partial class MultiSetterControl : UserControl
     {

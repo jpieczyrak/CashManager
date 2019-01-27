@@ -1,11 +1,11 @@
-﻿<common:CustomWindow x:Class="CashManager.WPF.Features.Main.Init.InitWindow"
+﻿<common:CustomWindow x:Class="CashManager.Features.Main.Init.InitWindow"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                     xmlns:local="clr-namespace:CashManager.WPF.Features.Main.Init"
-                     xmlns:common="clr-namespace:CashManager.WPF.Features.Common"
-                     xmlns:properties="clr-namespace:CashManager.WPF.Properties"
+                     xmlns:local="clr-namespace:CashManager.Features.Main.Init"
+                      xmlns:properties="clr-namespace:CashManager.Properties"
+                     xmlns:common="clr-namespace:CashManager.Features.Common"
                      mc:Ignorable="d"
                      Height="320" Width="500"
                      WindowStartupLocation="CenterScreen"
@@ -38,4 +38,6 @@
         <Button Grid.Row="1" Margin="5" Content="{x:Static properties:Strings.Start}" Command="{Binding StartCommand}" />
     </Grid>
 </common:CustomWindow>
+
+
 

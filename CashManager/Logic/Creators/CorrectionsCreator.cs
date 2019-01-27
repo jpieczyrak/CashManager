@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
 
-using CashManager.WPF.Features;
-using CashManager.WPF.Features.Transactions;
-using CashManager.WPF.Features.TransactionTypes;
-using CashManager.WPF.Model;
-using CashManager.WPF.Properties;
+using CashManager.Features;
+using CashManager.Features.Transactions;
+using CashManager.Features.TransactionTypes;
+using CashManager.Model;
+using CashManager.Properties;
 
 using log4net;
 
-namespace CashManager.WPF.Logic.Creators
+namespace CashManager.Logic.Creators
 {
     public class CorrectionsCreator : ICorrectionsCreator
     {

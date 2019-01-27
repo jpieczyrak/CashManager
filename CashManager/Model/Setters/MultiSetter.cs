@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 
-using CashManager.WPF.Features.Common;
-using CashManager.WPF.Model.Common;
-using CashManager.WPF.Model.Selectors;
-using CashManager.WPF.Properties;
+using CashManager.Features.Common;
+using CashManager.Model.Common;
+using CashManager.Model.Selectors;
+using CashManager.Properties;
 
-namespace CashManager.WPF.Model.Setters
+namespace CashManager.Model.Setters
 {
     public class MultiSetter : BaseSelector
     {

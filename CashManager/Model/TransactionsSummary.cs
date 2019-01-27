@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 
-namespace CashManager.WPF.Model
+namespace CashManager.Model
 {
     public class TransactionsSummary : ObservableObject
     {

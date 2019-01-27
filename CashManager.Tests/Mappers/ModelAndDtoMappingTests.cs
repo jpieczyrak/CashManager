@@ -3,12 +3,11 @@ using System.Linq;
 
 using AutoMapper;
 
-using CashManager.WPF;
-using CashManager.WPF.Model;
+using CashManager.Model;
 
 using Xunit;
 
-using MapperConfiguration = CashManager.WPF.Configuration.Mapping.MapperConfiguration;
+using MapperConfiguration = CashManager.Configuration.Mapping.MapperConfiguration;
 using DtoCategory = CashManager.Data.DTO.Category;
 
 namespace CashManager.Tests.Mappers

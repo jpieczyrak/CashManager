@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 
-using CashManager.WPF;
-using CashManager.WPF.Model;
-using CashManager.WPF.Model.Common;
-using CashManager.WPF.Model.Selectors;
-using CashManager.WPF.Model.Setters;
+using CashManager.Model;
+using CashManager.Model.Common;
+using CashManager.Model.Selectors;
+using CashManager.Model.Setters;
 
 using Xunit;
 
@@ -21,7 +20,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.MultiPicker
         {
             //given
             var selector = new MultiSetter(MultiPickerType.Tag, GetTags());
-            var command = WPF.Logic.Commands.Setters.MultiSetterCommand.Create(selector);
+            var command = CashManager.Logic.Commands.Setters.MultiSetterCommand.Create(selector);
             var transactions = GetTransactions();
 
             //when
@@ -40,7 +39,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.MultiPicker
             {
                 IsChecked = true
             };
-            var command = WPF.Logic.Commands.Setters.MultiSetterCommand.Create(selector);
+            var command = CashManager.Logic.Commands.Setters.MultiSetterCommand.Create(selector);
             var transactions = GetTransactions();
 
             //when
@@ -62,7 +61,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.MultiPicker
                 IsChecked = true,
                 Append = true
             };
-            var command = WPF.Logic.Commands.Setters.MultiSetterCommand.Create(selector);
+            var command = CashManager.Logic.Commands.Setters.MultiSetterCommand.Create(selector);
             var transactions = GetTransactions();
 
             //when

@@ -1,14 +1,14 @@
-﻿<UserControl x:Class="CashManager.WPF.Features.Search.SearchView"
+﻿<UserControl x:Class="CashManager.Features.Search.SearchView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CashManager.WPF.Features.Search"
-             xmlns:common="clr-namespace:CashManager.WPF.Features.Common"
-             xmlns:properties="clr-namespace:CashManager.WPF.Properties"
-             xmlns:selectors="clr-namespace:CashManager.WPF.Features.Search.Selectors"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:properties="clr-namespace:CashManager.Properties"
+             xmlns:selectors="clr-namespace:CashManager.Features.Search.Selectors"
+             xmlns:common="clr-namespace:CashManager.Features.Common"
+             xmlns:search="clr-namespace:CashManager.Features.Search"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance Type=local:SearchViewModel, IsDesignTimeCreatable=True}">
+             d:DataContext="{d:DesignInstance Type=search:SearchViewModel, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="Bool2VisibilityConverter"/>

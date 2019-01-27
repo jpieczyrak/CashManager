@@ -3,8 +3,8 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 
-using CashManager.WPF.Messages.App;
-using CashManager.WPF.Properties;
+using CashManager.Messages.App;
+using CashManager.Properties;
 
 using GalaSoft.MvvmLight.Messaging;
 
@@ -12,7 +12,7 @@ using log4net;
 
 using Squirrel;
 
-namespace CashManager.WPF.Utils
+namespace CashManager.Utils
 {
     internal static class UpdatesManager
     {

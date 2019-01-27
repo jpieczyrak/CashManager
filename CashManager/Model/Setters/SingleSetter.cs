@@ -1,8 +1,8 @@
-﻿using CashManager.WPF.Model.Common;
-using CashManager.WPF.Model.Selectors;
-using CashManager.WPF.Properties;
+﻿using CashManager.Model.Common;
+using CashManager.Model.Selectors;
+using CashManager.Properties;
 
-namespace CashManager.WPF.Model.Setters
+namespace CashManager.Model.Setters
 {
     public class SingleSetter : BaseSelector
     {

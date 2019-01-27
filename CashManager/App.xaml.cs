@@ -9,24 +9,23 @@ using System.Windows.Threading;
 
 using Autofac;
 
+using CashManager.Configuration.DI;
+using CashManager.Configuration.Mapping;
+using CashManager.Extensions;
+using CashManager.Features.Main;
+using CashManager.Features.Main.Init;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Modules;
 using CashManager.Logic.Extensions;
 using CashManager.Logic.Wrappers;
-
-using CashManager.WPF.Configuration.DI;
-using CashManager.WPF.Configuration.Mapping;
-using CashManager.WPF.Extensions;
-using CashManager.WPF.Features.Main;
-using CashManager.WPF.Features.Main.Init;
-using CashManager.WPF.Properties;
-using CashManager.WPF.Utils;
+using CashManager.Properties;
+using CashManager.Utils;
 
 using GalaSoft.MvvmLight.Threading;
 
 using log4net;
 
-namespace CashManager.WPF
+namespace CashManager
 {
     public partial class App : Application
     {

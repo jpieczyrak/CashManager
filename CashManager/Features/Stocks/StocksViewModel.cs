@@ -8,17 +8,16 @@ using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Stocks;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
-
-using CashManager.WPF.Logic.Creators;
-using CashManager.WPF.Messages.Models;
-using CashManager.WPF.Model;
+using CashManager.Logic.Creators;
+using CashManager.Messages.Models;
+using CashManager.Model;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
 using DtoStock = CashManager.Data.DTO.Stock;
 
-namespace CashManager.WPF.Features.Stocks
+namespace CashManager.Features.Stocks
 {
     public class StocksViewModel : ViewModelBase, IUpdateable, IClosable
     {

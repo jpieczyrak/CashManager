@@ -3,8 +3,7 @@ using System.Linq;
 
 using CashManager.Data.DTO;
 using CashManager.Logic.Parsers;
-
-using CashManager.WPF.Properties;
+using CashManager.Properties;
 
 using Xunit;
 

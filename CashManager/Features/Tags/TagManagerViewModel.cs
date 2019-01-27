@@ -6,15 +6,14 @@ using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Tags;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Tags;
-
-using CashManager.WPF.Model;
+using CashManager.Model;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
 using DtoTag = CashManager.Data.DTO.Tag;
 
-namespace CashManager.WPF.Features.Tags
+namespace CashManager.Features.Tags
 {
     public class TagManagerViewModel : ViewModelBase
     {

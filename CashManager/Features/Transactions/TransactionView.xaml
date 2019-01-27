@@ -3,12 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:transactions="clr-namespace:CashManager.WPF.Features.Transactions"
         xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        xmlns:common="clr-namespace:CashManager.WPF.Features.Common"
-        xmlns:properties="clr-namespace:CashManager.WPF.Properties"
-        x:Class="CashManager.WPF.Features.Transactions.TransactionView"
+        xmlns:transactions="clr-namespace:CashManager.Features.Transactions"
+        xmlns:common1="clr-namespace:CashManager.Features.Common"
+        xmlns:properties="clr-namespace:CashManager.Properties"
+        x:Class="CashManager.Features.Transactions.TransactionView"
         mc:Ignorable="d"
         d:DesignHeight="350" d:DesignWidth="800"
         d:DataContext="{d:DesignInstance {x:Type transactions:TransactionViewModel}}">
@@ -60,7 +60,7 @@
                 <ComboBox Grid.Row="2" Grid.Column="1" Margin="0,5" ItemsSource="{Binding TransactionTypes}" SelectedItem="{Binding Transaction.Type}" DisplayMemberPath="DisplayName" />
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="{x:Static properties:Strings.BookDate}" VerticalAlignment="Center" Margin="0,0,12,0"/>
-                <common:ExtendedDatePicker Grid.Row="3" Grid.Column="1" SelectedValue="{Binding Transaction.BookDate}" EndDate="{x:Static sys:DateTime.Today}" />
+                <common1:ExtendedDatePicker Grid.Row="3" Grid.Column="1" SelectedValue="{Binding Transaction.BookDate}" EndDate="{x:Static sys:DateTime.Today}" />
 
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="{x:Static properties:Strings.UserStock}" VerticalAlignment="Center" Margin="0,0,12,0"/>
                 <ComboBox Grid.Row="4" Grid.Column="1" Margin="0,5" ItemsSource="{Binding UserStocks}" SelectedValue="{Binding Transaction.UserStock}" />

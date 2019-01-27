@@ -2,19 +2,18 @@
 
 using AutoMapper;
 
+using CashManager.Features.Search;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
-
-using CashManager.WPF.Features.Search;
-using CashManager.WPF.Logic.Commands.Setters;
+using CashManager.Logic.Commands.Setters;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
 using Transaction = CashManager.Data.DTO.Transaction;
 
-namespace CashManager.WPF.Features.MassReplacer
+namespace CashManager.Features.MassReplacer
 {
     public class MassReplacerViewModel : ViewModelBase, IUpdateable
     {

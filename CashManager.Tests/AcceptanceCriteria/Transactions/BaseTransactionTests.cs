@@ -3,12 +3,11 @@ using System.Linq;
 
 using Autofac;
 
+using CashManager.Features.Main;
+using CashManager.Features.Stocks;
+using CashManager.Features.TransactionTypes;
+using CashManager.Model;
 using CashManager.Tests.ViewModels.Fixtures;
-
-using CashManager.WPF.Features.Main;
-using CashManager.WPF.Features.Stocks;
-using CashManager.WPF.Features.TransactionTypes;
-using CashManager.WPF.Model;
 
 namespace CashManager.Tests.AcceptanceCriteria.Transactions
 {

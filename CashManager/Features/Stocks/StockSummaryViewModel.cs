@@ -5,15 +5,14 @@ using AutoMapper;
 
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
-
-using CashManager.WPF.Messages.Models;
-using CashManager.WPF.Model;
+using CashManager.Messages.Models;
+using CashManager.Model;
 
 using GalaSoft.MvvmLight;
 
 using DtoStock = CashManager.Data.DTO.Stock;
 
-namespace CashManager.WPF.Features.Stocks
+namespace CashManager.Features.Stocks
 {
     public class StockSummaryViewModel : ViewModelBase
     {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager.WPF.Features.Stocks
+namespace CashManager.Features.Stocks
 {
     public partial class StockSummaryView : UserControl
     {

@@ -1,12 +1,12 @@
-﻿<UserControl x:Class="CashManager.WPF.Features.Tags.TagManagerView"
+﻿<UserControl x:Class="CashManager.Features.Tags.TagManagerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CashManager.WPF.Features.Tags"
-             xmlns:properties="clr-namespace:CashManager.WPF.Properties"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:tags="clr-namespace:CashManager.Features.Tags"
+             xmlns:properties="clr-namespace:CashManager.Properties"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance Type=local:TagManagerViewModel, IsDesignTimeCreatable=True}">
+             d:DataContext="{d:DesignInstance Type=tags:TagManagerViewModel, IsDesignTimeCreatable=True}">
 
     <Grid HorizontalAlignment="Center">
         <Grid.RowDefinitions>

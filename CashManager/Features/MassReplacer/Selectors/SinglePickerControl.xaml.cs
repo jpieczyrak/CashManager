@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager.WPF.Features.MassReplacer.Selectors
+namespace CashManager.Features.MassReplacer.Selectors
 {
     public partial class SinglePickerControl : UserControl
     {

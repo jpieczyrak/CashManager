@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace CashManager.WPF.Logic.Commands.Filters
+namespace CashManager.Logic.Commands.Filters
 {
     public interface IFilter<T> : INotifyPropertyChanged
     {
