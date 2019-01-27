@@ -59,6 +59,7 @@ namespace CashManager_MVVM.Logic.Creators
             _transactionCreator.Value.ShouldGoBack = false;
             _transactionCreator.Value.Transaction = transaction;
             _transactionCreator.Value.Update();
+            _transactionCreator.Value.SetUpdateMode(TransactionEditModes.NoChange);
             _transactionCreator.Value.SaveTransactionCommand.Execute(null);
             _transactionCreator.Value.ShouldGoBack = true;
         }
