@@ -46,6 +46,7 @@ namespace CashManager_MVVM.Features.Stocks
                 stock.Balance.PropertyChanged += BalanceOnPropertyChanged;
                 Stocks.Add(stock);
                 stock.IsPropertyChangedEnabled = true;
+                stock.Balance.IsPropertyChangedEnabled = true;
             });
             RemoveCommand = new RelayCommand<Stock>(x =>
             {
