@@ -203,10 +203,6 @@
     <Compile Include="ViewModels\ViewModelContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CashManager-MVVM\CashManager.WPF.csproj">
-      <Project>{49bccabb-e76d-4c04-82a4-20fb886ac076}</Project>
-      <Name>CashManager.WPF</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CashManager.Data\CashManager.Data.csproj">
       <Project>{d83c69c0-18f7-4b7f-af7e-143091a26a30}</Project>
       <Name>CashManager.Data</Name>
@@ -218,6 +214,10 @@
     <ProjectReference Include="..\CashManager.Logic\CashManager.Logic.csproj">
       <Project>{9ec1c76c-cb71-4020-bab9-8b83b140def2}</Project>
       <Name>CashManager.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CashManager\CashManager.WPF.csproj">
+      <Project>{49bccabb-e76d-4c04-82a4-20fb886ac076}</Project>
+      <Name>CashManager.WPF</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
