@@ -34,7 +34,7 @@ namespace CashManager.Features.Main.Init
 
         private bool _generateTags;
 
-#if DEBUG
+#if BETA
         public bool CanGenerateTransactions { get; } = true;
 #else
         public bool CanGenerateTransactions { get; } = false;
@@ -103,7 +103,7 @@ namespace CashManager.Features.Main.Init
 
         public void GenerateData(ICommandDispatcher commandDispatcher)
         {
-#if DEBUG
+#if BETA
             var defaultDataProvider = new TestDataProvider();
 #else
             var defaultDataProvider = new DefaultDataProvider();

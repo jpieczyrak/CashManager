@@ -53,6 +53,8 @@ using log4net.Config;
 [assembly: AssemblyVersion("0.8.20.0")]
 #if DEBUG
 [assembly: XmlConfigurator(ConfigFile = "log4net.Debug.config", Watch = true)]
+#elif PORTABLE
+[assembly: XmlConfigurator(ConfigFile = "log4net.Portable.config", Watch = true)]
 #else
 [assembly: XmlConfigurator(ConfigFile = "log4net.Release.config", Watch = true)]
 #endif

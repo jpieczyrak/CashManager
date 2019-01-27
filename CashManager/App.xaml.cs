@@ -36,7 +36,7 @@ namespace CashManager
         {
             get
             {
-#if DEBUG
+#if PORTABLE
                 return DB_PATH;
 #else
                 return Path.Combine(SolutionSettingsDir, DB_PATH);
