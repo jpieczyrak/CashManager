@@ -538,7 +538,7 @@ Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wa
     <value>Tryb modyfikacji</value>
   </data>
   <data name="CaseSensitive" xml:space="preserve">
-    <value>Tryb edycji</value>
+    <value>Wielkość liter ma znaczenie</value>
   </data>
   <data name="InverseMatching" xml:space="preserve">
     <value>Przeciwieństwo - wyświetl niepasujące</value>
