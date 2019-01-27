@@ -203,9 +203,11 @@ namespace CashManager.Tests.ViewModels.Transactions
 
             //transaction exists
             vm.Transaction = transaction;
+            vm.Update();
             vm.SaveTransactionCommand.Execute(null);
 
             vm.Transaction = transaction;
+            vm.Update();
             vm.Transaction.Title += "edited";
 
             //when
@@ -214,7 +216,6 @@ namespace CashManager.Tests.ViewModels.Transactions
             //then
             Assert.Single(vm.TransactionsProvider.AllTransactions);
             Assert.Equal(startTitle, vm.TransactionsProvider.AllTransactions[0].Title);
-            Assert.Equal(startTitle, vm.Transaction.Title);
         }
 
         [Fact]

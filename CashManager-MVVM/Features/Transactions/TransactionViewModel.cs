@@ -86,7 +86,7 @@ namespace CashManager_MVVM.Features.Transactions
             get => _transaction;
             set
             {
-                _transaction = value;
+                _transaction = Transaction.Clone(value);
                 _shouldCreateTransaction = false;
                 if (_transaction != null)
                 {
@@ -274,28 +274,7 @@ namespace CashManager_MVVM.Features.Transactions
             return position;
         }
 
-        private void ExecuteCancelTransactionCommand()
-        {
-            var transaction = _queryDispatcher
-                              .Execute<TransactionQuery, DtoTransaction[]>(new TransactionQuery(x => x.Id == Transaction.Id))
-                              .FirstOrDefault();
-            if (transaction == null)
-            {
-                _shouldCreateTransaction = false;
-            }
-            else
-            {
-                _transaction = Mapper.Map<Transaction>(transaction);
-                var found = TransactionsProvider.AllTransactions.FirstOrDefault(x => x.Id == _transaction.Id);
-                if (found != null)
-                {
-                    TransactionsProvider.AllTransactions.Remove(found);
-                    TransactionsProvider.AllTransactions.Add(_transaction);
-                }
-            }
-
-            NavigateBack();
-        }
+        private void ExecuteCancelTransactionCommand() => NavigateBack();
 
         private bool CanExecuteSaveTransactionCommand() => Transaction.IsValid;
 

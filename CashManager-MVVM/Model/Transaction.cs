@@ -180,6 +180,22 @@ namespace CashManager_MVVM.Model
                 TransactionSourceCreationDate = source.TransactionSourceCreationDate
             };
 
+            return BuildTransaction(source, dto);
+        }
+
+        public static Transaction Clone(Transaction source)
+        {
+            if (source == null) return null;
+            var dto = new CashManager.Data.DTO.Transaction(source.Id)
+            {
+                TransactionSourceCreationDate = source.TransactionSourceCreationDate
+            };
+
+            return BuildTransaction(source, dto);
+        }
+
+        private static Transaction BuildTransaction(Transaction source, CashManager.Data.DTO.Transaction dto)
+        {
             var transaction = Mapper.Map<Transaction>(dto);
             transaction.IsPropertyChangedEnabled = false;
             transaction.BookDate = source.BookDate;
