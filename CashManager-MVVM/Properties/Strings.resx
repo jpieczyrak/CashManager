@@ -561,4 +561,7 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   <data name="ReplaceMatch" xml:space="preserve">
     <value>Replace match</value>
   </data>
+  <data name="MatchAllElements" xml:space="preserve">
+    <value>Match all elements</value>
+  </data>
 </root>

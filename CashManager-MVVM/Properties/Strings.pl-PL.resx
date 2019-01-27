@@ -549,4 +549,7 @@ Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wa
   <data name="AppendMode" xml:space="preserve">
     <value>Tryb dopisywania</value>
   </data>
+  <data name="MatchAllElements" xml:space="preserve">
+    <value>Dopasuj wszystkie elementy</value>
+  </data>
 </root>

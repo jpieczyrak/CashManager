@@ -719,6 +719,15 @@ namespace CashManager_MVVM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Match all elements.
+        /// </summary>
+        public static string MatchAllElements {
+            get {
+                return ResourceManager.GetString("MatchAllElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max.
         /// </summary>
         public static string Max {
