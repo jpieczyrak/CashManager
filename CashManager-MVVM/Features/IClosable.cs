@@ -1,4 +1,4 @@
-﻿namespace CashManager_MVVM.Features
+﻿namespace CashManager.WPF.Features
 {
     public interface IClosable
     {

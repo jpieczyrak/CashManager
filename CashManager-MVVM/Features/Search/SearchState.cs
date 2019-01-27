@@ -9,18 +9,18 @@ using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Tags;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
-using CashManager_MVVM.CommonData;
-using CashManager_MVVM.Features.Categories;
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Common;
-using CashManager_MVVM.Model.Selectors;
+using CashManager.WPF.CommonData;
+using CashManager.WPF.Features.Categories;
+using CashManager.WPF.Model;
+using CashManager.WPF.Model.Common;
+using CashManager.WPF.Model.Selectors;
 
 using DtoTag = CashManager.Data.DTO.Tag;
 using DtoStock = CashManager.Data.DTO.Stock;
 using DtoCategory = CashManager.Data.DTO.Category;
 using DtoType = CashManager.Data.DTO.TransactionType;
 
-namespace CashManager_MVVM.Features.Search
+namespace CashManager.WPF.Features.Search
 {
     public sealed class SearchState : BaseObservableObject
     {

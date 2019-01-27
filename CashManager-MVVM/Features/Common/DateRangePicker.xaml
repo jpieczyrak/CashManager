@@ -3,10 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:CashManager_MVVM.Features.Common"
-    xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
+    xmlns:local="clr-namespace:CashManager.WPF.Features.Common"
+    xmlns:properties="clr-namespace:CashManager.WPF.Properties"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:custom="http://www.galasoft.ch/mvvmlight" x:Class="CashManager_MVVM.Features.Common.DateRangePicker"
+    xmlns:custom="http://www.galasoft.ch/mvvmlight" x:Class="CashManager.WPF.Features.Common.DateRangePicker"
     x:Name="DateRangePickerControl"
     mc:Ignorable="d"
     d:DesignHeight="100" d:DesignWidth="500">

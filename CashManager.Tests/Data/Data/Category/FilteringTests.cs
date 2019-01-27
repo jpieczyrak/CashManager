@@ -11,9 +11,9 @@ namespace CashManager.Tests.Data.Data.Category
         public void GetCategoriesChainTests()
         {
             //given
-            var child = new CashManager_MVVM.Model.Category { Name = "a1" };
-            var parent = new CashManager_MVVM.Model.Category { Name = "a2" };
-            var root = new CashManager_MVVM.Model.Category { Name = "a3" };
+            var child = new CashManager.WPF.Model.Category { Name = "a1" };
+            var parent = new CashManager.WPF.Model.Category { Name = "a2" };
+            var root = new CashManager.WPF.Model.Category { Name = "a3" };
 
             child.Parent = parent;
             parent.Parent = root;
@@ -34,9 +34,9 @@ namespace CashManager.Tests.Data.Data.Category
         public void GetParentsIdTests()
         {
             //given
-            var child = new CashManager_MVVM.Model.Category { Name = "a1" };
-            var parent = new CashManager_MVVM.Model.Category { Name = "a2" };
-            var root = new CashManager_MVVM.Model.Category { Name = "a3" };
+            var child = new CashManager.WPF.Model.Category { Name = "a1" };
+            var parent = new CashManager.WPF.Model.Category { Name = "a2" };
+            var root = new CashManager.WPF.Model.Category { Name = "a3" };
             child.Parent = parent;
             parent.Parent = root;
 
@@ -53,9 +53,9 @@ namespace CashManager.Tests.Data.Data.Category
         public void MatchCategoryFilterByFilterList()
         {
             //given
-            var child = new CashManager_MVVM.Model.Category { Name = "a1" };
-            var parent = new CashManager_MVVM.Model.Category { Name = "a2" };
-            var root = new CashManager_MVVM.Model.Category { Name = "a3" };
+            var child = new CashManager.WPF.Model.Category { Name = "a1" };
+            var parent = new CashManager.WPF.Model.Category { Name = "a2" };
+            var root = new CashManager.WPF.Model.Category { Name = "a3" };
 
             child.Parent = parent;
             parent.Parent = root;
@@ -77,10 +77,10 @@ namespace CashManager.Tests.Data.Data.Category
         public void MatchCategoryFilter_Null_False()
         {
             //given
-            var category = new CashManager_MVVM.Model.Category { Name = "a1" };
+            var category = new CashManager.WPF.Model.Category { Name = "a1" };
 
             //when
-            bool result = category.MatchCategoryFilter((CashManager_MVVM.Model.Category) null);
+            bool result = category.MatchCategoryFilter((CashManager.WPF.Model.Category) null);
 
             //then
             Assert.False(result);
@@ -90,8 +90,8 @@ namespace CashManager.Tests.Data.Data.Category
         public void MatchCategoryFilter_Child_True()
         {
             //given
-            var child = new CashManager_MVVM.Model.Category { Name = "a1" };
-            var parent = new CashManager_MVVM.Model.Category { Name = "a2" };
+            var child = new CashManager.WPF.Model.Category { Name = "a1" };
+            var parent = new CashManager.WPF.Model.Category { Name = "a2" };
             child.Parent = parent;
 
             //when
@@ -105,8 +105,8 @@ namespace CashManager.Tests.Data.Data.Category
         public void MatchCategoryFilter_ChildToParent_False()
         {
             //given
-            var child = new CashManager_MVVM.Model.Category { Name = "a1" };
-            var parent = new CashManager_MVVM.Model.Category { Name = "a2" };
+            var child = new CashManager.WPF.Model.Category { Name = "a1" };
+            var parent = new CashManager.WPF.Model.Category { Name = "a2" };
             child.Parent = parent;
 
             //when
@@ -120,9 +120,9 @@ namespace CashManager.Tests.Data.Data.Category
         public void MatchCategoryFilter_NonRelated_False()
         {
             //given
-            var child = new CashManager_MVVM.Model.Category { Name = "a1" };
-            var parent = new CashManager_MVVM.Model.Category { Name = "a2" };
-            var random = new CashManager_MVVM.Model.Category { Name = "a3" };
+            var child = new CashManager.WPF.Model.Category { Name = "a1" };
+            var parent = new CashManager.WPF.Model.Category { Name = "a2" };
+            var random = new CashManager.WPF.Model.Category { Name = "a3" };
             child.Parent = parent;
 
             //when

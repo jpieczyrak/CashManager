@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace CashManager_MVVM
+namespace CashManager.WPF
 {
     public sealed class TrulyObservableCollection<T> : ObservableCollection<T>
         where T : INotifyPropertyChanged

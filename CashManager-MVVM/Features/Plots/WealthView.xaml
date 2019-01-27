@@ -1,12 +1,12 @@
-﻿<UserControl x:Class="CashManager_MVVM.Features.Plots.WealthView"
+﻿<UserControl x:Class="CashManager.WPF.Features.Plots.WealthView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:plots="clr-namespace:CashManager_MVVM.Features.Plots"
+             xmlns:plots="clr-namespace:CashManager.WPF.Features.Plots"
              xmlns:oxy="http://oxyplot.org/wpf"
-             xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
-             xmlns:selectors="clr-namespace:CashManager_MVVM.Features.Search.Selectors"
+             xmlns:common="clr-namespace:CashManager.WPF.Features.Common"
+             xmlns:selectors="clr-namespace:CashManager.WPF.Features.Search.Selectors"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=plots:WealthViewModel, IsDesignTimeCreatable=True}">
 

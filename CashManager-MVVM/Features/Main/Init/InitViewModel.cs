@@ -15,7 +15,7 @@ using CashManager.Logic.Extensions;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
-namespace CashManager_MVVM.Features.Main.Init
+namespace CashManager.WPF.Features.Main.Init
 {
     public class InitViewModel : ViewModelBase
     {

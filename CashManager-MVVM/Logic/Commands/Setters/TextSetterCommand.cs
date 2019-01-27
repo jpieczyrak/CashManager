@@ -5,13 +5,13 @@ using System.Text.RegularExpressions;
 
 using CashManager.Logic.Extensions;
 
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Selectors;
-using CashManager_MVVM.Model.Setters;
+using CashManager.WPF.Model;
+using CashManager.WPF.Model.Selectors;
+using CashManager.WPF.Model.Setters;
 
 using log4net;
 
-namespace CashManager_MVVM.Logic.Commands.Setters
+namespace CashManager.WPF.Logic.Commands.Setters
 {
     public class TextSetterCommand : ISetter<Transaction>, ISetter<Position>
     {

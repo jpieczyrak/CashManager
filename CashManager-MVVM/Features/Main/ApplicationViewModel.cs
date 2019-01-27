@@ -4,23 +4,23 @@ using System.Reflection;
 
 using CashManager.Logic.Wrappers;
 
-using CashManager_MVVM.Features.Balance;
-using CashManager_MVVM.Features.Categories;
-using CashManager_MVVM.Features.Main.Settings;
-using CashManager_MVVM.Features.MassReplacer;
-using CashManager_MVVM.Features.Parsers;
-using CashManager_MVVM.Features.Plots;
-using CashManager_MVVM.Features.Search;
-using CashManager_MVVM.Features.Stocks;
-using CashManager_MVVM.Features.Summary;
-using CashManager_MVVM.Features.Tags;
-using CashManager_MVVM.Features.Transactions;
-using CashManager_MVVM.Features.TransactionTypes;
+using CashManager.WPF.Features.Balance;
+using CashManager.WPF.Features.Categories;
+using CashManager.WPF.Features.Main.Settings;
+using CashManager.WPF.Features.MassReplacer;
+using CashManager.WPF.Features.Parsers;
+using CashManager.WPF.Features.Plots;
+using CashManager.WPF.Features.Search;
+using CashManager.WPF.Features.Stocks;
+using CashManager.WPF.Features.Summary;
+using CashManager.WPF.Features.Tags;
+using CashManager.WPF.Features.Transactions;
+using CashManager.WPF.Features.TransactionTypes;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
-namespace CashManager_MVVM.Features.Main
+namespace CashManager.WPF.Features.Main
 {
     public class ApplicationViewModel : ViewModelBase
     {

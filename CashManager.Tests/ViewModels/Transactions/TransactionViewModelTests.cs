@@ -7,12 +7,12 @@ using AutoMapper;
 using CashManager.Infrastructure.DbConnection;
 using CashManager.Tests.ViewModels.Fixtures;
 
-using CashManager_MVVM;
-using CashManager_MVVM.CommonData;
-using CashManager_MVVM.Features.Common;
-using CashManager_MVVM.Features.Transactions;
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Common;
+using CashManager.WPF;
+using CashManager.WPF.CommonData;
+using CashManager.WPF.Features.Common;
+using CashManager.WPF.Features.Transactions;
+using CashManager.WPF.Model;
+using CashManager.WPF.Model.Common;
 
 using LiteDB;
 

@@ -4,7 +4,7 @@ using System.Linq;
 using CashManager.Data.DTO;
 using CashManager.Logic.Parsers;
 
-using CashManager_MVVM.Properties;
+using CashManager.WPF.Properties;
 
 using Xunit;
 

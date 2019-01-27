@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager_MVVM.Features.Transactions.Positions
+namespace CashManager.WPF.Features.Transactions.Positions
 {
     public partial class PositionListView : UserControl
     {

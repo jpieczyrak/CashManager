@@ -1,4 +1,4 @@
-﻿namespace CashManager_MVVM.Skins
+﻿namespace CashManager.WPF.Skins
 {
     internal enum SkinColors
     {

@@ -1,4 +1,4 @@
-﻿namespace CashManager_MVVM.Model.Setters
+﻿namespace CashManager.WPF.Model.Setters
 {
     public enum DateSetterType
     {

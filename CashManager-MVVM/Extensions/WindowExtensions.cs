@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
 
-namespace CashManager_MVVM.Extensions
+namespace CashManager.WPF.Extensions
 {
     internal static class WindowExtensions
     {

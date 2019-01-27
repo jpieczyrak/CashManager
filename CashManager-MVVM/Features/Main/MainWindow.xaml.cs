@@ -3,10 +3,10 @@ using System.Windows;
 
 using CashManager.Logic.Wrappers;
 
-using CashManager_MVVM.Features.Common;
-using CashManager_MVVM.Utils;
+using CashManager.WPF.Features.Common;
+using CashManager.WPF.Utils;
 
-namespace CashManager_MVVM.Features.Main
+namespace CashManager.WPF.Features.Main
 {
     public partial class MainWindow : CustomWindow
     {

@@ -5,11 +5,11 @@ using Autofac;
 
 using CashManager.Tests.ViewModels.Fixtures;
 
-using CashManager_MVVM;
-using CashManager_MVVM.Features.Common;
-using CashManager_MVVM.Features.Parsers;
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Common;
+using CashManager.WPF;
+using CashManager.WPF.Features.Common;
+using CashManager.WPF.Features.Parsers;
+using CashManager.WPF.Model;
+using CashManager.WPF.Model.Common;
 
 using Xunit;
 

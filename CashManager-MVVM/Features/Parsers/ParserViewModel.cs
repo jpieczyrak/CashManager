@@ -17,10 +17,10 @@ using CashManager.Logic.Parsers;
 using CashManager.Logic.Parsers.Custom.Predefined;
 using CashManager.Logic.Wrappers;
 
-using CashManager_MVVM.CommonData;
-using CashManager_MVVM.Features.Transactions;
-using CashManager_MVVM.Messages.Models;
-using CashManager_MVVM.Model;
+using CashManager.WPF.CommonData;
+using CashManager.WPF.Features.Transactions;
+using CashManager.WPF.Messages.Models;
+using CashManager.WPF.Model;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -34,7 +34,7 @@ using DtoBalance = CashManager.Data.DTO.Balance;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
 using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 
-namespace CashManager_MVVM.Features.Parsers
+namespace CashManager.WPF.Features.Parsers
 {
     public class ParserViewModel : ViewModelBase, IUpdateable, IDropTarget
     {

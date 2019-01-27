@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Media;
 
-using CashManager_MVVM.Properties;
+using CashManager.WPF.Properties;
 
-namespace CashManager_MVVM.Utils
+namespace CashManager.WPF.Utils
 {
     public static class SoundPlayerHelper
     {

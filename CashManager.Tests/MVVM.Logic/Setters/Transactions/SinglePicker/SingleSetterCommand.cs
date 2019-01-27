@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Common;
-using CashManager_MVVM.Model.Selectors;
-using CashManager_MVVM.Model.Setters;
+using CashManager.WPF.Model;
+using CashManager.WPF.Model.Common;
+using CashManager.WPF.Model.Selectors;
+using CashManager.WPF.Model.Setters;
 
 using Xunit;
 
@@ -19,7 +19,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.SinglePicker
         {
             //given
             var selector = new SingleSetter(MultiPickerType.TransactionType, GetTransactionTypes());
-            var command = CashManager_MVVM.Logic.Commands.Setters.SingleSetterCommand.Create(selector);
+            var command = CashManager.WPF.Logic.Commands.Setters.SingleSetterCommand.Create(selector);
             var transactions = GetTransactions();
 
             //when
@@ -38,7 +38,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.SinglePicker
                 IsChecked = true,
                 Selected = new Selectable(_typeB)
             };
-            var command = CashManager_MVVM.Logic.Commands.Setters.SingleSetterCommand.Create(selector);
+            var command = CashManager.WPF.Logic.Commands.Setters.SingleSetterCommand.Create(selector);
             var transactions = GetTransactions();
 
             //when

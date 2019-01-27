@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using CashManager_MVVM.Model;
+using CashManager.WPF.Model;
 
-namespace CashManager_MVVM.Features.Categories
+namespace CashManager.WPF.Features.Categories
 {
     public static class CategoryDesignHelper
     {

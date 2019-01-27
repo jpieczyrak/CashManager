@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 
-using CashManager_MVVM.Logic.Commands.Filters;
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Selectors;
+using CashManager.WPF.Logic.Commands.Filters;
+using CashManager.WPF.Model;
+using CashManager.WPF.Model.Selectors;
 
 using Xunit;
 

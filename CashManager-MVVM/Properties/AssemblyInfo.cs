@@ -7,10 +7,10 @@ using log4net.Config;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CashManager_MVVM")]
+[assembly: AssemblyTitle("CashManager.WPF")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("CashManager_MVVM")]
+[assembly: AssemblyProduct("CashManager.WPF")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]

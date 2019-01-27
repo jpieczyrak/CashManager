@@ -1,14 +1,14 @@
 ﻿using System.Linq;
 
-using CashManager_MVVM.Logic.Commands.Filters;
-using CashManager_MVVM.Model.Common;
-using CashManager_MVVM.Model.Selectors;
+using CashManager.WPF.Logic.Commands.Filters;
+using CashManager.WPF.Model.Common;
+using CashManager.WPF.Model.Selectors;
 
 using Xunit;
 
-using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
-using Position = CashManager_MVVM.Model.Position;
-using Tag = CashManager_MVVM.Model.Tag;
+using MapperConfiguration = CashManager.WPF.Configuration.Mapping.MapperConfiguration;
+using Position = CashManager.WPF.Model.Position;
+using Tag = CashManager.WPF.Model.Tag;
 
 namespace CashManager.Tests.MVVM.Logic.Filters.TextFilters
 {

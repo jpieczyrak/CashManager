@@ -4,17 +4,17 @@ using Autofac;
 
 using CashManager.Infrastructure.Modules;
 
-using CashManager_MVVM.CommonData;
-using CashManager_MVVM.Features;
-using CashManager_MVVM.Features.Common;
-using CashManager_MVVM.Features.Main;
-using CashManager_MVVM.Logic.Calculators;
-using CashManager_MVVM.Logic.Creators;
-using CashManager_MVVM.UserCommunication;
+using CashManager.WPF.CommonData;
+using CashManager.WPF.Features;
+using CashManager.WPF.Features.Common;
+using CashManager.WPF.Features.Main;
+using CashManager.WPF.Logic.Calculators;
+using CashManager.WPF.Logic.Creators;
+using CashManager.WPF.UserCommunication;
 
 using GalaSoft.MvvmLight;
 
-namespace CashManager_MVVM.Configuration.DI
+namespace CashManager.WPF.Configuration.DI
 {
     public static class AutofacConfiguration
     {

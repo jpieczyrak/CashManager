@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManager-MVVM", "CashManager-MVVM\CashManager-MVVM.csproj", "{49BCCABB-E76D-4C04-82A4-20FB886AC076}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManager.WPF", "CashManager-MVVM\CashManager.WPF.csproj", "{49BCCABB-E76D-4C04-82A4-20FB886AC076}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashManager.Infrastructure", "CashManager.Infrastructure\CashManager.Infrastructure.csproj", "{C0CD5651-D1B7-47F3-B034-A5CB00079B38}"
 EndProject
@@ -102,7 +102,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {6B69F1AD-36D1-45D0-AA0C-374DE3378BE1}
 		RESX_PrefixTranslations = False
+		SolutionGuid = {6B69F1AD-36D1-45D0-AA0C-374DE3378BE1}
 	EndGlobalSection
 EndGlobal

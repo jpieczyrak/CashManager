@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:common="clr-namespace:CashManager_MVVM.Features.Common"
+                    xmlns:common="clr-namespace:CashManager.WPF.Features.Common"
                     mc:Ignorable="d">
 
     <ControlTemplate x:Key="Minimize" TargetType="{x:Type Button}">

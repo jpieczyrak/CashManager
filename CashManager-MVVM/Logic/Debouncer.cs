@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CashManager_MVVM.Logic
+namespace CashManager.WPF.Logic
 {
     public class Debouncer : IDisposable
     {

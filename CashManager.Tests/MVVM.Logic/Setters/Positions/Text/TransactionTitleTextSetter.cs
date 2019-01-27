@@ -1,14 +1,14 @@
 ﻿using System.Linq;
 
-using CashManager_MVVM;
-using CashManager_MVVM.Logic.Commands.Setters;
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Selectors;
-using CashManager_MVVM.Model.Setters;
+using CashManager.WPF;
+using CashManager.WPF.Logic.Commands.Setters;
+using CashManager.WPF.Model;
+using CashManager.WPF.Model.Selectors;
+using CashManager.WPF.Model.Setters;
 
 using Xunit;
 
-using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
+using MapperConfiguration = CashManager.WPF.Configuration.Mapping.MapperConfiguration;
 
 namespace CashManager.Tests.MVVM.Logic.Setters.Positions.Text
 {

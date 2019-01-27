@@ -3,10 +3,10 @@ using System.Linq;
 
 using CashManager.Data.Extensions;
 
-using CashManager_MVVM;
-using CashManager_MVVM.Logic.Calculators;
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Selectors;
+using CashManager.WPF;
+using CashManager.WPF.Logic.Calculators;
+using CashManager.WPF.Model;
+using CashManager.WPF.Model.Selectors;
 
 using OxyPlot;
 using OxyPlot.Axes;

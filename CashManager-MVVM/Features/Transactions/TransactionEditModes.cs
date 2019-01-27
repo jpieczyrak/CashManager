@@ -1,4 +1,4 @@
-﻿namespace CashManager_MVVM.Features.Transactions
+﻿namespace CashManager.WPF.Features.Transactions
 {
     public enum TransactionEditModes
     {

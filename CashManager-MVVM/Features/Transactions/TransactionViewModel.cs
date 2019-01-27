@@ -18,17 +18,17 @@ using CashManager.Infrastructure.Query.Transactions;
 using CashManager.Infrastructure.Query.Transactions.Bills;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
-using CashManager_MVVM.CommonData;
-using CashManager_MVVM.Features.Categories;
-using CashManager_MVVM.Features.Common;
-using CashManager_MVVM.Features.Main;
-using CashManager_MVVM.Logic.Creators;
-using CashManager_MVVM.Messages.Models;
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Common;
-using CashManager_MVVM.Properties;
-using CashManager_MVVM.UserCommunication;
-using CashManager_MVVM.Utils;
+using CashManager.WPF.CommonData;
+using CashManager.WPF.Features.Categories;
+using CashManager.WPF.Features.Common;
+using CashManager.WPF.Features.Main;
+using CashManager.WPF.Logic.Creators;
+using CashManager.WPF.Messages.Models;
+using CashManager.WPF.Model;
+using CashManager.WPF.Model.Common;
+using CashManager.WPF.Properties;
+using CashManager.WPF.UserCommunication;
+using CashManager.WPF.Utils;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -41,7 +41,7 @@ using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
 using DtoStoredFileInfo = CashManager.Data.DTO.StoredFileInfo;
 
-namespace CashManager_MVVM.Features.Transactions
+namespace CashManager.WPF.Features.Transactions
 {
     public class TransactionViewModel : ViewModelBase, IUpdateable, IDropTarget
     {

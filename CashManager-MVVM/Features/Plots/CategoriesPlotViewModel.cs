@@ -9,10 +9,10 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
-using CashManager_MVVM.CommonData;
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Common;
-using CashManager_MVVM.Model.Selectors;
+using CashManager.WPF.CommonData;
+using CashManager.WPF.Model;
+using CashManager.WPF.Model.Common;
+using CashManager.WPF.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 
@@ -22,7 +22,7 @@ using OxyPlot.Series;
 using DtoStock = CashManager.Data.DTO.Stock;
 using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 
-namespace CashManager_MVVM.Features.Plots
+namespace CashManager.WPF.Features.Plots
 {
     public class CategoriesPlotViewModel : ViewModelBase, IUpdateable
     {

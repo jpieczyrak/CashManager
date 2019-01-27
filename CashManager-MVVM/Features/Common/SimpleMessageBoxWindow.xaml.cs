@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace CashManager_MVVM.Features.Common
+namespace CashManager.WPF.Features.Common
 {
     public partial class SimpleMessageBoxWindow : CustomWindow
     {

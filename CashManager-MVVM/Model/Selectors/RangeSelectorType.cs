@@ -1,4 +1,4 @@
-﻿namespace CashManager_MVVM.Model.Selectors
+﻿namespace CashManager.WPF.Model.Selectors
 {
     public enum RangeSelectorType
     {

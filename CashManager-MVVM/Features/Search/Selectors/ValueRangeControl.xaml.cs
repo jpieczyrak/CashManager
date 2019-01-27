@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager_MVVM.Features.Search.Selectors
+namespace CashManager.WPF.Features.Search.Selectors
 {
     public partial class ValueRangeControl : UserControl
     {

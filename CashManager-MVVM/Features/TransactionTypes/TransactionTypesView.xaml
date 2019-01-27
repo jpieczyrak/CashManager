@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="CashManager_MVVM.Features.TransactionTypes.TransactionTypesView"
+﻿<UserControl x:Class="CashManager.WPF.Features.TransactionTypes.TransactionTypesView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:transactionTypes="clr-namespace:CashManager_MVVM.Features.TransactionTypes"
-             xmlns:properties="clr-namespace:CashManager_MVVM.Properties"
+             xmlns:transactionTypes="clr-namespace:CashManager.WPF.Features.TransactionTypes"
+             xmlns:properties="clr-namespace:CashManager.WPF.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="600"
              d:DataContext="{d:DesignInstance Type=transactionTypes:TransactionTypesViewModel, IsDesignTimeCreatable=True}">

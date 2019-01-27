@@ -2,9 +2,9 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-using CashManager_MVVM.Features.Common;
+using CashManager.WPF.Features.Common;
 
-namespace CashManager_MVVM.Features.Main
+namespace CashManager.WPF.Features.Main
 {
     public partial class PasswordPromptWindow : CustomWindow
     {

@@ -5,12 +5,12 @@ using System.Linq;
 
 using CashManager.Infrastructure.Query;
 
-using CashManager_MVVM.CommonData;
-using CashManager_MVVM.Features.Plots;
-using CashManager_MVVM.Features.Stocks;
-using CashManager_MVVM.Logic.Calculators;
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Properties;
+using CashManager.WPF.CommonData;
+using CashManager.WPF.Features.Plots;
+using CashManager.WPF.Features.Stocks;
+using CashManager.WPF.Logic.Calculators;
+using CashManager.WPF.Model;
+using CashManager.WPF.Properties;
 
 using log4net;
 
@@ -19,7 +19,7 @@ using OxyPlot.Axes;
 using OxyPlot.Series;
 
 
-namespace CashManager_MVVM.Features.Summary
+namespace CashManager.WPF.Features.Summary
 {
     public class SummaryViewModel : FilterableViewModel
     {

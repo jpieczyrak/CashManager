@@ -8,14 +8,14 @@ using CashManager.Infrastructure.Command.TransactionTypes;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
-using CashManager_MVVM.Model;
+using CashManager.WPF.Model;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
 using DtoType = CashManager.Data.DTO.TransactionType;
 
-namespace CashManager_MVVM.Features.TransactionTypes
+namespace CashManager.WPF.Features.TransactionTypes
 {
     public class TransactionTypesViewModel : ViewModelBase
     {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager_MVVM.Features.Main
+namespace CashManager.WPF.Features.Main
 {
     public partial class NotificationView : UserControl
     {

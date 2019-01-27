@@ -11,12 +11,12 @@ using CashManager.Infrastructure.DbConnection;
 using CashManager.Infrastructure.Query;
 using CashManager.Logic.DefaultData;
 
-using CashManager_MVVM.CommonData;
-using CashManager_MVVM.Configuration.DI;
-using CashManager_MVVM.Features;
-using CashManager_MVVM.Features.Main;
-using CashManager_MVVM.Features.Search;
-using CashManager_MVVM.Model;
+using CashManager.WPF.CommonData;
+using CashManager.WPF.Configuration.DI;
+using CashManager.WPF.Features;
+using CashManager.WPF.Features.Main;
+using CashManager.WPF.Features.Search;
+using CashManager.WPF.Model;
 
 using GalaSoft.MvvmLight;
 
@@ -28,7 +28,7 @@ using DtoTransaction = CashManager.Data.DTO.Transaction;
 using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 using DtoStock = CashManager.Data.DTO.Stock;
 using DtoTag = CashManager.Data.DTO.Tag;
-using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
+using MapperConfiguration = CashManager.WPF.Configuration.Mapping.MapperConfiguration;
 
 namespace CashManager.Tests.ViewModels
 {

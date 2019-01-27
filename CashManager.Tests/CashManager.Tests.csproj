@@ -203,9 +203,9 @@
     <Compile Include="ViewModels\ViewModelContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CashManager-MVVM\CashManager-MVVM.csproj">
+    <ProjectReference Include="..\CashManager-MVVM\CashManager.WPF.csproj">
       <Project>{49bccabb-e76d-4c04-82a4-20fb886ac076}</Project>
-      <Name>CashManager-MVVM</Name>
+      <Name>CashManager.WPF</Name>
     </ProjectReference>
     <ProjectReference Include="..\CashManager.Data\CashManager.Data.csproj">
       <Project>{d83c69c0-18f7-4b7f-af7e-143091a26a30}</Project>

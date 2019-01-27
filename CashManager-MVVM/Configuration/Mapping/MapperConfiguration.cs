@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using CashManager_MVVM.Features.Search;
-using CashManager_MVVM.Logic.Balances;
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Selectors;
+using CashManager.WPF.Features.Search;
+using CashManager.WPF.Logic.Balances;
+using CashManager.WPF.Model;
+using CashManager.WPF.Model.Selectors;
 using System;
 using System.Collections.Generic;
-using Category = CashManager_MVVM.Model.Category;
-using Stock = CashManager_MVVM.Model.Stock;
-using Tag = CashManager_MVVM.Model.Tag;
+using Category = CashManager.WPF.Model.Category;
+using Stock = CashManager.WPF.Model.Stock;
+using Tag = CashManager.WPF.Model.Tag;
 
-namespace CashManager_MVVM.Configuration.Mapping
+namespace CashManager.WPF.Configuration.Mapping
 {
     public static class MapperConfiguration
     {

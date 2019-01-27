@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager_MVVM.Features.Main.Settings
+namespace CashManager.WPF.Features.Main.Settings
 {
     public partial class SettingsView : UserControl
     {

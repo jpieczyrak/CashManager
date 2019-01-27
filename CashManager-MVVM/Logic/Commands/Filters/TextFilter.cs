@@ -6,14 +6,14 @@ using System.Text.RegularExpressions;
 
 using CashManager.Logic.Extensions;
 
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Selectors;
+using CashManager.WPF.Model;
+using CashManager.WPF.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 
 using log4net;
 
-namespace CashManager_MVVM.Logic.Commands.Filters
+namespace CashManager.WPF.Logic.Commands.Filters
 {
     public class TextFilter : ObservableObject, IFilter<Transaction>, IFilter<Position>
     {

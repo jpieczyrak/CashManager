@@ -1,4 +1,4 @@
-﻿namespace CashManager_MVVM.Model.Common
+﻿namespace CashManager.WPF.Model.Common
 {
     public sealed class Selectable : BaseObservableObject, ISelectable
     {

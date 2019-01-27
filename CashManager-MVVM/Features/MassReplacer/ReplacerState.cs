@@ -10,13 +10,13 @@ using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.Tags;
 using CashManager.Infrastructure.Query.TransactionTypes;
 
-using CashManager_MVVM.Features.Categories;
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Common;
-using CashManager_MVVM.Model.Selectors;
-using CashManager_MVVM.Model.Setters;
+using CashManager.WPF.Features.Categories;
+using CashManager.WPF.Model;
+using CashManager.WPF.Model.Common;
+using CashManager.WPF.Model.Selectors;
+using CashManager.WPF.Model.Setters;
 
-namespace CashManager_MVVM.Features.MassReplacer
+namespace CashManager.WPF.Features.MassReplacer
 {
     public class ReplacerState : BaseObservableObject
     {

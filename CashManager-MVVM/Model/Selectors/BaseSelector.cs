@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 
-namespace CashManager_MVVM.Model.Selectors
+namespace CashManager.WPF.Model.Selectors
 {
     public class BaseSelector : ObservableObject
     {

@@ -2,7 +2,7 @@
 
 using GalaSoft.MvvmLight;
 
-namespace CashManager_MVVM.Features.Main.Settings
+namespace CashManager.WPF.Features.Main.Settings
 {
     internal class WarningsSettings : ObservableObject
     {

@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-using CashManager_MVVM.Model;
+using CashManager.WPF.Model;
 
-namespace CashManager_MVVM.Features.Transactions
+namespace CashManager.WPF.Features.Transactions
 {
     public partial class TransactionListView : UserControl
     {

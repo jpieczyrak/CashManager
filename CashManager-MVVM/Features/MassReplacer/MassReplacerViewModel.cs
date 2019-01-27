@@ -6,15 +6,15 @@ using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
 
-using CashManager_MVVM.Features.Search;
-using CashManager_MVVM.Logic.Commands.Setters;
+using CashManager.WPF.Features.Search;
+using CashManager.WPF.Logic.Commands.Setters;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
 using Transaction = CashManager.Data.DTO.Transaction;
 
-namespace CashManager_MVVM.Features.MassReplacer
+namespace CashManager.WPF.Features.MassReplacer
 {
     public class MassReplacerViewModel : ViewModelBase, IUpdateable
     {

@@ -14,19 +14,19 @@ using CashManager.Infrastructure.Modules;
 using CashManager.Logic.Extensions;
 using CashManager.Logic.Wrappers;
 
-using CashManager_MVVM.Configuration.DI;
-using CashManager_MVVM.Configuration.Mapping;
-using CashManager_MVVM.Extensions;
-using CashManager_MVVM.Features.Main;
-using CashManager_MVVM.Features.Main.Init;
-using CashManager_MVVM.Properties;
-using CashManager_MVVM.Utils;
+using CashManager.WPF.Configuration.DI;
+using CashManager.WPF.Configuration.Mapping;
+using CashManager.WPF.Extensions;
+using CashManager.WPF.Features.Main;
+using CashManager.WPF.Features.Main.Init;
+using CashManager.WPF.Properties;
+using CashManager.WPF.Utils;
 
 using GalaSoft.MvvmLight.Threading;
 
 using log4net;
 
-namespace CashManager_MVVM
+namespace CashManager.WPF
 {
     public partial class App : Application
     {

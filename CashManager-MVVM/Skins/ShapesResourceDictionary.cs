@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows;
 
-using CashManager_MVVM.Properties;
+using CashManager.WPF.Properties;
 
-namespace CashManager_MVVM.Skins
+namespace CashManager.WPF.Skins
 {
     internal class ShapesResourceDictionary : ResourceDictionary
     {

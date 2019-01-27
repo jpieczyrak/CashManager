@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using CashManager_MVVM.Model.Common;
+using CashManager.WPF.Model.Common;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
-namespace CashManager_MVVM.Features.Common
+namespace CashManager.WPF.Features.Common
 {
     public class MultiComboBoxViewModel : ViewModelBase
     {

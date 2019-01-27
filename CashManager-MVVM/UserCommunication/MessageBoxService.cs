@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 
-using CashManager_MVVM.Features.Common;
+using CashManager.WPF.Features.Common;
 
-namespace CashManager_MVVM.UserCommunication
+namespace CashManager.WPF.UserCommunication
 {
     public class MessageBoxService : IMessagesService
     {

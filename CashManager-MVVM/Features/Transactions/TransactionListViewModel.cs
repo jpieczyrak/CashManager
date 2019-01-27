@@ -6,16 +6,16 @@ using AutoMapper;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Transactions;
 
-using CashManager_MVVM.CommonData;
-using CashManager_MVVM.Features.Main;
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Properties;
-using CashManager_MVVM.UserCommunication;
+using CashManager.WPF.CommonData;
+using CashManager.WPF.Features.Main;
+using CashManager.WPF.Model;
+using CashManager.WPF.Properties;
+using CashManager.WPF.UserCommunication;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
-namespace CashManager_MVVM.Features.Transactions
+namespace CashManager.WPF.Features.Transactions
 {
     public class TransactionListViewModel : ViewModelBase
     {

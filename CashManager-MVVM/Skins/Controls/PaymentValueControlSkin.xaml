@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:transactions="clr-namespace:CashManager_MVVM.Features.Transactions"
-                    xmlns:properties="clr-namespace:CashManager_MVVM.Properties">
+                    xmlns:transactions="clr-namespace:CashManager.WPF.Features.Transactions"
+                    xmlns:properties="clr-namespace:CashManager.WPF.Properties">
 
     <Style TargetType="{x:Type transactions:PaymentValueControl}">
         <Setter Property="Template">

@@ -5,9 +5,9 @@ using Autofac;
 using CashManager.Data.Extensions;
 using CashManager.Tests.ViewModels.Fixtures;
 
-using CashManager_MVVM;
-using CashManager_MVVM.Features.Plots;
-using CashManager_MVVM.Model;
+using CashManager.WPF;
+using CashManager.WPF.Features.Plots;
+using CashManager.WPF.Model;
 
 using OxyPlot;
 using OxyPlot.Axes;

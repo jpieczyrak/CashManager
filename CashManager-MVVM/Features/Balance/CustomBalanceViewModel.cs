@@ -12,12 +12,12 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.CustomBalances;
 using CashManager.Infrastructure.Query.States;
 
-using CashManager_MVVM.Features.Common;
-using CashManager_MVVM.Features.Search;
-using CashManager_MVVM.Logic.Balances;
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Common;
-using CashManager_MVVM.Model.Selectors;
+using CashManager.WPF.Features.Common;
+using CashManager.WPF.Features.Search;
+using CashManager.WPF.Logic.Balances;
+using CashManager.WPF.Model;
+using CashManager.WPF.Model.Common;
+using CashManager.WPF.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -25,7 +25,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using DtoSearch = CashManager.Data.ViewModelState.SearchState;
 using DtoCustomBalance = CashManager.Data.ViewModelState.Balances.CustomBalance;
 
-namespace CashManager_MVVM.Features.Balance
+namespace CashManager.WPF.Features.Balance
 {
     public class CustomBalanceViewModel : ViewModelBase, IUpdateable
     {

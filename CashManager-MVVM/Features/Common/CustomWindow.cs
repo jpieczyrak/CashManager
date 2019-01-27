@@ -2,9 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 
-using CashManager_MVVM.Features.Main;
+using CashManager.WPF.Features.Main;
 
-namespace CashManager_MVVM.Features.Common
+namespace CashManager.WPF.Features.Common
 {
     public class CustomWindow : Window
     {

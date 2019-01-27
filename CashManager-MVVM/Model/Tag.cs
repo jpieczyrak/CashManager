@@ -1,6 +1,6 @@
-using CashManager_MVVM.Model.Common;
+using CashManager.WPF.Model.Common;
 
-namespace CashManager_MVVM.Model
+namespace CashManager.WPF.Model
 {
     /// <summary>
     /// Stores "tag" information of transaction.

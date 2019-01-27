@@ -1,11 +1,11 @@
 ﻿
 using AutoMapper;
 
-using CashManager_MVVM.Model;
+using CashManager.WPF.Model;
 
 using Xunit;
 
-using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
+using MapperConfiguration = CashManager.WPF.Configuration.Mapping.MapperConfiguration;
 
 namespace CashManager.Tests.Mappers
 {

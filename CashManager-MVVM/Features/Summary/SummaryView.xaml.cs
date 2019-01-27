@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager_MVVM.Features.Summary
+namespace CashManager.WPF.Features.Summary
 {
     public partial class SummaryView : UserControl
     {

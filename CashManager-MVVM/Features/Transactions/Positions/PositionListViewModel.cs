@@ -1,13 +1,13 @@
 ﻿using System.Collections.Specialized;
 using System.Linq;
 
-using CashManager_MVVM.Features.Main;
-using CashManager_MVVM.Model;
+using CashManager.WPF.Features.Main;
+using CashManager.WPF.Model;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
-namespace CashManager_MVVM.Features.Transactions.Positions
+namespace CashManager.WPF.Features.Transactions.Positions
 {
     public class PositionListViewModel : ViewModelBase
     {

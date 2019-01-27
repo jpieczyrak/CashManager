@@ -1,7 +1,7 @@
-﻿using CashManager_MVVM.Model.Common;
-using CashManager_MVVM.Properties;
+﻿using CashManager.WPF.Model.Common;
+using CashManager.WPF.Properties;
 
-namespace CashManager_MVVM.Model.Selectors
+namespace CashManager.WPF.Model.Selectors
 {
     public class SinglePicker : BaseSelector
     {

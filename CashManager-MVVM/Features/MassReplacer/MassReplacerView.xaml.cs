@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CashManager_MVVM.Features.MassReplacer
+namespace CashManager.WPF.Features.MassReplacer
 {
     public partial class MassReplacerView : UserControl
     {

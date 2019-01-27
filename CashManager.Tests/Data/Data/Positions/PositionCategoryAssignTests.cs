@@ -1,6 +1,6 @@
 ﻿using System;
 
-using CashManager_MVVM.Model;
+using CashManager.WPF.Model;
 
 using Xunit;
 
@@ -13,8 +13,8 @@ namespace CashManager.Tests.Data.Data.Positions
         {
             //given
             var id = Guid.NewGuid();
-            var category1 = new CashManager_MVVM.Model.Category(id) { Name = "cat 1" };
-            var category2 = new CashManager_MVVM.Model.Category(id) { Name = "cat 2" };
+            var category1 = new CashManager.WPF.Model.Category(id) { Name = "cat 1" };
+            var category2 = new CashManager.WPF.Model.Category(id) { Name = "cat 2" };
             var position = new Position { Category = category1 };
 
             //when

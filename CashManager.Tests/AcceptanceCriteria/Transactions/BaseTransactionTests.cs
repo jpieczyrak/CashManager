@@ -5,10 +5,10 @@ using Autofac;
 
 using CashManager.Tests.ViewModels.Fixtures;
 
-using CashManager_MVVM.Features.Main;
-using CashManager_MVVM.Features.Stocks;
-using CashManager_MVVM.Features.TransactionTypes;
-using CashManager_MVVM.Model;
+using CashManager.WPF.Features.Main;
+using CashManager.WPF.Features.Stocks;
+using CashManager.WPF.Features.TransactionTypes;
+using CashManager.WPF.Model;
 
 namespace CashManager.Tests.AcceptanceCriteria.Transactions
 {

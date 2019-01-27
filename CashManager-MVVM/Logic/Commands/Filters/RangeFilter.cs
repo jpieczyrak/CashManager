@@ -2,12 +2,12 @@
 using System.ComponentModel;
 using System.Linq;
 
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Selectors;
+using CashManager.WPF.Model;
+using CashManager.WPF.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 
-namespace CashManager_MVVM.Logic.Commands.Filters
+namespace CashManager.WPF.Logic.Commands.Filters
 {
     public class RangeFilter : ObservableObject, IFilter<Transaction>, IFilter<Position>
     {

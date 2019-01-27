@@ -1,9 +1,9 @@
 ﻿using CashManager.Data.Extensions;
 
-using CashManager_MVVM.Features.Search;
-using CashManager_MVVM.Model.Common;
+using CashManager.WPF.Features.Search;
+using CashManager.WPF.Model.Common;
 
-namespace CashManager_MVVM.Logic.Balances
+namespace CashManager.WPF.Logic.Balances
 {
     public sealed class CustomBalance : BaseObservableObject
     {
