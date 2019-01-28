@@ -7,5 +7,7 @@ namespace CashManager.Utils.Updates
         Task HandleApplicationUpdatesCheck();
 
         void HandleEvents();
+
+        void Cleanup();
     }
 }

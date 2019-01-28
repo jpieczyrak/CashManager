@@ -60,5 +60,7 @@ namespace CashManager.Utils.Updates
             }
             catch (Exception) { }
         }
+
+        public void Cleanup() { }
     }
 }

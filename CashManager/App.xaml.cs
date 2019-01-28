@@ -154,6 +154,7 @@ namespace CashManager
 
         protected override void OnExit(ExitEventArgs e)
         {
+            _updater.Cleanup();
             _logger.Value.Info("Exit");
             base.OnExit(e);
         }

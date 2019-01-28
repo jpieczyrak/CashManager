@@ -21,11 +21,12 @@ namespace CashManager.Utils
         private static string SettingsPath =>
             ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
 
-        internal static void BackupSettings()
+        internal static void BackupSettings(string path = null)
         {
             try
             {
-                File.Copy(SettingsPath, BackupPath, true);
+                Settings.Default.Save();
+                File.Copy(SettingsPath, path ?? BackupPath, true);
                 _logger.Value.Debug("Settings backup done");
             }
             catch (Exception e)
@@ -34,9 +35,9 @@ namespace CashManager.Utils
             }
         }
 
-        internal static void HandleSettingsUpgrade()
+        internal static void HandleSettingsUpgrade(string path = null)
         {
-            RestoreSettings();
+            RestoreSettings(path);
             if (Settings.Default.UpgradeNeeded)
             {
                 Settings.Default.Upgrade();
@@ -55,9 +56,10 @@ namespace CashManager.Utils
             }
         }
 
-        private static void RestoreSettings()
+        private static void RestoreSettings(string path = null)
         {
-            if (!File.Exists(BackupPath))
+            string sourceFileName = path ?? BackupPath;
+            if (!File.Exists(sourceFileName))
             {
                 _logger.Value.Debug("There is no settings backup file");
                 return;
@@ -75,7 +77,7 @@ namespace CashManager.Utils
 
             try
             {
-                File.Copy(BackupPath, SettingsPath, true);
+                File.Copy(sourceFileName, SettingsPath, true);
             }
             catch (Exception e)
             {
@@ -89,7 +91,7 @@ namespace CashManager.Utils
 
             try
             {
-                File.Delete(BackupPath);
+                File.Delete(sourceFileName);
             }
             catch (Exception e)
             {
