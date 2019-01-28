@@ -20,6 +20,7 @@ using CashManager.Logic.Extensions;
 using CashManager.Logic.Wrappers;
 using CashManager.Properties;
 using CashManager.Utils;
+using CashManager.Utils.Updates;
 
 using GalaSoft.MvvmLight.Threading;
 
@@ -31,6 +32,7 @@ namespace CashManager
     {
         private const string DB_PATH = "results.litedb";
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(App)));
+        private IUpdatesManager _updater;
 
         private string DatabaseFilepath
         {
@@ -73,7 +75,7 @@ namespace CashManager
 
                     using (new MeasureTimeWrapper(() => container.Resolve<MainWindow>().Show(), "Resolve<MainWindow>.Show")) { }
 
-                    await UpdatesManager.HandleApplicationUpdatesCheck();
+                    await _updater.HandleApplicationUpdatesCheck();
                     break;
                 }
                 catch (Exception exception)
@@ -159,14 +161,19 @@ namespace CashManager
         protected override async void OnStartup(StartupEventArgs e)
         {
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+#if PORTABLE
+            _updater = new DefaultUpdatesManager();
+#else
+            _updater = new SquirrelUpdatesManager();
+#endif
+            _updater.HandleEvents();
 
-            UpdatesManager.HandleSquirrelEvents();
             base.OnStartup(e);
             _logger.Value.Info($"Startup [{Assembly.GetExecutingAssembly().GetName().Version}]");
 
             await PerformStart();
         }
 
-        #endregion
+#endregion
     }
 }
