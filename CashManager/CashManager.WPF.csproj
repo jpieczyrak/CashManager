@@ -257,6 +257,9 @@
     <Compile Include="Features\MassReplacer\Setters\TextSetterControl.xaml.cs">
       <DependentUpon>TextSetterControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Features\Parsers\BaseParserView.xaml.cs">
+      <DependentUpon>BaseParserView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Features\Parsers\Custom\RegexParserView.xaml.cs">
       <DependentUpon>RegexParserView.xaml</DependentUpon>
     </Compile>
@@ -492,6 +495,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Features\MassReplacer\Setters\TextSetterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Parsers\BaseParserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
