@@ -14,7 +14,8 @@
                     xmlns:balance="clr-namespace:CashManager.Features.Balance"
                     xmlns:summary="clr-namespace:CashManager.Features.Summary"
                     xmlns:settings="clr-namespace:CashManager.Features.Main.Settings"
-                    xmlns:main="clr-namespace:CashManager.Features.Main">
+                    xmlns:main="clr-namespace:CashManager.Features.Main"
+                    xmlns:custom="clr-namespace:CashManager.Features.Parsers.Custom">
 
     <DataTemplate DataType="{x:Type search:SearchViewModel}">
         <search:SearchView />
@@ -36,6 +37,9 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type parsers:ParserViewModel}">
         <parsers:ParserView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type custom:RegexParserViewModel}">
+        <custom:RegexParserView />
     </DataTemplate>
     <DataTemplate DataType="{x:Type stocks:StocksViewModel}">
         <stocks:StocksView />
