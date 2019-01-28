@@ -36,21 +36,24 @@ namespace CashManager.Utils.Updates
         private static void RemoveSettingsDirectory(string path)
         {
             var directory = new DirectoryInfo(path);
-            try
+            if (directory.Exists && (directory.Parent?.Exists ?? false))
             {
-                if (directory.Exists && (directory.Parent?.Exists ?? false))
+                directory.Parent.Delete(true);
+                _logger.Value.Debug($"Settings directory removed: {directory.Parent.FullName}");
+
+                try
                 {
-                    directory.Parent.Delete(true);
-                    _logger.Value.Debug($"Settings directory removed: {directory.Parent.FullName}");
+                    directory.Parent.Parent.Delete();
+                    _logger.Value.Debug($"App directory removed: {directory.Parent.Parent.FullName}");
                 }
-                else
+                catch (Exception e)
                 {
-                    _logger.Value.Debug("Settings directory does not exists");
+                    _logger.Value.Debug("App directory is not empty");
                 }
             }
-            catch (Exception e)
+            else
             {
-                _logger.Value.Info($"Could not remove settings directory: {directory.Parent?.FullName}", e);
+                _logger.Value.Debug("Settings directory does not exists");
             }
         }
     }
