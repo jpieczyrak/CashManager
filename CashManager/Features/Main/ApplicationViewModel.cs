@@ -7,6 +7,7 @@ using CashManager.Features.Categories;
 using CashManager.Features.Main.Settings;
 using CashManager.Features.MassReplacer;
 using CashManager.Features.Parsers;
+using CashManager.Features.Parsers.Custom;
 using CashManager.Features.Plots;
 using CashManager.Features.Search;
 using CashManager.Features.Stocks;
@@ -35,6 +36,7 @@ namespace CashManager.Features.Main
         private readonly Lazy<TransactionTypesViewModel> _transactionTypesViewModel;
         private readonly Lazy<TagManagerViewModel> _tagManagerViewModel;
         private readonly Lazy<ParserViewModel> _parserViewModel;
+        private readonly Lazy<RegexParserViewModel> _regexParser;
         private readonly Lazy<SettingsViewModel> _settingsViewModel;
         private readonly Lazy<SearchViewModel> _searchViewModel;
         private readonly Lazy<MassReplacerViewModel> _massReplacerViewModel;
@@ -87,6 +89,7 @@ namespace CashManager.Features.Main
             _transactionTypesViewModel = new Lazy<TransactionTypesViewModel>(() => _factory.Create<TransactionTypesViewModel>());
             _tagManagerViewModel = new Lazy<TagManagerViewModel>(() => _factory.Create<TagManagerViewModel>());
             _parserViewModel = new Lazy<ParserViewModel>(() => _factory.Create<ParserViewModel>());
+            _regexParser = new Lazy<RegexParserViewModel>(() => _factory.Create<RegexParserViewModel>());
             _settingsViewModel = new Lazy<SettingsViewModel>(_factory.Create<SettingsViewModel>);
             _searchViewModel = new Lazy<SearchViewModel>(_factory.Create<SearchViewModel>);
             _massReplacerViewModel = new Lazy<MassReplacerViewModel>(_factory.Create<MassReplacerViewModel>);
@@ -128,6 +131,9 @@ namespace CashManager.Features.Main
                     break;
                 case ViewModel.Import:
                     SelectedViewModel = _parserViewModel.Value;
+                    break;
+                case ViewModel.ImportCustomRegex:
+                    SelectedViewModel = _regexParser.Value;
                     break;
                 case ViewModel.Search:
                     SelectedViewModel = _searchViewModel.Value;

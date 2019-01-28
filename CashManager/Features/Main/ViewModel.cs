@@ -7,7 +7,10 @@
         CategoryManager,
         TypesManager,
         TagsManager,
+
         Import,
+        ImportCustomRegex,
+
         Settings,
         About,
         Search,
