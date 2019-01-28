@@ -46,14 +46,14 @@ namespace CashManager.Utils
                 Settings.Default.UpgradeNeeded = false;
                 Settings.Default.Save();
                 _logger.Value.Debug("Settings upgraded");
-
-                (Application.Current.Resources
-                            .MergedDictionaries
-                            .FirstOrDefault(x => x is ColorsResourceDictionary) as ColorsResourceDictionary)?.UpdateSource();
-                (Application.Current.Resources
-                            .MergedDictionaries
-                            .FirstOrDefault(x => x is ShapesResourceDictionary) as ShapesResourceDictionary)?.UpdateSource();
             }
+
+            (Application.Current.Resources
+                        .MergedDictionaries
+                        .FirstOrDefault(x => x is ColorsResourceDictionary) as ColorsResourceDictionary)?.UpdateSource();
+            (Application.Current.Resources
+                        .MergedDictionaries
+                        .FirstOrDefault(x => x is ShapesResourceDictionary) as ShapesResourceDictionary)?.UpdateSource();
         }
 
         private static void RestoreSettings(string path = null)
