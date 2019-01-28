@@ -38,17 +38,24 @@ namespace CashManager.Utils.Updates
             var directory = new DirectoryInfo(path);
             if (directory.Exists && (directory.Parent?.Exists ?? false))
             {
-                directory.Parent.Delete(true);
-                _logger.Value.Debug($"Settings directory removed: {directory.Parent.FullName}");
-
                 try
                 {
-                    directory.Parent.Parent.Delete();
-                    _logger.Value.Debug($"App directory removed: {directory.Parent.Parent.FullName}");
+                    directory.Parent.Delete(true);
+                    _logger.Value.Debug($"Settings directory removed: {directory.Parent.FullName}");
+
+                    try
+                    {
+                        directory.Parent.Parent.Delete();
+                        _logger.Value.Debug($"App directory removed: {directory.Parent.Parent.FullName}");
+                    }
+                    catch (Exception)
+                    {
+                        _logger.Value.Debug("App directory is not empty");
+                    }
                 }
                 catch (Exception e)
                 {
-                    _logger.Value.Debug("App directory is not empty");
+                    _logger.Value.Debug("Could not remove directory", e);
                 }
             }
             else
