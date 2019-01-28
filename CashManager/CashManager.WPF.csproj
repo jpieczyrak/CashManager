@@ -108,6 +108,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\cash.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
@@ -737,6 +740,7 @@
     <Resource Include="Resources\cash.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\cash.ico" />
     <Content Include="Resources\Sounds\cash-register-purchase.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
