@@ -45,7 +45,7 @@ namespace CashManager.Features.Parsers.Custom
             }
         }
 
-        public TransactionField[] AvailableProperties => Enum.GetValues(typeof(TransactionField)).OfType<TransactionField>().ToArray();
+        public TransactionField[] AvailableProperties => Enum.GetValues(typeof(TransactionField)).OfType<TransactionField>().OrderBy(x => x.ToString()).ToArray();
 
         public RelayCommand<string> ParserSaveCommand { get; }
 
