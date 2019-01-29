@@ -17,11 +17,7 @@ namespace CashManager.Features.Common
         public bool IsOpen
         {
             get => (bool) GetValue(IsOpenProperty);
-            set
-            {
-                SetValue(IsOpenProperty, value);
-                TextValue = string.Empty;
-            }
+            set => SetValue(IsOpenProperty, value);
         }
 
         public static readonly DependencyProperty TextValueProperty = DependencyProperty.Register(
@@ -44,6 +40,7 @@ namespace CashManager.Features.Common
         private void ButtonOpenClick(object sender, RoutedEventArgs e)
         {
             IsOpen = true;
+            TextValue = string.Empty;
             EntryBox.Focus();
         }
 
