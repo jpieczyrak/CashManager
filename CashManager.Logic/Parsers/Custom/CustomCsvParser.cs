@@ -19,6 +19,8 @@ namespace CashManager.Logic.Parsers.Custom
 
         public Dictionary<Stock, Balance> Balances { get; } = new Dictionary<Stock, Balance>();
 
+        public string Name { get; set; }
+
         public CustomCsvParser(Rule[] rules, Stock[] stocks = null, string columnSplitter = null)
         {
             Rules = rules.OrderBy(x => x.Property).ToArray();

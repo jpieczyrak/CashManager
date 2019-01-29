@@ -34,7 +34,7 @@ namespace CashManager.Features.Parsers
     public class ParserViewModelBase : ViewModelBase, IUpdateable, IDropTarget
     {
         private readonly IQueryDispatcher _queryDispatcher;
-        private readonly ICommandDispatcher _commandDispatcher;
+        protected readonly ICommandDispatcher _commandDispatcher;
         private string _inputText;
         private bool _generateMissingStocks;
         private TransactionListViewModel _resultsListViewModel = new TransactionListViewModel();

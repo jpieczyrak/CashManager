@@ -5,6 +5,7 @@ using AutoMapper;
 
 using CashManager.CommonData;
 using CashManager.Infrastructure.Command;
+using CashManager.Infrastructure.Command.Parsers;
 using CashManager.Infrastructure.Query;
 using CashManager.Logic.Parsers.Custom;
 
@@ -66,9 +67,9 @@ namespace CashManager.Features.Parsers.Custom
             RemoveRuleCommand = new RelayCommand<Rule>(x => Rules.Remove(x));
             ParserSaveCommand = new RelayCommand<string>(x =>
             {
+                (Parser as CustomCsvParser).Name = x;
                 var parser = Mapper.Map<Data.ViewModelState.Parsers.CustomCsvParser>(Parser);
-                //todo save
-                Console.WriteLine(x);
+                _commandDispatcher.Execute(new UpsertCsvParserCommand(parser));
             }, x => !string.IsNullOrWhiteSpace(x));
         }
 
