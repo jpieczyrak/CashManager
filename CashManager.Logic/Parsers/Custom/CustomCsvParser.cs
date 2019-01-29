@@ -113,7 +113,9 @@ namespace CashManager.Logic.Parsers.Custom
                         {
                             if (string.IsNullOrWhiteSpace(stringValue)) return true;
                             decimal value = decimal.Parse(stringValue.Replace(".", ","));
-                            transaction.Type = value >= 0 ? defaultIncome : defaultOutcome;
+                            if (value == 0) return true;
+                            if (value < 0) value = Math.Abs(value);
+                            transaction.Type = defaultOutcome;
                             transaction.Positions[0].Value.GrossValue = Math.Abs(value);
                         }
                         break;
@@ -121,6 +123,7 @@ namespace CashManager.Logic.Parsers.Custom
                         {
                             if (string.IsNullOrWhiteSpace(stringValue)) return true;
                             decimal value = decimal.Parse(stringValue.Replace(".", ","));
+                            if (value == 0) return true;
                             transaction.Type = value >= 0 ? defaultIncome : defaultOutcome;
                             transaction.Positions[0].Value.GrossValue = Math.Abs(value);
                         }
