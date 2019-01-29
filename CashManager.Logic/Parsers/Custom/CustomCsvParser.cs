@@ -15,13 +15,15 @@ namespace CashManager.Logic.Parsers.Custom
 
         private readonly Rule[] _rules;
         private readonly Stock[] _stocks;
+        private readonly string _columnSplitter;
 
         public Dictionary<Stock, Balance> Balances { get; } = new Dictionary<Stock, Balance>();
 
-        public CustomCsvParser(Rule[] rules, Stock[] stocks = null)
+        public CustomCsvParser(Rule[] rules, Stock[] stocks = null, string columnSplitter = null)
         {
             _rules = rules.OrderBy(x => x.Property).ToArray();
             _stocks = stocks;
+            _columnSplitter = columnSplitter;
         }
 
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome,
@@ -33,9 +35,11 @@ namespace CashManager.Logic.Parsers.Custom
 
             foreach (string line in lines)
             {
-                var elements = line.Count(x => x == ';') >= (_rules.Any() ? _rules.Max(x => x.Index) : 0)
-                                   ? line.Split(';')
-                                   : line.Split(new[] { (line.Contains("\",\"") ? "\",\"" : ",") }, StringSplitOptions.None);
+                var elements = _columnSplitter == null
+                                   ? line.Count(x => x == ';') >= (_rules.Any() ? _rules.Max(x => x.Index) : 0)
+                                         ? line.Split(';')
+                                         : line.Split(new[] { line.Contains("\",\"") ? "\",\"" : "," }, StringSplitOptions.None)
+                                   : line.Split(new[] { _columnSplitter }, StringSplitOptions.None);
                 elements = elements.Select(x => x.Replace("\"", string.Empty)).ToArray();
                 var transaction = new Transaction(line.GenerateGuid())
                 {

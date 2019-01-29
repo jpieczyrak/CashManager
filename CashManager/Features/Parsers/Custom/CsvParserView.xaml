@@ -12,13 +12,14 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <Button Grid.Row="0" Content="Add rule" Command="{Binding AddRuleCommand}" Margin="5,5,5,10"/>
-        <Grid Row="1">
+        <TextBox Text="{Binding ElementSplitter, UpdateSourceTrigger=PropertyChanged}" ToolTip="Elements (columns) splitter" HorizontalAlignment="Center" MinWidth="120" Height="22"/>
+        <Button Grid.Row="1" Content="Add rule" Command="{Binding AddRuleCommand}" Margin="5,5,5,10"/>
+        <Grid Grid.Row="2">
             <ItemsControl ItemsSource="{Binding Rules}" HorizontalAlignment="Center">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -32,6 +33,6 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Grid>
-        <parsers:BaseParserView Grid.Row="2"/>
+        <parsers:BaseParserView Grid.Row="3"/>
     </Grid>
 </UserControl>

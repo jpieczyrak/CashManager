@@ -28,7 +28,19 @@ namespace CashManager.Features.Parsers.Custom
             set
             {
                 Set(ref _rules, value);
-                Parser = new CustomCsvParser(Mapper.Map<Rule[]>(_rules), Mapper.Map<DtoStock[]>(UserStocks));
+                UpdateParser();
+            }
+        }
+
+        private string _elementSplitter;
+
+        public string ElementSplitter
+        {
+            get => _elementSplitter;
+            set
+            {
+                Set(ref _elementSplitter, value);
+                UpdateParser();
             }
         }
 
@@ -38,12 +50,12 @@ namespace CashManager.Features.Parsers.Custom
         public CsvParserViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider) : base(queryDispatcher,
             commandDispatcher, transactionsProvider)
         {
-            Parser = new RegexParser();
+            _elementSplitter = ";";
             Rules = new TrulyObservableCollection<Model.Parsers.Rule>
             {
                 new Model.Parsers.Rule { Column = 1, Property = TransactionField.Title, IsOptional = false }
             };
-            Rules.CollectionChanged += (sender, args) => Parser = new CustomCsvParser(Mapper.Map<Rule[]>(_rules), Mapper.Map<DtoStock[]>(UserStocks));
+            Rules.CollectionChanged += (sender, args) => UpdateParser();
             AddRuleCommand = new RelayCommand(() => Rules.Add(new Model.Parsers.Rule
             {
                 Column = 1,
@@ -51,5 +63,8 @@ namespace CashManager.Features.Parsers.Custom
             }));
             RemoveRuleCommand = new RelayCommand<Model.Parsers.Rule>(x => Rules.Remove(x));
         }
+
+        private void UpdateParser()
+            => Parser = new CustomCsvParser(Mapper.Map<Rule[]>(_rules), Mapper.Map<DtoStock[]>(UserStocks), ElementSplitter);
     }
 }

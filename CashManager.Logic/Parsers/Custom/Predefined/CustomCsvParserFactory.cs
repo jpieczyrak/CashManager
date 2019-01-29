@@ -43,7 +43,10 @@ namespace CashManager.Logic.Parsers.Custom.Predefined
 
         public CustomCsvParser Create(PredefinedCsvParsers type)
         {
-            return _predefined.ContainsKey(type) ? new CustomCsvParser(_predefined[type], _stocks) : null;
+            if (_predefined.TryGetValue(type, out var value))
+                return new CustomCsvParser(value, _stocks, type == PredefinedCsvParsers.Millennium ? "\",\"" : ";");
+
+            return null;
         }
     }
 }
