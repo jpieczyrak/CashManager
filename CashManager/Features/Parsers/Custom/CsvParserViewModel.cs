@@ -60,8 +60,8 @@ namespace CashManager.Features.Parsers.Custom
             Rules.CollectionChanged += (sender, args) => UpdateParser();
             AddRuleCommand = new RelayCommand(() => Rules.Add(new Rule
             {
-                Column = 1,
-                Property = AvailableProperties.Except(Rules.Select(x => x.Property)).FirstOrDefault()
+                Property = AvailableProperties.Except(Rules.Select(x => x.Property)).FirstOrDefault(),
+                Column = Rules.Last().Column + 1
             }));
             RemoveRuleCommand = new RelayCommand<Rule>(x => Rules.Remove(x));
             ParserSaveCommand = new RelayCommand<string>(x =>
