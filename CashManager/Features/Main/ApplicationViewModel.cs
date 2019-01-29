@@ -37,6 +37,7 @@ namespace CashManager.Features.Main
         private readonly Lazy<TagManagerViewModel> _tagManagerViewModel;
         private readonly Lazy<ParserViewModel> _parserViewModel;
         private readonly Lazy<RegexParserViewModel> _regexParser;
+        private readonly Lazy<CsvParserViewModel> _csvParser;
         private readonly Lazy<SettingsViewModel> _settingsViewModel;
         private readonly Lazy<SearchViewModel> _searchViewModel;
         private readonly Lazy<MassReplacerViewModel> _massReplacerViewModel;
@@ -90,6 +91,7 @@ namespace CashManager.Features.Main
             _tagManagerViewModel = new Lazy<TagManagerViewModel>(() => _factory.Create<TagManagerViewModel>());
             _parserViewModel = new Lazy<ParserViewModel>(() => _factory.Create<ParserViewModel>());
             _regexParser = new Lazy<RegexParserViewModel>(() => _factory.Create<RegexParserViewModel>());
+            _csvParser = new Lazy<CsvParserViewModel>(() => _factory.Create<CsvParserViewModel>());
             _settingsViewModel = new Lazy<SettingsViewModel>(_factory.Create<SettingsViewModel>);
             _searchViewModel = new Lazy<SearchViewModel>(_factory.Create<SearchViewModel>);
             _massReplacerViewModel = new Lazy<MassReplacerViewModel>(_factory.Create<MassReplacerViewModel>);
@@ -134,6 +136,9 @@ namespace CashManager.Features.Main
                     break;
                 case ViewModel.ImportCustomRegex:
                     SelectedViewModel = _regexParser.Value;
+                    break;
+                case ViewModel.ImportCustomCsv:
+                    SelectedViewModel = _csvParser.Value;
                     break;
                 case ViewModel.Search:
                     SelectedViewModel = _searchViewModel.Value;

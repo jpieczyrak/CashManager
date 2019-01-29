@@ -10,6 +10,7 @@
 
         Import,
         ImportCustomRegex,
+        ImportCustomCsv,
 
         Settings,
         About,

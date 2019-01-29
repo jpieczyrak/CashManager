@@ -260,9 +260,13 @@
     <Compile Include="Features\Parsers\BaseParserView.xaml.cs">
       <DependentUpon>BaseParserView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Features\Parsers\Custom\CsvParserView.xaml.cs">
+      <DependentUpon>CsvParserView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Features\Parsers\Custom\RegexParserView.xaml.cs">
       <DependentUpon>RegexParserView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Features\Parsers\Custom\CsvParserViewModel.cs" />
     <Compile Include="Features\Parsers\Custom\RegexParserViewModel.cs" />
     <Compile Include="Features\Parsers\ParserViewModelBase.cs" />
     <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
@@ -369,6 +373,7 @@
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Common\IBookable.cs" />
     <Compile Include="Model\ExpandableCategory.cs" />
+    <Compile Include="Model\Parsers\Rule.cs" />
     <Compile Include="Model\Selectors\BaseSelector.cs" />
     <Compile Include="Model\Selectors\DateFrameType.cs" />
     <Compile Include="Model\Setters\DateSetter.cs" />
@@ -501,6 +506,10 @@
     <Page Include="Features\Parsers\BaseParserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Parsers\Custom\CsvParserView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Features\Parsers\Custom\RegexParserView.xaml">
       <SubType>Designer</SubType>

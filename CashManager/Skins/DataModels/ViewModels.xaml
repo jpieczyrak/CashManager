@@ -41,6 +41,9 @@
     <DataTemplate DataType="{x:Type custom:RegexParserViewModel}">
         <custom:RegexParserView />
     </DataTemplate>
+    <DataTemplate DataType="{x:Type custom:CsvParserViewModel}">
+        <custom:CsvParserView />
+    </DataTemplate>
     <DataTemplate DataType="{x:Type stocks:StocksViewModel}">
         <stocks:StocksView />
     </DataTemplate>

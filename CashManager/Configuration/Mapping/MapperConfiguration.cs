@@ -6,6 +6,7 @@ using AutoMapper;
 using CashManager.Features.Search;
 using CashManager.Logic.Balances;
 using CashManager.Model;
+using CashManager.Model.Parsers;
 using CashManager.Model.Selectors;
 
 namespace CashManager.Configuration.Mapping
@@ -148,6 +149,9 @@ namespace CashManager.Configuration.Mapping
 
                         config.CreateMap<CustomBalance, Data.ViewModelState.Balances.CustomBalance>();
                         config.CreateMap<Data.ViewModelState.Balances.CustomBalance, CustomBalance>();
+
+                        config.CreateMap<Rule, Logic.Parsers.Custom.Rule>();
+                        config.CreateMap<Logic.Parsers.Custom.Rule, Rule>();
                     });
 
                     _isInitialized = true;
