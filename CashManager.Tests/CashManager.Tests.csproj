@@ -183,6 +183,7 @@
     <Compile Include="Infrastructure\Queries\Tags\TagsTests.cs" />
     <Compile Include="Infrastructure\Queries\TransactionTypes\TransactionTypesTests.cs" />
     <Compile Include="Infrastructure\Queries\Transactions\TransactionsTests.cs" />
+    <Compile Include="Mappers\CustomParsersMapping.cs" />
     <Compile Include="Mappers\ModelAndDtoMappingTests.cs" />
     <Compile Include="Mappers\ReferenceCreationTests.cs" />
     <Compile Include="MVVM.Logic\Filters\TextFilters\PositionTextFilter.cs" />

@@ -5,9 +5,11 @@ using AutoMapper;
 
 using CashManager.Features.Search;
 using CashManager.Logic.Balances;
+using CashManager.Logic.Parsers.Custom;
 using CashManager.Model;
-using CashManager.Model.Parsers;
 using CashManager.Model.Selectors;
+
+using Rule = CashManager.Model.Parsers.Rule;
 
 namespace CashManager.Configuration.Mapping
 {
@@ -150,8 +152,10 @@ namespace CashManager.Configuration.Mapping
                         config.CreateMap<CustomBalance, Data.ViewModelState.Balances.CustomBalance>();
                         config.CreateMap<Data.ViewModelState.Balances.CustomBalance, CustomBalance>();
 
-                        config.CreateMap<Rule, Logic.Parsers.Custom.Rule>();
-                        config.CreateMap<Logic.Parsers.Custom.Rule, Rule>();
+                        config.CreateMap<Rule, Logic.Parsers.Custom.Rule>().ReverseMap();
+                        config.CreateMap<Rule, Data.ViewModelState.Parsers.Rule>().ReverseMap();
+
+                        config.CreateMap<CustomCsvParser, Data.ViewModelState.Parsers.CustomCsvParser>().ReverseMap();
                     });
 
                     _isInitialized = true;

@@ -12,18 +12,18 @@ namespace CashManager.Logic.Parsers.Custom
     public class CustomCsvParser : IParser
     {
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(CustomCsvParser)));
-
-        private readonly Rule[] _rules;
         private readonly Stock[] _stocks;
-        private readonly string _columnSplitter;
+
+        public Rule[] Rules { get; private set; }
+        public string ColumnSplitter { get; private set; }
 
         public Dictionary<Stock, Balance> Balances { get; } = new Dictionary<Stock, Balance>();
 
         public CustomCsvParser(Rule[] rules, Stock[] stocks = null, string columnSplitter = null)
         {
-            _rules = rules.OrderBy(x => x.Property).ToArray();
+            Rules = rules.OrderBy(x => x.Property).ToArray();
             _stocks = stocks;
-            _columnSplitter = columnSplitter;
+            ColumnSplitter = columnSplitter;
         }
 
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome,
@@ -35,11 +35,11 @@ namespace CashManager.Logic.Parsers.Custom
 
             foreach (string line in lines)
             {
-                var elements = _columnSplitter == null
-                                   ? line.Count(x => x == ';') >= (_rules.Any() ? _rules.Max(x => x.Index) : 0)
+                var elements = ColumnSplitter == null
+                                   ? line.Count(x => x == ';') >= (Rules.Any() ? Rules.Max(x => x.Index) : 0)
                                          ? line.Split(';')
                                          : line.Split(new[] { line.Contains("\",\"") ? "\",\"" : "," }, StringSplitOptions.None)
-                                   : line.Split(new[] { _columnSplitter }, StringSplitOptions.None);
+                                   : line.Split(new[] { ColumnSplitter }, StringSplitOptions.None);
                 elements = elements.Select(x => x.Replace("\"", string.Empty)).ToArray();
                 var transaction = new Transaction(line.GenerateGuid())
                 {
@@ -49,8 +49,8 @@ namespace CashManager.Logic.Parsers.Custom
                 transaction.Positions.Add(new Position());
                 if (userStock != null) Balances[userStock] = userStock.Balance;
 
-                bool match = _rules.Any();
-                foreach (var rule in _rules)
+                bool match = Rules.Any();
+                foreach (var rule in Rules)
                 {
                     if (!MatchRule(rule, elements, transaction, defaultIncome, defaultOutcome, userStock, generateMissingStocks))
                     {

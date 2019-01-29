@@ -66,6 +66,7 @@ namespace CashManager.Features.Parsers.Custom
             RemoveRuleCommand = new RelayCommand<Rule>(x => Rules.Remove(x));
             ParserSaveCommand = new RelayCommand<string>(x =>
             {
+                var parser = Mapper.Map<Data.ViewModelState.Parsers.CustomCsvParser>(Parser);
                 //todo save
                 Console.WriteLine(x);
             }, x => !string.IsNullOrWhiteSpace(x));

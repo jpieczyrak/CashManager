@@ -110,6 +110,8 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModelState\Balances\CustomBalance.cs" />
+    <Compile Include="ViewModelState\Parsers\CustomCsvParser.cs" />
+    <Compile Include="ViewModelState\Parsers\Rule.cs" />
     <Compile Include="ViewModelState\SearchState.cs" />
     <Compile Include="ViewModelState\Selectors\DateFrameSelector.cs" />
     <Compile Include="ViewModelState\Selectors\MultiPicker.cs" />
