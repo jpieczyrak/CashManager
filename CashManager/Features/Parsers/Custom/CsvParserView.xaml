@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:CashManager.Features.Parsers.Custom"
              xmlns:parsers="clr-namespace:CashManager.Features.Parsers"
              xmlns:properties="clr-namespace:CashManager.Properties"
+             xmlns:common="clr-namespace:CashManager.Features.Common"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=local:CsvParserViewModel, IsDesignTimeCreatable=True}">
@@ -17,7 +18,10 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBox Text="{Binding ElementSplitter, UpdateSourceTrigger=PropertyChanged}" ToolTip="Elements (columns) splitter" HorizontalAlignment="Center" MinWidth="120" Height="22"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBox Text="{Binding ElementSplitter, UpdateSourceTrigger=PropertyChanged}" ToolTip="Elements (columns) splitter" HorizontalAlignment="Center" MinWidth="120" Height="22"/>
+            <common:SaveControl Command="{Binding ParserSaveCommand}" Margin="10,0,0,0"/>
+        </StackPanel>
         <Button Grid.Row="1" Content="Add rule" Command="{Binding AddRuleCommand}" Margin="5,5,5,10"/>
         <Grid Grid.Row="2">
             <ItemsControl ItemsSource="{Binding Rules}" HorizontalAlignment="Center">
