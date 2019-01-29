@@ -47,8 +47,7 @@ namespace CashManager.Features.Parsers
                 { "Millennium bank (csv)", factory.Create(PredefinedCsvParsers.Millennium) },
                 { "Ing bank (web)", new IngBankParser() },
                 { "Ing bank (csv)", factory.Create(PredefinedCsvParsers.Ing) },
-                { "Intelligo bank", new IntelligoBankParser() },
-                { "Excel", new ExcelParser() }
+                { "Intelligo bank", new IntelligoBankParser() }
             };
             SelectedParser = Parsers.FirstOrDefault();
         }

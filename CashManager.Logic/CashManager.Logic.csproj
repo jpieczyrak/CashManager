@@ -115,15 +115,12 @@
     <Compile Include="Parsers\Custom\Predefined\CustomCsvParserFactory.cs" />
     <Compile Include="Parsers\Custom\Rule.cs" />
     <Compile Include="Parsers\Custom\TransactionField.cs" />
-    <Compile Include="Parsers\ParserInputType.cs" />
-    <Compile Include="Parsers\ExcelParser.cs" />
     <Compile Include="Parsers\GetinBankParser.cs" />
     <Compile Include="Parsers\IdeaBankParser.cs" />
     <Compile Include="Parsers\IngBankParser.cs" />
     <Compile Include="Parsers\IntelligoBankParser.cs" />
     <Compile Include="Parsers\IParser.cs" />
     <Compile Include="Parsers\MillenniumBankParser.cs" />
-    <Compile Include="Parsers\ParserFactory.cs" />
     <Compile Include="Parsers\RegexParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wrappers\MeasureTimeWrapper.cs" />
