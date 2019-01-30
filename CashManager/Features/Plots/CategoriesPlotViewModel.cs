@@ -7,6 +7,7 @@ using AutoMapper;
 
 using CashManager.CommonData;
 using CashManager.Infrastructure.Query;
+using CashManager.Infrastructure.Query.Categories;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.TransactionTypes;
 using CashManager.Model;
@@ -19,6 +20,7 @@ using OxyPlot;
 using OxyPlot.Series;
 
 using DtoStock = CashManager.Data.DTO.Stock;
+using DtoCategory = CashManager.Data.DTO.Category;
 using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 
 namespace CashManager.Features.Plots
@@ -32,6 +34,8 @@ namespace CashManager.Features.Plots
         private MultiPicker _userStocksFilter;
         private PlotModel _pieCategories;
         private MultiPicker _typesFilter;
+        private bool _topCategoriesOnly = true;
+        private Dictionary<Guid, Category> _allCategories;
 
         public DateFrameSelector BookDateFilter
         {
@@ -61,6 +65,16 @@ namespace CashManager.Features.Plots
         {
             get => _values;
             private set => Set(ref _values, value);
+        }
+
+        public bool TopCategoriesOnly
+        {
+            get => _topCategoriesOnly;
+            set
+            {
+                Set(ref _topCategoriesOnly, value);
+                OnPropertyChanged(null, null);
+            }
         }
 
         public CategoriesPlotViewModel(IQueryDispatcher queryDispatcher, TransactionsProvider transactionsProvider)
@@ -100,6 +114,8 @@ namespace CashManager.Features.Plots
             TypesFilter.IsChecked = true;
             TypesFilter.PropertyChanged += OnPropertyChanged;
 
+            _allCategories = Mapper.Map<Category[]>(_queryDispatcher.Execute<CategoryQuery, DtoCategory[]>(new CategoryQuery())).ToDictionary(x => x.Id, x => x);
+
             OnPropertyChanged(this, null);
         }
 
@@ -118,20 +134,25 @@ namespace CashManager.Features.Plots
 
             if (selectedStocks != null && selectedStocks.Any())
             {
-                Values = transactions
-                             .Where(x => selectedStocks.Contains(x.UserStock))
-                             .Where(x => !BookDateFilter.IsChecked || x.BookDate >= BookDateFilter.From && x.BookDate <= BookDateFilter.To)
-                             .Where(x => !TypesFilter.IsChecked || selectedTypes.Contains(x.Type))
-                             .SelectMany(x => x.Positions)
-                             .Where(x => x.Category != null)
-                             .GroupBy(x => x.Category.Name)
-                             .Select(x =>
-                             {
-                                 decimal value = x.Sum(y => y.Value.GrossValue);
-                                 return new KeyValuePair<string, decimal>(x.Key, value);
-                             })
-                             .OrderByDescending(x => x.Value)
-                             .ToArray();
+                var positions = transactions
+                                 .Where(x => selectedStocks.Contains(x.UserStock))
+                                 .Where(x => !BookDateFilter.IsChecked || x.BookDate >= BookDateFilter.From && x.BookDate <= BookDateFilter.To)
+                                 .Where(x => !TypesFilter.IsChecked || selectedTypes.Contains(x.Type))
+                                 .SelectMany(x => x.Positions)
+                                 .Where(x => x.Category != null);
+                var groups = TopCategoriesOnly
+                                         ? positions.GroupBy(x => GetTopParentName(x.Category))
+                                         : positions.Where(x => _allCategories.All(y => y.Value.Parent?.Id != x.Id))
+                                                    .GroupBy(x => x.Category.Name);
+
+                Values = groups
+                         .Select(x =>
+                         {
+                             decimal value = x.Sum(y => y.Value.GrossValue);
+                             return new KeyValuePair<string, decimal>(x.Key, value);
+                         })
+                         .OrderByDescending(x => x.Value)
+                         .ToArray();
 
                 if (Values.Any())
                 {
@@ -143,6 +164,12 @@ namespace CashManager.Features.Plots
             }
 
             PieCategories.InvalidatePlot(true);
+        }
+
+        private string GetTopParentName(Category category)
+        {
+            if (category.Parent != null) return GetTopParentName(_allCategories[category.Parent.Id]);
+            return category.Name;
         }
     }
 }

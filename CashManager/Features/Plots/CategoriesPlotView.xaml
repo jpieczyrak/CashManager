@@ -6,13 +6,14 @@
              xmlns:plots="clr-namespace:CashManager.Features.Plots"
              xmlns:oxy="http://oxyplot.org/wpf"
              xmlns:properties="clr-namespace:CashManager.Properties"
-             xmlns:common1="clr-namespace:CashManager.Features.Common"
-             xmlns:selectors1="clr-namespace:CashManager.Features.Search.Selectors"
+             xmlns:common="clr-namespace:CashManager.Features.Common"
+             xmlns:selectors="clr-namespace:CashManager.Features.Search.Selectors"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=plots:CategoriesPlotViewModel, IsDesignTimeCreatable=True}">
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -24,12 +25,12 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <common1:DateRangePicker Grid.Column="0" DateFrameSelector="{Binding BookDateFilter}" />
-            <selectors1:MultiPickerControl Grid.Column="1" DataContext="{Binding UserStocksFilter}" />
-            <selectors1:MultiPickerControl Grid.Column="2" DataContext="{Binding TypesFilter}" />
+            <common:DateRangePicker Grid.Column="0" DateFrameSelector="{Binding BookDateFilter}" />
+            <selectors:MultiPickerControl Grid.Column="1" DataContext="{Binding UserStocksFilter}" />
+            <selectors:MultiPickerControl Grid.Column="2" DataContext="{Binding TypesFilter}" />
         </Grid>
-
-        <Grid Grid.Row="1">
+        <CheckBox Grid.Row="1" IsChecked="{Binding TopCategoriesOnly}" Content="Show top categories" Margin="5,5,5,0"/>
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
