@@ -131,5 +131,12 @@ namespace CashManager.Features.Search
 
             RaisePropertyChanged();
         }
+
+        public void Clear()
+        {
+            ApplySearchCriteria(new SearchState());
+        }
+
+        public override string ToString() => Name;
     }
 }

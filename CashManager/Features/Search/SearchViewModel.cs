@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 
@@ -106,8 +107,9 @@ namespace CashManager.Features.Search
 
         private bool CanExecuteAnyTransactionFilter => _transactionFilters.Any(x => x.CanExecute());
 
-        public RelayCommand SaveSearch { get; set; }
-        public RelayCommand LoadSearch { get; set; }
+        public RelayCommand<string> SaveStateCommand { get; set; }
+        public RelayCommand<BaseObservableObject> LoadStateCommand { get; set; }
+        public RelayCommand ClearStateCommand { get; set; }
 
         public string SearchName
         {
@@ -125,7 +127,7 @@ namespace CashManager.Features.Search
             }
         }
 
-        public Selectable[] SaveSearches { get; set; }
+        public ObservableCollection<BaseObservableObject> SaveSearches { get; set; }
 
         public bool IsDebounceable { private get; set; } = true;
 
@@ -140,8 +142,9 @@ namespace CashManager.Features.Search
             _commandDispatcher = commandDispatcher;
             _transactionsProvider = transactionsProvider;
 
-            SaveSearch = new RelayCommand(ExecuteSaveSearchStateCommand);
-            LoadSearch = new RelayCommand(ExecuteLoadSearchStateCommand);
+            SaveStateCommand = new RelayCommand<string>(ExecuteSaveSearchStateCommand);
+            LoadStateCommand = new RelayCommand<BaseObservableObject>(ExecuteLoadSearchStateCommand);
+            ClearStateCommand = new RelayCommand(() => State.Clear());
             TransactionsListViewModel = factory.Create<TransactionListViewModel>();
             PositionsListViewModel = factory.Create<PositionListViewModel>();
             _isTransactionsSearch = true;
@@ -184,24 +187,20 @@ namespace CashManager.Features.Search
                 PerformFilter(); //mainly for tests purpose
         }
 
-        private void ExecuteLoadSearchStateCommand()
+        private void ExecuteLoadSearchStateCommand(BaseObservableObject selected)
         {
-            if (SelectedSearch == null) return;
-
-            var query = new SearchStateQuery(x => x.Id == SelectedSearch.Id);
-            var result = _queryDispatcher.Execute<SearchStateQuery, DtoSearchState[]>(query).FirstOrDefault();
-            if (result != null)
-                State.ApplySearchCriteria(Mapper.Map<SearchState>(result));
+            var model = selected as SearchState;
+            State.ApplySearchCriteria(model);
         }
 
-        private void ExecuteSaveSearchStateCommand()
+        private void ExecuteSaveSearchStateCommand(string name)
         {
-            State.Name = SearchName;
-            _commandDispatcher.Execute(new UpsertSearchStateCommand(Mapper.Map<DtoSearchState>(State)));
-            SaveSearches = SaveSearches.Concat(new[] { new Selectable(State) { Name = State.Name } })
-                                       .Distinct()
-                                       .ToArray();
-            RaisePropertyChanged(nameof(SaveSearches));
+            State.Name = name;
+            var state = Mapper.Map<DtoSearchState>(State);
+            _commandDispatcher.Execute(new UpsertSearchStateCommand(state));
+            var model = Mapper.Map<SearchState>(state);
+            SaveSearches.Remove(model);
+            SaveSearches.Add(model);
         }
 
         public void Update()
@@ -209,12 +208,8 @@ namespace CashManager.Features.Search
             MatchingTransactions = _transactionsProvider.AllTransactions.ToList();
             MatchingPositions = new List<Position>();
             var states = Mapper.Map<SearchState[]>(_queryDispatcher.Execute<SearchStateQuery, DtoSearchState[]>(new SearchStateQuery()));
-            SaveSearches = states
-                           .Select(x => new Selectable(x) { Name = x.Name })
-                           .ToArray();
+            SaveSearches = new ObservableCollection<BaseObservableObject>(states);
             State.UpdateSources(_queryDispatcher, _transactionsProvider);
-            var defaultSearch = states.FirstOrDefault(x => x.Name == SearchState.DEFAULT_NAME);
-            if (defaultSearch != null) State.ApplySearchCriteria(Mapper.Map<SearchState>(defaultSearch));
 
             PerformFilter();
         }
