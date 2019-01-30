@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows.Media;
 
 using AutoMapper;
 
@@ -139,9 +140,11 @@ namespace CashManager.Features.MassReplacer
             TitleSelector.Apply(state.TitleSelector);
             NoteSelector.Apply(state.NoteSelector);
             PositionTitleSelector.Apply(state.PositionTitleSelector);
+
             BookDateSetter.Apply(state.BookDateSetter);
 
             TagsSelector.Apply(state.TagsSelector);
+
             TypesSelector.Apply(state.TypesSelector);
             CategoriesSelector.Apply(state.CategoriesSelector);
             UserStocksSelector.Apply(state.UserStocksSelector);

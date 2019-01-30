@@ -157,6 +157,8 @@
     <Compile Include="Query\IQueryHandler.cs" />
     <Compile Include="Query\NoQueries\NoQuery.cs" />
     <Compile Include="Query\NoQueries\NoQueryHandler.cs" />
+    <Compile Include="Query\ReplacerState\ReplacerStateQuery.cs" />
+    <Compile Include="Query\ReplacerState\SearchStateQueryHandler.cs" />
     <Compile Include="Query\QueryDispatcher.cs" />
     <Compile Include="Query\Parsers\CustomCsvParserQuery.cs" />
     <Compile Include="Query\Parsers\SearchStateQueryHandler.cs" />

@@ -10,7 +10,7 @@ namespace CashManager.Model.Setters
 {
     public class MultiSetter : BaseSelector
     {
-        public MultiPickerType Type { get; }
+        public MultiPickerType Type { get; private set; }
 
         private Selectable[] _results;
         private bool _append;
@@ -91,6 +91,9 @@ namespace CashManager.Model.Setters
             foreach (var x in ComboBox.InternalDisplayableSearchResults)
                 x.IsSelected = source.Selected.Contains(x.Id);
             IsChecked = source.IsChecked;
+            Type = source.Type;
+            Append = source.Append;
+            Selected = source.Selected;
         }
     }
 }

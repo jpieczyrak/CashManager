@@ -72,6 +72,8 @@ namespace CashManager.Model.Setters
         public void Apply(TextSetter source)
         {
             Value = source.Value;
+            AppendMode = source.AppendMode;
+            ReplaceMatch = source.ReplaceMatch;
             Type = source.Type;
             IsChecked = source.IsChecked;
         }

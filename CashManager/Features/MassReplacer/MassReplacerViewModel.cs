@@ -6,12 +6,11 @@ using AutoMapper;
 using CashManager.Data.ViewModelState;
 using CashManager.Features.Search;
 using CashManager.Infrastructure.Command;
-using CashManager.Infrastructure.Command.Parsers;
 using CashManager.Infrastructure.Command.ReplacerState;
 using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
+using CashManager.Infrastructure.Query.ReplacerState;
 using CashManager.Logic.Commands.Setters;
-using CashManager.Logic.Parsers.Custom;
 using CashManager.Model.Common;
 
 using GalaSoft.MvvmLight;
@@ -72,13 +71,12 @@ namespace CashManager.Features.MassReplacer
             }, name => !string.IsNullOrWhiteSpace(name));
             MassReplacerLoadCommand = new RelayCommand<BaseObservableObject>(selected =>
             {
-                State = new ReplacerState();
-
                 var state = selected as ReplacerState;
                 SearchViewModel.State.ApplySearchCriteria(state.SearchState);
                 State.ApplyReplaceCriteria(state);
             }, selected => selected != null);
-            Patterns = new ObservableCollection<BaseObservableObject>(); //todo: load
+            var patterns = _queryDispatcher.Execute<ReplacerStateQuery, MassReplacerState[]>(new ReplacerStateQuery()).OrderBy(x => x.Name);
+            Patterns = new ObservableCollection<BaseObservableObject>(Mapper.Map<ReplacerState[]>(patterns));
         }
 
         private bool CanExecutePerformCommand()

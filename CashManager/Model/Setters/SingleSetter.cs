@@ -9,7 +9,7 @@ namespace CashManager.Model.Setters
 {
     public class SingleSetter : BaseSelector
     {
-        public MultiPickerType Type { get; }
+        public MultiPickerType Type { get; private set; }
 
         public Selectable[] Input { get; set; }
 
@@ -27,6 +27,8 @@ namespace CashManager.Model.Setters
         }
 
         public Guid SelectedId { get; set; }
+
+        private SingleSetter() { }
 
         public SingleSetter(MultiPickerType type, Selectable[] input)
         {
@@ -57,6 +59,7 @@ namespace CashManager.Model.Setters
         {
             Selected = Input.FirstOrDefault(x => x.Id == source.SelectedId);
             IsChecked = source.IsChecked;
+            Type = source.Type;
         }
     }
 }
