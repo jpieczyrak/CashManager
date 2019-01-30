@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -67,9 +68,9 @@ namespace CashManager.Features.Parsers.Custom
             Rules.CollectionChanged += (sender, args) => UpdateParser();
             AddRuleCommand = new RelayCommand(() => Rules.Add(new Rule
             {
-                Property = AvailableProperties.Except(Rules.Select(x => x.Property)).FirstOrDefault(),
+                Property = NotUsedProperties.FirstOrDefault(),
                 Column = (Rules.LastOrDefault()?.Column ?? 0) + 1
-            }));
+            }), () => NotUsedProperties.Any());
             RemoveRuleCommand = new RelayCommand<Rule>(x => Rules.Remove(x));
             ParserSaveCommand = new RelayCommand<string>(name =>
             {
@@ -94,6 +95,8 @@ namespace CashManager.Features.Parsers.Custom
             var customCsvParsers = _queryDispatcher.Execute<CustomCsvParserQuery, Data.ViewModelState.Parsers.CustomCsvParser[]>(new CustomCsvParserQuery()).OrderBy(x => x.Name);
             Parsers = new ObservableCollection<BaseObservableObject>(Mapper.Map<Model.Parsers.CustomCsvParser[]>(customCsvParsers));
         }
+
+        private IEnumerable<TransactionField> NotUsedProperties => AvailableProperties.Except(Rules.Select(x => x.Property));
 
         private void UpdateParser() => Parser = new CustomCsvParser(Mapper.Map<Logic.Parsers.Custom.Rule[]>(_rules), Mapper.Map<DtoStock[]>(UserStocks), ColumnSplitter);
     }
