@@ -35,8 +35,8 @@
     <DataTemplate DataType="{x:Type transactionTypes:TransactionTypesViewModel}">
         <transactionTypes:TransactionTypesView />
     </DataTemplate>
-    <DataTemplate DataType="{x:Type parsers:ParserViewModel}">
-        <parsers:ParserView />
+    <DataTemplate DataType="{x:Type parsers:ParserViewModelBase}">
+        <parsers:BaseParserView />
     </DataTemplate>
     <DataTemplate DataType="{x:Type custom:RegexParserViewModel}">
         <custom:RegexParserView />

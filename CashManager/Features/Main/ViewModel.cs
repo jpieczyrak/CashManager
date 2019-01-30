@@ -8,7 +8,15 @@
         TypesManager,
         TagsManager,
 
-        Import,
+        ImportGetinWeb,
+        ImportIdeaWeb,
+        ImportIngWeb,
+        ImportIntelligoWeb,
+        ImportMillenniumWeb,
+
+        ImportIngCsv,
+        ImportMillenniumCsv,
+
         ImportCustomRegex,
         ImportCustomCsv,
 

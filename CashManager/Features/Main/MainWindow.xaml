@@ -40,7 +40,15 @@
                 <MenuItem Header="{x:Static properties:Strings.CustomBalances}" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.CustomBalances}"/>
             </MenuItem>
             <MenuItem Header="{x:Static properties:Strings.ImportHeader}" Template="{DynamicResource TopMenuItemControlTemplate}">
-                <MenuItem Header="Old import" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.Import}"/>
+                <MenuItem Header="Getin - web" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.ImportGetinWeb}"/>
+                <MenuItem Header="Idea - web" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.ImportIdeaWeb}"/>
+                <MenuItem Header="Ing - web" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.ImportIngWeb}"/>
+                <MenuItem Header="Intelligo - web" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.ImportIntelligoWeb}"/>
+                <MenuItem Header="Millennium - web" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.ImportMillenniumWeb}"/>
+                <Separator Margin="5,4"/>
+                <MenuItem Header="Ing - csv" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.ImportIngCsv}"/>
+                <MenuItem Header="Millennium - csv" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.ImportMillenniumCsv}"/>
+                <Separator Margin="5,4"/>
                 <MenuItem Header="Custom regex" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.ImportCustomRegex}"/>
                 <MenuItem Header="Custom csv" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.ImportCustomCsv}"/>
             </MenuItem>

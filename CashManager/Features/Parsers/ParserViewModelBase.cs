@@ -38,8 +38,9 @@ namespace CashManager.Features.Parsers
         private string _inputText;
         private bool _generateMissingStocks;
         private TransactionListViewModel _resultsListViewModel = new TransactionListViewModel();
+        private IParser _parser;
 
-        protected ParserViewModelBase(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider)
+        public ParserViewModelBase(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider)
         {
             TransactionsProvider = transactionsProvider;
             _queryDispatcher = queryDispatcher;
@@ -73,7 +74,15 @@ namespace CashManager.Features.Parsers
 
         public TransactionType[] OutcomeTransactionTypes { get; set; }
 
-        public IParser Parser { get; protected set; }
+        public IParser Parser
+        {
+            get => _parser;
+            protected internal set
+            {
+                _parser = value;
+                Clear();
+            }
+        }
 
         public RelayCommand ParseCommand { get; set; }
 
@@ -154,6 +163,12 @@ namespace CashManager.Features.Parsers
                                       .ToArray();
             DefaultIncomeTransactionType = IncomeTransactionTypes.FirstOrDefault();
             DefaultOutcomeTransactionType = OutcomeTransactionTypes.FirstOrDefault();
+        }
+
+        private void Clear()
+        {
+            ResultsListViewModel.Transactions.Clear();
+            InputText = string.Empty;
         }
 
         public void DragOver(IDropInfo dropInfo)

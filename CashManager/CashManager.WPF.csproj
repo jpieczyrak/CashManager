@@ -344,10 +344,6 @@
     </Compile>
     <Compile Include="Features\Common\MultiComboBoxViewModel.cs" />
     <Compile Include="Features\IUpdateable.cs" />
-    <Compile Include="Features\Parsers\ParserView.xaml.cs">
-      <DependentUpon>ParserView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Features\Parsers\ParserViewModel.cs" />
     <Compile Include="Features\Stocks\StockSummaryView.xaml.cs">
       <DependentUpon>StockSummaryView.xaml</DependentUpon>
     </Compile>
@@ -529,10 +525,6 @@
     <Page Include="Features\Parsers\Custom\RegexParserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Features\Parsers\ParserView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Features\Plots\CategoriesPlotView.xaml">
       <Generator>MSBuild:Compile</Generator>

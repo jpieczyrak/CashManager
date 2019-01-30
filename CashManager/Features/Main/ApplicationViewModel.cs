@@ -2,6 +2,9 @@
 using System.Linq;
 using System.Reflection;
 
+using AutoMapper;
+
+using CashManager.Data.DTO;
 using CashManager.Features.Balance;
 using CashManager.Features.Categories;
 using CashManager.Features.Main.Settings;
@@ -15,6 +18,8 @@ using CashManager.Features.Summary;
 using CashManager.Features.Tags;
 using CashManager.Features.Transactions;
 using CashManager.Features.TransactionTypes;
+using CashManager.Logic.Parsers;
+using CashManager.Logic.Parsers.Custom.Predefined;
 using CashManager.Logic.Wrappers;
 
 using GalaSoft.MvvmLight;
@@ -35,7 +40,7 @@ namespace CashManager.Features.Main
         private readonly Lazy<CategoryManagerViewModel> _categoryManagerViewModel;
         private readonly Lazy<TransactionTypesViewModel> _transactionTypesViewModel;
         private readonly Lazy<TagManagerViewModel> _tagManagerViewModel;
-        private readonly Lazy<ParserViewModel> _parserViewModel;
+        private readonly Lazy<ParserViewModelBase> _parserViewModel;
         private readonly Lazy<RegexParserViewModel> _regexParser;
         private readonly Lazy<CsvParserViewModel> _csvParser;
         private readonly Lazy<SettingsViewModel> _settingsViewModel;
@@ -89,7 +94,7 @@ namespace CashManager.Features.Main
             _categoryManagerViewModel = new Lazy<CategoryManagerViewModel>(() => _factory.Create<CategoryManagerViewModel>());
             _transactionTypesViewModel = new Lazy<TransactionTypesViewModel>(() => _factory.Create<TransactionTypesViewModel>());
             _tagManagerViewModel = new Lazy<TagManagerViewModel>(() => _factory.Create<TagManagerViewModel>());
-            _parserViewModel = new Lazy<ParserViewModel>(() => _factory.Create<ParserViewModel>());
+            _parserViewModel = new Lazy<ParserViewModelBase>(() => _factory.Create<ParserViewModelBase>());
             _regexParser = new Lazy<RegexParserViewModel>(() => _factory.Create<RegexParserViewModel>());
             _csvParser = new Lazy<CsvParserViewModel>(() => _factory.Create<CsvParserViewModel>());
             _settingsViewModel = new Lazy<SettingsViewModel>(_factory.Create<SettingsViewModel>);
@@ -131,9 +136,40 @@ namespace CashManager.Features.Main
                 case ViewModel.Settings:
                     SelectedViewModel = _settingsViewModel.Value;
                     break;
-                case ViewModel.Import:
+                case ViewModel.ImportGetinWeb:
+                    _parserViewModel.Value.Parser = new GetinBankParser();
                     SelectedViewModel = _parserViewModel.Value;
                     break;
+                case ViewModel.ImportIdeaWeb:
+                    _parserViewModel.Value.Parser = new IdeaBankParser();
+                    SelectedViewModel = _parserViewModel.Value;
+                    break;
+                case ViewModel.ImportIngWeb:
+                    _parserViewModel.Value.Parser = new IngBankParser();
+                    SelectedViewModel = _parserViewModel.Value;
+                    break;
+                case ViewModel.ImportIntelligoWeb:
+                    _parserViewModel.Value.Parser = new IntelligoBankParser();
+                    SelectedViewModel = _parserViewModel.Value;
+                    break;
+                case ViewModel.ImportMillenniumWeb:
+                    _parserViewModel.Value.Parser = new MillenniumBankParser();
+                    SelectedViewModel = _parserViewModel.Value;
+                    break;
+                case ViewModel.ImportIngCsv:
+                {
+                    var factory = new CustomCsvParserFactory(Mapper.Map<Stock[]>(_parserViewModel.Value.UserStocks.Concat(_parserViewModel.Value.ExternalStocks)));
+                    _parserViewModel.Value.Parser = factory.Create(PredefinedCsvParsers.Ing);
+                    SelectedViewModel = _parserViewModel.Value;
+                    break;
+                }
+                case ViewModel.ImportMillenniumCsv:
+                {
+                    var factory = new CustomCsvParserFactory(Mapper.Map<Stock[]>(_parserViewModel.Value.UserStocks.Concat(_parserViewModel.Value.ExternalStocks)));
+                    _parserViewModel.Value.Parser = factory.Create(PredefinedCsvParsers.Millennium);
+                    SelectedViewModel = _parserViewModel.Value;
+                    break;
+                }
                 case ViewModel.ImportCustomRegex:
                     SelectedViewModel = _regexParser.Value;
                     break;
