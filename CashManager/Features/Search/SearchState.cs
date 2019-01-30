@@ -24,7 +24,6 @@ namespace CashManager.Features.Search
     public sealed class SearchState : BaseObservableObject
     {
         private string _name;
-        public const string DEFAULT_NAME = "default";
 
         public override string Name
         {
@@ -62,7 +61,7 @@ namespace CashManager.Features.Search
 
         public SearchState(IQueryDispatcher queryDispatcher = null)
         {
-            Name = DEFAULT_NAME;
+            Name = string.Empty;
 
             TitleFilter = new TextSelector(TextSelectorType.Title);
             NoteFilter = new TextSelector(TextSelectorType.Note);
