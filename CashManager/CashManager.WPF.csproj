@@ -219,6 +219,9 @@
       <DependentUpon>ExtendedDatePicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\Common\ExtendedDatePickerViewModel.cs" />
+    <Compile Include="Features\Common\LoadControl.xaml.cs">
+      <DependentUpon>LoadControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Features\Common\SaveControl.xaml.cs">
       <DependentUpon>SaveControl.xaml</DependentUpon>
     </Compile>
@@ -376,6 +379,7 @@
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Common\IBookable.cs" />
     <Compile Include="Model\ExpandableCategory.cs" />
+    <Compile Include="Model\Parsers\CustomCsvParser.cs" />
     <Compile Include="Model\Parsers\Rule.cs" />
     <Compile Include="Model\Selectors\BaseSelector.cs" />
     <Compile Include="Model\Selectors\DateFrameType.cs" />
@@ -451,6 +455,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\Common\MultiCombobox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Common\LoadControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

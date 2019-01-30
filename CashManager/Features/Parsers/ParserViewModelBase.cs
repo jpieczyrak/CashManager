@@ -33,7 +33,7 @@ namespace CashManager.Features.Parsers
 {
     public class ParserViewModelBase : ViewModelBase, IUpdateable, IDropTarget
     {
-        private readonly IQueryDispatcher _queryDispatcher;
+        protected readonly IQueryDispatcher _queryDispatcher;
         protected readonly ICommandDispatcher _commandDispatcher;
         private string _inputText;
         private bool _generateMissingStocks;

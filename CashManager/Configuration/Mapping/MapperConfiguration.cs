@@ -156,6 +156,7 @@ namespace CashManager.Configuration.Mapping
                         config.CreateMap<Rule, Data.ViewModelState.Parsers.Rule>().ReverseMap();
 
                         config.CreateMap<CustomCsvParser, Data.ViewModelState.Parsers.CustomCsvParser>().ReverseMap();
+                        config.CreateMap<CustomCsvParser, Model.Parsers.CustomCsvParser>().ReverseMap();
                     });
 
                     _isInitialized = true;

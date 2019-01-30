@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="CashManager.Features.Common.LoadControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:common="clr-namespace:CashManager.Features.Common"
+             mc:Ignorable="d"
+             d:DesignHeight="50" d:DesignWidth="50">
+    <Grid>
+        <Button x:Name="Button" Style="{DynamicResource LoadButtonStyle}" Click="ButtonOpenClick" Width="Auto" Height="Auto">
+            <Button.Resources>
+                <Style x:Key="LoadButtonStyle" TargetType="{x:Type Button}">
+                    <Setter Property="Template" Value="{DynamicResource LoadButtonControlTemplate}" />
+                    <Setter Property="IsCancel" Value="False" />
+                    <Setter Property="IsEnabled" Value="True" />
+                    <Setter Property="Width" Value="25" />
+                    <Setter Property="Height" Value="25" />
+                    <Setter Property="Padding" Value="1" />
+                    <Setter Property="Foreground" Value="Transparent" />
+                </Style>
+                <ControlTemplate x:Key="LoadButtonControlTemplate" TargetType="{x:Type Button}">
+                    <Grid Width="Auto" Height="Auto">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill)"
+                                                                       Storyboard.TargetName="path">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource HoverControlBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill)"
+                                                                       Storyboard.TargetName="path">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource HoverControlBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Path x:Name="path" Data="M511.24094,198.53928 L620.01196,307.31029 C623.42529,310.72362 623.42529,316.25771 620.01196,319.67104 L511.24094,428.44207 511.24094,369.18337 510.69446,369.21099 373.02875,369.21099 C368.20154,369.21099 364.28833,365.29778 364.28836,360.47057 L364.28833,269.42519 C364.28833,264.59801 368.20154,260.6848 373.02872,260.68479 L510.69446,260.68482 511.24094,260.71241 z M444.85785,1.5 L884.05304,1.5000153 C888.40002,1.5000191 891.92395,5.0239182 891.92395,9.3708916 L891.92395,344.27691 881.82245,395.8312 860.38678,434.60778 758.64313,537.11354 734.63696,560.72618 C734.63696,560.72618 717.34253,572.14049 706.74969,573.56731 L444.85785,574.50023 C440.51089,574.50023 436.98694,570.97631 436.98694,566.62932 L436.98697,423.37929 475.29138,423.37929 475.29138,533.57164 694.29962,533.57164 C694.29968,533.57164 709.22876,516.00972 712.992,500.51394 719.68225,472.96584 716.92737,413.5407 716.92737,413.5407 716.92737,413.5407 718.10809,400.94728 742.11426,400.94728 756.05225,400.94728 785.21802,400.8893 807.83612,396.22475 824.17462,392.85527 836.47559,386.03133 840.10675,380.08944 845.51794,371.2347 848.00836,355.30846 849.11523,344.60897 L849.15833,344.17681 849.15833,34.557725 475.29138,34.557712 475.29141,201.42043 436.98694,201.42041 436.98697,9.3708801 C436.98697,5.0239334 440.51086,1.5000153 444.85785,1.5 z" Fill="{DynamicResource ControlBackgroundBrush}" HorizontalAlignment="Left" Height="Auto" Margin="0,-0.5,0,0" Stretch="Uniform" Stroke="{DynamicResource BorderBrush}" StrokeThickness="1.2" VerticalAlignment="Top" Width="Auto"/>
+                        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Transparent" />
+                    </Grid>
+                </ControlTemplate>
+            </Button.Resources>
+            <Rectangle Fill="{DynamicResource ControlBackgroundBrush}" Height="118.5" Stroke="{DynamicResource BorderBrush}" StrokeThickness="3" Width="255" Stretch="Uniform"/>
+        </Button>
+        <Popup StaysOpen="True" AllowsTransparency="True"
+               Placement="Right" PlacementTarget="{Binding ElementName=Button}"
+               IsOpen="{Binding IsOpen, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type common:LoadControl}}}">
+            <Grid>
+                <Border CornerRadius="{DynamicResource BigCornerRadius}"
+                        Background="{DynamicResource BackgroundColorBrush}"
+                        BorderBrush="{DynamicResource BorderBrush}"
+                        BorderThickness="1"
+                        MinWidth="300">
+                    <StackPanel Orientation="Vertical" Margin="10">
+                        <ComboBox ItemsSource="{Binding Elements, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type common:LoadControl}}}" 
+                                  SelectedItem="{Binding Element, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type common:LoadControl}}}"
+                                  Margin="5"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="Cancel" Click="ButtonCloseClick" Margin="5"/>
+                            <Button Content="Load" Click="ButtonCloseClick" Margin="5"
+                                    Command="{Binding Command, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type common:LoadControl}}}"
+                                    CommandParameter="{Binding Element, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type common:LoadControl}}}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Popup>
+    </Grid>
+</UserControl>

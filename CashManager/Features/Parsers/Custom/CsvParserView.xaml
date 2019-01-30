@@ -19,7 +19,10 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBox Grid.Row="0" Text="{Binding ElementSplitter, UpdateSourceTrigger=PropertyChanged}" ToolTip="Elements (columns) splitter" HorizontalAlignment="Center" MinWidth="120" Width="200"/>
-        <common:SaveControl Grid.Row="0" Grid.RowSpan="2" Command="{Binding ParserSaveCommand}" Margin="5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.RowSpan="2" Margin="5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" >
+            <common:SaveControl Command="{Binding ParserSaveCommand}" />
+            <common:LoadControl Command="{Binding ParserLoadCommand}" Elements="{Binding Parsers}" />
+        </StackPanel>
         <Button Grid.Row="1" Content="Add rule" Command="{Binding AddRuleCommand}" Margin="5,5,5,10"/>
         <Grid Grid.Row="2">
             <ItemsControl ItemsSource="{Binding Rules}" HorizontalAlignment="Center">

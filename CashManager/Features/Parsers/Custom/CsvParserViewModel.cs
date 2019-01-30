@@ -48,7 +48,11 @@ namespace CashManager.Features.Parsers.Custom
 
         public TransactionField[] AvailableProperties => Enum.GetValues(typeof(TransactionField)).OfType<TransactionField>().OrderBy(x => x.ToString()).ToArray();
 
+
+        public Model.Parsers.CustomCsvParser[] Parsers { get; private set; }
+
         public RelayCommand<string> ParserSaveCommand { get; }
+        public RelayCommand<Model.Parsers.CustomCsvParser> ParserLoadCommand { get; }
 
         public CsvParserViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider) : base(queryDispatcher,
             commandDispatcher, transactionsProvider)
@@ -71,6 +75,13 @@ namespace CashManager.Features.Parsers.Custom
                 var parser = Mapper.Map<Data.ViewModelState.Parsers.CustomCsvParser>(Parser);
                 _commandDispatcher.Execute(new UpsertCsvParserCommand(parser));
             }, x => !string.IsNullOrWhiteSpace(x));
+            ParserLoadCommand = new RelayCommand<Model.Parsers.CustomCsvParser>(x =>
+            {
+                Parser = Mapper.Map<CustomCsvParser>(x);
+                Rules = new TrulyObservableCollection<Rule>(Mapper.Map<Rule[]>(x.Rules));
+                ElementSplitter = x.ElementSplitter;
+            }, x => x != null);
+            //Parsers = _queryDispatcher.Execute<CustomCsvParserQuery, Data.ViewModelState.Parsers.CustomCsvParser[]>(new CustomCsvParserQuery());
         }
 
         private void UpdateParser() => Parser = new CustomCsvParser(Mapper.Map<Logic.Parsers.Custom.Rule[]>(_rules), Mapper.Map<DtoStock[]>(UserStocks), ElementSplitter);
