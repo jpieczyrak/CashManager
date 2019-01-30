@@ -162,6 +162,7 @@ namespace CashManager.Model
             if (IsPropertyChangedEnabled)
             {
                 RaisePropertyChanged(nameof(Value));
+                RaisePropertyChanged(nameof(ValueWithSign));
                 RaisePropertyChanged(nameof(ValueAsProfit));
             }
         }

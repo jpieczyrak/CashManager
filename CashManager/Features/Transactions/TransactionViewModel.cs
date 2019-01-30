@@ -260,8 +260,10 @@ namespace CashManager.Features.Transactions
                 Title = Strings.NewPosition,
                 Category = category,
                 TagViewModel = _factory.Create<MultiComboBoxViewModel>(),
-                CategoryPickerViewModel = new CategoryPickerViewModel(_queryDispatcher, category)
+                CategoryPickerViewModel = new CategoryPickerViewModel(_queryDispatcher, category),
+                IsPropertyChangedEnabled = true
             };
+            position.Value.IsPropertyChangedEnabled = true;
             //todo: check sender - only on selected category change
             position.CategoryPickerViewModel.PropertyChanged +=
                 (sender, args) => position.Category = position.CategoryPickerViewModel.SelectedCategory;
