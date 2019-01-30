@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 
 using CashManager.Model.Common;
@@ -19,7 +20,7 @@ namespace CashManager.Features.Common
             nameof(Element), typeof(BaseObservableObject), typeof(LoadControl), new PropertyMetadata(default(BaseObservableObject)));
 
         public static readonly DependencyProperty ElementsProperty = DependencyProperty.Register(
-            nameof(Elements), typeof(BaseObservableObject[]), typeof(LoadControl), new PropertyMetadata(default(BaseObservableObject[])));
+            nameof(Elements), typeof(ObservableCollection<BaseObservableObject>), typeof(LoadControl), new PropertyMetadata(default(ObservableCollection<BaseObservableObject>)));
 
         public bool IsOpen
         {
@@ -39,9 +40,9 @@ namespace CashManager.Features.Common
             set => SetValue(ElementProperty, value);
         }
 
-        public BaseObservableObject[] Elements
+        public ObservableCollection<BaseObservableObject> Elements
         {
-            get => (BaseObservableObject[]) GetValue(ElementsProperty);
+            get => (ObservableCollection<BaseObservableObject>) GetValue(ElementsProperty);
             set => SetValue(ElementsProperty, value);
         }
 

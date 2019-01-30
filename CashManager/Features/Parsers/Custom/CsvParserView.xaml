@@ -18,7 +18,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" Text="{Binding ElementSplitter, UpdateSourceTrigger=PropertyChanged}" ToolTip="Elements (columns) splitter" HorizontalAlignment="Center" MinWidth="120" Width="200"/>
+        <TextBox Grid.Row="0" Text="{Binding ColumnSplitter, UpdateSourceTrigger=PropertyChanged}" ToolTip="Elements (columns) splitter" HorizontalAlignment="Center" MinWidth="120" Width="200"/>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.RowSpan="2" Margin="5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" >
             <common:SaveControl Command="{Binding ParserSaveCommand}" />
             <common:LoadControl Command="{Binding ParserLoadCommand}" Elements="{Binding Parsers}" />

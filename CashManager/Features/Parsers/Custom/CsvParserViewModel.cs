@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 using AutoMapper;
@@ -7,7 +9,9 @@ using CashManager.CommonData;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Parsers;
 using CashManager.Infrastructure.Query;
+using CashManager.Infrastructure.Query.Parsers;
 using CashManager.Logic.Parsers.Custom;
+using CashManager.Model.Common;
 
 using GalaSoft.MvvmLight.CommandWpf;
 
@@ -20,7 +24,7 @@ namespace CashManager.Features.Parsers.Custom
     {
         private TrulyObservableCollection<Rule> _rules;
 
-        private string _elementSplitter;
+        private string _columnSplitter;
 
         public RelayCommand AddRuleCommand { get; }
 
@@ -36,12 +40,12 @@ namespace CashManager.Features.Parsers.Custom
             }
         }
 
-        public string ElementSplitter
+        public string ColumnSplitter
         {
-            get => _elementSplitter;
+            get => _columnSplitter;
             set
             {
-                Set(ref _elementSplitter, value);
+                Set(ref _columnSplitter, value);
                 UpdateParser();
             }
         }
@@ -49,15 +53,15 @@ namespace CashManager.Features.Parsers.Custom
         public TransactionField[] AvailableProperties => Enum.GetValues(typeof(TransactionField)).OfType<TransactionField>().OrderBy(x => x.ToString()).ToArray();
 
 
-        public Model.Parsers.CustomCsvParser[] Parsers { get; private set; }
+        public ObservableCollection<BaseObservableObject> Parsers { get; private set; }
 
         public RelayCommand<string> ParserSaveCommand { get; }
-        public RelayCommand<Model.Parsers.CustomCsvParser> ParserLoadCommand { get; }
+        public RelayCommand<BaseObservableObject> ParserLoadCommand { get; }
 
         public CsvParserViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider) : base(queryDispatcher,
             commandDispatcher, transactionsProvider)
         {
-            _elementSplitter = ";";
+            _columnSplitter = ";";
             Rules = new TrulyObservableCollection<Rule>
             {
                 new Rule { Column = 1, Property = TransactionField.Title, IsOptional = false }
@@ -66,7 +70,7 @@ namespace CashManager.Features.Parsers.Custom
             AddRuleCommand = new RelayCommand(() => Rules.Add(new Rule
             {
                 Property = AvailableProperties.Except(Rules.Select(x => x.Property)).FirstOrDefault(),
-                Column = Rules.Last().Column + 1
+                Column = (Rules.LastOrDefault()?.Column ?? 0) + 1
             }));
             RemoveRuleCommand = new RelayCommand<Rule>(x => Rules.Remove(x));
             ParserSaveCommand = new RelayCommand<string>(x =>
@@ -74,16 +78,21 @@ namespace CashManager.Features.Parsers.Custom
                 (Parser as CustomCsvParser).Name = x;
                 var parser = Mapper.Map<Data.ViewModelState.Parsers.CustomCsvParser>(Parser);
                 _commandDispatcher.Execute(new UpsertCsvParserCommand(parser));
+                Parsers.Add(Mapper.Map<Model.Parsers.CustomCsvParser>(Parser));
             }, x => !string.IsNullOrWhiteSpace(x));
-            ParserLoadCommand = new RelayCommand<Model.Parsers.CustomCsvParser>(x =>
+            ParserLoadCommand = new RelayCommand<BaseObservableObject>(x =>
             {
+                var parser = x as Model.Parsers.CustomCsvParser;
                 Parser = Mapper.Map<CustomCsvParser>(x);
-                Rules = new TrulyObservableCollection<Rule>(Mapper.Map<Rule[]>(x.Rules));
-                ElementSplitter = x.ElementSplitter;
+                Rules.Clear();
+                Rules.AddRange(Mapper.Map<Rule[]>(parser.Rules));
+                ColumnSplitter = parser.ColumnSplitter;
             }, x => x != null);
-            //Parsers = _queryDispatcher.Execute<CustomCsvParserQuery, Data.ViewModelState.Parsers.CustomCsvParser[]>(new CustomCsvParserQuery());
+
+            var customCsvParsers = _queryDispatcher.Execute<CustomCsvParserQuery, Data.ViewModelState.Parsers.CustomCsvParser[]>(new CustomCsvParserQuery());
+            Parsers = new ObservableCollection<BaseObservableObject>(Mapper.Map<Model.Parsers.CustomCsvParser[]>(customCsvParsers));
         }
 
-        private void UpdateParser() => Parser = new CustomCsvParser(Mapper.Map<Logic.Parsers.Custom.Rule[]>(_rules), Mapper.Map<DtoStock[]>(UserStocks), ElementSplitter);
+        private void UpdateParser() => Parser = new CustomCsvParser(Mapper.Map<Logic.Parsers.Custom.Rule[]>(_rules), Mapper.Map<DtoStock[]>(UserStocks), ColumnSplitter);
     }
 }

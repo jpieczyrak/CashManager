@@ -4,8 +4,10 @@ namespace CashManager.Model.Parsers
 {
     public class CustomCsvParser : BaseObservableObject
     {
-        public string ElementSplitter { get; set; }
+        public string ColumnSplitter { get; set; }
 
         public Rule[] Rules { get; set; }
+
+        public override string ToString() => Name;
     }
 }
