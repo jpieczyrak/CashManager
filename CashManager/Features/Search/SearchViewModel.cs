@@ -49,8 +49,6 @@ namespace CashManager.Features.Search
 
         private readonly TrulyObservableCollection<IFilter<Transaction>> _transactionFilters;
         private readonly TrulyObservableCollection<IFilter<Position>> _positionFilters;
-        private string _searchName;
-        private Selectable _selectedSearch;
         private readonly Debouncer _debouncer;
 
         #endregion
@@ -111,22 +109,6 @@ namespace CashManager.Features.Search
         public RelayCommand<BaseObservableObject> LoadStateCommand { get; set; }
         public RelayCommand ClearStateCommand { get; set; }
 
-        public string SearchName
-        {
-            get => _searchName;
-            set => Set(nameof(SearchName), ref _searchName, value);
-        }
-
-        public Selectable SelectedSearch
-        {
-            get => _selectedSearch;
-            set
-            {
-                Set(nameof(SelectedSearch), ref _selectedSearch, value);
-                SearchName = SelectedSearch.Name;
-            }
-        }
-
         public ObservableCollection<BaseObservableObject> SaveSearches { get; set; }
 
         public bool IsDebounceable { private get; set; } = true;
@@ -149,7 +131,6 @@ namespace CashManager.Features.Search
             PositionsListViewModel = factory.Create<PositionListViewModel>();
             _isTransactionsSearch = true;
             SetTitle(SearchType.Transactions);
-            _searchName = SearchState.DEFAULT_NAME;
 
             var filters = new IFilter<Transaction>[]
             {
