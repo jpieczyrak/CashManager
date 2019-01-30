@@ -116,12 +116,14 @@ namespace CashManager.Features.Search
             TitleFilter.Apply(state.TitleFilter);
             NoteFilter.Apply(state.NoteFilter);
             PositionTitleFilter.Apply(state.PositionTitleFilter);
+
             BookDateFilter.Apply(state.BookDateFilter);
             CreateDateFilter.Apply(state.CreateDateFilter);
             LastEditDateFilter.Apply(state.LastEditDateFilter);
             ValueFilter.Apply(state.ValueFilter);
 
             TagsFilter.Apply(state.TagsFilter);
+
             TypesFilter.Apply(state.TypesFilter);
             CategoriesFilter.Apply(state.CategoriesFilter);
             UserStocksFilter.Apply(state.UserStocksFilter);

@@ -110,6 +110,8 @@ namespace CashManager.Model.Selectors
             foreach (var x in ComboBox.InternalDisplayableSearchResults)
                 x.IsSelected = source.Selected.Contains(x.Id);
             IsChecked = source.IsChecked;
+            ShouldMatchAllOfTheElements = source.ShouldMatchAllOfTheElements;
+            CanMatchMultipleElements = source.CanMatchMultipleElements;
         }
     }
 }

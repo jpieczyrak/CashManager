@@ -35,7 +35,7 @@ namespace CashManager.Model.Selectors
             set
             {
                 Set(ref _isWildCard, value);
-                _isRegex = false;
+                if (value) _isRegex = false;
                 RaisePropertyChanged(nameof(IsRegex));
             }
         }
@@ -46,7 +46,7 @@ namespace CashManager.Model.Selectors
             set
             {
                 Set(ref _isRegex, value);
-                _isWildCard = false;
+                if (value) _isWildCard = false;
                 RaisePropertyChanged(nameof(IsWildCard));
             }
         }
@@ -79,6 +79,10 @@ namespace CashManager.Model.Selectors
             Value = source.Value;
             Type = source.Type;
             IsChecked = source.IsChecked;
+            IsCaseSensitive = source.IsCaseSensitive;
+            IsRegex = source.IsRegex;
+            IsWildCard = source.IsWildCard;
+            DisplayOnlyNotMatching = source.DisplayOnlyNotMatching;
         }
     }
 }
