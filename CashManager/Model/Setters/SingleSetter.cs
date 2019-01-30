@@ -1,4 +1,7 @@
-﻿using CashManager.Model.Common;
+﻿using System;
+using System.Linq;
+
+using CashManager.Model.Common;
 using CashManager.Model.Selectors;
 using CashManager.Properties;
 
@@ -19,8 +22,11 @@ namespace CashManager.Model.Setters
             {
                 Set(ref _selected, value);
                 IsChecked = true;
+                if (value != null) SelectedId = value.Id;
             }
         }
+
+        public Guid SelectedId { get; set; }
 
         public SingleSetter(MultiPickerType type, Selectable[] input)
         {
@@ -45,6 +51,12 @@ namespace CashManager.Model.Setters
                     Description = Strings.TransactionTypes;
                     break;
             }
+        }
+
+        public void Apply(SingleSetter source)
+        {
+            Selected = Input.FirstOrDefault(x => x.Id == source.SelectedId);
+            IsChecked = source.IsChecked;
         }
     }
 }

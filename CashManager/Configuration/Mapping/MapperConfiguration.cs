@@ -3,13 +3,16 @@ using System.Collections.Generic;
 
 using AutoMapper;
 
-using CashManager.Features.Search;
+using CashManager.Data.ViewModelState;
+using CashManager.Features.MassReplacer;
 using CashManager.Logic.Balances;
 using CashManager.Logic.Parsers.Custom;
 using CashManager.Model;
 using CashManager.Model.Selectors;
+using CashManager.Model.Setters;
 
 using Rule = CashManager.Model.Parsers.Rule;
+using SearchState = CashManager.Features.Search.SearchState;
 
 namespace CashManager.Configuration.Mapping
 {
@@ -158,6 +161,12 @@ namespace CashManager.Configuration.Mapping
                         config.CreateMap<Model.Parsers.CustomCsvParser, Data.ViewModelState.Parsers.CustomCsvParser>().ReverseMap();
                         config.CreateMap<CustomCsvParser, Data.ViewModelState.Parsers.CustomCsvParser>().ReverseMap();
                         config.CreateMap<CustomCsvParser, Model.Parsers.CustomCsvParser>().ReverseMap();
+
+                        config.CreateMap<MassReplacerState, ReplacerState>().ReverseMap();
+                        config.CreateMap<TextSetter, Data.ViewModelState.Setters.TextSetter>().ReverseMap();
+                        config.CreateMap<MultiSetter, Data.ViewModelState.Setters.MultiSetter>().ReverseMap();
+                        config.CreateMap<SingleSetter, Data.ViewModelState.Setters.SingleSetter>().ReverseMap();
+                        config.CreateMap<DateSetter, Data.ViewModelState.Setters.DateSetter>().ReverseMap();
                     });
 
                     _isInitialized = true;

@@ -110,6 +110,8 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModelState\Balances\CustomBalance.cs" />
+    <Compile Include="ViewModelState\BaseSelector.cs" />
+    <Compile Include="ViewModelState\MassReplacerState.cs" />
     <Compile Include="ViewModelState\Parsers\CustomCsvParser.cs" />
     <Compile Include="ViewModelState\Parsers\Rule.cs" />
     <Compile Include="ViewModelState\SearchState.cs" />
@@ -117,6 +119,13 @@
     <Compile Include="ViewModelState\Selectors\MultiPicker.cs" />
     <Compile Include="ViewModelState\Selectors\RangeSelector.cs" />
     <Compile Include="ViewModelState\Selectors\TextSelector.cs" />
+    <Compile Include="ViewModelState\Setters\DateSetter.cs" />
+    <Compile Include="ViewModelState\Setters\DateSetterType.cs" />
+    <Compile Include="ViewModelState\Setters\MultiPickerType.cs" />
+    <Compile Include="ViewModelState\Setters\MultiSetter.cs" />
+    <Compile Include="ViewModelState\Setters\SingleSetter.cs" />
+    <Compile Include="ViewModelState\Setters\TextSetter.cs" />
+    <Compile Include="ViewModelState\Setters\TextSetterType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

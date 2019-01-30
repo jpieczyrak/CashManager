@@ -7,6 +7,7 @@
              xmlns:properties="clr-namespace:CashManager.Properties"
              xmlns:search="clr-namespace:CashManager.Features.Search"
              xmlns:setters="clr-namespace:CashManager.Features.MassReplacer.Setters"
+             xmlns:common="clr-namespace:CashManager.Features.Common"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=massReplacer:MassReplacerViewModel, IsDesignTimeCreatable=True}">
 
@@ -27,6 +28,10 @@
             <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
             <TextBlock Grid.Column="1" Text="{x:Static properties:Strings.MassReplace}" Margin="10,0" Style="{DynamicResource GrayTextBlock}" Height="Auto" />
             <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Margin="5,0"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" >
+                <common:SaveControl Command="{Binding MassReplacerSaveCommand}" Margin="0,0,5,0" />
+                <common:LoadControl Command="{Binding MassReplacerLoadCommand}" Elements="{Binding Patterns}" />
+            </StackPanel>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

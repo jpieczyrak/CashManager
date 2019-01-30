@@ -80,7 +80,7 @@ namespace CashManager.Features.Parsers.Custom
                 var modelParser = Mapper.Map<Model.Parsers.CustomCsvParser>(Parser);
                 Parsers.Remove(modelParser);
                 Parsers.Add(modelParser);
-            }, x => !string.IsNullOrWhiteSpace(x));
+            }, name => !string.IsNullOrWhiteSpace(name));
             ParserLoadCommand = new RelayCommand<BaseObservableObject>(selected =>
             {
                 var parser = selected as Model.Parsers.CustomCsvParser;

@@ -5,6 +5,7 @@ using AutoMapper;
 
 using CashManager.Data.Extensions;
 using CashManager.Features.Categories;
+using CashManager.Features.Search;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Categories;
 using CashManager.Infrastructure.Query.Stocks;
@@ -94,6 +95,8 @@ namespace CashManager.Features.MassReplacer
             set => Set(nameof(PositionTitleSelector), ref _positionTitleSelector, value);
         }
 
+        public SearchState SearchState { get; set; }
+
         public ReplacerState()
         {
             Id = Guid.NewGuid();
@@ -128,5 +131,25 @@ namespace CashManager.Features.MassReplacer
             var tags = Mapper.Map<Tag[]>(queryDispatcher.Execute<TagQuery, Data.DTO.Tag[]>(new TagQuery()).OrderBy(x => x.Name));
             TagsSelector.SetInput(tags.Select(x => new Selectable(x)).ToArray());
         }
+
+        public void ApplyReplaceCriteria(ReplacerState state)
+        {
+            Name = state.Name;
+
+            TitleSelector.Apply(state.TitleSelector);
+            NoteSelector.Apply(state.NoteSelector);
+            PositionTitleSelector.Apply(state.PositionTitleSelector);
+            BookDateSetter.Apply(state.BookDateSetter);
+
+            TagsSelector.Apply(state.TagsSelector);
+            TypesSelector.Apply(state.TypesSelector);
+            CategoriesSelector.Apply(state.CategoriesSelector);
+            UserStocksSelector.Apply(state.UserStocksSelector);
+            ExternalStocksSelector.Apply(state.ExternalStocksSelector);
+
+            RaisePropertyChanged();
+        }
+
+        public override string ToString() => Name;
     }
 }

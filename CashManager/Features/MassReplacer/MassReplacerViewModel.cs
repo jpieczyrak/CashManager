@@ -1,12 +1,17 @@
-﻿using System.Linq;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
 
 using AutoMapper;
 
+using CashManager.Data.ViewModelState;
 using CashManager.Features.Search;
 using CashManager.Infrastructure.Command;
+using CashManager.Infrastructure.Command.Parsers;
 using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
 using CashManager.Logic.Commands.Setters;
+using CashManager.Logic.Parsers.Custom;
+using CashManager.Model.Common;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -25,8 +30,12 @@ namespace CashManager.Features.MassReplacer
         public SearchViewModel SearchViewModel { get; private set; }
 
         public ReplacerState State { get; private set; }
+        public ObservableCollection<BaseObservableObject> Patterns { get; private set; }
 
         public RelayCommand PerformCommand { get; }
+
+        public RelayCommand<string> MassReplacerSaveCommand { get; }
+        public RelayCommand<BaseObservableObject> MassReplacerLoadCommand { get; }
 
         public MassReplacerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory)
         {
@@ -49,6 +58,26 @@ namespace CashManager.Features.MassReplacer
                 MultiSetterCommand.Create(State.TagsSelector)
             };
             _positionSetter = _transactionSetters.OfType<ISetter<Model.Position>>().ToArray();
+
+            MassReplacerSaveCommand = new RelayCommand<string>(name =>
+            {
+                State.Name = name;
+                State.SearchState = SearchViewModel.State;
+                var state = Mapper.Map<MassReplacerState>(State);
+                //_commandDispatcher.Execute(new UpsertReplacerStateCommand(state));
+
+                Patterns.Remove(State);
+                Patterns.Add(State);
+            }, name => !string.IsNullOrWhiteSpace(name));
+            MassReplacerLoadCommand = new RelayCommand<BaseObservableObject>(selected =>
+            {
+                State = new ReplacerState();
+
+                var state = selected as ReplacerState;
+                SearchViewModel.State.ApplySearchCriteria(state.SearchState);
+                State.ApplyReplaceCriteria(state);
+            }, selected => selected != null);
+            Patterns = new ObservableCollection<BaseObservableObject>(); //todo: load
         }
 
         private bool CanExecutePerformCommand()
