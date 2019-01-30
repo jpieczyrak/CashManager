@@ -7,7 +7,7 @@
                       xmlns:properties="clr-namespace:CashManager.Properties"
                      xmlns:common="clr-namespace:CashManager.Features.Common"
                      mc:Ignorable="d"
-                     Height="320" Width="500"
+                     Height="350" Width="500"
                      WindowStartupLocation="CenterScreen"
                      FocusManager.FocusedElement="{Binding ElementName=PasswordBox}"
                      Title="{x:Static properties:Strings.Initialization}" Style="{DynamicResource WindowStyle}"
@@ -33,6 +33,9 @@
             </CheckBox>
             <CheckBox Margin="5" Content="{x:Static properties:Strings.GenerateSampleTransactions}" IsChecked="{Binding GenerateTransactions}" 
                       Visibility="{Binding CanGenerateTransactions, Converter={StaticResource Bool2VisibilityConverter}}" />
+
+            <TextBlock Text="{x:Static properties:Strings.Language}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <ComboBox ItemsSource="{Binding Localizations}" SelectedItem="{Binding SelectedLocalization}" Margin="5" ToolTip="{x:Static properties:Strings.RestartRequiredAfterChange}" HorizontalAlignment="Stretch"/>
 
         </StackPanel>
         <Button Grid.Row="1" Margin="5" Content="{x:Static properties:Strings.Start}" Command="{Binding StartCommand}" />

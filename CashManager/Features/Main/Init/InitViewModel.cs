@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 
 using Autofac;
 
@@ -88,6 +90,17 @@ namespace CashManager.Features.Main.Init
             get => _generateTags;
             set => Set(ref _generateTags, value);
         }
+
+        public string SelectedLocalization
+        {
+            get => Properties.Settings.Default.Localization;
+            set
+            {
+                Properties.Settings.Default.Localization = value;
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(value);
+            }
+        }
+        public string[] Localizations { get; } = { "pl-PL", "en-US" };
 
         public bool CanStartApplication { get; private set; }
 
