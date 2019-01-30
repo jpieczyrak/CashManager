@@ -84,7 +84,7 @@ namespace CashManager.Logic.Commands.Filters
             if (selector == null) return new Transaction[0];
             if (_textSelector.IsRegex || _textSelector.IsWildCard)
             {
-                string selectorValue = _textSelector.IsRegex ? $"^{_textSelector.Value}$" : _textSelector.Value.WildCardToRegex();
+                string selectorValue = _textSelector.IsRegex ? _textSelector.Value : _textSelector.Value.WildCardToRegex();
                 try
                 {
                     var regex = new Regex(selectorValue);
