@@ -17,7 +17,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding TagName, UpdateSourceTrigger=PropertyChanged}" Margin="5" />
+        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding TagName, UpdateSourceTrigger=PropertyChanged}" Margin="5" MinWidth="120" />
         <Button Grid.Row="0" Grid.Column="1" Content="{x:Static properties:Strings.Add}" Width="120" Command="{Binding AddCommand}" />
         <ScrollViewer Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
             <ItemsControl ItemsSource="{Binding Tags}" Grid.IsSharedSizeScope="True">
