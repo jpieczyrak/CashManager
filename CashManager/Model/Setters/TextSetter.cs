@@ -14,7 +14,7 @@ namespace CashManager.Model.Setters
             get => _value;
             set
             {
-                bool addictive = value.Length > _value.Length;
+                bool addictive = value != null && _value != null && value.Length > _value.Length;
                 Set(nameof(Value), ref _value, value);
                 if (addictive) IsChecked = true;
             }
