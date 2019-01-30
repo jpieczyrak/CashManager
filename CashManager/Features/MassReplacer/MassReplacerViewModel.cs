@@ -7,6 +7,7 @@ using CashManager.Data.ViewModelState;
 using CashManager.Features.Search;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Parsers;
+using CashManager.Infrastructure.Command.ReplacerState;
 using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
 using CashManager.Logic.Commands.Setters;
@@ -64,7 +65,7 @@ namespace CashManager.Features.MassReplacer
                 State.Name = name;
                 State.SearchState = SearchViewModel.State;
                 var state = Mapper.Map<MassReplacerState>(State);
-                //_commandDispatcher.Execute(new UpsertReplacerStateCommand(state));
+                _commandDispatcher.Execute(new UpsertReplacerStateCommand(state));
 
                 Patterns.Remove(State);
                 Patterns.Add(State);

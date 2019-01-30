@@ -118,6 +118,8 @@
     <Compile Include="Command\ICommandHandler.cs" />
     <Compile Include="Command\Categories\UpsertCategoriesCommand.cs" />
     <Compile Include="Command\Categories\UpsertCategoriesCommandHandler.cs" />
+    <Compile Include="Command\ReplacerState\UpsertReplacerStateCommand.cs" />
+    <Compile Include="Command\ReplacerState\UpsertReplacerStateCommandHandler.cs" />
     <Compile Include="Command\Parsers\UpsertCsvParserCommand.cs" />
     <Compile Include="Command\Parsers\UpsertCsvParserCommandHandler.cs" />
     <Compile Include="Command\States\UpsertSearchStateCommand.cs" />
