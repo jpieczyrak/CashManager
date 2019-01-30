@@ -5,6 +5,7 @@ using Autofac;
 
 using CashManager.Features.Common;
 using CashManager.Features.Parsers;
+using CashManager.Logic.Parsers;
 using CashManager.Model;
 using CashManager.Model.Common;
 using CashManager.Tests.ViewModels.Fixtures;
@@ -30,6 +31,7 @@ namespace CashManager.Tests.ViewModels
         {
             //given
             var vm = _fixture.Container.Resolve<ParserViewModelBase>();
+            vm.Parser = new GetinBankParser();
             vm.SelectedUserStock = vm.SelectedExternalStock = new Stock();
             var transaction = new Transaction
             {
@@ -58,6 +60,7 @@ namespace CashManager.Tests.ViewModels
         {
             //given
             var vm = _fixture.Container.Resolve<ParserViewModelBase>();
+            vm.Parser = new GetinBankParser();
             string title = "title 1";
             var transaction = new Transaction
             {

@@ -77,7 +77,7 @@ namespace CashManager.Features.Parsers
         public IParser Parser
         {
             get => _parser;
-            protected internal set
+            set
             {
                 _parser = value;
                 Clear();
