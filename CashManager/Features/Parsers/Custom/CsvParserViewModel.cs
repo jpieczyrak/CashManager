@@ -22,6 +22,7 @@ namespace CashManager.Features.Parsers.Custom
 {
     public class CsvParserViewModel : ParserViewModelBase
     {
+        private const string DEFAULT_COLUMN_SPLITTER = ";";
         private TrulyObservableCollection<Rule> _rules;
 
         private string _columnSplitter;
@@ -54,18 +55,15 @@ namespace CashManager.Features.Parsers.Custom
 
         public ObservableCollection<BaseObservableObject> Parsers { get; private set; }
 
+        public RelayCommand ClearCommand { get; }
+
         public RelayCommand<string> ParserSaveCommand { get; }
+
         public RelayCommand<BaseObservableObject> ParserLoadCommand { get; }
 
         public CsvParserViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider) : base(queryDispatcher,
             commandDispatcher, transactionsProvider)
         {
-            _columnSplitter = ";";
-            Rules = new TrulyObservableCollection<Rule>
-            {
-                new Rule { Column = 1, Property = TransactionField.Title, IsOptional = false }
-            };
-            Rules.CollectionChanged += (sender, args) => UpdateParser();
             AddRuleCommand = new RelayCommand(() => Rules.Add(new Rule
             {
                 Property = NotUsedProperties.FirstOrDefault(),
@@ -91,9 +89,21 @@ namespace CashManager.Features.Parsers.Custom
                 ColumnSplitter = parser.ColumnSplitter;
                 UpdateParser();
             }, selected => selected != null);
+            ClearCommand = new RelayCommand(Clear);
 
             var customCsvParsers = _queryDispatcher.Execute<CustomCsvParserQuery, Data.ViewModelState.Parsers.CustomCsvParser[]>(new CustomCsvParserQuery()).OrderBy(x => x.Name);
             Parsers = new ObservableCollection<BaseObservableObject>(Mapper.Map<Model.Parsers.CustomCsvParser[]>(customCsvParsers));
+            Clear();
+            Rules.CollectionChanged += (sender, args) => UpdateParser();
+        }
+
+        private void Clear()
+        {
+            Rules = new TrulyObservableCollection<Rule>
+            {
+                new Rule { Column = 1, Property = TransactionField.Title, IsOptional = false }
+            };
+            ColumnSplitter = DEFAULT_COLUMN_SPLITTER;
         }
 
         private IEnumerable<TransactionField> NotUsedProperties => AvailableProperties.Except(Rules.Select(x => x.Property));
