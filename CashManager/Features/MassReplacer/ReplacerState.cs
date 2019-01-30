@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Windows.Media;
 
 using AutoMapper;
 
@@ -154,5 +153,10 @@ namespace CashManager.Features.MassReplacer
         }
 
         public override string ToString() => Name;
+
+        public void Clear()
+        {
+            ApplyReplaceCriteria(new ReplacerState());
+        }
     }
 }

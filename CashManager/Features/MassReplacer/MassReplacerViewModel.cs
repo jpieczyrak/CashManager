@@ -33,8 +33,10 @@ namespace CashManager.Features.MassReplacer
         public ObservableCollection<BaseObservableObject> Patterns { get; private set; }
 
         public RelayCommand PerformCommand { get; }
+        public RelayCommand ClearMassReplacerStateCommand { get; }
 
         public RelayCommand<string> MassReplacerSaveCommand { get; }
+
         public RelayCommand<BaseObservableObject> MassReplacerLoadCommand { get; }
 
         public MassReplacerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory)
@@ -76,6 +78,11 @@ namespace CashManager.Features.MassReplacer
                 SearchViewModel.State.ApplySearchCriteria(state.SearchState);
                 State.ApplyReplaceCriteria(state);
             }, selected => selected != null);
+
+            ClearMassReplacerStateCommand = new RelayCommand(() =>
+            {
+                State.Clear();
+            });
 
             var patterns = _queryDispatcher.Execute<ReplacerStateQuery, MassReplacerState[]>(new ReplacerStateQuery())
                                            .OrderBy(x => x.Name);

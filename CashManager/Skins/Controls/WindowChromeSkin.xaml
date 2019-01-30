@@ -44,7 +44,7 @@
         </Grid>
     </ControlTemplate>
     <ControlTemplate x:Key="Close" TargetType="{x:Type Button}">
-        <Grid Width="40" Height="20" WindowChrome.IsHitTestVisibleInChrome="True">
+        <Grid Width="22" Height="22" WindowChrome.IsHitTestVisibleInChrome="True">
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal" />
@@ -67,13 +67,13 @@
                     <VisualState x:Name="Disabled" />
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
-            <Rectangle x:Name="rectangle" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="40"
-                       Fill="{DynamicResource BackgroundColorBrush}" />
-            <Path x:Name="path" Fill="{DynamicResource BorderBrush}" HorizontalAlignment="Center" Height="22"
-                  VerticalAlignment="Center"
+            <Rectangle x:Name="rectangle" HorizontalAlignment="Stretch" Height="22" VerticalAlignment="Stretch" Width="22"
+                       Fill="{DynamicResource BackgroundColorBrush}" Margin="0" Stretch="Uniform" />
+            <Path x:Name="path" Fill="{DynamicResource BorderBrush}" HorizontalAlignment="Stretch" Height="22"
+                  VerticalAlignment="Stretch"
                   Data="M11.558,0 L16.619999,0 16.619999,11.558 28.178,11.558 28.178,16.620001 16.619999,16.620001 16.619999,28.178 11.558,28.178 11.558,16.620001 0,16.620001 0,11.558 11.558,11.558 z"
-                  Margin="-0.821,-0.694,-0.728,-0.412" RenderTransformOrigin="0.499999978204051,0.500000009945565"
-                  Stretch="Fill" Width="22">
+                  Margin="0" RenderTransformOrigin="0.499999978204051,0.500000009945565"
+                  Stretch="Uniform" Width="22">
                 <Path.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform />
