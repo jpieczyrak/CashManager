@@ -93,6 +93,9 @@ namespace CashManager.Model.Selectors
                 case MultiPickerType.TransactionType:
                     Description = Strings.TransactionTypes;
                     break;
+                case MultiPickerType.ReplacerStates:
+                    Description = Resources.PerformReplaces;
+                    break;
             }
 
             ComboBox = new MultiComboBoxViewModel();

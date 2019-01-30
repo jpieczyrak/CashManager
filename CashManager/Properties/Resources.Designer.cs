@@ -61,6 +61,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Perform replaces.
+        /// </summary>
+        public static string PerformReplaces {
+            get {
+                return ResourceManager.GetString("PerformReplaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Regex.
         /// </summary>
         public static string Regex {

@@ -120,4 +120,7 @@
   <data name="Regex" xml:space="preserve">
     <value>Regex</value>
   </data>
+  <data name="PerformReplaces" xml:space="preserve">
+    <value>Perform replaces</value>
+  </data>
 </root>
