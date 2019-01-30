@@ -142,12 +142,13 @@ namespace CashManager
 
         private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-#if DEBUG
-            string errorMessage = $"An unhandled exception: {e.Exception.Message}";
-            MessageBox.Show(errorMessage, "Error [OnDispatcherUnhandledException]", MessageBoxButton.OK, MessageBoxImage.Error);
-#endif
             _logger.Value.Fatal("An unhandled exception", e.Exception);
+#if DEBUG
             e.Handled = false;
+#else
+            e.Handled = true;
+            Current.Shutdown();
+#endif
         }
 
         #region Override
