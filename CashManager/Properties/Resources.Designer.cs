@@ -59,23 +59,5 @@ namespace CashManager.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Perform replaces.
-        /// </summary>
-        public static string PerformReplaces {
-            get {
-                return ResourceManager.GetString("PerformReplaces", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Regex.
-        /// </summary>
-        public static string Regex {
-            get {
-                return ResourceManager.GetString("Regex", resourceCulture);
-            }
-        }
     }
 }

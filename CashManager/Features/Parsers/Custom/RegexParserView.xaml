@@ -16,7 +16,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBox Text="{Binding RegexValue, UpdateSourceTrigger=PropertyChanged}" ToolTip="{x:Static properties:Resources.Regex}" Margin="5" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="40" MaxHeight="200" />
+        <TextBox Text="{Binding RegexValue, UpdateSourceTrigger=PropertyChanged}" ToolTip="{x:Static properties:Strings.Regex}" Margin="5" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="40" MaxHeight="200" />
         
         <parsers:BaseParserView Grid.Row="1"/>
     </Grid>

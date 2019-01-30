@@ -918,6 +918,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Perform replaces.
+        /// </summary>
+        public static string PerformReplaces {
+            get {
+                return ResourceManager.GetString("PerformReplaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter password.
         /// </summary>
         public static string PleaseEnterPassword {

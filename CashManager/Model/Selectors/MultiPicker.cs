@@ -94,7 +94,7 @@ namespace CashManager.Model.Selectors
                     Description = Strings.TransactionTypes;
                     break;
                 case MultiPickerType.ReplacerStates:
-                    Description = Resources.PerformReplaces;
+                    Description = Strings.PerformReplaces;
                     break;
             }
 
