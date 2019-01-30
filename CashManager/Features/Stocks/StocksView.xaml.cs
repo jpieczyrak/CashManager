@@ -7,9 +7,6 @@ namespace CashManager.Features.Stocks
     /// </summary>
     public partial class StocksView : UserControl
     {
-        public StocksView()
-        {
-            InitializeComponent();
-        }
+        public StocksView() { InitializeComponent(); }
     }
 }
