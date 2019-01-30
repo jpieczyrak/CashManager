@@ -52,7 +52,6 @@ namespace CashManager.Features.Parsers.Custom
 
         public TransactionField[] AvailableProperties => Enum.GetValues(typeof(TransactionField)).OfType<TransactionField>().OrderBy(x => x.ToString()).ToArray();
 
-
         public ObservableCollection<BaseObservableObject> Parsers { get; private set; }
 
         public RelayCommand<string> ParserSaveCommand { get; }
@@ -73,23 +72,27 @@ namespace CashManager.Features.Parsers.Custom
                 Column = (Rules.LastOrDefault()?.Column ?? 0) + 1
             }));
             RemoveRuleCommand = new RelayCommand<Rule>(x => Rules.Remove(x));
-            ParserSaveCommand = new RelayCommand<string>(x =>
+            ParserSaveCommand = new RelayCommand<string>(name =>
             {
-                (Parser as CustomCsvParser).Name = x;
+                (Parser as CustomCsvParser).Name = name;
                 var parser = Mapper.Map<Data.ViewModelState.Parsers.CustomCsvParser>(Parser);
                 _commandDispatcher.Execute(new UpsertCsvParserCommand(parser));
-                Parsers.Add(Mapper.Map<Model.Parsers.CustomCsvParser>(Parser));
+
+                var modelParser = Mapper.Map<Model.Parsers.CustomCsvParser>(Parser);
+                Parsers.Remove(modelParser);
+                Parsers.Add(modelParser);
             }, x => !string.IsNullOrWhiteSpace(x));
-            ParserLoadCommand = new RelayCommand<BaseObservableObject>(x =>
+            ParserLoadCommand = new RelayCommand<BaseObservableObject>(selected =>
             {
-                var parser = x as Model.Parsers.CustomCsvParser;
-                Parser = Mapper.Map<CustomCsvParser>(x);
+                var parser = selected as Model.Parsers.CustomCsvParser;
+                Parser = Mapper.Map<CustomCsvParser>(selected);
                 Rules.Clear();
                 Rules.AddRange(Mapper.Map<Rule[]>(parser.Rules));
                 ColumnSplitter = parser.ColumnSplitter;
-            }, x => x != null);
+                UpdateParser();
+            }, selected => selected != null);
 
-            var customCsvParsers = _queryDispatcher.Execute<CustomCsvParserQuery, Data.ViewModelState.Parsers.CustomCsvParser[]>(new CustomCsvParserQuery());
+            var customCsvParsers = _queryDispatcher.Execute<CustomCsvParserQuery, Data.ViewModelState.Parsers.CustomCsvParser[]>(new CustomCsvParserQuery()).OrderBy(x => x.Name);
             Parsers = new ObservableCollection<BaseObservableObject>(Mapper.Map<Model.Parsers.CustomCsvParser[]>(customCsvParsers));
         }
 
