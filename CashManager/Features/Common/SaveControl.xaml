@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:common="clr-namespace:CashManager.Features.Common"
              mc:Ignorable="d"
-             d:DesignHeight="30" d:DesignWidth="30">
+             d:DesignHeight="75" d:DesignWidth="75">
     <Grid>
-        <Button x:Name="Button" Style="{DynamicResource SaveButtonStyle}" Click="ButtonOpenClick">
+        <Button x:Name="Button" Style="{DynamicResource SaveButtonStyle}" Click="ButtonOpenClick" Width="Auto" Height="Auto">
             <Button.Resources>
                 <Style x:Key="SaveButtonStyle" TargetType="{x:Type Button}">
                     <Setter Property="Template" Value="{DynamicResource SaveButtonControlTemplate}" />
@@ -44,7 +44,7 @@
                                 <VisualState x:Name="Disabled" />
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Path x:Name="path" Stretch="UniformToFill"
+                        <Path x:Name="path" Stretch="Uniform"
                               Data="M21.987,79.021004 L77.653999,79.021004 77.653999,83.521004 21.987,83.521004 z M21.987,68.521004 L77.653999,68.521004 77.653999,73.021004 21.987,73.021004 z M21.987,58.021004 L77.653999,58.021004 77.653999,62.521004 21.987,62.521004 z M14.528999,48.271006 L14.528999,93.31301 85.403999,93.31301 85.403999,48.271006 z M56.403999,14.563004 L67.403999,14.563004 67.403999,35.188004 56.403999,35.188004 z M20.528999,10.438004 C18.31986,10.438004 16.528999,12.228867 16.528998,14.438004 L16.528998,35.438004 C16.528999,37.647144 18.31986,39.438004 20.528999,39.438004 L75.653999,39.438004 C77.863136,39.438004 79.653999,37.647144 79.653999,35.438004 L79.653999,14.438004 C79.653999,12.228867 77.863136,10.438004 75.653999,10.438004 z M4.5,0.5 L85.578232,0.5 99.5,14.896473 99.5,95.188004 C99.5,97.397141 97.709137,99.188004 95.5,99.188004 L4.5,99.188004 C2.2908611,99.188004 0.5,97.397141 0.5,95.188004 L0.5,4.5 C0.5,2.290863 2.2908611,0.5 4.5,0.5 z"
                               Fill="{DynamicResource ControlBackgroundBrush}" HorizontalAlignment="Stretch"
                               Height="Auto" Margin="0" Stroke="{DynamicResource BorderBrush}"
