@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="CashManager.Features.MassReplacer.MassReplacerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:massReplacer="clr-namespace:CashManager.Features.MassReplacer"
+             xmlns:properties="clr-namespace:CashManager.Properties"
+             xmlns:search="clr-namespace:CashManager.Features.Search"
+             xmlns:setters="clr-namespace:CashManager.Features.MassReplacer.Setters"
+             xmlns:common="clr-namespace:CashManager.Features.Common"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=massReplacer:MassReplacerViewModel, IsDesignTimeCreatable=True}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <search:SearchView Grid.Row="0" Content="{Binding SearchViewModel}"/>
+        <Grid Grid.Row="1" Margin="20,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
+            <TextBlock Grid.Column="1" Text="{x:Static properties:Strings.MassReplace}" Margin="10,0" Style="{DynamicResource GrayTextBlock}" Height="Auto" />
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="0" Margin="5,0"/>
+                <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="22" >
+                    <Button Template="{DynamicResource Close}" Command="{Binding ClearMassReplacerStateCommand}" Margin="0,0,5,0" HorizontalAlignment="Right" Width="22" />
+                    <common:SaveControl Command="{Binding MassReplacerSaveCommand}" Margin="0,0,5,0" />
+                    <common:LoadControl Command="{Binding MassReplacerLoadCommand}" Elements="{Binding Patterns}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <setters:TextSetterControl Grid.Row="0" Grid.Column="0" DataContext="{Binding State.TitleSelector}" />
+            <setters:TextSetterControl Grid.Row="0" Grid.Column="1" DataContext="{Binding State.NoteSelector}" />
+            <setters:TextSetterControl Grid.Row="0" Grid.Column="2" DataContext="{Binding State.PositionTitleSelector}" />
+
+            <setters:MultiSetterControl Grid.Row="1" Grid.Column="0" DataContext="{Binding State.TagsSelector}" />
+            <setters:SingleSetterControl Grid.Row="1" Grid.Column="1" DataContext="{Binding State.CategoriesSelector}" />
+            <setters:SingleSetterControl Grid.Row="1" Grid.Column="2" DataContext="{Binding State.TypesSelector}" />
+
+            <setters:DateSetterControl Grid.Row="2" Grid.Column="0" DataContext="{Binding State.BookDateSetter}" />
+            <setters:SingleSetterControl Grid.Row="2" Grid.Column="1" DataContext="{Binding State.UserStocksSelector}" />
+            <setters:SingleSetterControl Grid.Row="2" Grid.Column="2" DataContext="{Binding State.ExternalStocksSelector}" />
+            
+            <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                    Margin="0,5" Height="35" Width="150"
+                    Content="{x:Static properties:Strings.Perform}" Command="{Binding PerformCommand}" />
+        </Grid>
+    </Grid>
+</UserControl>

@@ -2,9 +2,8 @@
 
 using Autofac;
 
+using CashManager.Features.Search;
 using CashManager.Tests.ViewModels.Fixtures;
-
-using CashManager_MVVM.Features.Search;
 
 using Xunit;
 

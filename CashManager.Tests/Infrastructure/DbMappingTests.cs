@@ -12,6 +12,11 @@ namespace CashManager.Tests.Infrastructure
 {
     public class DbMappingTests
     {
+        private const string POSITIONS_NAME = nameof(Transaction.Positions);
+        private const string CATEGORY_NAME = nameof(Position.Category);
+        private const string PARENT_NAME = nameof(Category.Parent);
+        private const string TAGS_NAME = nameof(Position.Tags);
+
         [Fact]
         public void SimpleReferenceReadingTest()
         {
@@ -50,7 +55,16 @@ namespace CashManager.Tests.Infrastructure
             repo.Database.UpsertBulk(positions.ToArray());
 
             //then
-            var actual = repo.Database.Query<Transaction>().First();
+            var actual = repo.Database.GetCollection<Transaction>()
+                             .Include(x => x.ExternalStock)
+                             .Include(x => x.UserStock)
+                             .Include(x => x.Type)
+                             .Include(x => x.Positions)
+                             .Include($"$.{POSITIONS_NAME}[*].{TAGS_NAME}[*]")
+                             .Include($"$.{POSITIONS_NAME}[*].{CATEGORY_NAME}")
+                             .Include($"$.{POSITIONS_NAME}[*].{CATEGORY_NAME}.{PARENT_NAME}")
+                             .FindAll()
+                             .First();
             Assert.StrictEqual(transaction, actual);
 
             Assert.Equal(transaction.ExternalStock, actual.ExternalStock);
@@ -115,13 +129,22 @@ namespace CashManager.Tests.Infrastructure
 
             //modify
             transaction.Positions.First().Value.GrossValue += 666.66m;
-            repo.Database.Upsert(transaction.Positions.First());
+            repo.Database.Upsert(transaction); //when positions are a collection then use: .Positions.First()
 
             transaction.ExternalStock.Name += "test";
             repo.Database.Upsert(transaction.ExternalStock);
 
             //then
-            var actual = repo.Database.Query<Transaction>().First();
+            var actual = repo.Database.GetCollection<Transaction>()
+                             .Include(x => x.ExternalStock)
+                             .Include(x => x.UserStock)
+                             .Include(x => x.Type)
+                             .Include(x => x.Positions)
+                             .Include($"$.{POSITIONS_NAME}[*].{TAGS_NAME}[*]")
+                             .Include($"$.{POSITIONS_NAME}[*].{CATEGORY_NAME}")
+                             .Include($"$.{POSITIONS_NAME}[*].{CATEGORY_NAME}.{PARENT_NAME}")
+                             .FindAll()
+                             .First();
             Assert.StrictEqual(transaction, actual);
 
             Assert.Equal(transaction.ExternalStock, actual.ExternalStock);

@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="CashManager.Features.MassReplacer.Setters.MultiSetterControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:properties="clr-namespace:CashManager.Properties"
+             xmlns:setters="clr-namespace:CashManager.Model.Setters"
+             mc:Ignorable="d" 
+             d:DesignHeight="70" d:DesignWidth="350"
+             d:DataContext="{d:DesignInstance Type=setters:MultiSetter, IsDesignTimeCreatable=True}">
+    <Grid>
+        <Border BorderThickness="1" CornerRadius="5" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="2,0,2,3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" MaxHeight="25"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Column="0">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,5,0">
+                        <CheckBox IsChecked="{Binding IsChecked}" ToolTip="{x:Static properties:Strings.Enable}" Style="{StaticResource OnlyCheckBox}" />
+                        <CheckBox IsChecked="{Binding AllSelected}" Style="{StaticResource OnlyCheckBox}" ToolTip="{x:Static properties:Strings.SelectAllNone}" IsThreeState="True" Margin="0,2,2,0" />
+                        <CheckBox IsChecked="{Binding Append}" Style="{StaticResource OnlyCheckBox}" ToolTip="{x:Static properties:Strings.AppendMode}" Margin="0,2,2,0" />
+                    </StackPanel>
+                    <Separator Background="{DynamicResource DisabledForegroundBrush}" Margin="0,0,5,0" Width="Auto"/>
+                </DockPanel>
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Description}" Style="{DynamicResource GrayTextBlock}" />
+                <Separator Background="{DynamicResource DisabledForegroundBrush}" Grid.Column="2" Grid.Row="0" Margin="5,0"/>
+                <UserControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="5" Content="{Binding ComboBox}" VerticalAlignment="Bottom"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

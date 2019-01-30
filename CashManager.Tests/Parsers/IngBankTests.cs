@@ -3,6 +3,7 @@ using System.Linq;
 
 using CashManager.Data.DTO;
 using CashManager.Logic.Parsers;
+using CashManager.Properties;
 
 using Xunit;
 
@@ -42,7 +43,7 @@ trash";
             var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
             string title = @"ICON FITNESS GLIWICE GLIWICE PL Płatność kartą 02.12.2018 Nr karty 4246xx9261";
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"Rozrywka i podróże, KONTO Direct saldo: {1832.05:#,##0.00} (PLN)",
+                $"Rozrywka i podróże, KONTO Direct saldo: {1832.05.ToString(Strings.ValueFormat)} (PLN)",
                 new[]
                 {
                     new Position
@@ -85,7 +86,7 @@ Saldo po transakcji
             string title = "Przelew własny";
             decimal balance = 1881.05m;
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"Transfer wewnętrzny, KONTO Direct saldo: {balance:#,##0.00} (PLN)",
+                $"Transfer wewnętrzny, KONTO Direct saldo: {balance.ToString(Strings.ValueFormat)} (PLN)",
                 new[]
                 {
                     new Position
@@ -182,7 +183,7 @@ trash";
             string title = @"ICON FITNESS GLIWICE GLIWICE PL Płatność kartą 02.12.2018 Nr karty 4246xx9261";
             decimal balance = 1832.05m;
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"Rozrywka i podróże, KONTO Direct saldo: {balance:#,##0.00} (PLN)",
+                $"Rozrywka i podróże, KONTO Direct saldo: {balance.ToString(Strings.ValueFormat)} (PLN)",
                 new[]
                 {
                     new Position
@@ -232,7 +233,7 @@ trash
             string title = @"NALICZONE ODSETKI";
             decimal balance = 1479.68m;
             var expected = new Transaction(incomeType, creationDate, title,
-                $"Przychód, Smart Saver saldo: {balance:#,##0.00} (PLN)",
+                $"Przychód, Smart Saver saldo: {balance.ToString(Strings.ValueFormat)} (PLN)",
                 new[]
                 {
                     new Position

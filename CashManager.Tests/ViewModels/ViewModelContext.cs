@@ -6,17 +6,16 @@ using Autofac;
 
 using AutoMapper;
 
+using CashManager.CommonData;
+using CashManager.Configuration.DI;
+using CashManager.Features;
+using CashManager.Features.Main;
+using CashManager.Features.Search;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.DbConnection;
 using CashManager.Infrastructure.Query;
 using CashManager.Logic.DefaultData;
-
-using CashManager_MVVM.CommonData;
-using CashManager_MVVM.Configuration.DI;
-using CashManager_MVVM.Features;
-using CashManager_MVVM.Features.Main;
-using CashManager_MVVM.Features.Search;
-using CashManager_MVVM.Model;
+using CashManager.Model;
 
 using GalaSoft.MvvmLight;
 
@@ -28,7 +27,7 @@ using DtoTransaction = CashManager.Data.DTO.Transaction;
 using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 using DtoStock = CashManager.Data.DTO.Stock;
 using DtoTag = CashManager.Data.DTO.Tag;
-using MapperConfiguration = CashManager_MVVM.Configuration.Mapping.MapperConfiguration;
+using MapperConfiguration = CashManager.Configuration.Mapping.MapperConfiguration;
 
 namespace CashManager.Tests.ViewModels
 {
@@ -121,7 +120,7 @@ namespace CashManager.Tests.ViewModels
                 }
         }
 
-        private static IContainer GetContainer()
+        internal static IContainer GetContainer()
         {
             MapperConfiguration.Configure();
             var builder = AutofacConfiguration.ContainerBuilder();
@@ -129,12 +128,11 @@ namespace CashManager.Tests.ViewModels
             //override db register
             builder.Register(x => new LiteRepository(new LiteDatabase(new MemoryStream()))).SingleInstance().ExternallyOwned();
 
-            //override - we dont want to have singletons in tests
-            builder.RegisterAssemblyTypes(typeof(ApplicationViewModel).Assembly)
-                   .Where(t => t.IsSubclassOf(typeof(ViewModelBase)))
-                   .Named<ViewModelBase>(x => x.Name)
-                   .As(t => t);
-            builder.RegisterType<TransactionsProvider>().As<TransactionsProvider>();
+            builder.RegisterType<ApplicationViewModel>()
+                   .Named<ViewModelBase>(nameof(ApplicationViewModel))
+                   .As<ViewModelBase>()
+                   .As<ApplicationViewModel>()
+                   .SingleInstance();
 
             //search should be perform instantly in tests
             builder.Register(x =>

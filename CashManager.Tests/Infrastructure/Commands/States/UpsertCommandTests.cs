@@ -9,6 +9,8 @@ using CashManager.Tests.Utils;
 
 using Xunit;
 
+using MapperConfiguration = CashManager.Configuration.Mapping.MapperConfiguration;
+
 namespace CashManager.Tests.Infrastructure.Commands.States
 {
     public class UpsertCommandTests
@@ -51,15 +53,15 @@ namespace CashManager.Tests.Infrastructure.Commands.States
         public void UpsertSearchStateCommandHandler_UpsertOneObjectWithoutNameNonEmptyDb_OneInstanceOfSavedObjectInDb()
         {
             //given
-            CashManager_MVVM.Configuration.Mapping.MapperConfiguration.Configure();
-            var searchState = new CashManager_MVVM.Features.Search.SearchState();
+            MapperConfiguration.Configure();
+            var searchState = new Features.Search.SearchState();
             var state = Mapper.Map<SearchState>(searchState);
 
             var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new UpsertSearchStateCommandHandler(repository);
             var command = new UpsertSearchStateCommand(state);
 
-            repository.Database.Upsert(Mapper.Map<SearchState>(new CashManager_MVVM.Features.Search.SearchState()));
+            repository.Database.Upsert(Mapper.Map<SearchState>(new Features.Search.SearchState()));
 
             //when
             handler.Execute(command);

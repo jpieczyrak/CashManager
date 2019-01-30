@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="CashManager.Features.Summary.SummaryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:oxy="http://oxyplot.org/wpf"
+             xmlns:common1="clr-namespace:CashManager.Features.Common"
+             xmlns:selectors1="clr-namespace:CashManager.Features.Search.Selectors"
+             xmlns:stocks1="clr-namespace:CashManager.Features.Stocks"
+             xmlns:summary="clr-namespace:CashManager.Features.Summary"
+             xmlns:properties="clr-namespace:CashManager.Properties"
+             mc:Ignorable="d"
+             d:DesignHeight="250" d:DesignWidth="600"
+             d:DataContext="{d:DesignInstance Type=summary:SummaryViewModel, IsDesignTimeCreatable=True}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="275"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <oxy:PlotView Grid.Row="0" Model="{Binding BalanceModel}" ToolTip="Balance">
+                <oxy:PlotView.DefaultTrackerTemplate>
+                    <ControlTemplate>
+                        <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                        <oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}">
+                            <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                            <oxy:TrackerControl.Background>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="{DynamicResource DisabledBorderColor}" />
+                                    <GradientStop Offset="1" Color="{DynamicResource BackgroundAccentColor}" />
+                                </LinearGradientBrush>
+                            </oxy:TrackerControl.Background>
+                            <oxy:TrackerControl.Content>
+                                <TextBlock Text="{Binding}" Margin="8" />
+                            </oxy:TrackerControl.Content>
+                        </oxy:TrackerControl>
+                    </ControlTemplate>
+                </oxy:PlotView.DefaultTrackerTemplate>
+            </oxy:PlotView>
+            <oxy:PlotView Grid.Row="1" Model="{Binding FlowsModel}" ToolTip="Income / outcome">
+                <oxy:PlotView.DefaultTrackerTemplate>
+                    <ControlTemplate>
+                        <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                        <oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}">
+                            <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                            <oxy:TrackerControl.Background>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="{DynamicResource DisabledBorderColor}" />
+                                    <GradientStop Offset="1" Color="{DynamicResource BackgroundAccentColor}" />
+                                </LinearGradientBrush>
+                            </oxy:TrackerControl.Background>
+                            <oxy:TrackerControl.Content>
+                                <TextBlock Text="{Binding}" Margin="8" />
+                            </oxy:TrackerControl.Content>
+                        </oxy:TrackerControl>
+                    </ControlTemplate>
+                </oxy:PlotView.DefaultTrackerTemplate>
+            </oxy:PlotView>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <common1:DateRangePicker Grid.Row="0" DateFrameSelector="{Binding BookDateFilter}" Margin="0,10,0,0" MaxWidth="280" />
+            <selectors1:MultiPickerControl Grid.Row="1" DataContext="{Binding UserStocksFilter}" />
+            <oxy:PlotView Grid.Row="2" Model="{Binding YearBalanceModel}" ToolTip="Year balance">
+                <oxy:PlotView.DefaultTrackerTemplate>
+                    <ControlTemplate>
+                        <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                        <oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}">
+                            <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                            <oxy:TrackerControl.Background>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="{DynamicResource DisabledBorderColor}" />
+                                    <GradientStop Offset="1" Color="{DynamicResource BackgroundAccentColor}" />
+                                </LinearGradientBrush>
+                            </oxy:TrackerControl.Background>
+                            <oxy:TrackerControl.Content>
+                                <TextBlock Text="{Binding}" Margin="8" />
+                            </oxy:TrackerControl.Content>
+                        </oxy:TrackerControl>
+                    </ControlTemplate>
+                </oxy:PlotView.DefaultTrackerTemplate>
+            </oxy:PlotView>
+
+            <DataGrid Grid.Row="3" ItemsSource="{Binding Balances}" AutoGenerateColumns="False" Margin="5">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{x:Static properties:Strings.Date}" Binding="{Binding Name}" Width="Auto" />
+                    <DataGridTextColumn Header="{x:Static properties:Strings.Income}" Binding="{Binding GrossIncome, StringFormat={x:Static properties:Strings.ValueFormat}}" Width="Auto" />
+                    <DataGridTextColumn Header="{x:Static properties:Strings.Outcome}" Binding="{Binding GrossOutcome, StringFormat={x:Static properties:Strings.ValueFormat}}" Width="Auto" />
+                    <DataGridTextColumn Header="{x:Static properties:Strings.Balance}" Binding="{Binding GrossBalance, StringFormat={x:Static properties:Strings.ValueFormat}}" Width="Auto" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <stocks1:StockSummaryView Grid.Row="4" Content="{Binding StocksSummaryViewModel}" Margin="5" />
+        </Grid>
+    </Grid>
+</UserControl>

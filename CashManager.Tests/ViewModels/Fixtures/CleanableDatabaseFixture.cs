@@ -2,19 +2,17 @@
 
 using Autofac;
 
-using LiteDB;
-
 namespace CashManager.Tests.ViewModels.Fixtures
 {
     public class CleanableDatabaseFixture : IDisposable
     {
-        public ViewModelContext ViewModelContext { get; private set; }
+        private Lazy<IContainer> ContainerWrapper { get; set; }
 
-        public IContainer Container => ViewModelContext.Container;
+        public IContainer Container => ContainerWrapper.Value;
 
         public CleanableDatabaseFixture()
         {
-            ViewModelContext = new ViewModelContext();
+            ContainerWrapper = new Lazy<IContainer>(ViewModelContext.GetContainer);
         }
 
         #region IDisposable
@@ -23,13 +21,9 @@ namespace CashManager.Tests.ViewModels.Fixtures
 
         #endregion
 
-        public void CleanDatabase()
+        public void Reset()
         {
-            var repository = Container.Resolve<LiteRepository>();
-            foreach (var name in repository.Database.GetCollectionNames())
-            {
-                repository.Database.GetCollection(name).Delete(Query.All());
-            }
+            if (ContainerWrapper.IsValueCreated) ContainerWrapper = new Lazy<IContainer>(ViewModelContext.GetContainer);
         }
     }
 }

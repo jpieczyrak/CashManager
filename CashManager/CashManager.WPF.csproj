@@ -1,0 +1,822 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{49BCCABB-E76D-4C04-82A4-20FB886AC076}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CashManager</RootNamespace>
+    <AssemblyName>CashManager</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PORTABLE,BETA</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;BETA</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Portable|AnyCPU'">
+    <OutputPath>bin\Portable\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Portable|x64'">
+    <OutputPath>bin\x64\Portable\</OutputPath>
+    <DefineConstants>TRACE;PORTABLE,BETA</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Portable|x86'">
+    <OutputPath>bin\x86\Portable\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\cash.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.3\lib\net45\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="DeltaCompressionDotNet, Version=1.1.0.0, Culture=neutral, PublicKeyToken=1d14d6e5194e7f4a, processorArchitecture=MSIL" Condition="$(DefineConstants.Contains('PORTABLE')) != true">
+      <HintPath>..\packages\DeltaCompressionDotNet.1.1.0\lib\net20\DeltaCompressionDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DeltaCompressionDotNet.MsDelta, Version=1.1.0.0, Culture=neutral, PublicKeyToken=46b2138a390abf55, processorArchitecture=MSIL" Condition="$(DefineConstants.Contains('PORTABLE')) != true">
+      <HintPath>..\packages\DeltaCompressionDotNet.1.1.0\lib\net20\DeltaCompressionDotNet.MsDelta.dll</HintPath>
+    </Reference>
+    <Reference Include="DeltaCompressionDotNet.PatchApi, Version=1.1.0.0, Culture=neutral, PublicKeyToken=3e8888ee913ed789, processorArchitecture=MSIL" Condition="$(DefineConstants.Contains('PORTABLE')) != true">
+      <HintPath>..\packages\DeltaCompressionDotNet.1.1.0\lib\net20\DeltaCompressionDotNet.PatchApi.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\gong-wpf-dragdrop.1.1.0\lib\net45\GongSolutions.Wpf.DragDrop.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL" Condition="$(DefineConstants.Contains('PORTABLE')) != true">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL" Condition="$(DefineConstants.Contains('PORTABLE')) != true">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL" Condition="$(DefineConstants.Contains('PORTABLE')) != true">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL" Condition="$(DefineConstants.Contains('PORTABLE')) != true">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Squirrel, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL" Condition="$(DefineConstants.Contains('PORTABLE')) != true">
+      <HintPath>..\packages\squirrel.windows.1.9.0\lib\Net45\NuGet.Squirrel.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Core.1.0.0\lib\net45\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Wpf.1.0.0\lib\net45\OxyPlot.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
+    <Reference Include="SharpCompress, Version=0.17.1.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL" Condition="$(DefineConstants.Contains('PORTABLE')) != true">
+      <HintPath>..\packages\SharpCompress.0.17.1\lib\net45\SharpCompress.dll</HintPath>
+    </Reference>
+    <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL" Condition="$(DefineConstants.Contains('PORTABLE')) != true">
+      <HintPath>..\packages\Splat.1.6.2\lib\Net45\Splat.dll</HintPath>
+    </Reference>
+    <Reference Include="Squirrel, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL" Condition="$(DefineConstants.Contains('PORTABLE')) != true">
+      <HintPath>..\packages\squirrel.windows.1.9.0\lib\Net45\Squirrel.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="CommonData\TransactionsProvider.cs" />
+    <Compile Include="Configuration\DI\AutofacConfiguration.cs" />
+    <Compile Include="Extensions\WindowExtensions.cs" />
+    <Compile Include="Features\Balance\CustomBalanceView.xaml.cs">
+      <DependentUpon>CustomBalanceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Balance\CustomBalanceViewModel.cs" />
+    <Compile Include="Features\Categories\CategoryDesignHelper.cs" />
+    <Compile Include="Features\Categories\CategoryManagerView.xaml.cs">
+      <DependentUpon>CategoryManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Categories\CategoryManagerViewModel.cs" />
+    <Compile Include="Features\Common\CustomWindow.cs" />
+    <Compile Include="Features\Common\DateRangePicker.xaml.cs">
+      <DependentUpon>DateRangePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Common\DateRangePickerViewModel.cs" />
+    <Compile Include="Features\Common\ExtendedDatePicker.xaml.cs">
+      <DependentUpon>ExtendedDatePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Common\ExtendedDatePickerViewModel.cs" />
+    <Compile Include="Features\Common\LoadControl.xaml.cs">
+      <DependentUpon>LoadControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Common\SaveControl.xaml.cs">
+      <DependentUpon>SaveControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Common\SimpleMessageBoxWindow.xaml.cs">
+      <DependentUpon>SimpleMessageBoxWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\IClosable.cs" />
+    <Compile Include="Features\Main\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Main\Init\InitWindow.xaml.cs">
+      <DependentUpon>InitWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Main\Init\InitViewModel.cs" />
+    <Compile Include="Features\Main\NotificationView.xaml.cs">
+      <DependentUpon>NotificationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Main\NotificationViewModel.cs" />
+    <Compile Include="Features\Main\PasswordPromptWindow.xaml.cs">
+      <DependentUpon>PasswordPromptWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Main\Settings\GeneralSettings.cs" />
+    <Compile Include="Features\Main\Settings\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Main\Settings\SettingsViewModel.cs" />
+    <Compile Include="Features\Main\Settings\WarningsSettings.cs" />
+    <Compile Include="Features\Main\ViewModel.cs" />
+    <Compile Include="Features\MassReplacer\ReplacerState.cs" />
+    <Compile Include="Features\MassReplacer\Selectors\SinglePickerControl.xaml.cs">
+      <DependentUpon>SinglePickerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\MassReplacer\Setters\MultiSetterControl.xaml.cs">
+      <DependentUpon>MultiSetterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\MassReplacer\Setters\SingleSetterControl.xaml.cs">
+      <DependentUpon>SingleSetterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\MassReplacer\Setters\TextSetterControl.xaml.cs">
+      <DependentUpon>TextSetterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Parsers\BaseParserView.xaml.cs">
+      <DependentUpon>BaseParserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Parsers\Custom\CsvParserView.xaml.cs">
+      <DependentUpon>CsvParserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Parsers\Custom\RegexParserView.xaml.cs">
+      <DependentUpon>RegexParserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Parsers\Custom\CsvParserViewModel.cs" />
+    <Compile Include="Features\Parsers\Custom\RegexParserViewModel.cs" />
+    <Compile Include="Features\Parsers\ParserViewModelBase.cs" />
+    <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
+      <DependentUpon>CategoriesPlotView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Plots\FilterableViewModel.cs" />
+    <Compile Include="Features\Plots\PlotHelper.cs" />
+    <Compile Include="Features\Plots\WealthView.xaml.cs">
+      <DependentUpon>WealthView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Plots\CategoriesPlotViewModel.cs" />
+    <Compile Include="Features\Plots\WealthViewModel.cs" />
+    <Compile Include="Features\MassReplacer\Setters\DateSetterControl.xaml.cs">
+      <DependentUpon>DateSetterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Search\Selectors\MultiPickerControl.xaml.cs">
+      <DependentUpon>MultiPickerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Search\Selectors\TextSelectorControl.xaml.cs">
+      <DependentUpon>TextSelectorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Search\Selectors\ValueRangeControl.xaml.cs">
+      <DependentUpon>ValueRangeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\Commands\Setters\MultiSetterCommand.cs" />
+    <Compile Include="Logic\Commands\Setters\SingleSetterCommand.cs" />
+    <Compile Include="Logic\Commands\Setters\TextSetterCommand.cs" />
+    <Compile Include="Logic\Creators\CorrectionsCreator.cs" />
+    <Compile Include="Logic\Creators\ICorrectionsCreator.cs" />
+    <Compile Include="Features\Transactions\PaymentValueControl.xaml.cs">
+      <DependentUpon>PaymentValueControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Transactions\TransactionEditMode.cs" />
+    <Compile Include="Features\Transactions\TransactionEditModes.cs" />
+    <Compile Include="Logic\Debouncer.cs" />
+    <Compile Include="Features\Search\SearchState.cs" />
+    <Compile Include="Features\MassReplacer\MassReplacerView.xaml.cs">
+      <DependentUpon>MassReplacerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\MassReplacer\MassReplacerViewModel.cs" />
+    <Compile Include="Features\Summary\SummaryView.xaml.cs">
+      <DependentUpon>SummaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Summary\SummaryViewModel.cs" />
+    <Compile Include="Features\Summary\TimeGroupingType.cs" />
+    <Compile Include="Features\Summary\TransactionTypeSelection.cs" />
+    <Compile Include="Features\Transactions\Positions\PositionListViewModel.cs" />
+    <Compile Include="Features\Search\SearchType.cs" />
+    <Compile Include="Features\Transactions\Positions\PositionListView.xaml.cs">
+      <DependentUpon>PositionListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\Balances\CustomBalance.cs" />
+    <Compile Include="Logic\Calculators\TransactionBalance.cs" />
+    <Compile Include="Logic\Calculators\TransactionBalanceCalculator.cs" />
+    <Compile Include="Logic\Commands\Filters\DateFrameFilter.cs" />
+    <Compile Include="Logic\Commands\Setters\DateSetterCommand.cs" />
+    <Compile Include="Logic\Commands\Setters\ISetter.cs" />
+    <Compile Include="Logic\Commands\Filters\MultiPickerFilter.cs" />
+    <Compile Include="Logic\Commands\Filters\RangeFilter.cs" />
+    <Compile Include="Logic\Commands\Filters\TextFilter.cs" />
+    <Compile Include="Messages\App\ApplicationUpdateMessage.cs" />
+    <Compile Include="Messages\Models\DeleteStockMessage.cs" />
+    <Compile Include="Model\BillImage.cs" />
+    <Compile Include="Model\Common\Selectable.cs" />
+    <Compile Include="Model\Common\IEditable.cs" />
+    <Compile Include="Model\Common\ISelectable.cs" />
+    <Compile Include="Features\Common\MultiCombobox.xaml.cs">
+      <DependentUpon>MultiCombobox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Common\MultiComboBoxViewModel.cs" />
+    <Compile Include="Features\IUpdateable.cs" />
+    <Compile Include="Features\Stocks\StockSummaryView.xaml.cs">
+      <DependentUpon>StockSummaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Stocks\StockSummaryViewModel.cs" />
+    <Compile Include="Features\Tags\TagManagerView.xaml.cs">
+      <DependentUpon>TagManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Tags\TagManagerViewModel.cs" />
+    <Compile Include="Features\Search\SearchView.xaml.cs">
+      <DependentUpon>SearchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Search\SearchViewModel.cs" />
+    <Compile Include="Features\TransactionTypes\TransactionTypesView.xaml.cs">
+      <DependentUpon>TransactionTypesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\TransactionTypes\TransactionTypesViewModel.cs" />
+    <Compile Include="Features\Stocks\StocksView.xaml.cs">
+      <DependentUpon>StocksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Stocks\StocksViewModel.cs" />
+    <Compile Include="Features\Transactions\TransactionListView.xaml.cs">
+      <DependentUpon>TransactionListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Transactions\TransactionListViewModel.cs" />
+    <Compile Include="Configuration\Mapping\MapperConfiguration.cs" />
+    <Compile Include="Messages\Models\UpdateStockMessage.cs" />
+    <Compile Include="Model\Balance.cs" />
+    <Compile Include="Model\Common\BaseObservableObject.cs" />
+    <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\Common\IBookable.cs" />
+    <Compile Include="Model\ExpandableCategory.cs" />
+    <Compile Include="Model\Parsers\CustomCsvParser.cs" />
+    <Compile Include="Model\Parsers\Rule.cs" />
+    <Compile Include="Model\Selectors\BaseSelector.cs" />
+    <Compile Include="Model\Selectors\DateFrameType.cs" />
+    <Compile Include="Model\Setters\DateSetter.cs" />
+    <Compile Include="Logic\Commands\Filters\IFilter.cs" />
+    <Compile Include="Model\Setters\DateSetterType.cs" />
+    <Compile Include="Model\Selectors\MultiPicker.cs" />
+    <Compile Include="Model\Selectors\MultiPickerType.cs" />
+    <Compile Include="Model\Selectors\RangeSelector.cs" />
+    <Compile Include="Model\Selectors\RangeSelectorType.cs" />
+    <Compile Include="Model\Selectors\SinglePicker.cs" />
+    <Compile Include="Model\Selectors\TextSelector.cs" />
+    <Compile Include="Model\PaymentValue.cs" />
+    <Compile Include="Model\Selectors\TextSelectorType.cs" />
+    <Compile Include="Model\Setters\MultiSetter.cs" />
+    <Compile Include="Model\Setters\SingleSetter.cs" />
+    <Compile Include="Model\Setters\TextSetter.cs" />
+    <Compile Include="Model\Setters\TextSetterType.cs" />
+    <Compile Include="Model\Stock.cs" />
+    <Compile Include="Model\Position.cs" />
+    <Compile Include="Model\StoredFileInfo.cs" />
+    <Compile Include="Model\TransactionsSummary.cs" />
+    <Compile Include="Model\Tag.cs" />
+    <Compile Include="Model\Selectors\DateFrameSelector.cs" />
+    <Compile Include="Model\Transaction.cs" />
+    <Compile Include="Features\ViewModelFactory.cs" />
+    <Compile Include="Features\Categories\CategoryPickerViewModel.cs" />
+    <Compile Include="Features\Main\ApplicationViewModel.cs" />
+    <Compile Include="Features\Transactions\TransactionViewModel.cs" />
+    <Compile Include="Features\Categories\CategoryPickerView.xaml.cs">
+      <DependentUpon>CategoryPickerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Transactions\TransactionView.xaml.cs">
+      <DependentUpon>TransactionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TransactionType.cs" />
+    <Compile Include="Properties\Strings.pl-PL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.pl-PL.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Skins\ColorsResourceDictionary.cs" />
+    <Compile Include="Skins\ShapesResourceDictionary.cs" />
+    <Compile Include="Skins\SkinColors.cs" />
+    <Compile Include="Skins\SkinShapes.cs" />
+    <Compile Include="Properties\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TrulyObservableCollection.cs" />
+    <Compile Include="UserCommunication\IMessagesService.cs" />
+    <Compile Include="UserCommunication\MessageBoxService.cs" />
+    <Compile Include="Utils\SettingsManager.cs" />
+    <Compile Include="Utils\SoundPlayerHelper.cs" />
+    <Compile Include="Utils\Updates\DefaultUpdatesManager.cs" />
+    <Compile Include="Utils\Updates\IUpdatesManager.cs" />
+    <Compile Include="Utils\Updates\SquirrelUpdatesManager.cs" Condition="$(DefineConstants.Contains('PORTABLE')) != true" />
+    <Page Include="Features\Balance\CustomBalanceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Categories\CategoryManagerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Common\DateRangePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Common\ExtendedDatePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Common\MultiCombobox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Common\LoadControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Common\SaveControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Common\SimpleMessageBoxWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Main\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Main\Init\InitWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Main\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Features\Main\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Features\Main\NotificationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Main\PasswordPromptWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Main\Settings\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\MassReplacer\Selectors\SinglePickerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\MassReplacer\Setters\MultiSetterControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\MassReplacer\Setters\SingleSetterControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\MassReplacer\Setters\TextSetterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Parsers\BaseParserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Parsers\Custom\CsvParserView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Parsers\Custom\RegexParserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Plots\CategoriesPlotView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Plots\WealthView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\MassReplacer\Setters\DateSetterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Search\Selectors\MultiPickerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Search\Selectors\TextSelectorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Search\Selectors\ValueRangeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Stocks\StockSummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Summary\SummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Tags\TagManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\MassReplacer\MassReplacerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Transactions\PaymentValueControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Transactions\Positions\PositionListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Search\SearchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\TransactionTypes\TransactionTypesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Stocks\StocksView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Transactions\TransactionListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Colors\BlackWhiteColors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\Colors\DarkRedColors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\Colors\YellowColors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\Controls\MenuSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\PaymentValueControlSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\RadioButtonSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Colors\DarkOrangeColors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Colors\LightColors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\ButtonSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\CheckBoxSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\ComboBoxSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\Controls\DataGridSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\DatePickerSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\PasswordBoxSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\PlotViewSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\TabItemSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\TooltipSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\WindowChromeSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\ScrollBarSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\TextBoxSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\TextBlockSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Categories\CategoryPickerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Transactions\TransactionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\DataModels\TransactionsSummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\DataModels\ViewModels.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Shapes\RectShapes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\Shapes\RoundShapes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\SliderSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\Controls\TabControlSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Strings.pl-PL.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.pl-PL.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="log4net.Portable.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="log4net.Release.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="log4net.Debug.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CashManager.Data\CashManager.Data.csproj">
+      <Project>{d83c69c0-18f7-4b7f-af7e-143091a26a30}</Project>
+      <Name>CashManager.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CashManager.Infrastructure\CashManager.Infrastructure.csproj">
+      <Project>{C0CD5651-D1B7-47F3-B034-A5CB00079B38}</Project>
+      <Name>CashManager.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CashManager.Logic\CashManager.Logic.csproj">
+      <Project>{9ec1c76c-cb71-4020-bab9-8b83b140def2}</Project>
+      <Name>CashManager.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cash.ico" />
+    <Content Include="Resources\Sounds\cash-register-purchase.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\coin-drop-into-pot.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\coin-drop-on-concrete.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>del "$(TargetDir)*.xml", "$(TargetDir)*.pdb","$(TargetDir)*.nupkg"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
+    <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
+      <Output TaskParameter="Assemblies" ItemName="myAssemblyInfo" />
+    </GetAssemblyIdentity>
+    <ItemGroup>
+      <!-- If your .NET version is <3.5 and you get build error, move this ItemGroup outside of Target -->
+      <NuGetExe Include="..\packages\NuGet.CommandLine.*\tools\nuget.exe" />
+      <SquirrelExe Include="..\packages\Squirrel.Windows.*\tools\squirrel.exe" />
+    </ItemGroup>
+    <PropertyGroup>
+      <ReleaseDir>$(SolutionDir)Releases\</ReleaseDir>
+      <!-- Extra optional params for squirrel. can be empty -->
+      <SquirrelParams>--no-msi --setupIcon $(ProjectDir)\Resources\cash.ico --icon $(ProjectDir)\Resources\cash.ico --i $(ProjectDir)\Resources\cash.ico</SquirrelParams>
+      <SemVerNumber>$([System.Version]::Parse(%(myAssemblyInfo.Version)).ToString(3))</SemVerNumber>
+    </PropertyGroup>
+    <!-- Add some nice errors for the next person that comes along -->
+    <Error Condition="!Exists(%(NuGetExe.FullPath))" Text="You are trying to use the NuGet.CommandLine package, but it is not installed. Please install NuGet.CommandLine from the Package Manager." />
+    <Error Condition="!Exists(%(SquirrelExe.FullPath))" Text="You are trying to use the Squirrel.Windows package, but it is not installed. Please install Squirrel.Windows from the Package Manager." />
+    <!-- Build nupkg into the project local bin\Release\ directory temporarily -->
+    <Exec Command="&quot;%(NuGetExe.FullPath)&quot; pack $(SolutionDir)$(SolutionName).nuspec -Version $(SemVerNumber) -OutputDirectory $(OutDir) -BasePath $(OutDir)" />
+    <!-- Squirrelify into the release dir (usually at solution level. Change the property above for a different location -->
+    <Exec Command="&quot;%(SquirrelExe.FullPath)&quot; --releasify $(ProjectDir)$(OutDir)$(SolutionName).$(SemVerNumber).nupkg --releaseDir=$(ReleaseDir) $(SquirrelParams)" />
+    <Exec Command="del &quot;$(TargetDir)*.nupkg&quot;" />
+  </Target>
+</Project>

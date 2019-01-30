@@ -8,9 +8,9 @@ namespace CashManager.Tests.Data.Data.Category
         public void ShouldProperlyCountParents()
         {
             //given
-            var child = new CashManager_MVVM.Model.Category { Name = "a1" };
-            var parent = new CashManager_MVVM.Model.Category { Name = "a2" };
-            var root = new CashManager_MVVM.Model.Category { Name = "a3" };
+            var child = new Model.Category { Name = "a1" };
+            var parent = new Model.Category { Name = "a2" };
+            var root = new Model.Category { Name = "a3" };
             child.Parent = parent;
             parent.Parent = root;
 

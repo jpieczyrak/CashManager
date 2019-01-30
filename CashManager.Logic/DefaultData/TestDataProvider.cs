@@ -14,6 +14,7 @@ namespace CashManager.Logic.DefaultData
         private readonly decimal[] _vats = { 5m, 8m, 23m };
 
         private readonly Lazy<Category[]> _categories;
+        private int _daysCount = 180;
 
         public TestDataProvider()
         {
@@ -28,8 +29,8 @@ namespace CashManager.Logic.DefaultData
         {
             return new[]
             {
-                new Stock { Name = "User1", IsUserStock = true, Balance = new Balance(DateTime.MinValue, 60000) },
-                new Stock { Name = "Wallet", IsUserStock = true, Balance = new Balance(DateTime.MinValue, 10476) },
+                new Stock { Name = Strings.DefaultUserBankAccount, IsUserStock = true, Balance = new Balance(DateTime.Today, 60000) },
+                new Stock { Name = Strings.DefaultWallet, IsUserStock = true, Balance = new Balance(DateTime.Today, 10476) },
                 new Stock { Name = "Ex1" },
                 new Stock { Name = "Ex2" }
             };
@@ -43,22 +44,23 @@ namespace CashManager.Logic.DefaultData
             var dtoTransactions = new[]
             {
                 CreateTransaction(2, FindCategory("gry"), _buyType, userStock, externalStock, "some stuff", "fun"),
-                CreateTransaction(3, FindCategory("jedzenie"), _buyType, userStock, externalStock, "food"),
-                CreateTransaction(1, FindCategory("gry"), _buyType, userStock, externalStock, "games!!!"),
-                CreateTransaction(10, FindCategory("gry"), _buyType, userStock, externalStock, "new collection", "mike told me to buy"),
+                CreateTransaction(12, FindCategory("jedzenie"), _buyType, userStock, externalStock, "food"),
+                CreateTransaction(2, FindCategory("gry"), _buyType, userStock, externalStock, "games!!!"),
+                CreateTransaction(6, FindCategory("gry"), _buyType, userStock, externalStock, "new collection", "mike told me to buy"),
                 CreateTransaction(2, FindCategory("herbata"), _buyType, userStock, externalStock, "some tea for home"),
                 CreateTransaction(1, FindCategory("Inne"), _giftsType, userStock, externalStock, "gift from mother"),
-                CreateTransaction(1, FindCategory("Inne"), _workType, userStock, externalStock, "working"),
-                CreateTransaction(1, FindCategory("Inne"), _workType, userStock, externalStock, "working", "it was profitable", 10),
+                CreateTransaction(2, FindCategory("Inne"), _workType, userStock, externalStock, "working"),
+                CreateTransaction(1, FindCategory("Inne"), _workType, userStock, externalStock, "working", "it was profitable", 6),
                 CreateTransaction(1, FindCategory("Inne"), _workType, userStock, externalStock, "working"),
                 CreateTransaction(1, FindCategory("Inne"), _workType, userStock, externalStock, "working"),
                 CreateTransaction(5, FindCategory("Inne"), _workType, userStock, externalStock, "working hard", "many tasks", 3),
-                new Transaction(_workType, DateTime.Now.AddDays(-90), "work", "notes", new List<Position>
+
+                new Transaction(_workType, DateTime.Now.AddDays(-120), "work", "notes", new List<Position>
                     {
                         new Position
                         {
                             Category = FindCategory("Inne"),
-                            Value = new PaymentValue { TaxPercentValue = 23, GrossValue = 25000 },
+                            Value = new PaymentValue { TaxPercentValue = 23, GrossValue = 12000 },
                             Title = "income",
                             LastEditDate = RandomDate()
                         }
@@ -90,14 +92,16 @@ namespace CashManager.Logic.DefaultData
                     stocks[1], stocks[2], "inputsource4")
             };
 
-            return dtoTransactions;
+            return dtoTransactions.Concat(
+                        Enumerable.Range(0, 50).Select(x =>
+                            CreateTransaction(2, RandomCategory(), _buyType, userStock, externalStock, "unknown buys"))).Concat(
+                        Enumerable.Range(0, _daysCount/30).Select(x =>
+                            CreateTransaction(3, RandomCategory(), _workType, userStock, externalStock, "regular work", "work work", 7, DateTime.Today.AddMonths(-x))))
+                                  .ToArray();
         }
 
-        private DateTime RandomDate() => DateTime.Now.AddDays(-_random.Next(1, 60));
-
         private Transaction CreateTransaction(int positionsCount, Category category, TransactionType type, Stock userStock,
-            Stock externalStock,
-            string title = "", string note = "", int valueMultiplier = 1)
+            Stock externalStock, string title = "", string note = "", int valueMultiplier = 1, DateTime? date = null)
         {
             var positions = Enumerable.Range(0, positionsCount).Select(x => new Position()).ToArray();
             foreach (var position in positions)
@@ -111,11 +115,11 @@ namespace CashManager.Logic.DefaultData
                                               .Take(_random.Next(0, _tags.Length))
                                               .ToArray());
                 position.Category = category;
-                position.LastEditDate = RandomDate();
+                position.LastEditDate = date ?? RandomDate();
             }
 
             return new Transaction(type,
-                RandomDate(),
+                date ?? RandomDate(),
                 $"title {_titleCounter} {title}",
                 $"note {_titleCounter} {note}",
                 positions,
@@ -125,8 +129,10 @@ namespace CashManager.Logic.DefaultData
         }
 
         private Category FindCategory(string name)
-        {
-            return _categories.Value.FirstOrDefault(x => x.Name.ToLower().Contains(name.ToLower()));
-        }
+            => _categories.Value.FirstOrDefault(x => x.Name.ToLower().Contains(name.ToLower()));
+
+        private Category RandomCategory() => _categories.Value.OrderBy(x => _random.Next(10)).First();
+
+        private DateTime RandomDate() => DateTime.Now.AddDays(-_random.Next(1, _daysCount));
     }
 }

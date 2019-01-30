@@ -1,12 +1,18 @@
-﻿using Autofac;
+﻿using System.Linq;
 
+using Autofac;
+
+using AutoMapper;
+
+using CashManager.CommonData;
+using CashManager.Features.Common;
+using CashManager.Features.Transactions;
+using CashManager.Infrastructure.DbConnection;
+using CashManager.Model;
+using CashManager.Model.Common;
 using CashManager.Tests.ViewModels.Fixtures;
 
-using CashManager_MVVM;
-using CashManager_MVVM.CommonData;
-using CashManager_MVVM.Features.Common;
-using CashManager_MVVM.Features.Transactions;
-using CashManager_MVVM.Model;
+using LiteDB;
 
 using Xunit;
 
@@ -15,14 +21,26 @@ namespace CashManager.Tests.ViewModels.Transactions
     [Collection("Cleanable database collection")]
     public class TransactionViewModelTests
     {
-        private readonly Tag[] _tags = { new Tag(), new Tag() };
+        private readonly Tag[] _tags = { new Tag { Name = "1" }, new Tag { Name = "2" } };
+
+        private CashManager.Data.DTO.Tag[] DtoTags => Mapper.Map<CashManager.Data.DTO.Tag[]>(_tags);
+
+        private readonly Category[] _categories =
+        {
+            new Category { Name = "1" },
+            new Category { Name = "2" },
+            new Category { Name = "3" }
+        };
+
+        private CashManager.Data.DTO.Category[] DtoCategories => Mapper.Map<CashManager.Data.DTO.Category[]>(_categories);
+
         private readonly CleanableDatabaseFixture _fixture;
 
         public TransactionViewModelTests(CleanableDatabaseFixture fixture)
         {
             _fixture = fixture;
             _fixture.Container.Resolve<TransactionsProvider>().AllTransactions.Clear();
-            _fixture.CleanDatabase();
+            _fixture.Reset();
         }
 
         [Fact]
@@ -38,7 +56,7 @@ namespace CashManager.Tests.ViewModels.Transactions
                 UserStock = new Stock()
             };
             vm.Transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
-            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags);
+            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags.Select(x => new Selectable(x)));
             vm.ShouldGoBack = false;
 
             var command = vm.SaveTransactionCommand;
@@ -56,7 +74,9 @@ namespace CashManager.Tests.ViewModels.Transactions
         public void SaveTransactionCommandExecute_ValidTransactionWhichAlreadyExists_TransactionIsBeingUpdated()
         {
             //given
+            _fixture.Container.Resolve<LiteRepository>().Database.UpsertBulk(DtoTags);
             var vm = _fixture.Container.Resolve<TransactionViewModel>();
+            vm.Update();
             string title = "title 1";
             vm.Transaction = new Transaction
             {
@@ -65,8 +85,7 @@ namespace CashManager.Tests.ViewModels.Transactions
                 Type = new TransactionType(),
                 UserStock = new Stock()
             };
-            vm.Transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
-            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags);
+            vm.AddNewPosition.Execute(null);
             vm.ShouldGoBack = false;
 
             var command = vm.SaveTransactionCommand;
@@ -106,7 +125,7 @@ namespace CashManager.Tests.ViewModels.Transactions
             vm.Transaction.Type = new TransactionType { Income = income, Outcome = !income };
             vm.Transaction.UserStock = userStock;
             vm.Transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
-            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags);
+            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags.Select(x => new Selectable(x)));
             vm.ShouldGoBack = false;
 
             var command = vm.SaveTransactionCommand;
@@ -146,8 +165,9 @@ namespace CashManager.Tests.ViewModels.Transactions
                 Type = new TransactionType { Income = income, Outcome = !income},
                 UserStock = userStock
             };
+            vm.SetUpdateMode(TransactionEditModes.ChangeStockBalance);
             vm.Transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
-            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags);
+            vm.Transaction.Positions[0].TagViewModel.SetInput(_tags.Select(x => new Selectable(x)));
             vm.Transaction.Positions[0].Value.GrossValue = transValue;
             vm.Transaction.Positions[0].Value.NetValue = transValue;
             vm.ShouldGoBack = false;
@@ -181,9 +201,11 @@ namespace CashManager.Tests.ViewModels.Transactions
 
             //transaction exists
             vm.Transaction = transaction;
+            vm.Update();
             vm.SaveTransactionCommand.Execute(null);
 
             vm.Transaction = transaction;
+            vm.Update();
             vm.Transaction.Title += "edited";
 
             //when
@@ -192,7 +214,59 @@ namespace CashManager.Tests.ViewModels.Transactions
             //then
             Assert.Single(vm.TransactionsProvider.AllTransactions);
             Assert.Equal(startTitle, vm.TransactionsProvider.AllTransactions[0].Title);
-            Assert.Equal(startTitle, vm.Transaction.Title);
+        }
+
+        [Fact]
+        public void TransactionCreation_NoTags_NoExceptions()
+        {
+            //given
+            var vm = _fixture.Container.Resolve<TransactionViewModel>();
+            vm.Update(); //creates transactions ect (anyway should be perform on view show)
+
+            //when
+            vm.AddNewPosition.Execute(null);
+
+            //then
+            Assert.NotEmpty(vm.Transaction.Positions);
+        }
+
+        [Fact]
+        public void TransactionCreation_TwoPositions_TagsAreNotBeingSynchronizedBetweenPositions()
+        {
+            //given
+            _fixture.Container.Resolve<LiteRepository>().Database.UpsertBulk(DtoTags);
+            var vm = _fixture.Container.Resolve<TransactionViewModel>();
+            vm.ShouldGoBack = false;
+            vm.Update(); //creates transactions ect (anyway should be perform on view show)
+
+            vm.AddNewPosition.Execute(null);
+
+            //when
+            vm.Transaction.Positions[0].TagViewModel.InternalDisplayableSearchResults[0].IsSelected = true;
+
+            //then
+            Assert.True(vm.Transaction.Positions[0].TagViewModel.InternalDisplayableSearchResults[0].IsSelected);
+            Assert.True(vm.Transaction.Positions[1].TagViewModel.InternalDisplayableSearchResults.All(x => x.IsSelected == false));
+        }
+
+        [Fact]
+        public void TransactionCreation_TwoPositions_CategoriesAreNotBeingSynchronizedBetweenPositions()
+        {
+            //given
+            _fixture.Container.Resolve<LiteRepository>().Database.UpsertBulk(DtoCategories);
+            var vm = _fixture.Container.Resolve<TransactionViewModel>();
+            vm.ShouldGoBack = false;
+            vm.Update(); //creates transactions ect (anyway should be perform on view show)
+
+            vm.AddNewPosition.Execute(null);
+
+            //when
+            vm.Transaction.Positions[0].CategoryPickerViewModel.SelectedCategory = _categories[1];
+            vm.Transaction.Positions[1].CategoryPickerViewModel.SelectedCategory = _categories[2];
+
+            //then
+            Assert.NotSame(vm.Transaction.Positions[0].CategoryPickerViewModel.SelectedCategory, vm.Transaction.Positions[1].CategoryPickerViewModel.SelectedCategory);
+            Assert.NotSame(vm.Transaction.Positions[0].Category, vm.Transaction.Positions[1].Category);
         }
     }
 }

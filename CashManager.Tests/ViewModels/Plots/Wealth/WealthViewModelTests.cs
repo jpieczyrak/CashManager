@@ -3,11 +3,9 @@
 using Autofac;
 
 using CashManager.Data.Extensions;
+using CashManager.Features.Plots;
+using CashManager.Model;
 using CashManager.Tests.ViewModels.Fixtures;
-
-using CashManager_MVVM;
-using CashManager_MVVM.Features.Plots;
-using CashManager_MVVM.Model;
 
 using OxyPlot;
 using OxyPlot.Axes;
@@ -24,7 +22,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
         public WealthViewModelTests(CleanableDatabaseFixture fixture)
         {
             _fixture = fixture;
-            _fixture.CleanDatabase();
+            _fixture.Reset();
         }
 
         [Fact]

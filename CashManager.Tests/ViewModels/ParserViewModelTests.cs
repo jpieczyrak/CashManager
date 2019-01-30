@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 using Autofac;
 
+using CashManager.Features.Common;
+using CashManager.Features.Parsers;
+using CashManager.Logic.Parsers;
+using CashManager.Model;
+using CashManager.Model.Common;
 using CashManager.Tests.ViewModels.Fixtures;
-
-using CashManager_MVVM;
-using CashManager_MVVM.Features.Common;
-using CashManager_MVVM.Features.Parsers;
-using CashManager_MVVM.Model;
 
 using Xunit;
 
@@ -22,14 +23,15 @@ namespace CashManager.Tests.ViewModels
         public ParserViewModelTests(CleanableDatabaseFixture fixture)
         {
             _fixture = fixture;
-            _fixture.CleanDatabase();
+            _fixture.Reset();
         }
 
         [Fact]
         public void SaveCommandExecute_ValidTransactions_TransactionsAreBeingAddedToCommonState()
         {
             //given
-            var vm = _fixture.Container.Resolve<ParserViewModel>();
+            var vm = _fixture.Container.Resolve<ParserViewModelBase>();
+            vm.Parser = new GetinBankParser();
             vm.SelectedUserStock = vm.SelectedExternalStock = new Stock();
             var transaction = new Transaction
             {
@@ -38,7 +40,7 @@ namespace CashManager.Tests.ViewModels
                 Type = new TransactionType()
             };
             transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
-            transaction.Positions[0].TagViewModel.SetInput(_tags);
+            transaction.Positions[0].TagViewModel.SetInput(_tags.Select(x => new Selectable(x)));
             var transactions = new List<Transaction> { transaction, transaction };
             vm.InputText = "06.09.2016 – PRZELEW WYCHODZĄCY\r\nJĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media\r\n\r\n-684,62 PLN";
             vm.ResultsListViewModel.Transactions.AddRange(transactions);
@@ -57,7 +59,8 @@ namespace CashManager.Tests.ViewModels
         public void SaveCommandExecute_ValidTransactions_TransactionsAreBeingUpdatedToCommonState()
         {
             //given
-            var vm = _fixture.Container.Resolve<ParserViewModel>();
+            var vm = _fixture.Container.Resolve<ParserViewModelBase>();
+            vm.Parser = new GetinBankParser();
             string title = "title 1";
             var transaction = new Transaction
             {
@@ -66,7 +69,7 @@ namespace CashManager.Tests.ViewModels
                 Type = new TransactionType()
             };
             transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
-            transaction.Positions[0].TagViewModel.SetInput(_tags);
+            transaction.Positions[0].TagViewModel.SetInput(_tags.Select(x => new Selectable(x)));
             var transactions = new List<Transaction> { transaction, transaction };
             vm.InputText = "     06.09.2016 – PRZELEW WYCHODZĄCY\r\nJĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media\r\n\r\n-684,62 PLN";
             vm.ResultsListViewModel.Transactions.AddRange(transactions);

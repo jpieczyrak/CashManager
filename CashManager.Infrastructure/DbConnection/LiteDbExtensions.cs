@@ -11,7 +11,6 @@ namespace CashManager.Infrastructure.DbConnection
     public static class LiteDbExtensions
     {
         private const string ID_FIELD_NAME = "_id";
-        private const int MAX_DEPTH_FOR_REFERENCES_LOADING = 25;
 
         /// <returns>True if added, false if updated or fail</returns>
         public static bool Upsert<T>(this LiteDatabase db, T element) where T : class
@@ -52,12 +51,14 @@ namespace CashManager.Infrastructure.DbConnection
                                   : LiteDB.Query.EQ(ID_FIELD_NAME, element.GetHashCode()));
         }
 
-        public static T[] Query<T>(this LiteDatabase db, Expression<Func<T, bool>> query = null) where T : class
+        public static T[] Query<T>(this LiteDatabase db, Expression<Func<T, bool>> query = null, int includeDepth = 0)
+            where T : class
         {
             var collection = db.GetCollection<T>();
+            if (includeDepth > 0) collection = collection.IncludeAll(includeDepth);
             return query != null
-                       ? collection.IncludeAll(MAX_DEPTH_FOR_REFERENCES_LOADING).Find(query).ToArray()
-                       : collection.IncludeAll(MAX_DEPTH_FOR_REFERENCES_LOADING).FindAll().ToArray();
+                       ? collection.Find(query).ToArray()
+                       : collection.FindAll().ToArray();
         }
 
         public static int RemoveAll<T>(this LiteDatabase db, Expression<Func<T, bool>> query = null) where T : class

@@ -8,9 +8,11 @@
         CreationDate,
         PositionTitle,
         Value,
+        ValueAsLost,
+        ValueAsProfit,
         UserStock,
         Currency,
 
-        Balance = int.MaxValue
+        Balance = int.MaxValue,
     }
 }

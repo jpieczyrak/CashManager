@@ -12,29 +12,37 @@ namespace CashManager.Logic.Parsers.Custom
     public class CustomCsvParser : IParser
     {
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(CustomCsvParser)));
-
-        private readonly Rule[] _rules;
         private readonly Stock[] _stocks;
+
+        public Rule[] Rules { get; private set; }
+        public string ColumnSplitter { get; private set; }
 
         public Dictionary<Stock, Balance> Balances { get; } = new Dictionary<Stock, Balance>();
 
-        public CustomCsvParser(Rule[] rules, Stock[] stocks = null)
+        public string Name { get; set; }
+
+        public CustomCsvParser(Rule[] rules, Stock[] stocks = null, string columnSplitter = null)
         {
-            _rules = rules.OrderBy(x => x.Property).ToArray();
+            Rules = rules.OrderBy(x => x.Property).ToArray();
             _stocks = stocks;
+            ColumnSplitter = columnSplitter;
         }
 
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome,
             TransactionType defaultIncome, bool generateMissingStocks = false)
         {
             var output = new List<Transaction>();
-            input = input.Replace("\"", string.Empty);
 
             var lines = input.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string line in lines)
             {
-                var elements = line.Split(';');
+                var elements = ColumnSplitter == null
+                                   ? line.Count(x => x == ';') >= (Rules.Any() ? Rules.Max(x => x.Index) : 0)
+                                         ? line.Split(';')
+                                         : line.Split(new[] { line.Contains("\",\"") ? "\",\"" : "," }, StringSplitOptions.None)
+                                   : line.Split(new[] { ColumnSplitter }, StringSplitOptions.None);
+                elements = elements.Select(x => x.Replace("\"", string.Empty)).ToArray();
                 var transaction = new Transaction(line.GenerateGuid())
                 {
                     ExternalStock = externalStock,
@@ -43,8 +51,8 @@ namespace CashManager.Logic.Parsers.Custom
                 transaction.Positions.Add(new Position());
                 if (userStock != null) Balances[userStock] = userStock.Balance;
 
-                bool match = _rules.Any();
-                foreach (var rule in _rules)
+                bool match = Rules.Any();
+                foreach (var rule in Rules)
                 {
                     if (!MatchRule(rule, elements, transaction, defaultIncome, defaultOutcome, userStock, generateMissingStocks))
                     {
@@ -101,9 +109,30 @@ namespace CashManager.Logic.Parsers.Custom
 
                         break;
                     case TransactionField.Value:
-                        decimal value = decimal.Parse(stringValue);
-                        transaction.Type = value >= 0 ? defaultIncome : defaultOutcome;
-                        transaction.Positions[0].Value.GrossValue = Math.Abs(value);
+                        {
+                            decimal value = decimal.Parse(stringValue.Replace(".", ","));
+                            transaction.Type = value >= 0 ? defaultIncome : defaultOutcome;
+                            transaction.Positions[0].Value.GrossValue = Math.Abs(value);
+                        }
+                        break;
+                    case TransactionField.ValueAsLost:
+                        {
+                            if (string.IsNullOrWhiteSpace(stringValue)) return true;
+                            decimal value = decimal.Parse(stringValue.Replace(".", ","));
+                            if (value == 0) return true;
+                            if (value < 0) value = Math.Abs(value);
+                            transaction.Type = defaultOutcome;
+                            transaction.Positions[0].Value.GrossValue = Math.Abs(value);
+                        }
+                        break;
+                    case TransactionField.ValueAsProfit:
+                        {
+                            if (string.IsNullOrWhiteSpace(stringValue)) return true;
+                            decimal value = decimal.Parse(stringValue.Replace(".", ","));
+                            if (value == 0) return true;
+                            transaction.Type = value >= 0 ? defaultIncome : defaultOutcome;
+                            transaction.Positions[0].Value.GrossValue = Math.Abs(value);
+                        }
                         break;
                     case TransactionField.UserStock:
                         if (_stocks != null && _stocks.Any())
@@ -127,7 +156,7 @@ namespace CashManager.Logic.Parsers.Custom
                         var balance = Balances[transaction.UserStock];
                         if (balance.LastEditDate < transaction.TransactionSourceCreationDate)
                         {
-                            balance.Value = decimal.Parse(stringValue);
+                            balance.Value = decimal.Parse(stringValue.Replace(".", ","));
                             balance.LastEditDate = transaction.TransactionSourceCreationDate;
                         }
                         break;
@@ -138,7 +167,7 @@ namespace CashManager.Logic.Parsers.Custom
             }
             catch (Exception e)
             {
-                _logger.Value.Info("Parsing failed", e);
+                _logger.Value.Debug("Parsing failed", e);
                 return false;
             }
 

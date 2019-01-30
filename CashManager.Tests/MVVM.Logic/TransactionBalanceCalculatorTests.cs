@@ -2,11 +2,9 @@
 using System.Linq;
 
 using CashManager.Data.Extensions;
-
-using CashManager_MVVM;
-using CashManager_MVVM.Logic.Calculators;
-using CashManager_MVVM.Model;
-using CashManager_MVVM.Model.Selectors;
+using CashManager.Logic.Calculators;
+using CashManager.Model;
+using CashManager.Model.Selectors;
 
 using OxyPlot;
 using OxyPlot.Axes;
@@ -19,7 +17,7 @@ namespace CashManager.Tests.MVVM.Logic
     {
         private static readonly Transaction[] _transactions;
         private static readonly Stock[] _selectedStocks;
-        private static readonly DateFrame _dateFilter;
+        private static readonly DateFrameSelector _dateFilter;
         private static DateTime _firstBookDate;
 
         static TransactionBalanceCalculatorTests()
@@ -33,7 +31,7 @@ namespace CashManager.Tests.MVVM.Logic
             var income = new TransactionType { Income = true };
             var outcome = new TransactionType { Outcome = true };
             _firstBookDate = DateTime.Today.AddDays(-30);
-            _dateFilter = new DateFrame(DateFrameType.BookDate);
+            _dateFilter = new DateFrameSelector(DateFrameType.BookDate);
             _transactions = new[]
             {
                 new Transaction

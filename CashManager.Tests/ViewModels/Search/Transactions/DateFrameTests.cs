@@ -3,9 +3,8 @@ using System.Linq;
 
 using Autofac;
 
+using CashManager.Features.Search;
 using CashManager.Tests.ViewModels.Fixtures;
-
-using CashManager_MVVM.Features.Search;
 
 using Xunit;
 
@@ -31,6 +30,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
 
             //when
             vm.State.BookDateFilter.From = DateTime.Today;
+            vm.State.BookDateFilter.IsChecked = false;
 
             //then
             Assert.NotEmpty(vm.MatchingTransactions);

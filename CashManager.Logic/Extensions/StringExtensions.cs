@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CashManager.Logic.Extensions
 {
@@ -13,6 +14,11 @@ namespace CashManager.Logic.Extensions
             for (int i = 0; i < 262144; i++) buffer = crypto.ComputeHash(buffer);
 
             return Encoding.ASCII.GetString(buffer);
+        }
+
+        public static string WildCardToRegex(this string input)
+        {
+            return $"^{Regex.Escape(input).Replace("\\?", ".").Replace("\\*", ".*")}$";
         }
     }
 }

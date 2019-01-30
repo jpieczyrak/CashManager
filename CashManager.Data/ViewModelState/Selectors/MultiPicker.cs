@@ -9,5 +9,9 @@ namespace CashManager.Data.ViewModelState.Selectors
         public Guid[] Selected { get; set; }
 
         public bool IsChecked { get; set; }
+
+        public bool ShouldMatchAllOfTheElements { get; set; }
+
+        public bool CanMatchMultipleElements { get; set; }
     }
 }

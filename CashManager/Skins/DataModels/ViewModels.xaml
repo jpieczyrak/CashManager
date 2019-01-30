@@ -1,0 +1,87 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:search="clr-namespace:CashManager.Features.Search"
+                    xmlns:massReplacer="clr-namespace:CashManager.Features.MassReplacer"
+                    xmlns:transactions="clr-namespace:CashManager.Features.Transactions"
+                    xmlns:positions="clr-namespace:CashManager.Features.Transactions.Positions"
+                    xmlns:transactionTypes="clr-namespace:CashManager.Features.TransactionTypes"
+                    xmlns:parsers="clr-namespace:CashManager.Features.Parsers"
+                    xmlns:stocks="clr-namespace:CashManager.Features.Stocks"
+                    xmlns:categories="clr-namespace:CashManager.Features.Categories"
+                    xmlns:tags="clr-namespace:CashManager.Features.Tags"
+                    xmlns:common="clr-namespace:CashManager.Features.Common"
+                    xmlns:plots="clr-namespace:CashManager.Features.Plots"
+                    xmlns:balance="clr-namespace:CashManager.Features.Balance"
+                    xmlns:summary="clr-namespace:CashManager.Features.Summary"
+                    xmlns:settings="clr-namespace:CashManager.Features.Main.Settings"
+                    xmlns:main="clr-namespace:CashManager.Features.Main"
+                    xmlns:custom="clr-namespace:CashManager.Features.Parsers.Custom">
+
+    <DataTemplate DataType="{x:Type search:SearchViewModel}">
+        <search:SearchView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type massReplacer:MassReplacerViewModel}">
+        <massReplacer:MassReplacerView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type transactions:TransactionListViewModel}">
+        <transactions:TransactionListView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type positions:PositionListViewModel}">
+        <positions:PositionListView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type transactions:TransactionViewModel}">
+        <transactions:TransactionView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type transactionTypes:TransactionTypesViewModel}">
+        <transactionTypes:TransactionTypesView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type parsers:ParserViewModelBase}">
+        <parsers:BaseParserView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type custom:RegexParserViewModel}">
+        <custom:RegexParserView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type custom:CsvParserViewModel}">
+        <custom:CsvParserView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type stocks:StocksViewModel}">
+        <stocks:StocksView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type stocks:StockSummaryViewModel}">
+        <stocks:StockSummaryView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type categories:CategoryManagerViewModel}">
+        <categories:CategoryManagerView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type tags:TagManagerViewModel}">
+        <tags:TagManagerView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type common:MultiComboBoxViewModel}">
+        <common:MultiComboBox/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type plots:WealthViewModel}">
+        <plots:WealthView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type plots:CategoriesPlotViewModel}">
+        <plots:CategoriesPlotView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type balance:CustomBalanceViewModel}">
+        <balance:CustomBalanceView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type categories:CategoryPickerViewModel}">
+        <categories:CategoryPickerView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type common:ExtendedDatePickerViewModel}">
+        <common:ExtendedDatePicker />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type summary:SummaryViewModel}">
+        <summary:SummaryView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type settings:SettingsViewModel}">
+        <settings:SettingsView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type main:NotificationViewModel}">
+        <main:NotificationView />
+    </DataTemplate>
+
+</ResourceDictionary>

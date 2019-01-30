@@ -71,6 +71,36 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Portable|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Portable\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Portable|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Portable\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Portable|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Portable\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
@@ -118,6 +148,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcceptanceCriteria\Search\NavigationTests.cs" />
+    <Compile Include="AcceptanceCriteria\Transactions\BaseTransactionTests.cs" />
+    <Compile Include="AcceptanceCriteria\Transactions\Edit\TransactionValueEditAndStockBalanceUpdate.cs" />
+    <Compile Include="AcceptanceCriteria\Transactions\Add\TransactionAddAndStockBalanceUpdate.cs" />
+    <Compile Include="AcceptanceCriteria\Transactions\TransactionTypes.cs" />
+    <Compile Include="Data\Data\Positions\PositionCategoryAssignTests.cs" />
     <Compile Include="Data\Data\Positions\PositionsCopyTests.cs" />
     <Compile Include="Data\Data\Transactions\TransactionCopyTests.cs" />
     <Compile Include="Data\Providers\DataBuilderTests\CategoryBuilderTests.cs" />
@@ -132,6 +168,7 @@
     <Compile Include="Infrastructure\Commands\Tags\DeleteCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Tags\UpsertCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Stocks\UpsertCommandTests.cs" />
+    <Compile Include="Infrastructure\Commands\Transactions\DeleteCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\TransactionTypes\DeleteCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\TransactionTypes\UpsertCommandTests.cs" />
     <Compile Include="Infrastructure\Commands\Transactions\UpsertCommandTests.cs" />
@@ -146,10 +183,29 @@
     <Compile Include="Infrastructure\Queries\Tags\TagsTests.cs" />
     <Compile Include="Infrastructure\Queries\TransactionTypes\TransactionTypesTests.cs" />
     <Compile Include="Infrastructure\Queries\Transactions\TransactionsTests.cs" />
+    <Compile Include="Mappers\CustomParsersMapping.cs" />
     <Compile Include="Mappers\ModelAndDtoMappingTests.cs" />
+    <Compile Include="Mappers\ReferenceCreationTests.cs" />
+    <Compile Include="MVVM.Logic\Filters\TextFilters\PositionTextFilter.cs" />
+    <Compile Include="MVVM.Logic\Filters\TextFilters\PositionMultiFilter.cs" />
+    <Compile Include="MVVM.Logic\Filters\TextFilters\TransactionMultiFilter.cs" />
+    <Compile Include="MVVM.Logic\Filters\TextFilters\TransactionTextFilter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Positions\MultiPicker\MultiSetterCommand.cs" />
+    <Compile Include="MVVM.Logic\Setters\Positions\SinglePicker\SingleSetterCommand.cs" />
+    <Compile Include="MVVM.Logic\Setters\Positions\Text\NoteTextSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Positions\Text\PositionTitleTextSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Positions\Text\TransactionTitleTextSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Positions\Date\TransactionDateSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Transactions\MultiPicker\MultiSetterCommand.cs" />
+    <Compile Include="MVVM.Logic\Setters\Transactions\SinglePicker\SingleSetterCommand.cs" />
+    <Compile Include="MVVM.Logic\Setters\Transactions\Text\PositionTitleTextSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Transactions\Text\NoteTextSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Transactions\Text\TitleTextSetter.cs" />
+    <Compile Include="MVVM.Logic\Setters\Transactions\Date\TransactionDateSetter.cs" />
     <Compile Include="MVVM.Logic\TransactionBalanceCalculatorTests.cs" />
     <Compile Include="Parsers\BaseParserTests.cs" />
     <Compile Include="Parsers\Custom\CustomCsvParserTests.cs" />
+    <Compile Include="Parsers\Custom\Predefined\MillenniumCustomCsvParserTests.cs" />
     <Compile Include="Parsers\Custom\Predefined\IngCustomCsvParserTests.cs" />
     <Compile Include="Parsers\GetinBankParserTests.cs" />
     <Compile Include="Parsers\IngBankTests.cs" />
@@ -178,10 +234,6 @@
     <Compile Include="ViewModels\ViewModelContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CashManager-MVVM\CashManager-MVVM.csproj">
-      <Project>{49bccabb-e76d-4c04-82a4-20fb886ac076}</Project>
-      <Name>CashManager-MVVM</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CashManager.Data\CashManager.Data.csproj">
       <Project>{d83c69c0-18f7-4b7f-af7e-143091a26a30}</Project>
       <Name>CashManager.Data</Name>
@@ -193,6 +245,10 @@
     <ProjectReference Include="..\CashManager.Logic\CashManager.Logic.csproj">
       <Project>{9ec1c76c-cb71-4020-bab9-8b83b140def2}</Project>
       <Name>CashManager.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CashManager\CashManager.WPF.csproj">
+      <Project>{49bccabb-e76d-4c04-82a4-20fb886ac076}</Project>
+      <Name>CashManager.WPF</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -13,11 +13,11 @@ namespace CashManager.Data.ViewModelState
 
         public TextSelector PositionTitleFilter { get; set; }
 
-        public DateFrame BookDateFilter { get; set; }
+        public DateFrameSelector BookDateFilter { get; set; }
 
-        public DateFrame CreateDateFilter { get; set; }
+        public DateFrameSelector CreateDateFilter { get; set; }
 
-        public DateFrame LastEditDateFilter { get; set; }
+        public DateFrameSelector LastEditDateFilter { get; set; }
 
         public MultiPicker UserStocksFilter { get; set; }
 

@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="CashManager.Features.Plots.WealthView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:plots="clr-namespace:CashManager.Features.Plots"
+             xmlns:oxy="http://oxyplot.org/wpf"
+             xmlns:common1="clr-namespace:CashManager.Features.Common"
+             xmlns:selectors1="clr-namespace:CashManager.Features.Search.Selectors"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=plots:WealthViewModel, IsDesignTimeCreatable=True}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <common1:DateRangePicker Grid.Column="0" DateFrameSelector="{Binding BookDateFilter}" />
+            <selectors1:MultiPickerControl Grid.Column="1" DataContext="{Binding UserStocksFilter}" />
+        </Grid>
+
+        <oxy:PlotView Grid.Row="1" Model="{Binding Wealth}">
+            <oxy:PlotView.DefaultTrackerTemplate>
+                <ControlTemplate>
+                    <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                    <oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}">
+                        <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                        <oxy:TrackerControl.Background>
+                            <LinearGradientBrush EndPoint="0,1">
+                                <GradientStop Color="{DynamicResource DisabledBorderColor}" />
+                                <GradientStop Offset="1" Color="{DynamicResource BackgroundAccentColor}" />
+                            </LinearGradientBrush>
+                        </oxy:TrackerControl.Background>
+                        <oxy:TrackerControl.Content>
+                            <TextBlock Text="{Binding}" Margin="8" />
+                        </oxy:TrackerControl.Content>
+                    </oxy:TrackerControl>
+                </ControlTemplate>
+            </oxy:PlotView.DefaultTrackerTemplate>
+        </oxy:PlotView>
+    </Grid>
+</UserControl>
+

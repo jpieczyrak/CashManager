@@ -66,6 +66,32 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Portable|AnyCPU'">
+    <OutputPath>bin\Portable\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Portable|x64'">
+    <OutputPath>bin\x64\Portable\</OutputPath>
+    <DefineConstants>TRACE;PORTABLE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Portable|x86'">
+    <OutputPath>bin\x86\Portable\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -84,11 +110,22 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModelState\Balances\CustomBalance.cs" />
+    <Compile Include="ViewModelState\BaseSelector.cs" />
+    <Compile Include="ViewModelState\MassReplacerState.cs" />
+    <Compile Include="ViewModelState\Parsers\CustomCsvParser.cs" />
+    <Compile Include="ViewModelState\Parsers\Rule.cs" />
     <Compile Include="ViewModelState\SearchState.cs" />
-    <Compile Include="ViewModelState\Selectors\DateFrame.cs" />
+    <Compile Include="ViewModelState\Selectors\DateFrameSelector.cs" />
     <Compile Include="ViewModelState\Selectors\MultiPicker.cs" />
     <Compile Include="ViewModelState\Selectors\RangeSelector.cs" />
     <Compile Include="ViewModelState\Selectors\TextSelector.cs" />
+    <Compile Include="ViewModelState\Setters\DateSetter.cs" />
+    <Compile Include="ViewModelState\Setters\DateSetterType.cs" />
+    <Compile Include="ViewModelState\Setters\MultiPickerType.cs" />
+    <Compile Include="ViewModelState\Setters\MultiSetter.cs" />
+    <Compile Include="ViewModelState\Setters\SingleSetter.cs" />
+    <Compile Include="ViewModelState\Setters\TextSetter.cs" />
+    <Compile Include="ViewModelState\Setters\TextSetterType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

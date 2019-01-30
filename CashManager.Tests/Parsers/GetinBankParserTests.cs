@@ -3,6 +3,7 @@ using System.Linq;
 
 using CashManager.Data.DTO;
 using CashManager.Logic.Parsers;
+using CashManager.Properties;
 
 using Xunit;
 
@@ -64,7 +65,7 @@ CENTRUM NISKICH CEN SP, GLIWICE , PL
             string title = "CENTRUM NISKICH CEN SP, GLIWICE , PL";
             decimal balance = 2735.57m;
             var expected = new Transaction(outcomeType, creationDate, title,
-                $"Operacja kartą (PLN) Saldo: {balance:#,##0.00}",
+                $"Operacja kartą (PLN) Saldo: {balance.ToString(Strings.ValueFormat)}",
                 new[]
                 {
                     new Position
@@ -102,7 +103,7 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
             string title = "Wynagrodzenie z tytulu umowy cywilnoprawnej";
             decimal balance = 1574.38m;
             var expected = new Transaction(incomeType, creationDate, title,
-                $"Firma SP. Z O.O.: PRZELEW PRZYCHODZĄCY (PLN) Saldo: {balance:#,##0.00}",
+                $"Firma SP. Z O.O.: PRZELEW PRZYCHODZĄCY (PLN) Saldo: {balance.ToString(Strings.ValueFormat)}",
                 new [] { new Position(title, 1123.12m) },
                 userStock, externalStock, input);
 

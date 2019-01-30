@@ -1,8 +1,7 @@
 ﻿using System;
 
-using CashManager_MVVM;
-using CashManager_MVVM.Configuration.Mapping;
-using CashManager_MVVM.Model;
+using CashManager.Configuration.Mapping;
+using CashManager.Model;
 
 using Xunit;
 
@@ -30,7 +29,7 @@ namespace CashManager.Tests.Data.Data.Positions
             var external = new Stock { Name = "Ex" };
             var type = new TransactionType { Income = true, IsDefault = true };
             var tag = new Tag { Name = "tag" };
-            var category = new CashManager_MVVM.Model.Category { Name = "cat" };
+            var category = new Model.Category { Name = "cat" };
             var parent = new Transaction
             {
                 Title = "Title",
