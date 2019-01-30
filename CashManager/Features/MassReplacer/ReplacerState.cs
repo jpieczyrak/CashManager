@@ -111,8 +111,9 @@ namespace CashManager.Features.MassReplacer
             CategoriesSelector = new SingleSetter(MultiPickerType.Category, defaultSource);
             TypesSelector = new SingleSetter(MultiPickerType.TransactionType, defaultSource);
             TagsSelector = new MultiSetter(MultiPickerType.Tag, defaultSource);
-        }
 
+            SearchState = new SearchState();
+        }
 
         public void Update(IQueryDispatcher queryDispatcher)
         {
