@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
 
 using CashManager.Properties;
@@ -54,6 +56,8 @@ namespace CashManager.Utils
             (Application.Current.Resources
                         .MergedDictionaries
                         .FirstOrDefault(x => x is ShapesResourceDictionary) as ShapesResourceDictionary)?.UpdateSource();
+
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Settings.Default.Localization);
         }
 
         private static void RestoreSettings(string path = null)
