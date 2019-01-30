@@ -38,7 +38,6 @@ namespace CashManager.Features.Search
 
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
-        private readonly TransactionsProvider _transactionsProvider;
 
         private List<Transaction> _matchingTransactions;
         private List<Position> _matchingPositions;
@@ -101,6 +100,8 @@ namespace CashManager.Features.Search
             }
         }
 
+        public TransactionsProvider Provider { get; }
+
         private bool CanExecuteAnyPositionFilter => _positionFilters.Any(x => x.CanExecute());
 
         private bool CanExecuteAnyTransactionFilter => _transactionFilters.Any(x => x.CanExecute());
@@ -122,7 +123,7 @@ namespace CashManager.Features.Search
             State.PropertyChanged += (sender, args) => ScheduleFiltering(null, null);
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
-            _transactionsProvider = transactionsProvider;
+            Provider = transactionsProvider;
 
             SaveStateCommand = new RelayCommand<string>(ExecuteSaveSearchStateCommand);
             LoadStateCommand = new RelayCommand<BaseObservableObject>(ExecuteLoadSearchStateCommand);
@@ -160,12 +161,12 @@ namespace CashManager.Features.Search
                 _logger.Value.Debug("Calling filter");
                 _debouncer.Debouce(() => DispatcherHelper.RunAsync(() =>
                 {
-                    using (new MeasureTimeWrapper(PerformFilter, "Running filter")) { }
+                    using (new MeasureTimeWrapper(() => PerformFilter(Provider.AllTransactions), "Running filter")) { }
                     _logger.Value.Debug("Running filter");
                 }));
             }
             else
-                PerformFilter(); //mainly for tests purpose
+                PerformFilter(Provider.AllTransactions); //mainly for tests purpose
         }
 
         private void ExecuteLoadSearchStateCommand(BaseObservableObject selected)
@@ -186,30 +187,29 @@ namespace CashManager.Features.Search
 
         public void Update()
         {
-            MatchingTransactions = _transactionsProvider.AllTransactions.ToList();
+            MatchingTransactions = Provider.AllTransactions.ToList();
             MatchingPositions = new List<Position>();
             var states = Mapper.Map<SearchState[]>(_queryDispatcher.Execute<SearchStateQuery, DtoSearchState[]>(new SearchStateQuery()));
             SaveSearches = new ObservableCollection<BaseObservableObject>(states);
-            State.UpdateSources(_queryDispatcher, _transactionsProvider);
+            State.UpdateSources(_queryDispatcher, Provider);
 
-            PerformFilter();
+            PerformFilter(Provider.AllTransactions);
         }
 
-        public void PerformFilter()
+        public void PerformFilter(IEnumerable<Transaction> transactions)
         {
-            var transactions = _transactionsProvider.AllTransactions;
             if (transactions == null || !transactions.Any()) return;
             if (IsTransactionsSearch)
             {
                 //todo: rethink - it could improve performance, but it fails refreshing grids after transaction edit cancel
                 //if (!CanExecuteAnyTransactionFilter)if (TransactionsListViewModel.Transactions.Count == transactions.Count) return;
 
-                FilterTransactions();
+                FilterTransactions(transactions);
             }
             else if (IsPositionsSearch)
             {
                 //if (!CanExecuteAnyPositionFilter) if (PositionsListViewModel.Positions.Count == transactions.Sum(x => x.Positions.Count)) return;
-                FilterPositions();
+                FilterPositions(transactions.SelectMany(x => x.Positions));
             }
         }
 
@@ -218,9 +218,9 @@ namespace CashManager.Features.Search
             Title = searchType == SearchType.Transactions ? Strings.TransactionSearch : Strings.PositionSearch;
         }
 
-        private void FilterTransactions()
+        private void FilterTransactions(IEnumerable<Transaction> transactions)
         {
-            var input = _transactionsProvider.AllTransactions.AsEnumerable();
+            var input = transactions;
             foreach (var filter in _transactionFilters)
                 if (filter.CanExecute())
                     input = filter.Execute(input);
@@ -230,9 +230,9 @@ namespace CashManager.Features.Search
             TransactionsListViewModel.Transactions.AddRange(MatchingTransactions);
         }
 
-        private void FilterPositions()
+        private void FilterPositions(IEnumerable<Position> positions)
         {
-            var input = _transactionsProvider.AllTransactions.SelectMany(x => x.Positions);
+            var input = positions;
             foreach (var filter in _positionFilters)
                 if (filter.CanExecute())
                     input = filter.Execute(input);

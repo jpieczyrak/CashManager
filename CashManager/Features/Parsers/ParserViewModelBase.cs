@@ -7,17 +7,22 @@ using System.Windows;
 using AutoMapper;
 
 using CashManager.CommonData;
+using CashManager.Data.ViewModelState;
+using CashManager.Features.MassReplacer;
 using CashManager.Features.Transactions;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Stocks;
 using CashManager.Infrastructure.Command.Transactions;
 using CashManager.Infrastructure.Query;
+using CashManager.Infrastructure.Query.ReplacerState;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.TransactionTypes;
 using CashManager.Logic.Parsers;
 using CashManager.Logic.Wrappers;
 using CashManager.Messages.Models;
 using CashManager.Model;
+using CashManager.Model.Common;
+using CashManager.Model.Selectors;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -35,16 +40,19 @@ namespace CashManager.Features.Parsers
     {
         protected readonly IQueryDispatcher _queryDispatcher;
         protected readonly ICommandDispatcher _commandDispatcher;
+        private readonly MassReplacerViewModel _replacer;
         private string _inputText;
         private bool _generateMissingStocks;
         private TransactionListViewModel _resultsListViewModel = new TransactionListViewModel();
         private IParser _parser;
 
-        public ParserViewModelBase(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider)
+        public ParserViewModelBase(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
+            TransactionsProvider transactionsProvider, MassReplacerViewModel replacer)
         {
             TransactionsProvider = transactionsProvider;
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
+            _replacer = replacer;
 
             Update();
 
@@ -73,6 +81,8 @@ namespace CashManager.Features.Parsers
         public TransactionType[] IncomeTransactionTypes { get; set; }
 
         public TransactionType[] OutcomeTransactionTypes { get; set; }
+
+        public MultiPicker ReplacerSelector { get; } = new MultiPicker(MultiPickerType.ReplacerStates, new Selectable[0]);
 
         public IParser Parser
         {
@@ -114,6 +124,20 @@ namespace CashManager.Features.Parsers
 
             using (new MeasureTimeWrapper(
                 () => transactions = Mapper.Map<Transaction[]>(results).Where(x => x.IsValid), $"Mapping: {results.Length,6}")) { }
+
+            using (new MeasureTimeWrapper(
+                () =>
+                {
+                    foreach (var state in ReplacerSelector.Results.Select(x => x.Value as ReplacerState))
+                    {
+                        _replacer.ApplyState(state);
+                        _replacer.SearchViewModel.PerformFilter(transactions);
+                        _replacer.PerformCommand.Execute(null);
+                        var replaced = _replacer.SearchViewModel.MatchingTransactions.ToArray();
+                        transactions = transactions.Except(replaced).Concat(replaced);
+                    }
+                    _replacer.ApplyState(new ReplacerState());
+                }, "Running replacer")) { }
 
             using (new MeasureTimeWrapper(
                 () => ResultsListViewModel = new TransactionListViewModel
@@ -163,6 +187,11 @@ namespace CashManager.Features.Parsers
                                       .ToArray();
             DefaultIncomeTransactionType = IncomeTransactionTypes.FirstOrDefault();
             DefaultOutcomeTransactionType = OutcomeTransactionTypes.FirstOrDefault();
+
+            var patterns = _queryDispatcher.Execute<ReplacerStateQuery, MassReplacerState[]>(new ReplacerStateQuery())
+                                           .OrderBy(x => x.Name);
+            var models = Mapper.Map<ReplacerState[]>(patterns);
+            ReplacerSelector.SetInput(models.Select(x => new Selectable(x)).ToArray());
         }
 
         private void Clear()

@@ -152,7 +152,7 @@ namespace CashManager.Features.Balance
                     }
                     //todo: make it cleaner - do not use search vm?
                     _searchViewModel.State.ApplySearchCriteria(state);
-                    _searchViewModel.PerformFilter();
+                    _searchViewModel.PerformFilter(_searchViewModel.Provider.AllTransactions);
                     //todo: handle positions if needed
                     var summary = _searchViewModel.TransactionsListViewModel.Summary.Copy();
                     summary.Name = state.Name;

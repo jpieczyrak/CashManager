@@ -75,8 +75,7 @@ namespace CashManager.Features.MassReplacer
             MassReplacerLoadCommand = new RelayCommand<BaseObservableObject>(selected =>
             {
                 var state = selected as ReplacerState;
-                SearchViewModel.State.ApplySearchCriteria(state.SearchState);
-                State.ApplyReplaceCriteria(state);
+                ApplyState(state);
             }, selected => selected != null);
 
             ClearMassReplacerStateCommand = new RelayCommand(() =>
@@ -87,6 +86,12 @@ namespace CashManager.Features.MassReplacer
             var patterns = _queryDispatcher.Execute<ReplacerStateQuery, MassReplacerState[]>(new ReplacerStateQuery())
                                            .OrderBy(x => x.Name);
             Patterns = new ObservableCollection<BaseObservableObject>(Mapper.Map<ReplacerState[]>(patterns));
+        }
+
+        internal void ApplyState(ReplacerState state)
+        {
+            if (state.SearchState != null) SearchViewModel.State.ApplySearchCriteria(state.SearchState);
+            State.ApplyReplaceCriteria(state);
         }
 
         private bool CanExecutePerformCommand()

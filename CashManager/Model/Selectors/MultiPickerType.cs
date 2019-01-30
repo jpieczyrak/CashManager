@@ -6,6 +6,7 @@
         Tag,
         UserStock,
         ExternalStock,
-        TransactionType
+        TransactionType,
+        ReplacerStates
     }
 }

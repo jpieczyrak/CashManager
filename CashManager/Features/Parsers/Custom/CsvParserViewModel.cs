@@ -6,6 +6,7 @@ using System.Linq;
 using AutoMapper;
 
 using CashManager.CommonData;
+using CashManager.Features.MassReplacer;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Parsers;
 using CashManager.Infrastructure.Query;
@@ -61,8 +62,8 @@ namespace CashManager.Features.Parsers.Custom
 
         public RelayCommand<BaseObservableObject> ParserLoadCommand { get; }
 
-        public CsvParserViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider) : base(queryDispatcher,
-            commandDispatcher, transactionsProvider)
+        public CsvParserViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider, MassReplacerViewModel replacer) : base(queryDispatcher,
+            commandDispatcher, transactionsProvider, replacer)
         {
             AddRuleCommand = new RelayCommand(() => Rules.Add(new Rule
             {

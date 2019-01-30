@@ -1,4 +1,5 @@
 ﻿using CashManager.CommonData;
+using CashManager.Features.MassReplacer;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Query;
 using CashManager.Logic.Parsers;
@@ -19,8 +20,8 @@ namespace CashManager.Features.Parsers.Custom
             }
         }
 
-        public RegexParserViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider) : base(queryDispatcher,
-            commandDispatcher, transactionsProvider)
+        public RegexParserViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider, MassReplacerViewModel replacer) : base(queryDispatcher,
+            commandDispatcher, transactionsProvider, replacer)
         {
             Parser = new RegexParser();
         }
