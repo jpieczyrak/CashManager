@@ -567,4 +567,7 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   <data name="PerformReplaces" xml:space="preserve">
     <value>Perform replaces</value>
   </data>
+  <data name="ShowTopCategories" xml:space="preserve">
+    <value>Show only top categories</value>
+  </data>
 </root>

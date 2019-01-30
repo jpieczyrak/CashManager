@@ -29,7 +29,7 @@
             <selectors:MultiPickerControl Grid.Column="1" DataContext="{Binding UserStocksFilter}" />
             <selectors:MultiPickerControl Grid.Column="2" DataContext="{Binding TypesFilter}" />
         </Grid>
-        <CheckBox Grid.Row="1" IsChecked="{Binding TopCategoriesOnly}" Content="Show top categories" Margin="5,5,5,0"/>
+        <CheckBox Grid.Row="1" IsChecked="{Binding TopCategoriesOnly}" Content="{x:Static properties:Strings.ShowTopCategories}" Margin="5,5,5,0"/>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

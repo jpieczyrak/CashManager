@@ -1107,6 +1107,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show only top categories.
+        /// </summary>
+        public static string ShowTopCategories {
+            get {
+                return ResourceManager.GetString("ShowTopCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Skin colors.
         /// </summary>
         public static string SkinColors {
