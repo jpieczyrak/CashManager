@@ -142,8 +142,7 @@ namespace CashManager.Features.Plots
                                  .Where(x => x.Category != null);
                 var groups = TopCategoriesOnly
                                          ? positions.GroupBy(x => GetTopParentName(x.Category))
-                                         : positions.Where(x => _allCategories.All(y => y.Value.Parent?.Id != x.Id))
-                                                    .GroupBy(x => x.Category.Name);
+                                         : positions.GroupBy(x => x.Category.Name);
 
                 Values = groups
                          .Select(x =>
