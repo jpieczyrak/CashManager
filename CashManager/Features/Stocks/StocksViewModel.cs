@@ -37,7 +37,6 @@ namespace CashManager.Features.Stocks
             _commandDispatcher = commandDispatcher;
 
             _correctionsCreator = correctionsCreator;
-            Update();
 
             AddStockCommand = new RelayCommand(() =>
             {
