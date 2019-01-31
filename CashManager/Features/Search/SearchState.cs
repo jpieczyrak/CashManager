@@ -61,7 +61,7 @@ namespace CashManager.Features.Search
 
         public SearchState(IQueryDispatcher queryDispatcher = null)
         {
-            Name = string.Empty;
+            Name = "default";
 
             TitleFilter = new TextSelector(TextSelectorType.Title);
             NoteFilter = new TextSelector(TextSelectorType.Note);
