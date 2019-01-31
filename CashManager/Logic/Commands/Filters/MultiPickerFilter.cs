@@ -25,7 +25,7 @@ namespace CashManager.Logic.Commands.Filters
             {
                 case MultiPickerType.Category:
                     var categories = _picker.Results.Select(x => x.Value as Category).ToArray();
-                    elements = elements.Where(x => categories.Any(y => y.MatchCategoryFilter(x.Category)));
+                    elements = elements.Where(x => categories.Any(y => y.Id == x.Category?.Id));
                     break;
                 case MultiPickerType.Tag:
                     var tags = new HashSet<Tag>(_picker.Results.Select(x => x.Value as Tag));
@@ -57,7 +57,7 @@ namespace CashManager.Logic.Commands.Filters
                 case MultiPickerType.Category:
                     var categories = _picker.Results.Select(x => x.Value as Category).ToArray();
                     elements = elements.Where(x => x.Positions.Select(y => y.Category)
-                                                    .Any(y => categories.Any(z => z.MatchCategoryFilter(y))));
+                                                    .Any(y => categories.Any(z => z.Id == y?.Id)));
                     break;
                 case MultiPickerType.Tag:
                     var tags = new HashSet<Tag>(_picker.Results.Select(x => x.Value as Tag));
