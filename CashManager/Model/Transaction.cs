@@ -146,6 +146,10 @@ namespace CashManager.Model
                                && !string.IsNullOrWhiteSpace(Title)
                                && UserStock != null;
 
+        public string CategoriesForGui => Positions == null || !Positions.Any()
+                                              ? string.Empty
+                                              : string.Join(", ", Positions.Select(x => x.Category?.Name).Distinct().Where(x => x != null));
+
         public Transaction(Guid id) : this() { Id = id; }
 
         public Transaction()
