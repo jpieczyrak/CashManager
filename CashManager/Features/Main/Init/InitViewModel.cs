@@ -100,7 +100,16 @@ namespace CashManager.Features.Main.Init
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(value);
             }
         }
+
         public string[] Localizations { get; } = { "pl-PL", "en-US" };
+
+        private bool _moreData;
+
+        public bool MoreData
+        {
+            get => _moreData;
+            set => Set(ref _moreData, value);
+        }
 
         public bool CanStartApplication { get; private set; }
 
@@ -117,7 +126,7 @@ namespace CashManager.Features.Main.Init
         public void GenerateData(ICommandDispatcher commandDispatcher)
         {
 #if BETA
-            var defaultDataProvider = new TestDataProvider();
+            var defaultDataProvider = new TestDataProvider(MoreData);
 #else
             var defaultDataProvider = new DefaultDataProvider();
 #endif
