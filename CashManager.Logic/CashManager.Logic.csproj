@@ -93,9 +93,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bogus, Version=25.0.2.0, Culture=neutral, PublicKeyToken=fa1bb3f3f218129a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bogus.25.0.2\lib\net40\Bogus.dll</HintPath>
-    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -108,7 +105,6 @@
     <Compile Include="DefaultData\InputParsers\CategoryParser.cs" />
     <Compile Include="DefaultData\TestDataProvider.cs" />
     <Compile Include="DefaultData\IDataProvider.cs" />
-    <Compile Include="DefaultData\MassDataProvider.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Parsers\Custom\Predefined\PredefinedCsvParsers.cs" />
     <Compile Include="Parsers\Custom\CustomCsvParser.cs" />
