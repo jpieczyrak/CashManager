@@ -29,7 +29,7 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
             var expected = _fixture.ViewModelContext.Positions.Value
-                             .Where(x => filterValue.MatchCategoryFilter(x.Category))
+                             .Where(x => filterValue.Id == x.Category.Id)
                              .OrderBy(x => x.Id)
                              .ToArray();
 

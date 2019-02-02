@@ -28,7 +28,7 @@ namespace CashManager.Tests.ViewModels.Search.Transactions
             var filterValue = vm.MatchingTransactions[0].Positions.First().Category;
             vm.IsTransactionsSearch = true;
             var expected = vm.MatchingTransactions
-                             .Where(x => x.Positions.Any(y => filterValue.MatchCategoryFilter(y.Category)))
+                             .Where(x => x.Positions.Any(y => filterValue.Id == y.Category.Id))
                              .OrderBy(x => x.Id)
                              .ToArray();
 
