@@ -77,5 +77,17 @@ namespace CashManager.Features.Main.Settings
                 RaisePropertyChanged(nameof(AllSelected));
             }
         }
+
+        public bool QuestionForMassReplacePerform
+        {
+            get => Properties.Settings.Default.QuestionForMassReplacePerform;
+            set
+            {
+                if (Properties.Settings.Default.QuestionForMassReplacePerform == value) return;
+                Properties.Settings.Default.QuestionForMassReplacePerform = value;
+                RaisePropertyChanged(nameof(QuestionForMassReplacePerform));
+                RaisePropertyChanged(nameof(AllSelected));
+            }
+        }
     }
 }

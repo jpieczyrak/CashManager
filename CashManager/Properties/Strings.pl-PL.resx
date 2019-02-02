@@ -558,4 +558,19 @@ Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wa
   <data name="ShowTopCategories" xml:space="preserve">
     <value>Pokaż tylko główne kategorie</value>
   </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnTransactionsFormat" xml:space="preserve">
+    <value>Czy jesteś pewien, że chcesz wykonać masową zamianę na: {0} transakcjach?</value>
+  </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnPositionsFormat" xml:space="preserve">
+    <value>Czy jesteś pewien, że chcesz wykonać masową zamianę na: {0} pozycjach?</value>
+  </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnAllTransactions" xml:space="preserve">
+    <value>Czy jesteś pewien, że chcesz wykonać masową zamianę na wszystkich transakcjach?</value>
+  </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnAllPositions" xml:space="preserve">
+    <value>Czy jesteś pewien, że chcesz wykonać masową zamianę na wszystich pozycjach?</value>
+  </data>
+  <data name="AskForMassReplacePerform" xml:space="preserve">
+    <value>Pytaj przy wykonywaniu masowej zamiany</value>
+  </data>
 </root>

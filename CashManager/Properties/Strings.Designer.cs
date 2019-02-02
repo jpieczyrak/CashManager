@@ -197,6 +197,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ask for mass replace perform.
+        /// </summary>
+        public static string AskForMassReplacePerform {
+            get {
+                return ResourceManager.GetString("AskForMassReplacePerform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ask for position delete.
         /// </summary>
         public static string AskForPositionDelete {
@@ -1013,6 +1022,42 @@ namespace CashManager.Properties {
         public static string QuestionDoYouWantToMoveCategoryFormat {
             get {
                 return ResourceManager.GetString("QuestionDoYouWantToMoveCategoryFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to perform mass replace for all positions?.
+        /// </summary>
+        public static string QuestionDoYouWantToPerformMassReplaceOnAllPositions {
+            get {
+                return ResourceManager.GetString("QuestionDoYouWantToPerformMassReplaceOnAllPositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to perform mass replace for all transactions?.
+        /// </summary>
+        public static string QuestionDoYouWantToPerformMassReplaceOnAllTransactions {
+            get {
+                return ResourceManager.GetString("QuestionDoYouWantToPerformMassReplaceOnAllTransactions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to perform mass replace for: {0} positions?.
+        /// </summary>
+        public static string QuestionDoYouWantToPerformMassReplaceOnPositionsFormat {
+            get {
+                return ResourceManager.GetString("QuestionDoYouWantToPerformMassReplaceOnPositionsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to perform mass replace for: {0} transactions?.
+        /// </summary>
+        public static string QuestionDoYouWantToPerformMassReplaceOnTransactionsFormat {
+            get {
+                return ResourceManager.GetString("QuestionDoYouWantToPerformMassReplaceOnTransactionsFormat", resourceCulture);
             }
         }
         

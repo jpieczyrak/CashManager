@@ -12,6 +12,8 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.ReplacerState;
 using CashManager.Logic.Commands.Setters;
 using CashManager.Model.Common;
+using CashManager.Properties;
+using CashManager.UserCommunication;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -26,6 +28,7 @@ namespace CashManager.Features.MassReplacer
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ISetter<Model.Transaction>[] _transactionSetters;
         private readonly ISetter<Model.Position>[] _positionSetter;
+        private readonly IMessagesService _messagesService;
 
         public SearchViewModel SearchViewModel { get; private set; }
 
@@ -39,10 +42,11 @@ namespace CashManager.Features.MassReplacer
 
         public RelayCommand<BaseObservableObject> MassReplacerLoadCommand { get; }
 
-        public MassReplacerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory)
+        public MassReplacerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory, IMessagesService messagesService)
         {
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
+            _messagesService = messagesService;
             State = new ReplacerState();
             SearchViewModel = factory.Create<SearchViewModel>();
             PerformCommand = new RelayCommand(ExecutePerformCommand, CanExecutePerformCommand);
@@ -101,6 +105,22 @@ namespace CashManager.Features.MassReplacer
 
         private void ExecutePerformCommand()
         {
+            if (Settings.Default.QuestionForMassReplacePerform)
+            {
+                bool allMatching = SearchViewModel.IsTransactionsSearch
+                                       ? SearchViewModel.MatchingTransactions.Count == SearchViewModel.Provider.AllTransactions.Count
+                                       : SearchViewModel.MatchingPositions.Count == SearchViewModel.Provider.AllTransactions.SelectMany(x => x.Positions).Count();
+                string question = allMatching
+                                      ? (SearchViewModel.IsTransactionsSearch
+                                             ? string.Format(Strings.QuestionDoYouWantToPerformMassReplaceOnAllTransactions, SearchViewModel.MatchingTransactions.Count)
+                                             : string.Format(Strings.QuestionDoYouWantToPerformMassReplaceOnAllPositions, SearchViewModel.MatchingPositions.Count))
+                                      : (SearchViewModel.IsTransactionsSearch
+                                             ? string.Format(Strings.QuestionDoYouWantToPerformMassReplaceOnTransactionsFormat, SearchViewModel.MatchingTransactions.Count)
+                                             : string.Format(Strings.QuestionDoYouWantToPerformMassReplaceOnPositionsFormat, SearchViewModel.MatchingPositions.Count));
+
+                if (!_messagesService.ShowQuestionMessage(Strings.Question, question)) return;
+            }
+
             var transactions = SearchViewModel.MatchingTransactions;
 
             if (SearchViewModel.IsTransactionsSearch)

@@ -48,6 +48,9 @@
 
                     <TextBlock Text="{x:Static properties:Strings.AskForCategoryMove}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
                     <CheckBox Content="{x:Static properties:Strings.Enable}" IsChecked="{Binding Warnings.QuestionForCategoryMove}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                    <TextBlock Text="{x:Static properties:Strings.AskForMassReplacePerform}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <CheckBox Content="{x:Static properties:Strings.Enable}" IsChecked="{Binding Warnings.QuestionForMassReplacePerform}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </UniformGrid>
             </TabItem>
             <TabItem Header="{x:Static properties:Strings.Notifications}" />

@@ -570,4 +570,19 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   <data name="ShowTopCategories" xml:space="preserve">
     <value>Show only top categories</value>
   </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnTransactionsFormat" xml:space="preserve">
+    <value>Do you want to perform mass replace for: {0} transactions?</value>
+  </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnPositionsFormat" xml:space="preserve">
+    <value>Do you want to perform mass replace for: {0} positions?</value>
+  </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnAllTransactions" xml:space="preserve">
+    <value>Do you want to perform mass replace for all transactions?</value>
+  </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnAllPositions" xml:space="preserve">
+    <value>Do you want to perform mass replace for all positions?</value>
+  </data>
+  <data name="AskForMassReplacePerform" xml:space="preserve">
+    <value>Ask for mass replace perform</value>
+  </data>
 </root>

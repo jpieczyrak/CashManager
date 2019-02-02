@@ -202,5 +202,17 @@ namespace CashManager.Properties {
                 this["WindowState"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool QuestionForMassReplacePerform {
+            get {
+                return ((bool)(this["QuestionForMassReplacePerform"]));
+            }
+            set {
+                this["QuestionForMassReplacePerform"] = value;
+            }
+        }
     }
 }
