@@ -10,11 +10,14 @@ namespace CashManager.Logic.Parsers
     public class IntelligoBankParser : IParser
     {
         private const string REGEX_PATTERN =
-            @"(?<Id>\d+)\s+((?<Year>\d{4})-(?<Month>\d{2})-(?<Day>\d{2})\s+){2}(?<OperationType>.*)\s+(?<Sign>([\-+]))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*)\s+(?<Currency>\S*)\s+(?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*)\s+(?<Note>(.*\n){1,12}(Data waluty: \d{4}-\d{2}-\d{2}))";
+            @"(?<Id>\d+)\s+((?<Year>\d{4})-(?<Month>\d{2})-(?<Day>\d{2})\s+){2}(?<OperationType>.*)\s+(?<Sign>([\-+]))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*)\s+(?<Currency>\S*)\s+(?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*)\s+((?<Note>((.*)\n?)*?(Data waluty: \d{4}-\d{2}-\d{2})))";
 
         private const string TITLE_PREFIX = "Tytu³:";
 
         private readonly List<Balance> _balances = new List<Balance>();
+        private static readonly Regex _regex;
+
+        static IntelligoBankParser() => _regex = new Regex(REGEX_PATTERN, RegexOptions.Compiled);
 
         public Dictionary<Stock, Balance> Balances { get; private set; } = new Dictionary<Stock, Balance>();
 
@@ -25,9 +28,7 @@ namespace CashManager.Logic.Parsers
         {
             var output = new List<Transaction>();
 
-            var regex = new Regex(REGEX_PATTERN);
-
-            foreach (Match match in regex.Matches(input))
+            foreach (Match match in _regex.Matches(input))
                 output.Add(CreateTransaction(match, userStock, externalStock, defaultOutcome, defaultIncome));
 
             Balances[userStock] = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();

@@ -240,5 +240,48 @@ Data waluty: 2018-08-19
             foreach (var result in results) ValidateTransaction(result, expected);
             Assert.Equal(balance, parser.Balances.First().Value.Value);
         }
+
+        [Fact]
+        public void MultipleTransactionsWithDifferentLenghtParseTest()
+        {
+            //given
+            string input = @"133
+2018-09-07
+2018-09-07
+Przelew z rachunku
+-50,00
+PLN
+4 521,61
+Dane adr. rach. przeciwst.:
+PKO BP FINAT SP. Z O.O.
+Tytuł: DOŁADOWANIE TELEFONU +48 111168049 T-MOBILE IDENTYFIKATOR OPERACJI: 53642285 
+Data waluty: 2018-09-07 
+134
+2018-09-07
+2018-09-07
+Opłata
+-5,00
+PLN
+4 516,61
+Opłata za Powiadomienia SMS 
+Data waluty: 2018-09-07
+135
+2018-09-07
+2018-09-07
+Opłata
+-5,00
+PLN
+4 516,61
+Opłata za Powiadomienia SMS 
+Data waluty: 2018-09-07";
+            var userStock = new Stock { Name = "Intelligo bank" };
+            var parser = new IntelligoBankParser();
+
+            //when
+            var results = parser.Parse(input, userStock, null, new TransactionType(), null);
+
+            //then
+            Assert.Equal(3, results.Length);
+        }
     }
 }
