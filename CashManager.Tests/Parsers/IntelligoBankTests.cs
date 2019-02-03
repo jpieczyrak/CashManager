@@ -149,5 +149,96 @@ temp trash
             ValidateTransaction(result, expected);
             Assert.Equal(balance, parser.Balances.First().Value.Value);
         }
+
+        [Fact]
+        public void ShortUncommonOutcomeParseTest()
+        {
+            //given
+            string input = @"-----------------------------------------------------
+93
+2018-07-07
+2018-07-07
+Opłata
+-5,00
+PLN
+271,87
+Opłata za Powiadomienia SMS 
+Data waluty: 2018-07-07
+-----------------------------------------------------";
+            var userStock = new Stock { Name = "Intelligo bank" };
+            var externalStock = new Stock { Name = "Default" };
+            var creationDate = new DateTime(2018, 7, 7);
+            var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
+            decimal balance = 271.87m;
+            string title = @"93 Opłata";
+            var expected = new Transaction(outcomeType, creationDate, title,
+                $"93 - Opłata za Powiadomienia SMS Data waluty: 2018-07-07 Opłata saldo: {balance.ToString(Strings.ValueFormat)} (PLN)",
+                new[]
+                {
+                    new Position
+                    {
+                        Title = title,
+                        Value = new PaymentValue { GrossValue = 5m }
+                    }
+                }, userStock, externalStock, input);
+            var parser = new IntelligoBankParser();
+
+            //when
+            var results = parser.Parse(input, userStock, externalStock, outcomeType, null);
+
+            //then
+            foreach (var result in results) ValidateTransaction(result, expected);
+            Assert.Equal(balance, parser.Balances.First().Value.Value);
+        }
+
+        [Fact]
+        public void LongUncommonOutcomeParseTest()
+        {
+            //given
+            string input = @"-----------------------------------------------------
+120
+2018-08-21
+2018-08-19
+Płatność kartą
+-179,91
+PLN
+209,38
+Lokalizacja:
+Kraj: WIELKA BRYTANIA
+Miasto: CDK2156
+Adres: CDKEYS.COM
+Data wykonania: 2018-08-19 00:00:00
+Numer referencyjny: 11111218231005349661663
+Oryginalna kwota operacji: 35.99 GBP
+Data przetworzenia: 2018-08-20
+Numer karty: * *111 
+Data waluty: 2018-08-19
+-----------------------------------------------------
+-----------------------------------------------------";
+            var userStock = new Stock { Name = "Intelligo bank" };
+            var externalStock = new Stock { Name = "Default" };
+            var creationDate = new DateTime(2018, 8, 19);
+            var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
+            decimal balance = 209.38m;
+            string title = @"120 Płatność kartą";
+            var expected = new Transaction(outcomeType, creationDate, title,
+                $"120 - Lokalizacja: Kraj: WIELKA BRYTANIA Miasto: CDK2156 Adres: CDKEYS.COM Data wykonania: 2018-08-19 00:00:00 Numer referencyjny: 11111218231005349661663 Oryginalna kwota operacji: 35.99 GBP Data przetworzenia: 2018-08-20 Numer karty: * *111 Data waluty: 2018-08-19 Płatność kartą saldo: {balance.ToString(Strings.ValueFormat)} (PLN)",
+                new[]
+                {
+                    new Position
+                    {
+                        Title = title,
+                        Value = new PaymentValue { GrossValue = 179.91m }
+                    }
+                }, userStock, externalStock, input);
+            var parser = new IntelligoBankParser();
+
+            //when
+            var results = parser.Parse(input, userStock, externalStock, outcomeType, null);
+
+            //then
+            foreach (var result in results) ValidateTransaction(result, expected);
+            Assert.Equal(balance, parser.Balances.First().Value.Value);
+        }
     }
 }

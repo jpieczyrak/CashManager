@@ -10,7 +10,7 @@ namespace CashManager.Logic.Parsers
     public class IntelligoBankParser : IParser
     {
         private const string REGEX_PATTERN =
-            @"(?<Id>\d+)\s+((?<Year>\d{4})-(?<Month>\d{2})-(?<Day>\d{2})\s+){2}(?<OperationType>.*)\s+(?<Sign>([\-+]))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*)\s+(?<Currency>\S*)\s+(?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*)\s+(?<Note>(.*\n){1,8}(Data waluty: \d{4}-\d{2}-\d{2}))";
+            @"(?<Id>\d+)\s+((?<Year>\d{4})-(?<Month>\d{2})-(?<Day>\d{2})\s+){2}(?<OperationType>.*)\s+(?<Sign>([\-+]))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*)\s+(?<Currency>\S*)\s+(?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*)\s+(?<Note>(.*\n){1,12}(Data waluty: \d{4}-\d{2}-\d{2}))";
 
         private const string TITLE_PREFIX = "Tytu³:";
 
