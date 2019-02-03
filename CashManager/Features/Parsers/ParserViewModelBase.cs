@@ -44,7 +44,6 @@ namespace CashManager.Features.Parsers
         private string _inputText;
         private bool _generateMissingStocks;
         private TransactionListViewModel _resultsListViewModel = new TransactionListViewModel();
-        private IParser _parser;
 
         public ParserViewModelBase(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
             TransactionsProvider transactionsProvider, MassReplacerViewModel replacer)
@@ -84,15 +83,7 @@ namespace CashManager.Features.Parsers
 
         public MultiPicker ReplacerSelector { get; } = new MultiPicker(MultiPickerType.ReplacerStates, new Selectable[0]);
 
-        public IParser Parser
-        {
-            get => _parser;
-            set
-            {
-                _parser = value;
-                Clear();
-            }
-        }
+        public IParser Parser { get; set; }
 
         public RelayCommand ParseCommand { get; set; }
 
