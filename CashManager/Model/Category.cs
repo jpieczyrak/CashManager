@@ -8,6 +8,8 @@ namespace CashManager.Model
 {
     public class Category : BaseObservableObject
     {
+        public static readonly Category Default = new Category(new Guid(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+
         private Category _parent;
 
         public Category Parent

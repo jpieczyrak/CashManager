@@ -4,7 +4,9 @@ namespace CashManager.Data.DTO
 {
 	public class Category : Dto
 	{
-	    public Category() { }
+	    public static readonly Category Default = new Category(new Guid(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+
+        public Category() { }
 
 	    public Category(Guid id) { Id = id; }
 

@@ -4,6 +4,7 @@ using System.Threading;
 
 using Autofac;
 
+using CashManager.Data.DTO;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Categories;
 using CashManager.Infrastructure.Command.Stocks;
@@ -136,6 +137,7 @@ namespace CashManager.Features.Main.Init
 
             var categories = defaultDataProvider.GetCategories();
             if (GenerateCategories) commandDispatcher.Execute(new UpsertCategoriesCommand(categories));
+            else commandDispatcher.Execute(new UpsertCategoriesCommand(Category.Default));
 
             var types = defaultDataProvider.GetTransactionTypes();
             if (GenerateTypes) commandDispatcher.Execute(new UpsertTransactionTypesCommand(types));

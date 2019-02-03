@@ -148,7 +148,7 @@ namespace CashManager.Logic.DefaultData
         }
 
         private Category FindCategory(string name)
-            => _categories.Value.FirstOrDefault(x => x.Name.ToLower().Contains(name.ToLower()));
+            => _categories.Value.FirstOrDefault(x => x.Name != null && x.Name.ToLower().Contains(name.ToLower()));
 
         private Category RandomCategory() => _categories.Value.OrderBy(x => _random.Next(10)).First();
 
