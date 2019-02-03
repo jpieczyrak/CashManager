@@ -42,7 +42,7 @@ namespace CashManager.Features.Categories
                 category.Children = new TrulyObservableCollection<ExpandableCategory>(categories.Where(x => x.Parent?.Id == category.Id).OrderBy(x => x.Name));
 
             _flatCategories = categories.ToArray();
-            Categories = categories.Where(x => x.Parent == null && x.Id != Category.Default.Id)
+            Categories = categories.Where(x => x.Parent == null)
                                    .OrderBy(x => x.Name)
                                    .ToArray(); //find the root(s)
             DefaultCategory = Mapper.Map<Category>(categories.FirstOrDefault());

@@ -359,6 +359,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string DefaultCategoryName {
+            get {
+                return ResourceManager.GetString("DefaultCategoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default external stock.
         /// </summary>
         public static string DefaultExternalStock {

@@ -585,4 +585,7 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   <data name="AskForMassReplacePerform" xml:space="preserve">
     <value>Ask for mass replace perform</value>
   </data>
+  <data name="DefaultCategoryName" xml:space="preserve">
+    <value>None</value>
+  </data>
 </root>

@@ -573,4 +573,7 @@ Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wa
   <data name="AskForMassReplacePerform" xml:space="preserve">
     <value>Pytaj przy wykonywaniu masowej zamiany</value>
   </data>
+  <data name="DefaultCategoryName" xml:space="preserve">
+    <value>Brak</value>
+  </data>
 </root>

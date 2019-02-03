@@ -90,8 +90,7 @@ namespace CashManager.Features.Categories
             }
 
             //find the root(s)
-            Categories.AddRange(categories.Where(x => x.Parent == null && !Categories.Contains(x) && x.Id != Category.Default.Id)
-                                          .OrderBy(x => x.Name));
+            Categories.AddRange(categories.Where(x => x.Parent == null && !Categories.Contains(x)).OrderBy(x => x.Name));
         }
 
         private void Move(ExpandableCategory sourceCategory, ExpandableCategory targetCategory)
