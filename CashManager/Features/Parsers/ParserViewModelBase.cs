@@ -239,7 +239,7 @@ namespace CashManager.Features.Parsers
             }
         }
 
-        protected virtual bool CanExecuteParseCommand() => !string.IsNullOrEmpty(InputText);
+        protected virtual bool CanExecuteParseCommand() => !string.IsNullOrEmpty(InputText) && SelectedUserStock != null;
 
         protected virtual void ExecuteParseCommand()
         {
