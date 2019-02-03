@@ -158,7 +158,7 @@ namespace CashManager.Features.Categories
             }
         }
 
-        private bool CanExecuteRemoveCategoryCommand() => SelectedCategory?.Parent != null;
+        private bool CanExecuteRemoveCategoryCommand() => SelectedCategory?.Parent != null && SelectedCategory?.Id != Category.Default.Id;
 
         private void ExecuteLoadCategoriesCommand()
         {
