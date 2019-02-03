@@ -6,6 +6,7 @@
     xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:model="clr-namespace:CashManager.Model"
         xmlns:properties="clr-namespace:CashManager.Properties"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         x:Class="CashManager.Features.Categories.CategoryManagerView"
         mc:Ignorable="d"
         d:DesignWidth="600"
@@ -58,6 +59,11 @@
                     </Style.Triggers>
                 </Style>
             </TreeView.ItemContainerStyle>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseUp">
+                    <i:InvokeCommandAction Command="{Binding UnselectCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </TreeView>
     </Grid>
 </UserControl>

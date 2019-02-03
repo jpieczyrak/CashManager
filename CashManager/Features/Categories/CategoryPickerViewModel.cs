@@ -58,7 +58,17 @@ namespace CashManager.Features.Categories
 
         private void ExecuteUpdateSelectedCategory(ExpandableCategory category)
         {
-            if (category != null) SelectedCategory = Mapper.Map<Category>(category);
+            if (category != null)
+            {
+                var selectedCategory = Mapper.Map<Category>(category);
+                if (selectedCategory.Id == SelectedCategory.Id)
+                {
+                    SelectedCategory = Category.Default;
+                    category.IsSelected = false;
+                }
+                else
+                    SelectedCategory = selectedCategory;
+            }
         }
 
         private void ExpandParents(ExpandableCategory selected)
