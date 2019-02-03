@@ -37,8 +37,8 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="{x:Static properties:Strings.Categories}" Binding="{Binding CategoriesForGui, Mode=OneWay}" Width="Auto" />
-                <DataGridTextColumn Header="{x:Static properties:Strings.UserStock}" Binding="{Binding UserStock.Name, Mode=OneWay}" Width="Auto" MaxWidth="80" />
-                <DataGridTextColumn Header="{x:Static properties:Strings.TransactionType}" Binding="{Binding Type.Name, Mode=OneWay}" Width="Auto" MaxWidth="80" />
+                <DataGridTextColumn Header="{x:Static properties:Strings.UserStock}" Binding="{Binding UserStock.Name, Mode=OneWay}" Width="Auto" />
+                <DataGridTextColumn Header="{x:Static properties:Strings.TransactionType}" Binding="{Binding Type.Name, Mode=OneWay}" Width="Auto" />
                 <DataGridTextColumn Header="{x:Static properties:Strings.Value}" Binding="{Binding ValueWithSign, Mode=OneWay, StringFormat={x:Static properties:Strings.ValueFormat}}" Width="Auto" MinWidth="70" MaxWidth="100">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
