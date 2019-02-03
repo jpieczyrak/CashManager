@@ -86,6 +86,7 @@ namespace CashManager.Model
         {
             Tags = new Tag[0];
             _value = new PaymentValue();
+            Category = Category.Default;
         }
 
         public static Position Copy(Position source)

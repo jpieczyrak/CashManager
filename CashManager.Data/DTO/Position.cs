@@ -9,6 +9,7 @@ namespace CashManager.Data.DTO
 	    {
             Value = new PaymentValue();
 	        Tags = new List<Tag>();
+	        Category = Category.Default;
         }
 
 	    public Position(Guid id) : this() { Id = id; }
