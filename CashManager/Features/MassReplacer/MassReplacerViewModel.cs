@@ -82,10 +82,7 @@ namespace CashManager.Features.MassReplacer
                 ApplyState(state);
             }, selected => selected != null);
 
-            ClearMassReplacerStateCommand = new RelayCommand(() =>
-            {
-                State.Clear();
-            });
+            ClearMassReplacerStateCommand = new RelayCommand(() => State.Clear());
 
             var patterns = _queryDispatcher.Execute<ReplacerStateQuery, MassReplacerState[]>(new ReplacerStateQuery())
                                            .OrderBy(x => x.Name);
@@ -136,6 +133,7 @@ namespace CashManager.Features.MassReplacer
                         setter.Execute(SearchViewModel.MatchingPositions);
             }
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<Transaction[]>(transactions)));
+            SearchViewModel.State.ApplyReverseReplaceCriteria(State);
         }
 
         public void Update()
