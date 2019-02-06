@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 using CashManager.Messages.App;
@@ -45,7 +47,11 @@ namespace CashManager.Utils.Updates
 
         public async Task HandleApplicationUpdatesCheck()
         {
-            await Task.Run(() => PerformVersionCheck());
+            await Task.Run(() =>
+            {
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Settings.Default.Localization);
+                PerformVersionCheck();
+            });
         }
 
         private static void PerformVersionCheck()
