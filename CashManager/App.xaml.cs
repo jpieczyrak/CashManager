@@ -26,6 +26,8 @@ using GalaSoft.MvvmLight.Threading;
 
 using log4net;
 
+using LiteDB;
+
 namespace CashManager
 {
     public partial class App : Application
@@ -78,9 +80,8 @@ namespace CashManager
                     await _updater.HandleApplicationUpdatesCheck();
                     break;
                 }
-                catch (Exception exception)
+                catch (LiteException exception)
                 {
-                    //todo: catch only litedb exceptions?
                     _logger.Value.Error("Loading app failed", exception);
                 }
             }
