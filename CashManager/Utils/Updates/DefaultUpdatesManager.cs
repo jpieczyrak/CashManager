@@ -1,7 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+
+using CashManager.Messages.App;
+
+using GalaSoft.MvvmLight.Messaging;
 
 using log4net;
 
@@ -9,6 +17,11 @@ namespace CashManager.Utils.Updates
 {
     internal class DefaultUpdatesManager : IUpdatesManager
     {
+#if BETA
+        private const string UPDATES_URL = "http://cash-manager.pl/files/beta/RELEASES";
+#else
+        private const string UPDATES_URL = "http://cash-manager.pl/files/releases/RELEASES";
+#endif
         private const string USER_CONFIG_PATH = "user.config";
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(DefaultUpdatesManager)));
 
@@ -29,7 +42,41 @@ namespace CashManager.Utils.Updates
             RemoveSettingsDirectory(path);
         }
 
-        public async Task HandleApplicationUpdatesCheck() { }
+        public async Task HandleApplicationUpdatesCheck()
+        {
+            await Task.Run(() => PerformVersionCheck());
+        }
+
+        private static void PerformVersionCheck()
+        {
+            string content = new WebReader().Read(UPDATES_URL);
+            if (!string.IsNullOrWhiteSpace(content))
+            {
+                var regex = new Regex(@"\d+\.\d+\.\d+");
+                var lines = new List<string>();
+                foreach (Match match in regex.Matches(content)) lines.Add(match.Value);
+
+                var versions = lines
+                                    .OrderByDescending(x =>
+                                    {
+                                        var elements = x.Split('.');
+                                        return int.Parse(elements[0]) * 100000000 + int.Parse(elements[1]) * 10000 + int.Parse(elements[2]);
+                                    })
+                                    .ToArray();
+                string topVersion = versions.FirstOrDefault();
+
+                string actualVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
+                if (actualVersion != topVersion)
+                {
+                    _logger.Value.Debug($"There is newer version: {topVersion}");
+                    Messenger.Default.Send(new ApplicationUpdateMessage($"Update available: {topVersion}", string.Empty));
+                }
+                else
+                {
+                    _logger.Value.Debug("Up-to-date");
+                }
+            }
+        }
 
         #endregion
 

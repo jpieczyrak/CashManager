@@ -437,6 +437,7 @@
     <Compile Include="Utils\Updates\DefaultUpdatesManager.cs" />
     <Compile Include="Utils\Updates\IUpdatesManager.cs" />
     <Compile Include="Utils\Updates\SquirrelUpdatesManager.cs" Condition="$(DefineConstants.Contains('PORTABLE')) != true" />
+    <Compile Include="Utils\WebReader.cs" />
     <Page Include="Features\Balance\CustomBalanceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
