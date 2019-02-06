@@ -588,4 +588,13 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   <data name="DefaultCategoryName" xml:space="preserve">
     <value>None</value>
   </data>
+  <data name="SplitterValue" xml:space="preserve">
+    <value>Elements (columns) splitter</value>
+  </data>
+  <data name="AddRule" xml:space="preserve">
+    <value>Add rule</value>
+  </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>Update available</value>
+  </data>
 </root>

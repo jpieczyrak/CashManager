@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using CashManager.Messages.App;
+using CashManager.Properties;
 
 using GalaSoft.MvvmLight.Messaging;
 
@@ -69,7 +70,7 @@ namespace CashManager.Utils.Updates
                 if (actualVersion != topVersion)
                 {
                     _logger.Value.Debug($"There is newer version: {topVersion}");
-                    Messenger.Default.Send(new ApplicationUpdateMessage($"Update available: {topVersion}", string.Empty));
+                    Messenger.Default.Send(new ApplicationUpdateMessage($"{Strings.UpdateAvailable}: {topVersion}", string.Empty));
                 }
                 else
                 {

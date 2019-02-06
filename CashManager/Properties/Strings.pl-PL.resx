@@ -576,4 +576,13 @@ Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wa
   <data name="DefaultCategoryName" xml:space="preserve">
     <value>Brak</value>
   </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>Dostępna aktualizacja</value>
+  </data>
+  <data name="AddRule" xml:space="preserve">
+    <value>Dodaj regułę</value>
+  </data>
+  <data name="SplitterValue" xml:space="preserve">
+    <value>Symbol rozdzielający kolumny</value>
+  </data>
 </root>

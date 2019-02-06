@@ -18,13 +18,13 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" Text="{Binding ColumnSplitter, UpdateSourceTrigger=PropertyChanged}" ToolTip="Elements (columns) splitter" HorizontalAlignment="Center" MinWidth="120" Width="200"/>
+        <TextBox Grid.Row="0" Text="{Binding ColumnSplitter, UpdateSourceTrigger=PropertyChanged}" ToolTip="{x:Static properties:Strings.SplitterValue}" HorizontalAlignment="Center" MinWidth="120" Width="200"/>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.RowSpan="2" Margin="5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" >
             <Button Template="{DynamicResource Close}" Command="{Binding ClearCommand}" Margin="0,0,5,0" HorizontalAlignment="Right" Width="22" />
             <common:SaveControl Command="{Binding ParserSaveCommand}" Margin="0,0,5,0" />
             <common:LoadControl Command="{Binding ParserLoadCommand}" Elements="{Binding Parsers}" />
         </StackPanel>
-        <Button Grid.Row="1" Content="Add rule" Command="{Binding AddRuleCommand}" Margin="5,5,5,10"/>
+        <Button Grid.Row="1" Content="{x:Static properties:Strings.AddRule}" Command="{Binding AddRuleCommand}" Margin="5,5,5,10"/>
         <Grid Grid.Row="2">
             <ItemsControl ItemsSource="{Binding Rules}" HorizontalAlignment="Center">
                 <ItemsControl.ItemTemplate>
@@ -32,8 +32,8 @@
                         <UniformGrid Rows="1">
                             <ComboBox ItemsSource="{Binding DataContext.AvailableProperties, ElementName=userControl}" SelectedItem="{Binding Property}" Margin="5"/>
                             <TextBox Text="{Binding Column}" Margin="5"/>
-                            <CheckBox IsChecked="{Binding IsOptional}" Content="Is optional" Margin="5"/>
-                            <Button Content="Remove" Margin="5" Command="{Binding DataContext.RemoveRuleCommand, ElementName=userControl}" CommandParameter="{Binding Mode=OneWay}" />
+                            <CheckBox IsChecked="{Binding IsOptional}" Content="{x:Static properties:Strings.Optional}" Margin="5"/>
+                            <Button Content="{x:Static properties:Strings.Remove}" Margin="5" Command="{Binding DataContext.RemoveRuleCommand, ElementName=userControl}" CommandParameter="{Binding Mode=OneWay}" />
                         </UniformGrid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

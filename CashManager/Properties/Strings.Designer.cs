@@ -107,6 +107,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add rule.
+        /// </summary>
+        public static string AddRule {
+            get {
+                return ResourceManager.GetString("AddRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add stock.
         /// </summary>
         public static string AddStock {
@@ -1188,6 +1197,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Elements (columns) splitter.
+        /// </summary>
+        public static string SplitterValue {
+            get {
+                return ResourceManager.GetString("SplitterValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
         public static string Start {
@@ -1328,6 +1346,15 @@ namespace CashManager.Properties {
         public static string TypesManagerHeader {
             get {
                 return ResourceManager.GetString("TypesManagerHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update available.
+        /// </summary>
+        public static string UpdateAvailable {
+            get {
+                return ResourceManager.GetString("UpdateAvailable", resourceCulture);
             }
         }
         
