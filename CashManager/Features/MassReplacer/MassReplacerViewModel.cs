@@ -35,7 +35,10 @@ namespace CashManager.Features.MassReplacer
         public ReplacerState State { get; private set; }
         public ObservableCollection<BaseObservableObject> Patterns { get; private set; }
 
-        public RelayCommand PerformCommand { get; }
+        public RelayCommand PerformReplaceCommand { get; }
+
+        public RelayCommand ApplyReverseReplaceSearchStateCommand { get; }
+
         public RelayCommand ClearMassReplacerStateCommand { get; }
 
         public RelayCommand<string> MassReplacerSaveCommand { get; }
@@ -49,7 +52,9 @@ namespace CashManager.Features.MassReplacer
             _messagesService = messagesService;
             State = new ReplacerState();
             SearchViewModel = factory.Create<SearchViewModel>();
-            PerformCommand = new RelayCommand(ExecutePerformCommand, CanExecutePerformCommand);
+            PerformReplaceCommand = new RelayCommand(ExecutePerformCommand, CanExecutePerformCommand);
+            ApplyReverseReplaceSearchStateCommand = new RelayCommand(() =>
+                SearchViewModel.State.ApplyReverseReplaceCriteria(State), () => _transactionSetters.Any(x => x.CanExecute()));
 
             _transactionSetters = new ISetter<Model.Transaction>[]
             {

@@ -63,10 +63,17 @@
             <setters:DateSetterControl Grid.Row="2" Grid.Column="0" DataContext="{Binding State.BookDateSetter}" />
             <setters:SingleSetterControl Grid.Row="2" Grid.Column="1" DataContext="{Binding State.UserStocksSelector}" />
             <setters:SingleSetterControl Grid.Row="2" Grid.Column="2" DataContext="{Binding State.ExternalStocksSelector}" />
-            
-            <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+
+            <UniformGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Columns="2">
+                <Button
                     Margin="0,5" Height="35" Width="150"
-                    Content="{x:Static properties:Strings.Perform}" Command="{Binding PerformCommand}" />
+                    Content="Reverse search"
+                    ToolTip="Display transactions matching to mass replace pattern"
+                    Command="{Binding ApplyReverseReplaceSearchStateCommand}" />
+                <Button
+                    Margin="0,5" Height="35" Width="150"
+                    Content="{x:Static properties:Strings.Perform}" Command="{Binding PerformReplaceCommand}" />
+            </UniformGrid>
         </Grid>
     </Grid>
 </UserControl>

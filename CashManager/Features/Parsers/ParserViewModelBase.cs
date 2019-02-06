@@ -123,7 +123,7 @@ namespace CashManager.Features.Parsers
                     {
                         _replacer.ApplyState(state);
                         _replacer.SearchViewModel.PerformFilter(transactions);
-                        _replacer.PerformCommand.Execute(null);
+                        _replacer.PerformReplaceCommand.Execute(null);
                         var replaced = _replacer.SearchViewModel.MatchingTransactions.ToArray();
                         transactions = transactions.Except(replaced).Concat(replaced);
                     }
