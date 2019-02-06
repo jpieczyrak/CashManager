@@ -22,6 +22,18 @@ namespace CashManager.Features.Main.Settings
             set => Properties.Settings.Default.SoundEnabled = value;
         }
 
+        public bool BackupDataBaseOnStart
+        {
+            get => Properties.Settings.Default.BackupDataBaseOnStart;
+            set => Properties.Settings.Default.BackupDataBaseOnStart = value;
+        }
+
+        public bool BackupDataBaseOnClose
+        {
+            get => Properties.Settings.Default.BackupDataBaseOnClose;
+            set => Properties.Settings.Default.BackupDataBaseOnClose = value;
+        }
+
         public IEnumerable<SkinColors> Skins { get; } = Enum.GetValues(typeof(SkinColors)).Cast<SkinColors>();
 
         public IEnumerable<SkinShapes> Shapes { get; } = Enum.GetValues(typeof(SkinShapes)).Cast<SkinShapes>();

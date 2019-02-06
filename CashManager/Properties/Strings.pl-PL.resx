@@ -585,4 +585,10 @@ Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wa
   <data name="SplitterValue" xml:space="preserve">
     <value>Symbol rozdzielający kolumny</value>
   </data>
+  <data name="BackupDbOnStart" xml:space="preserve">
+    <value>Utwórz kopię bazy przy starcie aplikacji</value>
+  </data>
+  <data name="BackupDbOnClose" xml:space="preserve">
+    <value>Utwórz kopię bazy przy zamykaniu aplikacji</value>
+  </data>
 </root>

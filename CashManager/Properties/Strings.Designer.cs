@@ -233,6 +233,24 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Backup database on app close.
+        /// </summary>
+        public static string BackupDbOnClose {
+            get {
+                return ResourceManager.GetString("BackupDbOnClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backup database on app start.
+        /// </summary>
+        public static string BackupDbOnStart {
+            get {
+                return ResourceManager.GetString("BackupDbOnStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Balance.
         /// </summary>
         public static string Balance {

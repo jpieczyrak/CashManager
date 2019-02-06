@@ -35,6 +35,7 @@ namespace CashManager
         private const string DB_PATH = "results.litedb";
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(App)));
         private IUpdatesManager _updater;
+        private DatabaseBackuper _databaseBackuper;
 
         private string DatabaseFilepath
         {
@@ -59,6 +60,7 @@ namespace CashManager
 
         private async Task PerformStart()
         {
+            _databaseBackuper = new DatabaseBackuper(DatabaseFilepath);
             SettingsManager.HandleSettingsUpgrade();
             while (true)
             {
@@ -92,6 +94,7 @@ namespace CashManager
             InitWindow init = null;
             if (File.Exists(DatabaseFilepath))
             {
+                if (Settings.Default.BackupDataBaseOnStart) _databaseBackuper.Backup();
                 string connectionString = $"Filename={DatabaseFilepath};Journal=true";
                 if (Settings.Default.IsPasswordNeeded)
                 {
@@ -156,6 +159,7 @@ namespace CashManager
 
         protected override void OnExit(ExitEventArgs e)
         {
+            if (Settings.Default.BackupDataBaseOnClose) _databaseBackuper.Backup();
             _updater.Cleanup();
             _logger.Value.Info("Exit");
             base.OnExit(e);

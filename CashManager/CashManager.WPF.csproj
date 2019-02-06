@@ -183,6 +183,8 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -432,6 +434,7 @@
     <Compile Include="TrulyObservableCollection.cs" />
     <Compile Include="UserCommunication\IMessagesService.cs" />
     <Compile Include="UserCommunication\MessageBoxService.cs" />
+    <Compile Include="Utils\DatabaseBackuper.cs" />
     <Compile Include="Utils\SettingsManager.cs" />
     <Compile Include="Utils\SoundPlayerHelper.cs" />
     <Compile Include="Utils\Updates\DefaultUpdatesManager.cs" />

@@ -214,5 +214,41 @@ namespace CashManager.Properties {
                 this["QuestionForMassReplacePerform"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BackupDataBaseOnStart {
+            get {
+                return ((bool)(this["BackupDataBaseOnStart"]));
+            }
+            set {
+                this["BackupDataBaseOnStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BackupDataBaseOnClose {
+            get {
+                return ((bool)(this["BackupDataBaseOnClose"]));
+            }
+            set {
+                this["BackupDataBaseOnClose"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public short KeepDatabaseBackupsCount {
+            get {
+                return ((short)(this["KeepDatabaseBackupsCount"]));
+            }
+            set {
+                this["KeepDatabaseBackupsCount"] = value;
+            }
+        }
     }
 }

@@ -597,4 +597,10 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   <data name="UpdateAvailable" xml:space="preserve">
     <value>Update available</value>
   </data>
+  <data name="BackupDbOnStart" xml:space="preserve">
+    <value>Backup database on app start</value>
+  </data>
+  <data name="BackupDbOnClose" xml:space="preserve">
+    <value>Backup database on app close</value>
+  </data>
 </root>
