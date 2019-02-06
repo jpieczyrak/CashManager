@@ -87,7 +87,8 @@ namespace CashManager.Features.Main
         public ApplicationViewModel(ViewModelFactory factory)
         {
             _factory = factory;
-            Title = $"Cash Manager {Assembly.GetExecutingAssembly().GetName().Version} - BETA";
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
+            Title = $"Cash Manager {version} - BETA";
 
             _summaryViewModel = new Lazy<SummaryViewModel>(() => _factory.Create<SummaryViewModel>());
             _stocksViewModel = new Lazy<StocksViewModel>(() => _factory.Create<StocksViewModel>());
