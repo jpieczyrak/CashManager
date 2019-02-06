@@ -28,12 +28,7 @@ namespace CashManager.Utils.Updates
         private const string USER_CONFIG_PATH = "user.config";
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(DefaultUpdatesManager)));
 
-        #region IUpdatesManager
-
-        public void HandleEvents()
-        {
-            SettingsManager.HandleSettingsUpgrade(USER_CONFIG_PATH);
-        }
+        public void HandleEvents() { SettingsManager.HandleSettingsUpgrade(USER_CONFIG_PATH); }
 
         public void Cleanup()
         {
@@ -64,16 +59,12 @@ namespace CashManager.Utils.Updates
                 foreach (Match match in regex.Matches(content)) lines.Add(match.Value);
 
                 var versions = lines
-                                    .OrderByDescending(x =>
-                                    {
-                                        var elements = x.Split('.');
-                                        return int.Parse(elements[0]) * 100000000 + int.Parse(elements[1]) * 10000 + int.Parse(elements[2]);
-                                    })
-                                    .ToArray();
+                               .OrderByDescending(VersionToNumber)
+                               .ToArray();
                 string topVersion = versions.FirstOrDefault();
 
-                string actualVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
-                if (actualVersion != topVersion)
+                long actualVersion = VersionToNumber(Assembly.GetExecutingAssembly().GetName().Version.ToString(3));
+                if (actualVersion < VersionToNumber(topVersion))
                 {
                     _logger.Value.Debug($"There is newer version: {topVersion}");
                     Messenger.Default.Send(new ApplicationUpdateMessage($"{Strings.UpdateAvailable}: {topVersion}", string.Empty));
@@ -85,7 +76,11 @@ namespace CashManager.Utils.Updates
             }
         }
 
-        #endregion
+        private static long VersionToNumber(string version)
+        {
+            var elements = version.Split('.');
+            return int.Parse(elements[0]) * 1000000 + int.Parse(elements[1]) * 10000 + int.Parse(elements[2]);
+        }
 
         private static void RemoveSettingsDirectory(string path)
         {
@@ -113,9 +108,7 @@ namespace CashManager.Utils.Updates
                 }
             }
             else
-            {
                 _logger.Value.Debug("Settings directory does not exists");
-            }
         }
     }
 }
