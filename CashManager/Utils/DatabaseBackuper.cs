@@ -16,14 +16,16 @@ namespace CashManager.Utils
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(DatabaseBackuper)));
         private readonly string _databaseFilepath;
 
+        private string DirectoryLocation => Path.Combine(Path.GetDirectoryName(_databaseFilepath), DIR);
+
         public DatabaseBackuper(string databaseFilepath) { _databaseFilepath = databaseFilepath; }
 
         public void Backup()
         {
-            string path = Path.Combine(Path.GetDirectoryName(_databaseFilepath), DIR, $"{DateTime.Now:yyyy-MM-dd HH-mm-ss-fff} - results.zip");
+            string path = Path.Combine(DirectoryLocation, $"{DateTime.Now:yyyy-MM-dd HH-mm-ss-fff} - results.zip");
             try
             {
-                if (!Directory.Exists(DIR)) Directory.CreateDirectory(DIR);
+                if (!Directory.Exists(DirectoryLocation)) Directory.CreateDirectory(DirectoryLocation);
 
                 using (var zip = ZipFile.Open(path, ZipArchiveMode.Create))
                 {
@@ -75,9 +77,9 @@ namespace CashManager.Utils
             }
         }
 
-        private static void CleanupOldBackups()
+        private void CleanupOldBackups()
         {
-            var files = Directory.GetFiles(DIR, "*.zip");
+            var files = Directory.GetFiles(DirectoryLocation, "*.zip");
             if (files.Length > Settings.Default.KeepDatabaseBackupsCount)
             {
                 var oldest = files.Select(x => new FileInfo(x)).OrderByDescending(x => x.CreationTime).Skip(Settings.Default.KeepDatabaseBackupsCount).ToArray();
