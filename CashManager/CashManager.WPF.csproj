@@ -205,6 +205,7 @@
     </ApplicationDefinition>
     <Compile Include="CommonData\TransactionsProvider.cs" />
     <Compile Include="Configuration\DI\AutofacConfiguration.cs" />
+    <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="Features\Balance\CustomBalanceView.xaml.cs">
       <DependentUpon>CustomBalanceView.xaml</DependentUpon>
