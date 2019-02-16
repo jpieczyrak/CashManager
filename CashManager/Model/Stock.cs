@@ -3,6 +3,8 @@ using System.ComponentModel;
 
 using CashManager.Model.Common;
 
+using log4net;
+
 namespace CashManager.Model
 {
     /// <summary>
@@ -11,6 +13,8 @@ namespace CashManager.Model
     /// </summary>
     public sealed class Stock : BaseObservableObject
     {
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(Stock)));
+
         private bool _isUserStock;
         private Balance _balance;
         private decimal _userOwnershipPercent = 100;
@@ -49,7 +53,21 @@ namespace CashManager.Model
 
         public bool IsEditable => !IsUserStock;
 
-        public decimal UserBalance => UserOwnershipPercent != 0m ? Balance.Value * UserOwnershipPercent / 100m : 0m;
+        public decimal UserBalance
+        {
+            get
+            {
+                try
+                {
+                    return UserOwnershipPercent != 0m ? Balance.Value * UserOwnershipPercent / 100m : 0m;
+                }
+                catch (OverflowException e)
+                {
+                    _logger.Value.Info("User balance overflow", e);
+                    return 0m;
+                }
+            }
+        }
 
         public Stock() : this(Guid.NewGuid()) { }
 

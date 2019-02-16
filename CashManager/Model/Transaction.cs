@@ -8,10 +8,13 @@ using AutoMapper;
 using CashManager.Data.Extensions;
 using CashManager.Model.Common;
 
+using log4net;
+
 namespace CashManager.Model
 {
     public class Transaction : BaseObservableObject, IBookable
     {
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(Transaction)));
         private string _title;
         private string _note;
 
@@ -124,7 +127,21 @@ namespace CashManager.Model
         /// <summary>
         /// Total value of transaction
         /// </summary>
-        public decimal Value => Positions?.Sum(position => position.Value?.GrossValue) ?? 0;
+        public decimal Value
+        {
+            get
+            {
+                try
+                {
+                    return Positions?.Sum(position => position.Value?.GrossValue) ?? 0;
+                }
+                catch (OverflowException e)
+                {
+                    _logger.Value.Info("Transaction value overflow", e);
+                    return 0m;
+                }
+            }
+        }
 
         /// <summary>
         /// Total value of transaction as profit of user (negative when buying, positive when receiving payments)
@@ -144,7 +161,8 @@ namespace CashManager.Model
                                && UserStock != null
                                && (Positions?.Any() ?? false)
                                && !string.IsNullOrWhiteSpace(Title)
-                               && UserStock != null;
+                               && UserStock != null
+                               && Value != 0m;
 
         public string CategoriesForGui => Positions == null || !Positions.Any()
                                               ? string.Empty

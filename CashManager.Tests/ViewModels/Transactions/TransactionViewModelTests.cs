@@ -51,7 +51,7 @@ namespace CashManager.Tests.ViewModels.Transactions
             vm.Transaction = new Transaction
             {
                 Title = "title 1",
-                Positions = new TrulyObservableCollection<Position>(new [] { new Position() }),
+                Positions = new TrulyObservableCollection<Position>(new[] { new Position { Value = new PaymentValue(5, 5, 0) } }),
                 Type = new TransactionType(),
                 UserStock = new Stock()
             };
@@ -81,7 +81,7 @@ namespace CashManager.Tests.ViewModels.Transactions
             vm.Transaction = new Transaction
             {
                 Title = title,
-                Positions = new TrulyObservableCollection<Position>(new [] { new Position() }),
+                Positions = new TrulyObservableCollection<Position>(new[] { new Position { Value = new PaymentValue(5, 5, 0) } }),
                 Type = new TransactionType(),
                 UserStock = new Stock()
             };
@@ -196,7 +196,7 @@ namespace CashManager.Tests.ViewModels.Transactions
                 Title = startTitle,
                 UserStock = new Stock(),
                 Type = new TransactionType(),
-                Positions = new TrulyObservableCollection<Position>(new[] { new Position() })
+                Positions = new TrulyObservableCollection<Position>(new[] { new Position { Value = new PaymentValue(5, 5, 0) } })
             };
 
             //transaction exists

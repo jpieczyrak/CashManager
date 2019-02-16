@@ -38,6 +38,7 @@ namespace CashManager.Tests.AcceptanceCriteria.Search
             transaction.Type = type;
             transaction.UserStock = userStock;
             transaction.BookDate = DateTime.Today;
+            transaction.Positions[0].Value.GrossValue = 10;
             transactionVm.SaveTransactionCommand.Execute(null);
 
             app.SelectViewModelCommand.Execute(ViewModel.Search);
