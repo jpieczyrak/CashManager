@@ -40,7 +40,7 @@
                       Margin="5" VerticalAlignment="Bottom" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{x:Static properties:Strings.Category}" Binding="{Binding Key, Mode=OneWay}" Width="*" MinWidth="70" />
-                    <DataGridTextColumn Header="{x:Static properties:Strings.Value}" Binding="{Binding Value, Mode=OneWay}" Width="*" MinWidth="60"/>
+                    <DataGridTextColumn Header="{x:Static properties:Strings.Value}" Binding="{Binding Value, Mode=OneWay, StringFormat=\{0:N\}}" Width="*" MinWidth="60"/>
                 </DataGrid.Columns>
             </DataGrid>
             <oxy:PlotView Grid.Column="1" Model="{Binding PieCategories}" >
