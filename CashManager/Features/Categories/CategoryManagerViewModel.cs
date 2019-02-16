@@ -45,7 +45,7 @@ namespace CashManager.Features.Categories
             else
             {
                 SelectedCategory.IsSelected = false;
-                SelectedCategory = Categories.First(x => x.Id == Category.Default.Id);
+                SelectedCategory = null;
             }
         });
 
