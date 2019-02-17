@@ -36,7 +36,7 @@ namespace CashManager.Features.TransactionTypes
             TransactionTypes = new TrulyObservableCollection<TransactionType>(transactionTypes);
             TransactionTypes.CollectionChanged += TransactionTypesOnCollectionChanged;
 
-            AddTransactionTypeCommand = new RelayCommand(() => { TransactionTypes.Add(new TransactionType()); });
+            AddTransactionTypeCommand = new RelayCommand(() => { TransactionTypes.Add(new TransactionType { Outcome = true }); });
             RemoveCommand = new RelayCommand<TransactionType>(x =>
             {
                 _commandDispatcher.Execute(new DeleteTransactionTypeCommand(Mapper.Map<DtoType>(x)));
