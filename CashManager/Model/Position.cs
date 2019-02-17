@@ -108,7 +108,7 @@ namespace CashManager.Model
             position.Category = source.Category;
             position.Parent = source.Parent;
 
-            position.Value = source.Value;
+            position.Value = Mapper.Map<PaymentValue>(Mapper.Map<Data.DTO.PaymentValue>(source.Value));
 
             position.IsPropertyChangedEnabled = source.IsPropertyChangedEnabled;
 
