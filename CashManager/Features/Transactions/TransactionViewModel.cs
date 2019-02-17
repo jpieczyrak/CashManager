@@ -377,7 +377,7 @@ namespace CashManager.Features.Transactions
         {
             if (IsInEditMode)
             {
-                SetUpdateMode(Transaction.BookDate.Date == DateTime.Today
+                SetUpdateMode(Transaction.InstanceCreationDate.Date == DateTime.Today
                                   ? TransactionEditModes.NoChange
                                   : TransactionEditModes.AddCorrection);
             }
