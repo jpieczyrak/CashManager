@@ -17,7 +17,7 @@ namespace CashManager.Logic.Commands.Setters
 
         #region ISetter<Transaction>
 
-        public bool CanExecute() => _setter?.IsChecked == true && (_setter.Results?.Any() ?? false);
+        public bool CanExecute() => _setter?.IsChecked == true;
 
         #endregion
 
