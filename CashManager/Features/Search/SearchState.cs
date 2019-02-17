@@ -141,6 +141,7 @@ namespace CashManager.Features.Search
 
         public void ApplyReverseReplaceCriteria(ReplacerState state)
         {
+            Clear();
             TitleFilter.Value = state.TitleSelector.Value;
             TitleFilter.IsChecked = state.TitleSelector.IsChecked;
 
