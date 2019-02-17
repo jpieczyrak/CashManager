@@ -130,15 +130,16 @@ namespace CashManager.Features.MassReplacer
                 foreach (var setter in _transactionSetters)
                     if (setter.CanExecute())
                         setter.Execute(transactions);
+                RaisePropertyChanged(nameof(SearchViewModel.MatchingTransactions));
             }
             else
             {
                 foreach (var setter in _positionSetter)
                     if (setter.CanExecute())
                         setter.Execute(SearchViewModel.MatchingPositions);
+                RaisePropertyChanged(nameof(SearchViewModel.MatchingPositions));
             }
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<Transaction[]>(transactions)));
-            SearchViewModel.State.ApplyReverseReplaceCriteria(State);
         }
 
         public void Update()
