@@ -86,7 +86,7 @@ namespace CashManager.Features.Parsers.Custom
                 var parser = selected as Model.Parsers.CustomCsvParser;
                 Parser = Mapper.Map<CustomCsvParser>(selected);
                 Rules.Clear();
-                Rules.AddRange(Mapper.Map<Rule[]>(parser.Rules));
+                Rules.AddRange(Mapper.Map<Rule[]>(parser.Rules).OrderBy(x => x.Column));
                 ColumnSplitter = parser.ColumnSplitter;
                 UpdateParser();
             }, selected => selected != null);
