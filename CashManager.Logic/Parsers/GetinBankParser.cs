@@ -14,7 +14,7 @@ namespace CashManager.Logic.Parsers
             @"(?<Day>\d{2})\.(?<Month>\d{2})\.(?<Year>\d{4}) \– (?<OperationType>(\S| )*)(\r\n|\n)(?<SourceName>(\S| )*) \– (?<Title>(\S| )*)(\r\n|\n)*(?<Sign>(-|\+))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*) (?<Currency>\S*)( saldo po operacji: (?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*) (?<BalanceCurrency>\S*))?";
 
         private const string CARD_OPERATION_REGEX =
-            @"(?<Day>\d{2})\.(?<Month>\d{2})\.(?<Year>\d{4}) (\–|\-) (?<OperationType>(\S| )*)(\r\n|\n)(?<Title>(\S| )*)(\r\n|\n)*(?<Sign>(-|\+))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*) (?<Currency>\S*)( saldo po operacji: (?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*) (?<BalanceCurrency>\S*))?";
+            @"(?<Day>\d{2})\.(?<Month>\d{2})\.(?<Year>\d{4}) (\–|\-) (?<OperationType>(\S| )*)(\r\n|\n)(?<Title>(\S| )*)(\r\n|\n|\s)*(?<Sign>(-|\+))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*) (?<Currency>\S*)( saldo po operacji: (?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*) (?<BalanceCurrency>\S*))?";
 
         public Dictionary<Stock, Balance> Balances { get; private set; } = new Dictionary<Stock, Balance>();
 
