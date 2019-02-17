@@ -78,19 +78,22 @@ namespace CashManager.Tests.ViewModels.Transactions
             var vm = _fixture.Container.Resolve<TransactionViewModel>();
             vm.Update();
             string title = "title 1";
-            vm.Transaction = new Transaction
+            var transaction = new Transaction
             {
                 Title = title,
                 Positions = new TrulyObservableCollection<Position>(new[] { new Position { Value = new PaymentValue(5, 5, 0) } }),
                 Type = new TransactionType(),
                 UserStock = new Stock()
             };
+            vm.Transaction = transaction;
             vm.AddNewPosition.Execute(null);
             vm.ShouldGoBack = false;
 
             var command = vm.SaveTransactionCommand;
             command.Execute(null);
+            vm.Transaction = transaction;
             vm.Transaction.Title += 1;
+            var editedTransaction = vm.Transaction;
 
             //when
             bool canExecute = command.CanExecute(null);
@@ -99,7 +102,7 @@ namespace CashManager.Tests.ViewModels.Transactions
             //then
             Assert.True(canExecute);
             Assert.Single(vm.TransactionsProvider.AllTransactions);
-            Assert.Equal(vm.Transaction.Title, vm.TransactionsProvider.AllTransactions[0].Title);
+            Assert.Equal(editedTransaction.Title, vm.TransactionsProvider.AllTransactions[0].Title);
         }
 
 

@@ -51,7 +51,6 @@ namespace CashManager.Features.Transactions
         private readonly CategoryPickerViewModel _categoryPickerViewModel;
         private IEnumerable<Stock> _stocks;
         private Transaction _transaction;
-        private bool _shouldCreateTransaction;
 
         private bool _isInEditMode;
 
@@ -85,7 +84,6 @@ namespace CashManager.Features.Transactions
             set
             {
                 _transaction = Transaction.Clone(value);
-                _shouldCreateTransaction = false;
                 if (_transaction != null)
                 {
                     foreach (var position in _transaction.Positions)
@@ -217,8 +215,7 @@ namespace CashManager.Features.Transactions
                           .OrderBy(x => x.Name)
                           .ToArray();
 
-            if (_shouldCreateTransaction || Transaction == null) FillWithNewTransaction();
-            _shouldCreateTransaction = true;
+            if (Transaction == null) FillWithNewTransaction();
 
             foreach (var position in Transaction.Positions)
             {
@@ -274,7 +271,11 @@ namespace CashManager.Features.Transactions
             return position;
         }
 
-        private void ExecuteCancelTransactionCommand() => NavigateBack();
+        private void ExecuteCancelTransactionCommand()
+        {
+            Transaction = null;
+            NavigateBack();
+        }
 
         private bool CanExecuteSaveTransactionCommand() => Transaction.IsValid;
 
@@ -303,6 +304,7 @@ namespace CashManager.Features.Transactions
 
             SoundPlayerHelper.PlaySound(SoundPlayerHelper.Sound.AddTransaction);
 
+            Transaction = null;
             if (ShouldGoBack) NavigateBack();
         }
 
