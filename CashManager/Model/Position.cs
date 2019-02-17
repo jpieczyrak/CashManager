@@ -71,7 +71,11 @@ namespace CashManager.Model
         public Transaction Parent
         {
             get => _parent;
-            set => Set(nameof(Parent), ref _parent, value);
+            set
+            {
+                _parent = value; //manual setting due to same id
+                RaisePropertyChanged(nameof(Parent));
+            }
         }
 
         public bool Income => Parent.Type.Income && !Parent.Type.Outcome;

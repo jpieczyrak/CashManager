@@ -280,6 +280,9 @@ namespace CashManager.Features.Transactions
 
         private void ExecuteSaveTransactionCommand()
         {
+            //refresh reference after edit
+            foreach (var position in Transaction.Positions) position.Parent = Transaction;
+
             foreach (var position in _transaction.Positions.Where(x => x.TagViewModel != null))
                 position.Tags = Mapper.Map<Tag[]>(position.TagViewModel.Results);
 
