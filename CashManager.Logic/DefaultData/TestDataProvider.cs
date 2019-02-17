@@ -62,15 +62,15 @@ namespace CashManager.Logic.DefaultData
                 CreateTransaction(5, FindCategory("Inne"), _workType, userStock, externalStock, "working hard", "many tasks", 3),
 
                 new Transaction(_workType, DateTime.Now.AddDays(-120), "work", "notes", new List<Position>
+                {
+                    new Position
                     {
-                        new Position
-                        {
-                            Category = FindCategory("Inne"),
-                            Value = new PaymentValue { TaxPercentValue = 23, GrossValue = 12000 },
-                            Title = "income",
-                            LastEditDate = RandomDate()
-                        }
-                    }, stocks[0], stocks[3], "inputsource2"),
+                        Category = FindCategory("Inne"),
+                        Value = new PaymentValue { TaxPercentValue = 23, GrossValue = 12000 },
+                        Title = "income",
+                        LastEditDate = RandomDate()
+                    }
+                }, stocks[0], stocks[3]),
 
                 new Transaction(_buyType, DateTime.Now.AddDays(-3).AddHours(12), "buying more stuff", "stuff!!!", new List<Position>
                     {
@@ -83,7 +83,7 @@ namespace CashManager.Logic.DefaultData
                             LastEditDate = RandomDate()
                         }
                     },
-                    stocks[1], stocks[3], "inputsource3"),
+                    stocks[1], stocks[3]),
                 new Transaction(_buyType, DateTime.Now.AddDays(-8), "it is time for PC", "best pc ever", new List<Position>
                     {
                         new Position
@@ -95,7 +95,7 @@ namespace CashManager.Logic.DefaultData
                             LastEditDate = RandomDate()
                         }
                     },
-                    stocks[1], stocks[2], "inputsource4")
+                    stocks[1], stocks[2])
             };
 
             var transactions = dtoTransactions.Concat(
@@ -143,8 +143,7 @@ namespace CashManager.Logic.DefaultData
                 $"note {_titleCounter} {note}",
                 positions,
                 userStock,
-                externalStock,
-                $"input source {_titleCounter++}");
+                externalStock);
         }
 
         private Category FindCategory(string name)

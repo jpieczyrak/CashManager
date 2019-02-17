@@ -52,7 +52,7 @@ namespace CashManager.Tests.Data.Dtos
 
             //when
             var transaction = new Transaction(new TransactionType(), expectedSourceCreationDate, string.Empty, string.Empty,
-                new Position[0], null, null, string.Empty);
+                new Position[0], null, null);
 
             //then
             Assert.Equal(expectedSourceCreationDate, transaction.BookDate);
@@ -68,10 +68,10 @@ namespace CashManager.Tests.Data.Dtos
             string inputText = "Lorem ipsum dolor sit amet.";
 
             //when
-            var transaction1 = new Transaction(new TransactionType(), DateTime.Today, string.Empty, string.Empty,
-                new Position[0], null, null, inputText);
-            var transaction2 = new Transaction(new TransactionType(), DateTime.Today, string.Empty, string.Empty,
-                new Position[0], null, null, inputText);
+            var transaction1 = new Transaction(new TransactionType(), DateTime.Today, inputText, string.Empty,
+                new Position[0], null, null);
+            var transaction2 = new Transaction(new TransactionType(), DateTime.Today, inputText, string.Empty,
+                new Position[0], null, null);
 
             //then
             Assert.Equal(transaction1.Id, transaction2.Id);
@@ -85,10 +85,10 @@ namespace CashManager.Tests.Data.Dtos
             string inputText2 = inputText1 + 1;
 
             //when
-            var transaction1 = new Transaction(new TransactionType(), DateTime.Today, string.Empty, string.Empty,
-                new Position[0], null, null, inputText1);
-            var transaction2 = new Transaction(new TransactionType(), DateTime.Today, string.Empty, string.Empty,
-                new Position[0], null, null, inputText2);
+            var transaction1 = new Transaction(new TransactionType(), DateTime.Today, inputText1, string.Empty,
+                new Position[0], null, null);
+            var transaction2 = new Transaction(new TransactionType(), DateTime.Today, inputText2, string.Empty,
+                new Position[0], null, null);
 
             //then
             Assert.NotEqual(transaction1.Id, transaction2.Id);

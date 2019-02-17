@@ -43,7 +43,7 @@ namespace CashManager.Logic.Parsers.Custom
                                          : line.Split(new[] { line.Contains("\",\"") ? "\",\"" : "," }, StringSplitOptions.None)
                                    : line.Split(new[] { ColumnSplitter }, StringSplitOptions.None);
                 elements = elements.Select(x => x.Replace("\"", string.Empty)).ToArray();
-                var transaction = new Transaction(line.GenerateGuid())
+                var transaction = new Transaction
                 {
                     ExternalStock = externalStock,
                     UserStock = userStock
@@ -61,6 +61,7 @@ namespace CashManager.Logic.Parsers.Custom
                     }
                 }
 
+                transaction.RecalculateId();
                 if (match) output.Add(transaction);
             }
 

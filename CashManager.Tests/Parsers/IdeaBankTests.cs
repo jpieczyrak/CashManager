@@ -34,7 +34,7 @@ trash scam";
                         Title = "Opłata za kartę - 10/2018",
                         Value = new PaymentValue { GrossValue = 8.0m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IdeaBankParser();
 
             //when
@@ -77,7 +77,7 @@ spam not valid trash";
                         Title = "Opłata za kartę - 10/2018",
                         Value = new PaymentValue { GrossValue = 8.0m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IdeaBankParser();
 
             //when
@@ -116,7 +116,7 @@ spam not valid trash";
                         Title = title,
                         Value = new PaymentValue { GrossValue = 50.0m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IdeaBankParser();
 
             //when
@@ -153,7 +153,7 @@ Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa
                         Title = title,
                         Value = new PaymentValue { GrossValue = 36.35m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IdeaBankParser();
 
             //when
@@ -194,7 +194,7 @@ Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa
                         Title = title,
                         Value = new PaymentValue { GrossValue = 36.35m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IdeaBankParser();
 
             //when

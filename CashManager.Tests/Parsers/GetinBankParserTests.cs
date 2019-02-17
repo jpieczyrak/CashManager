@@ -35,7 +35,7 @@ JĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media
                         Title = "[Sierpień] Czynsz + media",
                         Value = new PaymentValue { GrossValue = 684.62m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
 
 
             //when
@@ -73,7 +73,7 @@ CENTRUM NISKICH CEN SP, GLIWICE , PL
                         Title = title,
                         Value = new PaymentValue { GrossValue = 47.07m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
 
 
             //when
@@ -105,7 +105,7 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
             var expected = new Transaction(incomeType, creationDate, title,
                 $"Firma SP. Z O.O.: PRZELEW PRZYCHODZĄCY (PLN) Saldo: {balance.ToString(Strings.ValueFormat)}",
                 new [] { new Position(title, 1123.12m) },
-                userStock, externalStock, input);
+                userStock, externalStock);
 
             //when
             var output = parser.Parse(input, userStock, externalStock, null, incomeType);

@@ -51,7 +51,7 @@ trash";
                         Title = title,
                         Value = new PaymentValue { GrossValue = 49.0m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IngBankParser();
 
             //when
@@ -94,7 +94,7 @@ Saldo po transakcji
                         Title = title,
                         Value = new PaymentValue { GrossValue = 110.0m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IngBankParser();
 
             //when
@@ -191,7 +191,7 @@ trash";
                         Title = title,
                         Value = new PaymentValue { GrossValue = 49.0m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IngBankParser();
 
             //when
@@ -241,7 +241,7 @@ trash
                         Title = title,
                         Value = new PaymentValue { GrossValue = 2.63m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IngBankParser();
 
             //when

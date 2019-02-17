@@ -39,10 +39,9 @@ namespace CashManager.Logic.Parsers
                         bool income = value > 0m;
 
                         var positions = new[] { new Position(title, Math.Abs(value)) };
-                        string sourceInput = string.Join("\n", elements.Skip(i - 1).Take(LINES_PER_ENTRY));
                         var transaction = new Transaction(income ? defaultIncome : defaultOutcome, date, title,
                             $"Saldo: {balance:#,##0.00}",
-                            positions, userStock, externalStock, sourceInput);
+                            positions, userStock, externalStock);
 
                         results.Add(transaction);
                         _balances.Add(new Balance(date, balance));

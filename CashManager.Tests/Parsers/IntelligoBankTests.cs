@@ -42,7 +42,7 @@ trash";
                         Title = title,
                         Value = new PaymentValue { GrossValue = 12.34m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IntelligoBankParser();
 
             //when
@@ -94,7 +94,7 @@ trash";
                         Title = title,
                         Value = new PaymentValue { GrossValue = 12.34m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IntelligoBankParser();
 
             //when
@@ -139,7 +139,7 @@ temp trash
                         Title = title,
                         Value = new PaymentValue { GrossValue = 1000.05m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IntelligoBankParser();
 
             //when
@@ -180,7 +180,7 @@ Data waluty: 2018-07-07
                         Title = title,
                         Value = new PaymentValue { GrossValue = 5m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IntelligoBankParser();
 
             //when
@@ -230,7 +230,7 @@ Data waluty: 2018-08-19
                         Title = title,
                         Value = new PaymentValue { GrossValue = 179.91m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IntelligoBankParser();
 
             //when

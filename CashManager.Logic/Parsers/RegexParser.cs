@@ -73,8 +73,7 @@ namespace CashManager.Logic.Parsers
 
             var position = new Position(title, value);
 
-            return new Transaction(transactionType, date, title, note, new List<Position> { position }, userStock, externalStock,
-                match.Value);
+            return new Transaction(transactionType, date, title, note, new List<Position> { position }, userStock, externalStock);
         }
     }
 }
