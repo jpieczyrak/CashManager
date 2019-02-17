@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,8 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 using GongSolutions.Wpf.DragDrop;
 
+using log4net;
+
 using DtoStock = CashManager.Data.DTO.Stock;
 using DtoBalance = CashManager.Data.DTO.Balance;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
@@ -38,6 +41,8 @@ namespace CashManager.Features.Parsers
 {
     public class ParserViewModelBase : ViewModelBase, IUpdateable, IDropTarget
     {
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(ParserViewModelBase)));
+
         protected readonly IQueryDispatcher _queryDispatcher;
         protected readonly ICommandDispatcher _commandDispatcher;
         private readonly MassReplacerViewModel _replacer;
@@ -114,7 +119,14 @@ namespace CashManager.Features.Parsers
                           Mapper.Map<DtoTransactionType>(DefaultIncomeTransactionType), GenerateMissingStocks), $"Parsing: {Parser.GetType().Name}")) { }
 
             using (new MeasureTimeWrapper(
-                () => transactions = Mapper.Map<Transaction[]>(results).Where(x => x.IsValid), $"Mapping: {results.Length,6}")) { }
+                () =>
+                {
+                    var mapped = Mapper.Map<Transaction[]>(results);
+                    var invalid = mapped.Where(x => !x.IsValid).Select(x => x.ToLogString()).ToArray();
+                    if (invalid.Any())
+                        _logger.Value.Info($"Not valid:{Environment.NewLine}{string.Join(Environment.NewLine, invalid)}");
+                    transactions = mapped.Where(x => x.IsValid);
+                }, $"Mapping: {results.Length,6}")) { }
 
             using (new MeasureTimeWrapper(
                 () =>

@@ -180,7 +180,7 @@ namespace CashManager.Logic.Parsers.Custom
             }
             catch (Exception e)
             {
-                _logger.Value.Debug("Parsing failed", e);
+                _logger.Value.Debug($"Parsing failed{Environment.NewLine}{string.Join(";", elements)}", e);
                 return false;
             }
 

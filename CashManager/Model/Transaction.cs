@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Linq.Expressions;
 
 using AutoMapper;
 
@@ -242,5 +241,7 @@ namespace CashManager.Model
             base.RaisePropertyChanged(propertyName);
             if (propertyName != null) base.RaisePropertyChanged(nameof(CategoriesForGui));
         }
+
+        public string ToLogString() => $"[{BookDate:dd.MM.yyyy}] {Title} / {Note} [{ValueAsProfit}][{Type?.DisplayName}]: {Value}";
     }
 }
