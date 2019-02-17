@@ -130,8 +130,21 @@ namespace CashManager.Logic.Parsers.Custom
                             if (string.IsNullOrWhiteSpace(stringValue)) return true;
                             decimal value = decimal.Parse(stringValue.Replace(".", ","));
                             if (value == 0) return true;
-                            transaction.Type = value >= 0 ? defaultIncome : defaultOutcome;
-                            transaction.Positions[0].Value.GrossValue = Math.Abs(value);
+                            if (transaction.Positions[0].Value.GrossValue > 0 && transaction.Type != null)
+                            {
+                                decimal sum = transaction.Type.Outcome
+                                                  ? value - transaction.Positions[0].Value.GrossValue
+                                                  : value + transaction.Positions[0].Value.GrossValue;
+                                transaction.Type = sum > 0m
+                                                       ? defaultIncome
+                                                       : defaultOutcome;
+                                transaction.Positions[0].Value.GrossValue = Math.Abs(sum);
+                            }
+                            else
+                            {
+                                transaction.Type = value >= 0 ? defaultIncome : defaultOutcome;
+                                transaction.Positions[0].Value.GrossValue = Math.Abs(value);
+                            }
                         }
                         break;
                     case TransactionField.UserStock:
