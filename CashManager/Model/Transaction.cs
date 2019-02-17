@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Linq.Expressions;
 
 using AutoMapper;
 
@@ -234,6 +235,12 @@ namespace CashManager.Model
             transaction.IsPropertyChangedEnabled = source.IsPropertyChangedEnabled;
 
             return transaction;
+        }
+
+        public override void RaisePropertyChanged(string propertyName = null)
+        {
+            base.RaisePropertyChanged(propertyName);
+            if (propertyName != null) base.RaisePropertyChanged(nameof(CategoriesForGui));
         }
     }
 }
