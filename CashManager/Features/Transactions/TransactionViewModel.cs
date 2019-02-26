@@ -377,7 +377,7 @@ namespace CashManager.Features.Transactions
         {
             if (IsInEditMode)
             {
-                SetUpdateMode(Transaction.InstanceCreationDate.Date == DateTime.Today
+                SetUpdateMode((DateTime.Today - _transaction.InstanceCreationDate.Date).TotalDays < 31
                                   ? TransactionEditModes.NoChange
                                   : TransactionEditModes.AddCorrection);
             }
