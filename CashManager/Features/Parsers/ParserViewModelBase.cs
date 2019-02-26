@@ -49,6 +49,7 @@ namespace CashManager.Features.Parsers
         private string _inputText;
         private bool _generateMissingStocks;
         private bool _canGenerateMissingStocks;
+        private ParserUpdateBalanceMode _selectedUpdateBalanceMode;
         private TransactionListViewModel _resultsListViewModel = new TransactionListViewModel();
 
         public ParserViewModelBase(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
@@ -86,6 +87,14 @@ namespace CashManager.Features.Parsers
         public TransactionType[] IncomeTransactionTypes { get; set; }
 
         public TransactionType[] OutcomeTransactionTypes { get; set; }
+
+        public IEnumerable<ParserUpdateBalanceMode> UpdateBalanceModes => Enum.GetValues(typeof(ParserUpdateBalanceMode)).OfType<ParserUpdateBalanceMode>().ToArray();
+
+        public ParserUpdateBalanceMode SelectedUpdateBalanceMode
+        {
+            get => _selectedUpdateBalanceMode;
+            set => Set(ref _selectedUpdateBalanceMode, value);
+        }
 
         public MultiPicker ReplacerSelector { get; } = new MultiPicker(MultiPickerType.ReplacerStates, new Selectable[0]);
 
@@ -164,6 +173,7 @@ namespace CashManager.Features.Parsers
             {
                 stock.Balance.IsPropertyChangedEnabled = true;
                 stock.Balance.Value = idBalances[stock.Id].Value;
+                stock.Balance.BookDate = idBalances[stock.Id].BookDate;
             }
 
             return Mapper.Map<DtoStock[]>(updatedStocks);
@@ -249,12 +259,17 @@ namespace CashManager.Features.Parsers
             TransactionsProvider.AllTransactions.AddRange(transactions);
 
             var balances = Parser.Balances.ToArray();
-            if (balances.Any()) //todo: ask if balances should be updated
+            if (SelectedUpdateBalanceMode == ParserUpdateBalanceMode.IfNewer)
+                balances = balances.Where(x => x.Key.Balance.BookDate <= x.Value.BookDate).ToArray();
+            if (balances.Any())
             {
-                var updatedStocks = Mapper.Map<Stock[]>(balances.Select(x => x.Key));
-                var updatedDtos = UpdateStockBalances(balances, updatedStocks);
-                _commandDispatcher.Execute(new UpsertStocksCommand(updatedDtos));
-                MessengerInstance.Send(new UpdateStockMessage(updatedStocks));
+                if (SelectedUpdateBalanceMode != ParserUpdateBalanceMode.Never)
+                {
+                    var updatedStocks = Mapper.Map<Stock[]>(balances.Select(x => x.Key));
+                    var updatedDtos = UpdateStockBalances(balances, updatedStocks);
+                    _commandDispatcher.Execute(new UpsertStocksCommand(updatedDtos));
+                    MessengerInstance.Send(new UpdateStockMessage(updatedStocks));
+                }
             }
         }
 

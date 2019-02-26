@@ -83,11 +83,11 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             Assert.Equal(7, result.Length);
             Assert.Equal(3, parser.Balances.Count);
             var saver = parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Saver")).Value;
-            Assert.Equal(new DateTime(2018, 12, 21), saver.LastEditDate);
+            Assert.Equal(new DateTime(2018, 12, 21), saver.BookDate);
             var direct = parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Direct")).Value;
-            Assert.Equal(new DateTime(2018, 12, 20), direct.LastEditDate);
+            Assert.Equal(new DateTime(2018, 12, 20), direct.BookDate);
             var virtualCard = parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("wirtualna")).Value;
-            Assert.Equal(new DateTime(2018, 12, 20), virtualCard.LastEditDate);
+            Assert.Equal(new DateTime(2018, 12, 20), virtualCard.BookDate);
         }
 
         [Fact]
@@ -281,7 +281,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             Assert.NotEmpty(result);
             var balance = parser.Balances.First().Value;
             Assert.Equal(expectedBalance, balance.Value);
-            Assert.Equal(expectedLastEdit, balance.LastEditDate);
+            Assert.Equal(expectedLastEdit, balance.BookDate);
         }
 
         [Fact]
@@ -305,13 +305,13 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             Assert.NotEmpty(result);
 
             Assert.Equal(1677.46m, parser.Balances[stocks[0]].Value);
-            Assert.Equal(new DateTime(2018, 12, 21), parser.Balances[stocks[0]].LastEditDate);
+            Assert.Equal(new DateTime(2018, 12, 21), parser.Balances[stocks[0]].BookDate);
 
             Assert.Equal(105.22m, parser.Balances[stocks[1]].Value);
-            Assert.Equal(new DateTime(2018, 12, 20), parser.Balances[stocks[1]].LastEditDate);
+            Assert.Equal(new DateTime(2018, 12, 20), parser.Balances[stocks[1]].BookDate);
 
             Assert.Equal(2159.8m, parser.Balances[stocks[2]].Value);
-            Assert.Equal(new DateTime(2018, 12, 20), parser.Balances[stocks[2]].LastEditDate);
+            Assert.Equal(new DateTime(2018, 12, 20), parser.Balances[stocks[2]].BookDate);
         }
     }
 }

@@ -260,6 +260,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Balance update mode.
+        /// </summary>
+        public static string BalanceUpdateMode {
+            get {
+                return ResourceManager.GetString("BalanceUpdateMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Book date.
         /// </summary>
         public static string BookDate {

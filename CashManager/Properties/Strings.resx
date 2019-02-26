@@ -603,4 +603,7 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   <data name="BackupDbOnClose" xml:space="preserve">
     <value>Backup database on app close</value>
   </data>
+  <data name="BalanceUpdateMode" xml:space="preserve">
+    <value>Balance update mode</value>
+  </data>
 </root>

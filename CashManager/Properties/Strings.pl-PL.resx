@@ -591,4 +591,7 @@ Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wa
   <data name="BackupDbOnClose" xml:space="preserve">
     <value>Utwórz kopię bazy przy zamykaniu aplikacji</value>
   </data>
+  <data name="BalanceUpdateMode" xml:space="preserve">
+    <value>Tryb akutalizacji bilansu</value>
+  </data>
 </root>

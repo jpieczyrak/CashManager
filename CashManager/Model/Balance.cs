@@ -1,10 +1,14 @@
-﻿using CashManager.Model.Common;
+﻿using System;
+
+using CashManager.Model.Common;
 
 namespace CashManager.Model
 {
-    public class Balance : BaseObservableObject
+    public class Balance : BaseObservableObject, IBookable
     {
         private decimal _value;
+
+        private DateTime _bookDate;
 
         public decimal Value
         {
@@ -14,6 +18,12 @@ namespace CashManager.Model
                 PreviousValue = Value;
                 Set(nameof(Value), ref _value, value);
             }
+        }
+
+        public DateTime BookDate
+        {
+            get => _bookDate;
+            set => Set(ref _bookDate, value);
         }
 
         public decimal PreviousValue { get; private set; }

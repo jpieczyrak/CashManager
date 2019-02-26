@@ -27,7 +27,7 @@ namespace CashManager.Logic.Calculators
 
         public IEnumerable<TransactionBalance> CalculateBalance(IEnumerable<Transaction> transactions, Stock[] selectedStocks, DateFrameSelector dateFilter, Func<Transaction, DateTime> groupingSelector)
         {
-            var stockDate = selectedStocks.Max(x => x.Balance.LastEditDate).Date;
+            var stockDate = selectedStocks.Max(x => x.Balance.BookDate).Date;
             if (stockDate == DateTime.MinValue) stockDate = DateTime.Today;
             decimal stockValue = selectedStocks.Sum(x => x.Balance.Value);
 

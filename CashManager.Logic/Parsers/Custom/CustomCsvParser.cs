@@ -168,10 +168,10 @@ namespace CashManager.Logic.Parsers.Custom
                     case TransactionField.Balance:
                         if (!Balances.ContainsKey(transaction.UserStock)) Balances[transaction.UserStock] = new Balance();
                         var balance = Balances[transaction.UserStock];
-                        if (balance.LastEditDate < transaction.TransactionSourceCreationDate)
+                        if (balance.BookDate < transaction.TransactionSourceCreationDate)
                         {
                             balance.Value = decimal.Parse(stringValue.Replace(".", ","));
-                            balance.LastEditDate = transaction.TransactionSourceCreationDate;
+                            balance.BookDate = transaction.TransactionSourceCreationDate;
                         }
                         break;
                     case TransactionField.Currency:

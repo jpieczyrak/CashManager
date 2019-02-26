@@ -280,6 +280,7 @@
     </Compile>
     <Compile Include="Features\Parsers\Custom\CsvParserViewModel.cs" />
     <Compile Include="Features\Parsers\Custom\RegexParserViewModel.cs" />
+    <Compile Include="Features\Parsers\ParserUpdateBalanceMode.cs" />
     <Compile Include="Features\Parsers\ParserViewModelBase.cs" />
     <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
       <DependentUpon>CategoriesPlotView.xaml</DependentUpon>
