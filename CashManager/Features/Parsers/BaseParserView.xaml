@@ -26,10 +26,9 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <TextBox Grid.Row="0" Grid.ColumnSpan="5" Margin="5" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" 
+        <TextBox Grid.Row="0" Grid.ColumnSpan="4" Margin="5" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" 
                  MaxHeight="150" MinHeight="60" TextWrapping="WrapWithOverflow" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" 
                  dd:DragDrop.IsDropTarget="True" 
                  dd:DragDrop.DropHandler="{Binding}"/>
@@ -46,14 +45,14 @@
         <TextBlock Grid.Row="1" Grid.Column="3" Margin="5" Text="{x:Static properties:Strings.DefaultExternalStock}"/>
         <ComboBox Grid.Row="2" Grid.Column="3" Margin="5" ItemsSource="{Binding ExternalStocks}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedExternalStock}"/>
 
-        <selectors:MultiPickerControl Grid.Row="1" Grid.RowSpan="2" Grid.Column="4" Margin="5" DataContext="{Binding ReplacerSelector}" BorderThickness="0" VerticalAlignment="Bottom"/>
+        <selectors:MultiPickerControl Grid.Row="3" Grid.Column="3" Margin="0,5" DataContext="{Binding ReplacerSelector}" BorderThickness="0" VerticalAlignment="Top"/>
 
         <CheckBox Grid.Row="3" Grid.Column="0" Margin="5" Content="{x:Static properties:Strings.GenerateMissingStocks}" IsChecked="{Binding GenerateMissingStocks}" IsEnabled="{Binding CanGenerateMissingStocks}"/>
 
-        <Button Grid.Row="4" Grid.ColumnSpan="5" Grid.Column="0" Margin="5" Content="{x:Static properties:Strings.Parse}" Command="{Binding ParseCommand}"/>
+        <Button Grid.Row="4" Grid.ColumnSpan="4" Grid.Column="0" Margin="5" Content="{x:Static properties:Strings.Parse}" Command="{Binding ParseCommand}" HorizontalAlignment="Center" Width="120"/>
 
-        <UserControl Grid.Row="5" Grid.ColumnSpan="5" Grid.Column="0" Margin="5,10" Content="{Binding ResultsListViewModel}"/>
+        <UserControl Grid.Row="5" Grid.ColumnSpan="4" Grid.Column="0" Margin="5,10" Content="{Binding ResultsListViewModel}"/>
 
-        <Button Grid.Row="6" Grid.ColumnSpan="5" Grid.Column="0" Margin="5" Content="{x:Static properties:Strings.Save}" Command="{Binding SaveCommand}" Width="120" Height="25"/>
+        <Button Grid.Row="6" Grid.ColumnSpan="4" Grid.Column="0" Margin="5" Content="{x:Static properties:Strings.Save}" Command="{Binding SaveCommand}" Width="120" Height="25"/>
     </Grid>
 </UserControl>
