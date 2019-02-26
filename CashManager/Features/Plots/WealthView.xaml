@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:plots="clr-namespace:CashManager.Features.Plots"
              xmlns:oxy="http://oxyplot.org/wpf"
-             xmlns:common1="clr-namespace:CashManager.Features.Common"
-             xmlns:selectors1="clr-namespace:CashManager.Features.Search.Selectors"
+             xmlns:common="clr-namespace:CashManager.Features.Common"
+             xmlns:selectors="clr-namespace:CashManager.Features.Search.Selectors"
+             xmlns:Properties="clr-namespace:CashManager.Properties"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=plots:WealthViewModel, IsDesignTimeCreatable=True}">
 
@@ -21,9 +22,15 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-            <common1:DateRangePicker Grid.Column="0" DateFrameSelector="{Binding BookDateFilter}" />
-            <selectors1:MultiPickerControl Grid.Column="1" DataContext="{Binding UserStocksFilter}" />
+            <common:DateRangePicker Grid.Row="0" Grid.Column="0" DateFrameSelector="{Binding BookDateFilter}" />
+            <selectors:MultiPickerControl Grid.Row="0" Grid.Column="1" DataContext="{Binding UserStocksFilter}" />
+
+            <CheckBox Grid.Row="1"  Grid.Column="0" IsChecked="{Binding ShowTransfers}" Content="{x:Static Properties:Strings.ShowTransfers}" Margin="5,2,5,0"/>
         </Grid>
 
         <oxy:PlotView Grid.Row="1" Model="{Binding Wealth}">

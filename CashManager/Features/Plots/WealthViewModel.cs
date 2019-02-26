@@ -41,9 +41,9 @@ namespace CashManager.Features.Plots
             Wealth.Axes.Add(new DateTimeAxis());
         }
 
-        public DataPoint[] GetWealthValues(IEnumerable<Transaction> transactions, Stock[] selectedStocks)
+        public DataPoint[] GetWealthValues(IEnumerable<Transaction> transactions, Stock[] selectedStocks, bool showTransfers)
         {
-            return _calculator.GetWealthValues(transactions, selectedStocks, BookDateFilter, x => x.BookDate);
+            return _calculator.GetWealthValues(transactions, selectedStocks, BookDateFilter, x => x.BookDate, showTransfers);
         }
 
         #region Override
@@ -58,7 +58,7 @@ namespace CashManager.Features.Plots
                                      : null;
             Wealth.Series.Clear();
 
-            var values = GetWealthValues(_transactionsProvider.AllTransactions, selectedStocks);
+            var values = GetWealthValues(_transactionsProvider.AllTransactions, selectedStocks, ShowTransfers);
             if (values.Any(x => x.Y > 0))
             {
                 var series = new AreaSeries

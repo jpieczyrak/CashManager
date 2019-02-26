@@ -606,4 +606,7 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   <data name="BalanceUpdateMode" xml:space="preserve">
     <value>Balance update mode</value>
   </data>
+  <data name="ShowTransfers" xml:space="preserve">
+    <value>Show transfers</value>
+  </data>
 </root>

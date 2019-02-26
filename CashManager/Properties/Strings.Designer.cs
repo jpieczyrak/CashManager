@@ -1206,6 +1206,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show transfers.
+        /// </summary>
+        public static string ShowTransfers {
+            get {
+                return ResourceManager.GetString("ShowTransfers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Skin colors.
         /// </summary>
         public static string SkinColors {

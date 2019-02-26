@@ -594,4 +594,7 @@ Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wa
   <data name="BalanceUpdateMode" xml:space="preserve">
     <value>Tryb akutalizacji bilansu</value>
   </data>
+  <data name="ShowTransfers" xml:space="preserve">
+    <value>Pokaż transfery</value>
+  </data>
 </root>

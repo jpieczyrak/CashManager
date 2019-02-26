@@ -93,7 +93,7 @@ namespace CashManager.Tests.MVVM.Logic
             };
 
             //when
-            var result = calculator.GetWealthValues(_transactions, _selectedStocks, _dateFilter, x => x.BookDate);
+            var result = calculator.GetWealthValues(_transactions, _selectedStocks, _dateFilter, x => x.BookDate, false);
 
             //then
             Assert.Equal(expected.Length, result.Length);
@@ -115,7 +115,7 @@ namespace CashManager.Tests.MVVM.Logic
             };
 
             //when
-            var result = calculator.CalculateBalance(_transactions, _selectedStocks, _dateFilter, x => x.BookDate)
+            var result = calculator.CalculateBalance(_transactions, _selectedStocks, _dateFilter, x => x.BookDate, false)
                                    .OrderBy(x => x.BookDate)
                                    .ToArray();
 

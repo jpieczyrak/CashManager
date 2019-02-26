@@ -111,10 +111,10 @@ namespace CashManager.Features.Summary
             switch (selection)
             {
                 case TransactionTypeSelection.Income:
-                    valuesPicker = x => x.ValueAsProfit > 0;
+                    valuesPicker = x => (ShowTransfers ? x.ValueWithSign : x.ValueAsProfit) > 0;
                     break;
                 case TransactionTypeSelection.Outcome:
-                    valuesPicker = x => x.ValueAsProfit < 0;
+                    valuesPicker = x => (ShowTransfers ? x.ValueWithSign : x.ValueAsProfit) < 0;
                     break;
                 case TransactionTypeSelection.Balance:
                     valuesPicker = x => true;
@@ -127,7 +127,7 @@ namespace CashManager.Features.Summary
                 MatchingTransactions
                     .Where(valuesPicker)
                     .GroupBy(x => groupingSelector(x.BookDate))
-                    .Select(x => new TransactionBalance(x.Key, x.Sum(y => y.ValueAsProfit)))
+                    .Select(x => new TransactionBalance(x.Key, x.Sum(y => (ShowTransfers ? y.ValueWithSign : y.ValueAsProfit))))
                     .OrderBy(x => x.BookDate), minDate, maxDate, grouping);
         }
 
