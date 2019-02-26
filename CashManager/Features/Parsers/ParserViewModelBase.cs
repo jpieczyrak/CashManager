@@ -18,6 +18,7 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.ReplacerState;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.TransactionTypes;
+using CashManager.Logic.Creators;
 using CashManager.Logic.Parsers;
 using CashManager.Logic.Wrappers;
 using CashManager.Messages.Models;
@@ -45,6 +46,7 @@ namespace CashManager.Features.Parsers
 
         protected readonly IQueryDispatcher _queryDispatcher;
         protected readonly ICommandDispatcher _commandDispatcher;
+        private readonly ICorrectionsCreator _correctionsCreator;
         private readonly MassReplacerViewModel _replacer;
         private string _inputText;
         private bool _generateMissingStocks;
@@ -52,12 +54,12 @@ namespace CashManager.Features.Parsers
         private ParserUpdateBalanceMode _selectedUpdateBalanceMode;
         private TransactionListViewModel _resultsListViewModel = new TransactionListViewModel();
 
-        public ParserViewModelBase(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
-            TransactionsProvider transactionsProvider, MassReplacerViewModel replacer)
+        public ParserViewModelBase(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ICorrectionsCreator correctionsCreator, TransactionsProvider transactionsProvider, MassReplacerViewModel replacer)
         {
             TransactionsProvider = transactionsProvider;
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
+            _correctionsCreator = correctionsCreator;
             _replacer = replacer;
 
             Update();
@@ -165,18 +167,28 @@ namespace CashManager.Features.Parsers
                 }, "List creation")) { }
         }
 
-        private static DtoStock[] UpdateStockBalances(KeyValuePair<DtoStock, DtoBalance>[] balances, Stock[] updatedStocks)
+        private void UpdateStockBalances(KeyValuePair<DtoStock, DtoBalance>[] balances, Stock[] updatedStocks, ICollection<Transaction> transactions)
         {
             var idBalances = balances.ToDictionary(x => x.Key.Id, x => x.Value);
 
             foreach (var stock in updatedStocks)
             {
+                decimal diff = idBalances[stock.Id].Value - stock.Balance.Value;
+
                 stock.Balance.IsPropertyChangedEnabled = true;
                 stock.Balance.Value = idBalances[stock.Id].Value;
                 stock.Balance.BookDate = idBalances[stock.Id].BookDate;
+
+                decimal profitValue = transactions.Where(x => x.UserStock.Id == stock.Id).Sum(x => x.ValueAsProfit);
+                if (diff != profitValue)
+                {
+                    _correctionsCreator.CreateCorrection(stock, diff - profitValue);
+                }
             }
 
-            return Mapper.Map<DtoStock[]>(updatedStocks);
+            var stocks = Mapper.Map<DtoStock[]>(updatedStocks);
+            _commandDispatcher.Execute(new UpsertStocksCommand(stocks));
+            MessengerInstance.Send(new UpdateStockMessage(updatedStocks));
         }
 
         public void Update()
@@ -266,11 +278,7 @@ namespace CashManager.Features.Parsers
                 if (SelectedUpdateBalanceMode != ParserUpdateBalanceMode.Never)
                 {
                     var updatedStocks = Mapper.Map<Stock[]>(balances.Select(x => x.Key));
-                    var updatedDtos = UpdateStockBalances(balances, updatedStocks);
-                    _commandDispatcher.Execute(new UpsertStocksCommand(updatedDtos));
-                    MessengerInstance.Send(new UpdateStockMessage(updatedStocks));
-
-                    //todo: add correction transaction!!!
+                    UpdateStockBalances(balances, updatedStocks, transactions);
                 }
             }
         }
