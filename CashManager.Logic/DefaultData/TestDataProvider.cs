@@ -139,7 +139,7 @@ namespace CashManager.Logic.DefaultData
 
             return new Transaction(type,
                 date ?? RandomDate(),
-                $"title {_titleCounter} {title}",
+                $"title {++_titleCounter} {title}",
                 $"note {_titleCounter} {note}",
                 positions,
                 userStock,
