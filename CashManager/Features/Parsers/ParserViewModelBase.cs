@@ -269,6 +269,8 @@ namespace CashManager.Features.Parsers
                     var updatedDtos = UpdateStockBalances(balances, updatedStocks);
                     _commandDispatcher.Execute(new UpsertStocksCommand(updatedDtos));
                     MessengerInstance.Send(new UpdateStockMessage(updatedStocks));
+
+                    //todo: add correction transaction!!!
                 }
             }
         }
