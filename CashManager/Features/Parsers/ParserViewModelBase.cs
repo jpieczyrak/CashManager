@@ -48,6 +48,7 @@ namespace CashManager.Features.Parsers
         private readonly MassReplacerViewModel _replacer;
         private string _inputText;
         private bool _generateMissingStocks;
+        private bool _canGenerateMissingStocks;
         private TransactionListViewModel _resultsListViewModel = new TransactionListViewModel();
 
         public ParserViewModelBase(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
@@ -98,6 +99,12 @@ namespace CashManager.Features.Parsers
         {
             get => _generateMissingStocks;
             set => Set(ref _generateMissingStocks, value);
+        }
+
+        public bool CanGenerateMissingStocks
+        {
+            get => _canGenerateMissingStocks;
+            set => Set(ref _canGenerateMissingStocks, value);
         }
 
         public TransactionListViewModel ResultsListViewModel

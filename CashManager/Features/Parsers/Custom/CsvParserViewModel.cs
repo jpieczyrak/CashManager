@@ -95,7 +95,18 @@ namespace CashManager.Features.Parsers.Custom
             var customCsvParsers = _queryDispatcher.Execute<CustomCsvParserQuery, Data.ViewModelState.Parsers.CustomCsvParser[]>(new CustomCsvParserQuery()).OrderBy(x => x.Name);
             Parsers = new ObservableCollection<BaseObservableObject>(Mapper.Map<Model.Parsers.CustomCsvParser[]>(customCsvParsers));
             Clear();
-            Rules.CollectionChanged += (sender, args) => UpdateParser();
+            Rules.CollectionChanged += (sender, args) =>
+            {
+                UpdateParser();
+                ValidateStockGenerationOption();
+            };
+        }
+
+        private void ValidateStockGenerationOption()
+        {
+            bool canUpdate = _rules.Any(x => x.Property == TransactionField.UserStock);
+            CanGenerateMissingStocks = canUpdate;
+            if (!canUpdate) GenerateMissingStocks = false;
         }
 
         private void Clear()

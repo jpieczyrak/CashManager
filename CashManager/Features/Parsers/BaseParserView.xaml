@@ -48,7 +48,7 @@
 
         <selectors:MultiPickerControl Grid.Row="1" Grid.RowSpan="2" Grid.Column="4" Margin="5" DataContext="{Binding ReplacerSelector}" BorderThickness="0" VerticalAlignment="Bottom"/>
 
-        <CheckBox Grid.Row="3" Grid.Column="0" Margin="5" Content="{x:Static properties:Strings.GenerateMissingStocks}" IsChecked="{Binding GenerateMissingStocks}"/>
+        <CheckBox Grid.Row="3" Grid.Column="0" Margin="5" Content="{x:Static properties:Strings.GenerateMissingStocks}" IsChecked="{Binding GenerateMissingStocks}" IsEnabled="{Binding CanGenerateMissingStocks}"/>
 
         <Button Grid.Row="4" Grid.ColumnSpan="5" Grid.Column="0" Margin="5" Content="{x:Static properties:Strings.Parse}" Command="{Binding ParseCommand}"/>
 

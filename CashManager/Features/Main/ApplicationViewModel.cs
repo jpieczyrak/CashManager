@@ -164,6 +164,7 @@ namespace CashManager.Features.Main
                 {
                     var factory = new CustomCsvParserFactory(Mapper.Map<Stock[]>(_parserViewModel.Value.UserStocks.Concat(_parserViewModel.Value.ExternalStocks)));
                     _parserViewModel.Value.Parser = factory.Create(PredefinedCsvParsers.Ing);
+                    _parserViewModel.Value.CanGenerateMissingStocks = true;
                     SelectedViewModel = _parserViewModel.Value;
                     break;
                 }
@@ -171,6 +172,7 @@ namespace CashManager.Features.Main
                 {
                     var factory = new CustomCsvParserFactory(Mapper.Map<Stock[]>(_parserViewModel.Value.UserStocks.Concat(_parserViewModel.Value.ExternalStocks)));
                     _parserViewModel.Value.Parser = factory.Create(PredefinedCsvParsers.Millennium);
+                    _parserViewModel.Value.GenerateMissingStocks = _parserViewModel.Value.CanGenerateMissingStocks = false;
                     SelectedViewModel = _parserViewModel.Value;
                     break;
                 }
