@@ -199,7 +199,8 @@ namespace CashManager.Model
             if (source == null) return null;
             var dto = new Data.DTO.Transaction($"{source.Id}{DateTime.Now}".GenerateGuid())
             {
-                TransactionSourceCreationDate = source.TransactionSourceCreationDate
+                TransactionSourceCreationDate = source.TransactionSourceCreationDate,
+                InstanceCreationDate = source.TransactionSourceCreationDate
             };
 
             return BuildTransaction(source, dto);
@@ -210,7 +211,8 @@ namespace CashManager.Model
             if (source == null) return null;
             var dto = new Data.DTO.Transaction(source.Id)
             {
-                TransactionSourceCreationDate = source.TransactionSourceCreationDate
+                TransactionSourceCreationDate = source.TransactionSourceCreationDate,
+                InstanceCreationDate = source.TransactionSourceCreationDate
             };
 
             return BuildTransaction(source, dto);
