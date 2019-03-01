@@ -97,10 +97,18 @@ namespace CashManager.Logic.Commands.Filters
             }
             else
             {
-                results = _textSelector.IsCaseSensitive
-                              ? results.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value) != _textSelector.DisplayOnlyNotMatching)
-                              : results.Where(x =>
-                                  !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()) != _textSelector.DisplayOnlyNotMatching);
+                results = results.Where(x =>
+                {
+                    string value = selector(x);
+                    if (string.IsNullOrEmpty(value)) return _textSelector.DisplayOnlyNotMatching;
+                    string textSelectorValue = _textSelector.Value;
+                    if (!_textSelector.IsCaseSensitive)
+                    {
+                        value = selector(x).ToLower();
+                        textSelectorValue = textSelectorValue.ToLower();
+                    }
+                    return value.Contains(textSelectorValue) != _textSelector.DisplayOnlyNotMatching;
+                });
             }
 
             return results;
