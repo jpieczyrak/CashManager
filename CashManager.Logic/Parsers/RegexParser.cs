@@ -9,9 +9,7 @@ namespace CashManager.Logic.Parsers
 {
     public class RegexParser : IParser
     {
-        private readonly List<Balance> _balances = new List<Balance>();
-
-        public Dictionary<Stock, Balance> Balances { get; private set; } = new Dictionary<Stock, Balance>();
+        public Dictionary<Stock, Dictionary<DateTime, decimal>> Balances { get; } = new Dictionary<Stock, Dictionary<DateTime, decimal>>();
 
         public string RegexValue { get; set; }
 
@@ -20,15 +18,13 @@ namespace CashManager.Logic.Parsers
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock,
             TransactionType defaultOutcome, TransactionType defaultIncome, bool generateMissingStocks = false)
         {
+            Balances.Clear();
             var output = new List<Transaction>();
 
             var regex = new Regex(RegexValue);
 
             foreach (Match match in regex.Matches(input))
                 output.Add(CreateTransaction(match, userStock, externalStock, defaultOutcome, defaultIncome));
-
-            Balances[userStock] = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
-            _balances.Clear();
 
             return output.ToArray();
         }
@@ -66,7 +62,8 @@ namespace CashManager.Logic.Parsers
                 decimal balance = bigValueBalance + smallValueBalance / 100m;
                 note = $"{note} saldo: {balance:#,##0.00} ({currency})";
 
-                _balances.Add(new Balance(date, balance));
+                if (!Balances.ContainsKey(userStock)) Balances[userStock] = new Dictionary<DateTime, decimal>();
+                Balances[userStock].Add(date, balance);
             }
 
             var transactionType = negativeSign ? defaultOutcome : defaultIncome;

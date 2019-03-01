@@ -17,7 +17,7 @@ namespace CashManager.Logic.Parsers.Custom
         public Rule[] Rules { get; private set; }
         public string ColumnSplitter { get; private set; }
 
-        public Dictionary<Stock, Balance> Balances { get; } = new Dictionary<Stock, Balance>();
+        public Dictionary<Stock, Dictionary<DateTime, decimal>> Balances { get; } = new Dictionary<Stock, Dictionary<DateTime, decimal>>();
 
         public string Name { get; set; }
 
@@ -31,8 +31,10 @@ namespace CashManager.Logic.Parsers.Custom
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome,
             TransactionType defaultIncome, bool generateMissingStocks = false)
         {
-            var output = new List<Transaction>();
+            Balances.Clear();
+            if (userStock != null) Balances[userStock] = new Dictionary<DateTime, decimal>();
 
+            var output = new List<Transaction>();
             var lines = input.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string line in lines)
@@ -49,7 +51,6 @@ namespace CashManager.Logic.Parsers.Custom
                     UserStock = userStock
                 };
                 transaction.Positions.Add(new Position());
-                if (userStock != null) Balances[userStock] = userStock.Balance;
 
                 bool match = Rules.Any();
                 foreach (var rule in Rules)
@@ -166,10 +167,11 @@ namespace CashManager.Logic.Parsers.Custom
                         }
                         break;
                     case TransactionField.Balance:
-                        if (!Balances.ContainsKey(transaction.UserStock)) Balances[transaction.UserStock] = new Balance();
+                        if (!Balances.ContainsKey(transaction.UserStock))
+                            Balances[transaction.UserStock] = new Dictionary<DateTime, decimal>();
                         var balance = Balances[transaction.UserStock];
-                        balance.Value = decimal.Parse(stringValue.Replace(".", ","));
-                        balance.BookDate = transaction.TransactionSourceCreationDate;
+                        if (!balance.ContainsKey(transaction.TransactionSourceCreationDate))
+                            balance[transaction.TransactionSourceCreationDate] = decimal.Parse(stringValue.Replace(".", ","));
                         break;
                     case TransactionField.Currency:
                         //todo:

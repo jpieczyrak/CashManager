@@ -51,7 +51,7 @@ Saldo: 1 253,76 PLN
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -108,7 +108,7 @@ spam not valid trash";
             //then
             Assert.Equal(2, results.Length);
             foreach (var transaction in results) ValidateTransaction(transaction, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -148,7 +148,7 @@ Saldo: 1 253,76 PLN
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
     }
 }

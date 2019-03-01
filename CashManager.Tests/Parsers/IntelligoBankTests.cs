@@ -102,7 +102,7 @@ trash";
 
             //then
             foreach (var result in results) ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -147,7 +147,7 @@ temp trash
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -188,7 +188,7 @@ Data waluty: 2018-07-07
 
             //then
             foreach (var result in results) ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -238,7 +238,7 @@ Data waluty: 2018-08-19
 
             //then
             foreach (var result in results) ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]

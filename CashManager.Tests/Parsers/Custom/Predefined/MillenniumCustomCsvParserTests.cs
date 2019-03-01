@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using CashManager.Data.DTO;
 using CashManager.Data.Extensions;
@@ -81,7 +82,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.Single(result);
             ValidateTransaction(result[0], transaction);
-            Assert.Equal(2391.10m, parser.Balances[stocks[1]].Value);
+            Assert.Equal(2391.10m, parser.Balances[stocks[1]].OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -118,7 +119,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.Single(result);
             ValidateTransaction(result[0], transaction);
-            Assert.Equal(2225.33m, parser.Balances[stocks[1]].Value); //the matching one has been updated
+            Assert.Equal(2225.33m, parser.Balances[stocks[1]].OrderByDescending(x => x.Key).First().Value); //the matching one has been updated
         }
 
         [Fact]
@@ -155,7 +156,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.Single(result);
             ValidateTransaction(result[0], transaction);
-            Assert.Equal(162.51m, parser.Balances[stocks[1]].Value); //the matching one has been updated
+            Assert.Equal(162.51m, parser.Balances[stocks[1]].OrderByDescending(x => x.Key).First().Value); //the matching one has been updated
         }
     }
 }

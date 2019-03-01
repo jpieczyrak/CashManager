@@ -34,7 +34,6 @@ using GongSolutions.Wpf.DragDrop;
 using log4net;
 
 using DtoStock = CashManager.Data.DTO.Stock;
-using DtoBalance = CashManager.Data.DTO.Balance;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
 using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 
@@ -167,30 +166,6 @@ namespace CashManager.Features.Parsers
                 }, "List creation")) { }
         }
 
-        private void UpdateStockBalances(KeyValuePair<DtoStock, DtoBalance>[] balances, Stock[] updatedStocks, ICollection<Transaction> transactions)
-        {
-            var idBalances = balances.ToDictionary(x => x.Key.Id, x => x.Value);
-
-            foreach (var stock in updatedStocks)
-            {
-                decimal diff = idBalances[stock.Id].Value - stock.Balance.Value;
-
-                stock.Balance.IsPropertyChangedEnabled = true;
-                stock.Balance.Value = idBalances[stock.Id].Value;
-                stock.Balance.BookDate = idBalances[stock.Id].BookDate;
-
-                decimal profitValue = transactions.Where(x => x.UserStock.Id == stock.Id).Sum(x => x.ValueAsProfit);
-                if (diff != profitValue)
-                {
-                    _correctionsCreator.CreateCorrection(stock, diff - profitValue);
-                }
-            }
-
-            var stocks = Mapper.Map<DtoStock[]>(updatedStocks);
-            _commandDispatcher.Execute(new UpsertStocksCommand(stocks));
-            MessengerInstance.Send(new UpdateStockMessage(updatedStocks));
-        }
-
         public void Update()
         {
             var stocks = Mapper.Map<Stock[]>(_queryDispatcher.Execute<StockQuery, DtoStock[]>(new StockQuery()));
@@ -270,17 +245,41 @@ namespace CashManager.Features.Parsers
             TransactionsProvider.AllTransactions.RemoveRange(transactions);
             TransactionsProvider.AllTransactions.AddRange(transactions);
 
-            var balances = Parser.Balances.ToArray();
-            if (SelectedUpdateBalanceMode == ParserUpdateBalanceMode.IfNewer)
-                balances = balances.Where(x => x.Key.Balance.BookDate <= x.Value.BookDate).ToArray();
-            if (balances.Any())
+            UpdateBalances();
+        }
+
+        private void UpdateBalances()
+        {
+            if (SelectedUpdateBalanceMode == ParserUpdateBalanceMode.Never) return;
+
+            var transactions = TransactionsProvider.AllTransactions;
+
+            var updates = SelectedUpdateBalanceMode == ParserUpdateBalanceMode.IfNewer
+                               ? Parser.Balances.Where(x => x.Key.Balance.BookDate < x.Value.Max(y => y.Key)).ToArray() 
+                               : Parser.Balances.ToArray();
+
+            var stocks = new List<Stock>();
+            foreach (var pair in updates)
             {
-                if (SelectedUpdateBalanceMode != ParserUpdateBalanceMode.Never)
+                var newestBalance = pair.Value.OrderByDescending(y => y.Key).First();
+                decimal diff = pair.Key.Balance.Value - newestBalance.Value;
+
+                var stock = Mapper.Map<Stock>(pair.Key);
+                stock.Balance.IsPropertyChangedEnabled = false;
+                pair.Key.Balance.Value = stock.Balance.Value = newestBalance.Value;
+                pair.Key.Balance.BookDate = stock.Balance.BookDate = newestBalance.Key;
+                stock.Balance.IsPropertyChangedEnabled = true;
+                stocks.Add(stock);
+
+                decimal profitValue = transactions.Where(x => x.UserStock.Id == stock.Id).Sum(x => x.ValueAsProfit);
+                if (diff != profitValue)
                 {
-                    var updatedStocks = Mapper.Map<Stock[]>(balances.Select(x => x.Key));
-                    UpdateStockBalances(balances, updatedStocks, transactions);
+                    _correctionsCreator.CreateCorrection(stock, diff - profitValue);
                 }
             }
+
+            _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock[]>(stocks)));
+            MessengerInstance.Send(new UpdateStockMessage(stocks.ToArray()));
         }
 
         protected virtual bool CanExecuteParseCommand() => !string.IsNullOrEmpty(InputText) && SelectedUserStock != null;

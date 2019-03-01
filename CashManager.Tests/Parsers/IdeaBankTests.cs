@@ -42,7 +42,7 @@ trash scam";
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -86,7 +86,7 @@ spam not valid trash";
             //then
             Assert.Equal(2, results.Length);
             foreach (var result in results) ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -124,7 +124,7 @@ spam not valid trash";
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -161,7 +161,7 @@ Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -203,7 +203,7 @@ Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa
             //then
             ValidateTransaction(results[0], expected);
             ValidateTransaction(results[1], expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
     }
 }

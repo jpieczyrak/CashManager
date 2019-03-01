@@ -17,7 +17,7 @@ namespace CashManager.Model
             {
                 PreviousValue = Value;
                 Set(nameof(Value), ref _value, value);
-                BookDate = DateTime.Today;
+                if (IsPropertyChangedEnabled) BookDate = DateTime.Today;
             }
         }
 

@@ -102,7 +102,7 @@ Saldo po transakcji
 
             //then
             foreach (var result in results) ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -200,7 +200,7 @@ trash";
             //then
             Assert.Equal(3, results.Length);
             foreach (var transaction in results) ValidateTransaction(transaction, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -249,7 +249,7 @@ trash
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
     }
 }

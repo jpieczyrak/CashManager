@@ -59,6 +59,7 @@ namespace CashManager.Configuration.Mapping
 
                         config.CreateMap<Balance, Data.DTO.Balance>();
                         config.CreateMap<Data.DTO.Balance, Balance>()
+                              .BeforeMap((dto, model) => model.IsPropertyChangedEnabled = false)
                               .AfterMap((dto, model) => model.IsPropertyChangedEnabled = true);
 
                         config.CreateMap<Stock, Data.DTO.Stock>()
@@ -98,6 +99,7 @@ namespace CashManager.Configuration.Mapping
 
                         config.CreateMap<TransactionType, Data.DTO.TransactionType>();
                         config.CreateMap<Data.DTO.TransactionType, TransactionType>()
+                              .BeforeMap((dto, model) => model.IsPropertyChangedEnabled = false)
                               .ConstructUsing((dto, context) =>
                               {
                                   if (dto == null) return null;

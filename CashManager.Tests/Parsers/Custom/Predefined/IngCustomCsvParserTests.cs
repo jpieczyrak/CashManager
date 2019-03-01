@@ -63,9 +63,9 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             Assert.NotEmpty(result);
             Assert.Equal(7, result.Length);
             Assert.Equal(3, parser.Balances.Count);
-            Assert.Equal(1677.46m, parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Saver")).Value.Value);
-            Assert.Equal(2159.80m, parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Direct")).Value.Value);
-            Assert.Equal(105.22m, parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("wirtualna")).Value.Value);
+            Assert.Equal(1677.46m, parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Saver")).Value.OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(2159.80m, parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Direct")).Value.OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(105.22m, parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("wirtualna")).Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -83,11 +83,11 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             Assert.Equal(7, result.Length);
             Assert.Equal(3, parser.Balances.Count);
             var saver = parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Saver")).Value;
-            Assert.Equal(new DateTime(2018, 12, 21), saver.BookDate);
+            Assert.Equal(new DateTime(2018, 12, 21), saver.Max(x => x.Key));
             var direct = parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Direct")).Value;
-            Assert.Equal(new DateTime(2018, 12, 20), direct.BookDate);
+            Assert.Equal(new DateTime(2018, 12, 20), direct.Max(x => x.Key));
             var virtualCard = parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("wirtualna")).Value;
-            Assert.Equal(new DateTime(2018, 12, 20), virtualCard.BookDate);
+            Assert.Equal(new DateTime(2018, 12, 20), virtualCard.Max(x => x.Key));
         }
 
         [Fact]
@@ -106,9 +106,9 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             Assert.Equal(7, result.Length);
             Assert.Equal(4, parser.Balances.Count);
             var balancesWithNames = parser.Balances.Where(x => x.Key.Name != null).ToArray();
-            Assert.Equal(1677.46m, balancesWithNames.FirstOrDefault(x => x.Key.Name.Contains("Saver")).Value.Value);
-            Assert.Equal(2159.80m, balancesWithNames.FirstOrDefault(x => x.Key.Name.Contains("Direct")).Value.Value);
-            Assert.Equal(105.22m, balancesWithNames.FirstOrDefault(x => x.Key.Name.Contains("wirtualna")).Value.Value);
+            Assert.Equal(1677.46m, balancesWithNames.FirstOrDefault(x => x.Key.Name.Contains("Saver")).Value.OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(2159.80m, balancesWithNames.FirstOrDefault(x => x.Key.Name.Contains("Direct")).Value.OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(105.22m, balancesWithNames.FirstOrDefault(x => x.Key.Name.Contains("wirtualna")).Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -181,8 +181,8 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.Single(result);
             ValidateTransaction(result[0], transaction);
-            Assert.Equal(0m, parser.Balances[defaultUserStock].Value); //default does not changed (no matching transactions)
-            Assert.Equal(145.21m, parser.Balances[stocks[1]].Value); //the matching one has been updated
+            Assert.Equal(145.21m, parser.Balances[stocks[1]].OrderByDescending(x => x.Key).First().Value); //the matching one has been updated
+            Assert.False(parser.Balances[defaultUserStock].Any()); //default does not changed (no matching transactions)
         }
 
         [Fact]
@@ -220,7 +220,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.Single(result);
             ValidateTransaction(result[0], transaction);
-            Assert.Equal(145.21m, parser.Balances[defaultUserStock].Value);
+            Assert.Equal(145.21m, parser.Balances[defaultUserStock].OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -260,8 +260,8 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             Assert.Single(result);
             ValidateTransaction(result[0], transaction);
             Assert.Equal(2, parser.Balances.Count);
-            Assert.Equal(145.21m, parser.Balances[generatedUserStock].Value);
-            Assert.Equal(0m, parser.Balances[defaultUserStock].Value);
+            Assert.Equal(145.21m, parser.Balances[generatedUserStock].OrderByDescending(x => x.Key).First().Value);
+            Assert.False(parser.Balances[defaultUserStock].Any()); //default does not changed (no matching transactions)
         }
 
         [Fact]
@@ -280,8 +280,8 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.NotEmpty(result);
             var balance = parser.Balances.First().Value;
-            Assert.Equal(expectedBalance, balance.Value);
-            Assert.Equal(expected, balance.BookDate);
+            Assert.Equal(expectedBalance, balance.OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(expected, balance.Max(x => x.Key));
         }
 
         [Fact]
@@ -304,14 +304,14 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.NotEmpty(result);
 
-            Assert.Equal(1677.46m, parser.Balances[stocks[0]].Value);
-            Assert.Equal(new DateTime(2018, 12, 21), parser.Balances[stocks[0]].BookDate);
+            Assert.Equal(1677.46m, parser.Balances[stocks[0]].OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(new DateTime(2018, 12, 21), parser.Balances[stocks[0]].Max(x => x.Key));
 
-            Assert.Equal(105.22m, parser.Balances[stocks[1]].Value);
-            Assert.Equal(new DateTime(2018, 12, 20), parser.Balances[stocks[1]].BookDate);
+            Assert.Equal(105.22m, parser.Balances[stocks[1]].OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(new DateTime(2018, 12, 20), parser.Balances[stocks[1]].Max(x => x.Key));
 
-            Assert.Equal(2159.8m, parser.Balances[stocks[2]].Value);
-            Assert.Equal(new DateTime(2018, 12, 20), parser.Balances[stocks[2]].BookDate);
+            Assert.Equal(2159.8m, parser.Balances[stocks[2]].OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(new DateTime(2018, 12, 20), parser.Balances[stocks[2]].Max(x => x.Key));
         }
     }
 }

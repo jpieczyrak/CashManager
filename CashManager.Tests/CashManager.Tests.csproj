@@ -218,6 +218,7 @@
     <Compile Include="ViewModels\Fixtures\DatabaseCollection.cs" />
     <Compile Include="ViewModels\Fixtures\DatabaseFixture.cs" />
     <Compile Include="ViewModels\Fixtures\EmptyDatabaseCollection.cs" />
+    <Compile Include="ViewModels\Parsers\ParserViewModelTests.cs" />
     <Compile Include="ViewModels\ParserViewModelTests.cs" />
     <Compile Include="ViewModels\Plots\Wealth\WealthViewModelTests.cs" />
     <Compile Include="ViewModels\Search\Positions\DateFrameTests.cs" />
