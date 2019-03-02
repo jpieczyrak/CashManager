@@ -597,4 +597,7 @@ Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wa
   <data name="ShowTransfers" xml:space="preserve">
     <value>Pokaż transfery</value>
   </data>
+  <data name="AnyOfWords" xml:space="preserve">
+    <value>Którekolwiek ze słów</value>
+  </data>
 </root>

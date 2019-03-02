@@ -9,6 +9,7 @@ namespace CashManager.Model.Selectors
         private bool _isWildCard;
         private bool _isRegex;
         private bool _displayOnlyNotMatching;
+        private bool _anyOfWords;
 
         public TextSelectorType Type { get; private set; }
 
@@ -55,6 +56,12 @@ namespace CashManager.Model.Selectors
         {
             get => _displayOnlyNotMatching;
             set => Set(ref _displayOnlyNotMatching, value);
+        }
+
+        public bool AnyOfWords
+        {
+            get => _anyOfWords;
+            set => Set(ref _anyOfWords, value);
         }
 
         public TextSelector(TextSelectorType type)

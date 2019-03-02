@@ -183,5 +183,44 @@ namespace CashManager.Tests.MVVM.Logic.Filters.TextFilters
             Assert.Equal(4, results.Count());
             Assert.Equal(_positions.Where(x => !regex.IsMatch(x.Title)), results);
         }
+
+        [Fact]
+        public void TextFilter_CheckedValueSetAnyOfWords_MatchingResults()
+        {
+            //given
+            var selector = new TextSelector(TextSelectorType.PositionTitle)
+            {
+                IsChecked = true,
+                Value = "nd rd",
+                AnyOfWords = true
+            };
+            var filter = TextFilter.Create(selector);
+
+            //when
+            var results = filter.Execute(_positions);
+
+            //then
+            Assert.Equal(_positions.Where(x => x.Title.Contains("nd") || x.Title.Contains("rd")), results);
+        }
+
+        [Fact]
+        public void TextFilter_CheckedValueSetAnyOfWordsInvert_MatchingResults()
+        {
+            //given
+            var selector = new TextSelector(TextSelectorType.PositionTitle)
+            {
+                IsChecked = true,
+                Value = "nd rd",
+                AnyOfWords = true,
+                DisplayOnlyNotMatching = true
+            };
+            var filter = TextFilter.Create(selector);
+
+            //when
+            var results = filter.Execute(_positions);
+
+            //then
+            Assert.Equal(_positions.Where(x => !x.Title.Contains("nd") && !x.Title.Contains("rd")), results);
+        }
     }
 }

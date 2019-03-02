@@ -609,4 +609,7 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   <data name="ShowTransfers" xml:space="preserve">
     <value>Show transfers</value>
   </data>
+  <data name="AnyOfWords" xml:space="preserve">
+    <value>Any of words</value>
+  </data>
 </root>

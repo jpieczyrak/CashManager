@@ -170,6 +170,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Any of words.
+        /// </summary>
+        public static string AnyOfWords {
+            get {
+                return ResourceManager.GetString("AnyOfWords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Append mode.
         /// </summary>
         public static string AppendMode {
