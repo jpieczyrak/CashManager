@@ -98,6 +98,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add custom balance.
+        /// </summary>
+        public static string AddCustomBalance {
+            get {
+                return ResourceManager.GetString("AddCustomBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add note.
         /// </summary>
         public static string AddNote {
@@ -391,6 +400,15 @@ namespace CashManager.Properties {
         public static string CurrentBalance {
             get {
                 return ResourceManager.GetString("CurrentBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Balance Manager.
+        /// </summary>
+        public static string CustomBalanceManager {
+            get {
+                return ResourceManager.GetString("CustomBalanceManager", resourceCulture);
             }
         }
         

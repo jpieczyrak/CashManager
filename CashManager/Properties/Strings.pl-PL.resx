@@ -223,13 +223,13 @@
     <value>Nazwa zasobu</value>
   </data>
   <data name="Balance" xml:space="preserve">
-    <value>Saldo</value>
+    <value>Bilans</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Łącznie</value>
   </data>
   <data name="CurrentBalance" xml:space="preserve">
-    <value>Aktualne saldo</value>
+    <value>Aktualny bilans</value>
   </data>
   <data name="UserPercentOwnership" xml:space="preserve">
     <value>Procentowy udział użytkownika w zasobie</value>
@@ -370,7 +370,7 @@
     <value>Wykres majątku</value>
   </data>
   <data name="CustomBalances" xml:space="preserve">
-    <value>Konfigurowalne salda</value>
+    <value>Konfigurowalne bilanse</value>
   </data>
   <data name="Categories" xml:space="preserve">
     <value>Kategorie</value>
@@ -605,5 +605,11 @@ Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wa
   </data>
   <data name="BillPreview" xml:space="preserve">
     <value>Podgląd rachunku</value>
+  </data>
+  <data name="AddCustomBalance" xml:space="preserve">
+    <value>Dodaj konfigurowalny bilans</value>
+  </data>
+  <data name="CustomBalanceManager" xml:space="preserve">
+    <value>Manadżer konfigurowalnych bilansów</value>
   </data>
 </root>

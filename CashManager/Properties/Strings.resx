@@ -618,4 +618,10 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   <data name="BillPreview" xml:space="preserve">
     <value>Bill preview</value>
   </data>
+  <data name="AddCustomBalance" xml:space="preserve">
+    <value>Add custom balance</value>
+  </data>
+  <data name="CustomBalanceManager" xml:space="preserve">
+    <value>Custom Balance Manager</value>
+  </data>
 </root>

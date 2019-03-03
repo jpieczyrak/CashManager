@@ -14,7 +14,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Content="Add custom balance" Command="{Binding AddCustomBalanceCommand}"
+        <Button Grid.Row="0" Content="{x:Static properties:Strings.AddCustomBalance}" Command="{Binding AddCustomBalanceCommand}"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="30" Margin="5"/>
         <ItemsControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding CustomBalances}" Grid.IsSharedSizeScope="True">
             <ItemsControl.ItemTemplate>
