@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:properties="clr-namespace:CashManager.Properties"
-             xmlns:common1="clr-namespace:CashManager.Features.Common"
+             xmlns:common="clr-namespace:CashManager.Features.Common"
              xmlns:setters="clr-namespace:CashManager.Model.Setters"
              mc:Ignorable="d" 
              d:DesignHeight="70" d:DesignWidth="350"
@@ -33,7 +33,7 @@
                 </Grid>
 
                 <!-- when overriding extended date picker context - you dont have access to DateSelector.Value anymore! -->
-                <common1:ExtendedDatePicker Grid.Row="1" Margin="5" SelectedValue="{Binding Value}" />
+                <common:ExtendedDatePicker Grid.Row="1" Margin="5" SelectedValue="{Binding Value}" />
             </Grid>
         </Border>
     </Grid>

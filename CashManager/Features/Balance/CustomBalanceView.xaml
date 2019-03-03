@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:common1="clr-namespace:CashManager.Features.Common"
+             xmlns:common="clr-namespace:CashManager.Features.Common"
              xmlns:balance="clr-namespace:CashManager.Features.Balance"
              xmlns:properties="clr-namespace:CashManager.Properties"
              mc:Ignorable="d"
@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <common1:DateRangePicker Grid.Row="0" DateFrameSelector="{Binding DateFilter}"/>
+        <common:DateRangePicker Grid.Row="0" DateFrameSelector="{Binding DateFilter}"/>
 
         <DataGrid Grid.Row="1" ItemsSource="{Binding SelectedSearchSummary, Mode=OneWay}" 
                   Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">

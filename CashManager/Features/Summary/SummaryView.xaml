@@ -6,7 +6,7 @@
              xmlns:oxy="http://oxyplot.org/wpf"
              xmlns:common="clr-namespace:CashManager.Features.Common"
              xmlns:selectors="clr-namespace:CashManager.Features.Search.Selectors"
-             xmlns:stocks1="clr-namespace:CashManager.Features.Stocks"
+             xmlns:stocks="clr-namespace:CashManager.Features.Stocks"
              xmlns:summary="clr-namespace:CashManager.Features.Summary"
              xmlns:properties="clr-namespace:CashManager.Properties"
              mc:Ignorable="d"
@@ -106,7 +106,7 @@
                     <DataGridTextColumn Header="{x:Static properties:Strings.Balance}" Binding="{Binding GrossBalance, StringFormat={x:Static properties:Strings.ValueFormat}}" Width="Auto" />
                 </DataGrid.Columns>
             </DataGrid>
-            <stocks1:StockSummaryView Grid.Row="5" Content="{Binding StocksSummaryViewModel}" Margin="5" />
+            <stocks:StockSummaryView Grid.Row="5" Content="{Binding StocksSummaryViewModel}" Margin="5" />
         </Grid>
     </Grid>
 </UserControl>
