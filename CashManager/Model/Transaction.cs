@@ -236,6 +236,8 @@ namespace CashManager.Model
                                                                                   .Where(x => x != null)
                                                                                   .Select(Position.Copy));
 
+            transaction.StoredFiles = new ObservableCollection<StoredFileInfo>(source.StoredFiles);
+
             transaction.IsPropertyChangedEnabled = source.IsPropertyChangedEnabled;
 
             return transaction;
