@@ -25,12 +25,10 @@
 
             <CheckBox Margin="5" Content="{x:Static properties:Strings.GenerateDefaultCategories}" IsChecked="{Binding GenerateCategories}" />
             <CheckBox Margin="5" Content="{x:Static properties:Strings.GenerateDefaultTypes}" IsChecked="{Binding GenerateTypes}" />
-            <CheckBox Margin="5" Content="{x:Static properties:Strings.GenerateDefaultStocks}" IsChecked="{Binding GenerateStocks}" />
-            <CheckBox Margin="5" IsChecked="{Binding GenerateTags}">
-                <CheckBox.Content>
-                    <x:Static Member="properties:Strings.GenerateDefaultTags" />
-                </CheckBox.Content>
-            </CheckBox>
+            <CheckBox Margin="5" Content="{x:Static properties:Strings.GenerateDefaultStocks}" IsChecked="{Binding GenerateStocks}"
+                      Visibility="{Binding CanGenerateTransactions, Converter={StaticResource Bool2VisibilityConverter}}" />
+            <CheckBox Margin="5" IsChecked="{Binding GenerateTags}" Content="{x:Static properties:Strings.GenerateDefaultTags}" 
+                      Visibility="{Binding CanGenerateTransactions, Converter={StaticResource Bool2VisibilityConverter}}" />
             <CheckBox Margin="5" Content="{x:Static properties:Strings.GenerateSampleTransactions}" IsChecked="{Binding GenerateTransactions}" 
                       Visibility="{Binding CanGenerateTransactions, Converter={StaticResource Bool2VisibilityConverter}}" />
 
