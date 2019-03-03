@@ -123,7 +123,11 @@ namespace CashManager.Configuration.Mapping
                               .AfterMap((dto, model) => model.IsPropertyChangedEnabled = true);
 
                         config.CreateMap<Transaction, Data.DTO.Transaction>()
-                              .ForMember(desc => desc.Notes, opt => opt.MapFrom(model => model.Notes.Select(x => x.Value)));
+                              .ForMember(desc => desc.Notes, opt => opt.MapFrom(model => model
+                                                    .Notes
+                                                    .Take(1)
+                                                    .Concat(model.Notes.Skip(1).Where(x => !string.IsNullOrWhiteSpace(x.Value)))
+                                                    .Select(x => x.Value)));
                         config.CreateMap<Data.DTO.Transaction, Transaction>()
                               .BeforeMap((dto, model) => model.IsPropertyChangedEnabled = false)
                               .ForMember(desc => desc.Notes, opt => opt.MapFrom(x => x.Notes.Select(y => new Note(y))))
