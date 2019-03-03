@@ -30,7 +30,7 @@
                         <Button Grid.Column="2" Content="{x:Static properties:Strings.Remove}"
                                 Command="{Binding DataContext.RemoveCustomBalanceCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                 CommandParameter="{Binding}"
-                                Margin="5" Width="120" Height="25"/>
+                                Margin="5" Width="120" Height="25" VerticalAlignment="Bottom"/>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
