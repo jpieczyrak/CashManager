@@ -168,6 +168,8 @@ namespace CashManager.Model
                                               ? string.Empty
                                               : string.Join(", ", Positions.Select(x => x.Category?.Name).Distinct().Where(x => x != null));
 
+        public string NotesForGui => string.Join(Environment.NewLine, Notes.Select(x => x.Value));
+
         public Transaction(Guid id) : this() { Id = id; }
 
         public Transaction()
