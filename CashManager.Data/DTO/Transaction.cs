@@ -26,8 +26,6 @@ namespace CashManager.Data.DTO
 
 		public Stock ExternalStock { get; set; }
 
-        public string Note { get; set; }
-
         public Transaction()
         {
             TransactionSourceCreationDate = DateTime.MinValue;
