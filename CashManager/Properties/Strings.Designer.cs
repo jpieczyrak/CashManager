@@ -287,6 +287,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bill preview.
+        /// </summary>
+        public static string BillPreview {
+            get {
+                return ResourceManager.GetString("BillPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Book date.
         /// </summary>
         public static string BookDate {

@@ -304,6 +304,9 @@
     <Compile Include="Features\Search\Selectors\ValueRangeControl.xaml.cs">
       <DependentUpon>ValueRangeControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Features\Transactions\Bills\BillWindow.xaml.cs">
+      <DependentUpon>BillWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Logic\Commands\Setters\MultiSetterCommand.cs" />
     <Compile Include="Logic\Commands\Setters\SingleSetterCommand.cs" />
     <Compile Include="Logic\Commands\Setters\TextSetterCommand.cs" />
@@ -575,6 +578,10 @@
     <Page Include="Features\MassReplacer\MassReplacerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Transactions\Bills\BillWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\Transactions\PaymentValueControl.xaml">
       <SubType>Designer</SubType>

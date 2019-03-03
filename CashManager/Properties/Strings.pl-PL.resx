@@ -603,4 +603,7 @@ Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wa
   <data name="AddNote" xml:space="preserve">
     <value>Dodaj notatkę</value>
   </data>
+  <data name="BillPreview" xml:space="preserve">
+    <value>Podgląd rachunku</value>
+  </data>
 </root>

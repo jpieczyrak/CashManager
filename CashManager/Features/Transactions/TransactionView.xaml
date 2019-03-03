@@ -194,7 +194,13 @@
                                    ToolTip="{Binding DisplayName}" 
                                    Stretch="Uniform"
                                    MaxHeight="120" 
-                                   Margin="5,0" />
+                                   Margin="5,0">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseUp">
+                                            <Custom:EventToCommand Command="{Binding DataContext.DisplayBill, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type transactions:TransactionView}}}" CommandParameter="{Binding Image}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Image>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                         <ItemsControl.ItemsPanel>

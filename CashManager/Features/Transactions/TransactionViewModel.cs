@@ -11,6 +11,7 @@ using CashManager.CommonData;
 using CashManager.Features.Categories;
 using CashManager.Features.Common;
 using CashManager.Features.Main;
+using CashManager.Features.Transactions.Bills;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Stocks;
 using CashManager.Infrastructure.Command.Transactions;
@@ -117,6 +118,7 @@ namespace CashManager.Features.Transactions
         public RelayCommand AddNewPosition { get; }
         public RelayCommand ClearCommand { get; }
         public RelayCommand AddNewNote { get; }
+        public RelayCommand<byte[]> DisplayBill { get; }
 
         public bool ShouldGoBack { private get; set; } = true;
 
@@ -163,6 +165,7 @@ namespace CashManager.Features.Transactions
 
             ClearCommand = new RelayCommand(ExecuteClearCommand);
             AddNewNote = new RelayCommand(() => Transaction?.Notes.Add(new Note()));
+            DisplayBill = new RelayCommand<byte[]>(x => new BillWindow(x).Show());
         }
 
         private void ExecuteRemovePositionCommand(Position position)
