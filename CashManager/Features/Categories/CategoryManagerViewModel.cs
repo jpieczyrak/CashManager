@@ -68,7 +68,6 @@ namespace CashManager.Features.Categories
 
         public CategoryManagerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, IMessagesService messagesService)
         {
-            commandDispatcher.Execute(new UpsertCategoriesCommand(DtoCategory.Default)); //todo: remove after beta!!!
             _input = Strings.NewCategory;
             _commandDispatcher = commandDispatcher;
             _messagesService = messagesService;
