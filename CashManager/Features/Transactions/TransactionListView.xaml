@@ -29,7 +29,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="{x:Static properties:Strings.Note}" Binding="{Binding Note, Mode=OneWay}" Width="*">
+                <DataGridTextColumn Header="{x:Static properties:Strings.Notes}" Binding="{Binding Notes, Mode=OneWay}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping" Value="WrapWithOverflow"/>

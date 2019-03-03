@@ -73,7 +73,7 @@ namespace CashManager.Model.Selectors
                     Description = Strings.Title;
                     break;
                 case TextSelectorType.Note:
-                    Description = Strings.Note;
+                    Description = Strings.Notes;
                     break;
                 case TextSelectorType.PositionTitle:
                     Description = Strings.PositionTitle;

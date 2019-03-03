@@ -6,12 +6,17 @@
         xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:transactions="clr-namespace:CashManager.Features.Transactions"
-        xmlns:common1="clr-namespace:CashManager.Features.Common"
+        xmlns:common="clr-namespace:CashManager.Features.Common"
         xmlns:properties="clr-namespace:CashManager.Properties"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight"
         x:Class="CashManager.Features.Transactions.TransactionView"
         mc:Ignorable="d"
         d:DesignHeight="350" d:DesignWidth="800"
         d:DataContext="{d:DesignInstance {x:Type transactions:TransactionViewModel}}">
+
+    <UserControl.InputBindings>
+        <KeyBinding Modifiers="Shift" Key="Escape" Command="{Binding ClearCommand}" />
+    </UserControl.InputBindings>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -53,14 +58,27 @@
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static properties:Strings.Title}" VerticalAlignment="Center" Margin="0,0,12,0"/>
                 <TextBox Grid.Row="0" Grid.Column="1" Margin="0,5" Text="{Binding Transaction.Title, UpdateSourceTrigger=PropertyChanged}" Height="22"/>
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static properties:Strings.Note}" VerticalAlignment="Center" Margin="0,0,12,0"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5" Text="{Binding Transaction.Note, UpdateSourceTrigger=PropertyChanged}" Height="22"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static properties:Strings.Notes}" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                <Grid Grid.Row="1" Grid.Column="1" Margin="0,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <ItemsControl MinHeight="25" ItemsSource="{Binding Transaction.Notes}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="22" Margin="0,0,0,3"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Button Grid.Row="1" Content="{x:Static properties:Strings.AddNote}" Height="25" Width="100" HorizontalAlignment="Center" Margin="0,2,0,0" Command="{Binding AddNewNote}"/>
+                </Grid>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static properties:Strings.TransactionType}" VerticalAlignment="Center" Margin="0,0,12,0"/>
                 <ComboBox Grid.Row="2" Grid.Column="1" Margin="0,5" ItemsSource="{Binding TransactionTypes}" SelectedItem="{Binding Transaction.Type}" DisplayMemberPath="DisplayName" />
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="{x:Static properties:Strings.BookDate}" VerticalAlignment="Center" Margin="0,0,12,0"/>
-                <common1:ExtendedDatePicker Grid.Row="3" Grid.Column="1" SelectedValue="{Binding Transaction.BookDate}" EndDate="{x:Static sys:DateTime.Today}" />
+                <common:ExtendedDatePicker Grid.Row="3" Grid.Column="1" SelectedValue="{Binding Transaction.BookDate}" EndDate="{x:Static sys:DateTime.Today}" />
 
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="{x:Static properties:Strings.UserStock}" VerticalAlignment="Center" Margin="0,0,12,0"/>
                 <ComboBox Grid.Row="4" Grid.Column="1" Margin="0,5" ItemsSource="{Binding UserStocks}" SelectedValue="{Binding Transaction.UserStock}" />
@@ -115,9 +133,9 @@
                                             <Button x:Name="categoryButton" Grid.Column="1" Margin="5" Content="{Binding Category.Name}" 
                                                 VerticalAlignment="Center">
                                                 <Button.Triggers>
-                                                    <EventTrigger RoutedEvent="TextBlock.MouseEnter">
+                                                    <EventTrigger RoutedEvent="UIElement.MouseEnter">
                                                         <BeginStoryboard>
-                                                            <Storyboard TargetName="popup" TargetProperty="IsOpen">
+                                                            <Storyboard Storyboard.TargetName="popup" Storyboard.TargetProperty="IsOpen">
                                                                 <BooleanAnimationUsingKeyFrames FillBehavior="HoldEnd">
                                                                     <DiscreteBooleanKeyFrame KeyTime="00:00:00" Value="True" />
                                                                 </BooleanAnimationUsingKeyFrames>
@@ -129,18 +147,18 @@
                                             <Popup Grid.Column="0" x:Name="popup" StaysOpen="False" Placement="Bottom" PlacementTarget="{Binding ElementName=categoryButton}" VerticalOffset="5">
                                                 <UserControl Content="{Binding CategoryPickerViewModel}">
                                                     <UserControl.Triggers>
-                                                        <EventTrigger RoutedEvent="UserControl.MouseLeave">
+                                                        <EventTrigger RoutedEvent="UIElement.MouseLeave">
                                                             <BeginStoryboard>
-                                                                <Storyboard TargetName="popup" TargetProperty="IsOpen">
+                                                                <Storyboard Storyboard.TargetName="popup" Storyboard.TargetProperty="IsOpen">
                                                                     <BooleanAnimationUsingKeyFrames FillBehavior="HoldEnd">
                                                                         <DiscreteBooleanKeyFrame KeyTime="00:00:00" Value="False" />
                                                                     </BooleanAnimationUsingKeyFrames>
                                                                 </Storyboard>
                                                             </BeginStoryboard>
                                                         </EventTrigger>
-                                                        <EventTrigger RoutedEvent="UserControl.MouseDoubleClick">
+                                                        <EventTrigger RoutedEvent="Control.MouseDoubleClick">
                                                             <BeginStoryboard>
-                                                                <Storyboard TargetName="popup" TargetProperty="IsOpen">
+                                                                <Storyboard Storyboard.TargetName="popup" Storyboard.TargetProperty="IsOpen">
                                                                     <BooleanAnimationUsingKeyFrames FillBehavior="HoldEnd">
                                                                         <DiscreteBooleanKeyFrame KeyTime="00:00:00" Value="False" />
                                                                     </BooleanAnimationUsingKeyFrames>
@@ -190,8 +208,5 @@
         </Grid>
     </Grid>
 
-    <UserControl.InputBindings>
-        <KeyBinding Modifiers="Shift" Key="Escape" Command="{Binding ClearCommand}" />
-    </UserControl.InputBindings>
 </UserControl>
 

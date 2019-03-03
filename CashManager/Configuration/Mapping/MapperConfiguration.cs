@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 using AutoMapper;
 
@@ -120,9 +122,11 @@ namespace CashManager.Configuration.Mapping
                               .BeforeMap((dto, model) => model.IsPropertyChangedEnabled = false)
                               .AfterMap((dto, model) => model.IsPropertyChangedEnabled = true);
 
-                        config.CreateMap<Transaction, Data.DTO.Transaction>();
+                        config.CreateMap<Transaction, Data.DTO.Transaction>()
+                              .ForMember(desc => desc.Notes, opt => opt.MapFrom(model => model.Notes.Select(x => x.Value)));
                         config.CreateMap<Data.DTO.Transaction, Transaction>()
                               .BeforeMap((dto, model) => model.IsPropertyChangedEnabled = false)
+                              .ForMember(desc => desc.Notes, opt => opt.MapFrom(x => x.Notes.Select(y => new Note(y))))
                               .AfterMap((dto, model) =>
                               {
                                   foreach (var position in model.Positions)

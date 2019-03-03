@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 using AutoMapper;
@@ -100,7 +102,7 @@ namespace CashManager.Tests.Mappers
         public void SimpleTransactionLastEditDateChangeMappingTest()
         {
             //given
-            var model = new Transaction { Note = "now last edit date should be updated" };
+            var model = new Transaction { Notes = new TrulyObservableCollection<Note> { new Note("now last edit date should be updated") } };
 
             //when
             var dto = Mapper.Map<CashManager.Data.DTO.Transaction>(model);
@@ -108,10 +110,10 @@ namespace CashManager.Tests.Mappers
 
             //then
             Assert.Equal(model.Id, dto.Id);
-            Assert.Equal(model.Note, dto.Note);
+            Assert.Equal(model.Notes.Select(x => x.Value), dto.Notes);
             Assert.Equal(model.LastEditDate, dto.LastEditDate);
             Assert.Equal(model.Id, result.Id);
-            Assert.Equal(model.Note, result.Note);
+            Assert.Equal(model.Notes.Select(x => x.Value), result.Notes.Select(x => x.Value));
             Assert.Equal(model.LastEditDate, result.LastEditDate);
         }
 
@@ -126,7 +128,7 @@ namespace CashManager.Tests.Mappers
                 UserStock = new Stock { Name = "1st", IsUserStock = true, Balance = new Balance { Value = balance } },
                 ExternalStock = new Stock { Name = "2nd", IsUserStock = false },
                 BookDate = DateTime.Today,
-                Note = "note",
+                Notes = new TrulyObservableCollection<Note> { new Note("note") },
                 Title = "title",
                 Type = new TransactionType { Outcome = true, Name = "buy", IsDefault = true },
                 Positions = new TrulyObservableCollection<Position>(new[]
@@ -171,7 +173,7 @@ namespace CashManager.Tests.Mappers
             Assert.Equal(model.InstanceCreationDate, result.InstanceCreationDate);
             Assert.Equal(model.LastEditDate, result.LastEditDate);
             Assert.Equal(model.TransactionSourceCreationDate, result.TransactionSourceCreationDate);
-            Assert.Equal(model.Note, result.Note);
+            Assert.Equal(model.Notes.Select(x => x.Value), result.Notes.Select(x => x.Value));
             Assert.Equal(model.Title, result.Title);
             Assert.Equal(model.Type, result.Type);
             Assert.Equal(model.Type.Id, result.Type.Id);

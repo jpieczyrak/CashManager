@@ -61,7 +61,7 @@ namespace CashManager.Model.Setters
                     Description = Strings.Title;
                     break;
                 case TextSetterType.Note:
-                    Description = Strings.Note;
+                    Description = Strings.Notes;
                     break;
                 case TextSetterType.PositionTitle:
                     Description = Strings.PositionTitle;

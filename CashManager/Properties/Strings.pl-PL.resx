@@ -291,8 +291,8 @@
   <data name="Value" xml:space="preserve">
     <value>Wartość</value>
   </data>
-  <data name="Note" xml:space="preserve">
-    <value>Notatka</value>
+  <data name="Notes" xml:space="preserve">
+    <value>Notatki</value>
   </data>
   <data name="Duplicate" xml:space="preserve">
     <value>Duplikuj</value>
@@ -599,5 +599,8 @@ Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wa
   </data>
   <data name="AnyOfWords" xml:space="preserve">
     <value>Którekolwiek ze słów</value>
+  </data>
+  <data name="AddNote" xml:space="preserve">
+    <value>Dodaj notatkę</value>
   </data>
 </root>

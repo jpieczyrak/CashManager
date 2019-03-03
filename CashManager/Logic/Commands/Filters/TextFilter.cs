@@ -38,7 +38,7 @@ namespace CashManager.Logic.Commands.Filters
                     selector = x => x.Parent.Title;
                     break;
                 case TextSelectorType.Note:
-                    selector = x => x.Parent.Note;
+                    selector = x => string.Join(" ", x.Parent.Notes.Select(y => y.Value));
                     break;
                 case TextSelectorType.PositionTitle:
                     selector = x => x.Title;
@@ -62,7 +62,7 @@ namespace CashManager.Logic.Commands.Filters
                     selector = x => x.Title;
                     break;
                 case TextSelectorType.Note:
-                    selector = x => x.Note;
+                    selector = x => string.Join(" ", x.Notes.Select(y => y.Value));
                     break;
                 case TextSelectorType.PositionTitle:
                     return FilterPositions(x => x.Title, results.SelectMany(x => x.Positions)).Select(x => x.Parent).Distinct();

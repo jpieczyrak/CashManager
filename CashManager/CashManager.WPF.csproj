@@ -382,6 +382,7 @@
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Common\IBookable.cs" />
     <Compile Include="Model\ExpandableCategory.cs" />
+    <Compile Include="Model\Note.cs" />
     <Compile Include="Model\Parsers\CustomCsvParser.cs" />
     <Compile Include="Model\Parsers\Rule.cs" />
     <Compile Include="Model\Selectors\BaseSelector.cs" />

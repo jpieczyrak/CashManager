@@ -116,6 +116,7 @@ namespace CashManager.Features.Transactions
 
         public RelayCommand AddNewPosition { get; }
         public RelayCommand ClearCommand { get; }
+        public RelayCommand AddNewNote { get; }
 
         public bool ShouldGoBack { private get; set; } = true;
 
@@ -161,6 +162,7 @@ namespace CashManager.Features.Transactions
             CancelTransactionCommand = new RelayCommand(ExecuteCancelTransactionCommand);
 
             ClearCommand = new RelayCommand(ExecuteClearCommand);
+            AddNewNote = new RelayCommand(() => Transaction?.Notes.Add(new Note()));
         }
 
         private void ExecuteRemovePositionCommand(Position position)

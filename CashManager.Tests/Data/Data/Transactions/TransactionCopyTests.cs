@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using CashManager.Configuration.Mapping;
 using CashManager.Data.Extensions;
@@ -39,7 +40,7 @@ namespace CashManager.Tests.Data.Data.Transactions
             var source = new Transaction
             {
                 Title = "Title",
-                Note = "Note",
+                Notes = new TrulyObservableCollection<Note> { new Note("Note") },
                 BookDate = DateTime.Today,
                 UserStock = user,
                 ExternalStock = external,
@@ -52,7 +53,7 @@ namespace CashManager.Tests.Data.Data.Transactions
             var expected = new Transaction($"{source.Id}{DateTime.Now}".GenerateGuid())
             {
                 Title = "Title",
-                Note = "Note",
+                Notes = new TrulyObservableCollection<Note> { new Note("Note") },
                 BookDate = DateTime.Today,
                 UserStock = user,
                 ExternalStock = external,
@@ -69,7 +70,7 @@ namespace CashManager.Tests.Data.Data.Transactions
             Assert.NotNull(result);
             Assert.NotEqual(source.Id, result.Id);
             Assert.Equal(expected.Title, result.Title);
-            Assert.Equal(expected.Note, result.Note);
+            Assert.Equal(expected.Notes.Select(x => x.Value), result.Notes.Select(x => x.Value));
             Assert.Equal(expected.BookDate, result.BookDate);
             Assert.Equal(expected.UserStock, result.UserStock);
             Assert.Equal(expected.ExternalStock, result.ExternalStock);

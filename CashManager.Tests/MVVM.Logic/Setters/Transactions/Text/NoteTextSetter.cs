@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 using AutoMapper;
 
@@ -17,9 +19,9 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.Text
     {
         private readonly Transaction[] _transactions =
         {
-            new Transaction { Note = "Note 1" },
-            new Transaction { Note = "Note 2" },
-            new Transaction { Note = "Note 3" }
+            new Transaction { Notes = new TrulyObservableCollection<Note> { new Note("Note 1") } },
+            new Transaction { Notes = new TrulyObservableCollection<Note> { new Note("Note 2") } },
+            new Transaction { Notes = new TrulyObservableCollection<Note> { new Note("Note 3") } }
         };
 
         [Fact]
@@ -33,7 +35,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.Text
             var result = command.Execute(_transactions);
 
             //then
-            Assert.Equal(_transactions.Select(x => x.Note), result.Select(x => x.Note));
+            Assert.Equal(_transactions.Select(x => x.Notes), result.Select(x => x.Notes));
         }
 
         [Fact]
@@ -45,13 +47,13 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.Text
             var textSetter = new TextSetter(TextSetterType.Note) { IsChecked = true, Value = targetText };
             var command = TextSetterCommand.Create(textSetter);
             var expected = Mapper.Map<Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
-            foreach (var transaction in expected) transaction.Note = targetText;
+            foreach (var transaction in expected) transaction.Notes = new TrulyObservableCollection<Note> { new Note(targetText) };
 
             //when
             var result = command.Execute(_transactions);
 
             //then
-            Assert.Equal(expected.Select(x => x.Note), result.Select(x => x.Note));
+            Assert.Equal(expected.Select(x => x.Notes), result.Select(x => x.Notes));
         }
 
         [Fact]
@@ -63,13 +65,13 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.Text
             var textSetter = new TextSetter(TextSetterType.Note) { IsChecked = true, Value = targetText, AppendMode = true };
             var command = TextSetterCommand.Create(textSetter);
             var expected = Mapper.Map<Transaction[]>(Mapper.Map<CashManager.Data.DTO.Transaction[]>(_transactions));
-            foreach (var transaction in expected) transaction.Note += targetText;
+            foreach (var transaction in expected) transaction.Notes[0].Value += targetText;
 
             //when
             var result = command.Execute(_transactions);
 
             //then
-            Assert.Equal(expected.Select(x => x.Note), result.Select(x => x.Note));
+            Assert.Equal(expected.Select(x => x.Notes), result.Select(x => x.Notes));
         }
 
         [Fact]
@@ -87,7 +89,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.Text
             var result = command.Execute(_transactions);
 
             //then
-            Assert.Equal(expected, result.Select(x => x.Note));
+            Assert.Equal(expected, result.SelectMany(x => x.Notes.Select(y => y.Value)));
         }
 
         [Fact]
@@ -105,7 +107,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Transactions.Text
             var result = command.Execute(_transactions);
 
             //then
-            Assert.Equal(expected, result.Select(x => x.Note));
+            Assert.Equal(expected, result.SelectMany(x => x.Notes.Select(y => y.Value)));
         }
     }
 }

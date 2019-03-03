@@ -16,7 +16,6 @@ namespace CashManager.Model
     {
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(Transaction)));
         private string _title;
-        private string _note;
 
         private DateTime _bookDate;
 
@@ -24,6 +23,7 @@ namespace CashManager.Model
         private Stock _externalStock;
         private TransactionType _type;
 
+        private TrulyObservableCollection<Note> _notes;
         private TrulyObservableCollection<Position> _positions;
         private ObservableCollection<StoredFileInfo> _storedFiles;
 
@@ -44,10 +44,10 @@ namespace CashManager.Model
         /// <summary>
         /// Additional notes
         /// </summary>
-        public string Note
+        public TrulyObservableCollection<Note> Notes
         {
-            get => _note;
-            set => Set(nameof(Note), ref _note, value);
+            get => _notes;
+            set => Set(nameof(Notes), ref _notes, value);
         }
 
         /// <summary>
@@ -176,6 +176,7 @@ namespace CashManager.Model
 
             Positions = new TrulyObservableCollection<Position>();
             StoredFiles = new ObservableCollection<StoredFileInfo>();
+            Notes = new TrulyObservableCollection<Note>(new[] { new Note() });
             IsPropertyChangedEnabled = true;
         }
 
@@ -224,7 +225,7 @@ namespace CashManager.Model
             transaction.IsPropertyChangedEnabled = false;
             transaction.BookDate = source.BookDate;
             transaction.Title = source.Title;
-            transaction.Note = source.Note;
+            transaction.Notes = source.Notes;
             transaction.UserStock = source.UserStock;
             transaction.ExternalStock = source.ExternalStock;
             transaction.Type = source.Type;
@@ -244,6 +245,6 @@ namespace CashManager.Model
             if (propertyName != null) base.RaisePropertyChanged(nameof(CategoriesForGui));
         }
 
-        public string ToLogString() => $"[{BookDate:dd.MM.yyyy}] {Title} / {Note} [{ValueAsProfit}][{Type?.DisplayName}]: {Value}";
+        public string ToLogString() => $"[{BookDate:dd.MM.yyyy}] {Title} / {Notes} [{ValueAsProfit}][{Type?.DisplayName}]: {Value}";
     }
 }

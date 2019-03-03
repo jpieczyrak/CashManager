@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 using CashManager.Data.DTO;
@@ -33,7 +34,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
             //given
             var transactions = new[]
             {
-                new Transaction { Note = "test1", Positions = new List<Position> { new Position { Title = "p1" } } }
+                new Transaction { Notes = new List<string> { "test1" }, Positions = new List<Position> { new Position { Title = "p1" } } }
             };
 
             var repository = LiteDbHelper.CreateMemoryDb();
@@ -57,10 +58,10 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
             {
                 new Transaction
                 {
-                    Note = "test1",
+                    Notes = new List<string> { "test1" },
                     Positions = new List<Position> { new Position { Title = "p1", Category = new Category(), Tags = tags } }
                 },
-                new Transaction { Note = "test2", Positions = new List<Position> { new Position { Title = "p2", Category = new Category() } } }
+                new Transaction { Notes = new List<string> { "test2" }, Positions = new List<Position> { new Position { Title = "p2", Category = new Category() } } }
             };
             var positions = transactions.SelectMany(x => x.Positions).OrderBy(x => x.Id).ToArray();
             var categories = transactions.SelectMany(x => x.Positions).Select(x => x.Category).OrderBy(x => x.Id).ToArray();
@@ -105,7 +106,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
             {
                 new Transaction
                 {
-                    Note = "test1",
+                    Notes = new List<string> { "test1" },
                     Positions = new List<Position>
                     {
                         new Position
@@ -124,7 +125,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
                         }
                     }
                 },
-                new Transaction { Note = "test2", Positions = new List<Position> { new Position { Title = "p3", Category = new Category() } } }
+                new Transaction { Notes = new List<string> { "test2" }, Positions = new List<Position> { new Position { Title = "p3", Category = new Category() } } }
             };
             var positions = transactions.SelectMany(x => x.Positions).OrderBy(x => x.Id).ToArray();
             var categories = transactions.SelectMany(x => x.Positions).Select(x => x.Category).OrderBy(x => x.Id).ToArray();
@@ -138,7 +139,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
             repository.Database.UpsertBulk(categories);
             repository.Database.UpsertBulk(transactions);
 
-            foreach (var transaction in transactions) transaction.Note += " - updated";
+            foreach (var transaction in transactions) transaction.Notes[0] += " - updated";
             foreach (var position in positions) position.Value.GrossValue += 1.0m;
 
             //when
@@ -148,7 +149,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Transactions
             var orderedTransactionsInDatabase = repository.Database.Query<Transaction>().OrderBy(x => x.Id).ToArray();
             transactions = transactions.OrderBy(x => x.Id).ToArray();
             Assert.Equal(transactions, orderedTransactionsInDatabase);
-            for (int i = 0; i < transactions.Length; i++) Assert.Equal(transactions[i].Note, orderedTransactionsInDatabase[i].Note);
+            for (int i = 0; i < transactions.Length; i++) Assert.Equal(transactions[i].Notes, orderedTransactionsInDatabase[i].Notes);
 
             var actualPositions = repository.Database.Query<Position>().OrderBy(x => x.Id).ToArray();
             Assert.Equal(positions, actualPositions);

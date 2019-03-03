@@ -98,6 +98,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add note.
+        /// </summary>
+        public static string AddNote {
+            get {
+                return ResourceManager.GetString("AddNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add position.
         /// </summary>
         public static string AddPosition {
@@ -900,11 +909,11 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note.
+        ///   Looks up a localized string similar to Notes.
         /// </summary>
-        public static string Note {
+        public static string Notes {
             get {
-                return ResourceManager.GetString("Note", resourceCulture);
+                return ResourceManager.GetString("Notes", resourceCulture);
             }
         }
         

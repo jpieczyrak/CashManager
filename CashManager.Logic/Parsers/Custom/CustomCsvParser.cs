@@ -84,8 +84,8 @@ namespace CashManager.Logic.Parsers.Custom
                         if (string.IsNullOrWhiteSpace(transaction.Title)) return false;
                         break;
                     case TransactionField.Note:
-                        transaction.Note = stringValue;
-                        if (string.IsNullOrWhiteSpace(transaction.Note) && !rule.IsOptional) return false;
+                        if (string.IsNullOrWhiteSpace(stringValue) && !rule.IsOptional) return false;
+                        transaction.Notes.Add(stringValue);
                         break;
                     case TransactionField.BookDate:
                         if (rule.IsOptional && string.IsNullOrWhiteSpace(stringValue)) transaction.BookDate = DateTime.Today;

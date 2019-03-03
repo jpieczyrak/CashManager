@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 using CashManager.Data.DTO;
@@ -67,7 +68,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var transaction = new Transaction(guid)
             {
                 Title = "my income",
-                Note = "PRZELEW PRZYCHODZĄCY",
+                Notes = new List<string> { "PRZELEW PRZYCHODZĄCY" },
                 Positions = new List<Position> { new Position("my income", 647.85m) },
                 BookDate = new DateTime(2019, 01, 15),
                 TransactionSourceCreationDate = new DateTime(2019, 01, 14),
@@ -104,7 +105,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var transaction = new Transaction(guid)
             {
                 Title = "MDJ SP. Z O.O.         GLIWICE 19/01/19",
-                Note = "TRANSAKCJA KARTĄ PŁATNICZĄ",
+                Notes = new List<string> { "TRANSAKCJA KARTĄ PŁATNICZĄ" },
                 Positions = new List<Position> { new Position("MDJ SP. Z O.O.         GLIWICE 19/01/19", 9.13m) },
                 BookDate = new DateTime(2019, 01, 22),
                 TransactionSourceCreationDate = new DateTime(2019, 01, 22),
@@ -141,7 +142,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var transaction = new Transaction(guid)
             {
                 Title = "osoba - opłata",
-                Note = "PRZELEW DO INNEGO BANKU",
+                Notes = new List<string> { "PRZELEW DO INNEGO BANKU" },
                 Positions = new List<Position> { new Position("osoba - opłata", 105.5m) },
                 BookDate = new DateTime(2018, 08, 29),
                 TransactionSourceCreationDate = new DateTime(2018, 08, 29),

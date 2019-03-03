@@ -294,8 +294,8 @@
   <data name="Value" xml:space="preserve">
     <value>Value</value>
   </data>
-  <data name="Note" xml:space="preserve">
-    <value>Note</value>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
   </data>
   <data name="Duplicate" xml:space="preserve">
     <value>Duplicate</value>
@@ -611,5 +611,8 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   </data>
   <data name="AnyOfWords" xml:space="preserve">
     <value>Any of words</value>
+  </data>
+  <data name="AddNote" xml:space="preserve">
+    <value>Add note</value>
   </data>
 </root>

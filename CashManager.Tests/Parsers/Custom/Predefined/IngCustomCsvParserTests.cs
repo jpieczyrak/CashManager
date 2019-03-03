@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 using CashManager.Data.DTO;
@@ -130,7 +131,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var transaction = new Transaction(guid)
             {
                 Title = "Na legimi",
-                Note = "imie nazw, ulica 1/2, 11-222 miasto",
+                Notes = new List<string> { "imie nazw, ulica 1/2, 11-222 miasto" },
                 Positions = new List<Position> { new Position("zlecenie stałe", 39.99m) },
                 BookDate = new DateTime(2018, 12, 20),
                 TransactionSourceCreationDate = new DateTime(2018, 12, 20),
@@ -166,7 +167,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var transaction = new Transaction(guid)
             {
                 Title = "Na legimi",
-                Note = "imie nazw, ulica 1/2, 11-222 miasto",
+                Notes = new List<string> { "imie nazw, ulica 1/2, 11-222 miasto" },
                 Positions = new List<Position> { new Position("zlecenie stałe", 39.99m) },
                 BookDate = new DateTime(2018, 12, 22),
                 TransactionSourceCreationDate = new DateTime(2018, 12, 20),
@@ -205,7 +206,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var transaction = new Transaction(guid)
             {
                 Title = "Na legimi",
-                Note = "imie nazw, ulica 1/2, 11-222 miasto",
+                Notes = new List<string> { "imie nazw, ulica 1/2, 11-222 miasto" },
                 Positions = new List<Position> { new Position("zlecenie stałe", 39.99m) },
                 BookDate = new DateTime(2018, 12, 22),
                 TransactionSourceCreationDate = new DateTime(2018, 12, 20),
@@ -244,7 +245,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var transaction = new Transaction(guid)
             {
                 Title = "Na legimi",
-                Note = "imie nazw, ulica 1/2, 11-222 miasto",
+                Notes = new List<string> { "imie nazw, ulica 1/2, 11-222 miasto" },
                 Positions = new List<Position> { new Position("zlecenie stałe", 39.99m) },
                 BookDate = new DateTime(2018, 12, 22),
                 TransactionSourceCreationDate = new DateTime(2018, 12, 20),

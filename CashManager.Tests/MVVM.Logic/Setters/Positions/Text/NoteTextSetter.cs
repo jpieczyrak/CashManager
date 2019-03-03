@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 using CashManager.Logic.Commands.Setters;
 using CashManager.Model;
@@ -15,9 +17,9 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions.Text
     {
         private readonly Position[] _positions =
         {
-            new Position { Parent = new Transaction { Note = "Note 1" } },
-            new Position { Parent = new Transaction { Note = "Note 2" } },
-            new Position { Parent = new Transaction { Note = "Note 3" } }
+            new Position { Parent = new Transaction { Notes = new TrulyObservableCollection<Note> { new Note("Note 1") } } },
+            new Position { Parent = new Transaction { Notes = new TrulyObservableCollection<Note> { new Note("Note 2") } } },
+            new Position { Parent = new Transaction { Notes = new TrulyObservableCollection<Note> { new Note("Note 3") } } }
         };
 
         public NoteTextSetter()
@@ -37,7 +39,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions.Text
             var result = command.Execute(_positions);
 
             //then
-            Assert.Equal(_positions.Select(x => x.Parent.Note), result.Select(x => x.Parent.Note));
+            Assert.Equal(_positions.Select(x => x.Parent.Notes), result.Select(x => x.Parent.Notes));
         }
 
         [Fact]
@@ -54,7 +56,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions.Text
             var result = command.Execute(_positions);
 
             //then
-            Assert.Equal(expected, result.Select(x => x.Parent.Note));
+            Assert.Equal(expected, result.SelectMany(x => x.Parent.Notes.Select(y => y.Value)));
         }
 
         [Fact]
@@ -71,7 +73,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions.Text
             var result = command.Execute(_positions);
 
             //then
-            Assert.Equal(expected, result.Select(x => x.Parent.Note));
+            Assert.Equal(expected, result.SelectMany(x => x.Parent.Notes.Select(y => y.Value)));
         }
 
         [Fact]
@@ -89,7 +91,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions.Text
             var result = command.Execute(_positions);
 
             //then
-            Assert.Equal(expected, result.Select(x => x.Parent.Note));
+            Assert.Equal(expected, result.SelectMany(x => x.Parent.Notes.Select(y => y.Value)));
         }
 
         [Fact]
@@ -107,7 +109,7 @@ namespace CashManager.Tests.MVVM.Logic.Setters.Positions.Text
             var result = command.Execute(_positions);
 
             //then
-            Assert.Equal(expected, result.Select(x => x.Parent.Note));
+            Assert.Equal(expected, result.SelectMany(x => x.Parent.Notes.Select(y => y.Value)));
         }
     }
 }

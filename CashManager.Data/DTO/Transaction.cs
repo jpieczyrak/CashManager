@@ -12,7 +12,7 @@ namespace CashManager.Data.DTO
 
 		public string Title { get; set; }
 
-		public string Note { get; set; }
+		public List<string> Notes { get; set; }
 
 		public List<Position> Positions { get; set; }
 
@@ -31,6 +31,7 @@ namespace CashManager.Data.DTO
             TransactionSourceCreationDate = DateTime.MinValue;
             BookDate = LastEditDate = InstanceCreationDate = DateTime.Now;
             Positions = new List<Position>();
+            Notes = new List<string>();
         }
 
         public Transaction(Guid id) : this()
@@ -56,7 +57,7 @@ namespace CashManager.Data.DTO
             Id = ImportGuid(type, sourceTransactionCreationDate, title, positions);
             Type = type;
             Title = title;
-            Note = note;
+            Notes = new List<string> { note };
             BookDate = TransactionSourceCreationDate = sourceTransactionCreationDate;
             Positions = new List<Position>(positions);
             UserStock = userStock;
