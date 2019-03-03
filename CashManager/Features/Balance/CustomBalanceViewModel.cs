@@ -66,6 +66,7 @@ namespace CashManager.Features.Balance
 
         public void Update()
         {
+            SelectedCustomBalance = null;
             var customBalanceQuery = new CustomBalanceQuery();
             var customBalances = _queryDispatcher.Execute<CustomBalanceQuery, DtoCustomBalance[]>(customBalanceQuery);
             CustomBalances = Mapper.Map<ObservableCollection<CustomBalance>>(customBalances);

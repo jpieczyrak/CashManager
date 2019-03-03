@@ -33,6 +33,7 @@
                 <MenuItem Header="{x:Static properties:Strings.CategoryManagerHeader}" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.CategoryManager}"/>
                 <MenuItem Header="{x:Static properties:Strings.TypesManagerHeader}" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.TypesManager}"/>
                 <MenuItem Header="{x:Static properties:Strings.TagsManagerHeader}" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.TagsManager}"/>
+                <MenuItem Header="Custom balance manager" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.CustomBalanceManager}"/>
             </MenuItem>
             <MenuItem Header="{x:Static properties:Strings.Analytics}" Template="{DynamicResource TopMenuItemControlTemplate}">
                 <MenuItem Header="{x:Static properties:Strings.WealthPlot}" Template="{DynamicResource InsideMenuItemControlTemplate}" Command="{Binding SelectViewModelCommand}" CommandParameter="{x:Static main:ViewModel.WealthPlot}"/>

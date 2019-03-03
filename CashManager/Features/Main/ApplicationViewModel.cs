@@ -49,6 +49,7 @@ namespace CashManager.Features.Main
         private readonly Lazy<WealthViewModel> _wealthPlotViewModel;
         private readonly Lazy<CategoriesPlotViewModel> _categoriesPlotViewModel;
         private readonly Lazy<CustomBalanceViewModel> _customBalancesViewModel;
+        private readonly Lazy<CustomBalanceManagerViewModel> _customBalancesManagerViewModel;
 
         public ViewModelBase SelectedViewModel
         {
@@ -108,6 +109,7 @@ namespace CashManager.Features.Main
             _wealthPlotViewModel = new Lazy<WealthViewModel>(_factory.Create<WealthViewModel>);
             _categoriesPlotViewModel = new Lazy<CategoriesPlotViewModel>(_factory.Create<CategoriesPlotViewModel>);
             _customBalancesViewModel = new Lazy<CustomBalanceViewModel>(_factory.Create<CustomBalanceViewModel>);
+            _customBalancesManagerViewModel = new Lazy<CustomBalanceManagerViewModel>(_factory.Create<CustomBalanceManagerViewModel>);
             PreviousSelectedViewModel = SelectedViewModel = _summaryViewModel.Value;
             NotificationViewModel = _factory.Create<NotificationViewModel>();
 
@@ -132,6 +134,9 @@ namespace CashManager.Features.Main
                     break;
                 case ViewModel.TagsManager:
                     SelectedViewModel = _tagManagerViewModel.Value;
+                    break;
+                case ViewModel.CustomBalanceManager:
+                    SelectedViewModel = _customBalancesManagerViewModel.Value;
                     break;
                 case ViewModel.About:
                     if (_aboutWindow == null || _aboutWindow.IsVisible == false) _aboutWindow = new AboutWindow();

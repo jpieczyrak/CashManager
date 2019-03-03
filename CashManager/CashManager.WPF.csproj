@@ -208,6 +208,10 @@
     <Compile Include="Configuration\DI\AutofacConfiguration.cs" />
     <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
+    <Compile Include="Features\Balance\CustomBalanceManagerView.xaml.cs">
+      <DependentUpon>CustomBalanceManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Balance\CustomBalanceManagerViewModel.cs" />
     <Compile Include="Features\Balance\CustomBalanceView.xaml.cs">
       <DependentUpon>CustomBalanceView.xaml</DependentUpon>
     </Compile>
@@ -319,7 +323,7 @@
     <Compile Include="Features\Transactions\TransactionEditMode.cs" />
     <Compile Include="Features\Transactions\TransactionEditModes.cs" />
     <Compile Include="Logic\Debouncer.cs" />
-    <Compile Include="Features\Search\SearchState.cs" />
+    <Compile Include="Features\Tags\SearchState.cs" />
     <Compile Include="Features\MassReplacer\MassReplacerView.xaml.cs">
       <DependentUpon>MassReplacerView.xaml</DependentUpon>
     </Compile>
@@ -448,6 +452,10 @@
     <Compile Include="Utils\Updates\IUpdatesManager.cs" />
     <Compile Include="Utils\Updates\SquirrelUpdatesManager.cs" Condition="$(DefineConstants.Contains('PORTABLE')) != true" />
     <Compile Include="Utils\WebReader.cs" />
+    <Page Include="Features\Balance\CustomBalanceManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Features\Balance\CustomBalanceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
