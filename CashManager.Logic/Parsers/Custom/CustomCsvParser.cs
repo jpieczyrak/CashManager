@@ -17,7 +17,7 @@ namespace CashManager.Logic.Parsers.Custom
         public Rule[] Rules { get; private set; }
         public string ColumnSplitter { get; private set; }
 
-        public Dictionary<Stock, Balance> Balances { get; } = new Dictionary<Stock, Balance>();
+        public Dictionary<Stock, Dictionary<DateTime, decimal>> Balances { get; } = new Dictionary<Stock, Dictionary<DateTime, decimal>>();
 
         public string Name { get; set; }
 
@@ -31,8 +31,10 @@ namespace CashManager.Logic.Parsers.Custom
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome,
             TransactionType defaultIncome, bool generateMissingStocks = false)
         {
-            var output = new List<Transaction>();
+            Balances.Clear();
+            if (userStock != null) Balances[userStock] = new Dictionary<DateTime, decimal>();
 
+            var output = new List<Transaction>();
             var lines = input.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string line in lines)
@@ -43,13 +45,12 @@ namespace CashManager.Logic.Parsers.Custom
                                          : line.Split(new[] { line.Contains("\",\"") ? "\",\"" : "," }, StringSplitOptions.None)
                                    : line.Split(new[] { ColumnSplitter }, StringSplitOptions.None);
                 elements = elements.Select(x => x.Replace("\"", string.Empty)).ToArray();
-                var transaction = new Transaction(line.GenerateGuid())
+                var transaction = new Transaction
                 {
                     ExternalStock = externalStock,
                     UserStock = userStock
                 };
                 transaction.Positions.Add(new Position());
-                if (userStock != null) Balances[userStock] = userStock.Balance;
 
                 bool match = Rules.Any();
                 foreach (var rule in Rules)
@@ -61,6 +62,7 @@ namespace CashManager.Logic.Parsers.Custom
                     }
                 }
 
+                transaction.RecalculateId();
                 if (match) output.Add(transaction);
             }
 
@@ -82,8 +84,8 @@ namespace CashManager.Logic.Parsers.Custom
                         if (string.IsNullOrWhiteSpace(transaction.Title)) return false;
                         break;
                     case TransactionField.Note:
-                        transaction.Note = stringValue;
-                        if (string.IsNullOrWhiteSpace(transaction.Note) && !rule.IsOptional) return false;
+                        if (string.IsNullOrWhiteSpace(stringValue) && !rule.IsOptional) return false;
+                        transaction.Notes.Add(stringValue);
                         break;
                     case TransactionField.BookDate:
                         if (rule.IsOptional && string.IsNullOrWhiteSpace(stringValue)) transaction.BookDate = DateTime.Today;
@@ -130,8 +132,21 @@ namespace CashManager.Logic.Parsers.Custom
                             if (string.IsNullOrWhiteSpace(stringValue)) return true;
                             decimal value = decimal.Parse(stringValue.Replace(".", ","));
                             if (value == 0) return true;
-                            transaction.Type = value >= 0 ? defaultIncome : defaultOutcome;
-                            transaction.Positions[0].Value.GrossValue = Math.Abs(value);
+                            if (transaction.Positions[0].Value.GrossValue > 0 && transaction.Type != null)
+                            {
+                                decimal sum = transaction.Type.Outcome
+                                                  ? value - transaction.Positions[0].Value.GrossValue
+                                                  : value + transaction.Positions[0].Value.GrossValue;
+                                transaction.Type = sum > 0m
+                                                       ? defaultIncome
+                                                       : defaultOutcome;
+                                transaction.Positions[0].Value.GrossValue = Math.Abs(sum);
+                            }
+                            else
+                            {
+                                transaction.Type = value >= 0 ? defaultIncome : defaultOutcome;
+                                transaction.Positions[0].Value.GrossValue = Math.Abs(value);
+                            }
                         }
                         break;
                     case TransactionField.UserStock:
@@ -152,13 +167,11 @@ namespace CashManager.Logic.Parsers.Custom
                         }
                         break;
                     case TransactionField.Balance:
-                        if (!Balances.ContainsKey(transaction.UserStock)) Balances[transaction.UserStock] = new Balance();
+                        if (!Balances.ContainsKey(transaction.UserStock))
+                            Balances[transaction.UserStock] = new Dictionary<DateTime, decimal>();
                         var balance = Balances[transaction.UserStock];
-                        if (balance.LastEditDate < transaction.TransactionSourceCreationDate)
-                        {
-                            balance.Value = decimal.Parse(stringValue.Replace(".", ","));
-                            balance.LastEditDate = transaction.TransactionSourceCreationDate;
-                        }
+                        if (!balance.ContainsKey(transaction.TransactionSourceCreationDate))
+                            balance[transaction.TransactionSourceCreationDate] = decimal.Parse(stringValue.Replace(".", ","));
                         break;
                     case TransactionField.Currency:
                         //todo:
@@ -167,7 +180,7 @@ namespace CashManager.Logic.Parsers.Custom
             }
             catch (Exception e)
             {
-                _logger.Value.Debug("Parsing failed", e);
+                _logger.Value.Debug($"Parsing failed{Environment.NewLine}{string.Join(";", elements)}", e);
                 return false;
             }
 

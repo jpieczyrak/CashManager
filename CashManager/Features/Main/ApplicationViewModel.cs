@@ -49,6 +49,7 @@ namespace CashManager.Features.Main
         private readonly Lazy<WealthViewModel> _wealthPlotViewModel;
         private readonly Lazy<CategoriesPlotViewModel> _categoriesPlotViewModel;
         private readonly Lazy<CustomBalanceViewModel> _customBalancesViewModel;
+        private readonly Lazy<CustomBalanceManagerViewModel> _customBalancesManagerViewModel;
 
         public ViewModelBase SelectedViewModel
         {
@@ -87,7 +88,11 @@ namespace CashManager.Features.Main
         public ApplicationViewModel(ViewModelFactory factory)
         {
             _factory = factory;
-            Title = $"Cash Manager {Assembly.GetExecutingAssembly().GetName().Version} - BETA";
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
+            Title = $"Cash Manager {version}";
+#if BETA
+            Title += " - BETA";
+#endif
 
             _summaryViewModel = new Lazy<SummaryViewModel>(() => _factory.Create<SummaryViewModel>());
             _stocksViewModel = new Lazy<StocksViewModel>(() => _factory.Create<StocksViewModel>());
@@ -104,6 +109,7 @@ namespace CashManager.Features.Main
             _wealthPlotViewModel = new Lazy<WealthViewModel>(_factory.Create<WealthViewModel>);
             _categoriesPlotViewModel = new Lazy<CategoriesPlotViewModel>(_factory.Create<CategoriesPlotViewModel>);
             _customBalancesViewModel = new Lazy<CustomBalanceViewModel>(_factory.Create<CustomBalanceViewModel>);
+            _customBalancesManagerViewModel = new Lazy<CustomBalanceManagerViewModel>(_factory.Create<CustomBalanceManagerViewModel>);
             PreviousSelectedViewModel = SelectedViewModel = _summaryViewModel.Value;
             NotificationViewModel = _factory.Create<NotificationViewModel>();
 
@@ -128,6 +134,9 @@ namespace CashManager.Features.Main
                     break;
                 case ViewModel.TagsManager:
                     SelectedViewModel = _tagManagerViewModel.Value;
+                    break;
+                case ViewModel.CustomBalanceManager:
+                    SelectedViewModel = _customBalancesManagerViewModel.Value;
                     break;
                 case ViewModel.About:
                     if (_aboutWindow == null || _aboutWindow.IsVisible == false) _aboutWindow = new AboutWindow();
@@ -160,6 +169,7 @@ namespace CashManager.Features.Main
                 {
                     var factory = new CustomCsvParserFactory(Mapper.Map<Stock[]>(_parserViewModel.Value.UserStocks.Concat(_parserViewModel.Value.ExternalStocks)));
                     _parserViewModel.Value.Parser = factory.Create(PredefinedCsvParsers.Ing);
+                    _parserViewModel.Value.CanGenerateMissingStocks = true;
                     SelectedViewModel = _parserViewModel.Value;
                     break;
                 }
@@ -167,6 +177,7 @@ namespace CashManager.Features.Main
                 {
                     var factory = new CustomCsvParserFactory(Mapper.Map<Stock[]>(_parserViewModel.Value.UserStocks.Concat(_parserViewModel.Value.ExternalStocks)));
                     _parserViewModel.Value.Parser = factory.Create(PredefinedCsvParsers.Millennium);
+                    _parserViewModel.Value.GenerateMissingStocks = _parserViewModel.Value.CanGenerateMissingStocks = false;
                     SelectedViewModel = _parserViewModel.Value;
                     break;
                 }

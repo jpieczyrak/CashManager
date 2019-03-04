@@ -98,11 +98,38 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add custom balance.
+        /// </summary>
+        public static string AddCustomBalance {
+            get {
+                return ResourceManager.GetString("AddCustomBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add note.
+        /// </summary>
+        public static string AddNote {
+            get {
+                return ResourceManager.GetString("AddNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add position.
         /// </summary>
         public static string AddPosition {
             get {
                 return ResourceManager.GetString("AddPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add rule.
+        /// </summary>
+        public static string AddRule {
+            get {
+                return ResourceManager.GetString("AddRule", resourceCulture);
             }
         }
         
@@ -161,6 +188,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Any of words.
+        /// </summary>
+        public static string AnyOfWords {
+            get {
+                return ResourceManager.GetString("AnyOfWords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Append mode.
         /// </summary>
         public static string AppendMode {
@@ -197,6 +233,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ask for mass replace perform.
+        /// </summary>
+        public static string AskForMassReplacePerform {
+            get {
+                return ResourceManager.GetString("AskForMassReplacePerform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ask for position delete.
         /// </summary>
         public static string AskForPositionDelete {
@@ -215,11 +260,47 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Backup database on app close.
+        /// </summary>
+        public static string BackupDbOnClose {
+            get {
+                return ResourceManager.GetString("BackupDbOnClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backup database on app start.
+        /// </summary>
+        public static string BackupDbOnStart {
+            get {
+                return ResourceManager.GetString("BackupDbOnStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Balance.
         /// </summary>
         public static string Balance {
             get {
                 return ResourceManager.GetString("Balance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Balance update mode.
+        /// </summary>
+        public static string BalanceUpdateMode {
+            get {
+                return ResourceManager.GetString("BalanceUpdateMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bill preview.
+        /// </summary>
+        public static string BillPreview {
+            get {
+                return ResourceManager.GetString("BillPreview", resourceCulture);
             }
         }
         
@@ -323,6 +404,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom Balance Manager.
+        /// </summary>
+        public static string CustomBalanceManager {
+            get {
+                return ResourceManager.GetString("CustomBalanceManager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom balances.
         /// </summary>
         public static string CustomBalances {
@@ -346,6 +436,15 @@ namespace CashManager.Properties {
         public static string Default {
             get {
                 return ResourceManager.GetString("Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string DefaultCategoryName {
+            get {
+                return ResourceManager.GetString("DefaultCategoryName", resourceCulture);
             }
         }
         
@@ -837,11 +936,11 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note.
+        ///   Looks up a localized string similar to Notes.
         /// </summary>
-        public static string Note {
+        public static string Notes {
             get {
-                return ResourceManager.GetString("Note", resourceCulture);
+                return ResourceManager.GetString("Notes", resourceCulture);
             }
         }
         
@@ -1017,6 +1116,42 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to perform mass replace for all positions?.
+        /// </summary>
+        public static string QuestionDoYouWantToPerformMassReplaceOnAllPositions {
+            get {
+                return ResourceManager.GetString("QuestionDoYouWantToPerformMassReplaceOnAllPositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to perform mass replace for all transactions?.
+        /// </summary>
+        public static string QuestionDoYouWantToPerformMassReplaceOnAllTransactions {
+            get {
+                return ResourceManager.GetString("QuestionDoYouWantToPerformMassReplaceOnAllTransactions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to perform mass replace for: {0} positions?.
+        /// </summary>
+        public static string QuestionDoYouWantToPerformMassReplaceOnPositionsFormat {
+            get {
+                return ResourceManager.GetString("QuestionDoYouWantToPerformMassReplaceOnPositionsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to perform mass replace for: {0} transactions?.
+        /// </summary>
+        public static string QuestionDoYouWantToPerformMassReplaceOnTransactionsFormat {
+            get {
+                return ResourceManager.GetString("QuestionDoYouWantToPerformMassReplaceOnTransactionsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure, that you want to remove {0} position?.
         /// </summary>
         public static string QuestionDoYouWantToRemovePositionFormat {
@@ -1116,6 +1251,15 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show transfers.
+        /// </summary>
+        public static string ShowTransfers {
+            get {
+                return ResourceManager.GetString("ShowTransfers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Skin colors.
         /// </summary>
         public static string SkinColors {
@@ -1130,6 +1274,15 @@ namespace CashManager.Properties {
         public static string SkinShape {
             get {
                 return ResourceManager.GetString("SkinShape", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Elements (columns) splitter.
+        /// </summary>
+        public static string SplitterValue {
+            get {
+                return ResourceManager.GetString("SplitterValue", resourceCulture);
             }
         }
         
@@ -1274,6 +1427,15 @@ namespace CashManager.Properties {
         public static string TypesManagerHeader {
             get {
                 return ResourceManager.GetString("TypesManagerHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update available.
+        /// </summary>
+        public static string UpdateAvailable {
+            get {
+                return ResourceManager.GetString("UpdateAvailable", resourceCulture);
             }
         }
         

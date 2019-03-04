@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 using CashManager.Features;
@@ -39,7 +41,7 @@ namespace CashManager.Logic.Creators
             var transaction = new Transaction
             {
                 Title = Strings.Correction,
-                Note = Strings.ManualStockUpdate,
+                Notes = new TrulyObservableCollection<Note> { new Note { Value = Strings.ManualStockUpdate } },
                 BookDate = DateTime.Today,
                 Type = diff > 0
                            ? incomeTypes.FirstOrDefault()

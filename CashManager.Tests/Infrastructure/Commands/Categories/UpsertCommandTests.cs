@@ -17,7 +17,7 @@ namespace CashManager.Tests.Infrastructure.Commands.Categories
             //given
             var repository = LiteDbHelper.CreateMemoryDb();
             var handler = new UpsertCategoriesCommandHandler(repository);
-            var command = new UpsertCategoriesCommand(null);
+            var command = new UpsertCategoriesCommand((Category) null);
 
             //when
             handler.Execute(command);

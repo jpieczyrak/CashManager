@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 using CashManager.Configuration.Mapping;
 using CashManager.Model;
@@ -33,7 +35,7 @@ namespace CashManager.Tests.Data.Data.Positions
             var parent = new Transaction
             {
                 Title = "Title",
-                Note = "Note",
+                Notes = new TrulyObservableCollection<Note> { new Note("Note") },
                 BookDate = DateTime.Today,
                 UserStock = user,
                 ExternalStock = external,
@@ -70,7 +72,7 @@ namespace CashManager.Tests.Data.Data.Positions
             //parent
             Assert.Equal(parent.Id, result.Parent.Id);
             Assert.Equal(parent.Title, result.Parent.Title);
-            Assert.Equal(parent.Note, result.Parent.Note);
+            Assert.Equal(parent.Notes, result.Parent.Notes);
             Assert.Equal(parent.BookDate, result.Parent.BookDate);
             Assert.Equal(parent.UserStock, result.Parent.UserStock);
             Assert.Equal(parent.ExternalStock, result.Parent.ExternalStock);

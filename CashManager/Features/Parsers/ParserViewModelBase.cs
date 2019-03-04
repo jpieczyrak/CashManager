@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.ReplacerState;
 using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Infrastructure.Query.TransactionTypes;
+using CashManager.Logic.Creators;
 using CashManager.Logic.Parsers;
 using CashManager.Logic.Wrappers;
 using CashManager.Messages.Models;
@@ -29,8 +31,9 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 using GongSolutions.Wpf.DragDrop;
 
+using log4net;
+
 using DtoStock = CashManager.Data.DTO.Stock;
-using DtoBalance = CashManager.Data.DTO.Balance;
 using DtoTransaction = CashManager.Data.DTO.Transaction;
 using DtoTransactionType = CashManager.Data.DTO.TransactionType;
 
@@ -38,20 +41,24 @@ namespace CashManager.Features.Parsers
 {
     public class ParserViewModelBase : ViewModelBase, IUpdateable, IDropTarget
     {
+        private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(ParserViewModelBase)));
+
         protected readonly IQueryDispatcher _queryDispatcher;
         protected readonly ICommandDispatcher _commandDispatcher;
+        private readonly ICorrectionsCreator _correctionsCreator;
         private readonly MassReplacerViewModel _replacer;
         private string _inputText;
         private bool _generateMissingStocks;
+        private bool _canGenerateMissingStocks;
+        private ParserUpdateBalanceMode _selectedUpdateBalanceMode;
         private TransactionListViewModel _resultsListViewModel = new TransactionListViewModel();
-        private IParser _parser;
 
-        public ParserViewModelBase(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher,
-            TransactionsProvider transactionsProvider, MassReplacerViewModel replacer)
+        public ParserViewModelBase(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ICorrectionsCreator correctionsCreator, TransactionsProvider transactionsProvider, MassReplacerViewModel replacer)
         {
             TransactionsProvider = transactionsProvider;
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
+            _correctionsCreator = correctionsCreator;
             _replacer = replacer;
 
             Update();
@@ -82,17 +89,17 @@ namespace CashManager.Features.Parsers
 
         public TransactionType[] OutcomeTransactionTypes { get; set; }
 
+        public IEnumerable<ParserUpdateBalanceMode> UpdateBalanceModes => Enum.GetValues(typeof(ParserUpdateBalanceMode)).OfType<ParserUpdateBalanceMode>().ToArray();
+
+        public ParserUpdateBalanceMode SelectedUpdateBalanceMode
+        {
+            get => _selectedUpdateBalanceMode;
+            set => Set(ref _selectedUpdateBalanceMode, value);
+        }
+
         public MultiPicker ReplacerSelector { get; } = new MultiPicker(MultiPickerType.ReplacerStates, new Selectable[0]);
 
-        public IParser Parser
-        {
-            get => _parser;
-            set
-            {
-                _parser = value;
-                Clear();
-            }
-        }
+        public IParser Parser { get; set; }
 
         public RelayCommand ParseCommand { get; set; }
 
@@ -102,6 +109,12 @@ namespace CashManager.Features.Parsers
         {
             get => _generateMissingStocks;
             set => Set(ref _generateMissingStocks, value);
+        }
+
+        public bool CanGenerateMissingStocks
+        {
+            get => _canGenerateMissingStocks;
+            set => Set(ref _canGenerateMissingStocks, value);
         }
 
         public TransactionListViewModel ResultsListViewModel
@@ -123,7 +136,14 @@ namespace CashManager.Features.Parsers
                           Mapper.Map<DtoTransactionType>(DefaultIncomeTransactionType), GenerateMissingStocks), $"Parsing: {Parser.GetType().Name}")) { }
 
             using (new MeasureTimeWrapper(
-                () => transactions = Mapper.Map<Transaction[]>(results).Where(x => x.IsValid), $"Mapping: {results.Length,6}")) { }
+                () =>
+                {
+                    var mapped = Mapper.Map<Transaction[]>(results);
+                    var invalid = mapped.Where(x => !x.IsValid).Select(x => x.ToLogString()).ToArray();
+                    if (invalid.Any())
+                        _logger.Value.Info($"Not valid:{Environment.NewLine}{string.Join(Environment.NewLine, invalid)}");
+                    transactions = mapped.Where(x => x.IsValid);
+                }, $"Mapping: {results.Length,6}")) { }
 
             using (new MeasureTimeWrapper(
                 () =>
@@ -132,7 +152,7 @@ namespace CashManager.Features.Parsers
                     {
                         _replacer.ApplyState(state);
                         _replacer.SearchViewModel.PerformFilter(transactions);
-                        _replacer.PerformCommand.Execute(null);
+                        _replacer.PerformReplaceCommand.Execute(null);
                         var replaced = _replacer.SearchViewModel.MatchingTransactions.ToArray();
                         transactions = transactions.Except(replaced).Concat(replaced);
                     }
@@ -144,19 +164,6 @@ namespace CashManager.Features.Parsers
                 {
                     Transactions = new TrulyObservableCollection<Transaction>(transactions)
                 }, "List creation")) { }
-        }
-
-        private static DtoStock[] UpdateStockBalances(KeyValuePair<DtoStock, DtoBalance>[] balances, Stock[] updatedStocks)
-        {
-            var idBalances = balances.ToDictionary(x => x.Key.Id, x => x.Value);
-
-            foreach (var stock in updatedStocks)
-            {
-                stock.Balance.IsPropertyChangedEnabled = true;
-                stock.Balance.Value = idBalances[stock.Id].Value;
-            }
-
-            return Mapper.Map<DtoStock[]>(updatedStocks);
         }
 
         public void Update()
@@ -238,17 +245,44 @@ namespace CashManager.Features.Parsers
             TransactionsProvider.AllTransactions.RemoveRange(transactions);
             TransactionsProvider.AllTransactions.AddRange(transactions);
 
-            var balances = Parser.Balances.ToArray();
-            if (balances.Any()) //todo: ask if balances should be updated
-            {
-                var updatedStocks = Mapper.Map<Stock[]>(balances.Select(x => x.Key));
-                var updatedDtos = UpdateStockBalances(balances, updatedStocks);
-                _commandDispatcher.Execute(new UpsertStocksCommand(updatedDtos));
-                MessengerInstance.Send(new UpdateStockMessage(updatedStocks));
-            }
+            UpdateBalances();
         }
 
-        protected virtual bool CanExecuteParseCommand() => !string.IsNullOrEmpty(InputText);
+        private void UpdateBalances()
+        {
+            if (SelectedUpdateBalanceMode == ParserUpdateBalanceMode.Never) return;
+
+            var transactions = TransactionsProvider.AllTransactions;
+
+            var updates = SelectedUpdateBalanceMode == ParserUpdateBalanceMode.IfNewer
+                               ? Parser.Balances.Where(x => x.Key.Balance.BookDate < x.Value.Max(y => y.Key)).ToArray() 
+                               : Parser.Balances.ToArray();
+
+            var stocks = new List<Stock>();
+            foreach (var pair in updates)
+            {
+                var newestBalance = pair.Value.OrderByDescending(y => y.Key).First();
+                decimal diff = pair.Key.Balance.Value - newestBalance.Value;
+
+                var stock = Mapper.Map<Stock>(pair.Key);
+                stock.Balance.IsPropertyChangedEnabled = false;
+                pair.Key.Balance.Value = stock.Balance.Value = newestBalance.Value;
+                pair.Key.Balance.BookDate = stock.Balance.BookDate = newestBalance.Key;
+                stock.Balance.IsPropertyChangedEnabled = true;
+                stocks.Add(stock);
+
+                decimal profitValue = transactions.Where(x => x.UserStock.Id == stock.Id).Sum(x => x.ValueAsProfit);
+                if (diff != profitValue)
+                {
+                    _correctionsCreator.CreateCorrection(stock, diff - profitValue);
+                }
+            }
+
+            _commandDispatcher.Execute(new UpsertStocksCommand(Mapper.Map<DtoStock[]>(stocks)));
+            MessengerInstance.Send(new UpdateStockMessage(stocks.ToArray()));
+        }
+
+        protected virtual bool CanExecuteParseCommand() => !string.IsNullOrEmpty(InputText) && SelectedUserStock != null;
 
         protected virtual void ExecuteParseCommand()
         {

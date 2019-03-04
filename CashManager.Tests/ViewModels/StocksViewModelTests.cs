@@ -31,6 +31,7 @@ namespace CashManager.Tests.ViewModels
                 new Stock { Name = "C", IsUserStock = true },
             };
             var vm = _fixture.Container.Resolve<StocksViewModel>();
+            vm.Update();
             vm.Stocks.AddRange(startStocks);
             var expectedStocks = vm.Stocks.Skip(1).OrderBy(x => x.Name).ToArray();
 

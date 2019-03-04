@@ -49,11 +49,11 @@ namespace CashManager.Tests.ViewModels.Search.Positions
             //given
             var vm = _fixture.Container.Resolve<SearchViewModel>();
             vm.Update();
-            string searchString = vm.MatchingTransactions.First().Note;
+            var searchString = vm.MatchingTransactions.First().Notes.First().Value;
             vm.IsPositionsSearch = true;
             vm.IsTransactionsSearch = false;
             var expected = _fixture.ViewModelContext.Positions.Value
-                             .Where(x => x.Parent.Note.ToLower().Contains(searchString.ToLower()))
+                             .Where(x => x.Parent.Notes.Any(y => y.Value.ToLower().Contains(searchString.ToLower())))
                              .OrderBy(x => x.Id)
                              .ToArray();
 

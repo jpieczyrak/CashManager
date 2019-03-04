@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using CashManager.Data.DTO;
 using CashManager.Logic.DefaultData.InputParsers;
@@ -28,7 +29,7 @@ namespace CashManager.Logic.DefaultData
 
         public Category[] GetCategories()
         {
-            return new CategoryParser().Parse(Strings.DefaultCategories);
+            return new CategoryParser().Parse(Strings.DefaultCategories).Concat(new [] { Category.Default }).ToArray();
         }
 
         public virtual Stock[] GetStocks()

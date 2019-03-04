@@ -1,27 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 
 using AutoMapper;
 
-using CashManager.Features.Common;
 using CashManager.Features.Search;
-using CashManager.Infrastructure.Command;
-using CashManager.Infrastructure.Command.CustomBalances;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.CustomBalances;
-using CashManager.Infrastructure.Query.States;
 using CashManager.Logic.Balances;
 using CashManager.Model;
-using CashManager.Model.Common;
 using CashManager.Model.Selectors;
 
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
 
-using DtoSearch = CashManager.Data.ViewModelState.SearchState;
 using DtoCustomBalance = CashManager.Data.ViewModelState.Balances.CustomBalance;
 
 namespace CashManager.Features.Balance
@@ -29,11 +21,9 @@ namespace CashManager.Features.Balance
     public class CustomBalanceViewModel : ViewModelBase, IUpdateable
     {
         private readonly IQueryDispatcher _queryDispatcher;
-        private readonly ICommandDispatcher _commandDispatcher;
-        private CustomBalance _selectedCustomBalance;
-        private TransactionsSummary[] _selectedSearchSummary;
         private readonly SearchViewModel _searchViewModel;
-        private string _name;
+        private TransactionsSummary[] _selectedSearchSummary;
+        private CustomBalance _selectedCustomBalance;
         private ObservableCollection<CustomBalance> _customBalances;
         private DateFrameSelector _dateFilter;
 
@@ -44,16 +34,7 @@ namespace CashManager.Features.Balance
             {
                 Set(nameof(SelectedCustomBalance), ref _selectedCustomBalance, value);
                 UpdateSummary();
-                UpdateSelectedSearches();
             }
-        }
-
-        private void UpdateSelectedSearches()
-        {
-            if (SavedSearches != null)
-                foreach (var result in SavedSearches.InternalDisplayableSearchResults)
-                    result.IsSelected = SelectedCustomBalance.Searches.Contains(result.Value);
-            SavedSearches?.RaisePropertyChanged();
         }
 
         public TransactionsSummary[] SelectedSearchSummary
@@ -68,72 +49,27 @@ namespace CashManager.Features.Balance
             set => Set(nameof(CustomBalances), ref _customBalances, value);
         }
 
-        public RelayCommand SaveCommand { get; private set; }
-
-        public RelayCommand DeleteCommand { get; private set; }
-
-        public MultiComboBoxViewModel SavedSearches { get; private set; }
-
-        public string Name
-        {
-            get => _name;
-            set => Set(nameof(Name), ref _name, value);
-        }
-
         public DateFrameSelector DateFilter
         {
             get => _dateFilter;
             set => Set(nameof(DateFilter), ref _dateFilter, value);
         }
 
-        public CustomBalanceViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory)
+        public CustomBalanceViewModel(IQueryDispatcher queryDispatcher, ViewModelFactory factory)
         {
             _searchViewModel = factory.Create<SearchViewModel>();
             _queryDispatcher = queryDispatcher;
-            _commandDispatcher = commandDispatcher;
-            DeleteCommand = new RelayCommand(ExecuteDeleteCommand, () => SelectedCustomBalance != null);
-            SaveCommand = new RelayCommand(ExecuteSaveCommand);
             SelectedSearchSummary = new TransactionsSummary[0];
             DateFilter = new DateFrameSelector(DateFrameType.BookDate);
             DateFilter.PropertyChanged += (sender, args) => UpdateSummary();
-
-            Name = "custom balance";
-            _selectedCustomBalance = new CustomBalance(Name);
-
-            SavedSearches = new MultiComboBoxViewModel();
-            SavedSearches.PropertyChanged += SavedSearchesOnPropertyChanged;
-
-            var customBalanceQuery = new CustomBalanceQuery();
-            var customBalances = _queryDispatcher.Execute<CustomBalanceQuery, DtoCustomBalance[]>(customBalanceQuery);
-            CustomBalances = Mapper.Map<ObservableCollection<CustomBalance>>(customBalances);
-        }
-
-        private void SavedSearchesOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            SelectedCustomBalance.Searches = Mapper.Map<SearchState[]>(SavedSearches.Results.Select(x => x.Value));
-            UpdateSummary();
-        }
-
-        private void ExecuteSaveCommand()
-        {
-            var balance = new CustomBalance(Name) { Searches = SelectedCustomBalance.Searches };
-            _commandDispatcher.Execute(new UpsertCustomBalanceCommand(Mapper.Map<DtoCustomBalance>(balance)));
-            CustomBalances.Add(balance);
-            SelectedCustomBalance = balance;
-        }
-
-        private void ExecuteDeleteCommand()
-        {
-            _commandDispatcher.Execute(new DeleteCustomBalanceCommand(Mapper.Map<DtoCustomBalance>(SelectedCustomBalance)));
-            CustomBalances.Remove(SelectedCustomBalance);
-            if (CustomBalances.Any()) SelectedCustomBalance = CustomBalances.First();
         }
 
         public void Update()
         {
-            var query = new SearchStateQuery();
-            var source = Mapper.Map<SearchState[]>(_queryDispatcher.Execute<SearchStateQuery, DtoSearch[]>(query));
-            SavedSearches.SetInput(source.Select(x => new Selectable(x)).ToArray());
+            SelectedCustomBalance = null;
+            var customBalanceQuery = new CustomBalanceQuery();
+            var customBalances = _queryDispatcher.Execute<CustomBalanceQuery, DtoCustomBalance[]>(customBalanceQuery);
+            CustomBalances = Mapper.Map<ObservableCollection<CustomBalance>>(customBalances);
         }
 
         private void UpdateSummary()

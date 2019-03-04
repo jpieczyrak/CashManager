@@ -294,8 +294,8 @@
   <data name="Value" xml:space="preserve">
     <value>Value</value>
   </data>
-  <data name="Note" xml:space="preserve">
-    <value>Note</value>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
   </data>
   <data name="Duplicate" xml:space="preserve">
     <value>Duplicate</value>
@@ -569,5 +569,59 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   </data>
   <data name="ShowTopCategories" xml:space="preserve">
     <value>Show only top categories</value>
+  </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnTransactionsFormat" xml:space="preserve">
+    <value>Do you want to perform mass replace for: {0} transactions?</value>
+  </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnPositionsFormat" xml:space="preserve">
+    <value>Do you want to perform mass replace for: {0} positions?</value>
+  </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnAllTransactions" xml:space="preserve">
+    <value>Do you want to perform mass replace for all transactions?</value>
+  </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnAllPositions" xml:space="preserve">
+    <value>Do you want to perform mass replace for all positions?</value>
+  </data>
+  <data name="AskForMassReplacePerform" xml:space="preserve">
+    <value>Ask for mass replace perform</value>
+  </data>
+  <data name="DefaultCategoryName" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="SplitterValue" xml:space="preserve">
+    <value>Elements (columns) splitter</value>
+  </data>
+  <data name="AddRule" xml:space="preserve">
+    <value>Add rule</value>
+  </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>Update available</value>
+  </data>
+  <data name="BackupDbOnStart" xml:space="preserve">
+    <value>Backup database on app start</value>
+  </data>
+  <data name="BackupDbOnClose" xml:space="preserve">
+    <value>Backup database on app close</value>
+  </data>
+  <data name="BalanceUpdateMode" xml:space="preserve">
+    <value>Balance update mode</value>
+  </data>
+  <data name="ShowTransfers" xml:space="preserve">
+    <value>Show transfers</value>
+  </data>
+  <data name="AnyOfWords" xml:space="preserve">
+    <value>Any of words</value>
+  </data>
+  <data name="AddNote" xml:space="preserve">
+    <value>Add note</value>
+  </data>
+  <data name="BillPreview" xml:space="preserve">
+    <value>Bill preview</value>
+  </data>
+  <data name="AddCustomBalance" xml:space="preserve">
+    <value>Add custom balance</value>
+  </data>
+  <data name="CustomBalanceManager" xml:space="preserve">
+    <value>Custom Balance Manager</value>
   </data>
 </root>

@@ -35,7 +35,7 @@ namespace CashManager.Logic.Commands.Filters
             switch (_rangeSelector.Type)
             {
                 case RangeSelectorType.GrossValue:
-                    return elements.Where(x => x.ValueAsProfit >= _rangeSelector.Min && x.ValueAsProfit <= _rangeSelector.Max);
+                    return elements.Where(x => x.ValueWithSign >= _rangeSelector.Min && x.ValueWithSign <= _rangeSelector.Max);
             }
 
             return elements;

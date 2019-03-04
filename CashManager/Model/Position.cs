@@ -71,7 +71,11 @@ namespace CashManager.Model
         public Transaction Parent
         {
             get => _parent;
-            set => Set(nameof(Parent), ref _parent, value);
+            set
+            {
+                _parent = value; //manual setting due to same id
+                RaisePropertyChanged(nameof(Parent));
+            }
         }
 
         public bool Income => Parent.Type.Income && !Parent.Type.Outcome;
@@ -86,6 +90,7 @@ namespace CashManager.Model
         {
             Tags = new Tag[0];
             _value = new PaymentValue();
+            Category = Category.Default;
         }
 
         public static Position Copy(Position source)
@@ -103,7 +108,7 @@ namespace CashManager.Model
             position.Category = source.Category;
             position.Parent = source.Parent;
 
-            position.Value = source.Value;
+            position.Value = Mapper.Map<PaymentValue>(Mapper.Map<Data.DTO.PaymentValue>(source.Value));
 
             position.IsPropertyChangedEnabled = source.IsPropertyChangedEnabled;
 

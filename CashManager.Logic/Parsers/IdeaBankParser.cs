@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using CashManager.Data.DTO;
 
@@ -8,17 +7,17 @@ namespace CashManager.Logic.Parsers
 {
     public class IdeaBankParser : IParser
     {
-        private readonly List<Balance> _balances = new List<Balance>();
         private const string NOT_PERFORMED_TRANSACTION = "-";
         private const int LINES_PER_ENTRY = 4;
 
-        public Dictionary<Stock, Balance> Balances { get; private set; } = new Dictionary<Stock, Balance>();
+        public Dictionary<Stock, Dictionary<DateTime, decimal>> Balances { get; } = new Dictionary<Stock, Dictionary<DateTime, decimal>>();
 
         #region IParser
 
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock, TransactionType defaultOutcome,
             TransactionType defaultIncome, bool generateMissingStocks = false)
         {
+            Balances.Clear();
             if (string.IsNullOrEmpty(input)) return null;
 
             var results = new List<Transaction>();
@@ -39,13 +38,13 @@ namespace CashManager.Logic.Parsers
                         bool income = value > 0m;
 
                         var positions = new[] { new Position(title, Math.Abs(value)) };
-                        string sourceInput = string.Join("\n", elements.Skip(i - 1).Take(LINES_PER_ENTRY));
                         var transaction = new Transaction(income ? defaultIncome : defaultOutcome, date, title,
                             $"Saldo: {balance:#,##0.00}",
-                            positions, userStock, externalStock, sourceInput);
+                            positions, userStock, externalStock);
 
                         results.Add(transaction);
-                        _balances.Add(new Balance(date, balance));
+                        if (!Balances.ContainsKey(userStock)) Balances[userStock] = new Dictionary<DateTime, decimal>();
+                        Balances[userStock].Add(date, balance);
                     }
                     catch (Exception)
                     {
@@ -57,9 +56,6 @@ namespace CashManager.Logic.Parsers
                     i += LINES_PER_ENTRY;
                 }
             }
-
-            Balances[userStock] = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
-            _balances.Clear();
 
             return results.ToArray();
         }

@@ -24,6 +24,7 @@ namespace CashManager.Features.Plots
 
         private DateFrameSelector _bookDateFilter;
         private MultiPicker _userStocksFilter;
+        private bool _showTransfers;
 
         public DateFrameSelector BookDateFilter
         {
@@ -35,6 +36,16 @@ namespace CashManager.Features.Plots
         {
             get => _userStocksFilter;
             set => Set(nameof(UserStocksFilter), ref _userStocksFilter, value);
+        }
+
+        public bool ShowTransfers
+        {
+            get => _showTransfers;
+            set
+            {
+                Set(ref _showTransfers, value);
+                OnPropertyChanged(null, null);
+            }
         }
 
         protected IEnumerable<Transaction> TransactionsMatchingUserStock

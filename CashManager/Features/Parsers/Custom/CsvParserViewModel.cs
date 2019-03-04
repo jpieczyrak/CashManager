@@ -11,6 +11,7 @@ using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Parsers;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Parsers;
+using CashManager.Logic.Creators;
 using CashManager.Logic.Parsers.Custom;
 using CashManager.Model.Common;
 
@@ -62,8 +63,8 @@ namespace CashManager.Features.Parsers.Custom
 
         public RelayCommand<BaseObservableObject> ParserLoadCommand { get; }
 
-        public CsvParserViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, TransactionsProvider transactionsProvider, MassReplacerViewModel replacer) : base(queryDispatcher,
-            commandDispatcher, transactionsProvider, replacer)
+        public CsvParserViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ICorrectionsCreator correctionsCreator, TransactionsProvider transactionsProvider, MassReplacerViewModel replacer) : base(queryDispatcher,
+            commandDispatcher, correctionsCreator, transactionsProvider, replacer)
         {
             AddRuleCommand = new RelayCommand(() => Rules.Add(new Rule
             {
@@ -86,7 +87,7 @@ namespace CashManager.Features.Parsers.Custom
                 var parser = selected as Model.Parsers.CustomCsvParser;
                 Parser = Mapper.Map<CustomCsvParser>(selected);
                 Rules.Clear();
-                Rules.AddRange(Mapper.Map<Rule[]>(parser.Rules));
+                Rules.AddRange(Mapper.Map<Rule[]>(parser.Rules).OrderBy(x => x.Column));
                 ColumnSplitter = parser.ColumnSplitter;
                 UpdateParser();
             }, selected => selected != null);
@@ -95,7 +96,18 @@ namespace CashManager.Features.Parsers.Custom
             var customCsvParsers = _queryDispatcher.Execute<CustomCsvParserQuery, Data.ViewModelState.Parsers.CustomCsvParser[]>(new CustomCsvParserQuery()).OrderBy(x => x.Name);
             Parsers = new ObservableCollection<BaseObservableObject>(Mapper.Map<Model.Parsers.CustomCsvParser[]>(customCsvParsers));
             Clear();
-            Rules.CollectionChanged += (sender, args) => UpdateParser();
+            Rules.CollectionChanged += (sender, args) =>
+            {
+                UpdateParser();
+                ValidateStockGenerationOption();
+            };
+        }
+
+        private void ValidateStockGenerationOption()
+        {
+            bool canUpdate = _rules.Any(x => x.Property == TransactionField.UserStock);
+            CanGenerateMissingStocks = canUpdate;
+            if (!canUpdate) GenerateMissingStocks = false;
         }
 
         private void Clear()

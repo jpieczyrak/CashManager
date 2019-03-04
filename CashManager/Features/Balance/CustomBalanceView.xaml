@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:common1="clr-namespace:CashManager.Features.Common"
+             xmlns:common="clr-namespace:CashManager.Features.Common"
              xmlns:balance="clr-namespace:CashManager.Features.Balance"
              xmlns:properties="clr-namespace:CashManager.Properties"
              mc:Ignorable="d"
@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <common1:DateRangePicker Grid.Row="0" DateFrameSelector="{Binding DateFilter}"/>
+        <common:DateRangePicker Grid.Row="0" DateFrameSelector="{Binding DateFilter}"/>
 
         <DataGrid Grid.Row="1" ItemsSource="{Binding SelectedSearchSummary, Mode=OneWay}" 
                   Margin="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
@@ -27,20 +27,6 @@
                 <DataGridTextColumn Header="{x:Static properties:Strings.Balance}" Binding="{Binding GrossBalance, Mode=OneWay, StringFormat={x:Static properties:Strings.ValueFormat}}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
-
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Margin="5" Text="{Binding Name}" VerticalAlignment="Bottom" Height="25" />
-            <ComboBox Grid.Column="1" Margin="5" ItemsSource="{Binding CustomBalances}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedCustomBalance}" VerticalAlignment="Bottom" Height="25" />
-            <UserControl Grid.Column="2" Margin="5" Content="{Binding SavedSearches}" VerticalAlignment="Bottom" />
-            <Button Grid.Column="3" Margin="5" Content="{x:Static properties:Strings.Delete}" Command="{Binding DeleteCommand}" VerticalAlignment="Bottom" Height="25" />
-            <Button Grid.Column="4" Margin="5" Content="{x:Static properties:Strings.Save}" Command="{Binding SaveCommand}" VerticalAlignment="Bottom" Height="25" />
-        </Grid>
+        <ComboBox Grid.Row="2" Margin="5" ItemsSource="{Binding CustomBalances}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedCustomBalance}" VerticalAlignment="Bottom" Height="25" />
     </Grid>
 </UserControl>

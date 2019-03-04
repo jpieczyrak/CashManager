@@ -30,6 +30,12 @@
 
                     <TextBlock Text="{x:Static properties:Strings.SkinShape}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
                     <ComboBox ItemsSource="{Binding General.Shapes}" SelectedValue="{Binding General.SelectedShape}" Margin="5" Width="200" HorizontalAlignment="Left"/>
+
+                    <TextBlock Text="{x:Static properties:Strings.BackupDbOnStart}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <CheckBox Content="{x:Static properties:Strings.Enable}" IsChecked="{Binding General.BackupDataBaseOnStart}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                    <TextBlock Text="{x:Static properties:Strings.BackupDbOnClose}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <CheckBox Content="{x:Static properties:Strings.Enable}" IsChecked="{Binding General.BackupDataBaseOnClose}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </UniformGrid>
             </TabItem>
             <TabItem Header="{x:Static properties:Strings.Warnings}">
@@ -48,9 +54,12 @@
 
                     <TextBlock Text="{x:Static properties:Strings.AskForCategoryMove}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
                     <CheckBox Content="{x:Static properties:Strings.Enable}" IsChecked="{Binding Warnings.QuestionForCategoryMove}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                    <TextBlock Text="{x:Static properties:Strings.AskForMassReplacePerform}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <CheckBox Content="{x:Static properties:Strings.Enable}" IsChecked="{Binding Warnings.QuestionForMassReplacePerform}" Margin="0,5,5,5" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </UniformGrid>
             </TabItem>
-            <TabItem Header="{x:Static properties:Strings.Notifications}" />
+            <TabItem Header="{x:Static properties:Strings.Notifications}" Visibility="Collapsed" />
         </TabControl>
 
     </Grid>

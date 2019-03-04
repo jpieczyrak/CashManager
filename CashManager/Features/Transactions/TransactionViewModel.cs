@@ -11,6 +11,7 @@ using CashManager.CommonData;
 using CashManager.Features.Categories;
 using CashManager.Features.Common;
 using CashManager.Features.Main;
+using CashManager.Features.Transactions.Bills;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Stocks;
 using CashManager.Infrastructure.Command.Transactions;
@@ -51,7 +52,6 @@ namespace CashManager.Features.Transactions
         private readonly CategoryPickerViewModel _categoryPickerViewModel;
         private IEnumerable<Stock> _stocks;
         private Transaction _transaction;
-        private bool _shouldCreateTransaction;
 
         private bool _isInEditMode;
 
@@ -85,7 +85,6 @@ namespace CashManager.Features.Transactions
             set
             {
                 _transaction = Transaction.Clone(value);
-                _shouldCreateTransaction = false;
                 if (_transaction != null)
                 {
                     foreach (var position in _transaction.Positions)
@@ -118,6 +117,8 @@ namespace CashManager.Features.Transactions
 
         public RelayCommand AddNewPosition { get; }
         public RelayCommand ClearCommand { get; }
+        public RelayCommand AddNewNote { get; }
+        public RelayCommand<byte[]> DisplayBill { get; }
 
         public bool ShouldGoBack { private get; set; } = true;
 
@@ -163,6 +164,8 @@ namespace CashManager.Features.Transactions
             CancelTransactionCommand = new RelayCommand(ExecuteCancelTransactionCommand);
 
             ClearCommand = new RelayCommand(ExecuteClearCommand);
+            AddNewNote = new RelayCommand(() => Transaction?.Notes.Add(new Note()));
+            DisplayBill = new RelayCommand<byte[]>(x => new BillWindow(x).Show());
         }
 
         private void ExecuteRemovePositionCommand(Position position)
@@ -217,8 +220,7 @@ namespace CashManager.Features.Transactions
                           .OrderBy(x => x.Name)
                           .ToArray();
 
-            if (_shouldCreateTransaction || Transaction == null) FillWithNewTransaction();
-            _shouldCreateTransaction = true;
+            if (Transaction == null) FillWithNewTransaction();
 
             foreach (var position in Transaction.Positions)
             {
@@ -274,12 +276,19 @@ namespace CashManager.Features.Transactions
             return position;
         }
 
-        private void ExecuteCancelTransactionCommand() => NavigateBack();
+        private void ExecuteCancelTransactionCommand()
+        {
+            Transaction = null;
+            NavigateBack();
+        }
 
         private bool CanExecuteSaveTransactionCommand() => Transaction.IsValid;
 
         private void ExecuteSaveTransactionCommand()
         {
+            //refresh reference after edit
+            foreach (var position in Transaction.Positions) position.Parent = Transaction;
+
             foreach (var position in _transaction.Positions.Where(x => x.TagViewModel != null))
                 position.Tags = Mapper.Map<Tag[]>(position.TagViewModel.Results);
 
@@ -300,6 +309,7 @@ namespace CashManager.Features.Transactions
 
             SoundPlayerHelper.PlaySound(SoundPlayerHelper.Sound.AddTransaction);
 
+            Transaction = null;
             if (ShouldGoBack) NavigateBack();
         }
 
@@ -372,7 +382,7 @@ namespace CashManager.Features.Transactions
         {
             if (IsInEditMode)
             {
-                SetUpdateMode(Transaction.BookDate.Date == DateTime.Today
+                SetUpdateMode((DateTime.Today - _transaction.InstanceCreationDate.Date).TotalDays < 31
                                   ? TransactionEditModes.NoChange
                                   : TransactionEditModes.AddCorrection);
             }

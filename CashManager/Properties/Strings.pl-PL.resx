@@ -223,13 +223,13 @@
     <value>Nazwa zasobu</value>
   </data>
   <data name="Balance" xml:space="preserve">
-    <value>Saldo</value>
+    <value>Bilans</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Łącznie</value>
   </data>
   <data name="CurrentBalance" xml:space="preserve">
-    <value>Aktualne saldo</value>
+    <value>Aktualny bilans</value>
   </data>
   <data name="UserPercentOwnership" xml:space="preserve">
     <value>Procentowy udział użytkownika w zasobie</value>
@@ -291,8 +291,8 @@
   <data name="Value" xml:space="preserve">
     <value>Wartość</value>
   </data>
-  <data name="Note" xml:space="preserve">
-    <value>Notatka</value>
+  <data name="Notes" xml:space="preserve">
+    <value>Notatki</value>
   </data>
   <data name="Duplicate" xml:space="preserve">
     <value>Duplikuj</value>
@@ -370,7 +370,7 @@
     <value>Wykres majątku</value>
   </data>
   <data name="CustomBalances" xml:space="preserve">
-    <value>Konfigurowalne salda</value>
+    <value>Konfigurowalne bilanse</value>
   </data>
   <data name="Categories" xml:space="preserve">
     <value>Kategorie</value>
@@ -557,5 +557,59 @@ Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wa
   </data>
   <data name="ShowTopCategories" xml:space="preserve">
     <value>Pokaż tylko główne kategorie</value>
+  </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnTransactionsFormat" xml:space="preserve">
+    <value>Czy jesteś pewien, że chcesz wykonać masową zamianę na: {0} transakcjach?</value>
+  </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnPositionsFormat" xml:space="preserve">
+    <value>Czy jesteś pewien, że chcesz wykonać masową zamianę na: {0} pozycjach?</value>
+  </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnAllTransactions" xml:space="preserve">
+    <value>Czy jesteś pewien, że chcesz wykonać masową zamianę na wszystkich transakcjach?</value>
+  </data>
+  <data name="QuestionDoYouWantToPerformMassReplaceOnAllPositions" xml:space="preserve">
+    <value>Czy jesteś pewien, że chcesz wykonać masową zamianę na wszystich pozycjach?</value>
+  </data>
+  <data name="AskForMassReplacePerform" xml:space="preserve">
+    <value>Pytaj przy wykonywaniu masowej zamiany</value>
+  </data>
+  <data name="DefaultCategoryName" xml:space="preserve">
+    <value>Brak</value>
+  </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>Dostępna aktualizacja</value>
+  </data>
+  <data name="AddRule" xml:space="preserve">
+    <value>Dodaj regułę</value>
+  </data>
+  <data name="SplitterValue" xml:space="preserve">
+    <value>Symbol rozdzielający kolumny</value>
+  </data>
+  <data name="BackupDbOnStart" xml:space="preserve">
+    <value>Utwórz kopię bazy przy starcie aplikacji</value>
+  </data>
+  <data name="BackupDbOnClose" xml:space="preserve">
+    <value>Utwórz kopię bazy przy zamykaniu aplikacji</value>
+  </data>
+  <data name="BalanceUpdateMode" xml:space="preserve">
+    <value>Tryb akutalizacji bilansu</value>
+  </data>
+  <data name="ShowTransfers" xml:space="preserve">
+    <value>Pokaż transfery</value>
+  </data>
+  <data name="AnyOfWords" xml:space="preserve">
+    <value>Którekolwiek ze słów</value>
+  </data>
+  <data name="AddNote" xml:space="preserve">
+    <value>Dodaj notatkę</value>
+  </data>
+  <data name="BillPreview" xml:space="preserve">
+    <value>Podgląd rachunku</value>
+  </data>
+  <data name="AddCustomBalance" xml:space="preserve">
+    <value>Dodaj konfigurowalny bilans</value>
+  </data>
+  <data name="CustomBalanceManager" xml:space="preserve">
+    <value>Manadżer konfigurowalnych bilansów</value>
   </data>
 </root>

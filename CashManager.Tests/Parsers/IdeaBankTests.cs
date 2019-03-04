@@ -34,7 +34,7 @@ trash scam";
                         Title = "Opłata za kartę - 10/2018",
                         Value = new PaymentValue { GrossValue = 8.0m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IdeaBankParser();
 
             //when
@@ -42,7 +42,7 @@ trash scam";
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -77,7 +77,7 @@ spam not valid trash";
                         Title = "Opłata za kartę - 10/2018",
                         Value = new PaymentValue { GrossValue = 8.0m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IdeaBankParser();
 
             //when
@@ -86,7 +86,7 @@ spam not valid trash";
             //then
             Assert.Equal(2, results.Length);
             foreach (var result in results) ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -116,7 +116,7 @@ spam not valid trash";
                         Title = title,
                         Value = new PaymentValue { GrossValue = 50.0m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IdeaBankParser();
 
             //when
@@ -124,7 +124,7 @@ spam not valid trash";
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -153,7 +153,7 @@ Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa
                         Title = title,
                         Value = new PaymentValue { GrossValue = 36.35m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IdeaBankParser();
 
             //when
@@ -161,7 +161,7 @@ Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -194,7 +194,7 @@ Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa
                         Title = title,
                         Value = new PaymentValue { GrossValue = 36.35m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IdeaBankParser();
 
             //when
@@ -203,7 +203,7 @@ Opłata za użytkowanie lokalu Spółdzielnia mieszkaniowa
             //then
             ValidateTransaction(results[0], expected);
             ValidateTransaction(results[1], expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
     }
 }

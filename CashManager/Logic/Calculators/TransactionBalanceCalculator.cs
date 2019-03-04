@@ -12,12 +12,12 @@ namespace CashManager.Logic.Calculators
 {
     public class TransactionBalanceCalculator
     {
-        public DataPoint[] GetWealthValues(IEnumerable<Transaction> transactions, Stock[] selectedStocks, DateFrameSelector dateFilter, Func<Transaction, DateTime> groupingSelector)
+        public DataPoint[] GetWealthValues(IEnumerable<Transaction> transactions, Stock[] selectedStocks, DateFrameSelector dateFilter, Func<Transaction, DateTime> groupingSelector, bool showTransfers)
         {
             if (selectedStocks == null || !selectedStocks.Any()) return new DataPoint[0];
             if (transactions == null || !transactions.Any()) return new DataPoint[0];
 
-            var values = CalculateBalance(transactions, selectedStocks, dateFilter, groupingSelector);
+            var values = CalculateBalance(transactions, selectedStocks, dateFilter, groupingSelector, showTransfers);
 
             return values
                    .Select(x => new DataPoint(DateTimeAxis.ToDouble(x.BookDate), (double) x.Value))
@@ -25,9 +25,11 @@ namespace CashManager.Logic.Calculators
                    .ToArray();
         }
 
-        public IEnumerable<TransactionBalance> CalculateBalance(IEnumerable<Transaction> transactions, Stock[] selectedStocks, DateFrameSelector dateFilter, Func<Transaction, DateTime> groupingSelector)
+        public IEnumerable<TransactionBalance> CalculateBalance(IEnumerable<Transaction> transactions, Stock[] selectedStocks, DateFrameSelector dateFilter,
+            Func<Transaction, DateTime> groupingSelector, bool showTransfers)
         {
-            var stockDate = selectedStocks.Max(x => x.Balance.LastEditDate).Date;
+            var stockDate = selectedStocks.Max(x => x.Balance.BookDate).Date;
+            if (stockDate == DateTime.MinValue) stockDate = DateTime.Today;
             decimal stockValue = selectedStocks.Sum(x => x.Balance.Value);
 
             var firstMatch = transactions
@@ -42,7 +44,7 @@ namespace CashManager.Logic.Calculators
                          .OrderBy(x => x.Key)
                          .Select(x =>
                          {
-                             startValue += x.Sum(y => y.ValueAsProfit);
+                             startValue += showTransfers ? x.Sum(y => y.ValueWithSign) : x.Sum(y => y.ValueAsProfit);
                              return new TransactionBalance(x.Key, startValue);
                          })
                          .Where(x => !dateFilter.IsChecked

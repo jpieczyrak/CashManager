@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:oxy="http://oxyplot.org/wpf"
-             xmlns:common1="clr-namespace:CashManager.Features.Common"
-             xmlns:selectors1="clr-namespace:CashManager.Features.Search.Selectors"
-             xmlns:stocks1="clr-namespace:CashManager.Features.Stocks"
+             xmlns:common="clr-namespace:CashManager.Features.Common"
+             xmlns:selectors="clr-namespace:CashManager.Features.Search.Selectors"
+             xmlns:stocks="clr-namespace:CashManager.Features.Stocks"
              xmlns:summary="clr-namespace:CashManager.Features.Summary"
              xmlns:properties="clr-namespace:CashManager.Properties"
              mc:Ignorable="d"
@@ -67,14 +67,18 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="4*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <common1:DateRangePicker Grid.Row="0" DateFrameSelector="{Binding BookDateFilter}" Margin="0,10,0,0" MaxWidth="280" />
-            <selectors1:MultiPickerControl Grid.Row="1" DataContext="{Binding UserStocksFilter}" />
-            <oxy:PlotView Grid.Row="2" Model="{Binding YearBalanceModel}" ToolTip="Year balance">
+            <common:DateRangePicker Grid.Row="0" DateFrameSelector="{Binding BookDateFilter}" Margin="0,10,0,0" MaxWidth="280" />
+            <selectors:MultiPickerControl Grid.Row="1" DataContext="{Binding UserStocksFilter}" />
+
+            <CheckBox Grid.Row="2" IsChecked="{Binding ShowTransfers}" Content="{x:Static properties:Strings.ShowTransfers}" Margin="5,2,5,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+
+            <oxy:PlotView Grid.Row="3" Model="{Binding YearBalanceModel}" ToolTip="Year balance">
                 <oxy:PlotView.DefaultTrackerTemplate>
                     <ControlTemplate>
                         <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
@@ -94,7 +98,7 @@
                 </oxy:PlotView.DefaultTrackerTemplate>
             </oxy:PlotView>
 
-            <DataGrid Grid.Row="3" ItemsSource="{Binding Balances}" AutoGenerateColumns="False" Margin="5">
+            <DataGrid Grid.Row="4" ItemsSource="{Binding Balances}" AutoGenerateColumns="False" Margin="5">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{x:Static properties:Strings.Date}" Binding="{Binding Name}" Width="Auto" />
                     <DataGridTextColumn Header="{x:Static properties:Strings.Income}" Binding="{Binding GrossIncome, StringFormat={x:Static properties:Strings.ValueFormat}}" Width="Auto" />
@@ -102,7 +106,7 @@
                     <DataGridTextColumn Header="{x:Static properties:Strings.Balance}" Binding="{Binding GrossBalance, StringFormat={x:Static properties:Strings.ValueFormat}}" Width="Auto" />
                 </DataGrid.Columns>
             </DataGrid>
-            <stocks1:StockSummaryView Grid.Row="4" Content="{Binding StocksSummaryViewModel}" Margin="5" />
+            <stocks:StockSummaryView Grid.Row="5" Content="{Binding StocksSummaryViewModel}" Margin="5" />
         </Grid>
     </Grid>
 </UserControl>

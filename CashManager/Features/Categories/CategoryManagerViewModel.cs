@@ -28,6 +28,7 @@ namespace CashManager.Features.Categories
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly IMessagesService _messagesService;
         private string _input;
+        private bool _categoryJustSelected;
         private ExpandableCategory _selectedCategory;
 
         public TrulyObservableCollection<ExpandableCategory> Categories { get; private set; }
@@ -35,13 +36,25 @@ namespace CashManager.Features.Categories
         public RelayCommand AddCategoryCommand => new RelayCommand(ExecuteAddCategoryCommand);
 
         public RelayCommand RemoveCategoryCommand => new RelayCommand(ExecuteRemoveCategoryCommand, CanExecuteRemoveCategoryCommand);
+
         public RelayCommand LoadCategoriesCommand => new RelayCommand(ExecuteLoadCategoriesCommand);
+
+        public RelayCommand UnselectCommand => new RelayCommand(() =>
+        {
+            if (_categoryJustSelected) _categoryJustSelected = false;
+            else
+            {
+                SelectedCategory.IsSelected = false;
+                SelectedCategory = null;
+            }
+        });
 
         public ExpandableCategory SelectedCategory
         {
             get => _selectedCategory;
             private set
             {
+                _categoryJustSelected = true;
                 Set(ref _selectedCategory, value);
                 RaisePropertyChanged(nameof(RemoveCategoryCommand));
             }
@@ -157,7 +170,7 @@ namespace CashManager.Features.Categories
             }
         }
 
-        private bool CanExecuteRemoveCategoryCommand() => SelectedCategory?.Parent != null;
+        private bool CanExecuteRemoveCategoryCommand() => SelectedCategory?.Parent != null && SelectedCategory?.Id != Category.Default.Id;
 
         private void ExecuteLoadCategoriesCommand()
         {

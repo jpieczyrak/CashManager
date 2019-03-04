@@ -46,11 +46,14 @@
         <TextBlock Grid.Row="1" Grid.Column="3" Margin="5" Text="{x:Static properties:Strings.DefaultExternalStock}"/>
         <ComboBox Grid.Row="2" Grid.Column="3" Margin="5" ItemsSource="{Binding ExternalStocks}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedExternalStock}"/>
 
-        <selectors:MultiPickerControl Grid.Row="1" Grid.RowSpan="2" Grid.Column="4" Margin="5" DataContext="{Binding ReplacerSelector}" BorderThickness="0" VerticalAlignment="Bottom"/>
+        <TextBlock Grid.Row="1" Grid.Column="4" Margin="5" Text="{x:Static properties:Strings.BalanceUpdateMode}"/>
+        <ComboBox Grid.Row="2" Grid.Column="4" Margin="5" ItemsSource="{Binding UpdateBalanceModes}" SelectedItem="{Binding SelectedUpdateBalanceMode}" VerticalAlignment="Bottom" />
 
-        <CheckBox Grid.Row="3" Grid.Column="0" Margin="5" Content="{x:Static properties:Strings.GenerateMissingStocks}" IsChecked="{Binding GenerateMissingStocks}"/>
+        <CheckBox Grid.Row="3" Grid.Column="0" Margin="5" Content="{x:Static properties:Strings.GenerateMissingStocks}" IsChecked="{Binding GenerateMissingStocks}" IsEnabled="{Binding CanGenerateMissingStocks}" VerticalAlignment="Center"/>
 
-        <Button Grid.Row="4" Grid.ColumnSpan="5" Grid.Column="0" Margin="5" Content="{x:Static properties:Strings.Parse}" Command="{Binding ParseCommand}"/>
+        <selectors:MultiPickerControl Grid.Row="3" Grid.Column="4" Margin="0,5" DataContext="{Binding ReplacerSelector}" BorderThickness="0" VerticalAlignment="Top"/>
+
+        <Button Grid.Row="4" Grid.ColumnSpan="5" Grid.Column="0" Margin="5,10" Content="{x:Static properties:Strings.Parse}" Command="{Binding ParseCommand}" HorizontalAlignment="Center" Width="120"/>
 
         <UserControl Grid.Row="5" Grid.ColumnSpan="5" Grid.Column="0" Margin="5,10" Content="{Binding ResultsListViewModel}"/>
 

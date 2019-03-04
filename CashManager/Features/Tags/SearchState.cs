@@ -5,6 +5,7 @@ using AutoMapper;
 using CashManager.CommonData;
 using CashManager.Data.Extensions;
 using CashManager.Features.Categories;
+using CashManager.Features.MassReplacer;
 using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.Categories;
 using CashManager.Infrastructure.Query.Stocks;
@@ -61,7 +62,7 @@ namespace CashManager.Features.Search
 
         public SearchState(IQueryDispatcher queryDispatcher = null)
         {
-            Name = string.Empty;
+            Name = "default";
 
             TitleFilter = new TextSelector(TextSelectorType.Title);
             NoteFilter = new TextSelector(TextSelectorType.Note);
@@ -137,5 +138,41 @@ namespace CashManager.Features.Search
         }
 
         public override string ToString() => Name;
+
+        public void ApplyReverseReplaceCriteria(ReplacerState state)
+        {
+            Clear();
+            TitleFilter.Value = state.TitleSelector.Value;
+            TitleFilter.IsChecked = state.TitleSelector.IsChecked;
+
+            NoteFilter.Value = state.NoteSelector.Value;
+            NoteFilter.IsChecked = state.NoteSelector.IsChecked;
+
+            PositionTitleFilter.Value = state.PositionTitleSelector.Value;
+            PositionTitleFilter.IsChecked = state.PositionTitleSelector.IsChecked;
+
+            BookDateFilter.From = BookDateFilter.To = state.BookDateSetter.Value;
+            BookDateFilter.IsChecked = state.BookDateSetter.IsChecked;
+
+            foreach (var result in CategoriesFilter.ComboBox.InternalDisplayableSearchResults)
+                result.IsSelected = result.Id == state.CategoriesSelector.Selected?.Id;
+            CategoriesFilter.IsChecked = state.CategoriesSelector.IsChecked;
+
+            foreach (var result in TypesFilter.ComboBox.InternalDisplayableSearchResults)
+                result.IsSelected = result.Id == state.TypesSelector.Selected?.Id;
+            TypesFilter.IsChecked = state.TypesSelector.IsChecked;
+
+            foreach (var result in UserStocksFilter.ComboBox.InternalDisplayableSearchResults)
+                result.IsSelected = result.Id == state.UserStocksSelector.Selected?.Id;
+            UserStocksFilter.IsChecked = state.UserStocksSelector.IsChecked;
+
+            foreach (var result in ExternalStocksFilter.ComboBox.InternalDisplayableSearchResults)
+                result.IsSelected = result.Id == state.ExternalStocksSelector.Selected?.Id;
+            ExternalStocksFilter.IsChecked = state.ExternalStocksSelector.IsChecked;
+
+            foreach (var result in TagsFilter.ComboBox.InternalDisplayableSearchResults)
+                result.IsSelected = state.TagsSelector.Results?.Any(x => x.Id == result.Id) ?? false;
+            TagsFilter.IsChecked = state.TagsSelector.IsChecked;
+        }
     }
 }

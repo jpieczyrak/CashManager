@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 using CashManager.Data.DTO;
@@ -63,9 +64,9 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             Assert.NotEmpty(result);
             Assert.Equal(7, result.Length);
             Assert.Equal(3, parser.Balances.Count);
-            Assert.Equal(1677.46m, parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Saver")).Value.Value);
-            Assert.Equal(2159.80m, parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Direct")).Value.Value);
-            Assert.Equal(105.22m, parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("wirtualna")).Value.Value);
+            Assert.Equal(1677.46m, parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Saver")).Value.OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(2159.80m, parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Direct")).Value.OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(105.22m, parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("wirtualna")).Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -83,11 +84,11 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             Assert.Equal(7, result.Length);
             Assert.Equal(3, parser.Balances.Count);
             var saver = parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Saver")).Value;
-            Assert.Equal(new DateTime(2018, 12, 21), saver.LastEditDate);
+            Assert.Equal(new DateTime(2018, 12, 21), saver.Max(x => x.Key));
             var direct = parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("Direct")).Value;
-            Assert.Equal(new DateTime(2018, 12, 20), direct.LastEditDate);
+            Assert.Equal(new DateTime(2018, 12, 20), direct.Max(x => x.Key));
             var virtualCard = parser.Balances.FirstOrDefault(x => x.Key.Name.Contains("wirtualna")).Value;
-            Assert.Equal(new DateTime(2018, 12, 20), virtualCard.LastEditDate);
+            Assert.Equal(new DateTime(2018, 12, 20), virtualCard.Max(x => x.Key));
         }
 
         [Fact]
@@ -106,9 +107,9 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             Assert.Equal(7, result.Length);
             Assert.Equal(4, parser.Balances.Count);
             var balancesWithNames = parser.Balances.Where(x => x.Key.Name != null).ToArray();
-            Assert.Equal(1677.46m, balancesWithNames.FirstOrDefault(x => x.Key.Name.Contains("Saver")).Value.Value);
-            Assert.Equal(2159.80m, balancesWithNames.FirstOrDefault(x => x.Key.Name.Contains("Direct")).Value.Value);
-            Assert.Equal(105.22m, balancesWithNames.FirstOrDefault(x => x.Key.Name.Contains("wirtualna")).Value.Value);
+            Assert.Equal(1677.46m, balancesWithNames.FirstOrDefault(x => x.Key.Name.Contains("Saver")).Value.OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(2159.80m, balancesWithNames.FirstOrDefault(x => x.Key.Name.Contains("Direct")).Value.OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(105.22m, balancesWithNames.FirstOrDefault(x => x.Key.Name.Contains("wirtualna")).Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -130,7 +131,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var transaction = new Transaction(guid)
             {
                 Title = "Na legimi",
-                Note = "imie nazw, ulica 1/2, 11-222 miasto",
+                Notes = new List<string> { "imie nazw, ulica 1/2, 11-222 miasto" },
                 Positions = new List<Position> { new Position("zlecenie stałe", 39.99m) },
                 BookDate = new DateTime(2018, 12, 20),
                 TransactionSourceCreationDate = new DateTime(2018, 12, 20),
@@ -166,7 +167,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var transaction = new Transaction(guid)
             {
                 Title = "Na legimi",
-                Note = "imie nazw, ulica 1/2, 11-222 miasto",
+                Notes = new List<string> { "imie nazw, ulica 1/2, 11-222 miasto" },
                 Positions = new List<Position> { new Position("zlecenie stałe", 39.99m) },
                 BookDate = new DateTime(2018, 12, 22),
                 TransactionSourceCreationDate = new DateTime(2018, 12, 20),
@@ -181,8 +182,8 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.Single(result);
             ValidateTransaction(result[0], transaction);
-            Assert.Equal(0m, parser.Balances[defaultUserStock].Value); //default does not changed (no matching transactions)
-            Assert.Equal(145.21m, parser.Balances[stocks[1]].Value); //the matching one has been updated
+            Assert.Equal(145.21m, parser.Balances[stocks[1]].OrderByDescending(x => x.Key).First().Value); //the matching one has been updated
+            Assert.False(parser.Balances[defaultUserStock].Any()); //default does not changed (no matching transactions)
         }
 
         [Fact]
@@ -205,7 +206,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var transaction = new Transaction(guid)
             {
                 Title = "Na legimi",
-                Note = "imie nazw, ulica 1/2, 11-222 miasto",
+                Notes = new List<string> { "imie nazw, ulica 1/2, 11-222 miasto" },
                 Positions = new List<Position> { new Position("zlecenie stałe", 39.99m) },
                 BookDate = new DateTime(2018, 12, 22),
                 TransactionSourceCreationDate = new DateTime(2018, 12, 20),
@@ -220,7 +221,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.Single(result);
             ValidateTransaction(result[0], transaction);
-            Assert.Equal(145.21m, parser.Balances[defaultUserStock].Value);
+            Assert.Equal(145.21m, parser.Balances[defaultUserStock].OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -244,7 +245,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var transaction = new Transaction(guid)
             {
                 Title = "Na legimi",
-                Note = "imie nazw, ulica 1/2, 11-222 miasto",
+                Notes = new List<string> { "imie nazw, ulica 1/2, 11-222 miasto" },
                 Positions = new List<Position> { new Position("zlecenie stałe", 39.99m) },
                 BookDate = new DateTime(2018, 12, 22),
                 TransactionSourceCreationDate = new DateTime(2018, 12, 20),
@@ -260,8 +261,8 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             Assert.Single(result);
             ValidateTransaction(result[0], transaction);
             Assert.Equal(2, parser.Balances.Count);
-            Assert.Equal(145.21m, parser.Balances[generatedUserStock].Value);
-            Assert.Equal(0m, parser.Balances[defaultUserStock].Value);
+            Assert.Equal(145.21m, parser.Balances[generatedUserStock].OrderByDescending(x => x.Key).First().Value);
+            Assert.False(parser.Balances[defaultUserStock].Any()); //default does not changed (no matching transactions)
         }
 
         [Fact]
@@ -272,7 +273,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             string input = "20.12.2018;20.12.2018; aaa ; Na legimi;\'59105013311000009707881869 \';ING Bank Śląski S.A.;ST.ZLEC  ;\'201835497208742045\';-39,99;PLN;;;;;KONTO Direct;2159,8;PLN\r\n19.12.2018;21.12.2018; CENTRUM NISKICH CEN SP Z GLIWICE PL ; Płatność kartą 19.12.2018 Nr karty 4246xx9261;\'1915031/19730 \';;TR.KART -165.97  ;\'201835597301381962\';-165,97;PLN;;;;;KONTO Direct;2199,79;PLN\r\n18.12.2018;20.12.2018; APTEKA SLONECZNA Gliwice PL ; Płatność kartą 18.12.2018 Nr karty 4246xx9261;\'1915031/19730 \';;TR.KART -21.98  ;\'201835497301424515\';-21,98;PLN;;;;;KONTO Direct;2365,76;PLN\r\n18.12.2018;20.12.2018; ROSSMANN 07 Gliwice PL ; Płatność kartą 18.12.2018 Nr karty 4246xx9261;\'1915031/19730 \';;TR.KART -24.28  ;\'201835497303371895\';-24,28;PLN;;;;;KONTO Direct;2387,74;PLN\r\n18.12.2018;20.12.2018; Megasklep Sportowy Gliwice PL ; Płatność kartą 18.12.2018 Nr karty 4246xx9261;\'1915031/19730 \';;TR.KART -39.98  ;\'201835497304260062\';-39,98;PLN;;;;;KONTO Direct;2412,02;PLN\r\n18.12.2018;18.12.2018; ZESPÓŁ SZKÓŁ OGÓLNOKSZTAŁCĄCYCH NR, 4 IM.HERBERTA CLARKA HOOVERA W RUDZ, UL. ORZEGOWSKA 25, 41-704 RUDA ŚLĄSKA ; KARP;\'87105013311000001001139540 \';ING Bank Śląski S.A.;PRZELEW  ;\'201835264001179586\';350;PLN;;;;;KONTO Direct;2452;PLN\r\n17.12.2018;17.12.2018; Patrycja Bednarska ; Za pizze :);\'85114020040000370275145683 \';mBank Oddział Bankowości;PRZELEW  ;\'201835197202869826\';-16,5;PLN;;;;;KONTO Direct;2105,5;PLN";
 
             decimal expectedBalance = 2159.8m;
-            var expectedLastEdit = new DateTime(2018, 12, 20);
+            var expected = new DateTime(2018, 12, 20);
 
             //when
             var result = parser.Parse(input, new Stock(), null, null, null);
@@ -280,8 +281,8 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.NotEmpty(result);
             var balance = parser.Balances.First().Value;
-            Assert.Equal(expectedBalance, balance.Value);
-            Assert.Equal(expectedLastEdit, balance.LastEditDate);
+            Assert.Equal(expectedBalance, balance.OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(expected, balance.Max(x => x.Key));
         }
 
         [Fact]
@@ -304,14 +305,14 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.NotEmpty(result);
 
-            Assert.Equal(1677.46m, parser.Balances[stocks[0]].Value);
-            Assert.Equal(new DateTime(2018, 12, 21), parser.Balances[stocks[0]].LastEditDate);
+            Assert.Equal(1677.46m, parser.Balances[stocks[0]].OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(new DateTime(2018, 12, 21), parser.Balances[stocks[0]].Max(x => x.Key));
 
-            Assert.Equal(105.22m, parser.Balances[stocks[1]].Value);
-            Assert.Equal(new DateTime(2018, 12, 20), parser.Balances[stocks[1]].LastEditDate);
+            Assert.Equal(105.22m, parser.Balances[stocks[1]].OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(new DateTime(2018, 12, 20), parser.Balances[stocks[1]].Max(x => x.Key));
 
-            Assert.Equal(2159.8m, parser.Balances[stocks[2]].Value);
-            Assert.Equal(new DateTime(2018, 12, 20), parser.Balances[stocks[2]].LastEditDate);
+            Assert.Equal(2159.8m, parser.Balances[stocks[2]].OrderByDescending(x => x.Key).First().Value);
+            Assert.Equal(new DateTime(2018, 12, 20), parser.Balances[stocks[2]].Max(x => x.Key));
         }
     }
 }

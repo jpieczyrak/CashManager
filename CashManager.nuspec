@@ -7,7 +7,7 @@
     <title>CashManager</title>
     <authors>Jędrzej Pieczyrak</authors>
     <description>CashManager</description>
-	<iconUrl>http://cmh.eu5.org/cash.ico</iconUrl>
+	<iconUrl>http://cash-manager.pl/files/releases/cash.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <copyright>Jędrzej Pieczyrak 2018-2019</copyright>
     <dependencies />

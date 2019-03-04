@@ -38,7 +38,7 @@ namespace CashManager.Logic.Commands.Filters
                     selector = x => x.Parent.Title;
                     break;
                 case TextSelectorType.Note:
-                    selector = x => x.Parent.Note;
+                    selector = x => string.Join(" ", x.Parent.Notes.Select(y => y.Value));
                     break;
                 case TextSelectorType.PositionTitle:
                     selector = x => x.Title;
@@ -62,7 +62,7 @@ namespace CashManager.Logic.Commands.Filters
                     selector = x => x.Title;
                     break;
                 case TextSelectorType.Note:
-                    selector = x => x.Note;
+                    selector = x => string.Join(" ", x.Notes.Select(y => y.Value));
                     break;
                 case TextSelectorType.PositionTitle:
                     return FilterPositions(x => x.Title, results.SelectMany(x => x.Positions)).Select(x => x.Parent).Distinct();
@@ -97,10 +97,22 @@ namespace CashManager.Logic.Commands.Filters
             }
             else
             {
-                results = _textSelector.IsCaseSensitive
-                              ? results.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value) != _textSelector.DisplayOnlyNotMatching)
-                              : results.Where(x =>
-                                  !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()) != _textSelector.DisplayOnlyNotMatching);
+                results = results.Where(x =>
+                {
+                    string value = selector(x);
+                    if (string.IsNullOrEmpty(value)) return _textSelector.DisplayOnlyNotMatching;
+                    string textSelectorValue = _textSelector.Value;
+                    if (!_textSelector.IsCaseSensitive)
+                    {
+                        value = selector(x).ToLower();
+                        textSelectorValue = textSelectorValue.ToLower();
+                    }
+
+                    bool isMatch = _textSelector.AnyOfWords
+                                       ? textSelectorValue.Split(' ').Any(y => value.Contains(y))
+                                       : value.Contains(textSelectorValue);
+                    return isMatch != _textSelector.DisplayOnlyNotMatching;
+                });
             }
 
             return results;
@@ -124,10 +136,22 @@ namespace CashManager.Logic.Commands.Filters
             }
             else
             {
-                results = _textSelector.IsCaseSensitive
-                              ? results.Where(x => !string.IsNullOrEmpty(selector(x)) && selector(x).Contains(_textSelector.Value) != _textSelector.DisplayOnlyNotMatching)
-                              : results.Where(x =>
-                                  !string.IsNullOrEmpty(selector(x)) && selector(x).ToLower().Contains(_textSelector.Value.ToLower()) != _textSelector.DisplayOnlyNotMatching);
+                results = results.Where(x =>
+                {
+                    string value = selector(x);
+                    if (string.IsNullOrEmpty(value)) return _textSelector.DisplayOnlyNotMatching;
+                    string textSelectorValue = _textSelector.Value;
+                    if (!_textSelector.IsCaseSensitive)
+                    {
+                        value = selector(x).ToLower();
+                        textSelectorValue = textSelectorValue.ToLower();
+                    }
+
+                    bool isMatch = _textSelector.AnyOfWords
+                                       ? textSelectorValue.Split(' ').Any(y => value.Contains(y))
+                                       : value.Contains(textSelectorValue);
+                    return isMatch != _textSelector.DisplayOnlyNotMatching;
+                });
             }
 
             return results;

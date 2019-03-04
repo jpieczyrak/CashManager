@@ -43,7 +43,7 @@ Saldo: 1 253,76 PLN
                         Title = title,
                         Value = new PaymentValue { GrossValue = 35.8m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new MillenniumBankParser();
 
             //when
@@ -51,7 +51,7 @@ Saldo: 1 253,76 PLN
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -99,7 +99,7 @@ spam not valid trash";
                         Title = title,
                         Value = new PaymentValue { GrossValue = 35.8m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new MillenniumBankParser();
 
             //when
@@ -108,7 +108,7 @@ spam not valid trash";
             //then
             Assert.Equal(2, results.Length);
             foreach (var transaction in results) ValidateTransaction(transaction, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -140,7 +140,7 @@ Saldo: 1 253,76 PLN
                         Title = title,
                         Value = new PaymentValue { GrossValue = 13.5m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new MillenniumBankParser();
 
             //when
@@ -148,7 +148,7 @@ Saldo: 1 253,76 PLN
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
     }
 }

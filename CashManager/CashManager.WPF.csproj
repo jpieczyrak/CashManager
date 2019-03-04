@@ -142,6 +142,9 @@
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\gong-wpf-dragdrop.1.1.0\lib\net45\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
+    <Reference Include="LiteDB, Version=4.1.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiteDB.4.1.4\lib\net40\LiteDB.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -180,6 +183,9 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -200,7 +206,12 @@
     </ApplicationDefinition>
     <Compile Include="CommonData\TransactionsProvider.cs" />
     <Compile Include="Configuration\DI\AutofacConfiguration.cs" />
+    <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
+    <Compile Include="Features\Balance\CustomBalanceManagerView.xaml.cs">
+      <DependentUpon>CustomBalanceManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Balance\CustomBalanceManagerViewModel.cs" />
     <Compile Include="Features\Balance\CustomBalanceView.xaml.cs">
       <DependentUpon>CustomBalanceView.xaml</DependentUpon>
     </Compile>
@@ -274,6 +285,7 @@
     </Compile>
     <Compile Include="Features\Parsers\Custom\CsvParserViewModel.cs" />
     <Compile Include="Features\Parsers\Custom\RegexParserViewModel.cs" />
+    <Compile Include="Features\Parsers\ParserUpdateBalanceMode.cs" />
     <Compile Include="Features\Parsers\ParserViewModelBase.cs" />
     <Compile Include="Features\Plots\CategoriesPlotView.xaml.cs">
       <DependentUpon>CategoriesPlotView.xaml</DependentUpon>
@@ -297,6 +309,9 @@
     <Compile Include="Features\Search\Selectors\ValueRangeControl.xaml.cs">
       <DependentUpon>ValueRangeControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Features\Transactions\Bills\BillWindow.xaml.cs">
+      <DependentUpon>BillWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Logic\Commands\Setters\MultiSetterCommand.cs" />
     <Compile Include="Logic\Commands\Setters\SingleSetterCommand.cs" />
     <Compile Include="Logic\Commands\Setters\TextSetterCommand.cs" />
@@ -308,7 +323,7 @@
     <Compile Include="Features\Transactions\TransactionEditMode.cs" />
     <Compile Include="Features\Transactions\TransactionEditModes.cs" />
     <Compile Include="Logic\Debouncer.cs" />
-    <Compile Include="Features\Search\SearchState.cs" />
+    <Compile Include="Features\Tags\SearchState.cs" />
     <Compile Include="Features\MassReplacer\MassReplacerView.xaml.cs">
       <DependentUpon>MassReplacerView.xaml</DependentUpon>
     </Compile>
@@ -375,6 +390,7 @@
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Common\IBookable.cs" />
     <Compile Include="Model\ExpandableCategory.cs" />
+    <Compile Include="Model\Note.cs" />
     <Compile Include="Model\Parsers\CustomCsvParser.cs" />
     <Compile Include="Model\Parsers\Rule.cs" />
     <Compile Include="Model\Selectors\BaseSelector.cs" />
@@ -429,11 +445,17 @@
     <Compile Include="TrulyObservableCollection.cs" />
     <Compile Include="UserCommunication\IMessagesService.cs" />
     <Compile Include="UserCommunication\MessageBoxService.cs" />
+    <Compile Include="Utils\DatabaseBackuper.cs" />
     <Compile Include="Utils\SettingsManager.cs" />
     <Compile Include="Utils\SoundPlayerHelper.cs" />
     <Compile Include="Utils\Updates\DefaultUpdatesManager.cs" />
     <Compile Include="Utils\Updates\IUpdatesManager.cs" />
     <Compile Include="Utils\Updates\SquirrelUpdatesManager.cs" Condition="$(DefineConstants.Contains('PORTABLE')) != true" />
+    <Compile Include="Utils\WebReader.cs" />
+    <Page Include="Features\Balance\CustomBalanceManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Features\Balance\CustomBalanceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -565,6 +587,10 @@
     <Page Include="Features\MassReplacer\MassReplacerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Features\Transactions\Bills\BillWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Features\Transactions\PaymentValueControl.xaml">
       <SubType>Designer</SubType>

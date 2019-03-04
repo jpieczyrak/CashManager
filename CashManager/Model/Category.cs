@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 
 using CashManager.Model.Common;
+using CashManager.Properties;
 
 namespace CashManager.Model
 {
     public class Category : BaseObservableObject
     {
+        public static readonly Category Default = new Category(new Guid(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) { Name = Strings.DefaultCategoryName };
+
         private Category _parent;
 
         public Category Parent

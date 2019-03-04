@@ -33,10 +33,12 @@ namespace CashManager.Tests.AcceptanceCriteria.Transactions
             {
                 case TransactionTypes.Income:
                     transactionType.Income = true;
+                    transactionType.Outcome = false;
                     transactionType.Name = "income";
                     break;
                 case TransactionTypes.Outcome:
                     transactionType.Outcome = true;
+                    transactionType.Income = false;
                     transactionType.Name = "outcome";
                     break;
             }

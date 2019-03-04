@@ -123,8 +123,7 @@ namespace CashManager.Features.MassReplacer
                 Mapper.Map<Stock[]>(Mapper.Map<Data.DTO.Stock[]>(availableStocks)).Select(x => new Selectable(x)).ToArray();
 
             var categories = Mapper.Map<Category[]>(queryDispatcher.Execute<CategoryQuery, Data.DTO.Category[]>(new CategoryQuery()));
-            categories = CategoryDesignHelper.BuildGraphicalOrder(categories);
-            CategoriesSelector.Input = categories.Select(x => new Selectable(x)).ToArray();
+            CategoriesSelector.Input = categories.OrderBy(x => x.Name).Select(x => new Selectable(x)).ToArray();
 
             var types = Mapper.Map<TransactionType[]>(queryDispatcher.Execute<TransactionTypesQuery, Data.DTO.TransactionType[]>(new TransactionTypesQuery()).OrderBy(x => x.Name));
             TypesSelector.Input = types.Select(x => new Selectable(x)).ToArray();

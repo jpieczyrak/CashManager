@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using AutoMapper;
@@ -41,7 +42,9 @@ namespace CashManager.Features.Categories
                 category.Children = new TrulyObservableCollection<ExpandableCategory>(categories.Where(x => x.Parent?.Id == category.Id).OrderBy(x => x.Name));
 
             _flatCategories = categories.ToArray();
-            Categories = categories.Where(x => x.Parent == null).OrderBy(x => x.Name).ToArray(); //find the root(s)
+            Categories = categories.Where(x => x.Parent == null)
+                                   .OrderBy(x => x.Name)
+                                   .ToArray(); //find the root(s)
             DefaultCategory = Mapper.Map<Category>(categories.FirstOrDefault());
             SelectedCategory = selectedCategory;
 
@@ -55,7 +58,17 @@ namespace CashManager.Features.Categories
 
         private void ExecuteUpdateSelectedCategory(ExpandableCategory category)
         {
-            if (category != null) SelectedCategory = Mapper.Map<Category>(category);
+            if (category != null)
+            {
+                var selectedCategory = Mapper.Map<Category>(category);
+                if (selectedCategory.Id == SelectedCategory.Id)
+                {
+                    SelectedCategory = Category.Default;
+                    category.IsSelected = false;
+                }
+                else
+                    SelectedCategory = selectedCategory;
+            }
         }
 
         private void ExpandParents(ExpandableCategory selected)

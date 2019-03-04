@@ -7,6 +7,7 @@
         CategoryManager,
         TypesManager,
         TagsManager,
+        CustomBalanceManager,
 
         ImportGetinWeb,
         ImportIdeaWeb,

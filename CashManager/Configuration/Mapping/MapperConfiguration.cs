@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 using AutoMapper;
 
@@ -59,6 +61,7 @@ namespace CashManager.Configuration.Mapping
 
                         config.CreateMap<Balance, Data.DTO.Balance>();
                         config.CreateMap<Data.DTO.Balance, Balance>()
+                              .BeforeMap((dto, model) => model.IsPropertyChangedEnabled = false)
                               .AfterMap((dto, model) => model.IsPropertyChangedEnabled = true);
 
                         config.CreateMap<Stock, Data.DTO.Stock>()
@@ -98,6 +101,7 @@ namespace CashManager.Configuration.Mapping
 
                         config.CreateMap<TransactionType, Data.DTO.TransactionType>();
                         config.CreateMap<Data.DTO.TransactionType, TransactionType>()
+                              .BeforeMap((dto, model) => model.IsPropertyChangedEnabled = false)
                               .ConstructUsing((dto, context) =>
                               {
                                   if (dto == null) return null;
@@ -118,9 +122,15 @@ namespace CashManager.Configuration.Mapping
                               .BeforeMap((dto, model) => model.IsPropertyChangedEnabled = false)
                               .AfterMap((dto, model) => model.IsPropertyChangedEnabled = true);
 
-                        config.CreateMap<Transaction, Data.DTO.Transaction>();
+                        config.CreateMap<Transaction, Data.DTO.Transaction>()
+                              .ForMember(desc => desc.Notes, opt => opt.MapFrom(model => model
+                                                    .Notes
+                                                    .Take(1)
+                                                    .Concat(model.Notes.Skip(1).Where(x => !string.IsNullOrWhiteSpace(x.Value)))
+                                                    .Select(x => x.Value)));
                         config.CreateMap<Data.DTO.Transaction, Transaction>()
                               .BeforeMap((dto, model) => model.IsPropertyChangedEnabled = false)
+                              .ForMember(desc => desc.Notes, opt => opt.MapFrom(x => x.Notes.Select(y => new Note(y))))
                               .AfterMap((dto, model) =>
                               {
                                   foreach (var position in model.Positions)

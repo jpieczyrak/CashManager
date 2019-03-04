@@ -65,7 +65,11 @@ namespace CashManager.Logic.Commands.Setters
                     case TextSetterType.Title:
                         return (transaction, s) => transaction.Title += s;
                     case TextSetterType.Note:
-                        return (transaction, s) => transaction.Note += s;
+                        return (transaction, s) =>
+                        {
+                            if (transaction.Notes.Any()) transaction.Notes[transaction.Notes.Count-1].Value += s;
+                            else transaction.Notes.Add(new Note(s));
+                        };
                     case TextSetterType.PositionTitle:
                         return (transaction, s) => { foreach (var position in transaction.Positions) position.Title += s; };
                 }
@@ -90,7 +94,8 @@ namespace CashManager.Logic.Commands.Setters
                             {
                                 string matchValue = GetMatchValue(x);
                                 if (!string.IsNullOrWhiteSpace(matchValue))
-                                    x.Note = x.Note.Replace(matchValue, _textSetter.Value);
+                                    for (int i = 0; i < x.Notes.Count; i++)
+                                        x.Notes[i].Value = x.Notes[i].Value.Replace(matchValue, _textSetter.Value);
                                 else
                                     _logger.Value.Debug("No match");
                             };
@@ -117,7 +122,11 @@ namespace CashManager.Logic.Commands.Setters
                         case TextSetterType.Title:
                             return (transaction, s) => transaction.Title = s;
                         case TextSetterType.Note:
-                            return (transaction, s) => transaction.Note = s;
+                            return (transaction, s) =>
+                            {
+                                if (transaction.Notes.Any()) transaction.Notes[transaction.Notes.Count - 1].Value = s;
+                                else transaction.Notes.Add(new Note(s));
+                            };
                         case TextSetterType.PositionTitle:
                             return (transaction, s) => { foreach (var position in transaction.Positions) position.Title = s; };
                     }
@@ -136,7 +145,11 @@ namespace CashManager.Logic.Commands.Setters
                     case TextSetterType.Title:
                         return (position, s) => position.Parent.Title += s;
                     case TextSetterType.Note:
-                        return (position, s) => position.Parent.Note += s;
+                        return (position, s) =>
+                        {
+                            if (position.Parent.Notes.Any()) position.Parent.Notes[position.Parent.Notes.Count - 1].Value += s;
+                            else position.Parent.Notes.Add(new Note(s));
+                        };
                     case TextSetterType.PositionTitle:
                         return (position, s) => { position.Title += s; };
                 }
@@ -161,7 +174,8 @@ namespace CashManager.Logic.Commands.Setters
                             {
                                 string matchValue = GetMatchValue(x);
                                 if (!string.IsNullOrWhiteSpace(matchValue))
-                                    x.Parent.Note = x.Parent.Note.Replace(matchValue, _textSetter.Value);
+                                    for (int i = 0; i < x.Parent.Notes.Count; i++)
+                                        x.Parent.Notes[i].Value = x.Parent.Notes[i].Value.Replace(matchValue, _textSetter.Value);
                                 else
                                     _logger.Value.Debug("No match");
                             };
@@ -183,7 +197,11 @@ namespace CashManager.Logic.Commands.Setters
                         case TextSetterType.Title:
                             return (position, s) => position.Parent.Title = s;
                         case TextSetterType.Note:
-                            return (position, s) => position.Parent.Note = s;
+                            return (position, s) =>
+                            {
+                                if (position.Parent.Notes.Any()) position.Parent.Notes[position.Parent.Notes.Count - 1].Value = s;
+                                else position.Parent.Notes.Add(new Note(s));
+                            };
                         case TextSetterType.PositionTitle:
                             return (position, s) => position.Title = s;
                     }
@@ -203,7 +221,7 @@ namespace CashManager.Logic.Commands.Setters
                     selector = t => t.Title;
                     break;
                 case TextSelectorType.Note:
-                    selector = t => t.Note;
+                    selector = t => string.Join(" ", t.Notes.Select(y => y.Value));
                     break;
             }
 
@@ -238,7 +256,7 @@ namespace CashManager.Logic.Commands.Setters
                     selector = t => t.Parent.Title;
                     break;
                 case TextSelectorType.Note:
-                    selector = t => t.Parent.Note;
+                    selector = t => string.Join(" ", t.Parent.Notes.Select(y => y.Value));
                     break;
                 case TextSelectorType.PositionTitle:
                     selector = t => t.Title;

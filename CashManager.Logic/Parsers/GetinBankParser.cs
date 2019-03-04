@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 using CashManager.Data.DTO;
@@ -9,20 +8,20 @@ namespace CashManager.Logic.Parsers
 {
     public class GetinBankParser : IParser
     {
-        private readonly List<Balance> _balances = new List<Balance>();
         private const string TRANSFER_REGEX =
             @"(?<Day>\d{2})\.(?<Month>\d{2})\.(?<Year>\d{4}) \– (?<OperationType>(\S| )*)(\r\n|\n)(?<SourceName>(\S| )*) \– (?<Title>(\S| )*)(\r\n|\n)*(?<Sign>(-|\+))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*) (?<Currency>\S*)( saldo po operacji: (?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*) (?<BalanceCurrency>\S*))?";
 
         private const string CARD_OPERATION_REGEX =
-            @"(?<Day>\d{2})\.(?<Month>\d{2})\.(?<Year>\d{4}) (\–|\-) (?<OperationType>(\S| )*)(\r\n|\n)(?<Title>(\S| )*)(\r\n|\n)*(?<Sign>(-|\+))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*) (?<Currency>\S*)( saldo po operacji: (?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*) (?<BalanceCurrency>\S*))?";
+            @"(?<Day>\d{2})\.(?<Month>\d{2})\.(?<Year>\d{4}) (\–|\-) (?<OperationType>(\S| )*)(\r\n|\n)(?<Title>(\S| )*)(\r\n|\n|\s)*(?<Sign>(-|\+))(?<ValueWithSpaces>[0-9 ]+),(?<ValueAfterComma>\d*) (?<Currency>\S*)( saldo po operacji: (?<BalanceValueWithSpaces>[0-9 ]+),(?<BalanceValueAfterComma>\d*) (?<BalanceCurrency>\S*))?";
 
-        public Dictionary<Stock, Balance> Balances { get; private set; } = new Dictionary<Stock, Balance>();
+        public Dictionary<Stock, Dictionary<DateTime, decimal>> Balances { get; } = new Dictionary<Stock, Dictionary<DateTime, decimal>>();
 
         #region IParser
 
         public Transaction[] Parse(string input, Stock userStock, Stock externalStock,
             TransactionType defaultOutcome, TransactionType defaultIncome, bool generateMissingStocks = false)
         {
+            Balances.Clear();
             var output = new List<Transaction>();
 
             var transfer = new Regex(TRANSFER_REGEX);
@@ -43,9 +42,6 @@ namespace CashManager.Logic.Parsers
                     output.Add(CreateTransaction(match, userStock, externalStock, defaultOutcome, defaultIncome));
                 }
             }
-
-            Balances[userStock] = _balances.OrderByDescending(x => x.LastEditDate).FirstOrDefault();
-            _balances.Clear();
 
             return output.ToArray();
         }
@@ -80,14 +76,14 @@ namespace CashManager.Logic.Parsers
                 decimal balance = bigValueBalance + smallValueBalance / 100m;
                 note += $" Saldo: {balance:#,##0.00}";
 
-                _balances.Add(new Balance(date, balance));
+                if (!Balances.ContainsKey(userStock)) Balances[userStock] = new Dictionary<DateTime, decimal>();
+                Balances[userStock].Add(date, balance);
             }
 
             var transactionType = positiveSign ? defaultIncome : defaultOutcome;
             var position = new Position(title, value);
 
-            return new Transaction(transactionType, date, title, note, new List<Position> { position }, userStock, externalStock,
-                match.Value);
+            return new Transaction(transactionType, date, title, note, new List<Position> { position }, userStock, externalStock);
         }
     }
 }

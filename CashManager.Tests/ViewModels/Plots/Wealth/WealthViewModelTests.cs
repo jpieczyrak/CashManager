@@ -33,7 +33,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
             var expected = new DataPoint[0];
 
             //when
-            var result = vm.GetWealthValues(null, null);
+            var result = vm.GetWealthValues(null, null, false);
 
             //then
             Assert.Equal(expected, result);
@@ -47,7 +47,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
             var expected = new DataPoint[0];
 
             //when
-            var result = vm.GetWealthValues(new Transaction[0], new Stock[0]);
+            var result = vm.GetWealthValues(new Transaction[0], new Stock[0], false);
 
             //then
             Assert.Equal(expected, result);
@@ -120,7 +120,7 @@ namespace CashManager.Tests.ViewModels.Plots.Wealth
             };
 
             //when
-            var result = vm.GetWealthValues(transactions, selectedStocks);
+            var result = vm.GetWealthValues(transactions, selectedStocks, false);
 
             //then
             Assert.Equal(expected.Length, result.Length);

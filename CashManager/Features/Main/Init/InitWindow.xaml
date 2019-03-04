@@ -4,10 +4,10 @@
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:local="clr-namespace:CashManager.Features.Main.Init"
-                      xmlns:properties="clr-namespace:CashManager.Properties"
+                     xmlns:properties="clr-namespace:CashManager.Properties"
                      xmlns:common="clr-namespace:CashManager.Features.Common"
                      mc:Ignorable="d"
-                     Height="350" Width="500"
+                     Height="375" Width="500"
                      WindowStartupLocation="CenterScreen"
                      FocusManager.FocusedElement="{Binding ElementName=PasswordBox}"
                      Title="{x:Static properties:Strings.Initialization}" Style="{DynamicResource WindowStyle}"
@@ -25,13 +25,14 @@
 
             <CheckBox Margin="5" Content="{x:Static properties:Strings.GenerateDefaultCategories}" IsChecked="{Binding GenerateCategories}" />
             <CheckBox Margin="5" Content="{x:Static properties:Strings.GenerateDefaultTypes}" IsChecked="{Binding GenerateTypes}" />
-            <CheckBox Margin="5" Content="{x:Static properties:Strings.GenerateDefaultStocks}" IsChecked="{Binding GenerateStocks}" />
-            <CheckBox Margin="5" IsChecked="{Binding GenerateTags}">
-                <CheckBox.Content>
-                    <x:Static Member="properties:Strings.GenerateDefaultTags" />
-                </CheckBox.Content>
-            </CheckBox>
+            <CheckBox Margin="5" Content="{x:Static properties:Strings.GenerateDefaultStocks}" IsChecked="{Binding GenerateStocks}"
+                      Visibility="{Binding CanGenerateTransactions, Converter={StaticResource Bool2VisibilityConverter}}" />
+            <CheckBox Margin="5" IsChecked="{Binding GenerateTags}" Content="{x:Static properties:Strings.GenerateDefaultTags}" 
+                      Visibility="{Binding CanGenerateTransactions, Converter={StaticResource Bool2VisibilityConverter}}" />
             <CheckBox Margin="5" Content="{x:Static properties:Strings.GenerateSampleTransactions}" IsChecked="{Binding GenerateTransactions}" 
+                      Visibility="{Binding CanGenerateTransactions, Converter={StaticResource Bool2VisibilityConverter}}" />
+
+            <CheckBox Margin="5" Content="A lot of data" IsChecked="{Binding MoreData}" 
                       Visibility="{Binding CanGenerateTransactions, Converter={StaticResource Bool2VisibilityConverter}}" />
 
             <TextBlock Text="{x:Static properties:Strings.Language}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"/>

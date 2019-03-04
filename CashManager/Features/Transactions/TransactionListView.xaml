@@ -20,24 +20,25 @@
                   EnableRowVirtualization="True" EnableColumnVirtualization="True" ScrollViewer.CanContentScroll="True"
                   CanUserAddRows="False" CanUserDeleteRows="False" Margin="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{x:Static properties:Strings.BookDate}" Binding="{Binding BookDate, StringFormat=dd.MM.yyyy}" Width="64" MaxWidth="64" MinWidth="64" />
-                <DataGridTextColumn Header="{x:Static properties:Strings.LastEdit}" Binding="{Binding LastEditDate, Mode=OneWay, StringFormat=dd.MM.yy HH:mm:ss}" Width="100" MaxWidth="100" MinWidth="100"/>
-                <DataGridTextColumn Header="{x:Static properties:Strings.Title}" Binding="{Binding Title, Mode=OneWay}" Width="3*" MinWidth="100">
+                <DataGridTextColumn Header="{x:Static properties:Strings.BookDate}" Binding="{Binding BookDate, StringFormat=dd.MM.yyyy}" />
+                <DataGridTextColumn Header="{x:Static properties:Strings.LastEdit}" Binding="{Binding LastEditDate, Mode=OneWay, StringFormat=dd.MM.yy HH:mm:ss}" />
+                <DataGridTextColumn Header="{x:Static properties:Strings.Title}" Binding="{Binding Title, Mode=OneWay}" Width="*" >
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="{x:Static properties:Strings.Note}" Binding="{Binding Note, Mode=OneWay}" Width="*">
+                <DataGridTextColumn Header="{x:Static properties:Strings.Notes}" Binding="{Binding NotesForGui, Mode=OneWay}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="{x:Static properties:Strings.UserStock}" Binding="{Binding UserStock.Name, Mode=OneWay}" Width="Auto" MaxWidth="80" />
-                <DataGridTextColumn Header="{x:Static properties:Strings.TransactionType}" Binding="{Binding Type.Name, Mode=OneWay}" Width="Auto" MaxWidth="80" />
+                <DataGridTextColumn Header="{x:Static properties:Strings.Categories}" Binding="{Binding CategoriesForGui, Mode=OneWay}" Width="Auto" />
+                <DataGridTextColumn Header="{x:Static properties:Strings.UserStock}" Binding="{Binding UserStock.Name, Mode=OneWay}" Width="Auto" />
+                <DataGridTextColumn Header="{x:Static properties:Strings.TransactionType}" Binding="{Binding Type.Name, Mode=OneWay}" Width="Auto" />
                 <DataGridTextColumn Header="{x:Static properties:Strings.Value}" Binding="{Binding ValueWithSign, Mode=OneWay, StringFormat={x:Static properties:Strings.ValueFormat}}" Width="Auto" MinWidth="70" MaxWidth="100">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 using CashManager.Data.DTO;
 using CashManager.Data.Extensions;
@@ -66,7 +68,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var transaction = new Transaction(guid)
             {
                 Title = "my income",
-                Note = "PRZELEW PRZYCHODZĄCY",
+                Notes = new List<string> { "PRZELEW PRZYCHODZĄCY" },
                 Positions = new List<Position> { new Position("my income", 647.85m) },
                 BookDate = new DateTime(2019, 01, 15),
                 TransactionSourceCreationDate = new DateTime(2019, 01, 14),
@@ -81,7 +83,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.Single(result);
             ValidateTransaction(result[0], transaction);
-            Assert.Equal(2391.10m, parser.Balances[stocks[1]].Value);
+            Assert.Equal(2391.10m, parser.Balances[stocks[1]].OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -103,7 +105,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var transaction = new Transaction(guid)
             {
                 Title = "MDJ SP. Z O.O.         GLIWICE 19/01/19",
-                Note = "TRANSAKCJA KARTĄ PŁATNICZĄ",
+                Notes = new List<string> { "TRANSAKCJA KARTĄ PŁATNICZĄ" },
                 Positions = new List<Position> { new Position("MDJ SP. Z O.O.         GLIWICE 19/01/19", 9.13m) },
                 BookDate = new DateTime(2019, 01, 22),
                 TransactionSourceCreationDate = new DateTime(2019, 01, 22),
@@ -118,7 +120,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.Single(result);
             ValidateTransaction(result[0], transaction);
-            Assert.Equal(2225.33m, parser.Balances[stocks[1]].Value); //the matching one has been updated
+            Assert.Equal(2225.33m, parser.Balances[stocks[1]].OrderByDescending(x => x.Key).First().Value); //the matching one has been updated
         }
 
         [Fact]
@@ -140,7 +142,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             var transaction = new Transaction(guid)
             {
                 Title = "osoba - opłata",
-                Note = "PRZELEW DO INNEGO BANKU",
+                Notes = new List<string> { "PRZELEW DO INNEGO BANKU" },
                 Positions = new List<Position> { new Position("osoba - opłata", 105.5m) },
                 BookDate = new DateTime(2018, 08, 29),
                 TransactionSourceCreationDate = new DateTime(2018, 08, 29),
@@ -155,7 +157,7 @@ namespace CashManager.Tests.Parsers.Custom.Predefined
             //then
             Assert.Single(result);
             ValidateTransaction(result[0], transaction);
-            Assert.Equal(162.51m, parser.Balances[stocks[1]].Value); //the matching one has been updated
+            Assert.Equal(162.51m, parser.Balances[stocks[1]].OrderByDescending(x => x.Key).First().Value); //the matching one has been updated
         }
     }
 }

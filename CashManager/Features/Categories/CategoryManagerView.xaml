@@ -6,29 +6,34 @@
     xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:model="clr-namespace:CashManager.Model"
         xmlns:properties="clr-namespace:CashManager.Properties"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         x:Class="CashManager.Features.Categories.CategoryManagerView"
         mc:Ignorable="d"
+        d:DesignWidth="600"
         MinHeight="200" MinWidth="400" d:DataContext="{d:DesignData CategoryManagerViewModel}">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding Input}" Margin="5" AcceptsReturn="True" />
-        <Button Grid.Row="0" Grid.Column="1" Content="{x:Static properties:Strings.Add}" Width="120" Command="{Binding AddCategoryCommand}" />
-        <Button Grid.Row="0" Grid.Column="2" Content="{x:Static properties:Strings.Remove}" Width="120" Command="{Binding RemoveCategoryCommand}" />
-        <Button Grid.Row="0" Grid.Column="3" Content="{x:Static properties:Strings.Load}" Width="120" ToolTip="{x:Static properties:Strings.LoadContentAsTree}" Command="{Binding LoadCategoriesCommand}" />
-        <TreeView Grid.Row="1" Margin="5,10" Grid.ColumnSpan="4" Grid.Column="0"
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Input}" Margin="5" AcceptsReturn="True" MinWidth="100" />
+        <Button Grid.Row="0" Grid.Column="2" Margin="5" Content="{x:Static properties:Strings.Add}" Width="120" Command="{Binding AddCategoryCommand}" />
+        <Button Grid.Row="0" Grid.Column="3" Margin="5" Content="{x:Static properties:Strings.Remove}" Width="120" Command="{Binding RemoveCategoryCommand}" />
+        <Button Grid.Row="0" Grid.Column="4" Margin="5" Content="{x:Static properties:Strings.Load}" Width="120" ToolTip="{x:Static properties:Strings.LoadContentAsTree}" Command="{Binding LoadCategoriesCommand}" />
+        <TreeView Grid.Row="1" Margin="5,10" Grid.ColumnSpan="6" Grid.Column="0"
+                  MinWidth="250" MinHeight="320"
                   ItemsSource="{Binding Categories}"
                   dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True"  
-                  dd:DragDrop.DropHandler="{Binding}">
+                  dd:DragDrop.DropHandler="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Top">
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type model:ExpandableCategory}" ItemsSource="{Binding Children}" >
                     <StackPanel Orientation="Horizontal" >
@@ -54,6 +59,11 @@
                     </Style.Triggers>
                 </Style>
             </TreeView.ItemContainerStyle>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseUp">
+                    <i:InvokeCommandAction Command="{Binding UnselectCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </TreeView>
     </Grid>
 </UserControl>

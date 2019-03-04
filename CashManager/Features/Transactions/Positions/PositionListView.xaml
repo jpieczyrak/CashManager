@@ -20,7 +20,7 @@
                   EnableRowVirtualization="True" EnableColumnVirtualization="True" ScrollViewer.CanContentScroll="True"
                   CanUserAddRows="False" CanUserDeleteRows="False" Margin="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{x:Static properties:Strings.LastEdit}" Binding="{Binding LastEditDate, Mode=OneWay, StringFormat=dd.MM.yy HH:mm:ss}" Width="100" MaxWidth="100" MinWidth="100"/>
+                <DataGridTextColumn Header="{x:Static properties:Strings.LastEdit}" Binding="{Binding LastEditDate, Mode=OneWay, StringFormat=dd.MM.yy HH:mm:ss}" />
                 <DataGridTextColumn Header="{x:Static properties:Strings.BookDate}" Binding="{Binding Parent.BookDate, Mode=OneWay, StringFormat=dd.MM.yy}" Width="Auto"/>
                 <DataGridTextColumn Header="{x:Static properties:Strings.Title}" Binding="{Binding Title, Mode=OneWay}" Width="*" MinWidth="60">
                     <DataGridTextColumn.ElementStyle>

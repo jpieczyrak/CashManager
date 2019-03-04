@@ -6,6 +6,11 @@ namespace CashManager.Infrastructure.Command.Categories
     {
         public Category[] Categories { get; }
 
+        public UpsertCategoriesCommand(Category category)
+        {
+            Categories = new[] { category };
+        }
+
         public UpsertCategoriesCommand(Category[] categories)
         {
             Categories = categories;

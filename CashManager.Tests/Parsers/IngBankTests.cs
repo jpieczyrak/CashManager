@@ -51,7 +51,7 @@ trash";
                         Title = title,
                         Value = new PaymentValue { GrossValue = 49.0m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IngBankParser();
 
             //when
@@ -94,7 +94,7 @@ Saldo po transakcji
                         Title = title,
                         Value = new PaymentValue { GrossValue = 110.0m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IngBankParser();
 
             //when
@@ -102,7 +102,7 @@ Saldo po transakcji
 
             //then
             foreach (var result in results) ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -191,7 +191,7 @@ trash";
                         Title = title,
                         Value = new PaymentValue { GrossValue = 49.0m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IngBankParser();
 
             //when
@@ -200,7 +200,7 @@ trash";
             //then
             Assert.Equal(3, results.Length);
             foreach (var transaction in results) ValidateTransaction(transaction, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
 
         [Fact]
@@ -241,7 +241,7 @@ trash
                         Title = title,
                         Value = new PaymentValue { GrossValue = 2.63m }
                     }
-                }, userStock, externalStock, input);
+                }, userStock, externalStock);
             var parser = new IngBankParser();
 
             //when
@@ -249,7 +249,7 @@ trash
 
             //then
             ValidateTransaction(result, expected);
-            Assert.Equal(balance, parser.Balances.First().Value.Value);
+            Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace CashManager.Tests.Parsers
             Assert.NotNull(result);
             Assert.Equal(expected.BookDate, result.BookDate);
             Assert.Equal(expected.Title, result.Title);
-            Assert.Equal(expected.Note, result.Note);
+            Assert.Equal(expected.Notes, result.Notes);
             Assert.Equal(expected.Type, result.Type);
             Assert.Equal(expected.UserStock, result.UserStock);
             Assert.Equal(expected.ExternalStock, result.ExternalStock);

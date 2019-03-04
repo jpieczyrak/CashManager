@@ -35,9 +35,7 @@ namespace CashManager.Features.Stocks
         {
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
-
             _correctionsCreator = correctionsCreator;
-            Update();
 
             AddStockCommand = new RelayCommand(() =>
             {
@@ -53,8 +51,7 @@ namespace CashManager.Features.Stocks
                 Stocks.Remove(x);
 
                 _commandDispatcher.Execute(new DeleteStockCommand(Mapper.Map<DtoStock>(x)));
-            },
-            stock => Stocks.Count(x => x.IsUserStock) > 1);
+            });
             //todo: think what should happen on stock delete...
         }
 

@@ -9,7 +9,7 @@
              d:DesignHeight="75" d:DesignWidth="350"
              d:DataContext="{d:DesignInstance Type=selectors:TextSelector, IsDesignTimeCreatable=True}">
     <Grid>
-        <Border BorderThickness="1" CornerRadius="5" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="2,0,2,3">
+        <Border BorderThickness="1" CornerRadius="{DynamicResource BigCornerRadius}" BorderBrush="{DynamicResource DisabledForegroundBrush}" Margin="2,0,2,3">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -26,6 +26,7 @@
                     <CheckBox IsChecked="{Binding IsCaseSensitive}" ToolTip="{x:Static properties:Strings.CaseSensitive}" Style="{StaticResource OnlyCheckBox}" Margin="0,2,2,0" />
                     <CheckBox IsChecked="{Binding IsWildCard}" ToolTip="{x:Static properties:Strings.Wildcard}" Style="{StaticResource OnlyCheckBox}" Margin="0,2,2,0" />
                     <CheckBox IsChecked="{Binding IsRegex}" ToolTip="{x:Static properties:Strings.Regex}" Style="{StaticResource OnlyCheckBox}" Margin="0,2,2,0" />
+                    <CheckBox IsChecked="{Binding AnyOfWords}" ToolTip="{x:Static properties:Strings.AnyOfWords}" Style="{StaticResource OnlyCheckBox}" Margin="0,2,2,0" />
                     <CheckBox IsChecked="{Binding DisplayOnlyNotMatching}" ToolTip="{x:Static properties:Strings.InverseMatching}" Style="{StaticResource OnlyCheckBox}" Margin="0,2,2,0" />
                     <Separator Background="{DynamicResource DisabledForegroundBrush}" Margin="0,0,5,0" Width="Auto"/>
                 </DockPanel>

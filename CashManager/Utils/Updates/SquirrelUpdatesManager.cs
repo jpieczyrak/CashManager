@@ -16,7 +16,11 @@ namespace CashManager.Utils.Updates
 {
     internal class SquirrelUpdatesManager : IUpdatesManager
     {
-        private const string UPDATES_URL = "http://cmh.eu5.org/";
+#if BETA
+        private const string UPDATES_URL = "http://cash-manager.pl/files/beta/";
+#else
+        private const string UPDATES_URL = "http://cash-manager.pl/files/releases/";
+#endif
         private const string ICON_NAME = "app.ico";
         private static readonly Lazy<ILog> _logger = new Lazy<ILog>(() => LogManager.GetLogger(typeof(SquirrelUpdatesManager)));
 

@@ -4,6 +4,7 @@ using System.Threading;
 
 using Autofac;
 
+using CashManager.Data.DTO;
 using CashManager.Infrastructure.Command;
 using CashManager.Infrastructure.Command.Categories;
 using CashManager.Infrastructure.Command.Stocks;
@@ -100,7 +101,16 @@ namespace CashManager.Features.Main.Init
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(value);
             }
         }
+
         public string[] Localizations { get; } = { "pl-PL", "en-US" };
+
+        private bool _moreData;
+
+        public bool MoreData
+        {
+            get => _moreData;
+            set => Set(ref _moreData, value);
+        }
 
         public bool CanStartApplication { get; private set; }
 
@@ -117,7 +127,7 @@ namespace CashManager.Features.Main.Init
         public void GenerateData(ICommandDispatcher commandDispatcher)
         {
 #if BETA
-            var defaultDataProvider = new TestDataProvider();
+            var defaultDataProvider = new TestDataProvider(MoreData);
 #else
             var defaultDataProvider = new DefaultDataProvider();
 #endif
@@ -127,6 +137,7 @@ namespace CashManager.Features.Main.Init
 
             var categories = defaultDataProvider.GetCategories();
             if (GenerateCategories) commandDispatcher.Execute(new UpsertCategoriesCommand(categories));
+            else commandDispatcher.Execute(new UpsertCategoriesCommand(Category.Default));
 
             var types = defaultDataProvider.GetTransactionTypes();
             if (GenerateTypes) commandDispatcher.Execute(new UpsertTransactionTypesCommand(types));

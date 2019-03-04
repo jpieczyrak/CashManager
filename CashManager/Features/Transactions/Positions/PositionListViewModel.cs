@@ -51,6 +51,7 @@ namespace CashManager.Features.Transactions.Positions
 
         private void TransactionEdit()
         {
+            if (SelectedPosition?.Parent == null) return;
             var applicationViewModel = _factory.Create<ApplicationViewModel>();
             var transactionViewModel = _factory.Create<TransactionViewModel>();
             transactionViewModel.Transaction = SelectedPosition.Parent;

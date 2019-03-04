@@ -12,6 +12,8 @@ using CashManager.Infrastructure.Query;
 using CashManager.Infrastructure.Query.ReplacerState;
 using CashManager.Logic.Commands.Setters;
 using CashManager.Model.Common;
+using CashManager.Properties;
+using CashManager.UserCommunication;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -26,26 +28,33 @@ namespace CashManager.Features.MassReplacer
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ISetter<Model.Transaction>[] _transactionSetters;
         private readonly ISetter<Model.Position>[] _positionSetter;
+        private readonly IMessagesService _messagesService;
 
         public SearchViewModel SearchViewModel { get; private set; }
 
         public ReplacerState State { get; private set; }
         public ObservableCollection<BaseObservableObject> Patterns { get; private set; }
 
-        public RelayCommand PerformCommand { get; }
+        public RelayCommand PerformReplaceCommand { get; }
+
+        public RelayCommand ApplyReverseReplaceSearchStateCommand { get; }
+
         public RelayCommand ClearMassReplacerStateCommand { get; }
 
         public RelayCommand<string> MassReplacerSaveCommand { get; }
 
         public RelayCommand<BaseObservableObject> MassReplacerLoadCommand { get; }
 
-        public MassReplacerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory)
+        public MassReplacerViewModel(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher, ViewModelFactory factory, IMessagesService messagesService)
         {
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
+            _messagesService = messagesService;
             State = new ReplacerState();
             SearchViewModel = factory.Create<SearchViewModel>();
-            PerformCommand = new RelayCommand(ExecutePerformCommand, CanExecutePerformCommand);
+            PerformReplaceCommand = new RelayCommand(ExecutePerformCommand, CanExecutePerformCommand);
+            ApplyReverseReplaceSearchStateCommand = new RelayCommand(() =>
+                SearchViewModel.State.ApplyReverseReplaceCriteria(State), () => _transactionSetters.Any(x => x.CanExecute()));
 
             _transactionSetters = new ISetter<Model.Transaction>[]
             {
@@ -78,10 +87,7 @@ namespace CashManager.Features.MassReplacer
                 ApplyState(state);
             }, selected => selected != null);
 
-            ClearMassReplacerStateCommand = new RelayCommand(() =>
-            {
-                State.Clear();
-            });
+            ClearMassReplacerStateCommand = new RelayCommand(() => State.Clear());
 
             var patterns = _queryDispatcher.Execute<ReplacerStateQuery, MassReplacerState[]>(new ReplacerStateQuery())
                                            .OrderBy(x => x.Name);
@@ -101,6 +107,22 @@ namespace CashManager.Features.MassReplacer
 
         private void ExecutePerformCommand()
         {
+            if (Settings.Default.QuestionForMassReplacePerform)
+            {
+                bool allMatching = SearchViewModel.IsTransactionsSearch
+                                       ? SearchViewModel.MatchingTransactions.Count == SearchViewModel.Provider.AllTransactions.Count
+                                       : SearchViewModel.MatchingPositions.Count == SearchViewModel.Provider.AllTransactions.SelectMany(x => x.Positions).Count();
+                string question = allMatching
+                                      ? (SearchViewModel.IsTransactionsSearch
+                                             ? string.Format(Strings.QuestionDoYouWantToPerformMassReplaceOnAllTransactions, SearchViewModel.MatchingTransactions.Count)
+                                             : string.Format(Strings.QuestionDoYouWantToPerformMassReplaceOnAllPositions, SearchViewModel.MatchingPositions.Count))
+                                      : (SearchViewModel.IsTransactionsSearch
+                                             ? string.Format(Strings.QuestionDoYouWantToPerformMassReplaceOnTransactionsFormat, SearchViewModel.MatchingTransactions.Count)
+                                             : string.Format(Strings.QuestionDoYouWantToPerformMassReplaceOnPositionsFormat, SearchViewModel.MatchingPositions.Count));
+
+                if (!_messagesService.ShowQuestionMessage(Strings.Question, question)) return;
+            }
+
             var transactions = SearchViewModel.MatchingTransactions;
 
             if (SearchViewModel.IsTransactionsSearch)
@@ -108,12 +130,14 @@ namespace CashManager.Features.MassReplacer
                 foreach (var setter in _transactionSetters)
                     if (setter.CanExecute())
                         setter.Execute(transactions);
+                RaisePropertyChanged(nameof(SearchViewModel.MatchingTransactions));
             }
             else
             {
                 foreach (var setter in _positionSetter)
                     if (setter.CanExecute())
                         setter.Execute(SearchViewModel.MatchingPositions);
+                RaisePropertyChanged(nameof(SearchViewModel.MatchingPositions));
             }
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<Transaction[]>(transactions)));
         }
