@@ -624,4 +624,10 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   <data name="CustomBalanceManager" xml:space="preserve">
     <value>Custom Balance Manager</value>
   </data>
+  <data name="CorrectionAfterImport" xml:space="preserve">
+    <value>Correction after import with missing data</value>
+  </data>
+  <data name="CorrectionOnTransactionEditFormat" xml:space="preserve">
+    <value>Correction after edit of transaction: {0}</value>
+  </data>
 </root>

@@ -334,14 +334,15 @@ namespace CashManager.Features.Transactions
                 else if (Modes[TransactionEditModes.AddCorrection].IsSelected)
                 {
                     //add new transaction with diff value
+                    string title = string.Format(Strings.CorrectionOnTransactionEditFormat, $"[{Transaction.BookDate:dd.MM.yyyy}: {Transaction.Title}]");
                     if (isSameStockAsAtStart)
                     {
-                        _creator.CreateCorrection(Transaction.UserStock, -diff);
+                        _creator.CreateCorrection(Transaction.UserStock, -diff, title);
                     }
                     else
                     {
                         Transaction.UserStock.Balance.Value += Transaction.ValueWithSign;
-                        _creator.CreateCorrection(_startUserStock, _startTransactionValue);
+                        _creator.CreateCorrection(_startUserStock, _startTransactionValue, title);
                         updatedStocks.Add(_startUserStock);
                     }
                 }

@@ -612,4 +612,10 @@ Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wa
   <data name="CustomBalanceManager" xml:space="preserve">
     <value>Manadżer konfigurowalnych bilansów</value>
   </data>
+  <data name="CorrectionAfterImport" xml:space="preserve">
+    <value>Korekta po imporcie z brakującymi danymi</value>
+  </data>
+  <data name="CorrectionOnTransactionEditFormat" xml:space="preserve">
+    <value>Korekta po edycji transakcji: {0}</value>
+  </data>
 </root>

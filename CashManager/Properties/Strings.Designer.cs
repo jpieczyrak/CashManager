@@ -377,6 +377,24 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Correction after import with missing data.
+        /// </summary>
+        public static string CorrectionAfterImport {
+            get {
+                return ResourceManager.GetString("CorrectionAfterImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Correction after edit of transaction: {0}.
+        /// </summary>
+        public static string CorrectionOnTransactionEditFormat {
+            get {
+                return ResourceManager.GetString("CorrectionOnTransactionEditFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to #,##0.
         /// </summary>
         public static string CountFormat {

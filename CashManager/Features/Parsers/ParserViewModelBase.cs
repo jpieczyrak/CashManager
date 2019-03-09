@@ -25,6 +25,7 @@ using CashManager.Messages.Models;
 using CashManager.Model;
 using CashManager.Model.Common;
 using CashManager.Model.Selectors;
+using CashManager.Properties;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -252,7 +253,7 @@ namespace CashManager.Features.Parsers
         {
             if (SelectedUpdateBalanceMode == ParserUpdateBalanceMode.Never) return;
 
-            var transactions = imported.Except(TransactionsProvider.AllTransactions);
+            var transactions = imported.Except(TransactionsProvider.AllTransactions).ToArray();
 
             var updates = SelectedUpdateBalanceMode == ParserUpdateBalanceMode.IfNewer
                                ? Parser.Balances.Where(x => x.Key.Balance.BookDate < x.Value.Max(y => y.Key)).ToArray() 
@@ -274,7 +275,7 @@ namespace CashManager.Features.Parsers
                 decimal profitValue = transactions.Where(x => x.UserStock.Id == stock.Id).Sum(x => x.ValueAsProfit);
                 if (diff != profitValue)
                 {
-                    _correctionsCreator.CreateCorrection(stock, diff - profitValue);
+                    _correctionsCreator.CreateCorrection(stock, diff - profitValue, Strings.CorrectionAfterImport);
                 }
             }
 

@@ -11,6 +11,7 @@ using CashManager.Infrastructure.Query.Stocks;
 using CashManager.Logic.Creators;
 using CashManager.Messages.Models;
 using CashManager.Model;
+using CashManager.Properties;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -71,7 +72,7 @@ namespace CashManager.Features.Stocks
             if (args.PropertyName != nameof(Model.Balance.Value) || balance == null) return;
 
             var stock = Stocks.FirstOrDefault(x => x.Balance.Equals(balance));
-            _correctionsCreator.CreateCorrection(stock, stock.Balance.Value - stock.Balance.PreviousValue);
+            _correctionsCreator.CreateCorrection(stock, stock.Balance.Value - stock.Balance.PreviousValue, Strings.ManualStockUpdate);
         }
 
         private void StocksOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

@@ -28,7 +28,7 @@ namespace CashManager.Logic.Creators
             _typesProvider = new Lazy<TransactionTypesViewModel>(() => _factory.Create<TransactionTypesViewModel>());
         }
 
-        public void CreateCorrection(Stock stock, decimal diff)
+        public void CreateCorrection(Stock stock, decimal diff, string title)
         {
             if (diff == 0m) return;
 
@@ -41,7 +41,7 @@ namespace CashManager.Logic.Creators
             var transaction = new Transaction
             {
                 Title = Strings.Correction,
-                Notes = new TrulyObservableCollection<Note> { new Note { Value = Strings.ManualStockUpdate } },
+                Notes = new TrulyObservableCollection<Note> { new Note { Value = title } },
                 BookDate = DateTime.Today,
                 Type = diff > 0
                            ? incomeTypes.FirstOrDefault()
@@ -52,7 +52,7 @@ namespace CashManager.Logic.Creators
             decimal abs = Math.Abs(diff);
             var position = new Position
             {
-                Title = Strings.ManualStockUpdate,
+                Title = title,
                 BookDate = DateTime.Today,
                 Value = new PaymentValue(abs, abs, 0m),
                 Parent = transaction

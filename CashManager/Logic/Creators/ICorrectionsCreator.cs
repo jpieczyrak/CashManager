@@ -4,6 +4,6 @@ namespace CashManager.Logic.Creators
 {
     public interface ICorrectionsCreator
     {
-        void CreateCorrection(Stock stock, decimal diff);
+        void CreateCorrection(Stock stock, decimal diff, string title);
     }
 }
