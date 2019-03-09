@@ -50,6 +50,7 @@
             <DataGrid.ContextMenu>
                 <ContextMenu Background="{DynamicResource ControlBackgroundBrush}" BorderBrush="{DynamicResource ControlBackgroundBrush}">
                     <MenuItem Header="{x:Static properties:Strings.Duplicate}" Command="{Binding DuplicateTransactionCommand}" Template="{DynamicResource InsideMenuItemControlTemplate}" />
+                    <MenuItem Header="{x:Static properties:Strings.Delete}" Command="{Binding TransactionDeleteCommand}" Template="{DynamicResource InsideMenuItemControlTemplate}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <i:Interaction.Triggers>
