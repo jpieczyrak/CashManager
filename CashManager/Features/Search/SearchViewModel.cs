@@ -247,6 +247,7 @@ namespace CashManager.Features.Search
             return input
                    .OrderByDescending(x => x.BookDate)
                    .ThenByDescending(x => x.InstanceCreationDate)
+                   .ThenByDescending(x => x.LastEditDate)
                    .ToList();
         }
     }
