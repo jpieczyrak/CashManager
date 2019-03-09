@@ -71,7 +71,7 @@ namespace CashManager.Features.Transactions
 
         private void TransactionEdit()
         {
-            if (SelectedTransaction == null) return;
+            if (SelectedTransaction == null || _factory == null) return;
             var applicationViewModel = _factory.Create<ApplicationViewModel>();
             applicationViewModel.TransactionViewModel.Value.Transaction = SelectedTransaction;
             applicationViewModel.SelectViewModelCommand.Execute(ViewModel.Transaction);
