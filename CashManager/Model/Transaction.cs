@@ -47,7 +47,12 @@ namespace CashManager.Model
         public TrulyObservableCollection<Note> Notes
         {
             get => _notes;
-            set => Set(nameof(Notes), ref _notes, value);
+            set
+            {
+                if (_notes != null) Notes.CollectionChanged -= NotesOnCollectionChanged;
+                Set(nameof(Notes), ref _notes, value);
+                if (_notes != null) Notes.CollectionChanged += NotesOnCollectionChanged;
+            }
         }
 
         /// <summary>
@@ -197,6 +202,12 @@ namespace CashManager.Model
             if (IsPropertyChangedEnabled) RaisePropertyChanged(nameof(StoredFiles));
         }
 
+        private void NotesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            RaisePropertyChanged(nameof(Notes));
+            RaisePropertyChanged(nameof(NotesForGui));
+        }
+
         public static Transaction Copy(Transaction source)
         {
             if (source == null) return null;
@@ -227,7 +238,7 @@ namespace CashManager.Model
             transaction.IsPropertyChangedEnabled = false;
             transaction.BookDate = source.BookDate;
             transaction.Title = source.Title;
-            transaction.Notes = source.Notes;
+            transaction.Notes = new TrulyObservableCollection<Note>(source.Notes);
             transaction.UserStock = source.UserStock;
             transaction.ExternalStock = source.ExternalStock;
             transaction.Type = source.Type;
