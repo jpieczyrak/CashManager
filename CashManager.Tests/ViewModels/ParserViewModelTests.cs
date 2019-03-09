@@ -41,7 +41,7 @@ namespace CashManager.Tests.ViewModels
             };
             transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
             transaction.Positions[0].TagViewModel.SetInput(_tags.Select(x => new Selectable(x)));
-            var transactions = new List<Transaction> { transaction, transaction };
+            var transactions = new List<Transaction> { transaction, Transaction.Copy(transaction) };
             vm.InputText = "06.09.2016 – PRZELEW WYCHODZĄCY\r\nJĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media\r\n\r\n-684,62 PLN";
             vm.ResultsListViewModel.Transactions.AddRange(transactions);
             var command = vm.SaveCommand;
@@ -70,7 +70,7 @@ namespace CashManager.Tests.ViewModels
             };
             transaction.Positions[0].TagViewModel = _fixture.Container.Resolve<MultiComboBoxViewModel>();
             transaction.Positions[0].TagViewModel.SetInput(_tags.Select(x => new Selectable(x)));
-            var transactions = new List<Transaction> { transaction, transaction };
+            var transactions = new List<Transaction> { transaction, Transaction.Copy(transaction) };
             vm.InputText = "     06.09.2016 – PRZELEW WYCHODZĄCY\r\nJĘDRZEJ PIECZYRAK – [Sierpień] Czynsz + media\r\n\r\n-684,62 PLN";
             vm.ResultsListViewModel.Transactions.AddRange(transactions);
             var command = vm.SaveCommand;

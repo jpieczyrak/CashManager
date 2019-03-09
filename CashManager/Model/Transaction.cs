@@ -249,6 +249,6 @@ namespace CashManager.Model
             if (propertyName != null) base.RaisePropertyChanged(nameof(CategoriesForGui));
         }
 
-        public string ToLogString() => $"[{BookDate:dd.MM.yyyy}] {Title} / {Notes} [{ValueAsProfit}][{Type?.DisplayName}]: {Value}";
+        public string ToLogString() => $"[{BookDate:dd.MM.yyyy}] {Title} / {string.Join(", ", Notes)} [{ValueAsProfit}][{Type?.DisplayName}]: {Value}";
     }
 }

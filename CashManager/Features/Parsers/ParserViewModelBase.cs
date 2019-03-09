@@ -160,11 +160,21 @@ namespace CashManager.Features.Parsers
                     _replacer.ApplyState(new ReplacerState());
                 }, "Running replacer")) { }
 
-            using (new MeasureTimeWrapper(
-                () => ResultsListViewModel = new TransactionListViewModel
-                {
-                    Transactions = new TrulyObservableCollection<Transaction>(transactions)
-                }, "List creation")) { }
+            LogDuplicates(transactions);
+            ResultsListViewModel = new TransactionListViewModel
+            {
+                Transactions = new TrulyObservableCollection<Transaction>(transactions.Distinct())
+            };
+        }
+
+        private void LogDuplicates(IEnumerable<Transaction> transactions)
+        {
+            var duplicates = transactions.GroupBy(x => x.Id).Where(x => x.Count() > 1).OrderByDescending(x => x.Count()).ToArray();
+            if (duplicates.Any())
+            {
+                string log = string.Join(Environment.NewLine, duplicates.Select(x => $"[{x.Count(),2}] {x.First().ToLogString()}"));
+                _logger.Value.Info($"Duplicates detected during parsing: {Environment.NewLine}{log}");
+            }
         }
 
         public void Update()
@@ -240,20 +250,17 @@ namespace CashManager.Features.Parsers
 
         protected virtual void ExecuteSaveCommand()
         {
-            var transactions = ResultsListViewModel.Transactions;
+            var transactions = ResultsListViewModel.Transactions.Except(TransactionsProvider.AllTransactions).ToArray();
             _commandDispatcher.Execute(new UpsertTransactionsCommand(Mapper.Map<DtoTransaction[]>(transactions)));
 
-            UpdateBalances(transactions);
-
-            TransactionsProvider.AllTransactions.RemoveRange(transactions);
             TransactionsProvider.AllTransactions.AddRange(transactions);
+
+            UpdateBalances(transactions);
         }
 
         private void UpdateBalances(ICollection<Transaction> imported)
         {
             if (SelectedUpdateBalanceMode == ParserUpdateBalanceMode.Never) return;
-
-            var transactions = imported.Except(TransactionsProvider.AllTransactions).ToArray();
 
             var updates = SelectedUpdateBalanceMode == ParserUpdateBalanceMode.IfNewer
                                ? Parser.Balances.Where(x => x.Key.Balance.BookDate < x.Value.Max(y => y.Key)).ToArray() 
@@ -272,7 +279,7 @@ namespace CashManager.Features.Parsers
                 stock.Balance.IsPropertyChangedEnabled = true;
                 stocks.Add(stock);
 
-                decimal profitValue = transactions.Where(x => x.UserStock.Id == stock.Id).Sum(x => x.ValueAsProfit);
+                decimal profitValue = imported.Where(x => x.UserStock.Id == stock.Id).Sum(x => x.ValueAsProfit);
                 if (diff != profitValue)
                 {
                     _correctionsCreator.CreateCorrection(stock, diff - profitValue, Strings.CorrectionAfterImport);
