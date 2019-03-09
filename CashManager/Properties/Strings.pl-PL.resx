@@ -618,4 +618,10 @@ Przypadek: "Historia oraz bilans są w porządku, ale transakcja miała złą wa
   <data name="CorrectionOnTransactionEditFormat" xml:space="preserve">
     <value>Korekta po edycji transakcji: {0}</value>
   </data>
+  <data name="ChangelogUrl" xml:space="preserve">
+    <value>http://cash-manager.pl/index.php?id=changelog&amp;setlang=pl</value>
+  </data>
+  <data name="WebsiteUrl" xml:space="preserve">
+    <value>http://cash-manager.pl/?setlang=pl</value>
+  </data>
 </root>

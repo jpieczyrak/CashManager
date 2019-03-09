@@ -630,4 +630,13 @@ Case: "The history (and balance) is ok, but that transaction has wrong value, an
   <data name="CorrectionOnTransactionEditFormat" xml:space="preserve">
     <value>Correction after edit of transaction: {0}</value>
   </data>
+  <data name="Changelog" xml:space="preserve">
+    <value>Changelog</value>
+  </data>
+  <data name="ChangelogUrl" xml:space="preserve">
+    <value>http://cash-manager.pl/index.php?id=changelog&amp;setlang=en</value>
+  </data>
+  <data name="WebsiteUrl" xml:space="preserve">
+    <value>http://cash-manager.pl/?setlang=en</value>
+  </data>
 </root>

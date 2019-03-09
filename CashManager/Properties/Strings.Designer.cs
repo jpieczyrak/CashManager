@@ -368,6 +368,24 @@ namespace CashManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changelog.
+        /// </summary>
+        public static string Changelog {
+            get {
+                return ResourceManager.GetString("Changelog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://cash-manager.pl/index.php?id=changelog&amp;setlang=en.
+        /// </summary>
+        public static string ChangelogUrl {
+            get {
+                return ResourceManager.GetString("ChangelogUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Correction.
         /// </summary>
         public static string Correction {
@@ -1572,6 +1590,15 @@ namespace CashManager.Properties {
         public static string WealthPlot {
             get {
                 return ResourceManager.GetString("WealthPlot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://cash-manager.pl/?setlang=en.
+        /// </summary>
+        public static string WebsiteUrl {
+            get {
+                return ResourceManager.GetString("WebsiteUrl", resourceCulture);
             }
         }
         
