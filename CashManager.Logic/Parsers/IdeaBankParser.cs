@@ -44,7 +44,7 @@ namespace CashManager.Logic.Parsers
 
                         results.Add(transaction);
                         if (!Balances.ContainsKey(userStock)) Balances[userStock] = new Dictionary<DateTime, decimal>();
-                        Balances[userStock][date] = balance;
+                        if (!Balances[userStock].ContainsKey(date)) Balances[userStock][date] = balance;
                     }
                     catch (Exception)
                     {

@@ -62,7 +62,7 @@ namespace CashManager.Logic.Parsers
                 note = $"{category}, {sourceName} saldo: {balance:#,##0.00} ({currency})";
 
                 if (!Balances.ContainsKey(userStock)) Balances[userStock] = new Dictionary<DateTime, decimal>();
-                Balances[userStock][date] = balance;
+                if (!Balances[userStock].ContainsKey(date)) Balances[userStock][date] = balance;
             }
 
             var transactionType = negativeSign ? defaultOutcome : defaultIncome;
