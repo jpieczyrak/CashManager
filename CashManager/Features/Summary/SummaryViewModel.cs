@@ -81,16 +81,21 @@ namespace CashManager.Features.Summary
 
                 SetTwoColorArea(GetTransactions(TimeGroupingType.Year, minDate, maxDate, TransactionTypeSelection.Balance), YearBalanceModel, OxyColors.Green, TimeGroupingType.Year);
 
-                Balances = incomes
-                           .OrderByDescending(x => x.BookDate)
-                           .Zip(outcomes.OrderByDescending(x => x.BookDate), (income, outcome) =>
-                               new TransactionsSummary
-                               {
-                                   GrossIncome = income.Value,
-                                   GrossOutcome = -outcome.Value,
-                                   Name = income.BookDate.ToString("yyyy.MM")
-                               })
-                           .ToArray();
+                var incomesDict = incomes.ToDictionary(x => x.BookDate, x => x.Value);
+                var outcomesDict = outcomes.ToDictionary(x => x.BookDate, x => x.Value);
+                var summaries = new List<TransactionsSummary>();
+                foreach (var date in incomes.Select(x => x.BookDate).Concat(outcomes.Select(x => x.BookDate)).Distinct().OrderByDescending(x => x).ToArray())
+                {
+                    incomesDict.TryGetValue(date, out decimal income);
+                    outcomesDict.TryGetValue(date, out decimal outcome);
+                    summaries.Add(new TransactionsSummary
+                    {
+                        GrossIncome = income,
+                        GrossOutcome = -outcome,
+                        Name = date.ToString("yyyy.MM")
+                    });
+                }
+                Balances = summaries.ToArray();
                 RaisePropertyChanged(nameof(Balances));
             }
 
