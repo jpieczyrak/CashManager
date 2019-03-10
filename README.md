@@ -7,4 +7,4 @@ Created to help in finances management.
 
 Website: http://cash-manager.pl/
 
-Application available for download: ![here](http://cash-manager.pl/index.php?id=download&setlang=en)!
+Application available for download: [here](http://cash-manager.pl/index.php?id=download&setlang=en)!
