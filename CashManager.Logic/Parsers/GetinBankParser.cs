@@ -43,6 +43,8 @@ namespace CashManager.Logic.Parsers
                 }
             }
 
+            ParseBalanceHelper.AdjustMissingBalances(output, Balances);
+
             return output.ToArray();
         }
 

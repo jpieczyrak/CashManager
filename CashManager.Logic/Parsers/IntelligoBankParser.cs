@@ -31,6 +31,8 @@ namespace CashManager.Logic.Parsers
             foreach (Match match in _regex.Matches(input))
                 output.Add(CreateTransaction(match, userStock, externalStock, defaultOutcome, defaultIncome));
 
+            ParseBalanceHelper.AdjustMissingBalances(output, Balances);
+
             return output.ToArray();
         }
 

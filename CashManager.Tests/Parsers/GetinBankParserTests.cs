@@ -152,5 +152,49 @@ Firma SP. Z O.O. – Wynagrodzenie z tytulu umowy cywilnoprawnej
             ValidateTransaction(result, expected);
             Assert.Equal(balance, parser.Balances.First().Value.OrderByDescending(x => x.Key).First().Value);
         }
+
+        [Fact]
+        public void TransactionWithoutBalance_BalanceIsBeingCalculated()
+        {
+            //given
+            string input = @"
+    08.03.2019 - Operacja kartą
+ALDI Sp. z o.o. 118 , Gliwice , PL
+
+-27,87 PLN saldo po operacji: -
+
+    01.03.2019 - PRZELEW PRZYCHODZĄCY
+PIECZYRAK JĘDRZEJ - Zwrot za internet
+
++49,00 PLN saldo po operacji: 354,93 PLN
+
+    01.03.2019 - PRZELEW WYCHODZĄCY
+JĘDRZEJ PIECZYRAK - [02.19] Jedzenie etc
+
+-391,79 PLN saldo po operacji: 815,85 PLN
+
+    25.02.2019 - PRZELEW PRZYCHODZĄCY
+PIECZYRAK JĘDRZEJ - Zwrot za paliwo
+
++75,53 PLN saldo po operacji: 1 207,64 PLN";
+
+            var parser = new GetinBankParser();
+
+            var userStock = new Stock { Name = "Getin" };
+            var externalStock = new Stock { Name = "Default" };
+            var incomeType = new TransactionType { Income = true, Name = "Work" };
+            var outcomeType = new TransactionType { Outcome = true, Name = "Buy" };
+            decimal expectedBalance = 327.06m;
+            DateTime expectedDate = new DateTime(2019, 03, 08);
+
+            //when
+            var output = parser.Parse(input, userStock, externalStock, outcomeType, incomeType);
+
+            //then
+            Assert.Equal(4, output.Length);
+            var newestBalance = parser.Balances.First().Value.OrderByDescending(x => x.Key).First();
+            Assert.Equal(expectedBalance, newestBalance.Value);
+            Assert.Equal(expectedDate, newestBalance.Key);
+        }
     }
 }

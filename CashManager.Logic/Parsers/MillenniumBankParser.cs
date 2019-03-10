@@ -73,6 +73,8 @@ namespace CashManager.Logic.Parsers
                 _logger.Value.Debug("Parsing failed", e);
             }
 
+            ParseBalanceHelper.AdjustMissingBalances(results, Balances);
+
             return results.ToArray();
         }
 
