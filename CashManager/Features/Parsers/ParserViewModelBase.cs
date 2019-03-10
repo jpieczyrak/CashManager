@@ -66,6 +66,8 @@ namespace CashManager.Features.Parsers
 
             ParseCommand = new RelayCommand(ExecuteParseCommand, CanExecuteParseCommand);
             SaveCommand = new RelayCommand(ExecuteSaveCommand, CanExecuteSaveCommand);
+
+            SelectedUpdateBalanceMode = ParserUpdateBalanceMode.IfNewer;
         }
 
         public string InputText
